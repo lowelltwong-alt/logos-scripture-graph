@@ -1,0 +1,694 @@
+{
+ "schema": "m8_tool_dependency_applicability.v1",
+ "version": "v7 (whole-tree reconciliation at the Lamentations author-wave close boundary: re-pins for the orchestrator tools changed after v6 + first pins for every Lam lane tool and brief; v1-v6 stand as history)",
+ "built": "2026-09-07T13:33:50.975934+00:00",
+ "prior_record": {
+  "path": "receipts/tool_dependency_applicability.2026-09-07.v6.json",
+  "sha256": "8075669cdb5594e0512a3ccc920b1f10700418f8bb07fa35a4ab4b66c629457c"
+ },
+ "authority": "OW-3 permanent safeguard (dependency-applicability record when a pinned shared tool changes) + E-25 control (_dep_pin_check.py CLEAN before any launch/close) + OWNER_REPAIR_ADVANCE_2026-09-06 item 1 + OW-5",
+ "trigger": "_dep_pin_check.py --live before the Lam CWO launch reported mismatches on _lane_receipts.py and _mirror_scratch.py (both extended for the Lam lanes and mirrored after v6); reconciled here with the live==durable proof; the Lam lane's tools take their first pins",
+ "scope_rule": "sp_durable/Jer/*.py, sp_durable/Jer/*BRIEF*.md, sp_durable/Jer/tools/*.py, sp_durable/Lam/*.py, sp_durable/Lam/*BRIEF*.md, sp_durable/Lam/tools/*.py, sp_durable/orchestrator_scratch/*.py; every line's live copy proved byte-equal to the durable copy at build time",
+ "counts": {
+  "in_scope": 238,
+  "unchanged_pinned": 154,
+  "changes": 84,
+  "re_pins": 5,
+  "first_pins": 79
+ },
+ "changes": [
+  {
+   "tool": "sp_durable/Jer/_build_current_state.py",
+   "old_sha256": "a8c71088fa7e3158439f5cae676a59ee82a9e0816d564662875b155676d96fde",
+   "new_sha256": "e5271b5f424f400beb5aa3245b7eac44fdb8940c923b84d11fe178c890c1a58c",
+   "scope": "--cycle-state <path> added (default unchanged: the Jer log) so the Lam boundaries read the live Lam cursor; jeremiah_hard_close / pre_lamentations_pause / lamentations_hard_close computed from the completion receipts; Lam attempt-receipt carrier counts added",
+   "prior_pin_record": "receipts/tool_dependency_applicability.2026-09-06.v1.json",
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Jer/_dep_pin_check.py",
+   "old_sha256": "97e16897da27e2a5528d79633fedf20da0b824c56d3878264130661e836031ca",
+   "new_sha256": "20d4cbe6820eb2f1f4a0e8d597db6b2d64ce1c7a6966fca014cb8d83f40edc03",
+   "scope": "LIVE_MAP extended with sp_durable/Lam/ -> SP/Lam/ so the Lam lane pins (first pinned in this record) are live-verified; check semantics unchanged",
+   "prior_pin_record": "receipts/tool_dependency_applicability.2026-09-06.v5.json",
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_apply_author_lam.py",
+   "old_sha256": null,
+   "new_sha256": "6cfeffe33026cf40c4cb8d57a338fae7d9266872b66dc13268e8e644623d1cbe",
+   "scope": "op loading now iterates the orders files' output_file entries instead of globbing author/author_a*.jsonl: a split attempt writes author_aNN_aK.jsonl and is byte-merged into the agent file before the apply, so the glob would have loaded the same row twice and hard-failed on a duplicate op; guard semantics unchanged",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_apply_cwo.py",
+   "old_sha256": null,
+   "new_sha256": "ef145b9ac2867b2e07edbf54544f7b4e92ffc40516798a007df49439361a1082",
+   "scope": "NEW 2026-09-07: guarded CWO apply --base/--pin/--out (confidence only lowered under CWO-12; frontier flag only False->True)",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_apply_micro.py",
+   "old_sha256": null,
+   "new_sha256": "757810cc4122a393fde787cd0a61d173141bf4daa480376c8304ff9966c67da1",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_author_census.py",
+   "old_sha256": null,
+   "new_sha256": "500ef9de823882225a229393038e7cebf1a779178a38b7f3d91371abc08b053c",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_boss_verify.py",
+   "old_sha256": null,
+   "new_sha256": "615603d89bab0d92471ad0e5af4e3775baa11f121bf02eda3e590af399f66d1d",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_author_orders.py",
+   "old_sha256": null,
+   "new_sha256": "9815bb9642c452ee8b50dc205f8be096616aab6661e5183d87e9f8fd315007ab",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_boss_docket.py",
+   "old_sha256": null,
+   "new_sha256": "758d6f156159dbe7ce797f9d4627e88fb3e231f72d2e33826e144fdd3f6a39ec",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_combined_rows.py",
+   "old_sha256": null,
+   "new_sha256": "81f0a81ff508f5f4fc9fc6286fcddbd0979f07e3f05efc68c2858c5b9281fba4",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_cwo_orders.py",
+   "old_sha256": null,
+   "new_sha256": "0129d9da9f19db71cb921463019397f3ce0b720efa385863c52a49fc6fecd999",
+   "scope": "NEW 2026-09-07: CWO orders per review cluster (<=7 rows) with the boss's verbatim order texts; cwo_orders.v1.json parity record",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_lf_frame.py",
+   "old_sha256": null,
+   "new_sha256": "7c2c96d2a45fe03dcf672e9ef8c31510a29e64783c8909ab1a59ad6db49110ea",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_micro_docket.py",
+   "old_sha256": null,
+   "new_sha256": "66d9c512a29245d120f4deec70a5b86a8f2c329acc9dbd3a79d982168ede0dd8",
+   "scope": "ids re-keyed to the Lam lane (schema lam_micro_docket.v1 / lam_micro_orders.v1; attempt ids lam_micro_mNN_a1); logic unchanged",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_peer_scope.py",
+   "old_sha256": null,
+   "new_sha256": "a4fb297221be73a1299d67f1026d1246af0edb4105850396ddd939324f4f0407",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_remedy_docket.py",
+   "old_sha256": null,
+   "new_sha256": "4c5553acd884bb9eea90184b2763379a658c24701d5d35256d280b158456abb6",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_build_spot_scope.py",
+   "old_sha256": null,
+   "new_sha256": "81646a084d986cd6463d10474ff73fce1beef4c20c272af090fdb8aacbeb60ed",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_close_book.py",
+   "old_sha256": null,
+   "new_sha256": "88ad8361c60fb0277d98d06973faf97b79bc61f973c2a00fd094990474cc179b",
+   "scope": "NEW 2026-09-07: hard-gated Lam close (poem non-straddle, parent parity, 154-verse arithmetic, parity GREEN) -> chunks + sidecars + map + receipt + mark-complete -> Ezek; adds the omitted Jer book_completion entry",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_cwo_census.py",
+   "old_sha256": null,
+   "new_sha256": "1aa6a1c0f1d9f02ce9f9b8b8ffcddabea3aaa01d89a42fe0b8b550551888e24e",
+   "scope": "NEW 2026-09-07: CWO per-slice landing census (exact-arm rows must land; register purge; NFD)",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_cwo_parity.py",
+   "old_sha256": null,
+   "new_sha256": "3937febedc50c16eac05c12fff3d73143c16c05da7afc59592cb2ed92747ad0e",
+   "scope": "NEW 2026-09-07: CWO execution-parity record (pre/post scan + author dispositions) -> cwo/cwo_parity.v1.json",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_cwo_scan.py",
+   "old_sha256": null,
+   "new_sha256": "9e6e15710c63f41d1b4bc0c5addf386d67fc6e30d2f8a64414ca2362ada68c08",
+   "scope": "NEW 2026-09-07: deterministic Lam CWO scanner (exact arms CWO-1/2/4/6/10; heuristic screens CWO-3/5/7/8/9/11/12/13) from the boss ledger's 13 orders",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_finalize.py",
+   "old_sha256": null,
+   "new_sha256": "d24116be624ba306c1937849e47406c23476dbf2b623127549d94cfebc7727de",
+   "scope": "DST default fixed (NameError when --dst omitted -> rows_v5.jsonl); semantics unchanged",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_micro_census.py",
+   "old_sha256": null,
+   "new_sha256": "781809bccb180e221ccab5ab52202a21fd5ecf6262d911a70b9b6a2e49192376",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_peer_verify.py",
+   "old_sha256": null,
+   "new_sha256": "b2ee9523bd4f80d3fbc1d820a480d9c99d573851a4cec142af53a09fc25825b9",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_phase1_partplan_probe.py",
+   "old_sha256": null,
+   "new_sha256": "1b58f1145c5b10abb92a8f7533450a432fab37a53538761681c75bfed9f5b2f6",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_phase2_build_clusters.py",
+   "old_sha256": null,
+   "new_sha256": "cbd62db2f58f57b34eeaca971a2199f5fecebec5a38d400c248ed158f03de741",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_post_apply_checks.py",
+   "old_sha256": null,
+   "new_sha256": "7702cf9485d9328f295c1bdaf0593be348f7b5b63e84f7364b26cda804492e8a",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_pr_wave_verify.py",
+   "old_sha256": null,
+   "new_sha256": "3346ed8c1d4f234d0e341278ea9fc38c50b4628c1c29e59ccba93feaed3ca6af",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_probe_phase0_lam.py",
+   "old_sha256": null,
+   "new_sha256": "6749ee64e75656407f8d68e05440d1b6e3151b0d91e185ad2a45d2d1b79501ed",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_sp_stray_sweep.py",
+   "old_sha256": null,
+   "new_sha256": "bd89724f13051c555d474c26c3e10040cb0921596548c23571516aa5cbb3a7e0",
+   "scope": "ALLOW extended for the CWO parity record, unify layer, receipts, usage.json, dependency-record helper",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_spot_verify.py",
+   "old_sha256": null,
+   "new_sha256": "36ee3677ced885af59346f93e665fd908dcc8ac812238824b611d9c394252838",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_wave_repair_sweep.py",
+   "old_sha256": null,
+   "new_sha256": "ddb28d9236c4236b4718df77aff065dbf4f5f97eb0f00979e2daf6acf799a006",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/_wave_verify.py",
+   "old_sha256": null,
+   "new_sha256": "3d79e859b96a70cc451b89efa49789d1d09adc2ec3651b7f332c86b930646371",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/AUTHOR_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "141c415c58264ac7d516d781c43bf180d15d8058b0567466d97f25cd192f6ad6",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/BOSS_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "9c6b6d08813386e7fb3f8848a0b46894adbac941c2bda34f39f305ab1f13b590",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/CWO_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "e5faa26cafa55413827fd27f0f5a7211be9a5c7a30362c9feaf836e4c39bcc25",
+   "scope": "NEW 2026-09-07: Lam CWO brief (thirteen orders; exact/heuristic arms; final-message contract)",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/MICRO_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "70192e5c3b9b6fca42abad2c71b17bab2faea9f5530ef0074c6ea56d9851fb78",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/PEER_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "57746fe6e595a5de79149292a33111ec1458b740819acb8de388f2b1dcca0f50",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/POSTCHECK_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "b486f2baac03cdc4601e1019666aef4f8beae9d5c6ea87f429bb615b4c077ea2",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/PRIMARY_BRIEF_LF.md",
+   "old_sha256": null,
+   "new_sha256": "92fe8381239eb22b7e8636b315fd9654736500a597946b6cbdaee46fdc0f70db",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/PRIMARY_BRIEF_OL.md",
+   "old_sha256": null,
+   "new_sha256": "5f562cb32726c249332616ff1c59353aed33fd995484c2859f7a7e6bd4e84de9",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/SIDECAR_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "5411d81a4c0f21302c2ab9ca1786f16f3d2093afd009d498b81092ddaa369cc0",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/SPOT_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "0bf127de703572b59252417fc5bf55ba5cdfb1ed17aba2b7c514dc7d7ccad6ff",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/WRITER_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "4f131e2aded5117efc70c309901b7d83918563dae4c28c4e3e2b81eb65420781",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/_adapt_tools.py",
+   "old_sha256": null,
+   "new_sha256": "87216a1652866963971ad7b40354b183e5d8e4268f48366b2cf652ecc1cf0d3d",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/_punct_boundary_sweep.py",
+   "old_sha256": null,
+   "new_sha256": "c7768e3ebd297e9ea6df7d09fd58cb94635078da2ded6556012496d081b6f9cc",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/_smoke_test.py",
+   "old_sha256": null,
+   "new_sha256": "20490aa3bd096a77611400cc38901a7bb11ec8d7b817dd71cf96290fc5786834",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/build_offset_map.py",
+   "old_sha256": null,
+   "new_sha256": "2a6ae2d10797a583b1cf5874d837485947f9ce5d52814016e21f879c774805df",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/build_pmarks.py",
+   "old_sha256": null,
+   "new_sha256": "1728bdb983bb1f407c4218cf062ea42359383ee40ceec80d268fd331779f7eb0",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/build_verse_maps.py",
+   "old_sha256": null,
+   "new_sha256": "5dd593c8cce7f390d8e0ee84eb87f060fdb845b7aebcbe92fc9359b28368bd35",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/cap_sweep.py",
+   "old_sha256": null,
+   "new_sha256": "b8f5a5e44332a5f080efba30024492d9d33a4b37d58b87d0ee4b47828efdff9b",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/check_atomic_isolation.py",
+   "old_sha256": null,
+   "new_sha256": "65ef6ed104c755a6aada693e6a2b4aa0a4d3f0f6645931e30d606f90c030c953",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/check_language_zones.py",
+   "old_sha256": null,
+   "new_sha256": "741184223aab5abdb32647df3f732cad0dc37a0a8f1035e767a09499f317ae7f",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/check_marks.py",
+   "old_sha256": null,
+   "new_sha256": "5c91569491bd7d1fcc164b1d919af401f6eba26ac0ecaca66a074f3e28e78315",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/check_refs_mirror.py",
+   "old_sha256": null,
+   "new_sha256": "dd17bb61d9dfc8a8f9eeb12fb0478eeadd60daf502b2c2959843ee52ce4f0637",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/check_register.py",
+   "old_sha256": null,
+   "new_sha256": "3db2784721909586dc1c5227473148a6060b2441f894084b7b0b5c889babee32",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/check_tiling.py",
+   "old_sha256": null,
+   "new_sha256": "6f1edfa3440b8921949aa96c167898bbe5fa8596eb87bb56e12d0954d91f874b",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/check_universals.py",
+   "old_sha256": null,
+   "new_sha256": "3b1cdb1254c678bc76da07e9b48f2e6d456f879c64a7a6e32a85b47270a6a865",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/check_web_quotes.py",
+   "old_sha256": null,
+   "new_sha256": "4736f941b54625e711cc56ced7328f4c212b9099600a9f775995308ba4f38a7d",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/citation_sweep.py",
+   "old_sha256": null,
+   "new_sha256": "1aa4ffb4fcbea43edb1c881464ba628e22a31dd373a973e7ec2895451333db3a",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/collate.py",
+   "old_sha256": null,
+   "new_sha256": "0d8ff968eff53c22ea1163d38c63dec5ad703cbdb0e667700bb1b0625210944b",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/lam_devices.py",
+   "old_sha256": null,
+   "new_sha256": "62771dc6a5576353ec905182d7730dd3ea6a1b1ecad5a8318550603f6a52d67f",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/lam_lib.py",
+   "old_sha256": null,
+   "new_sha256": "222f6d52f8afcc32214bfd7557513e69bba0a87e637552ea28fafc343c4cfbff",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/ngram7.py",
+   "old_sha256": null,
+   "new_sha256": "bc4a53c19b2968f4aef373f41164deaf454de4ab338f2f5e3d8cf58f6fa658f0",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/normalize_hebrew_in_json.py",
+   "old_sha256": null,
+   "new_sha256": "4c4f1f37385e5733677ece72bc01f226e70e35fc265fd9a8675616c1d24d3052",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/run_validator_suite.py",
+   "old_sha256": null,
+   "new_sha256": "15e937f929574b39388007b8000590b17167af82eff3ba23c54fd4645172bcb9",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/Lam/tools/sweep.py",
+   "old_sha256": null,
+   "new_sha256": "babfc995a6c1b4622d0dff1101a753c779b13592c74b730afd4d70aa295c50ea",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_cs_lam_append.py",
+   "old_sha256": null,
+   "new_sha256": "d2c103cd2c3538560752611485177da891a67c42b5cdb4b1a405709fa8eb47ee",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_dep_record_v7.py",
+   "old_sha256": null,
+   "new_sha256": "626a129a125a24c57cc9967ef49846e9ffd93b5464128b53ac265d595dfda056",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_author_launch_msgs.py",
+   "old_sha256": null,
+   "new_sha256": "62bec2f2457f44272c7b4c14554fa3795d25529c93513bdaa216de652de8fcff",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_boss_launch_msgs.py",
+   "old_sha256": null,
+   "new_sha256": "e2629f58a0b0930375a0f26386f3fb0ab5a8464b746ae6702a92b663f06b4c84",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_cwo_launch_msgs.py",
+   "old_sha256": null,
+   "new_sha256": "bbf13bc5c65a618f1b5f78bae42ee46a263453e07379009118262ca43bceedba",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_micro_launch_msgs.py",
+   "old_sha256": null,
+   "new_sha256": "62f92595ab31e2597274f598bf7b1638764f93e1434bdc3feb0fc6569cb60d7c",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_peer_launch_msgs.py",
+   "old_sha256": null,
+   "new_sha256": "5ab57bec25a48de8a62b4e36c222e8d3d83e384766ca638a34b94631a0cb0073",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_postcheck_launch_msgs.py",
+   "old_sha256": null,
+   "new_sha256": "e2ac6a5f8ecd0cf7ad3721cbe421a78fae8d83b5f1e6cc9487824e6a868ea319",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_postcheck_validate.py",
+   "old_sha256": null,
+   "new_sha256": "50217a5ebfd80f4d6e101117130c5c3109d4c9e53dc676860fed0ae6a2e5ff06",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_pr_census.py",
+   "old_sha256": null,
+   "new_sha256": "ab36d23618e915398e2968e35165d0fa49d538b137f2dc59479cdf5c9c35d501",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_sidecar_launch_msgs.py",
+   "old_sha256": null,
+   "new_sha256": "6861954e744c131a0f9209e856ad539d6d3b3bb414f49cc78cdce4966279892b",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_sidecar_validate.py",
+   "old_sha256": null,
+   "new_sha256": "7b39e795d2ea546268e44cee585a5b430884e95da523215a1bdb933a70f0388a",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lam_spot_launch_msgs.py",
+   "old_sha256": null,
+   "new_sha256": "a24ae87ea0329d7e628df604985b9219969179dc6ae208861b91c596e948619d",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_lane_receipts.py",
+   "old_sha256": "b694b3364ae0520881e4511d9562b70dfbc539b66a77aade2bd78c048ed1852c",
+   "new_sha256": "d052824f033a3f2b2f7a113505955dd5fc103b783eb5623bf4eb0d32c359129d",
+   "scope": "LANES extended: lam_author (boss-round boundary) + lam_cwo / lam_spot / lam_micro / lam_sidecar / lam_postcheck / lam_fix / lam_postcheck2 (Lam rev-round lanes, 2026-09-07); opus lanes record effort ORDERED high",
+   "prior_pin_record": "receipts/tool_dependency_applicability.2026-09-07.v6.json",
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_mirror_lam.py",
+   "old_sha256": "cd3a8694f067aa2a2193c388366775d28d3a7a9efce35f74b0ad9f614f58f454",
+   "new_sha256": "4e098abf37b63fd9ffc58e5c934a03bb972dd045884ce1d3cffa52064cb01ecd",
+   "scope": "SUBDIRS extended: writer/reviews/author/cwo/spot/postcheck agent-output subdirs mirrored at wave boundaries (previously tools/freeze only - the Lam review packets had no durable copy until this boundary)",
+   "prior_pin_record": "receipts/tool_dependency_applicability.2026-09-07.v6.json",
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_mirror_scratch.py",
+   "old_sha256": "b085e59f255bcc5baabe0135474ae98ea60d7f4462349bc377c251d01d60b2fc",
+   "new_sha256": "44e1dd32feb619b3568389fed6ef6bd9742b02cba70086a1139373b3ecbe4d7e",
+   "scope": "NAMES extended: Lam peer/boss/author/CWO/spot/micro/sidecar/postcheck orchestrator tooling + records",
+   "prior_pin_record": "receipts/tool_dependency_applicability.2026-09-07.v6.json",
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_patch_lane_receipts_lam.py",
+   "old_sha256": null,
+   "new_sha256": "66568559b44360cd2fa67e1899413d5adbf4210b2610d78ef878bb860baf6595",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_patch_lane_receipts_lam_rev.py",
+   "old_sha256": null,
+   "new_sha256": "fd9121807a7848591eb1a9e7a81fd9de500afea9a965dc328e53b023345afdd1",
+   "scope": "first pin (Lam lane tools and briefs pinned at the author-wave close boundary, 2026-09-07 s3); build unchanged unless named in SCOPE",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force at the Lam author-wave close"
+  }
+ ],
+ "non_authorizing": true
+}

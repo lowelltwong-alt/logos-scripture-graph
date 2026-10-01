@@ -1,0 +1,22 @@
+{
+ "schema": "m8_finding.v1",
+ "finding_id": "orchestrator_paraphrase_corrupted_source_evidence",
+ "book": "Lam",
+ "recorded_at": "2026-09-07T23:41:29.383941+00:00",
+ "author_of_the_error": "orchestrator (claude-opus-5)",
+ "severity": "medium",
+ "severity_basis": "scored on the pattern, not the instance. The instance did no harm because an author re-derived from bytes; the pattern is that I hand-transformed source material twice in one wave and introduced an error both times.",
+ "class": "orders_integrity",
+ "what": "building the class-sweep orders, I compressed the final checker's per-row evidence into one shared summary sentence and misattributed a site while doing it. The checker wrote, precisely: 'whole-token counts 5 and 1; the extra hits are eineinu (first plural) at 4.17 and 5.17 and mekhabbedeha (a different lexeme) at 1.8' - three extras spread across TWO citations. My order said the eye-form's extras were 'a first-PLURAL form and, at 1.8, a different lexeme', moving the 1.8 hit from the liver-form to the eye-form.",
+ "caught_by": "fix author lam_fcfix_f06_a1, which re-derived both sweeps from the pointed text, found the extras were 4.17 and 5.17 for the eye-form and 1.8 for the liver-form, cured on the bytes it found, and wrote the discrepancy into its report rather than reproducing my illustration",
+ "why_no_harm": "the brief tells an author to cure correctly and say why when the bytes disagree with a finding. It did exactly that. Both citations are correctly restated in rows_v14.",
+ "the_pattern_this_belongs_to": {
+  "instance_1": "the sweep launch messages pinned a corpus their orders did not name, because I built each launch by editing the previous one (finding_launch_orders_base_mismatch.v1.json)",
+  "instance_2": "this one: the checker's evidence was paraphrased into a shared summary and an attribution moved",
+  "common_cause": "both times I hand-transformed a source artifact instead of generating from it, and both times an author caught it rather than any check of mine",
+  "both_caught_by": "subagents, not the orchestrator"
+ },
+ "control": "when an order generalises a class from sampled findings, the SOURCE residual is carried VERBATIM per row and any generalisation of mine is a separate, clearly-labelled field. An order may add my reasoning; it may not restate the evidence in my words, because a paraphrase of evidence is not evidence.",
+ "also_note": "all three sweep authors independently reported the launch/orders corpus discrepancy and each explained how it handled it. That is three for three on the exact-path law doing its job.",
+ "authority": "orchestrator self-report; candidate-only, non-authorizing; no corpus row is affected"
+}

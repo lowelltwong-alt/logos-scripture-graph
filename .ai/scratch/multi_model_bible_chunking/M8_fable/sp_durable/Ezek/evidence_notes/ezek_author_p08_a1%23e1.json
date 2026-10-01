@@ -1,0 +1,246 @@
+{
+ "attempt_id": "ezek_author_p08_a1",
+ "execution_id": "ezek_author_p08_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\AUTHOR_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\author\\orders_ezek_author_p08_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v2_swept_r3.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_marks.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\ezek_lib.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\cap_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_refs_mirror.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P08-001..P08-005, P08-012..P08-014 (replace)",
+    "why": "CWO-EZ-08 register hygiene (positional row refs, §-citations, staged-file/tool-name talk removed and verse-anchored); P08-001/P08-002 also carry the CWO-EZ-05 mark-claim fix."
+   },
+   {
+    "what": "P08-006 (replace, span narrowed to Ezek.34.1-Ezek.34.16) + P08-006.1 (new_row, Ezek.34.17-Ezek.34.31)",
+    "why": "G9#2: split the whole-chapter ch.34 row at the addressee-change messenger formula of 34:17; also cures CWO-EZ-02's ambiguous word-event citation and CWO-EZ-08 register items."
+   },
+   {
+    "what": "P08-007 (replace, span widened to Ezek.35.1-Ezek.35.15)",
+    "why": "G9#1: merge former P08-007+P08-008+P08-009 into one row; cures CWO-EZ-02's Qere-quote binding for what was P08-009 (35:9, 35:12 K/Q, spliced programmatically); confidence set to medium_low (below the ruling's stated 'medium' ceiling) to satisfy cap_sweep's HARD whole-chapter-confidence gate, since Ezek 35 is exactly 15 verses."
+   },
+   {
+    "what": "P08-008, P08-009 (retire)",
+    "why": "G9#1 merge target; absorbed into P08-007."
+   },
+   {
+    "what": "P08-010, P08-011 (replace)",
+    "why": "S3#1: unit_type oracle_against_nation -> salvation_oracle, oracle_against_nation disclosed as the rejected alternative; G9#3: the 2mp/2ms->2fs addressee change at Ezek.36.13 named explicitly in both rows; CWO-EZ-02 fix for P08-011's two live Qere-binding problems; CWO-EZ-05/08 fixes."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "orders file byte-identical to what the brief names",
+   "how": "Get-FileHash SHA256 vs. brief's stated hash",
+   "result": "confirmed"
+  },
+  {
+   "claim": "sources.rows (repair/rows_v2_swept_r3.jsonl) byte-identical to orders.json's declared hash",
+   "how": "Get-FileHash SHA256 vs. orders.sources.rows.sha256",
+   "result": "confirmed"
+  },
+  {
+   "claim": "P08-001/P08-002 SAMEKH mark-claim mismatches (CWO-EZ-05) are cured",
+   "how": "check_marks.py on the live row text before/after",
+   "result": "confirmed (paragraph_mark_claim flags: 2 -> 0)"
+  },
+  {
+   "claim": "P08-006/P08-009(->P08-007)/P08-011 Hebrew-quote binding problems (CWO-EZ-02) are cured",
+   "how": "citation_sweep.py on the live row text before/after",
+   "result": "confirmed (4 of 6 routed items were live RED problems and are now 0; see unresolved_uncertainty for the other 2)"
+  },
+  {
+   "claim": "CWO-EZ-08 register-hygiene classes are fully removed from all 15 emitted records, all fields including boundary_evidence_refs",
+   "how": "check_register.py on final_output.jsonl and on the whole-book applied copy (145 rows)",
+   "result": "confirmed (0 p08 flags in both runs; one boundary_evidence_refs-only §-citation was caught by a full-object regex sweep after check_register's first GREEN result and fixed in a second pass)"
+  },
+  {
+   "claim": "K/Q splices I introduced (Ezek.35.9, 35.12, and the reused 36.13/36.14/36.15 splices) are byte-true to the note layer, not hand-typed",
+   "how": "ezek_lib.kq_split_bytes(note, verse_text) called programmatically; citation_sweep.py QERE-tier collation on the assembled text",
+   "result": "confirmed byte tier; an earlier hand-typed attempt at the 35.9/35.12 Qere strings failed at NFD tier only (mark-order mismatch) and was discarded, never shipped"
+  },
+  {
+   "claim": "the merge/split preserves exact book tiling for the part (no gap, no overlap, no duplicate verse)",
+   "how": "check_tiling.py on a private p08-only slice of the applied rows, --range Ezek.33.1-Ezek.36.38",
+   "result": "confirmed: verses_expected=117, verses_covered=117, 13 decisions, 0 problems, GREEN"
+  },
+  {
+   "claim": "whole-book HARD gates (citation_sweep, hebrew_normalize E-01, ngram7, cap_sweep E-02) are clean for every p08 row after applying my output to a full private copy of the book (145 rows)",
+   "how": "run_validator_suite.py on the applied copy; report filtered to p08-/P08- decision ids",
+   "result": "confirmed: citation_sweep 0/122, hebrew_normalize defects 0/2 (fixed=0), ngram7 offending-grams 0/3, cap_sweep failures 0/2, register 0/123 all p08-attributable counts are 0"
+  },
+  {
+   "claim": "soft FLAGS-class metrics (mark_symmetry, refs_mirror, universals, web_quotes) did not rise for my rows",
+   "how": "run_validator_suite.py on the UNMODIFIED private copy vs. the applied copy, p08-filtered",
+   "result": "partially refuted: universals 0->0 and web_quotes 0->0 (confirmed no rise); mark_symmetry improved 15->11 flags (confirmed no rise, actually fell); refs_mirror ROSE, 8->9 flagged rows / 50->101 total unmirrored-ref strings (refuted -- see unresolved_uncertainty)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "G9#1's decision text claims the internal closes at 35:4, 35:9 AND 35:12 are each 'followed by יַ֗עַן / יַ֣עַן paragraphs.' Verified from Ezek_oshb.txt that this holds for 35:4->35:5 and 35:9->35:10, but NOT for 35:12: Ezek.35.12 is itself a verse-INITIAL, non-final recognition clause (the verse continues into 'I have heard...'), and 35:13 (וַתַּגְדִּ֤ילוּ...) is not a יען paragraph.",
+   "why_it_matters": "Per binding law ('where an order's own text proves byte-false, install the verified fact and REPORT the discrepancy... never propagate it'), P08-007's boundary_rationale and device_notes describe 35:12 accurately (internal, verse-initial, non-paragraph-final) rather than repeating the ruling's grouping of all three as identical. This is a correction to the controlling ruling's own prose, not to the row's boundary (the merge itself, and all three verses' status as non-cutting, still stand)."
+  },
+  {
+   "what": "G9#1 sets a 'not above medium' confidence ceiling for the merged Ezek.35.1-35.15 row, but that row is a complete WEB/MT chapter (Ezek 35 = 15 verses), which trips cap_sweep's HARD E-02 whole-chapter rule requiring confidence in {medium_low, low}.",
+   "why_it_matters": "I set confidence=medium_low (below the ruling's ceiling) and added the required whole-chapter cap disclosure so the row passes the HARD gate; verified GREEN via cap_sweep.py. Flagging this so the distinct checker can confirm the downgrade is the correct resolution rather than re-litigating the ruling."
+  },
+  {
+   "what": "3 of the 5 CWO-EZ-05 routed residuals (P08-010's claimed SAMEKH at Ezek.35.1; P08-014's claimed SAMEKH at Ezek.36.37 and at Ezek.37.1) and 2 of the 6 CWO-EZ-02 routed residuals (P08-011's runs 'גּוֹיַ֖יִךְ' and 'אתי') do not correspond to anything in the live rows_v2_swept_r3.jsonl text I actually received.",
+   "why_it_matters": "Verified via check_marks.py / citation_sweep.py against the live file, not assumed: P08-010, P08-014 score 0 mark flags outright, and citation_sweep's live RED list for P08-011 names only 'וְגוֹיַ֖יִךְ' and 'תְשַׁכְּלִי' (not the other two). These 5 residuals appear to already be resolved upstream of my orders file (likely by an earlier repair-wave sweep pass whose manifest wasn't refreshed before routing). Checked and reported per binding law; nothing was 'fixed' because nothing live needed fixing."
+  },
+  {
+   "what": "refs_mirror flags rose for my rows: 8->9 flagged rows, 50->101 total 'argued_but_unmirrored' ref strings, against the self-check's 'must not rise' expectation.",
+   "why_it_matters": "Root cause, verified by inspection: (a) CWO-EZ-08's verse-anchoring turned previously bare, unrecognized comparative mentions (e.g. plain '35.1/36.1') into 'Ezek.C.V'-formatted text that check_refs_mirror's regex now recognizes as 'argued'; (b) the G9#1 merge and G9#2 split each produce rows whose prose narrates a longer connected argument citing many verses inline, most of which were already not individually mirrored in the pre-existing boundary_evidence_refs convention (the ORIGINAL unmerged P08-007 already had 8 of its own unmirrored refs). I added 3 small legitimate boundary_evidence_refs entries (P08-001, P08-002, P08-012) where the missing ref was genuinely this row's own boundary evidence, and deliberately did not pad the larger lists with dozens of entries for verses cited only as comparative asides about neighboring rows or as parallels named by the controlling ruling itself (Ezek.6.7/28.22/30.8/37.6/37.13/39.6). citation_sweep (the HARD gate) is unaffected -- 0 problems throughout."
+  },
+  {
+   "what": "check_marks.py reports two 'kq_claim' flags (P08-001 at Ezek.33.1; P08-007 at Ezek.35.13) with no accompanying 'note' field, and they don't correspond to any K/Q claim actually present in that prose.",
+   "why_it_matters": "Outside my ordered CWOs (not CWO-EZ-02/05/08); looks like a pre-existing checker quirk rather than a content defect (same anomaly reproduces on the unmodified baseline for P08-001). Left unresolved for the distinct checker."
+  }
+ ],
+ "items": [
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-05 (33.10 SAMEKH mismatch)",
+   "action": "cured",
+   "reason": "reworded to anchor the samekh to oshb:Ezek.33.9, its actual verse"
+  },
+  {
+   "row": "P08-002",
+   "item": "CWO-EZ-05 (33.11 SAMEKH mismatch)",
+   "action": "cured",
+   "reason": "the claim was a proximity artifact of an unanchored 'samekh-marked close of the previous row' phrase; anchored to oshb:Ezek.33.9"
+  },
+  {
+   "row": "P08-010",
+   "item": "CWO-EZ-05 (35.1 SAMEKH mismatch)",
+   "action": "reported",
+   "reason": "claim not present in live current_row text; nothing to cure"
+  },
+  {
+   "row": "P08-014",
+   "item": "CWO-EZ-05 (36.37, 37.1 SAMEKH mismatches, 2 items)",
+   "action": "reported",
+   "reason": "neither claim is present in live current_row text; check_marks.py returns 0 flags on the unmodified row"
+  },
+  {
+   "row": "P08-006",
+   "item": "CWO-EZ-02 (word-event run ambiguous between 34.1/35.1)",
+   "action": "cured",
+   "reason": "span narrowed to Ezek.34.1-Ezek.34.16 by the G9#2 split, removing the second candidate from the row entirely"
+  },
+  {
+   "row": "P08-009 (absorbed into P08-007)",
+   "item": "CWO-EZ-02 (שָׁמֵ֑מוּ collates to a Qere)",
+   "action": "cured",
+   "reason": "re-cited as 'oshb:Ezek.35.12 ... ketiv/Qere' with the ref immediately adjacent, Qere spliced via ezek_lib.kq_split_bytes"
+  },
+  {
+   "row": "P08-011",
+   "item": "CWO-EZ-02 (תְשַׁכְּלִי, וְגוֹיַ֖יִךְ collate to a Qere, 2 items)",
+   "action": "cured",
+   "reason": "the sentence introducing 36.13/36.14's K/Q pairs used bare '36.13'/'36.14' with no oshb: prefix; added 'oshb:' immediately before each so citation_sweep's proximity binder resolves the correct verse"
+  },
+  {
+   "row": "P08-011",
+   "item": "CWO-EZ-02 (גּוֹיַ֖יִךְ, אתי, 2 items)",
+   "action": "reported",
+   "reason": "not present in citation_sweep's live RED list for the unmodified row; already resolved upstream"
+  },
+  {
+   "row": "P08-006/P08-006.1",
+   "item": "G9#2 (split ch.34 at 34:16/34:17)",
+   "action": "cured",
+   "reason": "emitted as replace (34.1-34.16) + new_row (34.17-34.31), each re-argued from its own bytes; check_tiling.py confirms no gap/overlap"
+  },
+  {
+   "row": "P08-007/P08-008/P08-009",
+   "item": "G9#1 (merge 35.1-4/5-9/10-15 into one row)",
+   "action": "cured",
+   "reason": "emitted as one replace (35.1-35.15) + two retires; internal three-paragraph structure disclosed rather than re-split"
+  },
+  {
+   "row": "P08-010/P08-011",
+   "item": "S3#1 (retype to salvation_oracle, disclose oracle_against_nation as alternative)",
+   "action": "cured",
+   "reason": "unit_type field changed on both; device_notes rewritten to name oracle_against_nation as the rejected classification with its own reasoning"
+  },
+  {
+   "row": "P08-010/P08-011",
+   "item": "G9#3 (name the 2mp/2ms->2fs addressee change at 36:13 as the §2d.6 licence)",
+   "action": "cured",
+   "reason": "both rows' boundary_rationale now state the addressee change explicitly at the 36:12/36:13 seam"
+  },
+  {
+   "row": "all 15 emitted records",
+   "item": "CWO-EZ-08 (66 register-hygiene items: positional_row_reference, strategy_citation, staged_file_stem, governance_tooling, cross_part_or_part_range, decision_id_in_prose)",
+   "action": "cured",
+   "reason": "each flagged phrase reworded to a verse-anchored or citation-free form; verified 0 remaining flags via check_register.py on the emitted set and on the full 145-row applied book, plus a full-object regex sweep for any stray §-mark across all 22 fields including list fields"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-05 all 5 items",
+   "test": "check_marks.py on each row's live text, before vs. after",
+   "result": "PASS (2 cured, 3 correctly reported as already-moot)"
+  },
+  {
+   "order": "CWO-EZ-02 all 6 items",
+   "test": "citation_sweep.py on each row's live text, before vs. after",
+   "result": "PASS (4 cured, 2 correctly reported as already-moot)"
+  },
+  {
+   "order": "CWO-EZ-08 all 66 items",
+   "test": "check_register.py on final_output.jsonl and on the 145-row applied whole-book copy",
+   "result": "PASS (0 flags both runs, after one follow-up fix to a boundary_evidence_refs entry)"
+  },
+  {
+   "order": "G9#1 merge",
+   "test": "citation_sweep.py + cap_sweep.py + check_tiling.py on the merged row / part slice",
+   "result": "PASS (0 citation problems, cap_sweep GREEN at medium_low with disclosure, tiling 117/117)"
+  },
+  {
+   "order": "G9#2 split",
+   "test": "citation_sweep.py + cap_sweep.py on both resulting rows",
+   "result": "PASS (0 citation problems; cap_sweep no longer flags either half as whole-chapter)"
+  },
+  {
+   "order": "S3#1 retype + G9#3 disclosure",
+   "test": "structural self-check (unit_type in the 12-value vocabulary) + manual read-back of both rows' rationale for the addressee-change sentence",
+   "result": "PASS"
+  },
+  {
+   "order": "full HARD suite over the applied whole book",
+   "test": "run_validator_suite.py on a 145-row private copy (146 - 2 retired + 1 new), p08-filtered",
+   "result": "PASS: citation_sweep/hebrew_normalize/ngram7/cap_sweep/register/web_quotes/universals all 0 for p08 rows"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "mark_symmetry": 15,
+   "refs_mirror_rows": 8,
+   "refs_mirror_refs": 50,
+   "universals": 0,
+   "web_quotes": 0
+  },
+  "after": {
+   "mark_symmetry": 11,
+   "refs_mirror_rows": 9,
+   "refs_mirror_refs": 101,
+   "universals": 0,
+   "web_quotes": 0
+  }
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

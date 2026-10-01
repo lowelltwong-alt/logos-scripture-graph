@@ -1,0 +1,37 @@
+{
+ "schema": "m8_guarded_json_patch_receipt.v1",
+ "applied_at": "2026-09-23T13:13:11.631449+00:00",
+ "target": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\campaign\\budget_ceilings.v1.json",
+ "file_sha256_before": "54843bbc419c0fb00bf5858767fbf2a29022231229610a40ea77242dc99a48f1",
+ "file_sha256_after": "836683ec9804cdf58b6e816fcbd0cd094f147a290de5a513e77d222a44136dda",
+ "keys_addressed": [
+  "books",
+  "rule",
+  "updated_at"
+ ],
+ "semantic_diff": [
+  {
+   "key": "books",
+   "op": "replace",
+   "before": "{\"Ezek\": {\"ceiling\": 86400000, \"effective_from\": \"2026-09-23\", \"owner_answer\": \"OW-27: the owner wrote 'lets follow your recomendations and also up the budet for this by 20 percent' when the orchestrator brought Ezekiel ...(1692 chars)",
+   "after": "{\"Ezek\": {\"ceiling\": 86400000, \"effective_from\": \"2026-09-23\", \"owner_answer\": \"OW-27: the owner wrote 'lets follow your recomendations and also up the budet for this by 20 percent' when the orchestrator brought Ezekiel ...(2616 chars)",
+   "why": "OW-28: the ceiling's unit is the notification unit; Ezekiel's hard line released"
+  },
+  {
+   "key": "rule",
+   "op": "replace",
+   "before": "\"check in with the owner before any launch that would cross the book's ceiling, and never launch across it without a recorded answer\"",
+   "after": "\"OW-28 (2026-09-23): ceilings are TRACKED, NOT ENFORCED. The orchestrator reports each book's spend against its ceiling in the notification unit at every landing and close, and keeps lanes lean for token efficiency, but ...(352 chars)",
+   "why": "OW-28: budgets no longer gate launches; tracked and reported only"
+  },
+  {
+   "key": "updated_at",
+   "op": "replace",
+   "before": "\"2026-09-23T12:45:15.747410+00:00\"",
+   "after": "\"2026-09-23T13:13:11.006408+00:00\"",
+   "why": "OW-28 carrier update"
+  }
+ ],
+ "postvalidation": "PASS: exactly the addressed keys changed and each holds the planned value",
+ "protocol": "address -> precondition -> semantic diff -> protected deny -> atomic commit -> postvalidate"
+}

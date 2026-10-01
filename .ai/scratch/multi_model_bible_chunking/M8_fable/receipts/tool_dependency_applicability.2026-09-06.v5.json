@@ -1,0 +1,142 @@
+{
+ "schema": "m8_tool_dependency_applicability.v1",
+ "version": "v5 (E-25 durable-mirror-gap cure + re-pins; supersedes the v4 ngram7 line only in that the durable copy now matches; v1-v4 stand as history)",
+ "built": "2026-09-07T03:37:05.539958+00:00",
+ "prior_record": {
+  "path": "receipts/tool_dependency_applicability.2026-09-06.v4.json",
+  "sha256": "f4ac0e53a04cedb012619bd74566b42839b6cb040cbbcff2c21335fe5feb76de"
+ },
+ "authority": "OW-3 permanent safeguard (dependency-applicability record when a pinned shared tool changes) + OWNER_REPAIR_ADVANCE_2026-09-06 item 1; global AI-mistake escalation policy (contain, disclose, verify, root-cause, sibling audit, durable control, regression test)",
+ "trigger": "resume-time reproduction of the recorded CWO scan returned every COUNT but truncated row_id lists; _dep_sibling_audit.py then found the v4 ngram7 pin unmet by the durable copy and the v1 _sp_stray_sweep pin superseded without a record; _unmirrored_audit.py over the prior session's whole live tree (598 SP files + orchestrator scratch) found exactly ONE unmirrored file (tools/ngram7.py)",
+ "sibling_audit": {
+  "prior_live_tree_vs_durable": {
+   "SP/Jer": "298/298 files, 1 differing (tools/ngram7.py), 0 only-in-live",
+   "SP/REPAIR": "85/85, 0 differing",
+   "SP/OW2_audit": "216/216, 0 differing",
+   "orchestrator_scratch": "0 differing"
+  },
+  "dependency_pin_check_pre_cure": "5 mismatches over 3 tools (ngram7 durable; _sp_stray_sweep durable+live; AUTHOR_BRIEF durable+live) - all explained above",
+  "dependency_pin_check_post_cure": "run after this record is written; the COUNT is recorded in CYCLE_STATE and the E-25 ledger row"
+ },
+ "changes": [
+  {
+   "tool": "sp_durable/Jer/tools/ngram7.py",
+   "old_sha256": "0e7113c356113f3cbf0012690392899923d499f4d1898ceb7848e4ef813b5b10",
+   "new_sha256": "87e1981469ee1f9958be1459dae80eafc33b144267b36321b66c9dcdbed28d1d",
+   "scope": "DURABLE MIRROR GAP CURED (E-25 instance 1): v4 pinned the patched build from the live SP of session ea03edc7, but the durable copy stayed at the pre-patch build (== the preserved v1 build) because _mirror_jer.py's explicit pair list never named tools/ngram7.py. Cure: the idempotent _cwo_tools_patch.py re-applied to the rebuilt live SP reproduces the v4 pin byte-for-byte; the prior session's live copy (still on disk) also hashes to the v4 pin; mirrored now under the extended pair list.",
+   "regression": "pre-patch build: _cwo_scan.py rows_v2.jsonl reproduces every recorded COUNT (CWO-1 33 grams at gate 10 over 275 rows; CWO-2..9 identical) but caps every gram's row_ids at 15 (parsed-unequal to the recorded scan); patched build: parsed-EQUAL to the recorded _cwo_scan_v2.json including every full row_id list.",
+   "affects_earlier_receipts": "NO - cwo_orders.v1.json and orders_cwo_01..21.json (165 rows, 21 slices) were produced by the patched live build in session ea03edc7 (its live copy carries the v4 pin); every earlier sweep/suite invocation used the default form whose output is unchanged."
+  },
+  {
+   "tool": "sp_durable/Jer/_sp_stray_sweep.py",
+   "old_sha256": "581d8b6cfb862d50c1c10873e1115599c5851683df59a1666b47f001ab1d3ff0",
+   "new_sha256": "95022763430e7f4609694bfa66159970bd49f65357f7aa5d37bc5267a51d2d5c",
+   "intermediate_unrecorded_sha256": "3001a66d20ee3cf549088d4aed760363983b252fb8e63dd7f5f8d4a29c2f16a0",
+   "pre_v1_build_preserved": {
+    "path": "sp_durable/orchestrator_scratch/_preserved_sp_stray_sweep.687262af.py",
+    "sha256": "687262afba3d731f33e0cc999b7a7448893bf74109fe8d06fca2d048c3c9cf7f"
+   },
+   "scope": "E-25 instance 2 (UNRECORDED DRIFT, now recorded): after the v1 pin (581d8b6c) the ALLOW list was extended in sessions 2026-09-05/06 (the OW-2 backlog repair-lane tools, the OW-4 item-6 carrier, the CWO-lane artifacts _cwo_scan.py / _build_cwo_orders.py / cwo_orders.v1.json / CWO_BRIEF.md / cwo/orders_cwo_NN.json / cwo/cwo_NN.jsonl, rows_v2/rows_v3 + validator reports, _apply_author_report.json, the preserved E-24 sweep build) without a dependency record; the diff of the preserved pre-v1 build against the current build shows ALLOW entries ONLY - the matching logic is unchanged. This session adds ONE entry: _dep_pin_check.py.",
+   "affects_earlier_receipts": "NO - an allowlist extension only names additional orchestrator-owned lane artifacts as expected; every earlier CLEAN sweep ran over the file as it then was and stands as history; no added name is an agent-writable path."
+  },
+  {
+   "tool": "sp_durable/Jer/_dep_pin_check.py",
+   "old_sha256": null,
+   "new_sha256": "97e16897da27e2a5528d79633fedf20da0b824c56d3878264130661e836031ca",
+   "scope": "NEW E-25 control: reconciles the LATEST dependency-record pin per tool against the durable copy (and with --live the live SP copy); prints the COUNT of mismatches; exit 1 on any; never writes. Runs at every mirror/close and at every resume after the SP rebuild; a mismatch is a stop condition.",
+   "affects_earlier_receipts": "NO (new tool)"
+  },
+  {
+   "tool": "sp_durable/Jer/AUTHOR_BRIEF.md",
+   "old_sha256": "c50c7a3dc00d7f3119c1010a50e9c267f8d729d6eb13f47a1d5098ca18d07695",
+   "new_sha256": "471463f63a203448b2ee412c84da37aac0eb39970953efadbde4ff732557a4c2",
+   "scope": "SP prefix line re-pointed ea03edc7 -> dce0b6e2 (one occurrence); no other text changed.",
+   "affects_earlier_receipts": "NO - waves 1-3 executed under the earlier prefix builds; the v1 pin (da3181ae) was already superseded by the ea03edc7 re-point (c50c7a3d) without a record line - re-pinned here."
+  },
+  {
+   "tool": "sp_durable/Jer/CWO_BRIEF.md",
+   "old_sha256": "450efbc5f477dcd76d4df949f0297d103972c93f860d47311577a5710537f9f9",
+   "new_sha256": "dffa081d84730872ff82be82bf17c74e1e3446414de29b085122555f6ff9a82a",
+   "scope": "SP prefix line re-pointed ea03edc7 -> dce0b6e2 (one occurrence); no other text changed.",
+   "affects_earlier_receipts": "NO - no CWO attempt has launched."
+  },
+  {
+   "tool": "sp_durable/REPAIR/Song/REPAIR_BRIEF_Song.md",
+   "old_sha256": "1c8721ca8b4a571b484f9bb7bd45de57b4e7f3f08fbb9d996cdb6e27059021f7",
+   "new_sha256": "8cfefd2b31b0b0f22dfaf442ff3c7c038d8fa9cc077a8c5e48a51e007f06215a",
+   "scope": "SP prefix re-pointed ea03edc7 -> dce0b6e2 (every occurrence); no other text changed.",
+   "affects_earlier_receipts": "NO - the lane is applied; its receipt pinned the brief as used at launch (transport change for a completed lane)."
+  },
+  {
+   "tool": "sp_durable/REPAIR/Eccl/REPAIR_BRIEF_Eccl.md",
+   "old_sha256": "daf217910082421b5b7b95889a7cb1730d787870a084b0fc61e10b88af727a76",
+   "new_sha256": "92abc7b6bc92d741ca6da158931d95f35261e6a66b2aaed1400ef2f613161994",
+   "scope": "SP prefix re-pointed ea03edc7 -> dce0b6e2 (every occurrence); no other text changed.",
+   "affects_earlier_receipts": "NO - the lane is applied; its receipt pinned the brief as used at launch (transport change for a completed lane)."
+  },
+  {
+   "tool": "sp_durable/REPAIR/Job/REPAIR_BRIEF_Job.md",
+   "old_sha256": "599b8ca592ad62afaa7bd355a40ea51f96c21628256e7710cc7243f156102011",
+   "new_sha256": "b9313b1b66b0fd0a3101eed816a75385662e2301c2081bf3bb6d275f5079652c",
+   "scope": "SP prefix re-pointed ea03edc7 -> dce0b6e2 (every occurrence); no other text changed.",
+   "affects_earlier_receipts": "NO - the lane is applied; its receipt pinned the brief as used at launch (transport change for a completed lane)."
+  },
+  {
+   "tool": "sp_durable/REPAIR/Ps/REPAIR_BRIEF_Ps.md",
+   "old_sha256": "751dfb23c25fd1d0788c6926e3e52c1e0600cd21d04934c5680258449263b2fd",
+   "new_sha256": "93cd86988a78dbcc485e6f69255079cadae392ed3dab8c0563cc352e86b83ecf",
+   "scope": "SP prefix re-pointed ea03edc7 -> dce0b6e2 (every occurrence); no other text changed.",
+   "affects_earlier_receipts": "NO - the lane is applied; its receipt pinned the brief as used at launch (transport change for a completed lane)."
+  },
+  {
+   "tool": "sp_durable/REPAIR/Prov/REPAIR_BRIEF_Prov.md",
+   "old_sha256": "6f8a7014815c4510d8774d4a2f6a68cb49498dfd1e7974e67897259d050b8afa",
+   "new_sha256": "4c6c23eb8a397cf5850784554501dc64a483248bf0a1d4360f7b9e3775a5120f",
+   "scope": "SP prefix re-pointed ea03edc7 -> dce0b6e2 (every occurrence); no other text changed.",
+   "affects_earlier_receipts": "NO - the lane is staged, not launched."
+  },
+  {
+   "tool": "sp_durable/REPAIR/Isa/REPAIR_BRIEF_Isa.md",
+   "old_sha256": "f6b85eab3dcea7161faaaf2d87fd5f21de310e2fedb8ce86f3847538afe74974",
+   "new_sha256": "dd36806acca2c649091a49152a0071692438fa4444ae273cb0a2745f831ed588",
+   "scope": "SP prefix re-pointed ea03edc7 -> dce0b6e2 (every occurrence); no other text changed.",
+   "affects_earlier_receipts": "NO - the lane is staged, not launched."
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_mirror_jer.py",
+   "old_sha256": "d55ae91bfbe2f6984b55ddc03cf27b8d3363ffad4855eb51302f1c1c6f9ca83d",
+   "new_sha256": "188bcc2412f1f956acc42cade425593c55eaf5d69edb50f2b6c13982479e43cb",
+   "scope": "explicit pair list gains tools/ngram7.py and _dep_pin_check.py (E-25 cure).",
+   "affects_earlier_receipts": "NO (orchestrator transport/mirror tooling; mirrored by _mirror_scratch.py at this boundary)"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_mirror_scratch.py",
+   "old_sha256": "39c894d6e446bb3d54526c5abccc252c0fa6c0dc1d8c2c32f872d458c803a945",
+   "new_sha256": "1bf7ad1b3aba6494e648c8e47525fb23c976eba34a0f35ca2e2f3e91c49ace64",
+   "scope": "NAMES gains the session-3 E-25 evidence and record scripts.",
+   "affects_earlier_receipts": "NO (orchestrator transport/mirror tooling; mirrored by _mirror_scratch.py at this boundary)"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_sp_rebuild.py",
+   "old_sha256": "3370a9f28946a679c6f1e03e5e813b40838109541f9beb3773f4417b0f34012d",
+   "new_sha256": "d0b805bbf5e44cae84dceb17f07cf720f05f6d3894d59f409e2f356f870f9b7f",
+   "scope": "SP constant re-pointed to the dce0b6e2 scratchpad.",
+   "affects_earlier_receipts": "NO (orchestrator transport/mirror tooling; mirrored by _mirror_scratch.py at this boundary)"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_author_launch_msgs.py",
+   "old_sha256": "f0d8540123621f257d921975d604865c2548152a747a39906c2bf26f942b5bca",
+   "new_sha256": "1399b983140e955aafed25a1267787f3c86dae14d08a05846eea09e22d118662",
+   "scope": "hard-coded SP assertion re-pinned to the dce0b6e2 scratchpad.",
+   "affects_earlier_receipts": "NO (orchestrator transport/mirror tooling; mirrored by _mirror_scratch.py at this boundary)"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_repair_lane_gen.py",
+   "old_sha256": "10df6c4ebb3d0587ebede063eab72eafa05da97bceaf4912010a9f82de35d6a0",
+   "new_sha256": "22b7e0f9e4294da744a5f40e11339627bf03e06090a2b3cab8b69dd026b1f3c2",
+   "scope": "hard-coded SP assertion re-pinned to the dce0b6e2 scratchpad.",
+   "affects_earlier_receipts": "NO (orchestrator transport/mirror tooling; mirrored by _mirror_scratch.py at this boundary)"
+  }
+ ],
+ "non_authorizing": true
+}

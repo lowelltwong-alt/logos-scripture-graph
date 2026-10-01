@@ -1,0 +1,32 @@
+{"attempt_id":"dan_fixup1_W2_a1","execution_id":"dan_fixup1_W2_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\FIXUP1_BRIEF_W2.md sha256 6deeb9cb0e76219cea417b8043c28f09c6451348335ee992d97ab00530f63553",
+  "SP\\Dan\\writer\\draft_rows_combined.jsonl sha256 693e468fd4b166ea4ff57bf5729ff7f952c218727e6ceed61ba77df1b9ef8830",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E1.v1.json sha256 541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30 (hashed only; the orders were used as quoted in the brief)",
+  "SP\\Dan\\book_strategy_Dan.md sha256 158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da (section 8 read in full)",
+  "SP\\Dan\\tools\\TOOLKIT.md sha256 ca3d60616a07a2ba6027bb9dcd3d4aad715d7a975e62935df951079fe94a08d2 (usage lines only)",
+  "SP\\Dan\\Dan_oshb.txt sha256 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0 (hashed only; no Hebrew was added)",
+  "SP\\Dan\\Dan_web_clean.txt sha256 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa (hashed only; no WEB text was added)",
+  "SP\\Dan\\tools\\run_validator_suite.py sha256 5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f",
+  "SP\\Dan\\tools\\check_placeholders.py sha256 0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb",
+  "SP\\Dan\\tools\\ngram7.py sha256 cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d",
+  "SP\\..\\ERROR_PATTERN_LEDGER.v1.md sha256 1face1767986712d95fa7da0ca0f90d0850d69025f0dbc887a5b322ec8001941 (lines 807-874 only)"],
+ "outcome":{"changed":[
+  {"what":"W2-005.device_notes: '(REPORTED)' added after the KJV rendering, after the christological reading and after the angel reading; ', in line with the king's words at 3:28' deleted","why":"S1-03"},
+  {"what":"W2-007.confidence: medium -> medium_low (the order's first option; boundary_rationale was not changed)","why":"S1-09"}]},
+ "verification":[
+  {"claim":"The brief and all 10 pinned inputs match their stated sha256","how":"Get-FileHash and a python hashlib pass over the exact paths","result":"confirmed"},
+  {"claim":"Each S1-03 span occurred exactly once before replacement. After the edit the WEB and OSHB/WLC disclosure, the K/Q disclosure and 'The reading bears on no seam.' remain, and 'in line with' and '3:28' are gone","how":"asserts in the scratch build script (str.count == 1, then substring asserts)","result":"confirmed"},
+  {"claim":"Only licensed row fields differ: (W2-005, device_notes) and (W2-007, confidence). The other 74 lines of the rows file are byte-identical, and every other field of the two changed rows is equal as a JSON value","how":"field-by-field comparison of rows_base.jsonl against rows_applied.jsonl","result":"confirmed"},
+  {"claim":"Suite results match on both copies: hard_status RED on placeholders only, triage_flags 188 each time. citation_sweep GREEN; hebrew_normalize ok=364 fixed=0 defects=0; web_quotes, refs_mirror, universals and register FLAGS; mark_symmetry, language_zones, ngram7, cap_sweep and role_tokens GREEN","how":"python -B run_validator_suite.py on work/rows_base.jsonl and on work/rows_applied.jsonl","result":"confirmed"},
+  {"claim":"No member gained a hit or flag on W2-005 or W2-007. Once the input file name is normalized, every member payload is identical between the two reports. The single pre-existing refs_mirror entry naming these rows is unchanged (1 before, 1 after)","how":"python comparison of the two validator_report.json files","result":"confirmed"},
+  {"claim":"check_placeholders.py on rows_applied returns status RED, with the only match in W6-001 strongest_rejected_alternative '%s' (outside W2). ngram7.py on rows_applied returns status GREEN","how":"python -B check_placeholders.py work/rows_applied.jsonl; python -B ngram7.py work/rows_applied.jsonl","result":"confirmed"}],
+ "unresolved_uncertainty":[
+  {"what":"For S1-09 I took the medium_low option rather than adding a medium-evidence clause. The reason is INFERRED: the row's own rationale calls the onset opener weak, and strategy section 8 item 8 forbids rounding up","why_it_matters":"Under strategy section 8 item 8 a medium_low row may also be routed to Fable's end review. That routing is the orchestrator's decision."},
+  {"what":"Governance slip, disclosed: the build script dan_fx1_W2_build.py was written at the scratchpad root (…\\scratchpad\\dan_fx1_W2_build.py), not under OUT\\work. It is outside the worktree and outside OUT. Nothing under the worktree was written","why_it_matters":"The brief confines writes to OUT. The orchestrator may delete that file or disregard it."},
+  {"what":"The changed rows were re-serialized with json.dumps(ensure_ascii=False). Their bytes may differ from the source line in separators or whitespace even where the values are equal","why_it_matters":"The lander compares rows as JSON values, so this should not matter, but a byte-level diff of those two lines would show it."}],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+ "rows_sha256":"0c04948f78ec35a586695d618a7e83099c0a3e503656c4921b6c928547b4ac95",
+ "changes_sha256":"7a9799599970e7f37c0a94bb7a4f2dc063f5c7e52d8a7a26ccaf606728c9ffa9",
+ "limit":"accountable work summary; not chain of thought and not independent proof",
+ "orchestrator_note":"The stray write was verified MEASURED: scratchpad\\dan_fx1_W2_build.py, 3200 bytes, sha256 prefix b84a27c9f31a6880. It was moved (kept, not deleted) to dan_fx1\\W2\\work\\stray_root_dan_fx1_W2_build.py as evidence. The write lay outside OUT but inside the orchestrator's own session scratchpad; no worktree, SP or registry path was touched."}

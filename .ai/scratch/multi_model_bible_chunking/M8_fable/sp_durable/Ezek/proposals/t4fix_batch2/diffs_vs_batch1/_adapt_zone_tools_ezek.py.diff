@@ -1,0 +1,158 @@
+--- proposals/t4fix_batch1/staged/_adapt_zone_tools_ezek.py (1535d2a6f1ab)
++++ proposals/t4fix_batch2/staged/_adapt_zone_tools_ezek.py (9f0174f30b97)
+@@ -121,15 +121,17 @@
+ PAREN_AFTER = re.compile(r"\s*\(")
+ # T4-03: the closed set of denials that may FOLLOW a mention inside its clause. 'none of' is a partitive, and 'is absent',
+ # 'is lacking' or 'is missing' deny only at the clause end ('the dateline at 45:18 is missing its year word' still names
+-# a dateline).
+-DENIAL_AFTER = re.compile(r"\b(?:but|though|although|yet)\s+(?:there\s+(?:is|are)\s+)?none\b(?!\s+of\b)"
+-                          r"|\bnone\s+(?:stands?|is\s+(?:present|written|there|found)|appears?|exists?)\b"
+-                          r"|\b(?:is|are)\s+(?:absent|lacking|missing)\s*(?=[.;,()]|$)", re.I)
+-
+-
+-def denied_after(text, end):
+-    """A DENIAL_AFTER construction between the mention's end and its clause's end, reading through a parenthetical that
+-    opens directly after the clause ('the dateline (45:18) would be expected but none stands')."""
++# a dateline). #e4 amendments: A1 - the clause end may be a newline (check_marks joins fields with newlines); A2 - a
++# COORDINATED denial with a verse number and no expectation modal between the mention and the denial does not deny: the
++# mention is a positive claim over the numbers before the denial ('stand at 41:5 but none is present in ch 46' claims 41:5).
++DENIAL_COORD = re.compile(r"\b(?:but|though|although|yet)\s+(?:there\s+(?:is|are)\s+)?none\b(?!\s+of\b)"
++                          r"|\bnone\s+(?:stands?|is\s+(?:present|written|there|found)|appears?|exists?)\b", re.I)
++DENIAL_COPULAR = re.compile(r"\b(?:is|are)\s+(?:absent|lacking|missing)\s*(?=[.;,()\n]|$)", re.I)
++EXPECT_MODAL = re.compile(r"\b(?:would|should|could|might|may|expected|anticipated)\b", re.I)
++
++
++def _denial_window_end(text, end):
++    """The end of the mention's clause, reading through a parenthetical that opens directly after it."""
+     f_hi = field_bounds(text, end, end)[1]
+     _, hi = clause_bounds(text, end, end, NEG_CLAUSE_END)
+     p = PAREN_AFTER.match(text, hi)
+@@ -138,7 +140,35 @@
+         if close != -1:
+             nxt = NEG_CLAUSE_END.search(text, close + 1, f_hi)
+             hi = nxt.start() if nxt else f_hi
+-    return bool(DENIAL_AFTER.search(text, end, hi))
++    return hi
++
++
++def denial_after(text, end):
++    """(kind, start) of the first closed-set denial after a mention inside its clause. 'copular' always denies;
++    'coordinated' denies because the words between the mention and the denial name no verse number or carry an expectation
++    modal; 'positive' is a coordinated form that does NOT deny (A2), and start bounds the mention's own numbers.
++    (None, None) when the clause carries no closed-set denial."""
++    hi = _denial_window_end(text, end)
++    found = [m for m in (DENIAL_COPULAR.search(text, end, hi), DENIAL_COORD.search(text, end, hi)) if m]
++    if not found:
++        return None, None
++    first = min(found, key=lambda m: m.start())
++    if first.re is DENIAL_COPULAR:
++        return "copular", first.start()
++    between = text[end:first.start()]
++    if not RANGE_NUM.search(between) or EXPECT_MODAL.search(between):
++        return "coordinated", first.start()
++    return "positive", first.start()
++
++
++def denied_after(text, end):
++    return denial_after(text, end)[0] in ("copular", "coordinated")
++
++
++def claim_upper(text, end):
++    """A2: where a mention's own number window stops - the start of a coordinated denial that does not deny - or None."""
++    kind, start = denial_after(text, end)
++    return start if kind == "positive" else None
+ # check_marks' PROSE arm keeps a 60-character reach inside the clause. Read without a limit, the real row P10-008 ("the
+ # word carrying the book's puncta extraordinaria -- ... -- a natural summary line before 41:21 returns to ...") binds its
+ # TRUE claim to the next verse, 41:21, and flags; the regression vector cm_real_row_distant_next_verse_number_ok pins that.
+@@ -165,7 +195,7 @@
+     return items
+ 
+ 
+-def puncta_claim_numbers(text, start, end, reach=None, ends=NUM_CLAUSE_END, with_paren=True):
++def puncta_claim_numbers(text, start, end, reach=None, ends=NUM_CLAUSE_END, with_paren=True, upper=None):
+     """The verse numbers a claim names (T2-01/02; ruling R4(ii) of ezek_controlling_rulings_a1#e3). That is EVERY C:V or
+     C.V number in the mention's own clause, at any distance (a 60-character reach let a distant number go unseen), and
+     every number in a parenthetical that opens directly after that clause ('puncta extraordinaria (41:5)'), all inside
+@@ -174,6 +204,8 @@
+     to that many characters either side of the mention. citation_sweep's ref arm passes none; check_marks' prose arm
+     passes PROSE_REACH."""
+     lo, hi = clause_bounds(text, start, end, ends)
++    if upper is not None:   # A2: numbers after a coordinated denial belong to the denial; no parenthetical past it
++        hi, with_paren = min(hi, upper), False
+     items = _range_items(text, lo if reach is None else max(lo, start - reach), hi if reach is None else min(hi, end + reach))
+     if with_paren:
+         f_hi = field_bounds(text, start, end)[1]
+@@ -352,7 +384,7 @@
+                         covered.add(f"Ezek.{mk[0]}.{mk[1]}")
+                     c_, v_ = (c_, v_ + 1) if v_ < space[c_] else (c_ + 1, 1)
+                 sites = covered & PUNCTA_KEYS
+-                verdict = puncta_verdict(puncta_claim_numbers(tail, pm_.start(), pm_.end()))
++                verdict = puncta_verdict(puncta_claim_numbers(tail, pm_.start(), pm_.end(), upper=claim_upper(tail, pm_.end())))
+                 at_site = bool(sites) if verdict is None else verdict
+                 if puncta_negated(tail, pm_.start(), pm_.end()):
+                     if at_site is True or at_site == "ambiguous":
+@@ -398,7 +430,7 @@
+             span_sites = sorted({web_to_mt(c, v) for c, v in span_pairs(row)} & PUNCTA_SITES)
+             for m in PUNCTA.finditer(text):
+                 lo = max(0, m.start() - 120)
+-                verdict = puncta_verdict(puncta_claim_numbers(text, m.start(), m.end(), PROSE_REACH))
++                verdict = puncta_verdict(puncta_claim_numbers(text, m.start(), m.end(), PROSE_REACH, upper=claim_upper(text, m.end())))
+                 at_site = bool(span_sites) if verdict is None else verdict
+                 if puncta_negated(text, m.start(), m.end()):
+                     if at_site is True or at_site == "ambiguous":
+@@ -427,7 +459,7 @@
+ APPOSITION_NUM = re.compile(r"(?<![A-Za-z\d])(\d{1,2})[:.](\d{1,2})(?:\s*[-–]\s*(?:(\d{1,2})[:.])?(\d{1,2}))?\s*$")
+ 
+ 
+-def dateline_claim_numbers(text, start, end, reach=60):
++def dateline_claim_numbers(text, start, end, reach=60, upper=None):
+     """The verse numbers a dateline claim names:
+       - those in its own COMMA-delimited clause within `reach` characters ('unlike the dateline at 40:1, the date at
+         45:18 ...' names 40:1 only);
+@@ -437,13 +469,15 @@
+         apposition '45:18, a dateline-grade onset').
+     The last two readings follow CAL-1 of ezek_controlling_rulings_a1#e3."""
+     lo, hi = clause_bounds(text, start, end, NEG_CLAUSE_END)
+-    items = puncta_claim_numbers(text, start, end, reach, NEG_CLAUSE_END)
++    if upper is not None:   # A2
++        hi = min(hi, upper)
++    items = puncta_claim_numbers(text, start, end, reach, NEG_CLAUSE_END, upper=upper)
+     found = list(RANGE_NUM.finditer(text, max(lo, start - reach), min(hi, end + reach)))
+     j = found[-1].end() if found else None
+     while j is not None:
+         nx = LIST_NEXT.match(text, j)
+         m = RANGE_NUM.match(text, nx.end()) if nx else None
+-        if not m:
++        if not m or (upper is not None and m.end() > upper):
+             break
+         items += puncta_claim_numbers(text, m.start(), m.end(), 0, NEG_CLAUSE_END, with_paren=False)
+         j = m.end()
+@@ -470,7 +504,7 @@
+             for dm_ in DATELINE.finditer(tail):
+                 if puncta_negated(tail, dm_.start(), dm_.end()):
+                     continue
+-                named_ = {p for pairs in dateline_claim_numbers(tail, dm_.start(), dm_.end()) for p in pairs}
++                named_ = {p for pairs in dateline_claim_numbers(tail, dm_.start(), dm_.end(), upper=claim_upper(tail, dm_.end())) for p in pairs}
+                 if not named_:
+                     covered_, (c_, v_) = set(), (ch, v)
+                     while (c_, v_) <= end_pair and c_ in space:
+@@ -500,7 +534,7 @@
+                 for m in DATELINE.finditer(o):
+                     if puncta_negated(o, m.start(), m.end()):
+                         continue
+-                    cal = sorted({p for pairs in dateline_claim_numbers(o, m.start(), m.end()) for p in pairs}
++                    cal = sorted({p for pairs in dateline_claim_numbers(o, m.start(), m.end(), upper=claim_upper(o, m.end())) for p in pairs}
+                                  & CAL_DATE_PAIRS)
+                     if cal:
+                         problems.append(f"{did}: {path} claims a dateline at " + ", ".join("MT %d:%d" % p for p in cal)
+@@ -513,6 +547,10 @@
+     src = (JER / "citation_sweep.py").read_text(encoding="utf-8")
+     head, t = split_doc(src, "Jer citation sweep + dual-cite arithmetic checker")
+     t = sub_exact(t, "from jer_lib import (", "from ezek_lib import (kq_split_bytes, ", 1, "cs import")
++    # A3 (#e4 ruling T4-04): the mark, small-letter and paseq ref checks accept the SINGLE_WITNESS form the puncta check
++    # accepts (hyphenated or spaced); the elif is replaced first because the plain form is a substring of it
++    t = sub_exact(t, 'elif "single-witness" not in tail:', "elif not SINGLE_WITNESS.search(tail):", 1, "cs A3 small-letter")
++    t = sub_exact(t, 'if "single-witness" not in tail:', "if not SINGLE_WITNESS.search(tail):", 2, "cs A3 mark and paseq")
+     # T2-05: only a CLOSED '(MT n:m)' / '(WEB n:m)' is a numbering qualifier; '(MT 46.22 puncta ...' is prose
+     t = sub_exact(t, r'off = re.search(r"\(MT\s+(\d+)[:.](\d+)", tail)',
+                   r'off = re.search(r"\(MT\s+(\d+)[:.](\d+)\)", tail)', 1, "cs mt qualifier closed")

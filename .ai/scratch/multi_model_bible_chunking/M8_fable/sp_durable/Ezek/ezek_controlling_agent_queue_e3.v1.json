@@ -1,0 +1,373 @@
+{
+ "schema": "m8_controlling_agent_queue.v1",
+ "book": "Ezek",
+ "execution": "ezek_controlling_rulings_a1#e3",
+ "previous_execution_id": "ezek_controlling_rulings_a1#e2",
+ "built_by": "orchestrator (claude-opus-5); proposes, never rules",
+ "items": [
+  {
+   "id": "R4-i",
+   "question": "Ratify, ratify with changes, or reverse R4 (i) the QERE tier.",
+   "distinct_checker_verdicts": {
+    "T3": {
+     "verdict": "ratify",
+     "vectors_run": [
+      "_test_zone_tools_ezek.py sections 3, 5, 6 (HEB_VECTORS, T1_HEB, T2_HEB, D3 vectors) - 100% pass",
+      "my own novel probe: normalize_hebrew_in_json.py's book-wide KQ['qere'] index built from kq_split_bytes (raw bytes, D3) confirmed by code read; citation_sweep.py's per-verse qere_src (kq.get(vkey)) confirmed separately scoped by code read and by the wrong-verse-Qere test already in the suite (cs_qere_cited_at_wrong_verse_refused)"
+     ],
+     "evidence": "T1 found the field-wide disclosure-window looseness (T1-04); T2 found it narrowed but not closed (cross-quote leak within ~320 chars, T2-04) and the D3 non-canonical-note-order gap; the current code sentence-bounds the 160-char disclosure window (sentence_bounds()) and uses kq_split_bytes (raw note bytes) throughout - both fixes verified live by the T1/T2/D3 regression vectors in the current test file, all passing, and by my own re-derivation of the D3 non-canonical count (66/134) directly from the bytes. No open QERE-tier finding remains against the Ezek-specific behaviour; the one still-unresolved sub-claim from T2 ('NFD-only Qere stays a defect') is a residual UNRESOLVED, not a refutation - noted below."
+    }
+   },
+   "context": "T1 (ezek_toolkit_review_T1.json) and T2 (ezek_toolkit_repair_review_T2.json) reviewed earlier digests; T3 reviewed the tools as they now stand."
+  },
+  {
+   "id": "R4-ii",
+   "question": "Ratify, ratify with changes, or reverse R4 (ii) the PUNCTA arms.",
+   "distinct_checker_verdicts": {
+    "T3": {
+     "verdict": "ratify",
+     "vectors_run": [
+      "_test_zone_tools_ezek.py PUNCTA2_CS/CM, T1_CS/CM, T2_CS/CM (all pass)",
+      "3 novel vectors I authored beyond the existing suite: (a) a negation word in a PRIOR comma-delimited clause of the same sentence, confirmed it does NOT bleed across the comma into a genuine positive claim afterward; (b) two 'and'-joined puncta mentions in one clause, one site one non-site, confirmed correctly flagged ambiguous; (c) a negation-lookalike substring ('nonetheless') confirmed NOT mistaken for a real negator (word-boundary regex holds)"
+     ],
+     "evidence": "T1 found the nearest-number/span-coverage exploit (T1-01/T1-02, blocker) and the adjacent-only negation gap (T1-03); T2 found the repair only moved the exploit one level up (decoy real-site number, T2-01/T2-02, major) and found a genuine hidden-defect-pass in distant negation (T2-03, major) plus a qualifier-regex collision (T2-05, note). The current code requires ALL C:V numbers in the clause to agree on site-status (puncta_verdict: True only if every item is a site, False if none, 'ambiguous' if mixed) and scans the FULL comma-delimited clause for negation rather than an adjacent 2-word window - both directly verified against the T2-01..T2-05 regression fixtures (all pass) and against my own 3 novel adversarial vectors (all behave correctly, no new defect found)."
+    }
+   },
+   "context": "T1 (ezek_toolkit_review_T1.json) and T2 (ezek_toolkit_repair_review_T2.json) reviewed earlier digests; T3 reviewed the tools as they now stand."
+  },
+  {
+   "id": "R4-iii",
+   "question": "Ratify, ratify with changes, or reverse R4 (iii) the editorial-note tier for K/Q claims.",
+   "distinct_checker_verdicts": {
+    "T3": {
+     "verdict": "ratify",
+     "vectors_run": [
+      "_test_zone_tools_ezek.py PUNCTA2_CS/CM editorial-note vectors (cs_kq_editorial_note_ok, cs_kq_none_bad, cm_kq_editorial_note_ok, cm_kq_none_bad) - all pass",
+      "1 novel vector I authored: a false 'ketiv/qere, editorial note' claim at MT 1:11, a verse that DOES carry an OSHB editorial note but one that is NOT about ketiv/qere (a form-validity note) - correctly REFUSED ('claims ketiv/qere but the kq inventory has none at Ezek.1.11')"
+     ],
+     "evidence": "This tier was untouched by the T1->T2->T3 change list (T1 found it sound, q4). My own additional adversarial probe confirms the license is genuinely bytes-anchored to the cited OSHB note's own text (kq_note_keys is built from KQ_NOTE.search on the note's actual text, not merely on 'a note exists here') - a verse with an unrelated note class cannot be used to license a false ketiv/qere claim. No open finding."
+    }
+   },
+   "context": "T1 (ezek_toolkit_review_T1.json) and T2 (ezek_toolkit_repair_review_T2.json) reviewed earlier digests; T3 reviewed the tools as they now stand."
+  },
+  {
+   "id": "R4-iv-v",
+   "question": "Record (iv) the pm['paseq'] dict conversion and (v) norm_english's bare [fn] stripping, as ruling R4 ordered (record, not ratify)."
+  },
+  {
+   "id": "T3-01",
+   "question": "Rule on this supplementary-review finding.",
+   "severity": "minor",
+   "artifact": "SP\\campaign\\_cure_verification.py",
+   "claim": "The R5 supersession-retirement path checks only that a supersession record carries the four required KEYS (supersedes_cure_id, recorded, ordered_by, why); it does not verify that old_artifact_sha256 matches the claim it purports to retire, nor that ordered_by names a ruling that actually exists. A well-formed but factually false supersession record therefore retires any named cure_id to SUPERSEDED - a non-ACCEPTED, non-blocking status - without any check on the record's truthfulness.",
+   "suggested_fix": "Require old_artifact_sha256 in a supersession record to match the artifact_sha256 actually recorded on the claim it supersedes (cross-check against the claims already parsed from the same file), and/or require ordered_by to name a ruling id that a caller can optionally cross-verify against the controlling-rulings file. Low priority: this does not let anything read ACCEPTED, and R5's own authorization model (a controlling-agent ruling) is presumably enforced upstream of this tool, not by it - but the gap is worth disclosing since OW-10 exists specifically to prevent unverified self-reported closure.",
+   "orchestrator_proposed_disposition": "PROPOSED (the controlling agent rules): adopt the suggested fix. A supersession record must carry old_artifact_sha256 equal to the artifact_sha256 of the claim it retires, cross-checked against the claims parsed from the same file, and an ordered_by naming an execution id of the form <attempt_id>#e<N>. A record failing either check is REFUSED, not honoured. The reviewer's adversarial fixture becomes a selftest refusal vector. No cure is re-opened: nothing read ACCEPTED through the gap, and the one genuine supersession record (EZEK-P0-CURE-toolkit, old_artifact_sha256 06b0e7a6..., ordered_by ezek_controlling_rulings_a1#e2 ruling R5) is expected to pass the tightened check, which is to be proven before it is relied on. The changed verifier goes to the distinct checker who spot-reviews the author wave, bound to its new digest."
+  },
+  {
+   "id": "C3-1",
+   "question": "CWO-EZ-03 test (c) holds for P04-001 (Ezek.20.1-Ezek.20.26), which you expected to hold. Hold the row (say why test (c) does not bind here) or cut it (name the spans exactly).",
+   "scan": {
+    "verses": 26,
+    "unit_type": "disputation_oracle",
+    "a_messenger_formulae_inside": [
+     "Ezek.20.3",
+     "Ezek.20.5"
+    ],
+    "b_close_then_onset": [],
+    "c_verse_final_closes": [
+     {
+      "close": "Ezek.20.3",
+      "parts": [
+       3,
+       23
+      ],
+      "both_parts_ge_3": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "C3-2",
+   "question": "CWO-EZ-03 test (c) holds for P11-003 (Ezek.44.15-Ezek.44.31), which you expected to hold. Hold the row (say why test (c) does not bind here) or cut it (name the spans exactly).",
+   "scan": {
+    "verses": 17,
+    "unit_type": "temple_law",
+    "a_messenger_formulae_inside": [],
+    "b_close_then_onset": [],
+    "c_verse_final_closes": [
+     {
+      "close": "Ezek.44.15",
+      "parts": [
+       1,
+       16
+      ],
+      "both_parts_ge_3": false
+     },
+     {
+      "close": "Ezek.44.27",
+      "parts": [
+       13,
+       4
+      ],
+      "both_parts_ge_3": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "C3-3",
+   "question": "CWO-EZ-03 test (a) is not machine-decidable. The scan found messenger formulae inside two rows you expected to hold. Rule for each whether any carries an addressee change (cut there) or none does (hold).",
+   "rows": [
+    {
+     "row": "P01-009",
+     "span": "Ezek.5.1-Ezek.5.17",
+     "a_messenger_formulae_inside": [
+      "Ezek.5.5",
+      "Ezek.5.7",
+      "Ezek.5.8"
+     ]
+    },
+    {
+     "row": "P07-006",
+     "span": "Ezek.31.1-Ezek.31.18",
+     "a_messenger_formulae_inside": [
+      "Ezek.31.10",
+      "Ezek.31.15"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "CAL-1",
+   "question": "Ratify, amend or reverse the calendar-date arm the orchestrator built in citation_sweep as the section-10 / G12(d) implementation. The staged suite had no such member.",
+   "t3_item2": {
+    "verdict": "confirmed",
+    "vectors_run": [
+     "18 CAL_ROWS vectors in _test_zone_tools_ezek.py (row-onset pass/fail at 45:18/45:19/45:20/45:21/45:25; prose dateline claims naming 45:18/45:20/45:21/45:25 singly, in a comma list, and via double negation; negated/denied forms; a real dateline in an adjacent clause distinguished from an unnumbered calendar-date clause in the same sentence; ref-annotation claims, bare and numbered; web: and oshb: ref forms both exercised) - all 18 passed",
+     "direct run of citation_sweep.py over the real 146-row corpus (repair/rows_v2_swept_r3.jsonl): 0 genuine calendar-date-arm problems (a naive keyword hit on a parashah-mark problem's quoted ref text was manually excluded as a false match)"
+    ],
+    "result": "Confirmed on every behaviour named in the brief. A row opening at MT 45:18 on the messenger formula passes (cal_onset_45_18_ok); dateline claims naming 45:18, 45:20, 45:21 or 45:25 fail in prose and in refs; rows opening at 45:20, 45:21 or 45:25 fail. Constants CAL_DATE_PAIRS/DATELINE_PAIRS are asserted equal to ezek_device_inventory.json's calendar_dates_not_datelines (4) and dated_oracles (14) by the test suite itself, and I independently re-read both lists from the inventory and confirm the match. Negation (single and double), comma lists, ranges, real-dateline-in-adjacent-clause, and web:/oshb: forms are all attacked and behave correctly. The one documented, un-machine-checked case (a dateline claim naming no number, outside any covering ref) is BY DESIGN not judged by this arm (per its docstring and TOOLKIT.md); I confirm this is a disclosed limitation, not a silent gap - a prose sentence calling a calendar date a 'dateline' with no number and no covering ref would not be caught by this arm and needs human/primary review. This is worth keeping visible but is not a defect in what the arm claims to do."
+   }
+  },
+  {
+   "id": "E18-1",
+   "question": "Ruling R2 routed CWO-EZ-06/-07/-08 and the sweep residuals into the per-part author executions. The orchestrator carries each item with its CWO id and narrowed predicate, and runs one coverage sweep per CWO over the applied rows (the baseline reports are inputs). Confirm that this meets E-18 ('each CWO its own sweep'), or order separate CWO executions.",
+   "coverage_baseline": {
+    "CWO-EZ-01": {
+     "residual": 72,
+     "triage": 143
+    },
+    "CWO-EZ-02": {
+     "residual": 87,
+     "triage": 0
+    },
+    "CWO-EZ-04": {
+     "residual": 2,
+     "triage": 0
+    },
+    "CWO-EZ-05": {
+     "residual": 3,
+     "triage": 13
+    },
+    "CWO-EZ-06": {
+     "residual": 204,
+     "triage": 0
+    },
+    "CWO-EZ-07": {
+     "residual": 3,
+     "triage": 0
+    },
+    "CWO-EZ-08": {
+     "residual": 189,
+     "triage": 0
+    },
+    "CWO-EZ-09": {
+     "residual": 2,
+     "triage": 0
+    }
+   }
+  },
+  {
+   "id": "Q3-1",
+   "question": "Q3 ordered the new TOOLKIT.md digest recorded 'in bound_to_artifacts'. The orchestrator added a new key, bound_to_artifacts_rebinds, and left bound_to_artifacts holding the digests the round-3 checker accepted. Acknowledge the additive form or order the literal edit."
+  },
+  {
+   "id": "R1F-1",
+   "question": "CWO-EZ-01's narrowed predicate covered object entries and unprefixed strings. 143 witness-prefixed ref entries still fall outside ruling R1's strict shape (ref, optional dual, then a parenthesised disclosure) - e.g. words between the ref and the parenthesis, comma lists of refs, or a WEB quotation after '='. Order them normalised (by whom, as what CWO), or leave them as triage."
+  },
+  {
+   "id": "PC-1",
+   "question": "parent_collection carries 13 distinct strings for 8 parents - the parts wrote the section-5 labels in different punctuation. Order one canonical label per parent and who applies it (a deterministic sweep is available), or leave it."
+  },
+  {
+   "id": "AW-1",
+   "question": "Ratify the author-wave plan, or amend it, and set gate.author_wave_may_launch.",
+   "plan": {
+    "orders_index": {
+     "p01": {
+      "rows_in_part": 13,
+      "rows_with_orders": 13,
+      "new_rows": 1,
+      "retire": 0,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-02": 32,
+       "CWO-EZ-05": 2,
+       "CWO-EZ-06": 29,
+       "hard_finding": 37,
+       "ruling_order": 4,
+       "CWO-EZ-04": 2,
+       "CWO-EZ-08": 3
+      }
+     },
+     "p02": {
+      "rows_in_part": 20,
+      "rows_with_orders": 20,
+      "new_rows": 0,
+      "retire": 0,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-01": 36,
+       "hard_finding": 41,
+       "CWO-EZ-05": 5,
+       "CWO-EZ-08": 16,
+       "CWO-EZ-02": 5
+      }
+     },
+     "p03": {
+      "rows_in_part": 20,
+      "rows_with_orders": 20,
+      "new_rows": 0,
+      "retire": 0,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-02": 35,
+       "CWO-EZ-06": 11,
+       "CWO-EZ-07": 35,
+       "hard_finding": 24,
+       "CWO-EZ-05": 2,
+       "CWO-EZ-08": 5,
+       "ruling_order": 1
+      }
+     },
+     "p04": {
+      "rows_in_part": 11,
+      "rows_with_orders": 11,
+      "new_rows": 0,
+      "retire": 0,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-06": 15,
+       "CWO-EZ-05": 1,
+       "CWO-EZ-08": 6,
+       "CWO-EZ-02": 2,
+       "hard_finding": 2
+      }
+     },
+     "p05": {
+      "rows_in_part": 8,
+      "rows_with_orders": 8,
+      "new_rows": 0,
+      "retire": 0,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-02": 1,
+       "CWO-EZ-05": 1,
+       "CWO-EZ-06": 30,
+       "hard_finding": 1,
+       "CWO-EZ-08": 1
+      }
+     },
+     "p06": {
+      "rows_in_part": 13,
+      "rows_with_orders": 13,
+      "new_rows": 0,
+      "retire": 1,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-02": 10,
+       "CWO-EZ-06": 32,
+       "CWO-EZ-08": 49,
+       "hard_finding": 11,
+       "ruling_order": 4
+      }
+     },
+     "p07": {
+      "rows_in_part": 8,
+      "rows_with_orders": 8,
+      "new_rows": 1,
+      "retire": 0,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-06": 40,
+       "CWO-EZ-08": 2,
+       "hard_finding": 1,
+       "ruling_order": 2
+      }
+     },
+     "p08": {
+      "rows_in_part": 14,
+      "rows_with_orders": 14,
+      "new_rows": 1,
+      "retire": 2,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-05": 5,
+       "CWO-EZ-08": 66,
+       "ruling_order": 9,
+       "CWO-EZ-02": 6,
+       "hard_finding": 4
+      }
+     },
+     "p09": {
+      "rows_in_part": 11,
+      "rows_with_orders": 10,
+      "new_rows": 0,
+      "retire": 3,
+      "holds": 5,
+      "item_counts": {
+       "CWO-EZ-02": 8,
+       "CWO-EZ-05": 1,
+       "CWO-EZ-06": 3,
+       "hard_finding": 7,
+       "ruling_order": 9,
+       "CWO-EZ-08": 1
+      }
+     },
+     "p10": {
+      "rows_in_part": 15,
+      "rows_with_orders": 15,
+      "new_rows": 1,
+      "retire": 1,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-05": 2,
+       "CWO-EZ-06": 44,
+       "CWO-EZ-08": 12,
+       "ruling_order": 5,
+       "CWO-EZ-02": 2,
+       "hard_finding": 2
+      }
+     },
+     "p11": {
+      "rows_in_part": 13,
+      "rows_with_orders": 12,
+      "new_rows": 2,
+      "retire": 0,
+      "holds": 0,
+      "item_counts": {
+       "CWO-EZ-05": 5,
+       "CWO-EZ-08": 28,
+       "ruling_order": 5
+      }
+     }
+    },
+    "new_row_ids": "the next unused number in the part; an id that ever existed is never reused",
+    "landing": "_land_author_part_ezek.py: form, coverage of every ordered row, local tiling, E-01",
+    "apply": "_apply_author_wave_ezek.py: one new rows file, whole-book tiling, chunk_index renumbered",
+    "after": "suite re-run (HARD GREEN), per-CWO coverage sweeps, distinct-checker spot review",
+    "held": "p04 and p11 launch only after C3-1 and C3-2 are ruled; any cut becomes an extra order"
+   }
+  }
+ ]
+}

@@ -1,0 +1,533 @@
+{
+ "schema": "m8_transcript_coverage_census.v2",
+ "supersedes": "transcript_coverage_census.v1.json, which kept its bytes; amended by TOOLFIX-6 under ezek_controlling_rulings_a1#e11 ruling TRANSCRIPT-ROUTE (Q2)",
+ "routes": {
+  "manifest": "**/transcript_manifest.v*.json, as v1 read",
+  "per_book_subagents_index": "transcripts/_subagents_index.<book>.v1.json (OW-11-m), re-hashed at count time",
+  "preserved_store_index": "transcripts/<session>/_index.json where its shape binds attempt ids to files with bytes",
+  "retention_rule": "the union of the routes INTERSECTED with the book's receipt attempt ids; ids outside that intersection are listed as preserved_not_a_receipt_attempt, so a _wave2 or relaunch key never inflates retention; a blank attempt id is refused"
+ },
+ "manifests_skipped_as_records_not_routes": [
+  {
+   "path": "Ezek/transcript_manifest.v2.CANDIDATE.json",
+   "sha256": "4a9f3b5669bbd0c69eb67a7bbe5161fca30370ba46b644d74b7ec9ff2374b783",
+   "why": "kept as a record, never installed; not a route the census reads"
+  }
+ ],
+ "unbound_store_indexes": [
+  {
+   "route": "preserved_store_index",
+   "path": "transcripts/221a93aa-d2a7-4d91-a265-84e495a39efa/_index.json",
+   "sha256": "dd19f39b2216b6e8e30eea132ba7c40ea3442fb90cee7a964acb3f69c14fd513",
+   "read": false,
+   "rows": 5,
+   "attempt_ids_mapped_it_declares": {
+    "a481fe2d2eed1c69b.output": "campaign_hardness_01_a1",
+    "af62b4b92bf4b6f55.output": "campaign_hardness_b01_a1",
+    "a774536c48a8b01e6.output": "campaign_hardness_b02_a1",
+    "aa069a67186aace5d.output": "campaign_hardness_b03_a1",
+    "a61e1f2310278afbf.output": "campaign_hardness_b04_a1",
+    "a5a0b5f10cb887337.output": "campaign_hardness_consolidate_a1",
+    "a21c3f04e443ca131.output": "lam_auth_a01_a1",
+    "aa8ca34b9f526a42d.output": "lam_auth_a01_a2",
+    "a6f8a44dfddeafa0c.output": "lam_auth_a02_a1",
+    "ab6ac740707d33c12.output": "lam_auth_a03_a1",
+    "a0fa9323fe025a37e.output": "lam_boss_b3_a1",
+    "a7892650940ccc12b.output": "lam_cwo_01_a1",
+    "a30f51dbeef6ee641.output": "lam_cwo_02_a1",
+    "a470567e450047c8d.output": "lam_cwo_03_a1",
+    "a4d21ecf8d58dfc35.output": "lam_cwo_04_a1",
+    "a475119e019fdbab5.output": "lam_cwo_corr_01_a1",
+    "a233c7cd015aeac1a.output": "lam_cwo_corr_02_a1",
+    "a9e6af9ceadb6bf90.output": "lam_fix_f01_a1",
+    "a37b5a56d8a548716.output": "lam_micro_m01_a1",
+    "a442aa5dbba7f4db8.output": "lam_micro_m02_a1",
+    "a0337d166a82e1e27.output": "lam_postcheck_01_a1",
+    "a1e4602fa3e952f31.output": "lam_postcheck_02_a1",
+    "a083668bb5bd82290.output": "lam_sidecar_1_a1",
+    "a06a6ee75d96b8ec3.output": "lam_sidecar_2_a1",
+    "af2b7a8b9cd0f7bc8.output": "lam_sidecar_corr_a1",
+    "a2051af806196d023.output": "lam_spot_S1_a1",
+    "a6c376338e77523f7.output": "lam_spot_S2_a1",
+    "a9cd8d6e4a51daf80.output": "lam_spot_S3_a1",
+    "aa01a5cfaed8aff37.output": "lam_spot_S4_a1",
+    "aa79dae7e85cb069f.output": "lam_spot_S5_a1"
+   },
+   "note": "present, not read by this tool: its shape does not bind attempt ids to preserved files with bytes (its `files` is a list of file names). The shape question returns to the controlling agent (#e11 Q2); nothing is inferred from it here."
+  },
+  {
+   "route": "preserved_store_index",
+   "path": "transcripts/6116e665-408b-4874-9bf0-881eb9c464f5/_index.json",
+   "sha256": "9e76bcc5d4405f6a2a95f17a3650e6c94fbf315bbf908f236c16250000c82565",
+   "read": false,
+   "rows": 0,
+   "attempt_ids_mapped_it_declares": {
+    "a481fe2d2eed1c69b.output": "campaign_hardness_01_a1",
+    "af62b4b92bf4b6f55.output": "campaign_hardness_b01_a1",
+    "a774536c48a8b01e6.output": "campaign_hardness_b02_a1",
+    "aa069a67186aace5d.output": "campaign_hardness_b03_a1",
+    "a61e1f2310278afbf.output": "campaign_hardness_b04_a1",
+    "a5a0b5f10cb887337.output": "campaign_hardness_consolidate_a1",
+    "a21c3f04e443ca131.output": "lam_auth_a01_a1",
+    "aa8ca34b9f526a42d.output": "lam_auth_a01_a2",
+    "a6f8a44dfddeafa0c.output": "lam_auth_a02_a1",
+    "ab6ac740707d33c12.output": "lam_auth_a03_a1",
+    "a0fa9323fe025a37e.output": "lam_boss_b3_a1",
+    "a7892650940ccc12b.output": "lam_cwo_01_a1",
+    "a30f51dbeef6ee641.output": "lam_cwo_02_a1",
+    "a470567e450047c8d.output": "lam_cwo_03_a1",
+    "a4d21ecf8d58dfc35.output": "lam_cwo_04_a1",
+    "a475119e019fdbab5.output": "lam_cwo_corr_01_a1",
+    "a233c7cd015aeac1a.output": "lam_cwo_corr_02_a1",
+    "a9e6af9ceadb6bf90.output": "lam_fix_f01_a1",
+    "a37b5a56d8a548716.output": "lam_micro_m01_a1",
+    "a442aa5dbba7f4db8.output": "lam_micro_m02_a1",
+    "a0337d166a82e1e27.output": "lam_postcheck_01_a1",
+    "a1e4602fa3e952f31.output": "lam_postcheck_02_a1",
+    "a083668bb5bd82290.output": "lam_sidecar_1_a1",
+    "a06a6ee75d96b8ec3.output": "lam_sidecar_2_a1",
+    "af2b7a8b9cd0f7bc8.output": "lam_sidecar_corr_a1",
+    "a2051af806196d023.output": "lam_spot_S1_a1",
+    "a6c376338e77523f7.output": "lam_spot_S2_a1",
+    "a9cd8d6e4a51daf80.output": "lam_spot_S3_a1",
+    "aa01a5cfaed8aff37.output": "lam_spot_S4_a1",
+    "aa79dae7e85cb069f.output": "lam_spot_S5_a1"
+   },
+   "note": "present, not read by this tool: its shape does not bind attempt ids to preserved files with bytes (its `files` is a list of file names). The shape question returns to the controlling agent (#e11 Q2); nothing is inferred from it here."
+  },
+  {
+   "route": "preserved_store_index",
+   "path": "transcripts/dce0b6e2-5586-41d9-8b2f-26f22fb19fa5/_index.json",
+   "sha256": "a60c79c23dc1c666f37e19f4fab21084f31213f024d05bbd15a795e0aeb4ae83",
+   "read": false,
+   "rows": 13,
+   "attempt_ids_mapped_it_declares": {
+    "a481fe2d2eed1c69b.output": "campaign_hardness_01_a1",
+    "af62b4b92bf4b6f55.output": "campaign_hardness_b01_a1",
+    "a774536c48a8b01e6.output": "campaign_hardness_b02_a1",
+    "aa069a67186aace5d.output": "campaign_hardness_b03_a1",
+    "a61e1f2310278afbf.output": "campaign_hardness_b04_a1",
+    "a5a0b5f10cb887337.output": "campaign_hardness_consolidate_a1",
+    "a21c3f04e443ca131.output": "lam_auth_a01_a1",
+    "aa8ca34b9f526a42d.output": "lam_auth_a01_a2",
+    "a6f8a44dfddeafa0c.output": "lam_auth_a02_a1",
+    "ab6ac740707d33c12.output": "lam_auth_a03_a1",
+    "a0fa9323fe025a37e.output": "lam_boss_b3_a1",
+    "a7892650940ccc12b.output": "lam_cwo_01_a1",
+    "a30f51dbeef6ee641.output": "lam_cwo_02_a1",
+    "a470567e450047c8d.output": "lam_cwo_03_a1",
+    "a4d21ecf8d58dfc35.output": "lam_cwo_04_a1",
+    "a475119e019fdbab5.output": "lam_cwo_corr_01_a1",
+    "a233c7cd015aeac1a.output": "lam_cwo_corr_02_a1",
+    "a9e6af9ceadb6bf90.output": "lam_fix_f01_a1",
+    "a37b5a56d8a548716.output": "lam_micro_m01_a1",
+    "a442aa5dbba7f4db8.output": "lam_micro_m02_a1",
+    "a0337d166a82e1e27.output": "lam_postcheck_01_a1",
+    "a1e4602fa3e952f31.output": "lam_postcheck_02_a1",
+    "a083668bb5bd82290.output": "lam_sidecar_1_a1",
+    "a06a6ee75d96b8ec3.output": "lam_sidecar_2_a1",
+    "af2b7a8b9cd0f7bc8.output": "lam_sidecar_corr_a1",
+    "a2051af806196d023.output": "lam_spot_S1_a1",
+    "a6c376338e77523f7.output": "lam_spot_S2_a1",
+    "a9cd8d6e4a51daf80.output": "lam_spot_S3_a1",
+    "aa01a5cfaed8aff37.output": "lam_spot_S4_a1",
+    "aa79dae7e85cb069f.output": "lam_spot_S5_a1"
+   },
+   "note": "present, not read by this tool: its shape does not bind attempt ids to preserved files with bytes (its `files` is a list of file names). The shape question returns to the controlling agent (#e11 Q2); nothing is inferred from it here."
+  }
+ ],
+ "store_indexes_read": [],
+ "built": "2026-09-14T21:11:35.657572+00:00",
+ "authority": "owner directive OW-10 (2026-09-08): report coverage from an explicit per-book census; do not launch another blanket audit",
+ "read_only": true,
+ "what_the_three_numbers_mean": {
+  "attempts": "distinct attempt_ids in the book's receipts - the denominator",
+  "transcript_retained": "a transcript with bytes>0 still readable; a zero-byte mapped entry is a name with nothing behind it and is counted separately, never as retention",
+  "observed": "a stage-1 auditor READ it and wrote per-transcript findings - the only number that supports a claim about discovered breaches"
+ },
+ "per_book": {
+  "Ezek": {
+   "attempts": 66,
+   "attempts_note": null,
+   "transcript_retained": 63,
+   "transcript_retained_by_route": {
+    "manifest": 63,
+    "per_book_subagents_index": 63,
+    "preserved_store_index": 0,
+    "union_before_intersection": 63,
+    "rule": "retention is the union of the routes INTERSECTED with this book's receipt attempt ids"
+   },
+   "preserved_not_a_receipt_attempt": [],
+   "routes_read": [
+    {
+     "route": "per_book_subagents_index",
+     "path": "transcripts/_subagents_index.ezek.v1.json",
+     "sha256": "e3917d40b3bdb03008d991893b5486a1babdff7ada4dbc0d383ec2559b4b4065",
+     "entries": 78,
+     "read": true,
+     "rule": "retained when the durable transcript has bytes > 0 and re-hashes to its durable_sha256 at count time",
+     "retained": 78,
+     "rehash_mismatches": 0
+    }
+   ],
+   "transcript_retained_manifest_route_only": 63,
+   "transcript_mapped_but_zero_bytes": 15,
+   "observed": 0,
+   "observed_attempt_ids": [],
+   "observed_pct_of_attempts": 0.0,
+   "observed_by": null
+  },
+  "Jer": {
+   "attempts": 74,
+   "attempts_note": null,
+   "transcript_retained": 0,
+   "transcript_retained_by_route": {
+    "manifest": 0,
+    "per_book_subagents_index": 0,
+    "preserved_store_index": 0,
+    "union_before_intersection": 0,
+    "rule": "retention is the union of the routes INTERSECTED with this book's receipt attempt ids"
+   },
+   "preserved_not_a_receipt_attempt": [],
+   "routes_read": [],
+   "transcript_retained_manifest_route_only": 0,
+   "transcript_mapped_but_zero_bytes": 0,
+   "observed": 5,
+   "observed_attempt_ids": [
+    "jer_cwo_03_a1",
+    "jer_cwo_10_a1",
+    "jer_micro_m11_a1",
+    "jer_postcheck_02_a1",
+    "jer_spot_S3_a1"
+   ],
+   "observed_pct_of_attempts": 6.8,
+   "observed_by": [
+    "lam_tscript_02_a1",
+    "lam_tscript_03_a1",
+    "lam_tscript_04_a1"
+   ]
+  },
+  "Lam": {
+   "attempts": 57,
+   "attempts_note": null,
+   "transcript_retained": 5,
+   "transcript_retained_by_route": {
+    "manifest": 5,
+    "per_book_subagents_index": 0,
+    "preserved_store_index": 0,
+    "union_before_intersection": 5,
+    "rule": "retention is the union of the routes INTERSECTED with this book's receipt attempt ids"
+   },
+   "preserved_not_a_receipt_attempt": [],
+   "routes_read": [],
+   "transcript_retained_manifest_route_only": 5,
+   "transcript_mapped_but_zero_bytes": 32,
+   "observed": 6,
+   "observed_attempt_ids": [
+    "lam_auth_a02_a1",
+    "lam_auth_a03_a1",
+    "lam_boss_b1_a1",
+    "lam_cwo_04_a1",
+    "lam_pr_OL_c01_a1",
+    "lam_pr_OL_c04_a1"
+   ],
+   "observed_pct_of_attempts": 10.5,
+   "observed_by": [
+    "lam_tscript_01_a1",
+    "lam_tscript_02_a1",
+    "lam_tscript_03_a1",
+    "lam_tscript_04_a1"
+   ]
+  },
+  "OW2_audit": {
+   "attempts": 93,
+   "attempts_note": null,
+   "transcript_retained": 0,
+   "transcript_retained_by_route": {
+    "manifest": 0,
+    "per_book_subagents_index": 0,
+    "preserved_store_index": 0,
+    "union_before_intersection": 0,
+    "rule": "retention is the union of the routes INTERSECTED with this book's receipt attempt ids"
+   },
+   "preserved_not_a_receipt_attempt": [],
+   "routes_read": [],
+   "transcript_retained_manifest_route_only": 0,
+   "transcript_mapped_but_zero_bytes": 0,
+   "observed": 0,
+   "observed_attempt_ids": [],
+   "observed_pct_of_attempts": 0.0,
+   "observed_by": null
+  },
+  "REPAIR": {
+   "attempts": 8,
+   "attempts_note": null,
+   "transcript_retained": 0,
+   "transcript_retained_by_route": {
+    "manifest": 0,
+    "per_book_subagents_index": 0,
+    "preserved_store_index": 0,
+    "union_before_intersection": 0,
+    "rule": "retention is the union of the routes INTERSECTED with this book's receipt attempt ids"
+   },
+   "preserved_not_a_receipt_attempt": [],
+   "routes_read": [],
+   "transcript_retained_manifest_route_only": 0,
+   "transcript_mapped_but_zero_bytes": 0,
+   "observed": 0,
+   "observed_attempt_ids": [],
+   "observed_pct_of_attempts": 0.0,
+   "observed_by": null
+  },
+  "campaign": {
+   "attempts": 0,
+   "attempts_note": "denominator from this book's own receipts; 0 means the book kept no per-attempt receipts under sp_durable, which is itself the finding",
+   "transcript_retained": 0,
+   "transcript_retained_by_route": {
+    "manifest": 0,
+    "per_book_subagents_index": 0,
+    "preserved_store_index": 0,
+    "union_before_intersection": 0,
+    "rule": "retention is the union of the routes INTERSECTED with this book's receipt attempt ids"
+   },
+   "preserved_not_a_receipt_attempt": [],
+   "routes_read": [],
+   "transcript_retained_manifest_route_only": 0,
+   "transcript_mapped_but_zero_bytes": 6,
+   "observed": 0,
+   "observed_attempt_ids": [],
+   "observed_pct_of_attempts": null,
+   "observed_by": null
+  }
+ },
+ "rollup": {
+  "observed_attempts_total": 11,
+  "books_with_observation": [
+   "Jer",
+   "Lam"
+  ],
+  "books_with_zero_observation": [
+   "Ezek",
+   "OW2_audit",
+   "REPAIR"
+  ],
+  "plain_statement": "Transcript-based observation covered 11 attempts in total: 5 in Jer (6.8% of its 74 attempts), 6 in Lam (10.5% of its 57 attempts). Every other book, including every other book before Jeremiah, had zero observed attempts."
+ },
+ "correction_this_census_forces": {
+  "superseded_claim": "the discovery method 'existed for about one attempt in eight in Lamentations and for none of the earlier books'",
+  "why_it_was_wrong": "Jeremiah is an earlier book and five of its attempts were observed and are cited by name in the same report's own findings; and the Lamentations figure was stated as a remembered ratio rather than a counted one",
+  "replacement": "the per_book census above, cited by number"
+ },
+ "evidence": {
+  "receipt_files": [
+   {
+    "path": "Ezek/author/ezek_author_attempt_receipts.jsonl",
+    "sha256": "181934cefd453eed1ebb7f973050ef1347b256493cb11a23058f13ca385af760"
+   },
+   {
+    "path": "Ezek/ezek_phase0_attempt_receipts.jsonl",
+    "sha256": "2cd478325c19ce2a68a3f7b8d28a74af889289d05cf1d2f04c0eb1113ec02794"
+   },
+   {
+    "path": "Ezek/ezek_rulings_attempt_receipts.jsonl",
+    "sha256": "1b2ab1dbb4262fa1bcf3a58b049b34890c4fc5e0745cce47f34222b82ef42cab"
+   },
+   {
+    "path": "Ezek/fixup1/ezek_author_fixup_attempt_receipts.jsonl",
+    "sha256": "179d1be638330f5e9dd91e7f803a1dd79c67225ddb1eaee19fce2f6005a84fc4"
+   },
+   {
+    "path": "Ezek/fixup2/ezek_author_fixup_attempt_receipts.jsonl",
+    "sha256": "cd1966e6ea2f7410681034be8771e31081c2bdb0f24efbb37a5c9bf46660b44b"
+   },
+   {
+    "path": "Ezek/fixup3/ezek_author_fixup_attempt_receipts.jsonl",
+    "sha256": "6e492311921ac4b30e756cfb30d9f2bebe3348be8f64b08e19dcafec316afd12"
+   },
+   {
+    "path": "Ezek/writer/ezek_writer_attempt_receipts.jsonl",
+    "sha256": "d2a45aec007c4861c54353e995df71668973fec4a78b4cc01ce53aa2a7351058"
+   },
+   {
+    "path": "Jer/author/jer_author_attempt_receipts.jsonl",
+    "sha256": "ccd582906974e45d615ca4a6be8037186034221c731d33f750f5fbfca4661c11"
+   },
+   {
+    "path": "Jer/cwo/jer_cwo_attempt_receipts.jsonl",
+    "sha256": "af865ddeb5f5192934bf309d31a799b0cfc0934a495936271cce4e8ac2d70759"
+   },
+   {
+    "path": "Jer/postcheck/jer_finalize_attempt_receipts.jsonl",
+    "sha256": "5ee8c20bee9482b1dabe8f2f8f0f0c6e3419ccd5248490422fb9d71be0f0c993"
+   },
+   {
+    "path": "Jer/spot/jer_fix_attempt_receipts.jsonl",
+    "sha256": "f86619059b8466ee5a769e298edd95703a3164092047bc6f0d4338af1eb18646"
+   },
+   {
+    "path": "Jer/spot/jer_micro_attempt_receipts.jsonl",
+    "sha256": "57db715693259f41b64f53bbbb46447f90aab1c1754b7a1c3746d69896ec0b68"
+   },
+   {
+    "path": "Jer/spot/jer_spot_attempt_receipts.jsonl",
+    "sha256": "d57c3b58dd56fa2cb3bd750e2a21dbc0a422cdaada38973a01a94229ecb83a78"
+   },
+   {
+    "path": "Lam/author/lam_author_attempt_receipts.jsonl",
+    "sha256": "9af8a50c78d99e732021d2d72b8b8504de8ca1128cef4a9a55b39c330078fc07"
+   },
+   {
+    "path": "Lam/cwo/lam_cwo_attempt_receipts.jsonl",
+    "sha256": "38f5598b0b862318c7bdb24d424cc7e46f52176e83918dc5ce594eb7c52490b2"
+   },
+   {
+    "path": "Lam/final_check/lam_final_check_attempt_receipts.jsonl",
+    "sha256": "3db2b9a33668f0cc1842d99035ce11a32a7c6f9470da7edb56186768d6944622"
+   },
+   {
+    "path": "Lam/postcheck/lam_postcheck_attempt_receipts.jsonl",
+    "sha256": "ff95f6d3a65e1802c7f0b4babfb32bbd4af69b1f0f82479647aec449c3f2e30e"
+   },
+   {
+    "path": "Lam/postcheck/lam_sidecar_attempt_receipts.jsonl",
+    "sha256": "d44125b60dd6c656d996f0ac9c569a594fa9bd5e6f5524ba89ab398d0e186fa7"
+   },
+   {
+    "path": "Lam/reviews/lam_boss_attempt_receipts.jsonl",
+    "sha256": "c292aff59fc956058cd4159b67613f6856a74fe90619cd886613cd566cf160e8"
+   },
+   {
+    "path": "Lam/reviews/lam_peer_attempt_receipts.jsonl",
+    "sha256": "8a0287caa2db309b5a5572b955e0bcdf28c203894ff859a2147c89667a3f54ad"
+   },
+   {
+    "path": "Lam/reviews/lam_pr_attempt_receipts.jsonl",
+    "sha256": "ce5e83f808ad783f17c9ba19c3de4441456588d80d8dbd0d663316326cb3bfb3"
+   },
+   {
+    "path": "Lam/spot/lam_fix_attempt_receipts.jsonl",
+    "sha256": "2ee95784212c489c4950b35ef682645f56117f638a16f929897298ddfd46f63c"
+   },
+   {
+    "path": "Lam/spot/lam_micro_attempt_receipts.jsonl",
+    "sha256": "a68beebb0765012b8cf711efde4b18674c50c334f8081b222a0d058b07345eac"
+   },
+   {
+    "path": "Lam/spot/lam_spot_attempt_receipts.jsonl",
+    "sha256": "67232996b57ad2455aee6a651d5906a94d0b582878ffc513737cbc78ee5b9f8b"
+   },
+   {
+    "path": "Lam/writer/lam_writer_attempt_receipts.jsonl",
+    "sha256": "9df9495deca8fa741d4c1db0ea2d8d9a49c5acf566e5b14546afaee9acbe73c3"
+   },
+   {
+    "path": "OW2_audit/ow2adj_attempt_receipts.jsonl",
+    "sha256": "8de94e04824c1227637f21f66c3ae7e90597026aaaa01cf6ac05fba770c330b3"
+   },
+   {
+    "path": "OW2_audit/ow2adj_re_attempt_receipts.jsonl",
+    "sha256": "69d95e090762125a4a0d6130a2ea14064774c29c13ad5b609a1cd8873b1f45e7"
+   },
+   {
+    "path": "OW2_audit/ow2i2_attempt_receipts.jsonl",
+    "sha256": "be6ba60c1aff1a61e1a10eb5ce418c07825db2cc0640df31c57b7e6d5de11a19"
+   },
+   {
+    "path": "OW2_audit/ow2i2adj_attempt_receipts.jsonl",
+    "sha256": "da5cd0df4b56e47f594f27892a706731a80645b6439c89c417d56fd99faa9315"
+   },
+   {
+    "path": "OW2_audit/ow2lf_attempt_receipts.jsonl",
+    "sha256": "5159496371cc404a36a031b5fabf165401f02a0dcf00818ace8370fa97d65bf0"
+   },
+   {
+    "path": "OW2_audit/ow2p38_attempt_receipts.jsonl",
+    "sha256": "40675e0630f0496814d53b0e527b0ea6e823b84c7a202b31e9c932cdd0a6b344"
+   },
+   {
+    "path": "REPAIR/Eccl/repair_attempt_receipts.jsonl",
+    "sha256": "a9710070abc0c2862141953ac874112bc7beeed00122bb35fe237f8dd1ed0a56"
+   },
+   {
+    "path": "REPAIR/Eccl/semcheck_attempt_receipts.jsonl",
+    "sha256": "f16c24f624a176ee83143af0d69a3ebee1c822820a973be227fd435c1f9c15bf"
+   },
+   {
+    "path": "REPAIR/Job/repair_attempt_receipts.jsonl",
+    "sha256": "1f462f90d18a241f53157d9db9c71732887460034d175de3f5aa07f74110b70a"
+   },
+   {
+    "path": "REPAIR/Ps/repair_attempt_receipts.jsonl",
+    "sha256": "2bc28be71e210f024ff52c4c20b0460cdbb93872ef150efecaf0375dfe9c15e4"
+   }
+  ],
+  "manifests": [
+   {
+    "path": "campaign/transcript_manifest.v1.json",
+    "sha256": "3859abe4bde5e35968bcad14250741c4cc5a65e4aa0fe68750151a3a0564eff8",
+    "declares_book": "Lam",
+    "mapped": 30
+   },
+   {
+    "path": "Ezek/transcript_manifest.v1.json",
+    "sha256": "8ee112516d1ca421dfa42f8acbaaa4536fc6a1bab9c68745f851cd4a96035a16",
+    "declares_book": "Ezek",
+    "mapped": 20
+   },
+   {
+    "path": "Ezek/transcript_manifest.v2.json",
+    "sha256": "f0956f43bd14b23215385ecd0450bd1fb6142c3c9468524e78ea3da0ce358b2d",
+    "declares_book": "Ezek",
+    "mapped": 78
+   },
+   {
+    "path": "Lam/transcript_manifest.v1.json",
+    "sha256": "3859abe4bde5e35968bcad14250741c4cc5a65e4aa0fe68750151a3a0564eff8",
+    "declares_book": "Lam",
+    "mapped": 30
+   },
+   {
+    "path": "Lam/transcript_manifest.v2.json",
+    "sha256": "dc532039bbb99f2336bd3e66d61b8bff5097074a4dc0686f626c7e48ed6b9ece",
+    "declares_book": "Lam",
+    "mapped": 30
+   },
+   {
+    "path": "Lam/transcript_manifest.v3.json",
+    "sha256": "b908c3d64da66e3859ffe66a54676d8b55cb1510784e6cfb22e3d2e22414f68c",
+    "declares_book": "Lam",
+    "mapped": 43
+   }
+  ],
+  "audit_packets": [
+   {
+    "path": "Lam/final_check/transcript_audit_01.json",
+    "sha256": "11855c778a5a0f5c2c835c19204cab6ddc6c505e9f6478b513a1ae797feac4ce",
+    "auditor_attempt": "lam_tscript_01_a1",
+    "per_transcript": 2
+   },
+   {
+    "path": "Lam/final_check/transcript_audit_02.json",
+    "sha256": "5061ac1b8484095867fe2a1272ace71c511233fd96f33a4f8d9b1efdeec75cd1",
+    "auditor_attempt": "lam_tscript_02_a1",
+    "per_transcript": 3
+   },
+   {
+    "path": "Lam/final_check/transcript_audit_03.json",
+    "sha256": "fa4699888d6b4a996c585279c7bb6293f9ea1170d7b0da4f3f1dc76b5d5b1335",
+    "auditor_attempt": "lam_tscript_03_a1",
+    "per_transcript": 3
+   },
+   {
+    "path": "Lam/final_check/transcript_audit_04.json",
+    "sha256": "52d1e9b5c9bf095a3c12ea5afb787abd96cd7c280f803ed0f4c9b6360f73f858",
+    "auditor_attempt": "lam_tscript_04_a1",
+    "per_transcript": 3
+   }
+  ]
+ },
+ "limits": [
+  "observation is per ATTEMPT, not per byte; an observed attempt was read closely over the auditor's stated slice, and each packet carries its own coverage_statement",
+  "this census counts what the record shows was read. It is not a claim that unobserved attempts were sound, and OW-8 forbids treating their absence as a defect"
+ ]
+}

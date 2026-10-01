@@ -1,0 +1,127 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "batch": "TOOLFIX-6",
+ "installed_at": "2026-09-14T21:13:20.770362+00:00",
+ "installed_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "ordered_by": "ezek_controlling_rulings_a1#e11 ruling TRANSCRIPT-ROUTE (Q1)-(Q3)",
+ "why": "a gate-bearing coverage count was measured on a route its producer stopped writing: the census read only **/transcript_manifest.v*.json while OW-11-m moved subagent transcripts to <session>/subagents/, and the Q8 generator read tasks/<agent_id>.output under ONE hardcoded session root",
+ "files": [
+  {
+   "path": "sp_durable/campaign/_transcript_coverage_census.py",
+   "sha256_before": "2834f8a8aeed61eb77f461eadda61596fc1ef14b51d5022d997dd26632d1f915",
+   "sha256_after": "6b9d55e6261d26f782a673e3d2a9c1d8b54d8576405db5415ac111435784112c",
+   "preimage": "sp_durable/campaign/tool_preimages/_transcript_coverage_census.pre_tf6.2834f8a8.py",
+   "diff": {
+    "path": "sp_durable/Ezek/proposals/toolfix6/_transcript_coverage_census.tf6.diff",
+    "sha256": "d9ff114b5d734bfe840b768e8a61df055a30c9b7b3c1108d4a096f6380cf852e"
+   }
+  },
+  {
+   "path": "sp_durable/Ezek/_coverage_statement_ezek.py",
+   "sha256_before": "7c5d6e81a5f94ab99faa0056747926ee253347ef49abfc50cb5733ffbd100054",
+   "sha256_after": "cb0db5cc8d08d733b2a53553415803fecb9d1431aaeb2c7df1a6b359b418eeef",
+   "preimage": "sp_durable/campaign/tool_preimages/_coverage_statement_ezek.pre_tf6.7c5d6e81.py",
+   "diff": {
+    "path": "sp_durable/Ezek/proposals/toolfix6/_coverage_statement_ezek.tf6.diff",
+    "sha256": "35aca3be07b12fc509f5dec3edb37175da5174a49fd1976a54a7d5859b7ebdda"
+   }
+  }
+ ],
+ "artifacts": [
+  {
+   "path": "sp_durable/Ezek/transcript_manifest.v2.json",
+   "sha256": "f0956f43bd14b23215385ecd0450bd1fb6142c3c9468524e78ea3da0ce358b2d",
+   "what": "rebuilt from the preserver index; 78 executions, 63 distinct attempts, 0 blank ids, 0 rehash mismatches"
+  },
+  {
+   "path": "sp_durable/campaign/transcript_coverage_census.v2.json",
+   "sha256": "2c420ed8e90f91dd21aa91c35479e238cf34184d869ec74bc7e438c5d6efcd87",
+   "what": "the recount; v1 keeps its bytes at e34f289d"
+  },
+  {
+   "path": "sp_durable/Ezek/coverage/coverage_statement.pre_primaries.json",
+   "sha256": "6df1221f7b32bdc5eb3dc40426531cdf5220a3ccbce9b9bbf5f8cea9c587e43f",
+   "what": "the Q8 pre_primaries statement #e4 (10) requires, built AFTER the cure as #e11 Q5 orders"
+  }
+ ],
+ "the_measured_change": {
+  "ezek_attempts": 66,
+  "ezek_retained_before": "5 (the v1 code over today's tree, as the Q8 dry run reported; the stored v1 artifact has no Ezek block at all)",
+  "ezek_retained_after": 63,
+  "by_route": {
+   "manifest": 63,
+   "per_book_subagents_index": 63,
+   "preserved_store_index": 0,
+   "union_before_intersection": 63,
+   "rule": "retention is the union of the routes INTERSECTED with this book's receipt attempt ids"
+  },
+  "preserved_not_a_receipt_attempt": [],
+  "q8_observed_now_before": "A 3, B 35, unknown 42 (of 80 rows)",
+  "q8_observed_now_after": "A 78, UNAVAILABLE 3 (of 81 rows)",
+  "the_three_unavailable": "ezek_stage_p0_a1#e1, ezek_toolkit_a1#e1, ezek_p0_repair_a1#e1 - all phase0_staging, orchestrator-local attempts that ran no subagent and so never had a transcript to preserve. They are exactly the 66 - 63 the census reports, listed per #e11 Q5 in ezek_primaries/q8_unavailable_rows.json for S5's landing note."
+ },
+ "selftest": {
+  "path": "ezek_primaries/toolfix6_census_selftest.py (orchestrator scratch)",
+  "vectors": 6,
+  "assertions": 8,
+  "verdict": "GREEN",
+  "both_ways": true,
+  "what_it_asserts": [
+   "an index route ADDS retention the manifest route misses",
+   "a manifest-route book is UNCHANGED where no index exists",
+   "a _wave2 key that is not a receipt attempt does NOT inflate and is listed as preserved_not_a_receipt_attempt",
+   "a blank attempt id REFUSES the build",
+   "a zero-byte durable transcript is NOT retention",
+   "a transcript that does not re-hash at count time is NOT retention",
+   "a bound store index is read and an unbound one is recorded, not read"
+  ]
+ },
+ "regression": {
+  "rule": "every book WITHOUT an index route keeps its v1 retention exactly",
+  "retention_v1": {
+   "Jer": 0,
+   "Lam": 5,
+   "OW2_audit": 0,
+   "REPAIR": 0,
+   "campaign": 0
+  },
+  "retention_v2": {
+   "Ezek": 63,
+   "Jer": 0,
+   "Lam": 5,
+   "OW2_audit": 0,
+   "REPAIR": 0,
+   "campaign": 0
+  },
+  "books_with_an_index_route": [
+   "Ezek"
+  ],
+  "books_without_one_that_moved": [],
+  "holds": true
+ },
+ "two_defects_found_while_installing_it": [
+  {
+   "what": "the census glob matched Ezek/transcript_manifest.v2.CANDIDATE.json - the manifest #e11 REFUSED and ordered kept only as the record of a defect - so its 17 blank attempt ids reached the retention union",
+   "how_caught": "preserved_not_a_receipt_attempt printed [''] after the first install",
+   "fix": "a manifest whose name marks it CANDIDATE or SUPERSEDED is skipped and recorded in manifests_skipped_as_records_not_routes"
+  },
+  {
+   "what": "the blank-id refusal covered the two NEW routes but not the manifest route it was added beside",
+   "how_caught": "the same blank",
+   "fix": "the refusal now applies to every route, and the selftest's V4 vector covers it"
+  }
+ ],
+ "a_change_reverted_during_installation": {
+  "what": "the Q8 column rename was first applied to the DICT KEY behaviour_class_at_census, which broke its consumer in the same file",
+  "fix": "the key is stable again and Q8-T (f) is satisfied where it is actually read - the markdown column headers now say 'class at census (tasks/ route, OW-11-m)' and 'class observed now (subagents route)', with a route note in the JSON",
+  "lesson": "a relabel belongs in the presentation, not in a key another reader depends on"
+ },
+ "a_disclosed_fallback": {
+  "what": "19 of the 81 table rows carry no agent_id in the capture index - the executions that predate L-0017's write-the-map-at-launch rule - so an agent-id-only lookup reported UNAVAILABLE for transcripts that are demonstrably preserved",
+  "fix": "the lookup falls back to the attempt id, and every row says which key matched it ('matched by attempt id')",
+  "effect": "A rose from 62 to 78; the 3 that remain are the 3 attempts with no transcript at all"
+ },
+ "dependency_applicability": "v1 of both the census and the statement generator is preserved under its digest and is unchanged. No closed book's figures move: Jer and Lam keep their v1 retention exactly, and their close packets are not rewritten. The Ezekiel figure moves because it was measured on an empty route, and that is the defect.",
+ "distinct_check": "S5 reads TOOLFIX-6's diffs, the rebuilt manifest, census v2 and the pre_primaries statement (#e11 TRANSCRIPT-ROUTE, DISTINCT CHECK)",
+ "limit": "routes and counts only; no transcript content was read (OW-7)"
+}

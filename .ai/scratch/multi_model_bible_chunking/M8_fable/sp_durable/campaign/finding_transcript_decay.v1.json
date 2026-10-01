@@ -1,0 +1,75 @@
+{
+ "schema": "m8_finding.v1",
+ "finding_id": "transcript_decay_mid_session",
+ "book": "Lam",
+ "recorded_at": "2026-09-07T18:15:36.669823+00:00",
+ "severity": "medium",
+ "class": "evidence_retention",
+ "headline": "subagent reasoning transcripts are deleted by the runtime while the session is still running; written evidence decays, it is not merely sometimes-absent",
+ "corrects_earlier_conclusion": {
+  "earlier": "absent transcripts were NEVER written, not truncated",
+  "why_it_was_wrong": "true of the attempts sampled then, and still true of 27 attempts, but incomplete: files that were written with a recorded size and digest have since disappeared",
+  "how_found": "an existence check over every manifest path before launching the stage-1 auditors"
+ },
+ "observations": [
+  "one manifest entry (80 bytes, digest recorded) was gone from tasks/ hours after the manifest was built and had never been mirrored: permanently lost",
+  "two transcripts held in the durable mirror are already absent from tasks/ and were never in the manifest",
+  "a 714-byte file present during a mirror --dry-run was gone when the real run executed seconds later"
+ ],
+ "digits": {
+  "manifest_entries": 55,
+  "manifest_entries_nonempty": 28,
+  "still_present_in_tasks": 27,
+  "recoverable_only_from_mirror": 0,
+  "permanently_lost": 1,
+  "held_in_mirror_but_absent_from_manifest": 5,
+  "durable_store_files": 32,
+  "durable_store_bytes": 10908749,
+  "attempts_with_no_transcript_ever_written": 0
+ },
+ "permanently_lost": [
+  {
+   "transcript": "bouzmp6om.output",
+   "manifest_bytes": 80,
+   "manifest_sha256": "8daa7adf9c5aed012aabc592fbe888af3244dc594d419fec6a6ba01adcbaa6ac",
+   "manifest_mtime_utc": "2026-09-07T18:05:51.306497+00:00",
+   "attempt_id": null,
+   "status": "content no longer exists anywhere; only the digest survives"
+  }
+ ],
+ "recoverable_only_from_mirror": [],
+ "held_in_mirror_but_absent_from_manifest": [
+  {
+   "transcript": "b5ugjin06.output",
+   "bytes": 1191
+  },
+  {
+   "transcript": "basrfmc19.output",
+   "bytes": 33966
+  },
+  {
+   "transcript": "bpd6npttg.output",
+   "bytes": 240
+  },
+  {
+   "transcript": "bpui60ou9.output",
+   "bytes": 62
+  },
+  {
+   "transcript": "bx3j2q945.output",
+   "bytes": 33966
+  }
+ ],
+ "controls_installed": [
+  "stage-1 slices resolve each transcript to the durable mirror first; live tasks/ is the fallback only",
+  "a transcript present in neither is dropped from the slice and REPORTED as lost, never silently omitted",
+  "the durable store is swept so a held transcript missing from the manifest is still assigned to a slice",
+  "the lost list and the held-not-in-manifest list are carried into every stage-1 packet, so the stage-2 final checker must state them as coverage facts in its verdict"
+ ],
+ "remaining_risk": "the mirror runs only when the orchestrator runs it; a transcript written and deleted between two mirror runs is lost leaving only its manifest digest. The window is narrowed, not closed. Closing it would need a mirror run immediately after every wave lands.",
+ "bearing_on_owner_directives": {
+  "OW-6": "'everything written by a subagent even chain of thought' remains satisfiable only for the transcripts that still exist; the stage-2 checker states per-attempt coverage honestly",
+  "OW-6c": "the end-of-campaign re-check of all chain of thought is bounded by what the durable store holds at that time. For books closed BEFORE the mirror existed, transcripts are already gone. This is a fact the owner needs when deciding the scope of that re-check."
+ },
+ "authority": "orchestrator finding; candidate-only, non-authorizing; no corpus row is affected"
+}

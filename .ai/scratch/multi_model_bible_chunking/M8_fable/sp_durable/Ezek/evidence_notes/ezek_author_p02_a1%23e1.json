@@ -1,0 +1,205 @@
+{
+ "attempt_id": "ezek_author_p02_a1",
+ "execution_id": "ezek_author_p02_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\AUTHOR_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\author\\orders_ezek_author_p02_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json (rulings R1, R2, G12, P2, P4, P5 read in full; Q1-Q9/S1-S5/G1-G12 headers scanned)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md (§5-§8, plus §9 orchestrator disposition)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt (verses 10.2,10.6,10.9,10.10,10.13,14.21 read/spliced)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v2_swept_r3.jsonl (sha256 verified, copied to a private scratch path for self-check only, never modified in place)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py, citation_sweep.py, check_marks.py, normalize_hebrew_in_json.py, check_tiling.py (run and/or read)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "20 rows replaced (P02-001..P02-020), _op:replace, spans/confidence/unit_type unchanged (G3 ratifies all p02 spans as written; no re-span orders in this file; new_rows/retire/holds all empty)",
+    "why": "execute CWO-EZ-01 (36 refs canonicalized to R1 witness-prefixed form), CWO-EZ-02 (5 unbound Hebrew runs bound to byte-spliced, oshb:-cited forms in P02-006 and P02-020), CWO-EZ-05 (5 mark-claim corrections/disclosures in P02-002, P02-005, P02-013, P02-018, P02-019), CWO-EZ-08 (16 §8 register-hygiene edits removing cross-part, positional-row, and strategy-citation language)"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "orders file byte-identical to the hash named in the launch message",
+   "how": "sha256sum orders_ezek_author_p02_a1.json",
+   "result": "confirmed (7375fb87e2a33007e4ae05e55db55412fb54df485260f6d3a902b57e86f77402)"
+  },
+  {
+   "claim": "sources.rows file byte-identical to the hash embedded in the orders",
+   "how": "sha256sum rows_v2_swept_r3.jsonl",
+   "result": "confirmed (b526aeb9ad3a950329ae731871b9d9356db27a1aa235d3ae7db80916b728748c)"
+  },
+  {
+   "claim": "every emitted row is schema-valid (22 fields+_op, unit_type in the 12-value vocabulary, confidence in {high,medium,medium_low,low}, non_authorizing=true, decision_ids P02-001..020 in order)",
+   "how": "private Python schema check over the deliverable",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep HARD problems on my rows = 0",
+   "how": "run_validator_suite.py over a private copy of sources.rows with my 20 rows applied; filtered problems[] to P02-*",
+   "result": "confirmed (41 -> 0)"
+  },
+  {
+   "claim": "normalizer defects=0 and fixed=0 on my rows",
+   "how": "normalize_hebrew_in_json.py dry-run over the deliverable file alone",
+   "result": "confirmed (ok=61 qere=6 fixed=0 defects=0)"
+  },
+  {
+   "claim": "check_register.py flags on my rows = 0, and book-wide flag_count drops by exactly my 16 routed items",
+   "how": "run_validator_suite.py register section, filtered to p02- ids and diffed vs baseline",
+   "result": "confirmed (16->0 on my rows; 189->173 book-wide)"
+  },
+  {
+   "claim": "cap_sweep and ngram7 do not flag my rows",
+   "how": "run_validator_suite.py cap_sweep.failures / ngram7.offending_7grams, filtered to P02-*",
+   "result": "confirmed (0 and 0, unchanged from baseline)"
+  },
+  {
+   "claim": "my part's tiling is exact (no gap/overlap, no rows outside the assigned range)",
+   "how": "check_tiling.py over a private copy containing only my 20 rows, --range Ezek.8.1-Ezek.14.23",
+   "result": "confirmed (GREEN, 150/150 verses, 0 problems)"
+  },
+  {
+   "claim": "FLAGS-tier counts on my rows do not rise vs the unmodified baseline",
+   "how": "run_validator_suite.py refs_mirror/mark_symmetry/universals/web_quotes, filtered to P02-*, baseline vs amended",
+   "result": "confirmed (16->16 content-improved, 28->22, 0->0, 0->0)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "P02-013 still carries a mark_symmetry 'paragraph_mark_claim' (claims PE at oshb:Ezek.12.21) identical to baseline",
+   "why_it_matters": "citation_sweep (HARD) does not flag this row and the row's own prose never asserts a mark at 12:21; check_marks.py Rule 1 binds a mark-word to the nearest verse-number candidates within a fixed ±120-char window and, in this exact phrasing, still surfaces 12.21 as a candidate alongside the correct 12.20 even though the correct verse is present in the same window. I tried an explicit 'no parashah mark falls at oshb:Ezek.12.21' disclosure; it did not clear this flag and introduced a new false_mark_absence_claim, so I reverted it. Left as a pre-existing, unchanged FLAGS item for the distinct checker."
+  },
+  {
+   "what": "P02-018 still carries a mark_symmetry 'false_mark_absence_claim' (span-relevant oshb:Ezek.13.16 PE / oshb:Ezek.13.19 SAMEKH), identical to baseline",
+   "why_it_matters": "Per check_marks.py source (Rule 3), this rule fires whenever the row's text contains any absence-shaped phrase (here, the true and necessary disclosure 'no parashah mark falls exactly at 13:23') together with ANY structurally span-relevant mark (13:16/13:19, both real and now disclosed per CWO-EZ-05) -- it does not check whether those marks are actually disclosed. This looks like an inherent coarseness in the checker rather than a defect in the row; removing the 13:23 disclosure to silence it would itself be a fabrication risk (13:23's absence is a real, needed disclosure)."
+  },
+  {
+   "what": "Two pre-existing 'prose_dual_warns' (P02-001 oshb:Ezek.8.6, P02-004 oshb:Ezek.9.11 -- Hebrew quote binds to a K/Q verse with no in-field ketiv/qere disclosure) are unchanged from baseline",
+   "why_it_matters": "Not named in any routed item for these rows (CWO-EZ-01/02/05/08); left untouched per 'you do not re-litigate' and 'NOT YOURS: any order not embedded in your file'. WARN-tier only, unaffected by my edits, and should be considered by whichever wave is scoped for that class."
+  }
+ ],
+ "items": [
+  {
+   "row": "P02-001..P02-020 (36 entries)",
+   "item": "CWO-EZ-01: unprefixed boundary_evidence_refs string entries",
+   "action": "cured",
+   "reason": "rewritten to witness-prefixed canonical form per ruling R1 (oshb:Ezek.C.V (disclosure)); each fix scoped to the exact array index the sweep routed"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-02: unbound Hebrew אופן / גלגל in strongest_rejected_alternative",
+   "action": "cured",
+   "reason": "spliced programmatically from Ezek_oshb.txt by consonantal-skeleton match (אופַַן at oshb:Ezek.10.9, הַַגַּלְלַּל at oshb:Ezek.10.13) and bound with adjacent oshb: refs"
+  },
+  {
+   "row": "P02-020",
+   "item": "CWO-EZ-02: unbound Hebrew כי כה אמר (strongest_rejected_alternative) and דנאל/דניאל (device_notes)",
+   "action": "cured",
+   "reason": "bound to oshb:Ezek.14.21 (inserted before the existing unpointed run without retyping it); the unpointed qere mention replaced by the row's own already-spliced pointed form (extracted from its own boundary_evidence_refs, never hand-typed) plus refs to oshb:Ezek.14.14 and oshb:Ezek.14.20"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-05: false_mark_absence_claim, span-relevant oshb:Ezek.8.6 SAMEKH",
+   "action": "cured",
+   "reason": "added onset-side ref disclosure and a 'Both sides' sentence naming the samekh before this row's onset; citation_sweep and mark_symmetry_gap for 8.6 both resolved"
+  },
+  {
+   "row": "P02-005",
+   "item": "CWO-EZ-05: false_mark_absence_claim, span-relevant oshb:Ezek.9.11 SAMEKH",
+   "action": "cured",
+   "reason": "same pattern as P02-002; mark_symmetry_gap for 9.11 resolved, false_mark_absence_claim rule still fires once per row (structural, see unresolved_uncertainty) but the underlying false gap is closed"
+  },
+  {
+   "row": "P02-013",
+   "item": "CWO-EZ-05: paragraph_mark_claim, false PE claim at Ezek.12.21",
+   "action": "reported",
+   "reason": "citation_sweep HARD confirms no problem remains; the mark_symmetry FLAGS instance is unchanged pre-existing tool coarseness (see unresolved_uncertainty); text never asserts a mark at 12:21"
+  },
+  {
+   "row": "P02-018",
+   "item": "CWO-EZ-05: false_mark_absence, span-relevant oshb:Ezek.13.16 PE / oshb:Ezek.13.19 SAMEKH",
+   "action": "cured",
+   "reason": "onset-side pe disclosure at 13:16 added per CWO-EZ-05 order; citation_sweep clean; residual FLAGS instance is a structural co-occurrence artifact (see unresolved_uncertainty), not an uncured claim"
+  },
+  {
+   "row": "P02-019",
+   "item": "CWO-EZ-05: paragraph_mark_claim, false SAMEKH claim at Ezek.14.4",
+   "action": "cured",
+   "reason": "device_notes restructured to disclose the three real mid-row samekh marks (14.3/14.5/14.8) and explicitly state no mark falls at 14.4; the false claim is gone (replaced by a lower-severity, count-neutral false_mark_absence_claim)"
+  },
+  {
+   "row": "P02-003, P02-004, P02-005, P02-006, P02-008, P02-009, P02-010 (x3), P02-012 (x2), P02-020 (x4)",
+   "item": "CWO-EZ-08: §8 register hygiene (cross-part/part-range, positional-row, strategy-citation language)",
+   "action": "cured",
+   "reason": "each of the 16 flagged phrases rewritten to verse-anchored or self-referential form; check_register.py confirms 16->0 on my rows, 0 new flags introduced, book-wide flag_count exactly -16"
+  },
+  {
+   "row": "all 20 rows",
+   "item": "41 citation_sweep hard_finding confirmations (duplicate reports of the CWO-EZ-01/02 items above)",
+   "action": "cured",
+   "reason": "resolved as a direct consequence of the CWO-EZ-01/02 cures; citation_sweep problems on P02 rows = 0 after repair"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-01 (ref canonicalization, 36 entries)",
+   "test": "citation_sweep 'non-Ezek or malformed ref' problems on P02 rows, baseline vs amended",
+   "result": "PASS (36/36 resolved)"
+  },
+  {
+   "order": "CWO-EZ-02 (Hebrew-quote binding, 5 entries)",
+   "test": "citation_sweep 'no oshb: ref' / 'does not collate' problems on P02-006 and P02-020, baseline vs amended",
+   "result": "PASS (5/5 resolved)"
+  },
+  {
+   "order": "CWO-EZ-05 (mark-claim corrections, 5 entries)",
+   "test": "mark_symmetry flags on P02-002/005/013/018/019, baseline vs amended, plus citation_sweep HARD check",
+   "result": "MIXED: citation_sweep clean on all 5 (PASS); FLAGS-tier fully resolved on P02-002 and P02-005 (PASS); count-neutral swap on P02-019 (PARTIAL); pre-existing FLAGS unchanged on P02-013 and P02-018 (documented, not a regression)"
+  },
+  {
+   "order": "CWO-EZ-08 (register hygiene, 16 entries)",
+   "test": "check_register.py flags on P02 rows, baseline vs amended",
+   "result": "PASS (16/16 resolved, 0 new)"
+  },
+  {
+   "order": "span/granularity integrity (no re-span ordered; G3 ratifies as-written)",
+   "test": "check_tiling.py over the 20 P02 rows, --range Ezek.8.1-Ezek.14.23",
+   "result": "PASS (GREEN, 150/150, 0 problems)"
+  },
+  {
+   "order": "Hebrew byte-fidelity of every splice, old and new",
+   "test": "normalize_hebrew_in_json.py dry-run over the 20-row deliverable",
+   "result": "PASS (defects=0, fixed=0)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep_problems": 41,
+   "refs_mirror": 16,
+   "mark_symmetry": 28,
+   "universals": 0,
+   "web_quotes": 0,
+   "register": 16,
+   "cap_sweep_failures": 0,
+   "ngram7_offending": 0,
+   "normalize_defects": "not run standalone pre-repair"
+  },
+  "after": {
+   "citation_sweep_problems": 0,
+   "refs_mirror": 16,
+   "mark_symmetry": 22,
+   "universals": 0,
+   "web_quotes": 0,
+   "register": 0,
+   "cap_sweep_failures": 0,
+   "ngram7_offending": 0,
+   "normalize_defects": 0,
+   "normalize_fixed": 0
+  }
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

@@ -1,0 +1,834 @@
+{
+ "schema": "m8_tool_edit_proposal.v1",
+ "book": "Ezek",
+ "batch": "toolfix3_batch1",
+ "built": "2026-09-11T11:43:41.863345+00:00",
+ "built_by": "orchestrator (claude-opus-5) under OW-11; executes a ruling, never rules",
+ "status": "STAGED - INSTALL PRE-AUTHORIZED by ezek_controlling_rulings_a1#e6 ruling T5-SEQUENCE: every gate holds. Nothing is installed by this landing.",
+ "ordered_by": "ezek_controlling_rulings_a1#e6 rulings T5-VERIFIER, T5-TOOLKIT-DOCS, T5-SEQUENCE",
+ "builds_on_installed": {
+  "receipt": "SP/campaign/receipts/ezek_tools_install_toolfix2_batch3.json"
+ },
+ "touches_no_validator_suite_member": true,
+ "content": {
+  "T5-VERIFIER": "campaign/_cure_verification.py: (1) integer machine results and the passing test; (2) the ACCEPT/REFUSE checker verdict; (3) normalized, both-field distinctness; (4) stripped cure ids, anchored every-pair ORDERED_BY, ratify verbs only when the ruling orders the retirement, and the renamed classification; (5) the vectors",
+  "T5-TOOLKIT-DOCS": "tools/TOOLKIT.md: (1) the normalizer row; (2) the puncta rule; (3) the closed set with its pointer to the code; (a) the heading; (b) the check_marks row; (c) the quoted OSHB note texts byte-exact; (d) the skeleton/maqaf line"
+ },
+ "files": {
+  "campaign/_cure_verification.py": {
+   "installed_sha256": "7f5ea4a9eb64dced70b2d3358e067de36e6a26f8ae6fc5ea43312ef72f7518da",
+   "staged_sha256": "a61ec7ff85aee3782b1e23fb6b6338398be773769f4936d235a71cd7c11b6042",
+   "staged_path": "Ezek/proposals/toolfix3_batch1/staged/campaign/_cure_verification.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix3_batch1/diffs/campaign__cure_verification.py.diff",
+   "diff_lines": 515
+  },
+  "TOOLKIT.md": {
+   "installed_sha256": "9771c440a49404051e5845a0896afb8f18dbf8c7ff7d66e9a9cce43638dbb31c",
+   "staged_sha256": "b247cea5b0af11a7708b5b0a53383d4b5abd9940b016e045bd1f317d97c1c0b6",
+   "staged_path": "Ezek/proposals/toolfix3_batch1/staged/TOOLKIT.md",
+   "diff_vs_installed": "Ezek/proposals/toolfix3_batch1/diffs/Ezek__tools__TOOLKIT.md.diff",
+   "diff_lines": 79
+  }
+ },
+ "tests": {
+  "verifier_selftest": {
+   "vectors": 64,
+   "failed": 0,
+   "verdict": "GREEN",
+   "error": null,
+   "failed_vectors": []
+  },
+  "verifier_selftest_installed": {
+   "vectors": 28,
+   "failed": 0,
+   "verdict": "GREEN",
+   "error": null
+  },
+  "existing_vectors": {
+   "count": 28,
+   "all_present_and_ok": true,
+   "expectation_changed": {
+    "S1-19(e) a ruling that names the retired cure id": {
+     "installed_expected": "ruling_names_retired_cure",
+     "staged_expected": "ruling_orders_retirement",
+     "staged_ok": true
+    }
+   }
+  },
+  "tf3_vectors": {
+   "s1_19a_whitespace_author": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "author_exec_only_checker_bare_attempt_same_job": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "author_attempt_and_exec_differ_checker_is_exec_job": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "case_variant_of_author_as_checker": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "failing_run_exit_1_accepted": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "exit_is_the_word_passed": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "checker_verdict_not_fit": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "tf3_rule_exit_bool_true": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_counts_failed_nonzero": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_counts_passed_short_of_checks": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_counts_member_a_string": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_counts_only_no_exit_failing": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_verdict_failed_prefix_with_exit_0": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_one_passing_one_failing_entry": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_checker_verdict_no_accepting_form": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_checker_verdict_accepting_and_refusing": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_checker_verdict_red_word": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_both_author_fields_blank": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_checker_execution_padded_same_job": {
+    "expected": "REFUSED",
+    "staged_got": "REFUSED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_green_exit0_counts_28_28_0": {
+    "expected": "ACCEPTED",
+    "staged_got": "ACCEPTED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "tf3_green_counts_passed_null_exit0_t5_13_shape": {
+    "expected": "ACCEPTED",
+    "staged_got": "ACCEPTED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "tf3_green_verdict_toolkit_md_fit_to_accept": {
+    "expected": "ACCEPTED",
+    "staged_got": "ACCEPTED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "tf3_green_verdict_fit_with_changes": {
+    "expected": "ACCEPTED",
+    "staged_got": "ACCEPTED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "tf3_green_distinct_jobs_both_fields": {
+    "expected": "ACCEPTED",
+    "staged_got": "ACCEPTED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "tf3_green_verdict_cured_word_is_not_red": {
+    "expected": "ACCEPTED",
+    "staged_got": "ACCEPTED",
+    "staged_ok": true,
+    "installed_got": "ACCEPTED",
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "s1_19b_dup_cure_id_trailing_space": {
+    "expected": {
+     "target": "DUP",
+     "verdicts": [
+      "REFUSED",
+      "REFUSED"
+     ],
+     "refused": 2
+    },
+    "staged_got": {
+     "verdicts": [
+      "REFUSED",
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": []
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "REFUSED",
+      "ACCEPTED"
+     ],
+     "refused": 1,
+     "classes": []
+    },
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "compound_ordered_by_second_bogus": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2
+    },
+    "staged_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "s1_19c_period_prefix": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2
+    },
+    "staged_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "s1_19c_slash_prefix": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2
+    },
+    "staged_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "e_names_only_as_successor_overbroad": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "class": "ruling_mentions_cure_id"
+    },
+    "staged_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "ruling_mentions_cure_id"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "ruling_names_retired_cure"
+     ]
+    },
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "ratify_with_changes_verb_ordering_retirement": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "class": "ruling_orders_retirement"
+    },
+    "staged_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "ruling_orders_retirement"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "ruling_names_retired_cure"
+     ]
+    },
+    "fails_on_installed": true,
+    "discrimination_required": true
+   },
+   "ratify_with_changes_verb_mentioning_only": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2
+    },
+    "staged_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "ruling_mentions_cure_id"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "ruling_names_retired_cure"
+     ]
+    },
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "tf3_rule_ratify_retire_word_beyond_200_characters": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2
+    },
+    "staged_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "ruling_mentions_cure_id"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "ruling_names_retired_cure"
+     ]
+    },
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "tf3_rule_supersedes_id_trailing_space_retires": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0
+    },
+    "staged_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "REFUSED"
+     ],
+     "refused": 2,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "fails_on_installed": true,
+    "discrimination_required": false
+   },
+   "tf3_rule_ordered_by_after_paren_and_comma": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0
+    },
+    "staged_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "ruling_orders_retirement"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "fails_on_installed": false,
+    "discrimination_required": false
+   },
+   "tf3_green_two_pair_ordered_by_both_adopt": {
+    "expected": {
+     "target": "OLD",
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0
+    },
+    "staged_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "ruling_orders_retirement"
+     ]
+    },
+    "staged_ok": true,
+    "installed_got": {
+     "verdicts": [
+      "SUPERSEDED"
+     ],
+     "refused": 0,
+     "classes": [
+      "unclassified"
+     ]
+    },
+    "fails_on_installed": false,
+    "discrimination_required": false
+   }
+  },
+  "tf3_vectors_summary": {
+   "count": 36,
+   "staged_all_ok": true,
+   "required_discriminating_all_fail_on_installed": true,
+   "required_missing": [],
+   "discriminating": [
+    "author_attempt_and_exec_differ_checker_is_exec_job",
+    "author_exec_only_checker_bare_attempt_same_job",
+    "case_variant_of_author_as_checker",
+    "checker_verdict_not_fit",
+    "compound_ordered_by_second_bogus",
+    "e_names_only_as_successor_overbroad",
+    "exit_is_the_word_passed",
+    "failing_run_exit_1_accepted",
+    "ratify_with_changes_verb_ordering_retirement",
+    "s1_19a_whitespace_author",
+    "s1_19b_dup_cure_id_trailing_space",
+    "s1_19c_period_prefix",
+    "s1_19c_slash_prefix",
+    "tf3_rule_both_author_fields_blank",
+    "tf3_rule_checker_execution_padded_same_job",
+    "tf3_rule_checker_verdict_accepting_and_refusing",
+    "tf3_rule_checker_verdict_no_accepting_form",
+    "tf3_rule_checker_verdict_red_word",
+    "tf3_rule_counts_failed_nonzero",
+    "tf3_rule_counts_member_a_string",
+    "tf3_rule_counts_only_no_exit_failing",
+    "tf3_rule_counts_passed_short_of_checks",
+    "tf3_rule_exit_bool_true",
+    "tf3_rule_one_passing_one_failing_entry",
+    "tf3_rule_supersedes_id_trailing_space_retires",
+    "tf3_rule_verdict_failed_prefix_with_exit_0"
+   ],
+   "not_discriminating": [
+    "ratify_with_changes_verb_mentioning_only",
+    "tf3_green_counts_passed_null_exit0_t5_13_shape",
+    "tf3_green_distinct_jobs_both_fields",
+    "tf3_green_exit0_counts_28_28_0",
+    "tf3_green_two_pair_ordered_by_both_adopt",
+    "tf3_green_verdict_cured_word_is_not_red",
+    "tf3_green_verdict_fit_with_changes",
+    "tf3_green_verdict_toolkit_md_fit_to_accept",
+    "tf3_rule_ordered_by_after_paren_and_comma",
+    "tf3_rule_ratify_retire_word_beyond_200_characters"
+   ]
+  },
+  "toolkit_selfcheck": {
+   "checks": 101,
+   "passed": 101,
+   "verdict": "GREEN",
+   "error": null,
+   "stdout_tail": null,
+   "failed": []
+  }
+ },
+ "real_claims_before_and_after": {
+  "installed": {
+   "ezek_cure_claims.v1.jsonl": {
+    "claims": 3,
+    "accepted": 1,
+    "refused": 0,
+    "superseded": 2,
+    "supersession_classes": [
+     {
+      "supersedes_cure_id": "EZEK-P0-CURE-toolkit",
+      "ordered_by": "ezek_controlling_rulings_a1#e2 ruling R5",
+      "ordered_by_class": "ruling_names_retired_cure"
+     },
+     {
+      "supersedes_cure_id": "EZEK-P0-CURE-toolkit-v2",
+      "ordered_by": "ezek_controlling_rulings_a1#e2 ruling R5",
+      "ordered_by_class": "ruling_names_retired_cure"
+     }
+    ],
+    "verdict": "GREEN",
+    "error": null,
+    "verdicts": {
+     "EZEK-P0-CURE-toolkit": "SUPERSEDED",
+     "EZEK-P0-CURE-inventory": "ACCEPTED",
+     "EZEK-P0-CURE-toolkit-v2": "SUPERSEDED"
+    },
+    "refusal_reasons": []
+   },
+   "ezek_cure_claims_toolkit_repair.v1.jsonl": {
+    "claims": 2,
+    "accepted": 0,
+    "refused": 0,
+    "superseded": 2,
+    "supersession_classes": [
+     {
+      "supersedes_cure_id": "EZEK-TK-CURE-normalizer",
+      "ordered_by": "ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2; ezek_controlling_rulings_a1#e5 ruling INSTALL-TF2-1",
+      "ordered_by_class": "ruling_names_retired_cure"
+     },
+     {
+      "supersedes_cure_id": "EZEK-TK-CURE-ezek_lib",
+      "ordered_by": "ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2; ezek_controlling_rulings_a1#e5 ruling INSTALL-TF2-1",
+      "ordered_by_class": "ruling_names_retired_cure"
+     }
+    ],
+    "verdict": "GREEN",
+    "error": null,
+    "verdicts": {
+     "EZEK-TK-CURE-normalizer": "SUPERSEDED",
+     "EZEK-TK-CURE-ezek_lib": "SUPERSEDED"
+    },
+    "refusal_reasons": []
+   }
+  },
+  "staged": {
+   "ezek_cure_claims.v1.jsonl": {
+    "claims": 3,
+    "accepted": 1,
+    "refused": 0,
+    "superseded": 2,
+    "supersession_classes": [
+     {
+      "supersedes_cure_id": "EZEK-P0-CURE-toolkit",
+      "ordered_by": "ezek_controlling_rulings_a1#e2 ruling R5",
+      "ordered_by_class": "ruling_orders_retirement"
+     },
+     {
+      "supersedes_cure_id": "EZEK-P0-CURE-toolkit-v2",
+      "ordered_by": "ezek_controlling_rulings_a1#e2 ruling R5",
+      "ordered_by_class": "ruling_orders_retirement"
+     }
+    ],
+    "verdict": "GREEN",
+    "error": null,
+    "verdicts": {
+     "EZEK-P0-CURE-toolkit": "SUPERSEDED",
+     "EZEK-P0-CURE-inventory": "ACCEPTED",
+     "EZEK-P0-CURE-toolkit-v2": "SUPERSEDED"
+    },
+    "refusal_reasons": []
+   },
+   "ezek_cure_claims_toolkit_repair.v1.jsonl": {
+    "claims": 2,
+    "accepted": 0,
+    "refused": 0,
+    "superseded": 2,
+    "supersession_classes": [
+     {
+      "supersedes_cure_id": "EZEK-TK-CURE-normalizer",
+      "ordered_by": "ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2; ezek_controlling_rulings_a1#e5 ruling INSTALL-TF2-1",
+      "ordered_by_class": "ruling_orders_retirement"
+     },
+     {
+      "supersedes_cure_id": "EZEK-TK-CURE-ezek_lib",
+      "ordered_by": "ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2; ezek_controlling_rulings_a1#e5 ruling INSTALL-TF2-1",
+      "ordered_by_class": "ruling_orders_retirement"
+     }
+    ],
+    "verdict": "GREEN",
+    "error": null,
+    "verdicts": {
+     "EZEK-TK-CURE-normalizer": "SUPERSEDED",
+     "EZEK-TK-CURE-ezek_lib": "SUPERSEDED"
+    },
+    "refusal_reasons": []
+   }
+  }
+ },
+ "supersession_classes_moved": "every live supersession record moved from 'ruling_names_retired_cure' to 'ruling_orders_retirement', the class T5-VERIFIER (4) renames: each ordering ruling's decision or orders place the retired id within 200 characters of supersession/supersede/retire. EZEK-P0-CURE-toolkit-v2's record is among them (#e6 T5-VERIFIER (6)); its SUPERSEDED verdict does not move",
+ "draft_claims": {
+  "path": "Ezek/proposals/toolfix3_batch1/draft_claims_tf3.jsonl",
+  "sha256": "0a69a98a555a7d2bd30494bc93a1998d8fa2942db6a7f4fc536411a8ace075ce",
+  "ids": [
+   "EZEK-TK-CURE-citation_sweep",
+   "EZEK-TK-CURE-check_marks",
+   "EZEK-TK-CURE-ezek_lib-v2",
+   "EZEK-TK-CURE-check_register",
+   "EZEK-TK-CURE-check_web_quotes",
+   "EZEK-TK-CURE-normalizer-v2"
+  ],
+  "on_staged_verifier": {
+   "claims": 8,
+   "accepted": 6,
+   "refused": 0,
+   "superseded": 2,
+   "verdict": "GREEN",
+   "error": null,
+   "verdicts": {
+    "EZEK-TK-CURE-normalizer": "SUPERSEDED",
+    "EZEK-TK-CURE-ezek_lib": "SUPERSEDED",
+    "EZEK-TK-CURE-citation_sweep": "ACCEPTED",
+    "EZEK-TK-CURE-check_marks": "ACCEPTED",
+    "EZEK-TK-CURE-ezek_lib-v2": "ACCEPTED",
+    "EZEK-TK-CURE-check_register": "ACCEPTED",
+    "EZEK-TK-CURE-check_web_quotes": "ACCEPTED",
+    "EZEK-TK-CURE-normalizer-v2": "ACCEPTED"
+   },
+   "refusal_reasons": []
+  },
+  "on_installed_verifier": {
+   "claims": 8,
+   "accepted": 6,
+   "refused": 0,
+   "superseded": 2,
+   "verdict": "GREEN",
+   "error": null,
+   "verdicts": {
+    "EZEK-TK-CURE-normalizer": "SUPERSEDED",
+    "EZEK-TK-CURE-ezek_lib": "SUPERSEDED",
+    "EZEK-TK-CURE-citation_sweep": "ACCEPTED",
+    "EZEK-TK-CURE-check_marks": "ACCEPTED",
+    "EZEK-TK-CURE-ezek_lib-v2": "ACCEPTED",
+    "EZEK-TK-CURE-check_register": "ACCEPTED",
+    "EZEK-TK-CURE-check_web_quotes": "ACCEPTED",
+    "EZEK-TK-CURE-normalizer-v2": "ACCEPTED"
+   },
+   "refusal_reasons": []
+  },
+  "append_rule": "#e6 T5-SEQUENCE claims (1): appended to ezek_cure_claims_toolkit_repair.v1.jsonl only after this batch installs, in one append followed by one verifier run under --rulings --require-rulings",
+  "drafting_note": "each claim binds three verification entries to the file's own digest: the receipt's zone tests, its ezek_lib selftest, and T5's suite-parity comparison. The comparison carries integer counts (members compared JSON-identical) and no exit, because the suite's own exit is 1 on the enumerated HARD set; that is recorded as suite_exit (#e6 unresolved_uncertainty[3] leaves this drafting to the orchestrator)"
+ },
+ "sibling_sweep": {
+  "path": "Ezek/proposals/toolfix3_batch1/sibling_sweep.json",
+  "sha256": "9165c20000ef18d296c2799fe30f664c192fae6e4d9bc060a3261b1d94fb60dc",
+  "statements_reviewed": 35,
+  "contradictions": 0
+ },
+ "runs": {
+  "stage_run.json": "113ffe0842e1355cb9a457c50b06f583c442600e6d923404f81d43ded2c0c8ae",
+  "sibling_sweep_candidates.json": "41de4c4846e079f3e4eb0ee6aaeb2a4b66f44be67e906c9674721dc1f0e90b4d"
+ },
+ "gate": {
+  "verifier_selftest_green": true,
+  "existing_vectors_keep_expectation_except_the_ruled_rename": true,
+  "tf3_vectors_all_pass_on_staged": true,
+  "new_refusals_discriminating": true,
+  "real_claims_green_before_and_after": true,
+  "draft_claims_green_all_accepted_on_staged": true,
+  "toolkit_selfcheck_green": true,
+  "machine_checks_hold": true,
+  "staged_digests_reproduced": true,
+  "no_sibling_sweep_contradiction": true
+ },
+ "scripts": {
+  "stage_tf3.py": "631fda05b30e6f39dc93b36c70173be9ca717ab2f4fe99728af5edf0f6b885db",
+  "land_tf3_proposal.py": "fa87e419908e130a90466579a0ec419436f4235110438ecb67d24ff14a1f287c",
+  "_cure_verification.candidate.py": "a61ec7ff85aee3782b1e23fb6b6338398be773769f4936d235a71cd7c11b6042"
+ }
+}

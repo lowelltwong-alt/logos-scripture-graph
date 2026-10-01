@@ -1,0 +1,153 @@
+# DANIEL — CYCLE STATE (immutable, append-only)
+
+The live book's log. Ezekiel closed at 26/66 on 2026-09-23; its own log carries that close and points here.
+This file is append-only: entries are added, never edited, and a correction is itself an appended entry.
+
+Daniel is owner-named HARD. Every role runs on claude-opus-5-5 (OW-25); a Fable role is recorded as grader_fallback.
+No Fable call is made without a new owner authorization (OW-30), and the atlas-hold precedent P1-P3 from Ezekiel's
+ruling applies. Daniel's ceiling is 25,000,000 in the notification unit, counted from Daniel's first launch, tracked
+and not enforced (OW-28). The Opus orchestration authority exception covers Daniel and expires at Daniel's close.
+
+## 2026-09-23 - log opened at Ezekiel's close
+
+Ezekiel's close is evidenced: receipts/Ezek_completion.json sha256 8110b4ff993940d5d3b3b0ec4ab14b46335f3749fbd8a203cb80479b92c324b6, 138 chunks, --acf item22 after a dry run of the same arguments showed 122 gates and 0 unmet (OW-29). marathon_progress.yaml reads books_completed: 26, current_book: Dan. The durability checkpoint appended its entry and cursor to sp_durable/Ezek/freeze/CYCLE_STATE.md, but this book had no log, so the checker's cursor resolver fell back to the CLOSED Jeremiah log and refused the prompt re-bind. This is the same fault recorded at Ezekiel's own log opening on 2026-09-08. Opening this log records what has already happened; it advances nothing on its own and invents no state.
+
+- Cure: `sp_durable/Ezek/repair2/checkpoint_carriers.py` is amended (`.pre_1cdd981d57b3` kept) to resolve the live book's log from marathon_progress.yaml current_book, as the checker does, and to refuse rather than fall back when that log is missing.
+- Phase 0 has not started. The next job is Daniel's Phase 0 per sp_durable/campaign/daniel_start_readiness.v2.json (phase0_must_produce: Dan_oshb.txt, Dan_web_clean.txt, verse_inventory.json, pmarks_Dan.json, book_strategy_Dan.md, web_mt_offset_map.json, tools/check_language_zones.py). The Aramaic section is located from the OSHB morph codes at Phase 0, never from memory. Readiness v2 step 2 (the OW-9 stop) is superseded by OW-29, and RESUME_PROMPT_CURRENT.md says to open Daniel's Phase 0 without stopping.
+- CURSOR: phase = EZEK_CLOSED_DAN_PHASE0_NEXT.
+
+## 2026-09-23 - Ezekiel receipt identity amended; receipt readers owed before Daniel's first runs
+
+- The 7 Ezekiel launch rows that recorded the lane's runtime id in `parent_agent_id` are amended, and no line was edited: +2 rows in `Ezek/ezek_merged_close_attempt_receipts.jsonl`, +5 rows in `Ezek/ezek_close_audit_attempt_receipts.jsonl`, and +7 keys in `Ezek/_transcript_map.ezek.json`. The receipt is `Ezek/repair2/amend_identity_E55s1.receipt.json`. The first apply collided on a shared attempt id and was rolled back to the exact preimages (ledger E-60).
+- `campaign/_guarded_json_patch.py` now refuses a plan that addresses one key twice, and rolls back its own RED write (`.pre_254a43bd2199` kept). `campaign/test_guarded_json_patch.py` passes 4/4 on the fix and fails 4/4 on the preimage.
+- `campaign/_orchestration_metrics.py` now folds amending rows into the execution they name (`.pre_0a6a9e325815` kept). `orchestration_metrics.v1.json` was regenerated (sha256 prefix 44b4c5c35d50): 514 rows, 467 executions, and all 47 amending rows applied to a unique target. Notification-unit tokens total 117,835,959. The 1,431,971 spend-unit tokens (the two OW-26 merged-close amendments) are reported apart and no longer mixed in. Previous file kept as `orchestration_metrics.v1.json.pre_1337016a4b5d`.
+- OWED, each triggered before Daniel's first run of that tool. Status: MEASURED by grep, where 0 means `amends_execution_id` never occurs in the file.
+  - `campaign/_capture_index.py`: 0, and it copies `parent_agent_id` from the row at lines 191-192.
+  - `campaign/_census_tf6_candidate.py`: 0.
+  - `campaign/_transcript_coverage_census.py`: 0.
+  - `campaign/_book_close_status_ow12.py`: partly aware. It buckets amending rows by book at line 73, but it sums every row's tokens, so it counts amending rows as executions and adds spend-unit amendments to notification-unit figures.
+  - Census v4's map join also does not read `previous_executions[].agent_id`, which affects 11 Ezekiel attempts.
+  - The rule for each tool, with `_orchestration_metrics.py` `fold()` as the precedent: an amending row is never an execution; it applies to the one execution it names; the notification unit and the spend unit are kept apart.
+- FINDING for the owner's Ezekiel figures (INFERRED, not recomputed). Census v4 records the two merged-close lanes at their spend-unit amendments (576,419 and 855,552; the code's SELFTEST pins them), where the notification figures are 101,506 and 148,182, and 148,182 covers one segment only. If census v4's recorded total is the 70.94M notification-unit figure, that total carries about 1,182,283 spend-unit tokens. This changes no gate: ceilings are tracked, not enforced (OW-28).
+- Forward rule for Daniel: a launch row puts the runtime id in `agent_id` and `"orchestrator"` in `parent_agent_id`.
+- CURSOR: phase = EZEK_CLOSED_DAN_PHASE0_NEXT (unchanged).
+
+## 2026-09-23 - provenance of the entry above (E-59 recurrence, caught)
+
+- The entry above was written right after a compaction, and three of its claims came from recall before any source was read. They were then checked against a fresh read, and each holds:
+  - `Ezek/ezek_merged_close_attempt_receipts.jsonl` gives lane_b 101,506 (completion) against 576,419 (spend-unit amendment), and lane_a 148,182 (completion, token_note "SEGMENT ONLY") against 855,552 (spend-unit amendment).
+  - `Ezek/repair2/census_ow15_v4.py:38` SELFTEST pins 576419 and 855552.
+  - `campaign/_book_close_status_ow12.py:80-84` counts every row as an execution and adds every row's integer tokens.
+  - These are now EXTRACTED; the 70.94M conditional stays INFERRED.
+- Observed impact: nil. It was caught before any reuse, and the recalled values happened to be right. Counterfactual: a wrong figure in this log would feed the owner's OW-12 status. This recurs E-59's pattern: order is read, then write. It is routed with E-59 at the next DAD ingest.
+- CURSOR: phase = EZEK_CLOSED_DAN_PHASE0_NEXT (unchanged).
+
+## 2026-09-23 - owed pre-Daniel records landed; Phase 0 next
+
+- Done:
+  - DAD delta E-52..E-58 + OW-25..OW-30 was ingested earlier on 2026-09-23.
+  - The 7 identity amendments and 7 map keys, including the two OW-26 merged-close lanes a2040ee3f85015b45 and a75da61617c35aca9.
+  - The guarded-tool hardening and its test.
+  - The metrics fold, with the metrics regenerated.
+  - E-60 ledgered.
+  - See the two entries above.
+- OWED, not done, each with its own before-first-run trigger in the entry above:
+  - teach the capture index, the tf6 candidate census, the transcript coverage census and the OW-12 status tool the amend fold;
+  - teach census v4's map join to read `previous_executions`.
+- DAD pending: E-59, E-60 and the E-59 recurrence note. The cursor is still after E-58.
+- CURSOR: phase = DAN_PHASE0_NEXT.
+
+## 2026-09-23 - Daniel Phase 0 under way: staging done, small tools ported, toolkit port next
+
+- Disclosed: Phase 0 began without a CURSOR line; this section is the first one since `DAN_PHASE0_NEXT`.
+- Done (MEASURED):
+  - staging: `dan_lib.py` selftest 48/48, language-zones fixture 27/27;
+  - 12 smaller Ezekiel tools adapted by `Dan/tools/_adapt_tools_dan.py` with the `_adapt_tools_dan_spec.py` spec and installed, 0 residuals;
+  - selftests: check_role_tokens 14/14 (6 planted defects flagged), check_register 53 vectors GREEN, check_universals 2/2;
+  - inventory face declared by `Dan/_declare_inventory_face_dan.py`: 356f4427f7d4 -> de3dcac0f464, pre-image kept;
+  - E-61 ledgered, with a same-day correction note.
+- OWED, in order:
+  - port citation_sweep, check_web_quotes, check_refs_mirror, check_marks and build_verse_maps, and port `_test_zone_tools_ezek.py` to `_test_zone_tools_dan.py` (the normalize docstring already claims it);
+  - build the verse maps, then smoke-run the suite and check_brief_vs_suite;
+  - write TOOLKIT.md and `_toolkit_selfcheck.py`, including the E-61 parity audit and face assertion;
+  - write the Phase 0 receipts;
+  - the strategy lane, then the two blind toolkit review lanes;
+  - the amend fold for the receipt readers (still owed from the entry above).
+- DAD pending: E-59, E-60, E-61 and the E-59 recurrence note. The cursor is still after E-58.
+- CURSOR: phase = DAN_PHASE0_TOOLKIT_PORT.
+
+## 2026-09-23 - toolkit port split into lanes; E-62 and its launch gate
+
+- DONE this segment:
+  - `Dan/tools/_adapt_tools_dan.py` gained `--extra-spec PATH`, with RENAME and a clash refusal (pre-copy `.pre_8acea10b313e`, now 37580b05cbbb). The base stage is unchanged: 12 tools, 0 residuals.
+  - E-62 ledgered: 42 of 207 launches carried none of the required launch-message strings. The cure is the new `campaign/_launch_message_check.py`. Amendment 1 made that checker also require `_brief_pin_check.py` MATCH on the named brief, because the v10 lanes launched on NO_TABLE. The checker is now 7bdd3cb3e52b (pre `.pre_2a04d014f107`), and its selftest passes 15/15. Ledger ad6783316d04, 2620 lines.
+  - The sibling audit found that `_inflight_pin_guard.py` reads any line carrying a path and a digest, so it never failed open on a 4-column table. Its documented limit still stands: absolute-path pins are invisible to it.
+  - Decided: Daniel needs its own language-aware device inventory. Ezekiel's calendar-arm constants came from Ezekiel's ruling G12(d). Daniel has no such ruling, so its CAL_NO_ONSET is empty, with that reason stated.
+  - Lane tooling, in `Dan/phase0_lanes/`:
+    - `build_launch.py` builds each brief from its template, with the pin rows measured, plus the launch-message file, and runs both checkers;
+    - `append_launch_row.py` writes the launch rows into `Dan/dan_phase0_attempt_receipts.jsonl`, carrying `launch_message_sha256`.
+- IN FLIGHT (launched 2026-09-23T21:51-21:52Z; both briefs and both messages returned MATCH, and the workspace validator passed):
+  - lane D `dan_p0_device_inventory_a1#e1`: `BRIEF_D.md` a760ce12e1d7;
+  - lane T2 `dan_p0_toolport_t2_a1#e1`: `BRIEF_T2.md` a778400debf3.
+  - While they run, the M8 ledger, `dan_lib.py` and the other pinned inputs are PINNED. Write none of them until both land.
+- NEXT, at landing:
+  - review each OUT;
+  - install T2 through `--install ... --extra-spec` and run the Daniel `_audit_book_token_transform`;
+  - install D's builder and inventory at `Dan/`;
+  - then brief lane T1 (citation_sweep and `_test_zone_tools_dan.py`, bound to D's constants), through `build_launch.py` after adding a T1 entry.
+- The owed list above stands otherwise. Carrier item: the next checkpoint names `_launch_message_check.py` in the work-state bullet (E-62 cure 4).
+- CURSOR: phase = DAN_PHASE0_TOOLKIT_PORT_LANES_D_T2_IN_FLIGHT.
+
+## 2026-09-24 - lane D #e1 stalled; relaunched as #e2
+
+- Lane D `dan_p0_device_inventory_a1#e1` (agent a1586d02295dfea45) was stopped by the runtime watchdog: "Agent stalled: no progress for 600s (stream watchdog did not recover)". It landed no deliverable. Its notification carried no usage block, so its model and tokens are UNAVAILABLE.
+- Its 7 partial scratch files (input mirror copies, inputs_verified.json, an inspection script) were moved unchanged to `scratch\dan_p0\lane_D_e1_residue\`, with digests in its landing row. They are not reviewed, not installed and not given to #e2.
+- Receipts (`Dan/dan_phase0_attempt_receipts.jsonl`):
+  - the #e1 landing row (record_kind completion, outcome FAILED_BY_RUNTIME_WATCHDOG) was written by the new `Dan/phase0_lanes/append_landing_row.py`;
+  - the #e2 launch row (agent a5670ae5a0b0c1f12, previous_execution_id and retry_of `#e1`) followed. Receipts now 0b54699ce4ff.
+- Tooling amended so that a relaunch cannot carry the earlier execution's id or shadow an unlanded one:
+  - `build_launch.py --execution N` writes `BRIEF_<L>_e<N>.md` and `launch_message_<L>_e<N>.txt`, naming `#e<N>` (pre `.pre_7727531f741c`);
+  - `append_launch_row.py --execution N --retry-reason` refuses unless `#e<N-1>` has both a launch row and a landing row (pre `.pre_2b6ed4fbd25d`).
+- `BRIEF_D_e2.md` is 62954b39020b and its message is e874f1e89b28. It is identical to `BRIEF_D.md` except line 3, the execution id plus the relaunch note. Pin check MATCH, launch-message check MATCH, workspace validator pass.
+- IN FLIGHT: D #e2 and T2 #e1. The ledger, `dan_lib.py` and the other pinned inputs stay PINNED until both land.
+- Landing rows for T2 and D #e2 go through `append_landing_row.py` (both token units, model_actual from the usage block).
+- CURSOR: phase = DAN_PHASE0_TOOLKIT_PORT_LANES_D_E2_T2_IN_FLIGHT.
+
+## 2026-09-24 - the amend fold reaches every receipt reader; the capture index is rebuilt
+
+Every figure in this entry was re-read from its source after the last compaction (E-59).
+
+- **The shared fold.** `campaign/_receipt_fold.py` (NEW) is the one amend fold. `--selftest` PASSES 17 checks. Its parity check against `_orchestration_metrics.fold()` covers all 470 executions. The only differences are the 5 executions whose landing rows carry `tokens_notification_unit` / `tokens_spend_unit`: the v9 author, v9 lanes a and b, and v10 lanes a and b.
+- **CAUSE (my own schema drift).** I wrote those 5 landing rows with two new unit fields and taught no reader to read them.
+- **Metrics.** `campaign/_orchestration_metrics.py` now uses the shared fold (`.pre_163d1816b81b` kept). `orchestration_metrics.v1.json` was regenerated (sha256 prefix 3eb25643c0ee):
+  - 518 rows, 470 executions, 48/48 amending rows applied;
+  - notification-unit total 118,508,034, up from 117,835,959 (+672,075);
+  - spend-unit total 2,623,577, up from 1,431,971 (+1,191,606).
+- **OW-12 status tool.** `campaign/_book_close_status_ow12.py` now folds (`.pre_363647ad56e8` kept). This CORRECTS the owner's OW-12 figures:
+  - Ezekiel is 70,428,450 tokens over 231 executions, not 71,188,346 over 278. Three things account for the change:
+    - 47 amending rows are no longer counted as executions;
+    - −1,431,971 spend-unit amendment tokens that had been added to a notification-unit figure;
+    - +672,075 unit-field notification tokens.
+  - Daniel has 3 executions, not 4.
+  - Dates are unchanged.
+- **Capture index.** `campaign/_capture_index.py` now folds, and takes a receipt's own `execution_id` where the receipt names one (`.pre_2aa34f6616c2` kept). Before this, two things went wrong:
+  - every amending row became a phantom run: 7 in Ezekiel, 1 in Daniel;
+  - 4 Ezekiel job pairs had their runs swapped: `ezek_pr_LF_c21`, `LF_c22`, `OL_c20` and `OL_c21`. Each #e1 watchdog-failure row was back-filled into the file after its #e2 landed row, so path-order derivation indexed the landed run as #e1.
+- **The index rebuild.** The index was rebuilt for Jer, Lam and Ezek (`capture_index.v1.jsonl.pre_8bcf19a6c96d` kept; now sha256 prefix a5559ac3c901). `--check` is GREEN: 366 rows, 330 jobs, 0 problems.
+
+  | Book | Rows before | Rows after |
+  |---|---|---|
+  | Jer | 74 | 74 |
+  | Lam | 61 | 61 |
+  | Ezek | 126 (stale since 2026-09-15) | 231 |
+
+  - Layer A stays at 5. Layer C is 126, up from 122. No coverage was lost.
+  - Every changed Ezekiel row is explained: 4 re-ordered, 20 amended, 0 unexplained.
+  - Daniel is indexed at the Phase 0 landings.
+- **Censuses.** `_census_tf6_candidate.py` and `_transcript_coverage_census.py` are unedited. They use receipts only as the set of distinct attempt_ids per book, and the fold leaves those sets identical (MEASURED): Dan 2, Ezek 199, Jer 74, Lam 57, OW2_audit 93, REPAIR 8.
+- **Census v4.** `Ezek/repair2/census_ow15_v4.py` is bound to Ezekiel (hard-coded Ezekiel paths and output). Its `previous_executions[].agent_id` join, which covers 11 Ezekiel attempts, is OWED to the Daniel census port. That port is written against the shared fold and reads `previous_executions`. Ezekiel's v4 position is not re-measured here; that is left to the campaign-end review.
+- **parent_agent_id.** `append_launch_row.py` now writes "orchestrator" (`.pre_63ec7fd63682` kept).
+  - The 3 Daniel launch rows already written carry None, and `_capture_index.py:213` folds None to "orchestrator".
+  - They are NOT amended. The in-flight guard (`_inflight_pin_guard.py:93-95`) takes any non-launch row naming an execution as that execution's landing, so amending a running execution would falsely land it and unpin its inputs. This is a HAZARD; it follows from the guard's rule as read.
+- **OWED to the ledger** once both lanes land (the ledger is pinned now): one entry for the token-field schema drift and its cure, the amend-lands-in-flight hazard, and the parent_agent_id deviation. A DAD candidate goes with it.
+- CURSOR: phase = DAN_PHASE0_TOOLKIT_PORT_LANES_D_E2_T2_IN_FLIGHT (unchanged; the fold work is done).

@@ -1,0 +1,117 @@
+--- _coverage_statement_ezek.py (7c5d6e81a5f94ab9)
++++ _coverage_statement_ezek.py (cb0db5cc8d08d733)
+@@ -35,7 +35,12 @@
+ sys.stdout.reconfigure(encoding="utf-8")
+ EZ = Path(__file__).resolve().parent
+ SP = EZ.parent
+-TASKS = Path(r"C:\Users\lowel\AppData\Local\Temp\claude\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\221a93aa-d2a7-4d91-a265-84e495a39efa\tasks")
++# TOOLFIX-6 (#e11 Q3): the hardcoded session root is GONE. It named ONE session's tasks/ tree - the route OW-11-m
++# established holds 0 bytes - so it classed 78 preserved transcripts as B/unknown. The observed-now class is now read
++# per execution from the per-book preserver index, and every session root that index names is recorded with whether
++# it exists.
++SUBIDX = SP / "transcripts" / "_subagents_index.ezek.v1.json"
++CENSUS_V2 = SP / "campaign" / "transcript_coverage_census.v2.json"
+ FINDING = SP / "campaign" / "finding_ezek_transcripts_decayed_before_mirror.v3.json"
+ 
+ 
+@@ -74,26 +79,65 @@
+     ap.add_argument("--second-review")
+     ap.add_argument("--dry-run", action="store_true", help="print the summary and write nothing")
+     a = ap.parse_args()
+-    cen = subprocess.run([sys.executable, str(SP / "campaign" / "_transcript_coverage_census.py")], capture_output=True, text=True, encoding="utf-8")
+-    census = (json.loads(cen.stdout).get("per_book") or {}).get("Ezek")
++    # the statement's census block must EQUAL census v2's Ezek block (#e11 Q5), so it is read from the written
++    # artifact rather than re-derived from a fresh run that could drift from the file the close quotes.
++    if not CENSUS_V2.is_file():
++        raise SystemExit("ABORT: %s is absent; the statement's census block must equal census v2 (#e11 Q5)" % CENSUS_V2)
++    census = (json.loads(CENSUS_V2.read_text(encoding="utf-8")).get("per_book") or {}).get("Ezek")
+     tmap = json.loads((EZ / "_transcript_map.ezek.json").read_text(encoding="utf-8"))
+     by_exec = {v["execution_id"]: v for v in tmap.values() if isinstance(v, dict) and v.get("execution_id")}
+     rows = [json.loads(l) for l in (SP / "campaign" / "capture_index.v1.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+     ez = [r for r in rows if r.get("book") == "Ezek"]
+     classes_at_census = census_classes()
+     receipts = load_receipts()
+-    root_present = TASKS.is_dir()
++    # the preserver index, keyed by agent id, is the route the runtime actually writes (OW-11-m)
++    sub = json.loads(SUBIDX.read_text(encoding="utf-8")) if SUBIDX.is_file() else {"entries": []}
++    by_agent = {e.get("agent_id"): e for e in sub.get("entries", []) if e.get("agent_id")}
++    session_roots = {}
++    for e in sub.get("entries", []):
++        s = e.get("session")
++        if s and s not in session_roots:
++            d_ = SP / "transcripts" / s
++            session_roots[s] = {"durable_store": str(d_), "exists": d_.is_dir()}
++
++    # the index also keys by map_key, which for the pre-execution-id executions IS the attempt id. 19 rows of this
++    # table carry no agent_id in the capture index (the executions that predate L-0017's write-the-map-at-launch
++    # rule), and resolving them by agent id alone reports UNAVAILABLE for transcripts that are demonstrably
++    # preserved. So the lookup falls back to the attempt id, and the fallback is disclosed per row.
++    by_attempt = {}
++    for e in sub.get("entries", []):
++        k = (e.get("execution_id") or "").split("#")[0] or (e.get("map_key") or "")
++        if k:
++            by_attempt.setdefault(k, e)
++
++    def observed_now(agent_id, attempt_id=None):
++        """A | B | UNAVAILABLE, from the index entry for this agent id (or, disclosed, its attempt id),
++        re-hashed at build time."""
++        e = by_agent.get(agent_id)
++        via = "agent id"
++        if not e and attempt_id:
++            e = by_attempt.get(attempt_id)
++            via = "attempt id (no agent id recorded for this execution)"
++        if not e:
++            return "UNAVAILABLE (not in the preserver index)"
++        t = e.get("transcript") or {}
++        dur = t.get("durable")
++        p = SP / dur if dur else None
++        if p and p.is_file() and p.stat().st_size > 0:
++            got = sha(p)
++            want = t.get("durable_sha256")
++            if want and got != want:
++                return "UNAVAILABLE (durable copy does not re-hash to the index digest)"
++            return "A (durable copy holds %d bytes and re-hashes; matched by %s)" % (p.stat().st_size, via)
++        if (t.get("live_bytes") or 0) == 0 and (t.get("durable_bytes") or 0) == 0:
++            return "B (the index records 0 live and 0 durable bytes)"
++        return "UNAVAILABLE (not in the preserver index)"
++
++    root_present = any(v["exists"] for v in session_roots.values())
+     table = []
+     for r in ez:
+         aid = r.get("agent_id") if r.get("agent_id") not in (None, "", "UNAVAILABLE") else (by_exec.get(r["execution_id"]) or {}).get("agent_id")
+-        if not root_present:
+-            now = "UNAVAILABLE (runtime root not present)"
+-        elif not aid:
+-            now = "unknown (no agent id recorded)"
+-        else:
+-            f = TASKS / ("%s.output" % aid)
+-            now = ("A (runtime file holds %d bytes)" % f.stat().st_size if f.is_file() and f.stat().st_size > 0 else
+-                   "B (runtime file holds zero bytes)" if f.is_file() else "unknown (no runtime file for this agent id)")
++        now = observed_now(aid, str(r.get("execution_id") or "").split("#")[0])
+         table.append({"execution_id": r["execution_id"], "role": r.get("role"), "model_ordered": r.get("model_ordered"),
+                       "outcome": r.get("outcome_recorded_by_the_receipt"), "layer_a": r.get("layer_a_runtime_actions"),
+                       "behaviour_class_at_census": classes_at_census.get(r["execution_id"], "not in the census finding"),
+@@ -136,7 +180,8 @@
+     comp = {"1_full_dual_blind_primaries": comp1, "2_second_fable_review_rederivations": comp2, "3_self_reports_carried_as_self_reported": comp3}
+     doc = {"schema": "m8_q8_coverage_statement.v2", "book": "Ezek", "label": a.label, "built": datetime.now(timezone.utc).isoformat(),
+            "authority": "ruling Q8 of ezek_controlling_rulings_a1#e2, amended by ruling Q8-T (a)-(e) of ezek_controlling_rulings_a1#e4",
+-           "census_verbatim": census, "runtime_root": {"path": str(TASKS), "exists": root_present},
++           "census_verbatim": census, "session_roots_named_by_the_index": session_roots,
++           "route_note": "Q8-T (f): the class at census was measured on the tasks/ route and the class observed now on the subagents route the preserver index records; neither is ever substituted for the other",
+            "per_execution_layers": table, "compensations": comp,
+            "what_the_audit_read": "deliverables; layer-C evidence notes; layer A only where present", "never_summed": True}
+     out_dir = EZ / "coverage"
+@@ -145,9 +190,10 @@
+              "Built %s. Authority: ruling Q8 (#e2), amended by Q8-T (#e4). Never a summed count." % doc["built"], "",
+              "## 1. Census (verbatim)", "", "```", json.dumps(census, ensure_ascii=False, indent=1), "```", "",
+              "## 2. Per-execution layer table", "",
+-             "Runtime root `%s` exists: %s. The census-time class comes from `%s`; the observed-now class is read at build time. The two "
+-             "are never substituted for each other." % (TASKS, root_present, FINDING.name), "",
+-             "| execution | role | model ordered | outcome | layer A | class at census | class observed now | layer B | layer C |",
++             "Session roots named by the preserver index: %s. The census-time class comes from `%s` and was measured on the tasks/ route (OW-11-m); "
++             "the observed-now class is read at build time from the subagents route. The two are never substituted for each other (Q8-T (f))."
++             % (json.dumps(session_roots, ensure_ascii=False), FINDING.name), "",
++             "| execution | role | model ordered | outcome | layer A | class at census (tasks/ route, OW-11-m) | class observed now (subagents route) | layer B | layer C |",
+              "|---|---|---|---|---|---|---|---|---|"]
+     for t in table:
+         lines.append("| %s | %s | %s | %s | %s | %s | %s | %s | %s |" % (

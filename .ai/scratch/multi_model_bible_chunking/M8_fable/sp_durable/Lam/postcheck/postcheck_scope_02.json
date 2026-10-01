@@ -1,0 +1,77 @@
+{
+ "schema": "lam_postcheck_scope.v1",
+ "attempt_id": "lam_postcheck_02_a1",
+ "corpus": "rows_v9.jsonl",
+ "corpus_sha256": "df626026ba75711082104fb3b0450116e809acc29741e4b278d50defb6ee6815",
+ "pre_cure_corpus": "rows_v8.jsonl",
+ "rule": "every row carrying a residual in postcheck_01 + every row the bounded fix round touched; the second pass re-tests exactly what the first pass blocked on and what the cure for it changed",
+ "postcheck_01_residual_rows": [
+  "P01-009",
+  "P02-001",
+  "P02-003",
+  "P02-004",
+  "P02-008",
+  "P02-009"
+ ],
+ "postcheck_01_blocking": [
+  "P01-009",
+  "P02-009"
+ ],
+ "fix_touched_rows": [
+  "P01-009",
+  "P02-001",
+  "P02-003",
+  "P02-004",
+  "P02-008",
+  "P02-009"
+ ],
+ "fix_changed_fields": {
+  "P01-009": [
+   "boundary_evidence_refs",
+   "observed_substrate_signals"
+  ],
+  "P02-001": [
+   "device_notes"
+  ],
+  "P02-003": [
+   "device_notes"
+  ],
+  "P02-004": [
+   "device_notes"
+  ],
+  "P02-008": [
+   "observed_substrate_signals",
+   "device_notes"
+  ],
+  "P02-009": [
+   "boundary_rationale"
+  ]
+ },
+ "scope_rows": [
+  "P01-009",
+  "P02-001",
+  "P02-003",
+  "P02-004",
+  "P02-008",
+  "P02-009"
+ ],
+ "severity_by_row": {
+  "P01-009": "medium",
+  "P02-001": "low",
+  "P02-003": "low",
+  "P02-004": "low",
+  "P02-008": "low",
+  "P02-009": "medium"
+ },
+ "reported_items": [
+  {
+   "agent": "m02",
+   "attempt_id": "lam_micro_m02_a1",
+   "row": "P03-004",
+   "finding": "S3:E-08",
+   "reason": "This pooled finding's defective_text cites two splice/gloss pairs, one at Lam.3.22 and one at Lam.4.17. current_row for P03-004 (span Lam.4.17-Lam.4.20) contains no Lam.3.22 material anywhere in its 22 fields, so the Lam.3.22 half of the proposed cure would fabricate content this row does not carry and is not executed. The Lam.4.17 half names the same defect as the S4:E-08 finding on this row and is cured there."
+  }
+ ],
+ "first_pass_verdict": "not_fit",
+ "first_pass_digits": null
+}

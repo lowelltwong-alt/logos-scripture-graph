@@ -1,0 +1,75 @@
+{
+ "schema": "m8_test_correction_record.v1",
+ "id": "LAM-CWO-SCAN-CORRECTIONS-2026-09-07",
+ "what": "Five corrections to the deterministic CWO scanner, made AFTER the post-wave re-scan had already reported candidates. Changing a test after seeing its results is exactly the move that can launder a failure into a pass, so the change is recorded here with its justification, both scans are retained, and the pre-scan was re-run under the corrected tool so the parity comparison is like-for-like.",
+ "corrections": [
+  {
+   "id": 1,
+   "change": "grammatical person/number labels exempt from the universals screen",
+   "ground": "'first-person' was already exempt as morphology; 'first-plural' and 'third-singular' are the same construction. Consistency, not outcome."
+  },
+  {
+   "id": 2,
+   "change": "a digit-bearing count may carry up to two words between the digit and its unit; sites/hits admitted as units",
+   "ground": "The order requires 'a DIGIT and a unit word' in the sentence, not adjacency. '0 samekh verses' and '22 marked verses' satisfy the order and failed the regex."
+  },
+  {
+   "id": 3,
+   "change": "verbatim quoted runs are removed before the universals screen",
+   "ground": "The order's scope is the row's own claims. Words inside a curly-quoted run belong to the translation, and E-15 requires that run to stay verbatim; a screen that forces editing a quotation would set two campaign laws against each other."
+  },
+  {
+   "id": 4,
+   "change": "the quotation exclusion applies at FIELD level, before the sentence split",
+   "ground": "A quotation regularly spans a sentence boundary, so a per-sentence strip misses its second half. Same principle, correct placement."
+  },
+  {
+   "id": 5,
+   "change": "CWO-4's 'name the in-span verse' conjunct, where the form has NO in-span occurrence, is satisfied by naming a verse of the span",
+   "ground": "The order says device_notes must name BOTH the in-span and the out-of-span verse, which presupposes an in-span occurrence. Where the sweep puts every occurrence outside the span, no in-span verse carries the form and the conjunct as written is unsatisfiable. An unsatisfiable test is a defective test."
+  },
+  {
+   "n": 6,
+   "what": "CWO-1's token predicate was narrowed in _cwo_scan.py: cwo1_verdict(key) implements B3-1's three rules (R1 mark-layer token under any prefix; R2 letter/mark homonym outside the acrostic namespace; R3 letter/mark homonym paired with mark wording) in place of the issued flat token list.",
+   "why": "NOT a scanner defect and NOT the orchestrator's judgement: this change executes boss ruling B3-1 (2026-09-07, SP/Lam/reviews/boss_lam_b3.json), which narrowed CWO-1 after the second-generation catch found that the same string names a tier-1 acrostic LETTER and a tier-3 parashah MARK, and the campaign's own hazard law forbids conflating those layers.",
+   "authority": "boss ruling B3-1 by lam_boss_b3_a1 (claude-fable-5-1); the issued order stands unedited in reviews/boss_lam_b1.json",
+   "how_it_differs_from_corrections_1_to_5": "those five were corrections to a scanner that was misreading its own order; this one implements a change to the ORDER itself, made by the boss, and is recorded here because a reader comparing scans across the wave must see every reason the tool's verdicts moved",
+   "self_test": "29 vectors in _cwo_scan.py exercise R1/R2/R3 and their negatives",
+   "recorded_late": true,
+   "recorded_late_note": "this entry was written during the OW-6 fix round after the stage-2 final checker found the scan-correction record listed five corrections and not this one"
+  }
+ ],
+ "what_did_NOT_change": "A genuine undisclosed seam adjacency, a genuine bare exclusivity claim, and a genuine missing ketiv/qere disclosure all still fail the arms. Six such residuals survived the corrections and were sent to a bounded correction round rather than waived.",
+ "evidence_retained": {
+  "pre_scan_original_tool": "_lam_cwo_scan_pre.json",
+  "pre_scan_corrected_tool": "_lam_cwo_scan_pre_recheck.json",
+  "post_scan_corrected_tool": "_lam_cwo_scan_post.json",
+  "exact_arm_candidates_pre_corrected_tool": {
+   "CWO-1": 3,
+   "CWO-2": 19,
+   "CWO-4": 5,
+   "CWO-6": 4,
+   "CWO-10": 3
+  },
+  "exact_arm_candidates_post_corrected_tool": {
+   "CWO-1": 0,
+   "CWO-2": 3,
+   "CWO-4": 2,
+   "CWO-6": 0,
+   "CWO-10": 1
+  }
+ },
+ "residuals_sent_to_correction": {
+  "rows": [
+   "P01-001",
+   "P01-002",
+   "P01-009",
+   "P02-002"
+  ],
+  "items": 6,
+  "attempt": "lam_cwo_corr_01_a1"
+ },
+ "parity_rule_unchanged": "cwo_parity.v1.json is GREEN only when every exact arm returns 0 over the final corpus and every ordered row carries an author disposition. The correction round exists to reach that, not to redefine it.",
+ "amended_at": "2026-09-07T21:00:36.056033+00:00",
+ "amendment_note": "a sixth entry was appended during the OW-6 fix round: it records a change to the ORDER made by boss ruling B3-1, not a correction of the scanner's own reading. Entries 1-5 are unedited."
+}

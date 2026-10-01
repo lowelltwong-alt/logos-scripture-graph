@@ -1,0 +1,390 @@
+{
+ "attempt_id": "ezek_author_fixup_p01_a1",
+ "execution_id": "ezek_author_fixup_p01_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup1\\orders_ezek_author_fixup_p01_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json (R1,R2,P2,P4,P5,G12 only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v3_cwo18.jsonl (read-only, private-copied, never edited)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\ezek_lib.py (library: load_pmarks, kq_split_bytes)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py (executed)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py (executed)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P01-001 device_notes",
+    "why": "removed 'under the E-02 cap posture' governance/session talk (CWO-EZ-14); replaced with a plain confidence-based statement"
+   },
+   {
+    "what": "P01-002 boundary_rationale, device_notes, strongest_rejected_alternative",
+    "why": "re-spliced the 2:7 close device from the wrong, byte-true-but-displaced fragment to כִּ֥י מְרִ֖י הֵֽמָּה; extended the 2:3 Hebrew splice to include בְּנֵ֣י יִשְׂרָאֵ֔ל so it matches its own gloss (S1-04); added the missing oshb:Ezek.2.5 prose citation for the tag בֵּ֥ית מְרִ֖י (P5/TAGS, R3#1); added the inline web:Ezek.2.1 ref to the verbatim WEB quotation (CWO-EZ-18 verbatim_author); removed 'as originally drafted' register talk (CWO-EZ-14)"
+   },
+   {
+    "what": "P01-003 boundary_rationale, strongest_rejected_alternative",
+    "why": "re-spliced 3:1 to אֱכוֹל֙ אֶת הַמְּגִלָּ֣ה הַזֹּ֔את and 3:3 to וַתְּהִ֥י בְּפִ֖י כִּדְבַ֥שׁ לְמָתֽוֹק (S1-04); removed the 'the strategy's own ... rule' citation-talk from the SRA (CWO-EZ-14)"
+   },
+   {
+    "what": "P01-004 boundary_rationale",
+    "why": "fixed a stray Hebrew resh inside the English word ('רebellious-house' -> 'rebellious-house'), pre-existing format leak (S1-15)"
+   },
+   {
+    "what": "P01-009 device_notes",
+    "why": "removed 'under the same E-02 posture applied to ...' governance talk (CWO-EZ-14)"
+   },
+   {
+    "what": "P01-012 boundary_evidence_refs",
+    "why": "re-spliced the Qere for 7:2 from the pmarks K/Q note's true raw bytes via ezek_lib.kq_split_bytes (S1-06/CWO-EZ-15/CWO-EZ-16); the orders file's own prose evidence quoted the Qere in a non-canonical mark order that did not collate at byte tier -- used the tool-verified raw note bytes instead per CRITICAL BOOK FACT #7"
+   },
+   {
+    "what": "P01-013 observed_substrate_signals, strongest_rejected_alternative, device_notes",
+    "why": "removed unsupported 'recognition.3mp' (no 3mp form in 7:5-9; only 2mp is attested) (S1-14); removed 'as originally drafted' (CWO-EZ-14); removed 'under the E-02 posture' and added an explicit prose disclosure that no samekh or pe stands after 7:9 (part_addition, ruling G2)"
+   },
+   {
+    "what": "P01-014 strongest_rejected_alternative, boundary_evidence_refs, device_notes",
+    "why": "set the SRA to 'the single Ezek.7.5-Ezek.7.27 row, rejected on the 2mp recognition close and the doubled my-eye-will-not-spare refrain at oshb:Ezek.7.9' exactly as ordered (S1-01); added the oshb:Ezek.8.1 mirror for the next-hard-seam claim (S1-13); removed 'under the E-02 posture' governance talk (CWO-EZ-14)"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "citation_sweep problems = 0 on my 8 rows",
+   "how": "run_validator_suite.py over a private modified copy of rows_v3_cwo18.jsonl, filtered to my decision_ids",
+   "result": "confirmed (started at 2 after my first draft -- P01-002's new tag citation lacked a nearby oshb: ref, and P01-012's Qere was NFD/non-canonical -- both fixed and re-verified at 0)"
+  },
+  {
+   "claim": "normalizer defects = 0 and fixed = 0 on my rows",
+   "how": "hebrew_normalize dry-run inside run_validator_suite.py, filtered to my rows",
+   "result": "confirmed; corpus-wide defect_count also fell 9->8 (my P01-012 fix removed one pre-existing corpus defect)"
+  },
+  {
+   "claim": "cap_sweep failures = 0",
+   "how": "run_validator_suite.py (corpus-wide GREEN, trivially 0 for my rows)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_register flags = 0 on my rows",
+   "how": "run_validator_suite.py, filtered to my rows, before and after",
+   "result": "confirmed 0/0 under the currently-installed check_register.py; the CWO-EZ-14 items were built from an earlier corpus-impact report's flags and I cured every one as embedded, though the live tool did not independently re-flag them"
+  },
+  {
+   "claim": "no ngram7 offending gram includes my rows",
+   "how": "run_validator_suite.py (corpus-wide GREEN)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no tags entry breaks P5",
+   "how": "citation_sweep (0 problems on my rows, including the tags-oshb-ref class); strong_or_hebrew_tags_used left unchanged on every row",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_web_quotes class 'curly quote with NO web: ref' = 0 and e15d = 0 on my rows",
+   "how": "run_validator_suite.py, filtered to my rows",
+   "result": "confirmed 0/0"
+  },
+  {
+   "claim": "local tiling of part p01 is exact (no gaps/overlaps/outside-range)",
+   "how": "check_tiling.py on a private p01-only extract, --range Ezek.1.1-Ezek.7.27",
+   "result": "confirmed: GREEN, 140/140 verses, 14 decisions, 0 problems"
+  },
+  {
+   "claim": "decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection byte-identical to current_row on all 8 rows; non_authorizing true; 22 fields + _op:replace",
+   "how": "script-level assertion in the build script (raised on any mismatch; none raised) plus a separate parse-and-count check on the written output file",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "P01-009's ruling_order (e6:T5-CITATION-RESIDUALS#1) orders a read-back of a repeated Hebrew run under (R2)",
+   "why_it_matters": "the row's current text carries no K/Q/Qere citation and no repeated pointed-Hebrew run at all, so (R2) has nothing to bind to here; read back and confirmed clean (citation_sweep 0), no edit made. If the ruling intended a different field for p01, it is worth a second look."
+  },
+  {
+   "what": "refs_mirror (8 of my rows) and mark_symmetry (3 of my rows) carry pre-existing flags -- verses argued in prose without an individual boundary_evidence_refs mirror, and a few pe-mark gaps -- unchanged before/after my wave and not named in my orders' items",
+   "why_it_matters": "left uncured as NOT YOURS/out of scope rather than improvised; flagging for the checker/orchestrator in case a later wave should route them"
+  },
+  {
+   "what": "P01-014's refs_mirror flag changed content, not just count: 'Ezek.8.1' resolved, but 'Ezek.7.5'..'Ezek.7.8' newly appear",
+   "why_it_matters": "this is a direct, required consequence of S1-01's ordered SRA text citing the single 'Ezek.7.5-Ezek.7.27' rejected alternative -- 7:9 is already mirrored and 7:10-7:27 is the row's own span, so only the 7:5-7:8 gap of that cited range is unmirrored; a rise required by the order, not a defect"
+  },
+  {
+   "what": "whole-corpus hard_status stays RED after this wave",
+   "why_it_matters": "citation_sweep/normalizer problems remain outside part p01 (other parts' rows); expected, since only p01's 8 ordered rows were in scope for this attempt"
+  }
+ ],
+ "items": [
+  {
+   "row": "P01-001",
+   "item": "CWO-EZ-14 (device_notes, 'posture')",
+   "action": "cured",
+   "reason": "removed governance/session-talk phrase, verified 0 register flags"
+  },
+  {
+   "row": "P01-002",
+   "item": "ruling_order e4:FIXUP-1#3",
+   "action": "cured",
+   "reason": "executed the ordered 2:7/2:3 re-splice and gloss match"
+  },
+  {
+   "row": "P01-002",
+   "item": "s1_finding S1-04",
+   "action": "cured",
+   "reason": "re-spliced 2:7 close and extended 2:3 splice"
+  },
+  {
+   "row": "P01-002",
+   "item": "s1_finding S1-05",
+   "action": "cured",
+   "reason": "removed 'as originally drafted' from SRA (this row's instance)"
+  },
+  {
+   "row": "P01-002",
+   "item": "s1_row_defect R3#1",
+   "action": "cured",
+   "reason": "close-device mis-splice, 2:3 gloss-extent mismatch, and missing tag citation all remedied"
+  },
+  {
+   "row": "P01-002",
+   "item": "s1_row_defect cwo_sample CWO-EZ-02",
+   "action": "cured",
+   "reason": "same mis-spliced 2:7 close, now fixed"
+  },
+  {
+   "row": "P01-002",
+   "item": "CWO-EZ-14 (SRA, 'originally drafted')",
+   "action": "cured",
+   "reason": "same as S1-05 fix above"
+  },
+  {
+   "row": "P01-002",
+   "item": "CWO-EZ-18 verbatim_author (2:1 quote)",
+   "action": "cured",
+   "reason": "added inline web:Ezek.2.1 ref; verified 0 web_quotes flags"
+  },
+  {
+   "row": "P01-003",
+   "item": "ruling_order e4:FIXUP-1#3",
+   "action": "cured",
+   "reason": "executed the ordered 3:1/3:3 re-splice"
+  },
+  {
+   "row": "P01-003",
+   "item": "s1_finding S1-04",
+   "action": "cured",
+   "reason": "re-spliced 3:1 and 3:3 to match their glosses"
+  },
+  {
+   "row": "P01-003",
+   "item": "s1_finding S1-05",
+   "action": "cured",
+   "reason": "removed 'the strategy's own ... rule' citation talk from SRA"
+  },
+  {
+   "row": "P01-003",
+   "item": "s1_row_defect R3#1",
+   "action": "cured",
+   "reason": "mis-spliced 3:1/3:3 quotes and SRA narration both remedied"
+  },
+  {
+   "row": "P01-003",
+   "item": "s1_row_defect cwo_sample CWO-EZ-02",
+   "action": "cured",
+   "reason": "same mis-spliced quotes, now fixed"
+  },
+  {
+   "row": "P01-003",
+   "item": "CWO-EZ-14 (SRA, 'strategy's')",
+   "action": "cured",
+   "reason": "same as S1-05 fix above"
+  },
+  {
+   "row": "P01-004",
+   "item": "s1_finding S1-15",
+   "action": "cured",
+   "reason": "fixed stray Hebrew resh in 'rebellious-house'; the mark-encoding oss-key part of S1-15 belongs to p06/p09, not p01"
+  },
+  {
+   "row": "P01-004",
+   "item": "s1_row_defect cwo_sample",
+   "action": "cured",
+   "reason": "same stray-resh fix confirmed"
+  },
+  {
+   "row": "P01-009",
+   "item": "ruling_order e6:T5-CITATION-RESIDUALS#1",
+   "action": "reported",
+   "reason": "read back for a repeated Hebrew run under (R2); none found in this row's current text -- no edit needed, see unresolved_uncertainty"
+  },
+  {
+   "row": "P01-009",
+   "item": "CWO-EZ-14 (device_notes, 'posture')",
+   "action": "cured",
+   "reason": "removed governance/session-talk phrase, verified 0 register flags"
+  },
+  {
+   "row": "P01-012",
+   "item": "ruling_order e4:FIXUP-1#3",
+   "action": "cured",
+   "reason": "executed the ordered Qere re-splice"
+  },
+  {
+   "row": "P01-012",
+   "item": "s1_finding S1-06",
+   "action": "cured",
+   "reason": "re-spliced from the pmarks K/Q note's true raw bytes via kq_split_bytes"
+  },
+  {
+   "row": "P01-012",
+   "item": "s1_row_defect cwo_sample",
+   "action": "cured",
+   "reason": "same Qere fix confirmed"
+  },
+  {
+   "row": "P01-012",
+   "item": "hard_finding citation_sweep [CWO-EZ-16]",
+   "action": "cured",
+   "reason": "ref entry now collates against its own ref at byte tier"
+  },
+  {
+   "row": "P01-012",
+   "item": "hard_finding normalizer [CWO-EZ-15]",
+   "action": "cured",
+   "reason": "Hebrew run now stands on word boundaries"
+  },
+  {
+   "row": "P01-013",
+   "item": "s1_finding S1-05",
+   "action": "cured",
+   "reason": "removed 'as originally drafted' from SRA (this row's instance)"
+  },
+  {
+   "row": "P01-013",
+   "item": "s1_finding S1-14",
+   "action": "cured",
+   "reason": "removed unsupported 'recognition.3mp' from observed_substrate_signals"
+  },
+  {
+   "row": "P01-013",
+   "item": "s1_row_defect R3#1",
+   "action": "cured",
+   "reason": "SRA narration, mark-absence disclosure, and signals all remedied"
+  },
+  {
+   "row": "P01-013",
+   "item": "s1_row_defect cwo_sample CWO-EZ-02/04",
+   "action": "informational",
+   "reason": "this entry's substantive content (Qere 7:21) belongs to P01-014, not P01-013; no separate P01-013 action beyond the fixes above"
+  },
+  {
+   "row": "P01-013",
+   "item": "CWO-EZ-14 (SRA, 'originally drafted')",
+   "action": "cured",
+   "reason": "same as S1-05 fix above"
+  },
+  {
+   "row": "P01-013",
+   "item": "CWO-EZ-14 (device_notes, 'posture')",
+   "action": "cured",
+   "reason": "removed governance talk; added explicit words-disclosure that no mark stands after 7:9 (part_addition, G2)"
+  },
+  {
+   "row": "P01-014",
+   "item": "ruling_order e4:FIXUP-1#3",
+   "action": "cured",
+   "reason": "SRA set and 8:1 mirrored exactly as ordered"
+  },
+  {
+   "row": "P01-014",
+   "item": "s1_finding S1-01",
+   "action": "cured",
+   "reason": "SRA replaced with the ordered single-7:5-27-row text"
+  },
+  {
+   "row": "P01-014",
+   "item": "s1_finding S1-13",
+   "action": "cured",
+   "reason": "added oshb:Ezek.8.1 mirror to boundary_evidence_refs"
+  },
+  {
+   "row": "P01-014",
+   "item": "s1_row_defect G2#1",
+   "action": "cured",
+   "reason": "SRA and refs-mirror fixes both confirmed"
+  },
+  {
+   "row": "P01-014",
+   "item": "CWO-EZ-14 (device_notes, 'posture')",
+   "action": "cured",
+   "reason": "removed governance/session-talk phrase"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "S1-04 (2:7/2:3/3:1/3:3 re-splices)",
+   "test": "citation_sweep + hebrew_normalize dry-run via run_validator_suite.py, filtered to P01-002/P01-003",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-18 verbatim_author (P01-002, 2:1)",
+   "test": "check_web_quotes via run_validator_suite.py, filtered to P01-002",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-14 register fixes (7 instances)",
+   "test": "check_register via run_validator_suite.py, filtered to my 8 rows, before/after",
+   "result": "PASS (0/0)"
+  },
+  {
+   "order": "S1-06 / CWO-EZ-15 / CWO-EZ-16 (P01-012 Qere)",
+   "test": "citation_sweep + hebrew_normalize dry-run, filtered to P01-012",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-14 (P01-013 signals)",
+   "test": "field-level check against current_row plus citation_sweep re-run",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-01 / S1-13 (P01-014 SRA + refs mirror)",
+   "test": "check_refs_mirror via run_validator_suite.py",
+   "result": "PASS (8:1 resolved; residual 7:5-7:8 explained, not a defect)"
+  },
+  {
+   "order": "NO SPAN CHANGES (all 8 rows)",
+   "test": "build-script assertion: 9 immutable fields byte-identical to current_row",
+   "result": "PASS"
+  },
+  {
+   "order": "local tiling, part p01",
+   "test": "check_tiling.py --range Ezek.1.1-Ezek.7.27 on a private p01-only extract",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep": 1,
+   "hebrew_normalize_defects": 0,
+   "web_quotes": 0,
+   "refs_mirror_rows": 8,
+   "mark_symmetry_rows": 3,
+   "universals": 0,
+   "register": 0
+  },
+  "after": {
+   "citation_sweep": 0,
+   "hebrew_normalize_defects": 0,
+   "web_quotes": 0,
+   "refs_mirror_rows": 8,
+   "mark_symmetry_rows": 3,
+   "universals": 0,
+   "register": 0
+  },
+  "rises_explained": [
+   "P01-014 refs_mirror content changed (not count): 'Ezek.8.1' resolved by the new mirror entry; 'Ezek.7.5'..'Ezek.7.8' newly named because S1-01's ordered SRA now cites the single 'Ezek.7.5-Ezek.7.27' rejected alternative -- 7:9 is already mirrored and 7:10-7:27 is this row's own span, so only the 7:5-7:8 gap of the cited range is unmirrored; required by the order, not introduced carelessly."
+  ]
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

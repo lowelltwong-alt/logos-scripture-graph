@@ -1,0 +1,39 @@
+{
+ "schema": "m8_tool_dependency_applicability.v1",
+ "version": "v4 (adds the CWO-1 execution-parity tool lines; v1-v3 stand as history)",
+ "built": "2026-09-06T18:39:45.691449+00:00",
+ "prior_record": {
+  "path": "receipts/tool_dependency_applicability.2026-09-06.v3.json",
+  "sha256": "dee0136ae3cf77c4658a635c690c851fd22afdb3e333b2dd2da6408eea34d6cf"
+ },
+ "authority": "OW-3 permanent safeguard (dependency-applicability record when a pinned shared tool changes); E-18 corpus-wide-order execution parity (every CWO executes as its OWN sweep from the tool's COUNT)",
+ "trigger": "first run of _build_cwo_orders.py over the post-apply Jer corpus raised TypeError: the ngram7 result's per-gram 'rows' is a COUNT (the builder iterated it) and its row_ids were capped at 15, so an exact-arm CWO-1 order could not name every row",
+ "changes": [
+  {
+   "tool": "sp_durable/Jer/tools/ngram7.py",
+   "old_sha256": "0e7113c356113f3cbf0012690392899923d499f4d1898ceb7848e4ef813b5b10",
+   "new_sha256": "87e1981469ee1f9958be1459dae80eafc33b144267b36321b66c9dcdbed28d1d",
+   "preserved_old_build": "sp_durable/orchestrator_scratch/_preserved_ngram7.v1_2026-09-06.py",
+   "scope": "OPT-IN --full-ids flag: with it every offending gram lists ALL row ids; without it the output is unchanged (row_ids capped at 15)",
+   "regression": "ngram7.py rows_v2.jsonl --gate 10 (default) re-run under the patched build == the pre-patch scan's stored CWO-1 result (parsed-equal); --full-ids lists len(row_ids) == rows for all 33 grams (union 155 rows)",
+   "affects_earlier_receipts": "NO - every earlier sweep/suite invocation used the default form, whose output is unchanged"
+  },
+  {
+   "tool": "sp_durable/Jer/_cwo_scan.py",
+   "old_sha256": "a70439925ec7a4b79f161ed445e5b29e8da5c01518df72a63a798de912f88234",
+   "new_sha256": "e04b788ce70c624f4d6ba504849dae31091f7b91e10140fb24096daedd3be747",
+   "preserved_old_build": "sp_durable/orchestrator_scratch/_preserved_cwo_scan.v1_2026-09-06.py",
+   "scope": "CWO-1 invocation passes --full-ids so the scan carries complete row lists; counts unchanged",
+   "affects_earlier_receipts": "NO - the frozen-corpus scan record (_cwo_scan_frozen.json) stands; its counts are reproduced"
+  },
+  {
+   "tool": "sp_durable/Jer/_build_cwo_orders.py",
+   "old_sha256": "f91a39d4ca3d2ca705f9cac19a3de7859742db5d469a04ba440185132256e77a",
+   "new_sha256": "d72e73412b5f701c10d589bc89fddb98d5fbee71d9cf96381eab271620d81ce5",
+   "preserved_old_build": "sp_durable/orchestrator_scratch/_preserved_build_cwo_orders.v1_2026-09-06.py",
+   "scope": "CWO-1 branch iterates row_ids (was: the integer count); rows_sharing = the tool's count; first successful run: 165 rows ordered, 21 slices",
+   "affects_earlier_receipts": "NO - the builder had never produced an artifact before this session"
+  }
+ ],
+ "non_authorizing": true
+}

@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+"""Adapt the Ezekiel toolkit members to Daniel, deterministically, and record how.
+
+Lineage: Ezek/tools/<name> -> Dan/tools/<name>. Two passes, both exact:
+  1. CODE TOKENS. Using Python's tokenizer, every NAME token, non-docstring string token and f-string segment has
+     its book token swapped: ezek_lib -> dan_lib, EZEK -> DAN, Ezek -> Dan. Docstrings and comments are NOT
+     swapped by this pass, because in them the book token usually sits inside an Ezekiel FACT ("MT 21:1-5 = WEB
+     20:45-49") that a token swap would turn into a false Daniel claim.
+  2. PROSE AND FIXTURES. Per-tool exact-count substitutions (SUBS in _adapt_tools_dan_spec.py). Each `old` must
+     occur exactly the stated number of times in the output so far, or the run refuses.
+Then a residual scan lists every line that still carries an Ezekiel token or an Ezekiel-only fact pattern, and every
+Dan ref that names no verse on its face (a fixture carried from Ezekiel). A line may remain only if it is listed in
+KEEP with its reason (lineage mentions, rulings cited by their Ezekiel id).
+
+Modes:
+  --stage DIR   write the adapted files to DIR (a scratch directory), compile them, print the residual report
+  --install DIR copy staged files from DIR into Dan/tools; refuses if a residual is unresolved, if a target exists
+                and differs, or if the staged file no longer matches a fresh adaptation
+Option (added 2026-09-23 for the large-tool port):
+  --extra-spec PATH  adapt ONLY the tools named by that spec file's TOOLS, with its SUBS and KEEP, instead of the
+                spec above. The file may also define RENAME {dan_name: ezek_name} for a tool whose Daniel name
+                differs (the zone-tool test). A tool the base spec already adapts is refused. A porting lane stages
+                with this option in its own scratch; nothing is written to Dan/tools except by --install.
+Protected (never written by this script): dan_lib.py, check_language_zones.py, _test_language_zones_dan.py,
+TOOLKIT.md, _toolkit_selfcheck.py.
+"""
+from __future__ import annotations
+
+import hashlib
+import io
+import json
+import py_compile
+import re
+import sys
+import tokenize
+from pathlib import Path
+
+DAN_TOOLS = Path(__file__).resolve().parent
+SP = DAN_TOOLS.parent.parent
+EZEK_TOOLS = SP / "Ezek" / "tools"
+PROTECTED = {"dan_lib.py", "check_language_zones.py", "_test_language_zones_dan.py", "TOOLKIT.md",
+             "_toolkit_selfcheck.py", "_adapt_tools_dan.py", "_adapt_tools_dan_spec.py"}
+sys.path.insert(0, str(DAN_TOOLS))
+from _adapt_tools_dan_spec import KEEP, SUBS, TOOLS  # noqa: E402  {tool: [(old, new, count)]}, {tool: [(substr, why)]}
+from dan_lib import LAST_VERSE, MT_LAST_VERSE  # noqa: E402
+
+# every Daniel ref left in an adapted file must exist on its face (a fixture carried from Ezekiel may not)
+DANREF = re.compile(r"(?:(oshb|web):)?Dan\.(\d+)\.(\d+)")
+FACT = re.compile(r"[Ee][Zz][Ee][Kk]|1,?273|\b48 chapters|\b20:4[5-9]|\bchs? 20\b|\b20-21\b|\b21:[0-9]|\{20, 21\}"
+                  r"|\(20, |\(21, |\b41:20|\b46:22|\b43:27|\b33:20|\b41:8\b|\b48:16|\b18,?866|\b2,?352|\b37/37")
+
+
+def swap(s: str) -> str:
+    return s.replace("ezek_lib", "dan_lib").replace("EZEK", "DAN").replace("Ezek", "Dan")
+
+
+def pass1(src: str) -> str:
+    lines = src.splitlines(keepends=True)
+    edits = []
+    prev = None
+    for t in tokenize.generate_tokens(io.StringIO(src).readline):
+        if t.type in (tokenize.NL, tokenize.NEWLINE, tokenize.INDENT, tokenize.DEDENT, tokenize.COMMENT):
+            if t.type == tokenize.NEWLINE:
+                prev = t
+            continue
+        code = t.type == tokenize.NAME or getattr(tokenize, "FSTRING_MIDDLE", -1) == t.type
+        if t.type == tokenize.STRING:
+            triple = t.string.lstrip("rbuRBUfF").startswith(('"""', "'''"))
+            is_doc = triple and (prev is None or prev.type == tokenize.NEWLINE or prev.string == ":")
+            code = not is_doc
+        if code and swap(t.string) != t.string:
+            edits.append((t.start, t.end, swap(t.string)))
+        prev = t
+    for (sr, sc), (er, ec), new in reversed(edits):
+        if sr != er:
+            head, tail = lines[sr - 1][:sc], lines[er - 1][ec:]
+            lines[sr - 1:er] = [head + new + tail]
+        else:
+            lines[sr - 1] = lines[sr - 1][:sc] + new + lines[sr - 1][ec:]
+    return "".join(lines)
+
+
+RENAME: dict[str, str] = {}   # {dan_name: ezek_name}; set only by --extra-spec
+
+
+def load_extra(path: Path) -> None:
+    """Replace TOOLS/SUBS/KEEP with an extra spec file's own (see --extra-spec)."""
+    global TOOLS, SUBS, KEEP, RENAME
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("_extra_spec", str(path))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    clash = sorted(set(mod.TOOLS) & set(TOOLS))
+    if clash:
+        raise SystemExit("REFUSED: the base spec already adapts %s" % clash)
+    TOOLS, SUBS, KEEP = list(mod.TOOLS), dict(mod.SUBS), dict(getattr(mod, "KEEP", {}))
+    RENAME = dict(getattr(mod, "RENAME", {}))
+
+
+def adapt(name: str) -> tuple[str, list[str]]:
+    out = pass1((EZEK_TOOLS / RENAME.get(name, name)).read_text(encoding="utf-8"))
+    for old, new, count in SUBS.get(name, []):
+        n = out.count(old)
+        if n != count:
+            raise SystemExit("REFUSED %s: %r occurs %d times, spec says %d" % (name, old[:60], n, count))
+        out = out.replace(old, new)
+    keeps = KEEP.get(name, [])
+    residual = []
+    for i, line in enumerate(out.splitlines(), 1):
+        if FACT.search(line) and not any(k in line for k, _why in keeps):
+            residual.append("%s:%d: %s" % (name, i, line.strip()[:150]))
+        for m in DANREF.finditer(line):
+            c, v = int(m.group(2)), int(m.group(3))
+            space = MT_LAST_VERSE if m.group(1) == "oshb" else LAST_VERSE
+            if v < 1 or v > space.get(c, 0):
+                residual.append("%s:%d: NO SUCH VERSE %s" % (name, i, m.group(0)))
+    return out, residual
+
+
+def main() -> int:
+    sys.stdout.reconfigure(encoding="utf-8")
+    mode, target = sys.argv[1], Path(sys.argv[2])
+    report = {"mode": mode, "tools": {}, "residual": []}
+    if len(sys.argv) == 5 and sys.argv[3] == "--extra-spec":
+        load_extra(Path(sys.argv[4]))
+        report["extra_spec"] = {"path": sys.argv[4],
+                                "sha256": hashlib.sha256(Path(sys.argv[4]).read_bytes()).hexdigest()[:16]}
+    elif len(sys.argv) != 3:
+        raise SystemExit("usage: _adapt_tools_dan.py --stage|--install DIR [--extra-spec PATH]")
+    for name in TOOLS:
+        if name in PROTECTED:
+            raise SystemExit("REFUSED: %s is protected" % name)
+        out, residual = adapt(name)
+        report["residual"].extend(residual)
+        sha = hashlib.sha256(out.encode("utf-8")).hexdigest()
+        src = EZEK_TOOLS / RENAME.get(name, name)
+        report["tools"][name] = {"sha256": sha[:16], "source": src.name,
+                                 "source_sha256": hashlib.sha256(src.read_bytes()).hexdigest()[:16]}
+        if mode == "--stage":
+            target.mkdir(parents=True, exist_ok=True)
+            (target / name).write_text(out, encoding="utf-8", newline="\n")
+            py_compile.compile(str(target / name), doraise=True)
+    if mode == "--install":
+        if report["residual"]:
+            raise SystemExit("REFUSED: %d unresolved residual lines" % len(report["residual"]))
+        for name in TOOLS:
+            staged = (target / name).read_text(encoding="utf-8")
+            fresh, _ = adapt(name)
+            if staged != fresh:
+                raise SystemExit("REFUSED: staged %s no longer matches a fresh adaptation" % name)
+            dst = DAN_TOOLS / name
+            if dst.exists() and dst.read_text(encoding="utf-8") != fresh:
+                raise SystemExit("REFUSED: %s exists and differs" % dst)
+            dst.write_text(fresh, encoding="utf-8", newline="\n")
+    report["residual_count"] = len(report["residual"])
+    print(json.dumps(report, ensure_ascii=False, indent=0))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

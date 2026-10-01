@@ -1,0 +1,62 @@
+{
+ "NQ-1": {
+  "question": "- **NQ-1 pass 1.** Does the trace (`e16_application_trace.v1.json`, sha256 prefix `ee8c404b`, verdict APPLICATION_EVIDENCED) prove what it claims? Test at least three orders and three grade moves against the rows.",
+  "answer": "Trace digest prefix ee8c404b matches. 0 grade pairs the trace exposes were compared to the corpus; 0 disagree. A trace cannot supply P03-001's missing grade ground (F-414).",
+  "evidence": "trace top {'schema': 'ezek_e16_application_trace.v1', 'pass': 'decision packet v2 section 2 pass 1', 'verdict': 'APPLICATION_EVIDENCED'}",
+  "tier": "EXTRACTED"
+ },
+ "NQ-2": {
+  "question": "- **NQ-2 T-3.** P01-001 and P01-014 are the two grade moves resting on the ORCHESTRATOR's reading (`grade_moves_on_orchestrator_reading`). Would you grade them the same, reading only the rows and ruling #e16?",
+  "answer": "P01-001 (medium_low): agree, on a purposive reading of #e16. P01-014 (medium_low): under #e16 alone it would be low and its sidecar says 'no ground'; recorded as a low residual for the owner (R-5).",
+  "evidence": "rows_v8_final.jsonl line 1 (line sha256[:16] 9acca6fbfaaf6896), span Ezek.1.1-Ezek.1.28, confidence medium_low; substrings present: {'as measured': True, 'MEASURED': False}; rows_v8_final.jsonl line 14 (line sha256[:16] 4647297a757a7f19), span Ezek.7.10-Ezek.7.27, confidence medium_low; substrings present: {'oshb:Ezek.7.10 [WARRANT-onset:near] unmarked doom-poem opens here': True}",
+  "tier": "INFERRED"
+ },
+ "NQ-3": {
+  "question": "- **NQ-3 the eight open items.** For each, is it a close blocker, a disclosed residual, or resolved? The items are: - F-199, F-200 and F-201: P03-003, P03-004 and P03-005, class S7OUT, STOP; - F-279: P03-021, `closure.formula_final`, STOP; - F-337: P10-016, class E17, STOP; - F-414: P03-001, class CONFCAL, a grade question; - F-494 and F-495: P07-003 and P07-004, STOP.",
+  "answer": "F-199, F-200, F-201 and F-279: resolved in bytes. F-494 and F-495: resolved by the tool fix. F-337: disclosed low residual. F-414: the close blocker (P03-001, medium).",
+  "evidence": "lane evidence ['155:   - F-199, F-200 and F-201: P03-003, P03-004 and P03-005, class S7OUT, STOP;', '156:   - F-279: P03-021, `closure.formula_final`, STOP;', '158:   - F-414: P03-001, class CONFCAL, a grade question;', '159:   - F-494 and F-495: P07-003 and P07-004, STOP.']",
+  "tier": "MEASURED (F-414, P03-001 bytes); REPORTED from this lane's pre-interruption reading for the rest"
+ },
+ "NQ-4": {
+  "question": "- **NQ-4 the e17-minted rows.** P03-021, P03-022, P03-023, P04-012, P04-013, P06-014, P06-015 and P08-016 did not exist before ruling #e17. Were they reviewed as rows in their own right, or only as retile output?",
+  "answer": "All eight e17-minted rows are in the corpus with final status and non-empty rationale and rejected alternative, and flow into the deliverables. Their boundaries were not re-derived from the Hebrew; P03-023 and P04-012 carried conditional concerns that could not be re-measured after the resume.",
+  "evidence": "{'P03-021': {'span': 'Ezek.18.21-Ezek.18.32', 'confidence': 'medium_low', 'review_status': 'candidate_review_complete', 'refs': 16, 'rationale_len': 1567, 'sra_len': 787}, 'P03-022': {'span': 'Ezek.16.44-Ezek.16.58', 'confidence': 'medium_low', 'review_status': 'candidate_review_complete', 'refs': 16, 'rationale_len': 1596, 'sra_len': 918}, 'P03-023': {'span': 'Ezek.17.11-Ezek.17.21', 'confidence': 'medium', 'review_status': 'candidate_review_complete', 'refs': 13, 'rationale_len': 1202, 'sra_len': 974}, 'P04-012': {'span': 'Ezek.20.27-Ezek.20.38', 'confidence': 'medium_low', 'review_status': 'candidate_review_complete', 'refs': 12, 'rationale_len': 1337, 'sra_len': 730}, 'P04-013': {'span': 'Ezek.21.1-Ezek.21.7', 'confidence': 'medium', 'review_status': 'candidate_review_complete', 'refs': 11, 'rationale_len': 1574, 'sra_len': 1128}, 'P06-014': {'span': 'Ezek.28.20-Ezek.28.23', 'confide",
+  "tier": "MEASURED (fields); boundary soundness UNAVAILABLE"
+ },
+ "NQ-5": {
+  "question": "- **NQ-5 the register.** The suite's register check is GREEN with 0 flags over the corpus. The tool changed (compare `check_register.py` with `check_register.py.pre_5106d1be66f3`). Any register result made before that change is stale. Is the change a fix or a loosening?",
+  "answer": "A fix (a tightening), not a loosening. The suite register block over this corpus reads {'rows_checked': 138, 'flag_count': 0, 'status': 'GREEN', '_exit': 0}.",
+  "evidence": "lane evidence ['\"register\": \"GREEN\",', '61: - `check_register.py rows_v8_final.jsonl`.', \"162: - **NQ-5 the register.** The suite's register check is GREEN with 0 flags over the corpus. The tool changed (compare\"]",
+  "tier": "MEASURED (suite); REPORTED (tool diff read before the interruption)"
+ },
+ "NQ-6": {
+  "question": "- **NQ-6 ruled rewrites.** The parity record (`378ec136894a381a35c2de452cdf565aa89bef48d31df14c8392fa1aade4534a`) is GREEN. In it, CWO-EZ-23 has 11 pairs rewritten by later ruled waves, and CWO-EZ-24 has 7 pairs superseded by ruled waves. Is each attribution to a ruled wave true, or does a rewrite hide an unruled change? Test at least two.",
+  "answer": "Parity record digest matches and it is GREEN. CWO-EZ-23: 11 ruled rewrites across s1, h1, h2, retile_e17.manifest and author_wave_apply. CWO-EZ-24: 18 pairs, 6 with a ruled_rewrite (the brief says 7). s1_adjudication never names P05-004; author_wave_apply names no row id; the h1 attribution (P06-003.device_notes, source B) is true. Attribution is only partly traceable: low residual.",
+  "evidence": "lane evidence [\"C23 keys ['arm', 'method', 'tool_verdict', 'record', 'pairs_verified', 'pairs_ordered', 'status', 'ruled_rewrites', 'residual_count', 'residual'] n_ruled 11 recs ['author/final/s1_adjudication/adjudication.json', 'author/repair2_step6/h1_ad\", \"NQ6 P05-004 author/final/s1_adjudication/adjudication.json {'p05-4': 0, 'Ezek.23.1-Ezek.23.21': 0}\", 'C23 rr0: {\"pair\": 1, \"row\": \"P05-004\", \"field\": \"strongest_rejected_alternative\", \"new_last_held_in_image\": \"03327cf4fda4\", \"rewritten_by\": [{\"record\": \"author/final/s1_adjudication/adjudication.json\", \"sha256\": \"1f068df5f395117f84ddd232fa3']",
+  "tier": "MEASURED"
+ },
+ "NQ-7": {
+  "question": "- **NQ-7 the role-token phase.** `role_tokens_phase.json` is still `pre`. It was written 2026-09-16 with the note \"Flip to post, with a receipt, when step 4 closes\". Run both phases. Must the flip happen before the close, and does `post` pass?",
+  "answer": "Phase now: {'phase': 'pre', 'why': 'REPAIR-2 step 4 is installing clause 6 v2 face qualifiers: before the author batch qualifies WARRANT-rival tokens, an un', 'set_at': '2026-09-16'}. The post-phase check passes; flip to post before the close, with a receipt, as the owner's act.",
+  "evidence": "lane evidence ['\"role_tokens\": \"GREEN\"', '60: - `check_role_tokens.py rows_v8_final.jsonl --phase post` and `--phase pre`, run from `C:\\\\wt\\\\logos-t423-m8-fable\\\\.ai\\\\scratch\\\\multi_model_bible_chunking\\\\M8_fable\\\\sp_durable\\\\Ezek`;', '168: - **NQ-7 the role-token phase.** `role_tokens_phase.json` is still `pre`. It was written 2026-09-16 with the note \"Flip']",
+  "tier": "MEASURED (phase); REPORTED (post run before the interruption)"
+ },
+ "NQ-8": {
+  "question": "- **NQ-8 the shared feed (OW-11).** The Lamentations close tool appended to the shared atlas feed itself. Ezekiel's item-22 README says that merge is the owner's act. Which is right under OW-11? What must Ezekiel's close tool do instead?",
+  "answer": "The README is right. The Lam tool appended to shared files itself (L4 'M8-Lam-NNN, appends the three sidecars + the whole-Bible map, writes receipts/Lam_completion.json carrying the'). Ezekiel's close tool must stage the 102 rows, assert the shared feed sha unchanged (pin holds: True; M8-Ezek mentions 0), and leave the merge to the owner (OW-11).",
+  "evidence": "Lam L138-141 ['lcr.append({**common, \"why_low_confidence\": s[\"why_low_confidence\"]})', 'feq.append({**common, \"concern_type\": s[\"concern_type\"], \"why_frontier_review_needed\": s[\"why_frontier_review_needed\"]})', 'acf.append({**common, \"concern_type\": s[\"concern_type\"], \"why_low_confidence\": s[\"why_low_confidence\"]})', 'for name, out in ((\"low_confidence_register.jsonl\", lcr), (\"frontier_escalation_queue.jsonl\", feq), (\"atlas_candidate_fe']",
+  "tier": "EXTRACTED + MEASURED"
+ },
+ "NQ-9": {
+  "question": "- **NQ-9 the E6 grade moves.** The trace marks escalation E6 NOT_EVIDENCED (\"no delivered owner report names it\"). Is the E6 grade-move visibility report owed to the owner a close blocker, or a debt that can follow the close?",
+  "answer": "Not a blocker by itself: deliver the E6 report naming the grade moves with the close packet, so the owner sees it before closing.",
+  "evidence": "trace marks E6 NOT_EVIDENCED (brief)",
+  "tier": "INFERRED"
+ },
+ "NQ-10": {
+  "question": "- **NQ-10 the sidecars.** `sidecar_src_ezek.jsonl` has 101 rows. Five of their fields are copied from the atlas rows; why_frontier_review_needed is transcribed, with one COMPOSED fallback (p01-10). Does any sidecar field assert something its source row does not?",
+  "answer": "Sidecar rows 101 = low/medium_low rows (True); copied-field mismatches vs atlas 0; why_frontier_review_needed composed only for P01-010; 'no ground' reasons on ['P01-001', 'P01-014', 'P04-001', 'P07-006', 'P08-015'] (low residual).",
+  "evidence": "P01-010 why_frontier head \"COMPOSED: every sentence of this row's recorded rival reading and boundary warrant quotes witness text or an internal code, so none can travel here; the reviewe\"",
+  "tier": "MEASURED"
+ }
+}

@@ -1,0 +1,42 @@
+--- SP/Ezek/tools/citation_sweep.py (installed 2850ce8ad99c)
++++ proposals/toolfix2_batch3/staged/citation_sweep.py (6c843b14a604)
+@@ -572,6 +572,39 @@
+                     problems.append(f"{did}: {ref!r} claims a dateline at " + ", ".join("MT %d:%d" % p for p in cal_)
+                                     + " - a calendar date with no year word is never a dateline")
+                     break
++            # REF HEBREW arm (Ezek; S1-06, ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (b)) [CWO-EZ-16]: every Hebrew
++            # run inside a ref entry binds to that entry's OWN (first) ref - every verse of its range - with walk()'s functions:
++            # collate_hebrew (byte tier if pointed, any tier if unpointed), the verse's Qere from the raw note bytes, and a
++            # ketiv/qere keyword in the run's own sentence within 160 characters.
++            ref_runs_ = [r_ for r_ in HEB_RUN.findall(tail) if len(re.sub(r"[^א-ת]", "", r_)) >= 3]
++            if ref_runs_:
++                if oshb_texts is None:
++                    oshb_texts = json.loads((TOOLS / "verse_map_oshb.json").read_text(encoding="utf-8"))
++                keys_, (c_, v_) = [], (ch, v)
++                while (c_, v_) <= end_pair and c_ in space:
++                    mk_ = web_to_mt(c_, v_) if kind == "web" else (c_, v_)
++                    if mk_:
++                        keys_.append(f"Ezek.{mk_[0]}.{mk_[1]}")
++                    c_, v_ = (c_, v_ + 1) if v_ < space[c_] else (c_ + 1, 1)
++                texts_ = " | ".join(oshb_texts.get(k_, {}).get("text", "") for k_ in keys_)
++                qere_ = " | ".join(kq_split_bytes(n_, oshb_texts.get(k_, {}).get("text", ""))[1].replace("/", "")
++                                   for k_ in keys_ for n_ in kq.get(k_, []))
++                for r_ in ref_runs_:
++                    pointed_ = bool(POINTED.search(r_))
++                    t_ = collate_hebrew(r_, texts_)
++                    if (t_ == "byte") if pointed_ else t_ != "none":
++                        continue
++                    tq_ = collate_hebrew(r_, qere_) if qere_.strip(" |") else "none"
++                    if (tq_ == "byte") if pointed_ else tq_ != "none":
++                        p_ = tail.find(r_)
++                        s_lo_, s_hi_ = sentence_bounds(tail, p_, p_ + len(r_))
++                        if KQ_WORD.search(tail[max(s_lo_, p_ - 160):min(s_hi_, p_ + len(r_) + 160)]):
++                            continue
++                        problems.append(f"{did}: Hebrew {r_[:25]!r}… in ref entry {ref!r} matches the Qere of its own ref "
++                                        f"but its sentence carries no ketiv/qere disclosure [CWO-EZ-16]")
++                        continue
++                    problems.append(f"{did}: Hebrew {r_[:25]!r}… in ref entry {ref!r} does not collate against its own ref "
++                                    f"(tier {t_}, qere tier {tq_}, {'pointed' if pointed_ else 'unpointed'}) [CWO-EZ-16]")
+             if (re.search(r"\b(?:ketiv|qere|K/Q)\b", tail, re.I) and not kq.get(key)
+                     and not (key in kq_note_keys and NOTE_WORD.search(tail))):
+                 problems.append(f"{did}: {ref!r} claims ketiv/qere but the kq "

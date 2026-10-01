@@ -1,0 +1,256 @@
+#!/usr/bin/env python3
+"""Close-gate item 23: Ezekiel's method-change proposals, conforming to m8_method_change_proposal.v1.
+
+Retained generator (method record v6 obligation 13), so these rows can be re-derived and diffed rather than only
+digested. --check rebuilds to a temp file and compares digests.
+
+DISCLOSED INDEPENDENCE LIMIT, stated before anything else. The proposer brief assumes a separate proposing
+execution. Under OW-22's hard budget line this book's proposals were authored by the ORCHESTRATION that ran the
+book and that also wrote method record v6 - two separations the loop normally keeps. What is preserved: the
+proposals target v7 and change nothing; adjudication is independent (Fable, never the proposer, never this
+orchestrator); every row carries the limit in its own bytes; and every row states the strongest reason to REJECT
+it, so the adjudicator is not handed one side only. What is lost: a proposer who never saw the orchestrator's
+reasoning would have brought a different reading of the same evidence, and no one can say from here what it was.
+AMENDED 2026-09-23 (v9 fix round, after close lane A found the Fable wording stale under OW-25). No Fable execution
+ran for Ezekiel: OW-25 put every role on claude-opus-5-5, and OW-26 folded the items 20-23 check into the two blind
+merged-close lanes. OW-28 then set Fable to review every book at the campaign's end and make the hardest decisions,
+so these proposals are adjudicated there, and until then every row's adjudication stays null. MCP-Ezek-004's
+evidence now says what ran.
+Output: method_change_proposals.Ezek.candidate.jsonl - a CANDIDATE file. Appending to the campaign log
+M8_fable/method_change_proposals.v1.jsonl happens only after adjudication, with the verdicts attached."""
+import hashlib
+import json
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+OUT = HERE / "method_change_proposals.Ezek.candidate.jsonl"
+AT = "2026-09-21T00:00:00Z"
+PROPOSER = ("M8_fable orchestration (Opus 5) at Ezekiel close - NOT a separate proposer execution; "
+            "see disclosed_independence_limit")
+LIMIT = ("Authored by the orchestration that ran the book and wrote method record v6, under the OW-22 budget line, "
+         "instead of by a separate proposer execution. Adjudication is independent; the proposer's own strongest "
+         "objection is stated in every row. Weigh these proposals knowing the proposer is not disinterested.")
+
+P = [
+    {
+        "proposal_id": "MCP-Ezek-001",
+        "target_section": "10 (capture discipline), with an obligation in 16",
+        "change":
+            "**Name the generator for the version it produces, and treat a missing one as a FAILED check rather "
+            "than a skipped one.** Generator retention (§10) is a rule about bytes, so it is checkable, and it must "
+            "be checked by the harness that reports the record's digest. Two things follow. First, a generator file "
+            "carries the version in its name (`gen_<record>_v<N>.py`): an unversioned generator silently tracks the "
+            "newest version, so every earlier version becomes unreproducible while the newest version's check still "
+            "passes, and nothing in the record says so. Second, for every generated version a close reports, its "
+            "checker must locate the generator for exactly that version and rebuild from it; absence is reported as "
+            "UNREPRODUCIBLE and fails that record's check, never as SKIP, because a skip reads as 'not applicable' "
+            "and a reader cannot tell it from a pass. Versions issued before this rule are listed once, by name, as "
+            "known-unreproducible, and that list does not grow.",
+        "evidence_from_this_book":
+            "Measured at this close. (a) sp_durable/Ezek/scholar_record/ holds an UNVERSIONED generator, "
+            "gen_scholar_record.py, whose OUT_NAME is EZEKIEL_SCHOLAR_RECORD.v2.md (line 46), beside "
+            "EZEKIEL_SCHOLAR_RECORD.v1.md and scholar_record_check.v1.json - so v2's check passes at 12 of 12 while "
+            "v1 sits next to it unreproducible, and no check reports that condition. (b) "
+            "M8_fable/check_method_record.py line 148 and sp_durable/Ezek/deliverables/check_atlas_rows.py both "
+            "report a missing generator as ok=None SKIP ('not the canonical file, or no generator') - both written "
+            "by this orchestration at this close. (c) M8_fable/BIBLE_CHUNKING_METHOD.v6.md states the retention "
+            "rule in prose only, at §10 lines 369-383 and obligation 13 line 579, with the loss that prompted it in "
+            "the v5->v6 change table at line 39. (d) Only gen_method_v6.py exists for the method record, so v1-v5 "
+            "are already in the known-unreproducible class this rule would name.",
+        "blast_radius": "campaign_wide",
+        "cost_to_adopt":
+            "Two checkers change one branch each - M8_fable/check_method_record.py line 148 and "
+            "sp_durable/Ezek/deliverables/check_atlas_rows.py - where the else-branch becomes a failure carrying an "
+            "UNREPRODUCIBLE reason instead of ok=None. A third change is a rename, not a branch: "
+            "sp_durable/Ezek/scholar_record/gen_scholar_record.py becomes gen_scholar_record_v2.py and its checker "
+            "(check_scholar_record.py, which already rebuilds rather than skipping) looks for the version-named "
+            "file. One paragraph in §10 and one clause in obligation 13. A one-time list of known-unreproducible "
+            "versions (scholar record v1; method record v1-v5) goes into §10 - a disclosure the record owes anyway. "
+            "No re-run of any book is required, and no shipped row changes.",
+        "proposer_necessity_estimate":
+            "NECESSARY. v6 §12 states the principle that a change making a defect impossible beats a change telling "
+            "someone to be careful, and then §10 tells someone to be careful. The defect it guards against has "
+            "already occurred once, in this book, in my own work; the guard is a one-line change in three files; and "
+            "the current SKIP actively hides the condition, which is worse than having no check, because a close "
+            "report shows a clean count.",
+        "strongest_reason_to_reject":
+            "It converts a clean check record into a failing one for every older record whose generator legitimately "
+            "predates the rule, and a checker that fails on correct historical artefacts trains its reader to "
+            "ignore it. The named-exception list answers that, but an exception list is itself a thing that rots: if "
+            "nobody maintains it, the rule quietly becomes 'fail everything old'.",
+    },
+    {
+        "proposal_id": "MCP-Ezek-002",
+        "target_section": "18 (provenance tiers)",
+        "change":
+            "**When a deliverable carries part of a record's own words, report what was carried, what could not be "
+            "carried, and what was merely not carried - as three numbers, never one.** A single 'dropped' count "
+            "conflates two different claims: that material was unquotable (it carried witness bytes, a licence "
+            "obligation or an internal code) and that material was usable but fell outside a limit the deliverable "
+            "chose. The first is a property of the source; the second is a property of your cap. Collapsing them "
+            "implies the remainder could not have been shown, which is an implied provenance claim and falls under "
+            "this section's ban. State the cap in the artefact, and say plainly that the field is a capped summary "
+            "rather than the record's full reason.",
+        "evidence_from_this_book":
+            "sp_durable/Ezek/deliverables/gen_atlas_rows.py first reported one figure per row, and the close's own "
+            "measurement over the 102 shipped candidate rows was 299 sentences carried against 539 'dropped'. "
+            "Splitting the count measured 70 genuinely unquotable sentences (across 50 rows) and 469 usable "
+            "sentences past the 2+1 cap. The single figure would have told a reader that four fifths of each row's "
+            "reason could not be shown, when the true figure is about one eighth. Current fields: "
+            "Ezek_atlas_dimensions.v1.jsonl derivation.sentences_kept / sentences_unquotable_filtered / "
+            "sentences_usable_but_over_cap, sha256 "
+            "417fb54332990a913011bf03d507cfd0221d1e927e62c0daf10d095a566768c2.",
+        "blast_radius": "campaign_wide",
+        "cost_to_adopt":
+            "Any generator that filters source prose reports two counts instead of one - already done for Ezekiel's "
+            "atlas deliverable. One paragraph in §18. A checker arm is optional: the counts are a disclosure, and "
+            "the substantive guard (every carried fragment must occur verbatim in the row's own fields) already "
+            "exists as check_atlas_rows.py's prose_traces_to_the_rows_own_words.",
+        "proposer_necessity_estimate":
+            "USEFUL. It is not a correctness defect - no wrong row shipped - but it is exactly the half-truth this "
+            "section exists to ban, it was live in an artefact today, and the fix costs one integer. It is rated "
+            "below NECESSARY because a reader who opened the sidecar could already see the filter rule.",
+        "strongest_reason_to_reject":
+            "§18 already bans implied provenance in general terms, and a method record that adds a clause for each "
+            "particular way of implying something will grow faster than anyone reads it. A reviewer could fairly say "
+            "this belongs in a generator convention or a checklist, not in the standing method.",
+    },
+    {
+        "proposal_id": "MCP-Ezek-003",
+        "target_section": "12 (do not let the scaffolding eat the scholarship)",
+        "change":
+            "**A checker that shares code with the thing it checks proves self-consistency, not correctness.** "
+            "Re-measure independently inside the gate: parse the source records again rather than importing the "
+            "generator's helpers, and let the two measurements disagree. Where a gate does invoke the generator, say "
+            "which property that invocation establishes and which it does not - a deterministic rebuild proves the "
+            "output was not hand-edited after generation, and proves nothing at all about whether the generator "
+            "read its inputs correctly. Report those as two separate checks, never as one green line.",
+        "evidence_from_this_book":
+            "sp_durable/Ezek/deliverables/check_atlas_rows.py re-derives the referral set from the six "
+            "author/final/s*_adjudication/adjudication.json files and re-measures neighbour spans, frame counts and "
+            "the numbering zone from repair/rows_v7_cwo24.jsonl, importing nothing from gen_atlas_rows.py; it "
+            "reports determinism separately (generated_deterministically). It found 0 disagreements over 102 rows, "
+            "so the independent path's cost is measured and its value here was a confirmation rather than a catch. "
+            "The catch that motivates it is E-42 in this book: build_slice_extract.py fell back to a translation key "
+            "when the MT key carried no apparatus entry, and no gate built from that same code could have seen it; "
+            "an adjudicator reading the passage did.",
+        "blast_radius": "campaign_wide",
+        "cost_to_adopt":
+            "Measured on this book's two new gates: roughly a third more checker code, and the two measurement paths "
+            "must be kept in step when the schema changes. One paragraph in §12. It pairs with v6's negative-control "
+            "obligation and needs no new tooling.",
+        "proposer_necessity_estimate":
+            "USEFUL, close to NECESSARY. v6 obligation 12 requires a gate to be shown failing, which a shared-code "
+            "gate can satisfy while still being blind to the whole class of defects that live in the shared code. "
+            "Held at USEFUL and not NECESSARY because this book produced no instance of a shared-code gate passing "
+            "something it should have caught - the argument rests on E-42, where the defect was in the extractor and "
+            "was caught by a reader rather than by a gate.",
+        "strongest_reason_to_reject":
+            "Two implementations of the same measurement is two places to be wrong, and a disagreement between them "
+            "costs an investigation that usually ends in the checker being at fault. On a book with 102 rows the "
+            "independent path found nothing; a reviewer could reasonably call it ceremony and spend the same effort "
+            "on a second human reading, which is what actually caught E-42.",
+    },
+    {
+        "proposal_id": "MCP-Ezek-004",
+        "target_section": "17 (the method-change proposal loop)",
+        "change":
+            "**If the budget forces the proposer to be the orchestrator, say so in the proposal file's own bytes.** "
+            "The loop's value is that the proposer, the adjudicator and the record's author are three different "
+            "readers. When a close cannot afford three, the collapse is recorded per proposal - which separation was "
+            "lost, under what authority, and what was done instead - and every such proposal states the strongest "
+            "reason to reject itself, so the adjudicator is not handed one side of an argument. Adjudication is "
+            "never collapsed: a proposal adjudicated by its own proposer, or by the orchestrator that ran the book, "
+            "is void. The log is the measurement (§17), so these disclosures are countable, and a generation whose "
+            "proposals are mostly self-authored can see that about itself.",
+        "evidence_from_this_book":
+            "This file. Ezekiel's proposals were authored by the orchestration that ran the book and wrote "
+            "BIBLE_CHUNKING_METHOD.v6.md, as one of two scope cuts declared against the OW-22 ceiling (the other "
+            "planned to merge the scholar-record audit and the items 21-23 check into a single Fable execution; "
+            "under OW-25 and OW-26 that check ran instead inside the two blind claude-opus-5-5 merged-close lanes, "
+            "which judged items 20-23). "
+            "M8_fable/METHOD_PROPOSER_BRIEF.md assumes a separate proposing execution and "
+            "M8_fable/method_change_proposals.v1.jsonl _rules state that the proposer never edits the method record "
+            "- a rule this close broke knowingly rather than silently.",
+        "blast_radius": "cross_generation",
+        "cost_to_adopt":
+            "Two fields in the proposal schema (disclosed_independence_limit, strongest_reason_to_reject), already "
+            "present in these rows as a disclosed extension of m8_method_change_proposal.v1. One subsection in §17. "
+            "No change to the briefs, which remain the default shape.",
+        "proposer_necessity_estimate":
+            "USEFUL. It does not improve any chunk. It keeps a real deviation visible and countable instead of "
+            "leaving a later reader to infer independence that did not exist - which is the same standard §18 "
+            "applies to evidence tiers, applied to governance.",
+        "strongest_reason_to_reject":
+            "Writing the escape hatch into the method makes the cheap path legitimate, and the next close under "
+            "budget pressure will reach for it by default; a rule that says 'do it properly, and if you cannot, "
+            "disclose' is obeyed in its second clause. The alternative - no proposals at all from a book that cannot "
+            "afford a proposer - is more honest and would have cost this close nothing but four rows.",
+    },
+    {
+        "proposal_id": "MCP-Ezek-005",
+        "target_section": "15 (the atlas)",
+        "change":
+            "**Atlas prose fields carry at most two sentences from a row's own notes and one from its rejected "
+            "alternative.**",
+        "evidence_from_this_book":
+            "sp_durable/Ezek/deliverables/gen_atlas_rows.py applied that cap to 102 rows; the measured effect was "
+            "299 sentences carried and 469 usable sentences left behind.",
+        "blast_radius": "campaign_wide",
+        "cost_to_adopt": "None. It describes what one generator already does.",
+        "proposer_necessity_estimate":
+            "LOW_REWARD, and I recommend REJECT. It is included because the log is the measurement (§17) and a "
+            "calibration row that the proposer itself argues against is worth more to the next reader than a file "
+            "of four proposals all rated useful. The number 2+1 is an artefact of one book's note length, not "
+            "anything this book tested; nothing measured it against 1+1 or 4+2.",
+        "strongest_reason_to_reject":
+            "Freezing an untested number into the standing method is precisely what §13 warns against - handing "
+            "forward an untested rule is worse than handing forward an open question - and the useful part of it "
+            "(say what your cap is and that the field is a summary) is already MCP-Ezek-002.",
+    },
+]
+
+
+def rows():
+    return [dict({"_schema": "m8_method_change_proposal.v1",
+                  "_schema_extension": ["strongest_reason_to_reject", "disclosed_independence_limit"],
+                  "proposal_id": p["proposal_id"], "proposed_at": AT, "generation": "M8", "book": "Ezek",
+                  "proposer": PROPOSER, "disclosed_independence_limit": LIMIT,
+                  "target_section": p["target_section"], "change": p["change"],
+                  "evidence_from_this_book": p["evidence_from_this_book"], "blast_radius": p["blast_radius"],
+                  "cost_to_adopt": p["cost_to_adopt"],
+                  "proposer_necessity_estimate": p["proposer_necessity_estimate"],
+                  "strongest_reason_to_reject": p["strongest_reason_to_reject"],
+                  "adjudication": None, "landed_in_version": None}) for p in P]
+
+
+def write(path):
+    path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows()), encoding="utf-8")
+    return hashlib.sha256(path.read_bytes()).hexdigest(), path.stat().st_size
+
+
+def main():
+    if "--check" in sys.argv:
+        tmp = Path(tempfile.mkdtemp(prefix="mcp_")) / OUT.name
+        got, _ = write(tmp)
+        have = hashlib.sha256(OUT.read_bytes()).hexdigest()
+        tmp.unlink()
+        tmp.parent.rmdir()
+        print("DETERMINISTIC: %s\n  on disk %s\n  rebuilt %s" % ("MATCH" if got == have else "DIFFER", have, got))
+        sys.exit(0 if got == have else 1)
+    sha, n = write(OUT)
+    print("%s  %d proposals  %d bytes  sha256 %s" % (OUT.name, len(P), n, sha))
+    for r in rows():
+        print("  %-13s %-46s %-14s %s" % (r["proposal_id"], r["target_section"][:46], r["blast_radius"],
+                                          r["proposer_necessity_estimate"].split(".")[0]))
+    # A proposal with no book evidence is inadmissible (brief). Refuse to ship one.
+    bad = [r["proposal_id"] for r in rows() if len(r["evidence_from_this_book"]) < 80]
+    if bad:
+        sys.exit("FAIL: proposals with no usable book evidence: %s" % bad)
+
+
+if __name__ == "__main__":
+    main()

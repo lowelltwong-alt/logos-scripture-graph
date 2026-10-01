@@ -1,0 +1,87 @@
+{
+ "attempt_id": "ezek_writer_p11_a1",
+ "execution_id": "ezek_writer_p11_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\WRITER_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_denominator_reconciliation.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_p0_retained_lows.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\verse_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\writer_parts.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "13 chunk rows written to draft_p11.jsonl, tiling Ezek.44.1-Ezek.48.35 exactly (138 verses)",
+    "why": "one formula-bounded unit per row per §6, with the flagged-region low-confidence posture (§7) applied wherever chs 40-48's onset side lacks a text-signal device"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "13 rows tile Ezek.44.1-Ezek.48.35 exactly, no gap, no overlap",
+   "how": "bespoke script check_p11.py, row spans expanded to individual verse refs and diffed against verse_inventory.json chapter counts (44:31,45:25,46:24,47:23,48:35)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 22 schema fields present on every row; unit_type in the 12-value vocabulary; confidence in {high,medium,medium_low,low}; non_authorizing true on every row",
+   "how": "bespoke script, field-set and enum check on the finished file",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every Hebrew-script run in the finished file is a substring of Ezek_oshb.txt or a pmarks_Ezek.json K/Q note with '/' stripped",
+   "how": "bespoke script, extracted every maximal Hebrew-script run from the raw JSONL text and tested membership against the full Ezek_oshb.txt blob and the stripped kq set",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no Hebrew was written as a unicode escape sequence anywhere in the file",
+   "how": "regex search for \\u05xx literal escape patterns in the raw file text",
+   "result": "confirmed (none found)"
+  },
+  {
+   "claim": "no fabrication-class claim (selah, large/small letter, reversed/suspended nun, Aramaic) appears anywhere in the file",
+   "how": "case-insensitive substring search over the raw file text",
+   "result": "confirmed (none found)"
+  },
+  {
+   "claim": "MT 46:22 carries exactly seven U+05C4 puncta-extraordinaria marks in its spliced verse bytes, and row P11-009 carries that verse",
+   "how": "codepoint count on the Ezek.46.22 string pulled from Ezek_oshb.txt, cross-checked in the row's own JSON text",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no row references the WEB 20:45-49 / WEB ch21 / MT ch21 numbering zone",
+   "how": "regex search for Ezek.20./Ezek.21. across the file (expected: this part is entirely identity-numbered)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "the two named hard seams inside this part (46:18/46:19 and 47:12/47:13) sit exactly on row boundaries",
+   "how": "bespoke script, boundary-edge check against the required edge set",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "MT 44:1-4 is taken as the vision's own row rather than splitting at 44:1-3/44:4 (44:4 heading the law unit).",
+   "why_it_matters": "This is the §7-held question for that seam; no parashah mark corroborates either reading, so a peer reviewer could reasonably prefer the split."
+  },
+  {
+   "what": "Three of this part's row boundaries (44:31/45:1, 47:23/48:1, 48:29/48:30) rest on content/topic shift alone, with a formula CLOSE only on the verse just behind each seam and no onset-side text signal at all.",
+   "why_it_matters": "These are the weakest-evidenced seams in the part; a reviewer weighing close-side evidence differently could relocate any of them."
+  },
+  {
+   "what": "MT 48:1-29 is held as one 29-verse row because the numbered-list rule bars a cut inside either tribal-refrain block, and no formula marks the two remaining candidate seams (48:7/48:8, 48:22/48:23).",
+   "why_it_matters": "This is by far the longest row in the part, well past the measured-block cap; a reviewer applying the cap more strictly than the list rule allows could challenge it."
+  },
+  {
+   "what": "book_strategy_Ezek.md's own 20-verse transport-verb sweep names Ezek.46.19 for ch46 but not Ezek.46.21, though 46:21 opens with what reads as the same class of returning-transport verb by inspection of the MT and WEB bytes.",
+   "why_it_matters": "Reported rather than silently corrected, per the instruction to consume the sweep, not rebuild it; it does not change any row boundary in this part."
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the writer's own OW-8 final message."
+}

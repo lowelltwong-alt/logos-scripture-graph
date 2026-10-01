@@ -1,0 +1,73 @@
+{
+ "attempt_id": "ezek_stage_p0_a1",
+ "execution_id": "ezek_stage_p0_a1#e1",
+ "mechanical": true,
+ "receipt": {
+  "tool": "SP/Ezek/_stage_phase0_ezek.py + _build_offset_map_ezek.py + _build_pmarks_ezek.py + _build_device_inventory_ezek.py",
+  "inputs": [
+   {
+    "path": "data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/files/Ezek.xml",
+    "sha256": "recorded in ezek_stage_report.json sources.oshb_xml.sha256"
+   },
+   {
+    "path": "data/raw/bible/eng-web/usfm/eng-web_usfm.zip member 27-EZKeng-web.usfm",
+    "sha256": "e8e3bf3c4207c5da (pinned prefix, asserted at extraction before any parse)"
+   }
+  ],
+  "outputs": [
+   {
+    "path": "Ezek_web.usfm",
+    "sha256": "e8e3bf3c4207c5da9897fee58c13bac2204c4a1467b367eb7479d52be205636c"
+   },
+   {
+    "path": "Ezek_web_clean.txt",
+    "sha256": "a7e59bcbcd19607485cfb6c6c1f8f831eb63fd2a81d164ce8e25fcb1a7a2088a"
+   },
+   {
+    "path": "Ezek_oshb.txt",
+    "sha256": "337c779b75cad384f1f9c8d37e3f81999b021639cd3afa1a26519ae7438c329e"
+   },
+   {
+    "path": "verse_inventory.json",
+    "sha256": "cf48cac0132d0d06a1b5f7c3cb1e7fb437aebfcaa33a6272a2c8894129067a99"
+   },
+   {
+    "path": "web_mt_offset_map.json",
+    "sha256": "b14304e57d730f7372cb861dd1c6d31bbcb7704060b2a3ec963e2eaab32a7887"
+   },
+   {
+    "path": "web_mt_verse_check.json",
+    "sha256": "c122c2ee1bac34317bfac8cd31442a659b071ae854c5079fd7b685e7935e4ed7"
+   },
+   {
+    "path": "pmarks_Ezek.json",
+    "sha256": "25956c0d5180fd661b0843cbee640cb6f53b55e96df5f80f84a4ca78e57e2315"
+   },
+   {
+    "path": "ezek_device_inventory.json",
+    "sha256": "e7b810878f5a8979b6c0881a62b7558334ce9247235c82b95ba93a43a0a45bdb"
+   },
+   {
+    "path": "ezek_stage_report.json",
+    "sha256": "864ab98129ce8d2aebf2244c6b76460e2c2b993db858987e32779a10f02df14b"
+   }
+  ],
+  "exit": 0,
+  "verdict": "Phase 0 staging GREEN; offset map bijective and injective; four self-caught defects fixed before any downstream use"
+ },
+ "unresolved_uncertainty": [
+  {
+   "what": "the hard-region candidate list in the device inventory is structural, not adjudicated",
+   "why_it_matters": "it sets where the hard-track raised coverage goes, and a wrong list under-covers a real seam. It is explicitly not a segmentation decision and the writer re-derives every boundary from bytes."
+  },
+  {
+   "what": "paseq positions are count-only",
+   "why_it_matters": "the extract drops segs, so an intra-verse paseq POSITION claim must be read from the XML by exact path; a reviewer citing paseq position from Ezek_oshb.txt would be citing nothing."
+  },
+  {
+   "what": "TOOLKIT.md book facts are not yet written",
+   "why_it_matters": "Phase 0 is not complete until the hazard catalog and the Tier-0 zone rule stand in the toolkit every lane reads; the inputs exist but the brief surface does not."
+  }
+ ],
+ "limit": "machine receipt; the digests are the evidence"
+}

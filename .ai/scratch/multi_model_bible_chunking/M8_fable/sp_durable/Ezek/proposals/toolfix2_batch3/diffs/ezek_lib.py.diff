@@ -1,0 +1,133 @@
+--- SP/Ezek/tools/ezek_lib.py (installed cca2c0232b90)
++++ proposals/toolfix2_batch3/staged/ezek_lib.py (ab2431fecebe)
+@@ -188,17 +188,53 @@
+     return s.strip()
+ 
+ 
++HEB_LETTER = re.compile("[\u05d0-\u05ea\u05f0-\u05f2]")
++
++
++def is_mark(ch: str) -> bool:
++    """A combining mark (Unicode Mn): points, accents, dagesh, the shin and sin dots, U+05C4. Maqaf, paseq and sof pasuq
++    are not marks."""
++    return unicodedata.category(ch) == "Mn"
++
++
++def is_letter(ch: str) -> bool:
++    return bool(HEB_LETTER.match(ch))
++
++
++def bounded_find(hay: str, needle: str, pos: int = 0, marks: bool = True) -> int:
++    """The first index >= pos where needle occurs in hay on word boundaries (S1-07; ezek_controlling_rulings_a1#e4 ruling
++    TOOLFIX-2 (b)). With marks=True (the byte, nfd and accent_stripped tiers) the match is neither preceded nor followed by a
++    Hebrew letter or a combining mark; with marks=False (the skeleton tier) it is neither preceded nor followed by a Hebrew
++    letter. -1 when there is none."""
++    if not needle:
++        return -1
++    edge = (lambda ch: is_letter(ch) or is_mark(ch)) if marks else is_letter
++    i = hay.find(needle, pos)
++    while i != -1:
++        j = i + len(needle)
++        if (i == 0 or not edge(hay[i - 1])) and (j >= len(hay) or not edge(hay[j])):
++            return i
++        i = hay.find(needle, i + 1)
++    return -1
++
++
++def bounded_in(needle: str, hay: str, marks: bool = True) -> bool:
++    return bounded_find(hay, needle, 0, marks) != -1
++
++
+ def collate_hebrew(quoted: str, source_text: str) -> str:
+     """Return the strongest matching tier of quoted against source_text:
+-    'byte' | 'nfd' | 'accent_stripped' | 'skeleton' | 'none'. Ellipsis-aware: fragments must match IN ORDER."""
++    'byte' | 'nfd' | 'accent_stripped' | 'skeleton' | 'none'. Ellipsis-aware: fragments must match IN ORDER. Every fragment
++    matches on word boundaries (bounded_find): no Hebrew letter or combining mark beside it at the byte, nfd and
++    accent_stripped tiers, no Hebrew letter beside it at the skeleton tier (S1-07)."""
+     frags = [f.strip() for f in re.split(r"…|\.\.\.", quoted) if f.strip()]
+     if not frags:
+         return "none"
+ 
+-    def ordered(hay: str, needles: list[str]) -> bool:
++    def ordered(hay: str, needles: list[str], marks: bool) -> bool:
+         pos = 0
+         for n in needles:
+-            i = hay.find(n, pos)
++            i = bounded_find(hay, n, pos, marks)
+             if i < 0:
+                 return False
+             pos = i + len(n)
+@@ -208,7 +244,7 @@
+                      ("nfd", nfd),
+                      ("accent_stripped", strip_accents),
+                      ("skeleton", skeleton)):
+-        if ordered(xf(source_text), [xf(f) for f in frags]):
++        if ordered(xf(source_text), [xf(f) for f in frags], tier != "skeleton"):
+             return tier
+     return "none"
+ 
+@@ -329,7 +365,8 @@
+     checks.append(("2352 x-maqqef segs in the XML", pm["seg_totals_in_xml"].get("x-maqqef") == 2352))
+     checks.append(("skeleton strips U+05C4 while the byte tier keeps it",
+                    "ׄ" not in skeleton(oshb["Ezek.41.20"]) and "ׄ" in oshb["Ezek.41.20"]))
+-    checks.append(("collate_hebrew returns byte for a verbatim verse", collate_hebrew(oshb["Ezek.1.1"], joined) == "byte"))
++    checks.append(("collate_hebrew returns byte for a verbatim verse",   # S1-07: verses joined as the tools join them; the old fixture
++                   collate_hebrew(oshb["Ezek.1.1"], " | ".join(oshb.values())) == "byte"))   # glued 1:1 to 1:2's first letter
+     web_clean = (SPBOOK / "Ezek_web_clean.txt").read_text(encoding="utf-8")
+     checks.append(("REGRESSION norm_english strips the bare [fn] marker (38 sites) and the [fn ...] form",
+                    web_clean.count("[fn]") == 38 and norm_english("Yahweh’s[fn] word") == "Yahweh's word"
+@@ -377,6 +414,54 @@
+     k, q, m = kq_split(pm["kq"]["Ezek.42.9"][0], oshb["Ezek.42.9"])
+     checks.append(("MT 42:9 two-word ketiv splits on the first marked letter", m == "first_marked" and " " in k))
+ 
++    # S1-07 (#e4 ruling TOOLFIX-2 (b)): word boundaries. Every case is found in the bytes, never typed.
++    def _cases():
++        found = {}
++        for key in sorted(oshb, key=lambda k: (int(k.split(".")[1]), int(k.split(".")[2]))):
++            verse = oshb[key]
++            for w in verse.split(" "):
++                letters = [i for i, ch in enumerate(w) if is_letter(ch)]
++                if len(letters) < 4:
++                    continue
++                if "end" not in found and is_mark(w[-1]):
++                    k = len(w)
++                    while k and is_mark(w[k - 1]):
++                        k -= 1
++                    if not bounded_in(w[:k], verse):
++                        found["end"] = (verse, w, w[:k])
++                if "shin" not in found and "\u05e9\u05c1" in w[-4:]:
++                    k = w.rfind("\u05c1")
++                    if not bounded_in(w[:k], verse) and w[:k]:
++                        found["shin"] = (verse, w, w[:k])
++                if "start" not in found:
++                    rest = w[letters[1]:]
++                    if not bounded_in(rest, verse):
++                        found["start"] = (verse, w, rest)
++                if "root" not in found:
++                    sk = skeleton(w).replace(" ", "")
++                    inner = sk[1:-1]
++                    if len(inner) >= 3 and not bounded_in(inner, skeleton(verse), marks=False):
++                        found["root"] = (verse, w, inner)
++                if len(found) == 4:
++                    return found
++        return found
++    cases = _cases()
++    checks.append(("REGRESSION S1-07 a splice cut before its word's final marks is not byte; the whole word is",
++                   "end" in cases and collate_hebrew(cases["end"][2], cases["end"][0]) != "byte"
++                   and collate_hebrew(cases["end"][1], cases["end"][0]) == "byte"))
++    checks.append(("REGRESSION S1-07 a shin written without its shin dot is not byte",
++                   "shin" in cases and collate_hebrew(cases["shin"][2], cases["shin"][0]) != "byte"))
++    checks.append(("S1-07 a quote that begins inside a word (its first letter dropped) is not byte",
++                   "start" in cases and collate_hebrew(cases["start"][2], cases["start"][0]) != "byte"))
++    checks.append(("S1-07 an unpointed root inside a longer word does not collate at skeleton tier",
++                   "root" in cases and collate_hebrew(cases["root"][2], cases["root"][0]) == "none"))
++    w11 = oshb["Ezek.1.1"].split(" ")
++    checks.append(("S1-07 whole words, an ellipsis of whole words, and an unpointed whole word still collate",
++                   collate_hebrew(w11[1], oshb["Ezek.1.1"]) == "byte"
++                   and collate_hebrew(w11[1] + " … " + w11[3], oshb["Ezek.1.1"]) == "byte"
++                   and collate_hebrew(skeleton(w11[1]), oshb["Ezek.1.1"]) == "skeleton"))
++    checks.append(("S1-07 skeleton() keeps word spaces (the word boundary depends on it)", " " in skeleton(oshb["Ezek.1.1"])))
++
+     failed = [n for n, ok in checks if not ok]
+     print(json.dumps({"module": "ezek_lib", "checks": len(checks), "passed": len(checks) - len(failed),
+                       "failed": failed, "verdict": "GREEN" if not failed else "RED"}, ensure_ascii=False, indent=1))

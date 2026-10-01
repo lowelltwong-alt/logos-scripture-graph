@@ -1,0 +1,20 @@
+--- SP/Ezek/tools/check_web_quotes.py (installed aad88bff8bd1)
++++ proposals/toolfix2_batch3/staged/check_web_quotes.py (74fb717927c7)
+@@ -127,6 +127,17 @@
+     checked = 0
+     for f in sys.argv[1:]:
+         data = load_any(Path(f))
++        # S1-10 (ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (b)) [CWO-EZ-17]: a prose field whose curly DOUBLE quote counts
++        # differ. Single curly quotes are not counted: they double as apostrophes.
++        for i_, row_ in enumerate(data if isinstance(data, list) else (data.get("decisions") or [])):
++            if not isinstance(row_, dict):
++                continue
++            for field_ in ("boundary_rationale", "strongest_rejected_alternative", "device_notes"):
++                s_ = row_.get(field_)
++                if isinstance(s_, str) and s_.count("“") != s_.count("”"):
++                    flags.append({"file": Path(f).name, "path": "[%d].%s" % (i_, field_), "decision_id": row_.get("decision_id"),
++                                  "field": field_, "issue": "e15d_unequal_curly_double_quotes: %d open, %d close [CWO-EZ-17]"
++                                  % (s_.count("“"), s_.count("”"))})
+         for path, s in iter_strings(data):
+             refs = [(m.start(), m.group(1)) for m in WREF.finditer(s)]
+             # ---- E-15a: pairing integrity BEFORE any pair-based scanning ----

@@ -1,0 +1,50 @@
+--- proposals/t4fix_batch1/staged/_test_zone_tools_ezek.py (ff29ccd4f4a3)
++++ proposals/t4fix_batch2/staged/_test_zone_tools_ezek.py (1ceef693e34b)
+@@ -486,6 +486,47 @@
+             mine = [f for f in rep["flags"] if f.get("decision_id") == d and f.get("rule") == rule]
+             check("check_marks %s: %s %s" % (d, rule, "fires" if fires else "silent"), bool(mine) == fires, mine)
+ 
++# 9b. #e4 AMENDMENTS to TOOLFIX-1 (ezek_controlling_rulings_a1#e4 rulings TOOLFIX-1, T4-03, T4-04). A1: the copular denial's
++# clause end may be a newline. A2: a coordinated denial with a verse number and no expectation modal before it does not deny;
++# the mention is judged on the numbers before the denial. A3: mark and paseq refs accept 'single witness' spaced.
++E4_CS = [
++    ("cs_e4_a2_positive_then_denial_nonsite_red",
++     ["web:Ezek.41.1-Ezek.41.26 puncta extraordinaria stand at 41:5 but none is present in ch 46, single-witness"], "claims puncta extraordinaria"),
++    ("cs_e4_a2_positive_then_denial_site_ok",
++     ["web:Ezek.41.1-Ezek.41.26 puncta extraordinaria stand at 41:20 but none is present at 41:21, single-witness"], None),
++    ("cs_e4_a3_mark_spaced_single_witness_ok", ["oshb:Ezek.1.28-Ezek.1.28 samekh (single witness)"], None),
++    ("cs_e4_a3_paseq_spaced_single_witness_ok", ["oshb:Ezek.3.27-Ezek.3.27 paseq (count-only, single witness)"], None),
++]
++E4_CAL = [
++    ("cal_e4_a2_positive_then_denial_red", {"boundary_rationale": "a dateline stands at 45:18 but none stands at 45:20"},
++     "claims a dateline at MT 45:18 - a calendar"),
++    ("cal_e4_a2_true_then_denial_ok", {"boundary_rationale": "the dateline at 40:1 opens the vision but none stands at 45:18"}, None),
++]
++E4_CM = [
++    ("cm_e4_a1_copular_denial_at_field_end_flags",
++     {"boundary_rationale": "puncta extraordinaria are absent", "device_notes": "the span is otherwise unremarkable",
++      "span": "Ezek.41.12-Ezek.41.20"}, {"false_puncta_absence_claim": True}),
++    ("cm_e4_a2_positive_then_denial_nonsite_flags",
++     {"boundary_rationale": "puncta extraordinaria stand at 41:5 but none is present in ch 46", "span": "Ezek.41.12-Ezek.41.20"},
++     {"puncta_claim_in_ezek": True}),
++]
++with tempfile.TemporaryDirectory() as td:
++    p = Path(td) / "e4_cs.jsonl"
++    p.write_text("\n".join([json.dumps({"decision_id": d, "boundary_evidence_refs": refs}, ensure_ascii=False) for d, refs, _ in E4_CS]
++                           + [json.dumps(dict({"decision_id": d}, **f), ensure_ascii=False) for d, f, _ in E4_CAL]), encoding="utf-8")
++    rep = run("citation_sweep.py", p)
++    for did, _, expect in E4_CS + E4_CAL:
++        mine = [x for x in rep["problems"] if x.startswith(did + ":")]
++        check("citation_sweep %s: %s" % (did, "no problem" if expect is None else repr(expect)),
++              (not mine) if expect is None else any(expect in x for x in mine), mine)
++    p = Path(td) / "e4_cm.jsonl"
++    p.write_text("\n".join(json.dumps(dict({"decision_id": d}, **f), ensure_ascii=False) for d, f, _ in E4_CM), encoding="utf-8")
++    rep = run("check_marks.py", p)
++    for d, _, expect in E4_CM:
++        for rule, fires in expect.items():
++            mine = [fl for fl in rep["flags"] if fl.get("decision_id") == d and fl.get("rule") == rule]
++            check("check_marks %s: %s %s" % (d, rule, "fires" if fires else "silent"), bool(mine) == fires, mine)
++
+ failed = [r for r in results if not r["ok"]]
+ print(json.dumps({"checks": len(results), "passed": len(results) - len(failed), "failed": failed,
+                   "verdict": "GREEN" if not failed else "RED"}, ensure_ascii=False, indent=1))

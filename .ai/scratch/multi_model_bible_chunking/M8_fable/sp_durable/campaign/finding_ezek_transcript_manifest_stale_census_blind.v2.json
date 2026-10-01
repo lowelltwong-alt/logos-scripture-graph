@@ -1,0 +1,85 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_ezek_transcript_manifest_stale_census_blind",
+ "revision": 2,
+ "supersedes": {
+  "path": "campaign/finding_ezek_transcript_manifest_stale_census_blind.v1.json",
+  "sha256": "00c4140226787db08e5aae342c63afdcb5cffed82ad57a742db84cfc41ad37ab",
+  "note": "v1 keeps its bytes; it is superseded on its FIGURES, not on its substance"
+ },
+ "recorded_at": "2026-09-14T21:04:54.459587+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "book": "Ezek",
+ "why_a_revision": "v1's headline figures were wrong in both directions and are corrected here. v1 derived each attempt id from the preserver index's execution_id, which is NULL for the 17 pre-execution-id executions, so 17 entries collapsed to a single empty-string id: it reported 49 distinct attempts (48 real plus '') and 48 invisible to the census. ezek_controlling_rulings_a1#e11 caught this, refused to install the candidate manifest built on it, and ordered the manifest rebuilt with a blank id failing the build. Rebuilding it with the STABLE attempt id - the execution_id's prefix where one exists, the index's map_key only where it does not - gives the real figures below.",
+ "class": "a consumer reads a route its producer stopped writing; a coverage number measured on an empty route",
+ "severity": "high on counterfactual blast radius; zero shipped impact - caught by the required dry run before the pre_primaries statement was written and before any final-check slice plan was built",
+ "how_it_was_found": "the Q8 pre_primaries DRY RUN (#e4 ruling (10) requires a dry run before the real build) printed census Ezek transcript_retained 5 against a record stating all Ezekiel map transcripts are preserved. The two were compared by route rather than reconciled by prose.",
+ "the_two_routes": {
+  "what_the_census_reads": {
+   "rule": "SP.rglob of transcript_manifest.v*.json; retention = entry bytes > 0",
+   "tool": "campaign/_transcript_coverage_census.py",
+   "tool_sha256": "2834f8a8aeed61eb77f461eadda61596fc1ef14b51d5022d997dd26632d1f915",
+   "ezek_manifest": "Ezek/transcript_manifest.v1.json",
+   "ezek_manifest_sha256": "8ee112516d1ca421dfa42f8acbaaa4536fc6a1bab9c68745f851cd4a96035a16",
+   "ezek_mapped": 20,
+   "ezek_retained_it_reports": 5
+  },
+  "what_the_preserver_writes": {
+   "rule": "OW-11-m: <session>/subagents/agent-<id>.jsonl, indexed per book",
+   "tool": "orchestrator_scratch/ezek_post_s2/_preserve_subagent_transcripts.v2.py",
+   "index": "transcripts/_subagents_index.ezek.v1.json",
+   "index_sha256": "32bb4dc3eed264d5c410c6b2981346ed0172c6ab2b2c04097ca90c65cd11155b",
+   "map_agents": 77,
+   "transcripts_found": 77,
+   "missing": []
+  }
+ },
+ "measured_CORRECTED": {
+  "ezek_attempts_denominator": 66,
+  "retained_by_the_route_the_census_reads": 5,
+  "retained_on_disk_by_exact_path_stable_attempt_ids": 63,
+  "attempts_readable_but_invisible_to_the_census": 58,
+  "executions_preserved": 78,
+  "bytes_preserved": 75656770,
+  "preserved_ids_that_are_not_receipt_attempts": 0,
+  "receipt_attempts_with_no_preserved_transcript": 3,
+  "evidence": {
+   "manifest": "Ezek/transcript_manifest.v2.json",
+   "sha256": "f0956f43bd14b23215385ecd0450bd1fb6142c3c9468524e78ea3da0ce358b2d",
+   "index": "transcripts/_subagents_index.ezek.v1.json",
+   "index_sha256": "e3917d40b3bdb03008d991893b5486a1babdff7ada4dbc0d383ec2559b4b4065"
+  }
+ },
+ "what_v1_said_and_why_it_was_wrong": {
+  "v1_retained_on_disk": 49,
+  "corrected": 63,
+  "v1_invisible_to_the_census": 48,
+  "corrected_invisible": 58,
+  "the_error": "attempt ids derived from execution_id, which is null for 17 executions, so they became one blank id",
+  "direction": "v1 UNDERSTATED how much evidence exists, so the corrected picture is better, not worse",
+  "who_caught_it": "ezek_controlling_rulings_a1#e11, from its own read of the candidate manifest against the index"
+ },
+ "a_second_correction_in_the_cure": {
+  "what": "#e11's own Q1 text says 'attempt_id = the index's map_key'. Taken literally that is wrong for 15 entries whose map_key is a per-transcript key (ezek_controlling_rulings_a1_wave2 for execution ezek_controlling_rulings_a1#e2, and so on): it yields 78 distinct attempt ids against 66 receipt attempts.",
+  "why_it_matters": "it would inflate retention in exactly the way the SAME ruling's intersection rule exists to prevent, and contradict its own statement that the figure is 'neither the empty route's 5 nor the blank-counting 49'",
+  "what_was_done": "the stable attempt id was used, the deviation recorded in the manifest as a ruling_text_discrepancy, and it is routed to S5",
+  "class": "E-03-i, as ledger E-03-i-e10-S3-03 recorded an order's exact_spans misstating its ruled item rows"
+ },
+ "what_would_have_shipped_if_it_had_not_been_caught": [
+  "close-gate item 14 (OW-10): a retention figure of 5 for a book with 63 readable attempts",
+  "close-gate item 10 (OW-6): a stage-1 transcript-audit slice plan covering 5 attempts when 63 are readable",
+  "the Q8 coverage statement would have recorded a false absence for 78 preserved transcripts"
+ ],
+ "cure_ordered_by": "ezek_controlling_rulings_a1#e11 ruling TRANSCRIPT-ROUTE (TOOLFIX-6, the rebuilt manifest, census v2, the statement rebuilt after)",
+ "not_asserted_here": [
+  "that any Jeremiah or Lamentations conclusion changes: their preserved store is recorded separately in finding_jer_lam_transcripts_present_after_census.v1.json and both books are closed.",
+  "that any Ezekiel row, ruling or verdict changes: nothing here touches the corpus.",
+  "what the transcripts contain: none was read."
+ ],
+ "dad_candidate": {
+  "record": true,
+  "reason": "a gate-bearing coverage count was measured on an empty route; and the first correction to it carried its own arithmetic defect, which is the correction-text-carries-its-own-defects class again",
+  "privacy_safe": "counts, paths and digests only"
+ },
+ "limit": "counts, paths and digests only; no transcript content was read (OW-7)"
+}

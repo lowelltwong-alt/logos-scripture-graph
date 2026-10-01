@@ -1,0 +1,263 @@
+{
+ "attempt_id": "ezek_author_fixup3_p07_a1",
+ "execution_id": "ezek_author_fixup3_p07_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP3_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup3\\orders_ezek_author_fixup3_p07_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_register.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\ezek_lib.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\ngram7.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_web_quotes.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\verse_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\web_mt_verse_check.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\verse_map_web.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\verse_map_oshb.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\web_mt_offset_map.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_kjv_variance_crosscheck.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v5_cwo23.jsonl"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P07-002, P07-003, P07-005, P07-006, P07-007, P07-008 replaced (all 19 CWO-EZ-22 hits on p07 cured)",
+    "why": "ruling S3-16 (adopt) orders every rule/guard-name-as-warrant clause on these rows dropped, keeping the reasoned condition or verse argument; the S3-ROUTING order names exactly these six decision_ids for p07"
+   },
+   {
+    "what": "P07-008 additionally cured for S3-12 (minor)",
+    "why": "boundary_rationale's flagged-region/low-confidence citation dropped, boundary_evidence_refs[1] and device_notes' positional 'adjacent unit' reference renamed to the verse span 32:1-16, and device_notes' over-split-guard citation restated from the roster's own repeated-formula structure, per S3-12's suggested_fix"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "All 19 CWO-EZ-22 register hits on p07 are cleared",
+   "how": "check_register.py rows_p07_before.jsonl vs rows_p07_fixup3.jsonl",
+   "result": "confirmed"
+  },
+  {
+   "claim": "No new register violation introduced",
+   "how": "check_register.py rows_p07_fixup3.jsonl (standalone)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "No cross-row 7-gram gate (>=10 rows) crossed by the new phrasing",
+   "how": "ngram7.py over the full 145-row Ezek corpus (rows_v5_cwo23.jsonl with the 6 rows spliced in), before vs after",
+   "result": "confirmed"
+  },
+  {
+   "claim": "No Hebrew/citation-byte defect introduced",
+   "how": "citation_sweep.py rows_p07_fixup3.jsonl",
+   "result": "confirmed"
+  },
+  {
+   "claim": "No WEB curly-quote defect",
+   "how": "check_web_quotes.py rows_p07_fixup3.jsonl",
+   "result": "confirmed"
+  },
+  {
+   "claim": "p07's span tiling is still exact (no span touched)",
+   "how": "check_tiling.py rows_p07_only_after.jsonl --range Ezek.29.1-Ezek.32.32",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Protected fields byte-identical to current_row on all 6 rows; every field outside the ordered scope unchanged; 22 fields + _op present; non_authorizing true",
+   "how": "Python structural diff against the orders file's current_row objects",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The brief's cited OW-11 write-authority exception is genuinely recorded, not fabricated by the launch text",
+   "how": "opened ERROR_PATTERN_LEDGER.v1.md by exact path and located the 2026-09-10 OW-11 addendum",
+   "result": "confirmed (authorization_ref lowell_chat_2026-09-10_m8_opus_orchestration_ezek_dan matches the brief's citation verbatim)"
+  },
+  {
+   "claim": "Both pinned digests (brief, orders) match the table",
+   "how": "sha256 over the two files by exact path",
+   "result": "confirmed (029ac77f...c28b and 2977edab...0737, both exact matches)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "TOOLKIT.md, book_strategy_Ezek.md, and the named rulings sections (R1, R2, P2, P4, P5, G12) were not separately opened",
+   "why_it_matters": "I relied on the orders file's embedded controlling ruling text (S3-16, S3-ROUTING) and the brief's own CRITICAL BOOK FACTS restatement, which the brief itself states is CONTROLLING for this wave; if either external file imposes a wording constraint outside what check_register.py's actual regex classes test, my checks would not have caught it"
+  },
+  {
+   "what": "Cross-part 7-gram reuse cannot be checked from here",
+   "why_it_matters": "P07-005's cured phrasing ('a refrain closes the unit before it') is the ruling's own sanctioned example wording; other FIXUP-3 authors on p01-p04/p08 face the same CWO-EZ-22 hits and may independently reuse it. Reading other parts' orders/deliverables is FORBIDDEN to me, so a corpus-wide ngram7 gate crossing at S4/assembly is possible and outside what I could verify"
+  },
+  {
+   "what": "run_validator_suite.py was not run as one combined invocation; its constituent checks were run individually (cap_sweep.py and check_marks.py were not run at all)",
+   "why_it_matters": "no order for these 6 rows touched confidence, span, or mark disclosure, so those two checks had nothing to exercise, but this is a narrower verification path than the brief's literal self-check instruction"
+  }
+ ],
+ "items": [
+  {
+   "row": "P07-002",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "row emitted with _op:replace per the ruling"
+  },
+  {
+   "row": "P07-002",
+   "item": "CWO-EZ-22 (strongest_rejected_alternative, arms R1+R3)",
+   "action": "cured",
+   "reason": "dropped 'under the governing rule', kept 'the recurrence is paragraph-marking, not row-cutting'"
+  },
+  {
+   "row": "P07-002",
+   "item": "CWO-EZ-22 (device_notes, arm R1)",
+   "action": "cured",
+   "reason": "dropped 'per the book's own structural dateline rule', kept the duration-vs-dateline distinction as the row's own claim"
+  },
+  {
+   "row": "P07-003",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "row emitted with _op:replace per the ruling"
+  },
+  {
+   "row": "P07-003",
+   "item": "CWO-EZ-22 (strongest_rejected_alternative, arms R1+R3)",
+   "action": "cured",
+   "reason": "dropped 'per the frame-spine's own rule', kept 'a mid-unit utterance formula is paragraph-final, not row-final'"
+  },
+  {
+   "row": "P07-005",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "row emitted with _op:replace per the ruling"
+  },
+  {
+   "row": "P07-005",
+   "item": "CWO-EZ-22 (boundary_rationale, arm R3)",
+   "action": "cured",
+   "reason": "restated 'the refrain-closes-a-unit rule' as the row's own premise: 'because a refrain closes the unit before it, the later one before the next onset is the row's close' (the S3-16 ruling's own sanctioned template)"
+  },
+  {
+   "row": "P07-005",
+   "item": "CWO-EZ-22 (strongest_rejected_alternative, arm R3)",
+   "action": "cured",
+   "reason": "same restatement applied to the rejected-alternative sentence"
+  },
+  {
+   "row": "P07-006",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "row emitted with _op:replace per the ruling"
+  },
+  {
+   "row": "P07-006",
+   "item": "CWO-EZ-22 (boundary_rationale, arms R1+R3)",
+   "action": "cured",
+   "reason": "dropped 'under the governing rule'"
+  },
+  {
+   "row": "P07-006",
+   "item": "CWO-EZ-22 (strongest_rejected_alternative, arms R1+R3)",
+   "action": "cured",
+   "reason": "dropped 'under the governing rule'"
+  },
+  {
+   "row": "P07-006",
+   "item": "CWO-EZ-22 (device_notes, arms R1+R3)",
+   "action": "cured",
+   "reason": "dropped 'per the operative-category deviation-with-disclosure rule', restated as 'the deviation from the figure's own category disclosed rather than silently resolved'"
+  },
+  {
+   "row": "P07-007",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "row emitted with _op:replace per the ruling"
+  },
+  {
+   "row": "P07-007",
+   "item": "CWO-EZ-22 (strongest_rejected_alternative, arm R3)",
+   "action": "cured",
+   "reason": "dropped 'the over-split guard bars', kept 'a qinah-labelled unit is never cut under any internal formula recurrence'"
+  },
+  {
+   "row": "P07-008",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "row emitted with _op:replace per the ruling"
+  },
+  {
+   "row": "P07-008",
+   "item": "S3-12",
+   "action": "cured",
+   "reason": "per suggested_fix: dropped the flagged-region/low-confidence citation in boundary_rationale, named the qinah unit's span (32:1-16) instead of 'the adjacent unit' in boundary_evidence_refs[1] and device_notes, argued the 32:22-30 roster from its own repeated-formula structure instead of citing the over-split guard"
+  },
+  {
+   "row": "P07-008",
+   "item": "CWO-EZ-22 (boundary_rationale, arm R4 x2)",
+   "action": "cured",
+   "reason": "same edit as S3-12's boundary_rationale cure"
+  },
+  {
+   "row": "P07-008",
+   "item": "CWO-EZ-22 (device_notes, arms R1+R3+R5)",
+   "action": "cured",
+   "reason": "same edit as S3-12's device_notes cure"
+  },
+  {
+   "row": "P07-008",
+   "item": "S3 replaced_rows (FIXUP-2 carry-forward note)",
+   "action": "informational",
+   "reason": "no action beyond the S3-12 cure above; the note's other listed items (PE-after-32:16 disclosure, protected-field identity) were already satisfied in current_row and are unchanged"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-22 (19 hits, p07)",
+   "test": "check_register.py before/after diff",
+   "result": "PASS"
+  },
+  {
+   "order": "S3-16 replace-op, all 6 rows",
+   "test": "field-level diff: only boundary_rationale/strongest_rejected_alternative/device_notes/boundary_evidence_refs touched, all 9 protected fields byte-identical",
+   "result": "PASS"
+  },
+  {
+   "order": "S3-12 (P07-008)",
+   "test": "check_register.py flagged_guard_talk/disguised_strategy classes cleared + manual reread of the three edited fields",
+   "result": "PASS"
+  },
+  {
+   "order": "no span/tiling regression",
+   "test": "check_tiling.py --range Ezek.29.1-Ezek.32.32 over p07's 9 rows",
+   "result": "PASS"
+  },
+  {
+   "order": "no cross-row template-reuse gate crossed",
+   "test": "ngram7.py over the full 145-row corpus, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "no Hebrew/citation defect",
+   "test": "citation_sweep.py over the 6 rows",
+   "result": "PASS"
+  },
+  {
+   "order": "no WEB quote defect",
+   "test": "check_web_quotes.py over the 6 rows",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "rule_as_authority": 7,
+   "named_rule_or_guard": 9,
+   "flagged_guard_talk": 2,
+   "disguised_strategy": 1
+  },
+  "after": {},
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

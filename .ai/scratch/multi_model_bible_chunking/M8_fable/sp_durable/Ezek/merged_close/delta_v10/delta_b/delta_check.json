@@ -1,0 +1,197 @@
+{
+ "attempt_id": "ezek_fixround_v10_delta_lane_b_a1",
+ "execution_id": "ezek_fixround_v10_delta_lane_b_a1#e1",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "book": "Ezek",
+ "corpus": "rows_v10_final.jsonl",
+ "corpus_sha256": "106f355324fb867055e4f1ec25cc30ced8607b69a7ce0489b9d953e30e18608b",
+ "base_corpus_sha256": "a80b6e6712aa43bf3d8652255b4655a934af08a9cd3e036f9b320a37bbd1098c",
+ "manifest_sha256": "f8bd078b70cee18a9e54e02d1d3a5a7ba6b8aab3d1b0c48aa2e91d0f536be040",
+ "ruling_sha256": "24f6f8b0f4b2c4527db95505c9cf44d7a547c68b725675d32aa437d8bc130e5c",
+ "read_order": "EVIDENCE-FIRST, rows last: task 1, then 4 and 3 (derived records measured before the row prose), then task 2 in reverse (083, 049, 039, 038, 037, 035, then 082, then 113), task 5 last",
+ "spot_checks": [
+  "M8-Ezek-082 grade and absence",
+  "M8-Ezek-038",
+  "M8-Ezek-083"
+ ],
+ "lineage": {
+  "confined_to_manifest": true,
+  "rows_changed": [
+   "P10-016"
+  ],
+  "unchanged_rows_byte_identical": 137,
+  "build_check": "build_rows_v10.py --check: rows_v10_final.jsonl MATCH; rows_v10_final.manifest.json MATCH (rows_changed [P10-016], changes 3)",
+  "suite_and_parity": "Shipped suite report over rows_v10_final.jsonl: summary.hard_status GREEN (universals FLAGS is triage, 805 triage flags). Mirror --check suite differs from shipped only in top-level rows_file, a mirror artefact. CWO parity: post_corpus_sha256 106f3553..., status GREEN, suite_report sha256 4b751bc3... (the shipped report), exact_arm_residual 0, routed_open 0.",
+  "evidence": "v10 has 138 non-empty lines plus a trailing newline, and so does v9. Byte comparison: 137 identical, and only line 113 differs. Line 113 fields: added [candidate_hold_state, candidate_hold_basis] at positions 15 and 16, directly after review_status; changed [review_status]; removed none. Its key order, apart from the two inserted keys, equals v9's. For every one of the 3 changes, before_sha256 and after_sha256 equal sha256(json.dumps(v, ensure_ascii=False).encode('utf-8')), before is null for the two absent fields, and the before and after values match. All 28 pinned digests match disk."
+ },
+ "ruling_implementation": {
+  "M8-Ezek-083": {
+   "decision": "release",
+   "implemented": true,
+   "evidence": "Corpus line 83 is byte-identical to v9 (candidate_review_complete, no hold fields). The feed row reads candidate_review_complete / candidate_hold_state null / accepted_candidate. The only prose change is the removal of 'The second, independent reading declined to act here and referred the question onward.' from possible_downstream_risk, and suggested_reviewer moves from human_owner to literary_form_reviewer, which is exactly the unheld rule (gen_atlas_rows.py:202: human_owner if zone or held, else convergence if hinge, else literary_form_reviewer). No other feed field changed. The dimensions changed only dependency.composed_sentence_in_feed (equal to the new feed risk sentence), and judged is unchanged. The sidecar changed the same two fields and equals the feed. No text describing the row as held remains. P2 ground re-examined IN FULL (spot-check): corpus P07-004 medium_low carries utterance.mid_unit (the class question, measured present), so no row edit could discharge it; medium_low keeps it in the end-review set. The only 'hold' word left in its feed prose is 'Recorded alternative: Holding the row at one nineteen-verse...', which is a boundary alternative, not a hold state."
+  },
+  "M8-Ezek-049": {
+   "decision": "release",
+   "implemented": true,
+   "evidence": "Corpus line 49 is byte-identical to v9 (candidate_review_complete, no hold fields). The feed row reads candidate_review_complete / candidate_hold_state null / accepted_candidate. The only prose change is the removal of 'The second, independent reading declined to act here and referred the question onward.' from possible_downstream_risk, and suggested_reviewer moves from human_owner to convergence, which is exactly the unheld rule (gen_atlas_rows.py:202: human_owner if zone or held, else convergence if hinge, else literary_form_reviewer). No other feed field changed. The dimensions changed only dependency.composed_sentence_in_feed (equal to the new feed risk sentence), and judged is unchanged. The sidecar changed the same two fields and equals the feed. No text describing the row as held remains. P1 ground: closure.formula_final measured absent from the P03-021 signals."
+  },
+  "M8-Ezek-039": {
+   "decision": "release",
+   "implemented": true,
+   "evidence": "Corpus line 39 is byte-identical to v9 (candidate_review_complete, no hold fields). The feed row reads candidate_review_complete / candidate_hold_state null / accepted_candidate. The only prose change is the removal of 'The second, independent reading declined to act here and referred the question onward.' from possible_downstream_risk, and suggested_reviewer moves from human_owner to literary_form_reviewer, which is exactly the unheld rule (gen_atlas_rows.py:202: human_owner if zone or held, else convergence if hinge, else literary_form_reviewer). No other feed field changed. The dimensions changed only dependency.composed_sentence_in_feed (equal to the new feed risk sentence), and judged is unchanged. The sidecar changed the same two fields and equals the feed. No text describing the row as held remains. P1 ground: wordevent.strict_onset and oath.as_i_live both measured absent from the P03-005 signals."
+  },
+  "M8-Ezek-038": {
+   "decision": "release",
+   "implemented": true,
+   "evidence": "Corpus line 38 is byte-identical to v9 (candidate_review_complete, no hold fields). The feed row reads candidate_review_complete / candidate_hold_state null / accepted_candidate. The only prose change is the removal of 'The second, independent reading declined to act here and referred the question onward.' from possible_downstream_risk, and suggested_reviewer moves from human_owner to convergence, which is exactly the unheld rule (gen_atlas_rows.py:202: human_owner if zone or held, else convergence if hinge, else literary_form_reviewer). No other feed field changed. The dimensions changed only dependency.composed_sentence_in_feed (equal to the new feed risk sentence), and judged is unchanged. The sidecar changed the same two fields and equals the feed. No text describing the row as held remains. P1 ground re-examined IN FULL (spot-check): P03-004 signals are exactly ['utterance.formula','kq.single']; wordevent.strict_onset is absent, and the rationale treats 16:20 as a content turn 'with no fresh formula device', so nothing contradicts the absent signal."
+  },
+  "M8-Ezek-037": {
+   "decision": "release",
+   "implemented": true,
+   "evidence": "Corpus line 37 is byte-identical to v9 (candidate_review_complete, no hold fields). The feed row reads candidate_review_complete / candidate_hold_state null / accepted_candidate. The only prose change is the removal of 'The second, independent reading declined to act here and referred the question onward.' from possible_downstream_risk, and suggested_reviewer moves from human_owner to convergence, which is exactly the unheld rule (gen_atlas_rows.py:202: human_owner if zone or held, else convergence if hinge, else literary_form_reviewer). No other feed field changed. The dimensions changed only dependency.composed_sentence_in_feed (equal to the new feed risk sentence), and judged is unchanged. The sidecar changed the same two fields and equals the feed. No text describing the row as held remains. P1 ground: wordevent.strict_onset measured absent from the P03-003 signals."
+  },
+  "M8-Ezek-035": {
+   "decision": "release",
+   "implemented": true,
+   "evidence": "Corpus line 35 is byte-identical to v9 (candidate_review_complete, no hold fields). The feed row reads candidate_review_complete / candidate_hold_state null / accepted_candidate. The only prose change is the removal of 'The second, independent reading declined to act here and referred the question onward.' from possible_downstream_risk, and suggested_reviewer moves from human_owner to literary_form_reviewer, which is exactly the unheld rule (gen_atlas_rows.py:202: human_owner if zone or held, else convergence if hinge, else literary_form_reviewer). No other feed field changed. The dimensions changed only dependency.composed_sentence_in_feed (equal to the new feed risk sentence), and judged is unchanged. The sidecar changed the same two fields and equals the feed. No text describing the row as held remains. P1 ground (grade ground cured in v9, A0) not re-measured here; the calibration question B7 is already routed to the end review, per the ruling."
+  },
+  "M8-Ezek-082": {
+   "decision": "drop_from_feed",
+   "implemented": true,
+   "evidence": "Spot-check: corpus line 82 (P07-003, Ezek.29.17-Ezek.29.21) is graded high, which is above medium_low, and it is byte-identical to v9. It is absent from the feed (old feed: final_deferred_review / deferred_human_or_external_ai / held_lower_confidence at high), absent from the dimensions, and never in the sidecars (101 before and after). Its signals include utterance.mid_unit, the class question the ruling names, so P2's drop fits: the question is class-level and the grade is above medium_low. The atlas check now records 'grades the shared feed has never carried: {}'."
+  },
+  "M8-Ezek-113": {
+   "decision": "keep_held",
+   "implemented": true,
+   "evidence": "Corpus line 113 (P10-016, Ezek.40.28-Ezek.40.37, low) carries review_status final_deferred_review, candidate_hold_state deferred_human_or_external_ai and candidate_hold_basis specialist_or_external_review, per the manifest. The feed row mirrors it: final_deferred_review / deferred_human_or_external_ai / held_lower_confidence, suggested_reviewer human_owner, and the referral sentence is kept (true: it was referred). The feed row itself is unchanged from the v9 feed. The held shape is accepted: the shipped suite over v10 is hard_status GREEN; atlas checks held_rows_are_exactly_the_referred_ones ('held in the corpus 1, marked held 1, deferred 1') and feed_mirrors_the_corpus_hold (0 off) both pass; and it is the same triple the v9 feed used for held rows. DEFECT RE-MEASURED against Ezek_oshb.txt, STILL PRESENT: (a) the rationale says 40:31 stands 'immediately before 40:38's chamber-and-table description', but in the witness 40:31 is followed by 40:32 and 40:38 is preceded by 40:37; (b) it says 'sweep: 6 verses across chapter 40, counting this row's four occurrences and 40:24', but the witness has the refrain in 6 verses, 40:24, 28, 29, 32, 33 and 35, which is FIVE inside the row, so 4+1 does not make 6. Word order was confirmed: 40:31 reads ומעלות שמונה מעלו, and 40:34 and 40:37 read ושמנה מעלות מעלו. P3 keep_held therefore fits. I could not tell which of (a) and (b) the hold originally named; both are present."
+  }
+ },
+ "changed_rows": {
+  "P10-016": {
+   "fields": {
+    "review_status": "candidate_review_complete -> final_deferred_review. Correct for keep_held (P3), and it matches the ruling and the manifest.",
+    "candidate_hold_state": "inserted: deferred_human_or_external_ai. It matches the ruling, and the feed mirrors it.",
+    "candidate_hold_basis": "inserted: specialist_or_external_review. It matches the manifest, and it is a routing field, not a measurement."
+   },
+   "new_defects": []
+  }
+ },
+ "derived_records": {
+  "atlas_rows": {
+   "fit": true,
+   "evidence": "101 new rows against 102 pre-rows, with order preserved. Only M8-Ezek-082 is gone, and none is new. Exactly the six released rows differ, in [candidate_hold_state, chunk_review_status, possible_downstream_risk, review_packet_final_state, suggested_reviewer], with key order the same. 113 does not differ. The feed ids equal the v10 low/medium_low lines exactly (11 low + 90 medium_low). States: accepted_candidate 100 / held_lower_confidence 1."
+  },
+  "atlas_dimensions": {
+   "fit": true,
+   "evidence": "101 rows against 102. Only 082 is gone. The six released rows differ only in dependency.composed_sentence_in_feed, which equals the new feed risk sentence. judged is unchanged for all of them, so the referral still adds +2 to their judged score, as the generator comment and the README disclose."
+  },
+  "atlas_check": {
+   "fit": true,
+   "evidence": "gen_atlas_rows.py --check: feed and dimensions rebuilt byte-equal, 'DETERMINISTIC: MATCH'. Mirror --check atlas: produced record sha256 59b38fb3... equals the shipped record (bytes_equal_to_shipped true). Mirror --check atlas --selftest: 'SELFTEST: PASS - the clean deliverable passes and every tampering is caught', including 'feed_mirrors_the_corpus_hold CAUGHT'. The code diff is exactly the stated rule: select `confidence in {low, medium_low}` only, and `held = candidate_hold_state is not None`. The checker's new check compares (chunk_review_status, candidate_hold_state, review_packet_final_state) with the corpus (review_status, candidate_hold_state, and accepted_candidate or held_lower_confidence) and can fail. The tamper flips the held row's packet state and is caught. The record's diff from its .pre_ is only the digests, the counts (102->101, 15->16 checks), the new disclosed ok:null item and the new check. Reservation L1: two check names still say 'referred'."
+  },
+  "sidecars": {
+   "fit": true,
+   "evidence": "gen_sidecars.py --check: MATCH. The writer_decision_id set (101, all distinct) equals the v10 rows graded low or medium_low. Against the .pre_: 101 and 101 rows, and exactly p03-1, p03-3, p03-4, p03-5, p03-21 and p07-4 (lines 35, 37, 38, 39, 49, 83) differ, in [possible_downstream_risk, suggested_reviewer] only, and they equal the feed."
+  },
+  "proposals": {
+   "fit": true,
+   "evidence": "The file is unchanged (pinned digest matches). Its three '102' counts: 'It found 0 disagreements over 102 rows' and 'applied that cap to 102 rows; the measured effect was...' are past-tense measurements. 'On a book with 102 rows the independent path found nothing' sits in a past-tense clause, but it names 102 as the book's row count, which is stale as a current fact (feed 101, book 138). Low: L3."
+  },
+  "readme": {
+   "fit": true,
+   "evidence": "The AMENDED section checks out count for count. Six released ids, which are unchanged in the corpus and read accepted_candidate / candidate_review_complete. 082 = P07-003 Ezek.29.17-Ezek.29.21, graded high. 113 = P10-016 Ezek.40.28-Ezek.40.37, with the corpus triple and a held_lower_confidence feed row. 16 of 16 checks. 101 rows (11 low, 90 medium_low), 1 held. All ten byte sizes equal the file sizes on disk, and all ten sha256 values equal the pinned digests. Earlier counts are marked as history. Not verified: repoint_generators_v10.py (not pinned)."
+  }
+ },
+ "items": {
+  "item_22": {
+   "fit_to_accept": true,
+   "reservations": [
+    "L1: stale 'referred' check names in check_atlas_rows.py (naming only; the details are truthful).",
+    "L2: the generator ties the referral sentence to the corpus hold rather than to the referral. It is true for the only held row today, but it is a latent false statement for any later corpus-held row that was never referred.",
+    "The dimensions' judged score still counts the second reading's referral (+2) for the six released rows. This is disclosed and kept out of the feed (no_judgement_merged_into_the_feed passes).",
+    "113's feed why_low_confidence states paseq and K/Q-note counts as measurements, which I could not re-measure: this witness file carries no paseq glyph and no K/Q markup."
+   ],
+   "findings": [
+    "Every feed row's state is supported by its corpus row: 100 unheld rows with no corpus hold, and 1 held row (113) whose corpus hold it mirrors. 0 mismatches, measured by the checker and by my own diff.",
+    "No feed row carries a hardness or score. The judged material stays in the dimensions file."
+   ],
+   "checks_i_ran": [
+    "gen_atlas_rows.py --check (MATCH)",
+    "close_check_mirror --check atlas (byte-equal)",
+    "close_check_mirror --check atlas --selftest (PASS)",
+    "gen_sidecars.py --check (MATCH)",
+    "own diff of the feed, dimensions and sidecars against .pre_",
+    "own diff of the generator, checker, README and check record against .pre_",
+    "own feed-to-corpus state mirror over all 101 rows"
+   ]
+  }
+ },
+ "residual": [
+  {
+   "severity": "low",
+   "row_or_artifact": "deliverables/check_atlas_rows.py and atlas_rows_check.v1.json",
+   "class": "stale_name",
+   "defective_text": "check names 'held_rows_are_exactly_the_referred_ones' and 'off_vocabulary_grades_are_referred_rows'",
+   "evidence": "Since v10, check_atlas_rows.py:118 builds 'referred' from candidate_hold_state (corpus-held), and the details read 'held in the corpus'. The names still say 'referred'.",
+   "proposed_cure": "At the next version, rename them to 'held_rows_are_exactly_the_corpus_held_ones' and 'off_vocabulary_grades_are_corpus_held_rows' (and the selftest keys with them), then regenerate the record. Or record the old names as aliases in the README."
+  },
+  {
+   "severity": "low",
+   "row_or_artifact": "deliverables/gen_atlas_rows.py",
+   "class": "latent_prose_coupling",
+   "defective_text": "if held: risk.append(\"The second, independent reading declined to act here and referred the question onward.\")",
+   "evidence": "held is now 'candidate_hold_state is not None' (corpus). The sentence states a referral act. It is true for 113 (referred), but it would be false for any corpus-held row the second reading never referred.",
+   "proposed_cure": "Gate the sentence on 'held and referred'. The output for v10 would not change (113 is both)."
+  },
+  {
+   "severity": "low",
+   "row_or_artifact": "deliverables/method_change_proposals.Ezek.candidate.jsonl",
+   "class": "stale_count_phrasing",
+   "defective_text": "On a book with 102 rows the independent path found nothing",
+   "evidence": "The book has 138 rows. The v9 feed had 102 and the v10 feed has 101. The file's other two '102' counts are stated as past measurements.",
+   "proposed_cure": "At the file's next version: 'On this book's v9 feed of 102 rows the independent path found nothing'."
+  }
+ ],
+ "for_fable_end_review": [
+  {
+   "row": "M8-Ezek-113 (P10-016)",
+   "measurement": "Still held and still defective, so the ruling's P3 ground is confirmed. (a) 'immediately before 40:38' is said of 40:31, but in the witness 40:37 precedes 40:38. (b) 'counting this row's four occurrences and 40:24' is given as 6 verses, but the witness has the refrain כמדות האלה at 40:24, 28, 29, 32, 33 and 35, which is five in the row.",
+   "ask": "The corrected row must cure both (a) and (b) before the two-lane re-check that release needs."
+  },
+  {
+   "row": "M8-Ezek-035/037/038/039/049/083",
+   "measurement": "In the dimensions, judged still adds +2 for the second reading's referral after release.",
+   "ask": "Should a released referral still raise the judged score? This is a class and method question, not a defect."
+  },
+  {
+   "row": "M8-Ezek-082 and M8-Ezek-083",
+   "measurement": "Both carry utterance.mid_unit. 082 is graded high and has been dropped; 083 is medium_low and has been released.",
+   "ask": "The utterance.mid_unit class question and B19, as the ruling routes them."
+  },
+  {
+   "row": "M8-Ezek-035",
+   "measurement": "The P1 ground (the v9 A0 cure) was not re-measured in this lane.",
+   "ask": "The B7 calibration question, already routed by both v9 lanes."
+  }
+ ],
+ "assembly_verdict": "fit_to_assemble",
+ "verdict": "fit_to_close",
+ "bounded_fix": null,
+ "transcript_coverage": {
+  "statement": "The stage-1 transcript audit is OWED, NOT MET (OW-26). This pass read no transcript, and nothing here implies that transcripts were audited."
+ },
+ "e19_selfreport": "No breach. I never listed, globbed or searched a directory. Every grep was inside a named file. Disclosure: two of my command outputs exceeded the harness limit, and the harness itself persisted them under the session's .claude/projects tool-results folder. I did not write them there and read them only by their given path. The mirror wrote only under OUT/mirror_atlas and OUT.",
+ "tool_calls_used": 28,
+ "what_i_did_not_check": [
+  "The paseq and K/Q-note counts in 113 and elsewhere: Ezek_oshb.txt has 0 U+05C0 and no K/Q markup, so the witness cannot test them (UNAVAILABLE).",
+  "Which exact clause the 113 hold originally named: the v9 lane A R1 and lane B N1 findings are not pinned to me.",
+  "Whether any suite member validates the hold-field vocabulary: I relied on hard_status GREEN over v10, the atlas checks and the v9 precedent shape.",
+  "The P1 ground for 035 (the v9 A0 grade-ground cure).",
+  "repoint_generators_v10.py and the Fable end packet the README names (not pinned).",
+  "The body of gen_sidecars.py beyond --check.",
+  "Items 20, 21 and 23 beyond the proposals count question, as the brief requires."
+ ],
+ "limit": "This lane checks only the v9->v10 delta and the ruling as implemented. It re-decides no ruling or grade, audits no transcript, and uses one witness (OSHB). Do not read it as a re-review of the book, as proof of the paseq or K/Q counts, or as a fix of 113. That row stays held with two measured false clauses.",
+ "output_sha256": "a7737d0cfce517b84e37233b1829fffc87ccba50f3ecee5515ba7e7183405394"
+}

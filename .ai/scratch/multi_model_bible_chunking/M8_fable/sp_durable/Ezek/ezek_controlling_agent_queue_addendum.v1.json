@@ -1,0 +1,33 @@
+{
+ "schema": "m8_controlling_agent_queue_addendum.v1",
+ "book": "Ezek",
+ "extends": "sp_durable/Ezek/ezek_controlling_agent_queue.v1.json - unchanged; this file only adds items",
+ "compiled": "2026-09-10",
+ "compiled_by": "orchestrator (claude-opus-5) - compiled, NOT ruled",
+ "authority": "OW-6b operational reading (a), as in the v1 queue: every item below is the claude-fable-5-1 controlling agent's call.",
+ "gate_status": "Clause (b) of the v1 gate is now met in form: the shared toolkit is staged and tested (_test_zone_tools_ezek.py 50/50, ezek_lib.py selftest 32/32, _toolkit_selfcheck.py GREEN), and the validator suite has run over the combined draft rows. Clause (a) - rulings on every v1 item AND every item here - remains open. The toolkit itself still awaits its distinct-checker review (T1).",
+ "inputs": {
+  "suite_summary": "sp_durable/Ezek/writer/ezek_tier0_suite_summary.v1.json (digest-bound; carries the report, view, rows and tool digests)",
+  "suite_report": "sp_durable/Ezek/writer/draft_rows_combined.suite_view.jsonl.validator_report.json",
+  "view_manifest": "sp_durable/Ezek/writer/draft_rows_combined.suite_view.manifest.json",
+  "rows": "sp_durable/Ezek/writer/draft_rows_combined.jsonl (unchanged)"
+ },
+ "items": [
+  {"id": "R1", "kind": "schema",
+   "decision": "The canonical boundary_evidence_refs form for Ezekiel. Eight parts wrote witness-prefixed strings, the form every Tier-0 tool reads. p03 wrote objects with a BARE Ezek.C.V ref plus disclosure; p09 and p11 wrote objects with witness-prefixed refs plus device, hebrew and source keys. The brief's schema line did not fix the form, and the landing validator accepted both. The suite ran over a lossless flattened VIEW, which is never an input to a later round."},
+  {"id": "R2", "kind": "routing",
+   "decision": "How the Tier-0 findings are carried. Hard status RED: citation_sweep 546 problems, normalizer 24 defects (E-01), ngram7 3 offending 7-grams, cap_sweep 4 failures. FLAGS: universals 582, web_quotes 423, register 189, mark_symmetry 144, refs_mirror 112. Most citation_sweep problems are conventions WRITER_BRIEF.md never stated, because the toolchain was not staged when the writers ran (v1 item Q9): 376 Hebrew quotes carry no oshb: ref in their field, and about 90 refs are malformed under the grammar. The landing validator already proved the Hebrew byte-true, so most of these are form, not fabrication. Options include an author repair wave on the drafts before primaries, or primaries on the drafts with the summary as an input and the repair folded into the author wave. The summary's orchestrator_observations block is a reading, not a ruling."},
+  {"id": "R3", "kind": "content_defects",
+   "decision": "Findings that stand whatever conventions are ruled: K/Q notes copied whole, so the ketiv and qere run together as one string that is neither reading (the normalizer's defect list and the citation_sweep _view_ref_hebrew class); pointed Hebrew found in neither the verse bytes nor the Qere layer; p01-2 (ch 2) and p02-4 (ch 9), whole-chapter rows at medium confidence with no E-02 cap disclosure; p03 boilerplate repeated across 11-12 rows; paseq cited at MT 5:2, where it stands at 5:1 (row P01-009), and at MT 26:19, which carries none (row P06-008)."},
+  {"id": "R4", "kind": "toolkit_changes_to_ratify",
+   "decision": "Tool behaviour added or changed at staging, each case tested in _test_zone_tools_ezek.py: (i) a QERE tier in the normalizer and the Hebrew-binding arm - a Qere passes only at byte tier and only when its field says ketiv/qere, and an NFD-only match stays a defect; (ii) PUNCTA arms - U+05C4 claims valid only at MT 41:20 and 46:22, with 'no puncta' a span-scoped absence claim negated only by an adjacent word; (iii) an editorial-note tier for K/Q claims, resting on the OSHB notes that record a ketib/qere relative to BHS; (iv) pm['paseq'] converted to the Jer dict shape in ezek_lib.load_pmarks; (v) norm_english stripping the bare [fn]. Items (i) to (iii) change what HARD and FLAGS gates accept, so they are yours to ratify or reverse - preferably after T1 lands."},
+  {"id": "R5", "kind": "cure_claim_digest",
+   "decision": "EZEK-P0-CURE-toolkit in ezek_cure_claims.v1.jsonl pins TOOLKIT.md at 06b0e7a6... TOOLKIT.md has changed since - the 2026-09-08 corrections, and today's tools section and flagged-regions correction - so under OW-10 that cure no longer binds to the live artifact. Re-verify it against the current digest with a fresh distinct-checker review, or record it as superseded. Related to v1 item Q2."},
+  {"id": "R6", "kind": "correction_sibling",
+   "decision": "The 2026-09-08 ch-40 K/Q correction left a contradicting sibling line in TOOLKIT.md's flagged-regions list ('the ch-40 K/Q cluster sits on the measurements'); the orchestrator corrected it on 2026-09-10. Confirm it, and decide whether 'a correction sweeps its own sibling statements' becomes a checker rule (compare sp_durable/campaign/finding_correction_text_carries_its_own_defects.v1.json)."},
+  {"id": "R7", "kind": "process_record",
+   "decision": "For the record: the orchestrator wrote a temporary file into the shared multi-model directory and deleted it in the same command (sp_durable/campaign/finding_orchestrator_temp_file_outside_lane.v1.json)."},
+  {"id": "T1", "kind": "toolkit_review",
+   "decision": "A distinct-checker review of the staged toolkit, bound to the tool digests in the suite summary: the five book-specific tools, both adapters, the normalizer change, the suite-view builder, the tests and the TOOLKIT.md tools section. The orchestrator launches it as its own execution; its verdict is an input to R4."}
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "attempt_id": "ezek_p0_repair_a1",
+ "execution_id": "ezek_p0_repair_a1#e1",
+ "sources": [
+  "see the attempt receipt; each checker recorded its own exact read paths"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "tools/TOOLKIT.md",
+    "why": "recorded in the receipt findings"
+   },
+   {
+    "what": "ezek_device_inventory.json",
+    "why": "recorded in the receipt findings"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "every number in TOOLKIT.md matches the artifact it came from",
+   "how": "tools/_toolkit_selfcheck.py",
+   "result": "confirmed (92/92 GREEN)"
+  },
+  {
+   "claim": "the repair is cured under OW-10",
+   "how": "_cure_verification.py with verification and distinct-checker review both digest-bound to the shipped artifacts",
+   "result": "confirmed (2 claims, 2 ACCEPTED, 0 refused)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "two low findings retained rather than cured",
+   "why_it_matters": "curing them would change the accepted digests and invalidate the review that accepted them; recorded in ezek_p0_retained_lows.v1.json, which lives beside the artifacts so their digests stand"
+  }
+ ],
+ "limit": "accountable work summary; not chain of thought and not independent proof"
+}

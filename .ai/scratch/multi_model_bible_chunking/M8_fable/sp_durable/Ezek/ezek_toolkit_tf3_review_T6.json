@@ -1,0 +1,367 @@
+{
+ "attempt_id": "ezek_toolkit_tf3_review_t6_a1",
+ "execution_id": "ezek_toolkit_tf3_review_t6_a1#e1",
+ "verdict": "fit_with_changes",
+ "verdict_summary": "No blocker. campaign/_cure_verification.py at a61ec7ff implements T5-VERIFIER rules (1)-(6) EXACTLY as ruled (verified against the bytes at the cited lines) and its selftest (64 vectors) reads GREEN with every T5 vector present and correctly discriminating against the pre-TOOLFIX-3 verifier. Both real claims files read GREEN under --rulings --require-rulings on a private run, reproducing the install receipt's claims_verification_after and the kept stdout exactly, including EZEK-P0-CURE-toolkit-v2's supersession class moving to ruling_orders_retirement with its SUPERSEDED verdict unmoved, as T5-VERIFIER(6) required. Adversarial attack found one new evasion the ruling did not specify against: a verification entry whose counts object carries only explicit zero values (e.g. {checks:0,passed:0,failed:0} or even {failed:0} alone) is accepted as a BOUND, PASSING machine result because Python's bool() treats a non-empty dict as truthy regardless of its values and the failing-checks logic only compares equality, never positivity (T6-01, major). This is a gap in what T5-VERIFIER(1) specifies, not a deviation from it; the code matches the ruled text exactly. A second, minor finding: the REFUSE regex's whole-word 'reject\\w*' and 'blocker\\w*' forms, like the already-disclosed 'red', can false-refuse a genuinely accepting verdict that uses those words in a non-refusing sense ('no findings rejected', 'no blockers remain') (T6-02, minor, extends #e6 unresolved_uncertainty[6]). tools/TOOLKIT.md at b247cea5 is confirmed fit: all three T5-08 corrected sentences and all four further corrections (a)-(d) are present at the exact ruled wording and verified against the code and pmarks_Ezek.json directly, not merely against the ruling's prose. My own R6 sibling sweep across the WHOLE FILE, using T5's 17 key-phrase topics plus the seven named in my brief, found zero contradictions; 'ranges expanded' returns 0 hits because the ruled correction (2) fully replaced that wording, which is expected, not a gap. The six appended claims are all confirmed: artifact digests equal both the live files and T5's reviewed digests; every verification entry is a truthful machine result bound to that digest (the zone_tests/ezek_lib_selftest entries are whole-suite runs whose artifact_sha256_at_run is truthfully attributed per file because all six files were co-installed in the one batch those tests ran against, matching #e6 unresolved_uncertainty[3]'s disclosed drafting); the distinct checker on all six is T5 with a real verdict and evidence path; and the third verification entry's drafting (integer counts, no exit, suite_exit recorded separately from the suite's own exit 1) is SOUND because conflating the suite's pre-existing HARD status with this entry's own exit would have produced a false refusal of files T5 found fit.",
+ "pinned_inputs_note": "All 38 pinned inputs were rehashed by exact path at review time; every digest equalled the brief's table with no divergence. The two most consequential (campaign/_cure_verification.py a61ec7ff85aee3782b1e23fb6b6338398be773769f4936d235a71cd7c11b6042 and tools/TOOLKIT.md b247cea5b0af11a7708b5b0a53383d4b5abd9940b016e045bd1f317d97c1c0b6) were also confirmed unchanged after this review's runs completed. Two artifact paths named by two of the six appended claims (tools/check_register.py, tools/check_web_quotes.py) are not in the brief's Inputs table but are required by part B's first bullet (artifact digest equals the live file and T5's reviewed digest); both were hashed by their exact, fully-specified path (SP\\Ezek\\tools\\check_register.py, SP\\Ezek\\tools\\check_web_quotes.py) and both equal the claim's own artifact_sha256 and T5's artifacts_reviewed digest exactly (130948439528d5d6988c4ca8ab0da8bf853749541edbae89c5d44162deeffa72; 74fb717927c77faf3cde0d9d8e82b2077c5ba774cb1d275733129c9c5ed793e4).",
+ "artifacts_reviewed": [
+  {
+   "path": "SP\\campaign\\_cure_verification.py",
+   "artifact_sha256_at_review": "a61ec7ff85aee3782b1e23fb6b6338398be773769f4936d235a71cd7c11b6042"
+  },
+  {
+   "path": "SP\\Ezek\\tools\\TOOLKIT.md",
+   "artifact_sha256_at_review": "b247cea5b0af11a7708b5b0a53383d4b5abd9940b016e045bd1f317d97c1c0b6"
+  },
+  {
+   "path": "SP\\Ezek\\proposals\\toolfix3_batch1\\manifest.json",
+   "artifact_sha256_at_review": "c863f39c4f9f2232cb2bf5d2b58235b91c15739c8f8ea76435c319a9177e3047"
+  },
+  {
+   "path": "SP\\Ezek\\proposals\\toolfix3_batch1\\sibling_sweep.json",
+   "artifact_sha256_at_review": "9165c20000ef18d296c2799fe30f664c192fae6e4d9bc060a3261b1d94fb60dc"
+  },
+  {
+   "path": "SP\\campaign\\receipts\\ezek_tools_install_toolfix3_batch1.json",
+   "artifact_sha256_at_review": "e6d21bbd08615a86812008a26991da0efc94f5565d9a5a5b20411edc42731cdf"
+  },
+  {
+   "path": "SP\\Ezek\\ezek_cure_claims_toolkit_repair.v1.jsonl",
+   "artifact_sha256_at_review": "ac4a48e5c0b8a425018ebf57985f6b0c49ae1a645dd32ff81d40fd3766017709"
+  },
+  {
+   "path": "SP\\Ezek\\ezek_cure_claims.v1.jsonl",
+   "artifact_sha256_at_review": "cfb20d1e3610db14b3a0b8d90d4bf945c4ab674e1ade7c37f6f4f4b3d2460c53"
+  },
+  {
+   "path": "SP\\Ezek\\cure_runs\\2026-09-11_after_toolfix3\\claims_verification.stdout.json",
+   "artifact_sha256_at_review": "1478c41691bc494067aad52d1ac282f4cd01a43dc477ceb40ad004ef7390faf9"
+  },
+  {
+   "path": "SP\\Ezek\\ezek_controlling_agent_rulings_e6.v1.json",
+   "artifact_sha256_at_review": "ed5d714518b5f7a09edeb593dc0982cc1301039be66ff3924f737bfa77282113"
+  },
+  {
+   "path": "SP\\Ezek\\ezek_toolkit_install_review_T5.json",
+   "artifact_sha256_at_review": "02ff699e6e27cb96b43538d3fd82d2e291cba3501f7d280842e4bc9085854940"
+  },
+  {
+   "path": "SP\\Ezek\\tools\\citation_sweep.py",
+   "artifact_sha256_at_review": "6c843b14a604ec0cdb4ee52043cdd5ae30d6735b0a7d66d72ff28d9f00a39054"
+  },
+  {
+   "path": "SP\\Ezek\\tools\\check_marks.py",
+   "artifact_sha256_at_review": "a63107199dfee8fe833494b7acad3a1a922fbd4f2f435eacf92d55418fbb2ce0"
+  },
+  {
+   "path": "SP\\Ezek\\tools\\ezek_lib.py",
+   "artifact_sha256_at_review": "ab2431fecebee9c8f1e673aa70a8aac83d69f647b2fa76102efb5aa81904ef69"
+  },
+  {
+   "path": "SP\\Ezek\\tools\\normalize_hebrew_in_json.py",
+   "artifact_sha256_at_review": "c23e837638edc891712efefe2e5ab3aae21bf87c2c602fb769bb23ecda1d73e9"
+  },
+  {
+   "path": "SP\\Ezek\\tools\\run_validator_suite.py",
+   "artifact_sha256_at_review": "4c0caa08a2999089bcec23aee6e1a47963e4395fc86d75c1f8139c35775a78cb"
+  },
+  {
+   "path": "SP\\Ezek\\tools\\check_register.py",
+   "artifact_sha256_at_review": "130948439528d5d6988c4ca8ab0da8bf853749541edbae89c5d44162deeffa72"
+  },
+  {
+   "path": "SP\\Ezek\\tools\\check_web_quotes.py",
+   "artifact_sha256_at_review": "74fb717927c77faf3cde0d9d8e82b2077c5ba774cb1d275733129c9c5ed793e4"
+  },
+  {
+   "path": "SP\\Ezek\\pmarks_Ezek.json",
+   "artifact_sha256_at_review": "25956c0d5180fd661b0843cbee640cb6f53b55e96df5f80f84a4ca78e57e2315"
+  }
+ ],
+ "verifier": {
+  "verdict": "fit_with_changes",
+  "rules_checked": [
+   {
+    "rule": "(1)",
+    "implemented_as_ruled": true,
+    "evidence": "lines 74-75 is_int; 145-149 exit_ok; 150-162 counts per-member int/null test with own-reason refusals; 163 has_machine_result = exit_ok or bool(cvals) or osha_ok; 169-190 bound only when at_run==live AND passing (exit==0, failed==0, passed==checks, verdict not red/fail/refus-prefixed). Matches the ruled text exactly; T6-01 (new_findings) is a residual gap in what rule (1) as WRITTEN covers (a counts object of explicit zeros is a 'machine result' under the ruled text), not a mis-implementation of the rule."
+   },
+   {
+    "rule": "(2)",
+    "implemented_as_ruled": true,
+    "evidence": "lines 60-61: ACCEPT=\\b(fit_to_accept|fit_with_changes|confirmed|accept(?:ed|able)?)\\b, REFUSE=\\b(not_fit|not fit|unfit|refut\\w*|reject\\w*|blocker\\w*|red)\\b, character-for-character equal to the ruled regex; lines 234-239 apply containment (acc=ACCEPT.search, ref=REFUSE.search; refuse if not acc or ref)."
+   },
+   {
+    "rule": "(3)",
+    "implemented_as_ruled": true,
+    "evidence": "lines 78-80 norm_id (strip+casefold, empty-after-strip -> \"\"); lines 220-224 keep the two existing exact/stem tests; lines 226-229 add the new both-fields stem-intersection test (author stems from a_att/a_exe, checker stems from ch_a/ch_x, any intersection refuses), exactly as ruled."
+   },
+   {
+    "rule": "(4)",
+    "implemented_as_ruled": true,
+    "evidence": "line 326 key=lambda v: str(v...).strip() strips cure_id/supersedes_cure_id before the dup test and retirement lookup; line 250 ORDERED_BY=(?<![^\\s;,(])(?P<xid>[a-z0-9_]+#e\\d+)(?![\\w-]).*?\\bruling\\s+(?P<rid>...); line 281 pairs_of uses .finditer (every pair, not just the first); line 251 SUPERSEDING_VERBS={adopt,amend,close} unconditional; line 252 RATIFYING_VERBS={ratify,ratify_with_changes} only via orders_retirement (200-char window, line 254 RETIRE_WINDOW=200); lines 295-309 classify_supersession returns ruling_orders_retirement / ruling_mentions_cure_id / r5_with_trigger / unclassified exactly as ruled, a classification only, never a refusal."
+   },
+   {
+    "rule": "(5)",
+    "implemented_as_ruled": true,
+    "evidence": "Private selftest run: 64 vectors, 0 failed, GREEN. All T5-named vectors present with the ruled expectation: the eight evasions, s1_19c_period_prefix, s1_19c_slash_prefix, compound_ordered_by_second_bogus (all REFUSED), e_names_only_as_successor_overbroad (ruling_mentions_cure_id), ratify_with_changes_verb_ordering_retirement (SUPERSEDED/ruling_orders_retirement) and ratify_with_changes_verb_mentioning_only (REFUSED), and the six GREEN controls (tf3_green_exit0_counts_28_28_0, tf3_green_counts_passed_null_exit0_t5_13_shape, tf3_green_verdict_toolkit_md_fit_to_accept, tf3_green_verdict_fit_with_changes, tf3_green_distinct_jobs_both_fields, tf3_green_two_pair_ordered_by_both_adopt), plus 15 further rule-pinning vectors and all 28 pre-existing vectors."
+   },
+   {
+    "rule": "(6)",
+    "implemented_as_ruled": true,
+    "evidence": "Private run over both real claims files with --root SP\\Ezek --rulings (all six rulings files) --require-rulings: both GREEN, reproducing the install receipt's claims_verification_after and the kept stdout (Ezek/cure_runs/2026-09-11_after_toolfix3/claims_verification.stdout.json) exactly, cure-id-for-cure-id and class-for-class. EZEK-P0-CURE-toolkit-v2's supersession record moved from ruling_names_retired_cure (old verifier) to ruling_orders_retirement (staged/installed verifier) while its SUPERSEDED verdict did not move, as ruled; the manifest's supersession_classes_moved field records the move."
+   }
+  ],
+  "attacks": [
+   {
+    "name": "T6-A1 zero-value counts object treated as a passing machine result",
+    "direction": "evasion",
+    "claim_shape": "verification=[{tool,artifact_sha256_at_run=live,counts:{checks:0,passed:0,failed:0}}], no exit, no output_sha256",
+    "expected": "REFUSED (no real check ran)",
+    "got": "ACCEPTED (has_machine_result True via non-empty dict; 0==0 checks never flags failing)"
+   },
+   {
+    "name": "T6-A2 counts={checks:0} alone",
+    "direction": "evasion",
+    "claim_shape": "verification=[{tool,artifact_sha256_at_run=live,counts:{checks:0}}]",
+    "expected": "REFUSED",
+    "got": "ACCEPTED"
+   },
+   {
+    "name": "T6-A3 counts={failed:0} alone, no checks/passed at all",
+    "direction": "evasion",
+    "claim_shape": "verification=[{tool,artifact_sha256_at_run=live,counts:{failed:0}}]",
+    "expected": "REFUSED",
+    "got": "ACCEPTED"
+   },
+   {
+    "name": "T6-A4 NBSP-only (U+00A0) author_attempt_id, no author_execution_id",
+    "direction": "evasion",
+    "claim_shape": "author_attempt_id='\\u00A0'",
+    "expected": "REFUSED",
+    "got": "REFUSED (confirmed: Python str.strip() removes U+00A0, so the field reads empty-after-strip as ruled)"
+   },
+   {
+    "name": "T6-A5 benign 'red' inside an otherwise-accepting verdict",
+    "direction": "false_refusal",
+    "claim_shape": "distinct_checker.verdict='fit_to_accept; the wall carvings show a red ochre pigment'",
+    "expected": "documented risk (safe-direction refusal, #e6 unresolved_uncertainty[6])",
+    "got": "REFUSED, confirming the disclosed risk"
+   },
+   {
+    "name": "T6-A6 benign 'rejected' inside an accepting verdict",
+    "direction": "false_refusal",
+    "claim_shape": "distinct_checker.verdict='fit_to_accept (no findings rejected as out of scope)'",
+    "expected": "not disclosed by #e6",
+    "got": "REFUSED (T6-02: extends the disclosed 'red' risk to reject\\w*)"
+   },
+   {
+    "name": "T6-A7 benign 'blockers' inside an accepting verdict",
+    "direction": "false_refusal",
+    "claim_shape": "distinct_checker.verdict='fit_to_accept; no blockers remain'",
+    "expected": "not disclosed by #e6",
+    "got": "REFUSED (T6-02: extends the disclosed 'red' risk to blocker\\w*)"
+   },
+   {
+    "name": "T6-A8 uppercase artifact_sha256",
+    "direction": "evasion (sanity re-check of S1-19(d))",
+    "claim_shape": "artifact_sha256=UPPER(live)",
+    "expected": "REFUSED",
+    "got": "REFUSED (both the non-64-hex-lowercase-pattern reason and the digest-mismatch reason fire)"
+   },
+   {
+    "name": "T6-A9 counts values as floats equal to the int (28.0)",
+    "direction": "evasion",
+    "claim_shape": "counts={checks:28.0,passed:28.0,failed:0.0}",
+    "expected": "REFUSED",
+    "got": "REFUSED (is_int rejects non-int types; each member REFUSED with its own reason, as ruled)"
+   },
+   {
+    "name": "T6-A10 exit=-1 (nonzero, sanity re-check)",
+    "direction": "evasion",
+    "claim_shape": "exit=-1",
+    "expected": "REFUSED",
+    "got": "REFUSED (bound-but-failing: 'exit -1')"
+   }
+  ],
+  "real_claims": {
+   "ezek_cure_claims.v1.jsonl": {
+    "claims": 3,
+    "accepted": 1,
+    "refused": 0,
+    "superseded": 2,
+    "verdict": "GREEN",
+    "matches_receipt_and_stdout": true
+   },
+   "ezek_cure_claims_toolkit_repair.v1.jsonl": {
+    "claims": 8,
+    "accepted": 6,
+    "refused": 0,
+    "superseded": 2,
+    "verdict": "GREEN",
+    "matches_receipt_and_stdout": true
+   }
+  }
+ },
+ "appended_claims": {
+  "verdict": "confirmed",
+  "per_claim": [
+   {
+    "cure_id": "EZEK-TK-CURE-citation_sweep",
+    "verdict": "confirmed",
+    "why": "artifact_sha256 6c843b14... equals the live file (independently hashed) and T5's reviewed digest; three verification entries each carry an integer or null machine result bound to this digest (zone_tests 222/222/0, ezek_lib selftest 40/40/0, T5 suite-parity 11/11/0); distinct_checker is T5 (ezek_toolkit_install_review_t5_a1#e1) with verdict 'fit_with_changes; artifact fit=true per cure_claim_readiness' and evidence_path to T5's review, matching T5's actual cure_claim_readiness entry for tools/citation_sweep.py verbatim."
+   },
+   {
+    "cure_id": "EZEK-TK-CURE-check_marks",
+    "verdict": "confirmed",
+    "why": "artifact_sha256 a6310719... equals the live file and T5's reviewed digest; same three-entry verification shape bound to this digest; distinct_checker T5, matching T5's cure_claim_readiness entry for tools/check_marks.py verbatim."
+   },
+   {
+    "cure_id": "EZEK-TK-CURE-ezek_lib-v2",
+    "verdict": "confirmed",
+    "why": "artifact_sha256 ab2431fe... equals the live file and T5's reviewed digest; verification entries bound to this digest; distinct_checker T5, matching T5's cure_claim_readiness entry for tools/ezek_lib.py verbatim (the S1-07 cure, not the T5-07 docstring debt)."
+   },
+   {
+    "cure_id": "EZEK-TK-CURE-check_register",
+    "verdict": "confirmed",
+    "why": "artifact_sha256 130948439528d5d6988c4ca8ab0da8bf853749541edbae89c5d44162deeffa72 equals the live file (independently hashed by exact path, not in the brief's Inputs table but required by part B) and T5's reviewed digest; verification entries bound to this digest; distinct_checker T5, matching T5's cure_claim_readiness entry for tools/check_register.py verbatim."
+   },
+   {
+    "cure_id": "EZEK-TK-CURE-check_web_quotes",
+    "verdict": "confirmed",
+    "why": "artifact_sha256 74fb717927c77faf3cde0d9d8e82b2077c5ba774cb1d275733129c9c5ed793e4 equals the live file (independently hashed) and T5's reviewed digest; verification entries bound to this digest; distinct_checker T5, matching T5's cure_claim_readiness entry for tools/check_web_quotes.py verbatim."
+   },
+   {
+    "cure_id": "EZEK-TK-CURE-normalizer-v2",
+    "verdict": "confirmed",
+    "why": "artifact_sha256 c23e8376... equals the live file and T5's reviewed digest; verification entries bound to this digest; distinct_checker T5, matching T5's cure_claim_readiness entry for tools/normalize_hebrew_in_json.py verbatim."
+   }
+  ],
+  "third_entry_drafting": {
+   "sound": true,
+   "why": "The third verification entry (tools/run_validator_suite.py, T5's suite-parity comparison) carries integer counts {checks:11,passed:11,failed:0} and no exit key, matching T5's actual suite_parity finding ('Every member object ... is JSON-identical to the installed report'; 11 compared member objects). The validator suite's own exit is 1, driven by the enumerated FIXUP-1 HARD set that is pre-existing and unrelated to these six files' fitness; recording that as a separate 'suite_exit' field (not as this entry's 'exit') is the correct drafting, because attributing the suite's exit 1 to this entry would trip the verifier's 'exit != 0 => FAILED' rule and falsely refuse all six claims T5 found fit. The verifier does not read 'suite_exit', so this drafting choice is transparent (a human reviewer sees it) without being mechanically load-bearing. This matches #e6 unresolved_uncertainty[3]'s disclosed drafting question and resolves it correctly."
+  }
+ },
+ "toolkit_md": {
+  "verdict": "fit_to_accept",
+  "sibling_sweep": {
+   "key_phrases": [
+    "single-witness disclosure",
+    "NFD-only matches stay defects",
+    "word boundaries / no Hebrew letter or combining mark beside",
+    "maqaf",
+    "QERE tier ... keyword ... within 160 characters",
+    "closed set",
+    "ranges expanded",
+    "check_marks row (negator/no other K/Q/no pe or samekh)",
+    "check_register.py carries the S1-05 arms",
+    "check_web_quotes.py flags a prose field",
+    "HARD members: citation_sweep, the normalizer (E-01), ngram7, cap_sweep (E-02)",
+    "ch-40 K/Q cluster beside the measurements",
+    "puncta sites and counts; 14 datelines; calendar dates not datelines",
+    "homograph table, MT 11:19, MT 26:10, MT 45:18, MT 24:1",
+    "OSHB editorial-note classes and quoted texts; MT 33:20 sof-pasuq",
+    "frame-spine formula counts",
+    "Staged tools ... staged 2026-09-10 heading",
+    "NFD-only",
+    "faithful to",
+    "do not indicate"
+   ],
+   "statements_reviewed": 45
+  },
+  "corrections": [
+   {
+    "id": "(1)",
+    "verdict": "confirmed",
+    "evidence": "TOOLKIT.md line 279 normalizer row reads verbatim as T5-TOOLKIT-DOCS ruled: 'an NFD-only match at the verse tier is REPLACED by the verse's bytes and counted fixed, and the suite treats fixed>0 as HARD (E-01); an NFD-only Qere match is a defect and is never replaced'. Verified against normalize_hebrew_in_json.py fix_string() (bounded_in(run,KQ['qere']) is a byte-exact substring test with no NFD path for Qere; find_source_bytes() does the NFD-equal verse-tier replacement and increments stats['fixed']) and run_validator_suite.py (nfd_hard includes bool(norm.get('fixed',0)), which feeds hard_red)."
+   },
+   {
+    "id": "(2)",
+    "verdict": "confirmed",
+    "evidence": "TOOLKIT.md lines 299-301 read verbatim as ruled: 'a named single verse must be a site; a written range must hold at least one site; among several named items every one a site = a true claim, none = a false claim, a mix = ambiguous'. Verified against puncta_verdict() in both citation_sweep.py and check_marks.py: ok=[any(p in PUNCTA_SITE_PAIRS ... for p in pairs) for pairs in items]; True if all(ok) else (False if not any(ok) else 'ambiguous') -- exact match."
+   },
+   {
+    "id": "(3)",
+    "verdict": "confirmed",
+    "evidence": "TOOLKIT.md lines 306-308 list the closed set verbatim as ruled, ending 'the set is DENIAL_COORD and DENIAL_COPULAR in citation_sweep.py; where this paragraph and the code differ, the code is the contract and this paragraph is the defect'. Verified against DENIAL_COORD and DENIAL_COPULAR regexes in both citation_sweep.py and check_marks.py (byte-identical in both files): every form the paragraph lists is matched by one of the two patterns and nothing is listed that the patterns do not match."
+   },
+   {
+    "id": "(a)",
+    "verdict": "confirmed",
+    "evidence": "TOOLKIT.md line 269 heading reads 'staged 2026-09-10, after the writer wave; installed 2026-09-11 by receipts ezek_tools_install_t4fix_batch2.json and ezek_tools_install_toolfix2_batch3.json', exactly as ruled; the orchestrator's own sibling_sweep.json machine-checked that these two receipts are the last installers of every live tool file, and my independent read of the toolfix3_batch1 receipt confirms _cure_verification.py and TOOLKIT.md itself were installed 2026-09-11 by a THIRD receipt (toolfix3_batch1) after that heading text was written, which is consistent because the heading names only the tool files under the 'Staged tools' table, not itself or the verifier."
+   },
+   {
+    "id": "(b)",
+    "verdict": "confirmed",
+    "evidence": "TOOLKIT.md line 280 check_marks row adds T4-03's later denial ('a K/Q token is denied by a closed-set denial later in its clause, the same set as citation_sweep's DENIAL_COORD and DENIAL_COPULAR (T4-03)') and W6's mark-talk gate ('no pe or samekh is an absence phrase (W6), read only in mark talk: a MARKISH_CTX word within 60 characters'). Verified against check_marks.py: ABSENCE_LETTER (line 254) + letter_absences() (lines 269-272, MARKISH_CTX.search within 60 chars either side) for W6; denied_after()/kq_negation() at rule 4 (lines 581-609) for the T4-03 later-denial path."
+   },
+   {
+    "id": "(c)",
+    "verdict": "confirmed",
+    "evidence": "TOOLKIT.md lines 136, 140 (and the other five identical-class lines 137-139, 146) quote OSHB note texts inside quotation marks. Grep over pmarks_Ezek.json (single named file) confirms lines 1060/1102/1109/1130/1144/1268 read byte-identically 'BHS has been faithful to the Leningrad Codex where there might be a question of the validity of the form and we keep the same form as BHS.' and lines 1116/1123/1446 read 'Adaptations to a Qere which L and BHS, by their design, do not indicate.' -- byte-exact to TOOLKIT.md's quoted text, character for character."
+   },
+   {
+    "id": "(d)",
+    "verdict": "confirmed",
+    "evidence": "TOOLKIT.md lines 342-344 read verbatim as ruled: 'ezek_lib.skeleton() deletes U+05BE with the other points (POINTS spans U+0591-U+05C7), so a maqaf-joined quote never collates at any tier; its docstring sentence \"maps maqaf to SPACE\" is wrong and unasserted (T5-07, recorded as debt); write words space-separated, as the extract does.' Verified against ezek_lib.py: POINTS covers U+0591-U+05C7 (includes U+05BE) and skeleton()=POINTS.sub('',nfd(s)).replace(maqaf,' ') -- the .replace of U+05BE to space runs AFTER POINTS.sub has already deleted every U+05BE, so it is dead code and the docstring's SKELETON NOTE ('skeleton() maps maqaf to SPACE') remains false, exactly as the correction states."
+   }
+  ],
+  "result": "All three T5-08 corrected sentences and all four further corrections (a)-(d) are present at the ruled TOOLKIT.md digest (b247cea5) in the exact ruled wording, and each was independently verified against the code (normalize_hebrew_in_json.py, run_validator_suite.py, citation_sweep.py, check_marks.py, ezek_lib.py) and against pmarks_Ezek.json's notes_other texts by direct byte comparison, not merely against the ruling's own prose. My R6 sibling sweep re-ran T5's 17 key-phrase topics plus the seven named in my brief over the WHOLE FILE (45 statement occurrences reviewed across both sets, several phrases recurring at multiple lines) and found zero contradictions; every occurrence is consistent with the code and with every other occurrence. The single apparent gap ('ranges expanded' returning 0 hits) is expected: correction (2) fully replaced that wording with the 'named single verse ... written range ... every one a site' phrasing, so the old search key finding nothing is the correction working, not a residual defect."
+ },
+ "tests": {
+  "verifier": {
+   "vectors": 64,
+   "failed": 0
+  }
+ },
+ "cure_claim_readiness": [
+  {
+   "artifact": "campaign/_cure_verification.py",
+   "sha256": "a61ec7ff85aee3782b1e23fb6b6338398be773769f4936d235a71cd7c11b6042",
+   "fit": true,
+   "why": "Implements T5-VERIFIER (1)-(6) exactly as ruled (see rules_checked); selftest 64/64 GREEN with every ruled vector present and correctly discriminating; both real claims files GREEN under --rulings --require-rulings, matching the install receipt and kept stdout exactly, including the ruled EZEK-P0-CURE-toolkit-v2 class move with an unmoved verdict. The S1-19 cure claim on this artifact is fit to write at this digest. T6-01's residual zero-counts evasion is a gap in what the ruling specified, not a failure of the ordered fix, and does not block acceptance of THIS ruled edit; it is recorded as debt for a future hardening batch (see new_findings)."
+  },
+  {
+   "artifact": "tools/TOOLKIT.md",
+   "sha256": "b247cea5b0af11a7708b5b0a53383d4b5abd9940b016e045bd1f317d97c1c0b6",
+   "fit": true,
+   "why": "All three T5-08 corrected sentences and all four further corrections (a)-(d) are present at the ruled wording and independently verified against the code and pmarks_Ezek.json; the R6 sibling sweep over the whole file finds no contradiction. EZEK-P0-CURE-toolkit-v3 is fit to write at this digest with this sweep as its sibling_sweep record, closing PILOT-4."
+  }
+ ],
+ "new_findings": [
+  {
+   "id": "T6-01",
+   "severity": "major",
+   "artifact": "SP\\campaign\\_cure_verification.py (a61ec7ff)",
+   "claim": "A verification entry whose counts object carries only explicit zero values for checks/passed/failed (or even just {failed:0} alone, with no checks or passed key at all) is accepted as a BOUND, PASSING machine result once artifact_sha256_at_run matches the live digest, because Python's bool() treats any non-empty dict as truthy regardless of its integer values, and the failing-checks logic (lines 176-188) only tests equality (checks==passed, failed==0), never positivity. A claim can therefore be cured by a verification entry that truthfully asserts it ran and checked NOTHING.",
+   "evidence": "check_claim() run over a private copy with verification=[{tool:'t.py', artifact_sha256_at_run:<live>, counts:{checks:0,passed:0,failed:0}}] (and separately counts:{checks:0} alone, and counts:{failed:0} alone): all three read ACCEPTED with zero reasons.",
+   "how_verified": "python -c invocation importing the private-copy verifier module directly and calling check_claim() over a synthetic claim and a private temp artifact, in my own session scratchpad (ezek_t6_ow4nxg9k), never touching SP or the worktree.",
+   "suggested_fix": "Require at least one of: exit==0 present, or a counts object where checks (when present) is a positive integer and passed==checks, or a valid output_sha256 -- i.e. treat an all-zero or checks==0 counts object as carrying no machine result, the same way an empty counts object already does. Add T6-A1/A2/A3 as new selftest vectors."
+  },
+  {
+   "id": "T6-02",
+   "severity": "minor",
+   "artifact": "SP\\campaign\\_cure_verification.py (a61ec7ff)",
+   "claim": "REFUSE's whole-word forms reject\\w* and blocker\\w* can false-refuse a genuinely accepting checker verdict that uses those words in a non-refusing sense ('no findings rejected', 'no blockers remain'), the same class of risk #e6 unresolved_uncertainty[6] already discloses for the bare word 'red', but not disclosed for these two forms.",
+   "evidence": "check_claim() over verdict='fit_to_accept (no findings rejected as out of scope)' -> REFUSED, carrying 'rejected'; verdict='fit_to_accept; no blockers remain' -> REFUSED, carrying 'blockers'.",
+   "how_verified": "Same private-copy method as T6-01.",
+   "suggested_fix": "None required for this campaign (refusal is the safe direction and the orchestrator already words verdicts from the accepting set, per #e6's own reasoning for the 'red' case); extend the disclosed-risk note in the next controlling ruling to name reject\\w* and blocker\\w* alongside 'red'."
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "T6-01's fix is not staged or ruled on; whether the controlling agent treats it as a T5-07/T5-09-style recorded debt (fixed in a future batch that touches the verifier for another reason) or as grounds to reopen TOOLFIX-3 is this lane's decision, not mine.",
+   "why_it_matters": "No live claim in either real claims file uses an all-zero or checks-omitted counts entry (all real entries carry genuine positive counts or a real exit), so T6-01 is not presently exploited; the risk is prospective, for any future cure claim drafted without care."
+  },
+  {
+   "what": "I did not re-derive T5's other 81 reviewed TOOLKIT.md statements (the frame-spine counts, the crosswalk arithmetic, the parashah/K-Q/paseq tallies, etc.) from the underlying data files myself; I relied on T5's confirmed results for those, since my brief orders me NARROW to the two TOOLFIX-3 files and the R6 sibling sweep, and none of those 81 statements was touched by this batch.",
+   "why_it_matters": "If any of those 81 had drifted independently of TOOLFIX-3 between T5's review and now, my sibling sweep (scoped to the phrase topics named in my brief) would not necessarily catch it; the artifact's sha256 (b247cea5) is unchanged from the digest my brief pins, so no such drift is evidenced, only untested by this execution."
+  },
+  {
+   "what": "I did not read the raw diff files (campaign__cure_verification.py.diff, Ezek__tools__TOOLKIT.md.diff) named in the manifest; I verified the resulting installed files directly, in full, against the ruled text and the code, which I judge to be strictly stronger evidence than a diff review for the questions my brief asks.",
+   "why_it_matters": "A diff read would additionally show whether anything OUTSIDE the ruled edits changed silently; my digest confirmation (live file == staged_sha256 == the single pinned digest, unchanged across this whole review) rules out any change since staging, but does not by itself rule out an unruled change made AT staging time that a diff would surface line-by-line. Low risk given the manifest's own 'touches_no_validator_suite_member' assertion and my full-file reads finding nothing extraneous."
+  }
+ ],
+ "e19_selfreport": "Ran no listing, no glob, and no recursive search against the deliverable directory, the worktree (C:\\wt\\logos-t423-m8-fable), SP, or any other project directory; every file was opened by its exact, fully-specified path (Read, or a single-file Grep with no glob), including the two artifact paths not in the brief's Inputs table (tools/check_register.py, tools/check_web_quotes.py), which were opened only because part B names them by their claims' artifact_path and their exact location is unambiguous. One `ls` was run, once, against my OWN private scratch subdirectory (ezek_t6_ow4nxg9k under my session scratchpad) immediately after copying files into it, to confirm the copies existed before running the verifier over them; this is disclosed rather than omitted, and is consistent with the brief's 'scope any self-check to your own private scratch' -- no listing was run against the deliverable directory, SP, or the worktree.",
+ "limit": "a distinct-checker review of two files and six claims; not a ruling"
+}

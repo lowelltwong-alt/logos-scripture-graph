@@ -1,0 +1,136 @@
+{
+ "attempt_id": "ezek_controlling_rulings_a1",
+ "execution_id": "ezek_controlling_rulings_a1#e5",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\CONTROLLING_AGENT_BRIEF_E5.md",
+  "SP\\Ezek\\ezek_controlling_agent_queue_e5.v1.json",
+  "SP\\Ezek\\ezek_controlling_agent_rulings_e4.v1.json",
+  "SP\\Ezek\\proposals\\toolfix2_batch1\\manifest.json",
+  "SP\\Ezek\\proposals\\toolfix2_batch1\\corpus_impact.json",
+  "SP\\Ezek\\proposals\\toolfix2_batch1\\marks_review.json",
+  "SP\\Ezek\\proposals\\toolfix2_batch1\\flags_analysis.json",
+  "SP\\Ezek\\proposals\\toolfix2_batch1\\whatif.json",
+  "SP\\Ezek\\proposals\\toolfix2_batch1\\staged\\check_marks.py (read in full)",
+  "SP\\Ezek\\proposals\\toolfix2_batch1\\diffs\\citation_sweep.py.diff, check_marks.py.diff, ezek_lib.py.diff, check_register.py.diff, normalize_hebrew_in_json.py.diff, check_web_quotes.py.diff, TOOLKIT.md.diff, _test_zone_tools_ezek.py.diff",
+  "SP\\campaign\\receipts\\ezek_tools_install_t4fix_batch2.json",
+  "SP\\Ezek\\repair\\suite_after_t4fix_batch2\\rows.jsonl.validator_report.json (summary fields only)",
+  "SP\\Ezek\\repair\\rows_v3_cwo12.jsonl (rows P02-013, P01-003, P02-002, P03-006, P03-007, P03-016, P10-008, P11-012)",
+  "SP\\Ezek\\Ezek_oshb.txt (Ezek.12.20, 12.21, 17.12, 32.9; one skeleton count over the file)",
+  "SP\\Ezek\\pmarks_Ezek.json (marks/kq lookups at named keys)",
+  "SP\\Ezek\\tools\\TOOLKIT.md, check_marks.py, check_register.py, ezek_lib.py (digests recomputed; content via diff context)",
+  "Bound by digest, not read: staged citation_sweep.py, _adapt_zone_tools_ezek.py, _test_zone_tools_ezek.py, TOOLKIT.md, ezek_lib.py, normalize_hebrew_in_json.py, check_register.py, check_web_quotes.py, campaign\\_cure_verification.py; diffs _adapt_zone_tools_ezek.py.diff and campaign___cure_verification.py.diff"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\221a93aa-d2a7-4d91-a265-84e495a39efa\\scratchpad\\ezek_rulings_out\\e5_ezek_controlling_rulings_a1\\ezek_controlling_agent_rulings_e5.v1.json (46,183 bytes; sha256 4ced2df78bf10426902aa5dc2d3e3a6d94a3a7d71b80027e2180b3f2ed730f27)",
+    "why": "Five rulings, one per queue id. NEWCLASS-TF2-1: ratify rule A (the staged skeleton-tier word boundary) for unpointed runs; B and C rejected; P02-013's label ידעתם is a row defect (CWO-EZ-15, p02, one-word fix to וידעתם as its own refs entry already writes it); HARD known set enumerated (citation_sweep 10, normalizer 8 distinct) for the condition (c) re-run. FLAGS-TF2-1: ratify_with_changes - W1 adopted as proposed (all nine acceptances verified against pmarks; type test untouched; absence claims never inherit N-1); W2 adopted with the 'other' carve-out replaced by an exclusivity rule (scope = span kq keys not named anywhere in the row); W5 adopted in an implementable segment form; W6 added (letter-name absence form 'no pe or samekh'); P03-007 and P03-016 ruled true defects to FIXUP-1; P03-006 to S2 read-back; P11-012 wording order; four persisting false-positive classes recorded for T5 and Daniel, not ordered. REG-TF2-1: ratify_with_changes - four arms adopted with a 'rows of' lookahead and 'previously ... as' narrowing, five GREEN controls, coverage limit stated for CWO-EZ-14. SELFTEST-TF2-1: adopt. INSTALL-TF2-1: adopt - pre-authorized re-stage as toolfix2_batch3, condition (c) re-run as an equality test against the enumerated HARD set and the expected FLAGS deltas, install by digest, T5 launch; stop conditions named. Gate: toolfix2_may_install true, primaries_may_launch false, three conditions restated, rest 'as #e4'."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "Brief and queue digests equal the launch digests in the task message",
+   "how": "Get-FileHash SHA256 by exact path: 4d641eba... and 49ba3f7f...",
+   "result": "confirmed"
+  },
+  {
+   "claim": "All 37 pinned inputs (36 table entries plus the brief) equal the brief's digests at launch and are unchanged at end of run",
+   "how": "Get-FileHash SHA256 by exact path over every entry, twice (before reading; after writing the deliverable): 37 of 37 unchanged",
+   "result": "confirmed"
+  },
+  {
+   "claim": "MT 12:20's word is וִֽידַעְתֶּ֖ם with the conjunction vav as first letter; ידעתם is that word minus its first letter",
+   "how": "Ezek_oshb.txt line Ezek.12.20, word 7, code points U+05D5 U+05B4 U+05BD U+05D9 U+05D3 U+05B7 U+05E2 U+05B0 U+05EA U+05B6 U+05BC U+0596 U+05DD",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Bare ידעתם stands as a whole word in exactly two verses (17:12, 32:9), וידעתם in 25",
+   "how": "Skeleton (marks stripped) space-bounded count over Ezek_oshb.txt by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "P02-013's refs entry already writes the family word as וידעתם while its rationale writes ידעתם",
+   "how": "rows_v3_cwo12.jsonl P02-013 boundary_evidence_refs[1] and boundary_rationale, read by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Each of the nine W1 acceptances has the claimed mark type after N-1 and none after N",
+   "how": "pmarks_Ezek.json marks at 2.10, 12.20, 35.15, 36.12, 36.36, 34.31, 37.14, 38.23, 39.29 (present, right type) and 3.1, 12.21, 36.1, 36.13, 36.37, 35.1, 37.15, 39.1, 40.1 (absent)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "P03-007 and P03-016 are true defects",
+   "how": "Spans Ezek.16.44-16.50 and Ezek.18.10-18.20 from the rows; pmarks kq present at Ezek.16.47 and Ezek.18.20",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The three W5 clauses are true absence claims",
+   "how": "pmarks marks and kq checked key by key over Ezek.40.17-40.19, 40.38-40.47, 40.48-41.4: none",
+   "result": "confirmed"
+  },
+  {
+   "claim": "P02-002's kept pair is the letter-name absence form the staged ABSENCE regex does not match",
+   "how": "staged check_marks.py lines 245-251 (ABSENCE alternatives name petuchah|setumah|parashah|paragraph mark only); P02-002 boundary_rationale '(no pe or samekh follows 8:13)'; pmarks none at 8.12, 8.13",
+   "result": "confirmed"
+  },
+  {
+   "claim": "P01-003's added flag comes from an anaphoric clause with no cue word",
+   "how": "strongest_rejected_alternative traced by hand through clause_bounds/NUM_CLAUSE_END: 'the same scroll scene the samekh only pauses, and ... not at 3:1' names only 3:1",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The seven 'other' removals are the seven shape-only pairs, so no true positive is lost there",
+   "how": "marks_review.json other_removed rows equal flags_analysis.json shape_only rows (P02-002, P02-005, P11-001, P11-002, P11-008, P11-009, P11-013)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Installed digests the batch builds on match the t4fix_batch2 receipt and the manifest",
+   "how": "Receipt files.*.after vs manifest installed_sha256; SP\\Ezek\\tools check_marks 9f79950b, check_register 8357cf40, ezek_lib cca2c023, TOOLKIT.md c8b2fdfd recomputed",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Installed suite on the chain head is HARD GREEN with 1021 triage flags",
+   "how": "validator_report summary read by exact path: hard_status GREEN, nfd_hard_e01 false, triage_flags 1021; receipt suite_after agrees",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Deliverable is valid JSON in the brief's schema with exactly the five ids",
+   "how": "ConvertFrom-Json by exact path; rulings ids NEWCLASS-TF2-1, FLAGS-TF2-1, REG-TF2-1, SELFTEST-TF2-1, INSTALL-TF2-1; gate fields present; Hebrew bytes intact",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Test counts (189/189, 40/40, 101/101, 28/28), the 31 installed-tool failures and the corpus-impact numbers",
+   "how": "Read from manifest.json and corpus_impact.json only; no tool executed",
+   "result": "not independently verified - attestations"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "book_strategy_Ezek.md was not an input; whether it labels the 2mp family by bare ידעתם is unknown",
+   "why_it_matters": "The P02-013 order stands either way, but the strategy-maintenance list may want the whole-word label so later text does not repeat the class"
+  },
+  {
+   "what": "W2's one-word adjacency leaves two-word negations ('not a single K/Q') silent on the positive path",
+   "why_it_matters": "A false absence claim of that shape passes a FLAGS member untriaged; the re-run measures it, T5 may widen"
+  },
+  {
+   "what": "W5's segment rule and the exact expected FLAGS deltas (20 removals, 3 keeps) were derived by hand-trace, not by a corpus run",
+   "why_it_matters": "A miscount costs a hand review under INSTALL-TF2-1 (3); only a new class stops install"
+  },
+  {
+   "what": "The exclusivity rule exempts a kq key when the row names its verse for any reason",
+   "why_it_matters": "Lost triage, not a HARD hole; Q8 compensation 1 (full dual-blind primaries) compensates"
+  },
+  {
+   "what": "Eight false_mark_absence_claim flags on true disclosures persist by design; fixes named for T5/Daniel, not ordered",
+   "why_it_matters": "Triage noise of the kind R4ii-D1 warned about; this execution is narrow"
+  },
+  {
+   "what": "No tool was executed; the _adapt and _cure_verification diffs were bound by digest without being read",
+   "why_it_matters": "The re-staged batch's own gate and T5's independent run prove the attested counts; a hand-trace error surfaces as a failing vector"
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

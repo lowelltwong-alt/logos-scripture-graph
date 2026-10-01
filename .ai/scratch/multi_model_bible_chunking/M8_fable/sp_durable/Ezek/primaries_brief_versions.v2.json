@@ -1,0 +1,96 @@
+{
+ "schema": "m8_brief_version_history.v2",
+ "supersedes": {
+  "file": "Ezek/primaries_brief_versions.v1.json",
+  "sha256": "cd66bcf78b70ec6914c456103e96f522b5087c341028f8e0e6f8f019233d0071",
+  "why": "v1 described v1 and v2 only; v3 exists and 8 executions are running under it",
+  "its_bytes_are_unchanged": true
+ },
+ "READ_THIS_FIRST": "the CURRENT briefs are the v3 digests in `versions.v3`. Earlier version blocks are history and are kept so that a packet returned under an older brief can be read against the brief it actually had. If you want to know what brief an execution held, do not infer it from a version block - read `brief_sha256` off that execution's transcript-map entry, which is where it is recorded at launch.",
+ "book": "Ezek",
+ "wave": "primaries round 1 (dual-blind LF + OL per cluster)",
+ "recorded_at": "2026-09-15T17:25:58.619290+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "why_this_exists": "the wave ran under more than one brief digest. Both revisions were caused by defects the wave itself found, and both only ADD constraints - neither changes what a reviewer was asked to decide, and no finding already returned is invalidated by either. Recording the mapping is cheaper and more honest than reconstructing it at the close.",
+ "versions": {
+  "v1": {
+   "LF_sha256": "5509a0733424d92cae04a721b71d1fe505e76748bf92d32279ed32e818cca2b2",
+   "OL_sha256": "d15c18595d2a62abbeab04fb9bda1434a5805a066fb146d7d21e1fefdf62c248",
+   "executions_launched_under_it": [
+    "ezek_pr_LF_c01_a1#e1",
+    "ezek_pr_OL_c01_a1#e1",
+    "ezek_pr_LF_c02_a1#e1",
+    "ezek_pr_OL_c02_a1#e1",
+    "ezek_pr_LF_c03_a1#e1",
+    "ezek_pr_OL_c03_a1#e1"
+   ],
+   "known_defects": [
+    "the LF lens summary printed 'word-event 39, ... 13 oracle datelines, 3 festival-calendar dates', copied from campaign prose that predates the 2026-09-08 inventory corrections. The inventory at the digest the brief itself pins reads dated_oracles 14 and calendar_dates_not_datelines 4.",
+    "neither lane carried an explicit copy-never-assemble rule for Hebrew, or a self-check that every Hebrew run in the deliverable is present in the witness."
+   ],
+   "mitigation_applied_in_flight": "the two OL executions running when the Hebrew defect was found (c02, c03) were corrected BY MESSAGE, because a brief a running agent is reading is never edited. Both confirmed acting on it: OL c02 reported 39/39 runs verified present in the witness, and OL c03 REMOVED a composite K/Q form and two hand-typed lexemes it had drafted, then verified 33/33. The LF digit defect was found BY LF c03 and flagged rather than acted on, so no finding rests on it."
+  },
+  "v2": {
+   "LF_sha256": "098ef99471ceb1b14aa2d7ba252d56a19c5043eb060feb67ca2abc91ed73a685",
+   "OL_sha256": "f24bce2c960ed5f798bb5bfd765b266b3fcd061cdcd3c99af5a40ddf48fc578b",
+   "executions_launched_under_it": "clusters c04..c22, both lanes (36 executions)",
+   "what_changed": [
+    "OL and LF both carry the copy-never-assemble rule for Hebrew, with the c01 incident stated as the reason, and a required self-check: every Hebrew run in the finished deliverable re-checked against Ezek_oshb.txt by exact path, with the count reported in verification_evidence.",
+    "the LF lens census line is now MEASURED from ezek_device_inventory.json at build time rather than typed, and says in words that the inventory wins over the brief where they differ."
+   ],
+   "what_did_not_change": "the lens, the reading order, the checklists, the blindness rule, the deliverable schema, the cluster assignment and the do-not-reuse gate are identical. A v1 reviewer and a v2 reviewer were asked to decide the same thing on the same evidence."
+  },
+  "v3": {
+   "LF_sha256": "76a5c2e86cd7dc82a159ea54f07e6ab9bef5669ddaed328c9c555da86458c0c0",
+   "OL_sha256": "bcff6e7df0f66a5a2e92a2dde36d56c64e9e7bd514ff202bae92a048832d4f3b",
+   "built": "2026-09-15, after batch 1 (clusters c04-c07) landed and before c08-c11 launched",
+   "what_changed": [
+    "BOTH LANES: the retained-lows record's top-level `bound_to_artifacts` is named as deliberately HISTORICAL, the newest `bound_to_artifacts_rebinds` entry is named as current, a mismatch there is stated NOT to be a finding, and both retained lows' cures are stated to be already in the live toolkit. Reason: two batch-1 reviewers spent effort on this - one was left uncertain and one resolved it correctly, blind to each other.",
+    "OL ONLY: the unsettled read-form question (separator-stripped and apparatus-only read forms) is named as already routed to the controlling agent, with an instruction to RECORD every instance as a site and not to spend effort adjudicating it. Reason: two lanes raised it independently, in c04 and c07. This raises the data the ruling needs while removing the duplicated deliberation."
+   ],
+   "what_did_not_change": "the lens, the reading order, the checklists, the blindness rule, the deliverable schema, the cluster assignment and the do-not-reuse gate are identical to v2. A v2 reviewer and a v3 reviewer were asked to decide the same thing on the same evidence. Both changes only ADD, and neither invalidates a returned finding.",
+   "supersede_was_deliberate": "the brief builder refuses to overwrite a brief whose content differs. The v2 bytes were kept as PRIMARY_BRIEF_{LF,OL}.PREIMAGE_v2.md in the orchestrator's scratchpad and the targets cleared, so the guard was satisfied rather than bypassed, with a rollback that restores v2 byte-for-byte if the build fails.",
+   "pin_check": "MATCH on both lanes after the build"
+  }
+ },
+ "executions_by_brief_digest_MEASURED_from_the_transcript_map": {
+  "098ef99471ceb1b14aa2d7ba252d56a19c5043eb060feb67ca2abc91ed73a685": [
+   "ezek_pr_LF_c04_a1#e1",
+   "ezek_pr_LF_c05_a1#e1",
+   "ezek_pr_LF_c06_a1#e1",
+   "ezek_pr_LF_c07_a1#e1"
+  ],
+  "f24bce2c960ed5f798bb5bfd765b266b3fcd061cdcd3c99af5a40ddf48fc578b": [
+   "ezek_pr_OL_c04_a1#e1",
+   "ezek_pr_OL_c05_a1#e1",
+   "ezek_pr_OL_c06_a1#e1",
+   "ezek_pr_OL_c07_a1#e1"
+  ],
+  "76a5c2e86cd7dc82a159ea54f07e6ab9bef5669ddaed328c9c555da86458c0c0": [
+   "ezek_pr_LF_c08_a1#e1",
+   "ezek_pr_LF_c09_a1#e1",
+   "ezek_pr_LF_c10_a1#e1",
+   "ezek_pr_LF_c11_a1#e1"
+  ],
+  "bcff6e7df0f66a5a2e92a2dde36d56c64e9e7bd514ff202bae92a048832d4f3b": [
+   "ezek_pr_OL_c08_a1#e1",
+   "ezek_pr_OL_c09_a1#e1",
+   "ezek_pr_OL_c10_a1#e1",
+   "ezek_pr_OL_c11_a1#e1"
+  ]
+ },
+ "executions_whose_map_entry_records_no_brief": {
+  "ids": [
+   "ezek_pr_LF_c01_a1#e1",
+   "ezek_pr_LF_c02_a1#e1",
+   "ezek_pr_LF_c03_a1#e1",
+   "ezek_pr_OL_c01_a1#e1",
+   "ezek_pr_OL_c02_a1#e1",
+   "ezek_pr_OL_c03_a1#e1"
+  ],
+  "count": 6,
+  "why": "these launched before the launcher recorded the brief. Their brief is known from the version blocks above and from their landed packets' own artifacts_reviewed digests, not from the map. The launcher now records `brief` and `brief_sha256` at launch, so this set does not grow."
+ },
+ "consequence_for_the_packets_already_landed": "none is re-run. Every change across v1 to v3 only added a constraint or told the reviewer something true that it would otherwise have had to derive. The one substantive in-flight correction in this wave remains the c01 Hebrew incident, which was handled by message at the time and is recorded in its own finding.",
+ "for_the_boss_and_the_final_check": "read every v1 packet's Hebrew evidence against the witness before relying on a quoted form, and read the LF v1 packets' device counts against the inventory rather than against the brief. Both are cheap checks and both are already done for the packets that returned."
+}

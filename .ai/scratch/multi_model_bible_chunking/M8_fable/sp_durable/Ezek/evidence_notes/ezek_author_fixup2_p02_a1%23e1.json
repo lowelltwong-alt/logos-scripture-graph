@@ -1,0 +1,246 @@
+{
+ "attempt_id": "ezek_author_fixup2_p02_a1",
+ "execution_id": "ezek_author_fixup2_p02_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP2_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup2\\orders_ezek_author_fixup2_p02_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v4_cwo21.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P02-001 replace: added front-seam mark disclosure (pe, MT 7:27) to boundary_rationale plus a mirrored oshb ref",
+    "why": "S2-14 item, undisclosed front-seam pe at the row's onset"
+   },
+   {
+    "what": "P02-009 replace: added front-seam mark disclosure (pe, MT 11:13) to boundary_rationale plus a mirrored oshb ref",
+    "why": "S2-14 item"
+   },
+   {
+    "what": "P02-011 replace: added front-seam mark disclosure (pe, MT 11:25) to boundary_rationale plus a mirrored oshb ref",
+    "why": "S2-14 item"
+   },
+   {
+    "what": "P02-013 replace: added front-seam mark disclosure (pe, MT 12:16) to boundary_rationale plus a mirrored oshb ref",
+    "why": "S2-14 item"
+   },
+   {
+    "what": "P02-014 replace: added front-seam mark disclosure (pe, MT 12:20) to boundary_rationale plus a mirrored oshb ref",
+    "why": "S2-14 item"
+   },
+   {
+    "what": "P02-015 replace: added front-seam mark disclosure (pe, MT 12:25) to boundary_rationale plus a mirrored oshb ref",
+    "why": "S2-14 item"
+   },
+   {
+    "what": "P02-016 replace: added front-seam mark disclosure (samekh, MT 12:28) to boundary_rationale plus a mirrored oshb ref; fixed S2-10 misattributed WEB gloss from web:Ezek.24.24 to web:Ezek.13.9 with corrected capitalization and final period",
+    "why": "S2-14 item; S2-10 finding (FIXUP-1 quoted the 24:24 sentence's lower-case form under a 13:9 citation)"
+   },
+   {
+    "what": "P02-020 replace: added front-seam mark disclosure (pe, MT 14:11) to boundary_rationale plus a mirrored oshb ref",
+    "why": "S2-14 item"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "All 5 read pinned inputs match the brief's sha256 table",
+   "how": "PowerShell Get-FileHash SHA256 on FIXUP2_BRIEF.md, orders_ezek_author_fixup2_p02_a1.json, pmarks_Ezek.json, Ezek_web_clean.txt, ezek_controlling_agent_rulings.v1.json",
+   "result": "confirmed"
+  },
+  {
+   "claim": "rows_v4_cwo21.jsonl matches orders.sources.rows pin (3e7e4326...)",
+   "how": "python hashlib.sha256 on exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "pmarks_Ezek.json confirms mark type and verse for all 8 S2-14 items",
+   "how": "Grep pmarks_Ezek.json for the exact keys",
+   "result": "confirmed"
+  },
+  {
+   "claim": "S2-10: WEB 13:9 ends with the sentence-initial capitalized form; the lower-case form FIXUP-1 quoted under that ref is verbatim only at WEB 24:24",
+   "how": "read Ezek_web_clean.txt at the EZEK 13 and EZEK 24 sections, verse by verse",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Emitted rows: all 22 fields plus _op:replace present; non_authorizing true; the 9 THE-ONE-OP fields byte-identical to current_row on all 8 rows",
+   "how": "field-identity script diffing cur vs current_row per protected key",
+   "result": "confirmed"
+  },
+  {
+   "claim": "HARD suite stays GREEN after applying my 8 rows to the whole-book copy",
+   "how": "run_validator_suite.py on a private whole-book copy, before vs after",
+   "result": "confirmed"
+  },
+  {
+   "claim": "mark_symmetry_gap reads exactly 0 on all 8 of my rows at the 8 ordered keys (was 8 of 8 flagged before)",
+   "how": "diff of validator_report.json mark_symmetry.flags, filtered to my 8 decision_ids",
+   "result": "confirmed"
+  },
+  {
+   "claim": "No FLAGS check rises on my 8 rows anywhere; refs_mirror improved 7 rows to 6 rows flagged",
+   "how": "per-row before/after diff across all 6 FLAGS sections",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Whole-part tiling is exact 1:1 over Ezek.8.1-Ezek.14.23",
+   "how": "check_tiling.py on a private 20-row p02-only slice with --range Ezek.8.1-Ezek.14.23",
+   "result": "confirmed (status GREEN, 0 problems)"
+  },
+  {
+   "claim": "No banned register or citation patterns in my emitted string fields",
+   "how": "regex scan plus check_register.py's own 0 flag_count",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "I added a mirrored boundary_evidence_refs entry for each of the 8 front-seam marks, beyond the order's literal minimum of prose disclosure",
+   "why_it_matters": "A design choice, not an explicit order requirement; it is what eliminated the refs_mirror rise the prose-only sentence would otherwise have caused (verified empirically both ways)."
+  },
+  {
+   "what": "The corpus-wide 7-gram-shared-by-ten-or-more-rows gate can only be confirmed within my own 8 rows (checked GREEN)",
+   "why_it_matters": "Whether other FIXUP-2 parts' independently authored disclosure sentences collide with mine book-wide is outside this execution's visibility."
+  }
+ ],
+ "items": [
+  {
+   "row": "P02-001",
+   "item": "S2-14 (Ezek.7.27 PE, front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale plus a mirrored oshb ref"
+  },
+  {
+   "row": "P02-009",
+   "item": "S2-14 (Ezek.11.13 PE, front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale plus a mirrored oshb ref"
+  },
+  {
+   "row": "P02-011",
+   "item": "S2-14 (Ezek.11.25 PE, front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale plus a mirrored oshb ref"
+  },
+  {
+   "row": "P02-013",
+   "item": "S2-14 (Ezek.12.16 PE, front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale plus a mirrored oshb ref"
+  },
+  {
+   "row": "P02-014",
+   "item": "S2-14 (Ezek.12.20 PE, front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale plus a mirrored oshb ref"
+  },
+  {
+   "row": "P02-015",
+   "item": "S2-14 (Ezek.12.25 PE, front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale plus a mirrored oshb ref"
+  },
+  {
+   "row": "P02-016",
+   "item": "S2-14 (Ezek.12.28 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale plus a mirrored oshb ref"
+  },
+  {
+   "row": "P02-016",
+   "item": "S2-10",
+   "action": "cured",
+   "reason": "applied S2's suggested_fix verbatim form: corrected quote and ref to web:Ezek.13.9"
+  },
+  {
+   "row": "P02-020",
+   "item": "S2-14 (Ezek.14.11 PE, front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale plus a mirrored oshb ref"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "P02-001 S2-14",
+   "test": "mark_symmetry flag for Ezek.7.27 / P02-001, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "P02-009 S2-14",
+   "test": "mark_symmetry flag for Ezek.11.13 / P02-009, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "P02-011 S2-14",
+   "test": "mark_symmetry flag for Ezek.11.25 / P02-011, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "P02-013 S2-14",
+   "test": "mark_symmetry flag for Ezek.12.16 / P02-013, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "P02-014 S2-14",
+   "test": "mark_symmetry flag for Ezek.12.20 / P02-014, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "P02-015 S2-14",
+   "test": "mark_symmetry flag for Ezek.12.25 / P02-015, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "P02-016 S2-14",
+   "test": "mark_symmetry flag for Ezek.12.28 / P02-016, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "P02-016 S2-10",
+   "test": "byte compare of the corrected quoted clause against Ezek_web_clean.txt Ezek 13:9 and Ezek 24:24",
+   "result": "PASS"
+  },
+  {
+   "order": "P02-020 S2-14",
+   "test": "mark_symmetry flag for Ezek.14.11 / P02-020, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "all 8 rows",
+   "test": "run_validator_suite.py HARD-status GREEN, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "all 8 rows",
+   "test": "check_tiling.py --range Ezek.8.1-Ezek.14.23 on the p02-only slice",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep": 0,
+   "web_quotes": 0,
+   "refs_mirror": 7,
+   "mark_symmetry": 8,
+   "universals": 0,
+   "register": 0
+  },
+  "after": {
+   "citation_sweep": 0,
+   "web_quotes": 0,
+   "refs_mirror": 6,
+   "mark_symmetry": 0,
+   "universals": 0,
+   "register": 0
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

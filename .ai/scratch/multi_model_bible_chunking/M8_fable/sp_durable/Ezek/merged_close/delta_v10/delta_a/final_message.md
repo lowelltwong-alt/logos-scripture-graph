@@ -1,0 +1,24 @@
+# Ezekiel v10 delta re-check, blind lane A (claude-opus-5-5, grader_fallback (OW-25))
+
+- assembly_verdict: fit_to_assemble. verdict: fit_to_close. bounded_fix: none.
+- The 28 pinned digests all matched the files on disk. Lineage was measured from the bytes: v10 has 138 rows, and only line 113 (P10-016) differs from v9.
+- On P10-016 exactly 3 fields changed: review_status, plus two hold fields inserted after it, candidate_hold_state and candidate_hold_basis. Every other key keeps its value and its order.
+- All 6 manifest before/after sha256 values recompute. build_rows_v10 --check returns MATCH for both files.
+- The shipped suite report is GREEN over rows_v10_final.jsonl, and CWO parity is GREEN over 106f3553. Re-running the suite through the mirror differs only in rows_file, which is a mirror artefact.
+- All 8 ruled rows are implemented as the ruling states. 113 is held in both the corpus and the feed. 082 has left the feed; it is graded high and its corpus row is unchanged. The 6 released rows carry no hold, their corpus rows are byte-identical, and no feed field still describes them as held.
+- Spot-check 113 against the witness: the defect is still present. The refrain is in 6 verses (40:24, 28, 29, 32, 33, 35), and 5 of those are inside this row. The rationale says "this row's four occurrences and 40:24" (4+1=5, not 6), and its own list gives five. So keep_held under P3 fits.
+- Spot-checks 035 and 049: the grounds of the ruling are measured cured. 035 now states the ground for its grade. 049 does not carry closure.formula_final, and 18:32's formula stands mid-verse.
+- 082: graded high, so it is above medium_low, and P2's drop fits.
+- Derived records match the rule. Feed 101 = 11 low + 90 medium_low, with 1 held. MIRROR_BAD is empty. The feed and dimensions differ only for the 7 ruled rows (082 gone; in the six, only the hold, prose and reviewer fields and dims `dependency` changed).
+- More derived records: the sidecar set equals v10's low/medium_low rows, and gen_sidecars --check returns MATCH. gen_atlas_rows --check returns MATCH. The mirror's atlas check is byte-equal to the shipped record, and the selftest PASSes, with tamper_packet_state CAUGHT.
+- The README AMENDED section is true count for count, and every byte size and sha matches.
+- Standing defects, all low and non-blocking:
+  - (L1) The check ids `held_rows_are_exactly_the_referred_ones` and `off_vocabulary_grades_are_referred_rows`, and the generator's "held for referral" label, still say "referral". They now test corpus holds: 1 held against 8 referred.
+  - (L2) The generator emits "The second, independent reading declined to act here..." when the corpus row is held, not when the row was referred. That is true today, for 113 only, but the coupling is latent.
+  - (L3) Proposal 3 says "On a book with 102 rows". Ezekiel has 138 rows; 102 was the v9 feed count. It is stated in the past tense, not as a current feed fact.
+- For the Fable end review: (a) Should the six released rows' prose still disclose the second reading's referral? It now survives only in the judged score. (b) The 113 correction is still owed (v11 plus two lanes, per P3), including the misplaced clause "40:31 ... immediately before 40:38". (c) 082's class question on utterance.mid_unit.
+- Not done:
+  - The stage-1 transcript audit is OWED, NOT MET (OW-26). This pass read no transcript.
+  - K/Q, paseq, parashah marks and editors' notes could not be measured, because the pinned Ezek_oshb.txt text carries none of them.
+  - I did not read the prose of the 94 unruled feed rows; they are value-equal to their .pre_ rows.
+- E-19: no directory was listed, globbed or searched.

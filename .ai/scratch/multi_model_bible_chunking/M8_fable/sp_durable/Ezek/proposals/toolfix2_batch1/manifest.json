@@ -1,0 +1,269 @@
+{
+ "schema": "m8_tool_edit_proposal.v1",
+ "book": "Ezek",
+ "batch": "toolfix2_batch1",
+ "built": "2026-09-11T08:19:22.217446+00:00",
+ "built_by": "orchestrator (claude-opus-5) under OW-11; executes a ruling, never rules",
+ "status": "STAGED - INSTALL BLOCKED. Condition (c) of ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 returns the new HARD class below to the controlling agent before install. Nothing is installed.",
+ "ordered_by": "ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (a)-(g)",
+ "builds_on_installed": {
+  "receipt": "SP/campaign/receipts/ezek_tools_install_t4fix_batch2.json"
+ },
+ "supersedes_proposal": {
+  "batch": "toolfix2_batch2",
+  "why": "landed by the orchestrator before #e4 ruled; its content differs from (b) (grapheme-only boundary, refs rebound to named refs, broader register arms, no S1-22); never installed"
+ },
+ "content_per_condition_b": {
+  "S1-07": "collate_hebrew word boundaries: byte, nfd and accent_stripped matches have no Hebrew letter or combining mark beside them; skeleton matches have no Hebrew letter beside them. The normalizer inherits them, and its book-wide Qere scope is unchanged (R4-i).",
+  "S1-06": "citation_sweep REF HEBREW arm: runs inside a ref entry bind to that entry's own (first) ref, with walk()'s collate, raw-note Qere and in-sentence K/Q keyword functions [CWO-EZ-16]",
+  "S1-05": "check_register class author_wave_register_s1_05 with the ruling's alternatives verbatim; GREEN controls 'part of the court' and 'the order of the gates' [CWO-EZ-14]",
+  "S1-10": "check_web_quotes e15d: a prose field whose curly double quote counts differ [CWO-EZ-17]",
+  "S1-22": "check_marks rules 1, 3 and 4: a claim binds to its own clause's C:V, C.V, MT C:V or dotted numbers; absence phrases are scoped to the verse, range or chapter they name; a negated K/Q token is an absence claim (false_kq_absence_claim)",
+  "S1-19": "_cure_verification: refuses (a) a claim with no author, (b) duplicate cure_ids, (c) an ordering id not bounded against '-', (d) any digest that is not 64 hex; classifies (e) as ruling_names_retired_cure, r5_with_trigger or unclassified; adds --require-rulings",
+  "e": "TOOLKIT.md rows and a sentence; check_marks docstring rules 1, 3 and 4"
+ },
+ "disclosed_test_change": "ezek_lib's existing selftest 'collate_hebrew returns byte for a verbatim verse' now collates MT 1:1 against the verses joined by ' | ' (as the tools join them). The old fixture concatenated the verses with no separator, so the new word boundary correctly refused a match running into 1:2's first letter.",
+ "files": {
+  "citation_sweep.py": {
+   "installed_sha256": "2850ce8ad99ce3cc178d1abc535ac6b025e6f5e8516c153e5f010bbed04f3a3a",
+   "staged_sha256": "6c843b14a604ec0cdb4ee52043cdd5ae30d6735b0a7d66d72ff28d9f00a39054",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/citation_sweep.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/citation_sweep.py.diff",
+   "diff_lines": 42
+  },
+  "check_marks.py": {
+   "installed_sha256": "9f79950b9ddfe126de3bdcadf4f21834aa41d8106bad4f263a02996b1614fdfe",
+   "staged_sha256": "084623adfc9292bafa965a5732c6337ddec2547bdf1c394e14f45bea853fa310",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/check_marks.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/check_marks.py.diff",
+   "diff_lines": 143
+  },
+  "_adapt_zone_tools_ezek.py": {
+   "installed_sha256": "9f0174f30b97a021ef6b004067fe64a30dc10e4fd608ad7776292363b3336de8",
+   "staged_sha256": "efbbb3ba8d555493c067556c7d1350dc8b9d904ddbfab8be09595e0c425321ca",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/_adapt_zone_tools_ezek.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/_adapt_zone_tools_ezek.py.diff",
+   "diff_lines": 211
+  },
+  "_test_zone_tools_ezek.py": {
+   "installed_sha256": "1ceef693e34b1ccd2004b3a6aaf910c410b46dba268ffd850ec287e3ad1112e1",
+   "staged_sha256": "3d68b7a76f80082658f2b9cb95e9f85b6c982034635d3cff2c29c82f27a98a27",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/_test_zone_tools_ezek.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/_test_zone_tools_ezek.py.diff",
+   "diff_lines": 174
+  },
+  "TOOLKIT.md": {
+   "installed_sha256": "c8b2fdfd2bd07177ef12dfda12d7b8dc81806f988d864e81f56f7175d8f0b5d5",
+   "staged_sha256": "411fa208e0a883dbaaaa3133f24701e021d4ee95553acef2dcb99a974e43dc3d",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/TOOLKIT.md",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/TOOLKIT.md.diff",
+   "diff_lines": 26
+  },
+  "ezek_lib.py": {
+   "installed_sha256": "cca2c0232b9010f76712077c1d6f736366b338f2bed7ca72f7445b40f9bf151c",
+   "staged_sha256": "ab2431fecebee9c8f1e673aa70a8aac83d69f647b2fa76102efb5aa81904ef69",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/ezek_lib.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/ezek_lib.py.diff",
+   "diff_lines": 133
+  },
+  "normalize_hebrew_in_json.py": {
+   "installed_sha256": "f12c0ad6e2c6654be0a6b3dcb95fed8c6c2868c2c0088b8a1e77890f29ad7f0d",
+   "staged_sha256": "c23e837638edc891712efefe2e5ab3aae21bf87c2c602fb769bb23ecda1d73e9",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/normalize_hebrew_in_json.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/normalize_hebrew_in_json.py.diff",
+   "diff_lines": 48
+  },
+  "check_register.py": {
+   "installed_sha256": "8357cf4048356bdf821a85f744ac94b1b441106ee73bf3bec7e51c3e0919ae72",
+   "staged_sha256": "eeffb186fc2d4319c1a7d61d36bff7ac5731472bbf5dfa124efdc1c535acfd84",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/check_register.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/check_register.py.diff",
+   "diff_lines": 15
+  },
+  "check_web_quotes.py": {
+   "installed_sha256": "aad88bff8bd1c356ea3e1db16ff064cfb79c3aa5829a8452ac39896509d3f2a5",
+   "staged_sha256": "74fb717927c77faf3cde0d9d8e82b2077c5ba774cb1d275733129c9c5ed793e4",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/check_web_quotes.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/check_web_quotes.py.diff",
+   "diff_lines": 20
+  },
+  "campaign/_cure_verification.py": {
+   "installed_sha256": "2cdce701d9fd72af776654bcfc2153aaeb30cc277a0959cf6820586a2535f627",
+   "staged_sha256": "7f5ea4a9eb64dced70b2d3358e067de36e6a26f8ae6fc5ea43312ef72f7518da",
+   "staged_path": "Ezek/proposals/toolfix2_batch1/staged/campaign/_cure_verification.py",
+   "diff_vs_installed": "Ezek/proposals/toolfix2_batch1/diffs/campaign___cure_verification.py.diff",
+   "diff_lines": 203
+  }
+ },
+ "tests": {
+  "staged": {
+   "checks": 189,
+   "passed": 189,
+   "verdict": "GREEN"
+  },
+  "ezek_lib_selftest": {
+   "checks": 40,
+   "passed": 40,
+   "failed": [],
+   "verdict": "GREEN"
+  },
+  "toolkit_selfcheck": {
+   "checks": 101,
+   "passed": 101,
+   "verdict": "GREEN"
+  },
+  "verifier_selftest": {
+   "vectors": 28,
+   "failed": 0,
+   "verdict": "GREEN"
+  },
+  "verifier_over_real_claims": {
+   "ezek_cure_claims.v1.jsonl": {
+    "claims": 3,
+    "accepted": 1,
+    "refused": 0,
+    "superseded": 2,
+    "supersession_classes": [
+     {
+      "supersedes_cure_id": "EZEK-P0-CURE-toolkit",
+      "ordered_by": "ezek_controlling_rulings_a1#e2 ruling R5",
+      "ordered_by_class": "ruling_names_retired_cure"
+     },
+     {
+      "supersedes_cure_id": "EZEK-P0-CURE-toolkit-v2",
+      "ordered_by": "ezek_controlling_rulings_a1#e2 ruling R5",
+      "ordered_by_class": "ruling_names_retired_cure"
+     }
+    ],
+    "verdict": "GREEN",
+    "error": null
+   },
+   "ezek_cure_claims_toolkit_repair.v1.jsonl": {
+    "claims": 2,
+    "accepted": 2,
+    "refused": 0,
+    "superseded": 0,
+    "supersession_classes": [],
+    "verdict": "GREEN",
+    "error": null
+   }
+  },
+  "discrimination_on_installed_tools": {
+   "checks": 189,
+   "passed_on_installed": 158,
+   "failed_on_installed": 31,
+   "all_failures_are_section_10b": true
+  }
+ },
+ "corpus_impact_condition_c": {
+  "path": "Ezek/proposals/toolfix2_batch1/corpus_impact.json",
+  "summaries": {
+   "installed": {
+    "hard_status": "GREEN",
+    "nfd_hard_e01": false,
+    "triage_flags": 1021
+   },
+   "staged": {
+    "hard_status": "RED",
+    "nfd_hard_e01": true,
+    "triage_flags": 1058
+   }
+  },
+  "lists_moved": {
+   "citation_sweep.problems": {
+    "installed": 0,
+    "staged": 10,
+    "added": 10,
+    "removed": 0
+   },
+   "hebrew_normalize_dryrun.defects": {
+    "installed": 0,
+    "staged": 9,
+    "added": 8,
+    "removed": 0
+   },
+   "mark_symmetry.flags": {
+    "installed": 121,
+    "staged": 98,
+    "added": 31,
+    "removed": 51
+   },
+   "register.flags": {
+    "installed": 0,
+    "staged": 50,
+    "added": 50,
+    "removed": 0
+   },
+   "web_quotes.flags": {
+    "installed": 163,
+    "staged": 173,
+    "added": 10,
+    "removed": 0
+   }
+  },
+  "hard_known": {
+   "citation_sweep_S1-07": 8,
+   "citation_sweep_S1-06": 1,
+   "normalizer": 8
+  },
+  "NEW_HARD_CLASS_RETURNED": {
+   "items": [
+    "P02-013: Hebrew quote 'ידעתם'… in row.boundary_rationale does not collate against any nearby cited ref (best oshb:Ezek.12.20, tier=none, unpointed)"
+   ],
+   "facts": [
+    {
+     "item": "P02-013: Hebrew quote 'ידעתם'… in row.boundary_rationale does not collate against any nearby cited ref (best oshb:Ezek.12.20, tier=none, unpointed)",
+     "run": "ידעתם",
+     "sentence": "20 וְהֶעָרִ֤ים הַנּֽוֹשָׁבוֹת֙ תֶּחֱרַ֔בְנָה וְהָאָ֖רֶץ שְׁמָמָ֣ה תִֽהְיֶ֑ה וִֽידַעְתֶּ֖ם כִּֽי אֲנִ֥י יְהוָֽה ends “then you will know that I am Yahweh” in the second-person-plural form (part of the wider 21-verse ידעתם recognition family rather than the strict 3mp 28-count — the two counts are never blended); a pe follows oshb:Ezek.",
+     "cited_verse": "Ezek.12.20",
+     "verse_words_containing_the_run": [
+      "וִֽידַעְתֶּ֖ם"
+     ]
+    }
+   ],
+   "class": "an unpointed citation form (the recognition family label 'ידעתם') standing inside the inflected verse word וִֽידַעְתֶּ֖ם at MT 12:20, which the skeleton-tier word boundary newly refuses"
+  },
+  "check_marks_removed_review": {
+   "path": "Ezek/proposals/toolfix2_batch1/marks_review.json",
+   "counts": {
+    "removed": {
+     "UNBOUND_NOW": 4,
+     "moved_to_false_kq_absence_claim": 2,
+     "negated_absence_true": 21,
+     "rebound_true": 13,
+     "scoped_absence_true": 4,
+     "other": 7
+    },
+    "added": {
+     "paragraph_mark_claim": 12,
+     "kq_claim": 3,
+     "false_mark_absence_claim": 8,
+     "false_kq_absence_claim": 8
+    }
+   },
+   "analysis": "Ezek/proposals/toolfix2_batch1/flags_analysis.json",
+   "pairing": {
+    "removed_total": 51,
+    "added_total": 31,
+    "shape_only_pairs": 7,
+    "real_removed": 44,
+    "real_added": 24
+   }
+  }
+ },
+ "gate": {
+  "tests_green": true,
+  "ezek_lib_selftest_green": true,
+  "toolkit_selfcheck_green": true,
+  "verifier_selftest_green": true,
+  "verifier_real_claims_green": true,
+  "discrimination_clean": true,
+  "staged_digests_reproduced": true
+ },
+ "scripts": {
+  "stage_tf2b_patch.py": "00683662fc91d091b7eab81a00bf93c0e98c6cb086468b6641d14c5d020e18a9",
+  "review_tf2b_marks_changes.py": "d12534d27292872a04ec0126aa6a715399412050a7b2aca1e908796a7e33981a",
+  "analyze_tf2b_flags.py": "61ea3f813ca2524a4ed0ef3f17a2283ed8767b041b53cf3b19e634e447923955",
+  "land_tf2b_proposal.py": "ef1e3fe4571ed6d822c7186608d6f85c210588416effa4f495ed85033fcd185b"
+ }
+}

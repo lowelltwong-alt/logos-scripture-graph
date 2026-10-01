@@ -1,0 +1,58 @@
+{
+ "attempt_id": "ezek_toolkit_a1",
+ "execution_id": "ezek_toolkit_a1#e1",
+ "sources": [
+  "SP/Ezek/pmarks_Ezek.json",
+  "SP/Ezek/ezek_device_inventory.json",
+  "SP/Ezek/verse_inventory.json",
+  "SP/Ezek/web_mt_offset_map.json",
+  "SP/Ezek/web_mt_verse_check.json",
+  "SP/Ezek/Ezek_oshb.txt",
+  "SP/Ezek/Ezek_web_clean.txt",
+  "the OSHB Ezek.xml note layer (read by exact path)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "wrote SP/Ezek/tools/TOOLKIT.md",
+    "why": "Phase 0 is not complete until the book facts, the Tier-0 ch 20/21 dual-reference rule and the hazard catalog stand in the document every lane reads and none re-derives"
+   },
+   {
+    "what": "added tools/_toolkit_selfcheck.py binding every toolkit number to its source artifact",
+    "why": "a toolkit that has drifted from its sources is worse than no toolkit, because it is trusted"
+   },
+   {
+    "what": "book-qualified two cross-book refs after the self-check flagged an unresolvable MT 8:23",
+    "why": "a bare cross-book ref in a book toolkit is the ambiguity the dual-reference rule exists to stop"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "every number in TOOLKIT.md matches the artifact it came from",
+   "how": "tools/_toolkit_selfcheck.py, 61 checks",
+   "result": "confirmed (61/61 GREEN)"
+  },
+  {
+   "claim": "the offset map agrees with the OSHB KJV-variance layer on every annotated verse",
+   "how": "_kjv_variance_crosscheck.py over all 37 notes",
+   "result": "confirmed (37/37, 0 disagreements)"
+  },
+  {
+   "claim": "every MT ref the toolkit asserts exists in the source",
+   "how": "existence check per ref, with quoted counter-examples and other-book refs exempted by shape",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "the flagged-region list is structural, not adjudicated",
+   "why_it_matters": "it sets where the hard-track raised coverage goes; a wrong list under-covers a real seam. It is not a segmentation decision and the writer re-derives every boundary from bytes."
+  },
+  {
+   "what": "the toolkit asserts several absences (no selah, no large/small letters, no reversed nun)",
+   "why_it_matters": "each was byte-swept, but an absence is only as good as the pattern that searched for it. The puncta extraordinaria at MT 41:20 and 46:22 are the standing proof that this book DOES carry a special-mark class, found only because the note layer was read rather than assumed empty."
+  }
+ ],
+ "limit": "accountable work summary; not chain of thought and not independent proof"
+}

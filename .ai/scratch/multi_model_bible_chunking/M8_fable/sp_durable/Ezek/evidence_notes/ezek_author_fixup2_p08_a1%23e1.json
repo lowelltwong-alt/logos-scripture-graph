@@ -1,0 +1,289 @@
+{
+ "attempt_id": "ezek_author_fixup2_p08_a1",
+ "execution_id": "ezek_author_fixup2_p08_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP2_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup2\\orders_ezek_author_fixup2_p08_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v4_cwo21.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_marks.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_universals.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P08-001 boundary_rationale + boundary_evidence_refs",
+    "why": "S2-01: removed 'the binding strategy (P6/P7)' citation, restated as byte/verse argument 'the P6/P7 seam at 32:32/33:1'; S2-14: disclosed front-seam pe after MT 32:32"
+   },
+   {
+    "what": "P08-002 strongest_rejected_alternative + device_notes",
+    "why": "S2-01: removed strategy citation, restated as 'the continuous ...disputation across 33:10-20'; CWO-EZ-21/S2-13: removed 'campaign's own cutting rule', restated the rule from bytes"
+   },
+   {
+    "what": "P08-003 device_notes + boundary_rationale + boundary_evidence_refs",
+    "why": "S2-02: removed 'per the frame-spine ruling', argued from bytes (narrative mouth-opening, no scene-transport formula); S2-14: disclosed front-seam pe after MT 33:20"
+   },
+   {
+    "what": "P08-004 device_notes + boundary_rationale + boundary_evidence_refs",
+    "why": "S2-01: reworded 'the strategy sweeps' to 'sweep: 15 verses...' (digit independently re-verified at exactly 15 distinct WEB verses); S2-14: disclosed front-seam pe after MT 33:22"
+   },
+   {
+    "what": "P08-006 boundary_rationale + boundary_evidence_refs",
+    "why": "S2-14: disclosed front-seam samekh after MT 33:33"
+   },
+   {
+    "what": "P08-007 observed_substrate_signals",
+    "why": "S2-03/S2-04: closure.pe already swept upstream (confirmed absent); added optional content closure key closure.recognition_3mp per S2-04's permitted addition (35:15 recognition formula)"
+   },
+   {
+    "what": "P08-010 strongest_rejected_alternative + boundary_rationale + boundary_evidence_refs",
+    "why": "CWO-EZ-21/S2-13: removed 'the E-02 cap-candidate list's naming of', restated from the span's own shape; S2-14: disclosed front-seam pe after MT 35:15"
+   },
+   {
+    "what": "P08-012 device_notes + boundary_rationale + boundary_evidence_refs",
+    "why": "S2-02: deleted positional 'does not move this or any later row's seam'; S2-14: disclosed front-seam samekh after MT 36:15 and interior samekh after MT 36:21 with non-cutting reason"
+   },
+   {
+    "what": "P08-013 device_notes + boundary_rationale + boundary_evidence_refs",
+    "why": "S2-02: removed 'the launch brief specifically names' and 'Ezek_oshb.txt' staged-file name, replaced with 'this witness'; S2-14: disclosed close-mark samekh after MT 36:32"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "brief/orders/rows_v4_cwo21.jsonl sha256 match pinned table",
+   "how": "Get-FileHash SHA256 on each exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "OW-11 addendum text matches brief's AUTHORITY paragraph",
+   "how": "Grep+Read of ERROR_PATTERN_LEDGER.v1.md at the cited path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "frozen fields (span, unit_type, confidence, parent_collection, decision_id, writer_*, chunk_index_in_book) byte-identical to current_row on all 9 rows",
+   "how": "Python assertion in build script",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no emitted row contains \\bE-\\d{2}\\b, campaign, strategy, ruling, brief, session, wave, ledger, staged-file names, or parashah.* oss keys",
+   "how": "regex scan over the output JSONL",
+   "result": "confirmed (0 hits)"
+  },
+  {
+   "claim": "HARD suite GREEN (citation_sweep, normalize dry-run, cap_sweep, ngram7)",
+   "how": "run_validator_suite.py over private modified corpus",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 8 S2-14 mark_symmetry_gap flags on p08 cleared, 0 new mark flags anywhere",
+   "how": "check_marks.py via suite, diffed private-original vs private-modified reports",
+   "result": "confirmed"
+  },
+  {
+   "claim": "p08's own range (Ezek.33.1-Ezek.36.38, 117 verses) tiles exactly, no gaps/overlaps",
+   "how": "check_tiling.py rows_private_p08_only.jsonl --range Ezek.33.1-Ezek.36.38",
+   "result": "confirmed (GREEN)"
+  },
+  {
+   "claim": "'mountains of Israel' recurs in exactly 15 distinct WEB verses",
+   "how": "verse-segmented count over Ezek_web_clean.txt (private copy)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "web_quotes 'curly quote with no web: ref' class reads 0 on our 9 rows",
+   "how": "run_validator_suite.py web_quotes sub-report filtered to our decision_ids",
+   "result": "confirmed"
+  },
+  {
+   "claim": "aggregate FLAGS totals do not rise (web_quotes 5/5, refs_mirror 110/110, universals 593/593, register 0/0 on our rows/corpus)",
+   "how": "diff script comparing validator_report.json before vs after",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Pre-existing 'this row'/'this row's' self-reference phrasing survives untouched in device_notes/strongest_rejected_alternative/refs of 8 of 9 rows (section 8's exemption names only 'this unit')",
+   "why_it_matters": "no S2 finding named these instances and the binding repair law bars unordered changes, but a future register-scope widening may route them"
+  },
+  {
+   "what": "5 pre-existing refs_mirror 'argued_but_unmirrored' flags on P08-003/006/007/010/013 predate FIXUP-2 and were outside every item I was ordered to cure",
+   "why_it_matters": "left untouched per scope; count unchanged before/after (110/110)"
+  },
+  {
+   "what": "I did not independently re-read book_strategy_Ezek.md §5-§8 or rulings R1/R2/P2/P4/P5/G12 in full text; I relied on the orders file's verbatim-embedded controlling text plus empirical validator confirmation (citation_sweep/register GREEN) that new refs entries match established corpus patterns",
+   "why_it_matters": "methodological limitation, not a known defect; every new claim was checked against a tool or source bytes directly (OW-3 item 2)"
+  }
+ ],
+ "items": [
+  {
+   "row": "P08-001",
+   "item": "e9:S2-ROUTING#1/S2-01",
+   "action": "cured",
+   "reason": "strategy citation removed, restated as P6/P7 seam at 32:32/33:1"
+  },
+  {
+   "row": "P08-001",
+   "item": "S2-14 (Ezek.32.32 PE front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale + refs"
+  },
+  {
+   "row": "P08-002",
+   "item": "S2-01",
+   "action": "cured",
+   "reason": "restated as continuous disputation across 33:10-20"
+  },
+  {
+   "row": "P08-002",
+   "item": "CWO-EZ-21/e9:S2-13#1 (campaign)",
+   "action": "cured",
+   "reason": "restated cutting rule from bytes"
+  },
+  {
+   "row": "P08-003",
+   "item": "S2-02",
+   "action": "cured",
+   "reason": "'per the frame-spine ruling' replaced with byte argument"
+  },
+  {
+   "row": "P08-003",
+   "item": "S2-14 (Ezek.33.20 PE front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale + refs"
+  },
+  {
+   "row": "P08-004",
+   "item": "S2-01",
+   "action": "cured",
+   "reason": "'mountains of Israel' recurs reworded to sweep:15 form"
+  },
+  {
+   "row": "P08-004",
+   "item": "S2-14 (Ezek.33.22 PE front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale + refs"
+  },
+  {
+   "row": "P08-006",
+   "item": "S2-14 (Ezek.33.33 SAMEKH front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale + refs"
+  },
+  {
+   "row": "P08-007",
+   "item": "S2-03 (executed by CWO-EZ-19) / e9:S2-04#1 optional key",
+   "action": "cured",
+   "reason": "closure.pe absence confirmed; closure.recognition_3mp added"
+  },
+  {
+   "row": "P08-010",
+   "item": "CWO-EZ-21/e9:S2-13#1 (E-02 list naming)",
+   "action": "cured",
+   "reason": "restated from span's own shape"
+  },
+  {
+   "row": "P08-010",
+   "item": "S2-14 (Ezek.35.15 PE front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale + refs"
+  },
+  {
+   "row": "P08-012",
+   "item": "S2-02",
+   "action": "cured",
+   "reason": "positional 'any later row's seam' deleted"
+  },
+  {
+   "row": "P08-012",
+   "item": "S2-14 (Ezek.36.15 SAMEKH front seam)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale + refs"
+  },
+  {
+   "row": "P08-012",
+   "item": "S2-14 (Ezek.36.21 SAMEKH interior)",
+   "action": "cured",
+   "reason": "disclosed with non-cutting reason (addressee continuity)"
+  },
+  {
+   "row": "P08-013",
+   "item": "S2-02",
+   "action": "cured",
+   "reason": "brief/staged-file references replaced with 'this witness'"
+  },
+  {
+   "row": "P08-013",
+   "item": "S2-14 (Ezek.36.32 SAMEKH close)",
+   "action": "cured",
+   "reason": "disclosed in boundary_rationale + refs"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "S2-01 (P08-001/002/004)",
+   "test": "regex scan for strategy/ruling in edited fields",
+   "result": "PASS"
+  },
+  {
+   "order": "S2-02 (P08-003/012/013)",
+   "test": "regex scan for brief/staged-file names in edited fields",
+   "result": "PASS"
+  },
+  {
+   "order": "S2-03/S2-04 (P08-007)",
+   "test": "observed_substrate_signals has no closure.pe, has closure.recognition_3mp",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-21 (P08-002/P08-010)",
+   "test": "\\bE-\\d{2}\\b and campaign regex over all emitted rows",
+   "result": "PASS (0 hits)"
+  },
+  {
+   "order": "S2-14 x8",
+   "test": "check_marks.py mark_symmetry_gap diff before/after",
+   "result": "PASS (8 cleared, 0 new)"
+  },
+  {
+   "order": "whole-part tiling",
+   "test": "check_tiling.py --range Ezek.33.1-Ezek.36.38",
+   "result": "PASS"
+  },
+  {
+   "order": "HARD suite",
+   "test": "run_validator_suite.py rows_private_modified.jsonl",
+   "result": "PASS (GREEN)"
+  },
+  {
+   "order": "collateral universal-claim check",
+   "test": "re-diff after rewording P08-012 interior sentence away from 'without an addressee change'",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "mark_symmetry": 8,
+   "refs_mirror": 5,
+   "universals_locations": 9,
+   "web_quotes": 0,
+   "register": 0
+  },
+  "after": {
+   "mark_symmetry": 0,
+   "refs_mirror": 5,
+   "universals_locations": 9,
+   "web_quotes": 0,
+   "register": 0
+  },
+  "rises_explained": [
+   "none rose; universals locations are net-zero (2 pre-existing flags relocated to reworded trigger words at the same sentence, not new occurrences); refs_mirror unchanged at 5 (pre-existing, out of ordered scope); mark_symmetry dropped by exactly the 8 ordered disclosures"
+  ]
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

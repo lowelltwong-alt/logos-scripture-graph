@@ -1,0 +1,71 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "book": "Ezek",
+ "batch": "fixup2_plumbing",
+ "ordered_by": "ezek_controlling_rulings_a1#e9 ruling S2-ROUTING",
+ "installed_by": "orchestrator (claude-opus-5), OW-11 authorized; guarded staged install",
+ "files": [
+  {
+   "path": "Ezek/_land_author_part_ezek.py",
+   "sha256_before": "da3c871e3682fb0a163bc760d48d63682452c20b0bcc05d9da3bc6c55233411b",
+   "sha256_after": "cd0b1678473d3d6f2b4ed3dde47ad11f7ba9150963a96307bdf85c33f0ba34e5",
+   "preimage": "campaign/tool_preimages/_land_author_part_ezek.pre_fixup2_plumbing.da3c871e.py",
+   "staged": "Ezek/proposals/fixup2_plumbing/_land_author_part_ezek.py",
+   "diff": {
+    "path": "Ezek/proposals/fixup2_plumbing/_land_author_part_ezek.diff",
+    "sha256": "af26257907b69f72a165189e02b71330c3904890a781d975b7605864f56d798f"
+   },
+   "removed_lines": [
+    "        raise SystemExit(\"ABORT: FIXUP-1 orders for %s landed as %s, or no --brief given\" % (orders.get(\"part\"), a.part))",
+    "            \"agent\": (\"FIXUP-1 author %s\" if fixup else \"author %s\") % a.part, \"parent_agent_id\": \"orchestrator\", \"model\": a.model,",
+    "            \"producer\": (\"FIXUP-1 execution of the controlling agent's fix-up orders (ezek_controlling_rulings_a1#e4 ruling FIXUP-1)\""
+   ],
+   "selftest_candidate": {
+    "vectors": 14,
+    "failed": 0,
+    "verdict": "GREEN"
+   },
+   "selftest_installed": {
+    "vectors": 14,
+    "failed": 0,
+    "verdict": "GREEN"
+   }
+  },
+  {
+   "path": "Ezek/_apply_author_wave_ezek.py",
+   "sha256_before": "390c78076d857e74ef7e7fe79df097abfa9252c81833272aaa2f44b47c904812",
+   "sha256_after": "14e4f5dcfb50b36214d7358677fce8fcfb68da6fd288f902ceb69bdda49344e0",
+   "preimage": "campaign/tool_preimages/_apply_author_wave_ezek.pre_fixup2_plumbing.390c7807.py",
+   "staged": "Ezek/proposals/fixup2_plumbing/_apply_author_wave_ezek.py",
+   "diff": {
+    "path": "Ezek/proposals/fixup2_plumbing/_apply_author_wave_ezek.diff",
+    "sha256": "040601e89c839fb108cf860cd68491f923259a5fe0f1c017060ba63576d4a987"
+   },
+   "removed_lines": [
+    "    receipts_p = (EZ / \"fixup1\" / \"ezek_author_fixup_attempt_receipts.jsonl\") if a.fixup else RECEIPTS",
+    "                \"ordered_by\": \"ezek_controlling_rulings_a1#e4 ruling FIXUP-1\" if a.fixup else \"ezek_controlling_rulings_a1#e2 ruling R2\",",
+    "    main()"
+   ],
+   "selftest_candidate": {
+    "vectors": 7,
+    "failed": 0,
+    "verdict": "GREEN"
+   },
+   "selftest_installed": {
+    "vectors": 7,
+    "failed": 0,
+    "verdict": "GREEN"
+   }
+  }
+ ],
+ "suite_members_unchanged": {
+  "tools/citation_sweep.py": "6c843b14a604ec0cdb4ee52043cdd5ae30d6735b0a7d66d72ff28d9f00a39054",
+  "tools/check_register.py": "130948439528d5d6988c4ca8ab0da8bf853749541edbae89c5d44162deeffa72",
+  "tools/check_web_quotes.py": "74fb717927c77faf3cde0d9d8e82b2077c5ba774cb1d275733129c9c5ed793e4",
+  "tools/normalize_hebrew_in_json.py": "c23e837638edc891712efefe2e5ab3aae21bf87c2c602fb769bb23ecda1d73e9",
+  "tools/ezek_lib.py": "ab2431fecebee9c8f1e673aa70a8aac83d69f647b2fa76102efb5aa81904ef69"
+ },
+ "dependency_applicability": "FIXUP-1's receipts and the rows_v4_fixup1 apply manifest were written by the before digests. The change takes the wave label, the ordering ruling and the receipts path from the orders files and --receipts, with the FIXUP-1 strings and path as the defaults. The selftests prove the FIXUP-1 labels byte-identical and the fixup1 path unchanged, and the no-op, receipts and tool-digest keys enter an apply manifest only with --receipts. No earlier receipt, manifest or cure claim is affected, and no suite member changed.",
+ "distinct_check": "S3 reads both diffs (#e9 ruling S2-ROUTING (5))",
+ "limit": "an install receipt proves the bytes installed and their selftests; it is not a distinct review"
+}

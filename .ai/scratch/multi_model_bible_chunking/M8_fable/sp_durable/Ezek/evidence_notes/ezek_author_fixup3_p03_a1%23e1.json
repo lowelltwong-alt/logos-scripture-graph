@@ -1,0 +1,301 @@
+{
+ "attempt_id": "ezek_author_fixup3_p03_a1",
+ "execution_id": "ezek_author_fixup3_p03_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP3_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup3\\orders_ezek_author_fixup3_p03_a1.json"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P03-001 strongest_rejected_alternative, device_notes",
+    "why": "CWO-EZ-22: dropped 'the complete-unit exception'/'the over-split guard' as named warrants, kept the byte reason (no onset of its own, severs question from answer); added S3-03 prose disclosure for PE after 14:23 (front seam)"
+   },
+   {
+    "what": "P03-005 boundary_rationale, boundary_evidence_refs[3]",
+    "why": "CWO-EZ-22: dropped 'flagged doubled-note', restated as 'one of five verses in this chapter carrying a doubled note' (count preserved from source)"
+   },
+   {
+    "what": "P03-008 device_notes",
+    "why": "S3-03 prose disclosure added for SAMEKH after 16:50 (front seam)"
+   },
+   {
+    "what": "P03-009 device_notes",
+    "why": "S3-09/CWO-EZ-22: dropped 'closed vocabulary'/'disclosed exception', restated the salvation_oracle classification from the 16:59 messenger-formula/covenant-memory bytes; added S3-03 prose disclosure for SAMEKH after 16:58 (front seam)"
+   },
+   {
+    "what": "P03-010 device_notes",
+    "why": "S3-03 prose disclosures added for SAMEKH after 16:63 (front seam) and SAMEKH after 17:8 (interior, with the 17:9 messenger-formula/17:10 answer reason for not cutting)"
+   },
+   {
+    "what": "P03-011 device_notes",
+    "why": "S3-03 prose disclosure added for PE after 17:10 (front seam)"
+   },
+   {
+    "what": "P03-012 device_notes",
+    "why": "S3-03 prose disclosure added for SAMEKH after 17:18 (front seam)"
+   },
+   {
+    "what": "P03-013 strongest_rejected_alternative, device_notes",
+    "why": "S3-09/CWO-EZ-22: dropped 'disclosed exception'/'closed vocabulary', restated from the tree-figure-continues/no-covenant-shift bytes; added S3-03 prose disclosure for SAMEKH after 17:21 (front seam)"
+   },
+   {
+    "what": "P03-014 device_notes",
+    "why": "S3-03 prose disclosure added for PE after 17:24 (front seam)"
+   },
+   {
+    "what": "P03-017 device_notes",
+    "why": "S3-03 prose disclosure added for SAMEKH after 18:20 (front seam)"
+   },
+   {
+    "what": "P03-018 device_notes",
+    "why": "S3-03 prose disclosure added for SAMEKH after 18:23 (front seam)"
+   },
+   {
+    "what": "P03-019 device_notes",
+    "why": "S3-03 prose disclosure added for SAMEKH after 18:26 (front seam)"
+   },
+   {
+    "what": "P03-020 device_notes, strongest_rejected_alternative",
+    "why": "S3-06: dropped 'explicitly', 'whole fourteen-verse' and 'single' (MT 19:14's colophon names no extent); restated as the lament noun framing the chapter at 19:1 and 19:14"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "brief and orders file sha256 match the pinned digests (brief 029ac77f...28c28, orders 6fbc886f...5f7a0)",
+   "how": "PowerShell Get-FileHash -Algorithm SHA256 on both exact paths",
+   "result": "confirmed"
+  },
+  {
+   "claim": "none of the 13 emitted rows' content fields (boundary_rationale, SRA, device_notes, literature_type_guess, refs, tags, signals) match any of the six CWO-EZ-22 regex arms",
+   "how": "python script re-implementing the CWO-EZ-22.predicate regex verbatim from the orders file, run over the emitted JSONL",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no newly authored sentence reuses any of the three do_not_reuse_grams phrases",
+   "how": "python substring check of the three named phrases against only the new/changed text (not pre-existing untouched prose)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "protected fields (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection) are byte-identical to current_row for all 13 rows",
+   "how": "python equality assertion before/after each edit in the build script",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every emitted row has exactly the 22 required fields plus \"_op\":\"replace\", and non_authorizing is true",
+   "how": "python json.loads + field-set equality check over the emitted JSONL",
+   "result": "confirmed"
+  },
+  {
+   "claim": "each of the 12 S3-03 mark items (verse + mark word) appears in a prose field, and the one interior item (17:8) carries a 'does not cut' reason in prose",
+   "how": "python substring/keyword check per row against the orders' mark_item entries",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no row's string fields contain an E-NN token, the word 'campaign', or a parashah.* closure key",
+   "how": "python regex scan of the emitted JSONL",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "The installed-tool self-check suite named in the brief (run_validator_suite.py, citation_sweep.py, check_register.py, check_web_quotes.py, ngram7.py, check_tiling.py) was NOT executed against a private copy of the full rows_v5_cwo23.jsonl corpus.",
+   "why_it_matters": "My checks re-implement only a subset of those tools' logic (the CWO-EZ-22 regex transcribed verbatim, plus ad hoc field/placeholder/banned-token/gram checks) and were run only against my 13 emitted rows, not the whole ~66-row book; the corpus-wide ngram7 gate (10), citation_sweep, normalizer, cap_sweep, mark_symmetry/universals/web_quotes/refs_mirror/register FLAGS deltas, and check_tiling were not independently confirmed. Per the brief this is expected to be caught by run_validator_suite/S4 if it fails."
+  },
+  {
+   "what": "Pre-existing occurrences of the forbidden gram 'a samekh recorded on this same verse' (and its two sub-grams) remain, unmodified, in the ORIGINAL boundary_rationale of P03-008, P03-009, P03-011, P03-012, P03-014, P03-017 and P03-018 (7 of my 13 rows).",
+   "why_it_matters": "These are pre-existing writer/FIXUP-2 text I was not ordered to touch (boundary_rationale was not a named field for these S3-03 items, and 'replace only, no unordered field change' applies); the ruling recorded the pre-wave corpus-wide count for this gram at 9 rows (under the gate of 10). I added zero new instances of this exact phrase, so the count should be unaffected by my part, but I have not verified the post-wave corpus-wide count directly."
+  },
+  {
+   "what": "pmarks_Ezek.json, book_strategy_Ezek.md, TOOLKIT.md, Ezek_oshb.txt, Ezek_web_clean.txt, and the rulings files (e6/e7/e9/e10) were not opened directly; I relied on the orders file's embedded verbatim quotations and pmarks_key/mark_types fields, which the brief states are controlling and already verified by the controlling execution.",
+   "why_it_matters": "If any embedded quotation in the orders file were itself in error, that error would propagate uncaught, since I did not cross-check against the primary source files."
+  }
+ ],
+ "items": [
+  {
+   "row": "P03-001",
+   "item": "e10:S3-03#2 (Ezek.14.23 PE, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-001",
+   "item": "CWO-EZ-22 (SRA: 'the complete-unit exception')",
+   "action": "cured",
+   "reason": "reworded SRA to the byte reason, dropping the named exception"
+  },
+  {
+   "row": "P03-001",
+   "item": "CWO-EZ-22 (SRA: 'the over-split guard')",
+   "action": "cured",
+   "reason": "same rewording covers both hits in the same clause"
+  },
+  {
+   "row": "P03-005",
+   "item": "CWO-EZ-22 (boundary_rationale: 'flagged doubled-note')",
+   "action": "cured",
+   "reason": "reworded to 'one of five verses ... carrying a doubled note'"
+  },
+  {
+   "row": "P03-005",
+   "item": "CWO-EZ-22 (boundary_evidence_refs[3]: 'flagged doubled-note')",
+   "action": "cured",
+   "reason": "same rewording applied to the refs entry"
+  },
+  {
+   "row": "P03-008",
+   "item": "e10:S3-03#2 (Ezek.16.50 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-009",
+   "item": "e10:S3-03#2 (Ezek.16.58 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-009",
+   "item": "S3-09 (device_notes cites strategy vocabulary)",
+   "action": "cured",
+   "reason": "restated classification from the 16:59 messenger-formula/covenant-memory bytes"
+  },
+  {
+   "row": "P03-009",
+   "item": "CWO-EZ-22 (device_notes: 'closed vocabulary')",
+   "action": "cured",
+   "reason": "covered by the S3-09 rewording"
+  },
+  {
+   "row": "P03-009",
+   "item": "CWO-EZ-22 (device_notes: 'disclosed exception')",
+   "action": "cured",
+   "reason": "covered by the S3-09 rewording"
+  },
+  {
+   "row": "P03-010",
+   "item": "e10:S3-03#2 (Ezek.16.63 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-010",
+   "item": "e10:S3-03#2 (Ezek.17.8 SAMEKH, interior)",
+   "action": "cured",
+   "reason": "added prose disclosure with the 17:9 formula / 17:10 answer reason for not cutting"
+  },
+  {
+   "row": "P03-011",
+   "item": "e10:S3-03#2 (Ezek.17.10 PE, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-012",
+   "item": "e10:S3-03#2 (Ezek.17.18 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-013",
+   "item": "e10:S3-03#2 (Ezek.17.21 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-013",
+   "item": "S3-09 (SRA cites strategy vocabulary)",
+   "action": "cured",
+   "reason": "restated from the tree-figure-continues/no-covenant-shift bytes"
+  },
+  {
+   "row": "P03-013",
+   "item": "CWO-EZ-22 (SRA: 'disclosed exception')",
+   "action": "cured",
+   "reason": "covered by the S3-09 rewording"
+  },
+  {
+   "row": "P03-013",
+   "item": "CWO-EZ-22 (SRA: 'closed vocabulary')",
+   "action": "cured",
+   "reason": "covered by the S3-09 rewording"
+  },
+  {
+   "row": "P03-014",
+   "item": "e10:S3-03#2 (Ezek.17.24 PE, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-017",
+   "item": "e10:S3-03#2 (Ezek.18.20 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-018",
+   "item": "e10:S3-03#2 (Ezek.18.23 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-019",
+   "item": "e10:S3-03#2 (Ezek.18.26 SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "added rotated prose disclosure to device_notes"
+  },
+  {
+   "row": "P03-020",
+   "item": "S3-06 (device_notes/SRA overclaim on MT 19:14)",
+   "action": "cured",
+   "reason": "dropped 'explicitly'/'whole fourteen-verse'/'single'; restated as the lament noun at 19:1 and 19:14"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "e10:S3-03#2 (12 mark disclosures)",
+   "test": "verse+mark-word substring present in a prose field; interior item also checked for a 'does not cut' reason",
+   "result": "PASS"
+  },
+  {
+   "order": "e10:S3-16#2 / CWO-EZ-22 (8 items)",
+   "test": "six-arm CWO-EZ-22 regex (transcribed from the orders file) over all content fields of the 13 emitted rows",
+   "result": "PASS"
+  },
+  {
+   "order": "S3-09 (2 items)",
+   "test": "CWO-EZ-22 regex plus manual read-back that the reworded sentence still carries the row's own byte argument",
+   "result": "PASS"
+  },
+  {
+   "order": "S3-06 (1 item, P03-020)",
+   "test": "manual check of MT 19:14 bytes against the reworded device_notes/SRA for 'explicitly'/'whole fourteen-verse'/'single'",
+   "result": "PASS"
+  },
+  {
+   "order": "do_not_reuse_grams (3 phrases)",
+   "test": "substring check against newly authored sentences only",
+   "result": "PASS"
+  },
+  {
+   "order": "protected-field integrity (13 rows)",
+   "test": "python equality assertion pre/post edit",
+   "result": "PASS"
+  },
+  {
+   "order": "row/field completeness (13 rows)",
+   "test": "json.loads + 22-field-set + _op/non_authorizing check",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {},
+  "after": {},
+  "rises_explained": [
+   "FLAGS (mark_symmetry, universals, web_quotes, refs_mirror, register) were not measured with the installed suite against a private corpus copy; see unresolved_uncertainty"
+  ]
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

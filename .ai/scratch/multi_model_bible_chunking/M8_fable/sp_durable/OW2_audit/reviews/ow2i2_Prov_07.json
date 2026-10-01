@@ -1,0 +1,247 @@
+{
+ "attempt_id": "ow2i2_Prov_07_a1",
+ "role": "ow2_item2_auditor",
+ "book": "Prov",
+ "rows": [
+  {
+   "row_id": "M8-Prov-481",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:cross_part_or_part_range",
+     "disposition": "confirmed_defect",
+     "grounds": "Both matches are workflow register: 'lying outside this part' in boundary_rationale and 'No cluster candidate within this part applies' in strongest_rejected_alternative describe the writer part plan, not the text, against the register law that row prose describes the text and cross-row references are verse-anchored. The substance underneath is byte-true: oshb:Prov.27.13 (קַח בִּ֭גְדוֹ כִּי עָ֣רַב זָ֑ר וּבְעַ֖ד נָכְרִיָּ֣ה חַבְלֵֽהוּ) and oshb:Prov.20.16 (לְֽקַח בִּ֭גְדוֹ כִּי עָ֣רַב זָ֑ר וּבְעַ֖ד נכרים נָכְרִיָּ֣ה חַבְלֵֽהוּ) share 7 of 27:13's 8 word-bound skeleton tokens, differing only in קַח against לְֽקַח plus the inline unpointed ketiv נכרים at 20:16 (pmarks_Prov.json kq records 1 note at Prov.20.16, none at Prov.27.13), so 'near-duplicate' holds. The adjacency test the granularity policy actually defines over adjacent verses is also satisfied: oshb:Prov.27.12 / oshb:Prov.27.13 and oshb:Prov.27.13 / oshb:Prov.27.14 share zero word-bound skeleton tokens (consonantal_index.json). Read at its stated scope, however, 'No cluster candidate within this part applies' is byte-false, since the 25:1-27:27 range carries byte-grounded cluster candidates, e.g. הָג֣וֹ verse-initial at both oshb:Prov.25.4 and oshb:Prov.25.5 (word-bound in 2 verses book-wide)."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "Two writer-part references stand in the driver fields, and the cluster test is scoped to a workflow part instead of the adjacent verses the granularity policy defines.",
+     "grounds": "Both matches are workflow register: 'lying outside this part' in boundary_rationale and 'No cluster candidate within this part applies' in strongest_rejected_alternative describe the writer part plan, not the text, against the register law that row prose describes the text and cross-row references are verse-anchored. The substance underneath is byte-true: oshb:Prov.27.13 (קַח בִּ֭גְדוֹ כִּי עָ֣רַב זָ֑ר וּבְעַ֖ד נָכְרִיָּ֣ה חַבְלֵֽהוּ) and oshb:Prov.20.16 (לְֽקַח בִּ֭גְדוֹ כִּי עָ֣רַב זָ֑ר וּבְעַ֖ד נכרים נָכְרִיָּ֣ה חַבְלֵֽהוּ) share 7 of 27:13's 8 word-bound skeleton tokens, differing only in קַח against לְֽקַח plus the inline unpointed ketiv נכרים at 20:16 (pmarks_Prov.json kq records 1 note at Prov.20.16, none at Prov.27.13), so 'near-duplicate' holds. The adjacency test the granularity policy actually defines over adjacent verses is also satisfied: oshb:Prov.27.12 / oshb:Prov.27.13 and oshb:Prov.27.13 / oshb:Prov.27.14 share zero word-bound skeleton tokens (consonantal_index.json). Read at its stated scope, however, 'No cluster candidate within this part applies' is byte-false, since the 25:1-27:27 range carries byte-grounded cluster candidates, e.g. הָג֣וֹ verse-initial at both oshb:Prov.25.4 and oshb:Prov.25.5 (word-bound in 2 verses book-wide).",
+     "span_change": false,
+     "proposed_change": "Field repair only. boundary_rationale: drop 'lying outside this part', keeping the verse-anchored comparison to 20:16 (oshb:Prov.20.16 already stands in boundary_evidence_refs). strongest_rejected_alternative: replace 'within this part' with the adjacency actually tested, i.e. neither oshb:Prov.27.12 nor oshb:Prov.27.14 shares a word-bound skeleton token with oshb:Prov.27.13. No span, seam or unit_type change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-483",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:cross_part_or_part_range",
+     "disposition": "confirmed_defect",
+     "grounds": "The row's own site is byte-true: oshb:Prov.27.15 carries the inline unpointed ketiv מדונים before the pointed qere מִ֝דְיָנִ֗ים (both collate byte at Prov.27.15; pmarks_Prov.json kq records 1 note there, single witness). But 'in this part' scopes the recurrence count to the writer part, and the digit 3 does not belong to the object the row names. sweep.py --skel returns the ketiv skeleton in 6 verses book-wide (18:19, 21:19, 23:29, 25:24, 26:21, 27:15) and pmarks_Prov.json records a kq note at every one of them, so the ketiv/qere pair recurs at 6 verses, not 3; the pointed qere simply differs at three of them (מִדְיָנִ֣ים at oshb:Prov.21.19, מִדְיָנִ֨ים at oshb:Prov.23.29, and the waw-prefixed pair ומדונים וּ֝מִדְיָנִ֗ים at oshb:Prov.18.19). The digit 3 is reproducible only at an unnamed accent-identical tier, where the run מדונים מִ֝דְיָנִ֗ים is byte-identical at oshb:Prov.25.24, oshb:Prov.26.21 and oshb:Prov.27.15. Scoping the count to a writer part makes 3 come out right by coincidence and hides half the corpus-wide motif the row calls 'a recurring motif'."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "E-18 lost corpus-wide order + count-object discipline",
+     "claim": "The ketiv/qere recurrence is counted inside a writer part and the digit 3 does not belong to the object the row names: that pair stands in 6 verses book-wide.",
+     "grounds": "The row's own site is byte-true: oshb:Prov.27.15 carries the inline unpointed ketiv מדונים before the pointed qere מִ֝דְיָנִ֗ים (both collate byte at Prov.27.15; pmarks_Prov.json kq records 1 note there, single witness). But 'in this part' scopes the recurrence count to the writer part, and the digit 3 does not belong to the object the row names. sweep.py --skel returns the ketiv skeleton in 6 verses book-wide (18:19, 21:19, 23:29, 25:24, 26:21, 27:15) and pmarks_Prov.json records a kq note at every one of them, so the ketiv/qere pair recurs at 6 verses, not 3; the pointed qere simply differs at three of them (מִדְיָנִ֣ים at oshb:Prov.21.19, מִדְיָנִ֨ים at oshb:Prov.23.29, and the waw-prefixed pair ומדונים וּ֝מִדְיָנִ֗ים at oshb:Prov.18.19). The digit 3 is reproducible only at an unnamed accent-identical tier, where the run מדונים מִ֝דְיָנִ֗ים is byte-identical at oshb:Prov.25.24, oshb:Prov.26.21 and oshb:Prov.27.15. Scoping the count to a writer part makes 3 come out right by coincidence and hides half the corpus-wide motif the row calls 'a recurring motif'.",
+     "span_change": false,
+     "proposed_change": "Field repair: name the swept object and its tier and give both digits, e.g. the ketiv/qere pair stands in 6 verses book-wide (18:19, 21:19, 23:29, 25:24, 26:21, 27:15), of which 3 carry the accent-identical run (25:24, 26:21, 27:15). Delete 'in this part' from boundary_rationale, strongest_rejected_alternative and observed_substrate_signals; if the three accent-identical sites are kept as texture, keep them at that tier, and if the 6-verse set is argued instead, mirror oshb:Prov.18.19, oshb:Prov.21.19 and oshb:Prov.23.29 into boundary_evidence_refs. No span or seam change: oshb:Prov.27.14 / oshb:Prov.27.15 and oshb:Prov.27.15 / oshb:Prov.27.16 share zero word-bound skeleton tokens, so both edges stand."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-487",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:cross_part_or_part_range",
+     "disposition": "confirmed_defect",
+     "grounds": "'the narrower catchwords adopted elsewhere in this part' is workflow register twice over: a writer-part range plus decision narration about other rows. The three comparanda are themselves byte-true and verse-anchored: הָג֣וֹ opens both oshb:Prov.25.4 and oshb:Prov.25.5; זָ֭הָב stands at oshb:Prov.25.11 and oshb:Prov.25.12; עָ֭צֵל stands at oshb:Prov.26.13, oshb:Prov.26.15 and oshb:Prov.26.16 with וְ֝עָצֵ֗ל at oshb:Prov.26.14; and all six verses are mirrored in boundary_evidence_refs. So the register law is breached while the byte substrate is sound. The comparative judgment those catchwords carry is separately defective on its count object (see the second finding)."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "The rejected alternative cites a writer-part range and narrates other rows' adoptions, though the six comparanda verses themselves are byte-true and mirrored in the refs.",
+     "grounds": "'the narrower catchwords adopted elsewhere in this part' is workflow register twice over: a writer-part range plus decision narration about other rows. The three comparanda are themselves byte-true and verse-anchored: הָג֣וֹ opens both oshb:Prov.25.4 and oshb:Prov.25.5; זָ֭הָב stands at oshb:Prov.25.11 and oshb:Prov.25.12; עָ֭צֵל stands at oshb:Prov.26.13, oshb:Prov.26.15 and oshb:Prov.26.16 with וְ֝עָצֵ֗ל at oshb:Prov.26.14; and all six verses are mirrored in boundary_evidence_refs. So the register law is breached while the byte substrate is sound. The comparative judgment those catchwords carry is separately defective on its count object (see the second finding).",
+     "span_change": false,
+     "proposed_change": "Field repair: replace 'adopted elsewhere in this part' with the verse-anchored byte facts already carried in boundary_evidence_refs (oshb:Prov.25.4-25.5, oshb:Prov.25.11-25.12, oshb:Prov.26.13-26.16), with no reference to parts or to other rows' decisions."
+    },
+    {
+     "severity": "medium",
+     "class": "E-05 count-object blend, no digit",
+     "claim": "The rival's rejection rests on an undigited genericity claim whose swept object is blended: the form actually shared across the seam is word-bound in exactly 2 verses book-wide, both of them this seam's own verses.",
+     "grounds": "הָ֝אָדָ֗ם (oshb:Prov.27.19) and הָ֝אָדָ֗ם (oshb:Prov.27.20) each collate byte at their own cited ref and are byte-identical to one another, and that definite form is word-bound in exactly 2 verses in the whole book (consonantal_index.json word-bound scan: Prov.27.19 and Prov.27.20, i.e. this seam's own two verses). The bare lexeme is a different object: 33 word-bound verses, and sweep.py --skel returns 44 verses / 46 token occurrences for the contiguous substring. observed_substrate_signals blends the two, calling it the shared skeleton token of the bare lexeme 'as' the definite form, and no digit appears anywhere in the row. Measured against the row's own comparanda the comparison inverts: זָ֭הָב is word-bound in 4 verses (11:22, 20:15, 25:11, 25:12), עָ֭צֵל in 12 verses plus וְ֝עָצֵ֗ל at 26:14, and הָג֣וֹ in 2 verses (25:4, 25:5) - so the form actually shared here is as narrow as the narrowest catchword the row calls narrower, and narrower than two of the three.",
+     "span_change": false,
+     "proposed_change": "Field repair: re-state the rejection with the object named and the digits given (definite form 2 word-bound verses book-wide, both at this seam; bare lexeme 33 word-bound verses / 44 substring verses), and re-derive the comparison, which inverts against two of the three cited catchwords. Routed onward, not adjudicated here: with the corrected digit the proverb_cluster rival at Prov.27.19-Prov.27.20 rests on a byte-grounded catchword of exactly the kind the cluster bar admits and must be re-weighed against the two similes' semantic independence; no span change is proposed by this auditor."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-488",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "excl:no_digit",
+     "disposition": "not_a_defect",
+     "grounds": "Not a corpus exclusivity claim: 'never satisfied' restates the verse's own predicate, which stands twice in oshb:Prov.27.20 as לֹ֣א תִשְׂבַּ֑עְנָה and לֹ֣א תִשְׂבַּֽעְנָה (WEB at web:Prov.27.20 renders both cola with 'are never satisfied'). An intra-verse content paraphrase owes no sweep digit under the universals rule; check_universals reports it as a lexicon hit only, and the row makes no only/sole/unique claim about the corpus anywhere."
+    },
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "'(see that row)' points at a row object rather than at the text, against the register law that cross-row references are verse-anchored and prose describes the text. It is also the row's only carrier of the seam disclosure: the byte-identical הָ֝אָדָ֗ם straddling the 27:19|27:20 seam appears nowhere in this row's own boundary_rationale, observed_substrate_signals or device_notes, so a process pointer is doing disclosure work (see the second finding)."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "'(see that row)' is a positional row reference in row prose where the register law requires a verse-anchored ground.",
+     "grounds": "'(see that row)' points at a row object rather than at the text, against the register law that cross-row references are verse-anchored and prose describes the text. It is also the row's only carrier of the seam disclosure: the byte-identical הָ֝אָדָ֗ם straddling the 27:19|27:20 seam appears nowhere in this row's own boundary_rationale, observed_substrate_signals or device_notes, so a process pointer is doing disclosure work (see the second finding).",
+     "span_change": false,
+     "proposed_change": "Field repair: replace '(see that row)' with the byte ground itself, e.g. the shared definite form is word-bound in only these two verses book-wide and is judged too slight to bound a two-verse unit."
+    },
+    {
+     "severity": "low",
+     "class": "cross-seam cohesion disclosure + confidence asymmetry",
+     "claim": "The byte-identical token straddling this row's opening seam is disclosed nowhere in the row's own fields, and the row carries high confidence on a seam its neighbour holds at medium for that very token.",
+     "grounds": "הָ֝אָדָ֗ם at oshb:Prov.27.19 and הָ֝אָדָ֗ם at oshb:Prov.27.20 collate byte at their own refs and are byte-identical to each other; that definite form is word-bound in exactly 2 verses in the book, these two, so a byte-true device straddles this row's opening seam and the standing cross-seam rule makes it a disclosure obligation on this row. This row never states it. The confidence is also asymmetric with the neighbour arguing the same seam: this row is high, the Prov.27.19 row is medium for precisely this token. The other edge is clean exactly as claimed: oshb:Prov.27.20 and oshb:Prov.27.21 share zero word-bound skeleton tokens (consonantal_index.json). The K/Q handling is sound: pmarks_Prov.json records 1 note at Prov.27.20 and the inline unpointed ketiv ואבדה stands before the qere וַ֭אֲבַדּוֹ, which the row discloses.",
+     "span_change": false,
+     "proposed_change": "Field repair: disclose the straddling token with its 2-verse book-wide digit in this row's own boundary_rationale or observed_substrate_signals, and reconcile the confidence with the Prov.27.19 row's medium on the same seam. No span change proposed; the closing edge and the K/Q disclosure are sound."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-528",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "excl:no_digit",
+     "disposition": "not_a_defect",
+     "grounds": "Not a corpus exclusivity claim: the sentence restates the verse's own predicate. oshb:Prov.29.9 reads וְרָגַ֥ז וְ֝שָׂחַ֗ק וְאֵ֣ין נָֽחַת (WEB at web:Prov.29.9 renders the fool raging or scoffing with no peace), so 'produces only rage and mockery, with no resulting peace' is an intra-verse content statement, not a corpus-scope only/sole claim, and owes no sweep digit. The 'single' / 'one scenario, one outcome' hits are parallelism-class description of the same verse and are consistent with device_notes."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "original-language claim without original-language evidence",
+     "claim": "The row's decisive claims are skeleton-tier and root-tier, but no Hebrew is quoted anywhere in the row and every boundary_evidence_ref stands in web: space.",
+     "grounds": "strongest_rejected_alternative rejects the Prov.29.10 pairing because 'the two verses share no skeleton-tier token', and observed_substrate_signals asserts a root-identical / not-skeleton-exact relation with Prov.29.8 - both original-language claims - yet no Hebrew is quoted anywhere in the row and all three boundary_evidence_refs stand in web: space (web:Prov.29.9, web:Prov.29.8, web:Prov.29.10). The standing rule requires the original language to be quoted for every boundary-relevant original-language claim and the tier to be named. The claims themselves are byte-true: oshb:Prov.29.9 חָכָ֗ם against oshb:Prov.29.8 וַ֝חֲכָמִ֗ים is root-identical and not skeleton-exact, and oshb:Prov.29.9 / oshb:Prov.29.10 share zero word-bound skeleton tokens (consonantal_index.json), so this is a disclosure and evidence-space shortfall rather than a false warrant.",
+     "span_change": false,
+     "proposed_change": "Field repair: add oshb:Prov.29.8, oshb:Prov.29.9 and oshb:Prov.29.10 to boundary_evidence_refs alongside the web: refs, and splice the two wisdom forms into the field that argues from them, naming the tier. No span change: both edges are byte-clean as claimed."
+    },
+    {
+     "severity": "low",
+     "class": "cross-seam cohesion disclosure",
+     "claim": "The row discloses the wisdom-root echo with 29:8 but not the construct-plural frame that brackets the verse on both sides.",
+     "grounds": "oshb:Prov.29.8 opens אַנְשֵׁ֣י and oshb:Prov.29.10 opens אַנְשֵׁ֣י; that construct plural is word-bound in only 4 verses book-wide (25:1, 28:5, 29:8, 29:10), two of them this row's immediate neighbours, framing a verse that carries the singular twice, אִֽישׁ and אִ֣ישׁ. Nothing is shared at the token tier, so the row's stated claim holds and the singular is generic (53 word-bound verses book-wide), but the row's own standard discloses a root-tier echo with 29:8 (the wisdom forms) while leaving unstated the root-tier frame that brackets the verse on both sides. pmarks_Prov.json records no mark and no K/Q at Prov.29.8, Prov.29.9 or Prov.29.10, so nothing else was owed.",
+     "span_change": false,
+     "proposed_change": "Field repair: disclose the flanking construct-plural frame with its digits (4 word-bound verses book-wide, 2 of them the immediate neighbours) and state why it is not adopted as cluster cohesion. No span change proposed; the singular's 53-verse spread does not meet the cluster bar."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-547",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "lowband:medium_low",
+     "disposition": "not_a_defect",
+     "grounds": "Well calibrated, and the low band is if anything conservative. The seam warrants are tier-1 and byte-verified: oshb:Prov.30.1 opens with the construct header דִּבְרֵ֤י paired with הַמַּ֫שָּׂ֥א (both collate byte at Prov.30.1), which is the ruled collection-seam spine for C6. Every digit in the row re-derives exactly: sweep.py --skel returns 19 verses for the unpointed skeleton and that set is identical to the row's own 9 construct + 6 suffixed + 4 absolute-plural enumeration; the construct opens the verse in exactly 5 of the 19 (Prov.12.6, Prov.18.8, Prov.26.22, Prov.30.1, Prov.31.1, first-token check on consonantal_index.json); and exactly 2 of those 5 pair with an oracle word (Prov.30.1 and Prov.31.1). oshb:Prov.29.27 and oshb:Prov.30.1 share zero word-bound skeleton tokens. pmarks_Prov.json records PE at Prov.29.27 and Prov.30.6 - petuchah, single witness, correctly typed, never conflated with the one SAMEKH at Prov.24.22, and disclosed as single-witness in both refs (check_marks GREEN, citation_sweep GREEN). The band tracks the real crux the row discloses and refuses to resolve, the doubled name-form לְאִֽיתִיאֵ֑ל לְאִ֖יתִיאֵ֣ל וְאֻכָֽל at oshb:Prov.30.1, and frontier_flag_considered is true; the book's own expected-low-confidence register names 30:1 for exactly this reason. Nothing in the row's evidence is over-claimed and no defect found below touches a seam, so the band is honest rather than a label masking a defective warrant."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "internal inconsistency, byte-false register label",
+     "claim": "observed_substrate_signals and device_notes label 30:2-5 a first-person confession, which is byte-false at 30:4-5 and contradicts the row's own rationale.",
+     "grounds": "First-person forms stand only in oshb:Prov.30.2 (אָנֹכִ֣י, לִֽי) and oshb:Prov.30.3 (לָמַ֥דְתִּי, אֵדָֽע). oshb:Prov.30.4 closes second-person, כִּ֣י תֵדָֽע, and oshb:Prov.30.5 is third person throughout, מָגֵ֥ן ה֝֗וּא לַֽחֹסִ֥ים בּֽוֹ - which the row's own boundary_rationale gets right by separating the 30:2-4 meditation from the 30:5 affirmation. observed_substrate_signals ('the confession spanning 30:2-5') and device_notes ('first-person confessional (30:2-5)') therefore contradict both the driver field and the bytes. The operative claim inside that signal - that the passage opens without a numeral or vocative formula - is true either way.",
+     "span_change": false,
+     "proposed_change": "Field repair: label the first-person confession 30:2-3 in observed_substrate_signals and device_notes, keeping the rationale's own 30:2-4 meditation / 30:5 affirmation division. No span change: the unit's bounds are unaffected."
+    },
+    {
+     "severity": "low",
+     "class": "quote/gloss parity",
+     "claim": "The header gloss renders the name that the splice elides, so gloss extent exceeds splice extent.",
+     "grounds": "boundary_rationale splices דִּבְרֵ֤י ... הַמַּ֫שָּׂ֥א (each collates byte at oshb:Prov.30.1) and glosses the pair 'the words of Agur ... the oracle'. The name אָג֥וּר falls inside the elision, so the gloss renders a token the splice does not carry and gloss extent exceeds splice extent.",
+     "span_change": false,
+     "proposed_change": "Field repair: either splice דִּבְרֵ֤י אָג֥וּר ... הַמַּ֫שָּׂ֥א or cut the gloss to 'the words of ... the oracle'."
+    },
+    {
+     "severity": "low",
+     "class": "tier label vs count object",
+     "claim": "The 19-verse digit is attached to a pointed byte-tier run whose own byte form occurs in one verse.",
+     "grounds": "The row writes that 'the skeleton' דִּבְרֵ֤י occurs in 19 verses book-wide. The displayed run is byte tier (collate byte at oshb:Prov.30.1) and its NFC-normalised byte form occurs in exactly 1 verse of verse_map_oshb.json, Prov.30.1; the 19 belongs to the unpointed contiguous-substring skeleton, which sweep.py --skel confirms at 19 verses, set-identical to the row's enumeration. Object and label are mismatched; the digit itself is right, and no tier is over-claimed (skeleton is the weaker label, not the stronger).",
+     "span_change": false,
+     "proposed_change": "Field repair: write the swept form unpointed, or phrase it as the skeleton of דִּבְרֵ֤י, so the displayed object matches the digit."
+    },
+    {
+     "severity": "low",
+     "class": "refs mirror (lesson-j arm)",
+     "claim": "Seventeen verses argued in prose outside the row's span appear in no boundary_evidence_refs entry.",
+     "grounds": "boundary_rationale argues 17 verses outside the row's span by ref (1:6, 1:23, 4:4, 4:20, 10:19, 12:6, 18:4, 18:8, 22:12, 22:17, 23:8, 24:26, 26:6, 26:22, 29:19, 29:20, 31:1) while boundary_evidence_refs carries only web:Prov.30.1-Prov.30.6, oshb:Prov.29.27 and oshb:Prov.30.6. The book's mirror rule requires every verse argued in prose outside the span to appear in the refs, and sibling rows in this batch honour it (the Prov.27.13 row mirrors oshb:Prov.20.16; the Prov.27.19 row mirrors all six catchword verses), so the convention was live.",
+     "span_change": false,
+     "proposed_change": "Field repair: mirror the 17 argued verses into boundary_evidence_refs, or compress the enumeration in prose to the digits plus the two header verses that carry the argument."
+    },
+    {
+     "severity": "low",
+     "class": "cross-seam cohesion disclosure",
+     "claim": "The vetitive construction runs continuously across the row's closing seam and is not disclosed.",
+     "grounds": "The row quotes its closing warning אַל תּ֥וֹסְףְּ עַל דְּבָרָ֑יו at oshb:Prov.30.6 but does not note that the same vetitive particle heads the next two verses: אַל תִּמְנַ֥ע at oshb:Prov.30.7 and אַל תִּֽתֶּן at oshb:Prov.30.8 (the identical patach form at all three, distinct from the preposition that also stands at oshb:Prov.30.10). A byte-true construction straddling the row's own closing seam is an unconditional disclosure obligation. The seam still holds on the numeral opener שְׁ֭תַּיִם at oshb:Prov.30.7, which the row correctly names as the next unit's beginning.",
+     "span_change": false,
+     "proposed_change": "Field repair: disclose the straddling vetitive chain at oshb:Prov.30.6, oshb:Prov.30.7 and oshb:Prov.30.8 and state why the numeral opener at 30:7 outweighs it. No span change proposed."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-548",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "lowband:medium_low",
+     "disposition": "not_a_defect",
+     "grounds": "Well calibrated, and the stated reason is byte-checkable and honest. device_notes holds the band at medium_low because the seam rests on a register shift, with the petuchah only corroborating and the petition sitting inside the same first-person Agur material - and the bytes agree, since oshb:Prov.30.7 is itself first-person speech (שָׁאַ֣לְתִּי, מִ֝מֶּ֗נִּי, אָמֽוּת), exactly like oshb:Prov.30.2 and oshb:Prov.30.3. The mark claims are sound: pmarks_Prov.json records PE at Prov.30.6 and Prov.30.9, petuchah, single witness, correctly typed and disclosed at both, never conflated with the one SAMEKH at Prov.24.22 (check_marks GREEN, citation_sweep GREEN). The exclusivity digit is true at the object it names: the divine name is word-bound in 70 verses and 70 token occurrences book-wide and stands once in ch 30, at oshb:Prov.30.9 (מִ֥י יְה֫וָ֥ה, collate byte), while the contiguous-substring sweep returns 87 verses - so the row's 70 is the exact-token object the book's density figures use, not a mis-swept digit. The numeral opener שְׁ֭תַּיִם at oshb:Prov.30.7 is a genuine tier-1 signal the row could have leaned on harder, so the band understates rather than masks. The defects recorded below sit in the warrant's phrasing and in undisclosed straddling devices; neither makes medium_low the wrong band."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "byte-false warrant component",
+     "claim": "The register map that carries the rival's rejection is byte-false at 30:4-5 and blends speaker-person with addressee-person.",
+     "grounds": "strongest_rejected_alternative rejects merging 30:7-9 into the preceding unit on '30:1-6's 3rd-person narration (30:1) and 1st-person confession before God (30:2-5)'. First-person forms stand only at oshb:Prov.30.2 (אָנֹכִ֣י, לִֽי) and oshb:Prov.30.3 (לָמַ֥דְתִּי, אֵדָֽע); oshb:Prov.30.4 closes second-person, כִּ֣י תֵדָֽע, and oshb:Prov.30.5 is third person throughout, מָגֵ֥ן ה֝֗וּא לַֽחֹסִ֥ים בּֽוֹ. The contrast also blends two categories: 30:7 is itself first-person speech (שָׁאַ֣לְתִּי, מִ֝מֶּ֗נִּי, אָמֽוּת), so what changes at the seam is the addressee - human at oshb:Prov.30.6 (בְּךָ֣) to God at oshb:Prov.30.7 (מֵאִתָּ֑ךְ) - not the speaker's person. Since the row names the register shift as 'the seam's real warrant', the rejection's stated ground is byte-false as written, though it is repairable and the seam itself survives on the numeral opener שְׁ֭תַּיִם.",
+     "span_change": false,
+     "proposed_change": "Field repair: state the register facts as the bytes have them - first-person confession at 30:2-3, third-person affirmation at 30:5, and an addressee shift from a human audience to God at the 30:6|30:7 seam inside continuous first-person speech - and let the numeral opener at oshb:Prov.30.7 carry the rejection. No span change: the seam stands."
+    },
+    {
+     "severity": "medium",
+     "class": "cross-seam cohesion undisclosed, both edges",
+     "claim": "Byte-true construction chains straddle both of the row's seams undisclosed, and the following verse is called unrelated against them.",
+     "grounds": "Opening edge: the vetitive particle heads oshb:Prov.30.6 (אַל תּ֥וֹסְףְּ), oshb:Prov.30.7 (אַל תִּמְנַ֥ע) and oshb:Prov.30.8 (אַל תִּֽתֶּן), the particle byte-identical at all three (collate byte at each ref). Closing edge: the lest-particle recurs at the skeleton tier - the forms differ in accent and one in prefix, so this is a skeleton-tier claim and not byte identity - at oshb:Prov.30.6 (פֶּן), twice at oshb:Prov.30.9 (פֶּ֥ן and וּפֶֽן) and again at oshb:Prov.30.10 (פֶּֽן), where the same vetitive also opens the verse (אַל תַּלְשֵׁ֣ן; the preposition אֶל in the same verse is the homograph and is not counted). Neither chain appears in boundary_rationale, observed_substrate_signals or device_notes, while the row asserts a clean register break at the opening edge and calls the following verse an 'unrelated servant/slander saying' - an overstatement against a shared vetitive opener and a shared lest-particle. The standing cross-seam rule makes a byte-true device straddling the row's own seam a disclosure obligation at both edges.",
+     "span_change": false,
+     "proposed_change": "Field repair: disclose both chains with their refs and argue the seams against them, since both survive (the numeral opener at oshb:Prov.30.7 and the petuchah-corroborated close at oshb:Prov.30.9); drop or qualify 'unrelated' for Prov.30.10. No span change proposed by this auditor, but the strengthened merge rival at Prov.30.1-Prov.30.9 is routed onward with the corrected disclosure."
+    },
+    {
+     "severity": "low",
+     "class": "tier phrasing, internal inconsistency",
+     "claim": "The driver field says the petuchah 'marks that seam', which is driver-shaped language for a tier-3 single-witness mark and contradicts the row's own other two statements about it.",
+     "grounds": "pmarks_Prov.json records PE at Prov.30.6, single witness, and the Writings parashah layer is tier-3 weak corroboration that is never a boundary driver. boundary_rationale nonetheless says the petuchah at 30:6 'marks that seam', while strongest_rejected_alternative calls it 'a non-driver petuchah at 30:6' and device_notes says it 'corroborates without independently marking a break at exactly this seam'. The mark is real, correctly typed and single-witness disclosed, so the defect is driver-shaped phrasing in the driver field, contradicted by the row's own two other statements about the same mark.",
+     "span_change": false,
+     "proposed_change": "Field repair: replace 'marks that seam' in boundary_rationale with corroboration language matching the row's own device_notes, keeping the single-witness disclosure."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 7,
+  "clean": 0,
+  "defect_rows": 7,
+  "findings": {
+   "low": 12,
+   "medium": 4,
+   "high": 0
+  },
+  "span_changes_proposed": 0,
+  "triggers": {
+   "total": 8,
+   "confirmed_defect": 4,
+   "not_a_defect": 4
+  }
+ }
+}

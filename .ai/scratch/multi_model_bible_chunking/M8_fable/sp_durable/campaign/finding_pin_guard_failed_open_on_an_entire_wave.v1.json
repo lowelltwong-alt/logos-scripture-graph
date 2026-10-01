@@ -1,0 +1,102 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_pin_guard_failed_open_on_an_entire_wave",
+ "recorded_at": "2026-09-15T13:48:27.659558+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "book": "Ezek",
+ "class": "a safety control that fails OPEN, and is weaker than the hand-written rule it exists to enforce",
+ "severity": "high on counterfactual blast radius, zero observed impact. Nothing was written to a pinned file, because the orchestrator held every edit on the playbook line rather than on the guard's verdict. Severity is scored from the credible counterfactual, not from the luck that no write happened.",
+ "self_disclosed": true,
+ "found_by": "the orchestrator, re-measuring L-0035 with eight executions in flight rather than two",
+ "what_the_guard_said": {
+  "Ezek/PRIMARY_BRIEF_LF.md": "CLEAR",
+  "Ezek/PRIMARY_BRIEF_OL.md": "CLEAR",
+  "Ezek/repair/rows_v7_cwo24.jsonl": "CLEAR",
+  "Ezek/review_clusters.json": "CLEAR",
+  "Ezek/ezek_cure_claims.v1.jsonl": "CLEAR",
+  "Ezek/ezek_device_inventory.json": "CLEAR",
+  "Ezek/transcript_manifest.v2.json": "CLEAR",
+  "campaign/_inflight_pin_guard.py": "CLEAR",
+  "Ezek/FIXUP_BRIEF.md": "CLEAR",
+  "Ezek/_transcript_map.ezek.json": "CLEAR"
+ },
+ "what_it_should_have_said": {
+  "Ezek/PRIMARY_BRIEF_LF.md": "PINNED",
+  "Ezek/PRIMARY_BRIEF_OL.md": "PINNED",
+  "Ezek/repair/rows_v7_cwo24.jsonl": "PINNED",
+  "Ezek/review_clusters.json": "PINNED"
+ },
+ "root_cause": "pins_for only parsed files that NAME the execution. PRIMARY_BRIEF_LF.md is shared by all 22 literary-form primaries, names none of them, carries no template id and does not list itself, so neither the brief nor ANY line of its input table was ever reachable for a primary. The earlier rules (execution id, template id, attempt-id fallback) all key on the brief naming the agent; nothing keyed on the agent naming the brief.",
+ "why_l0035_understated_it": "L-0035 recorded the cure as 'the launch record already names each execution's brief; the guard should treat that path as pinned'. The first clause was FALSE: no transcript-map entry has ever carried a brief field. The launch MESSAGE named the brief; the durable record did not. Fixing the guard alone would have changed nothing, which is why this change has two halves and why the inertness regression below passed.",
+ "blast_radius_if_unfixed": "any orchestrator write to the v7 corpus, the cluster plan, the device inventory or either brief during a 36-execution wave would have passed the guard and silently broken 8-16 running reviewers' digest bindings at once - the OW-11-i incident that created this tool, at wave scale",
+ "cure": {
+  "tool": [
+   "own_briefs(): reads a `brief`/`brief_path`/`orders`/`orders_path` field off every transcript-map entry and normalises it to an SP-relative path (accepts `SP\\Book\\x.md`, `Book/x.md`, or absolute inside SP)",
+   "pins_for(): takes the execution's own-brief map; the brief counts as pinned whether or not it lists itself, and its file is added to the set whose input table is parsed, so every path that table pins counts too",
+   "check(): computes the launch records once and passes each execution its own slice",
+   "the transcript map is now read with utf-8-sig in both readers that open it, instead of utf-8 in one"
+  ],
+  "launch_record": "the eight in-flight entries were backfilled with brief + brief_sha256 through the guarded JSON patch, and post_launch_primary.py now writes both at launch",
+  "install_receipt": "campaign/receipts/tool_install_inflight_pin_guard_ownbrief.v1.json",
+  "install_receipt_sha256": "314474fd3f1eb7e57a2611a6cf3960e54ecaf49532a3494449d3f7e6d74427aa"
+ },
+ "verification": {
+  "selftest": {
+   "selftest": "m8_inflight_pin_guard",
+   "vectors": 17,
+   "failed": [],
+   "verdict": "GREEN"
+  },
+  "inertness_regression": {
+   "identical": true,
+   "stdout_sha256": "9357bd7703300858f4aff213f0e02b55866c06909c135c652647498fddc9be0b"
+  },
+  "targets_that_flipped_CLEAR_to_PINNED": [
+   "Ezek/PRIMARY_BRIEF_LF.md",
+   "Ezek/PRIMARY_BRIEF_OL.md",
+   "Ezek/repair/rows_v7_cwo24.jsonl",
+   "Ezek/review_clusters.json"
+  ],
+  "targets_still_CLEAR": [],
+  "readers_named_per_target": {
+   "Ezek/PRIMARY_BRIEF_LF.md": [
+    "ezek_pr_LF_c04_a1#e1",
+    "ezek_pr_LF_c05_a1#e1",
+    "ezek_pr_LF_c06_a1#e1",
+    "ezek_pr_LF_c07_a1#e1"
+   ],
+   "Ezek/PRIMARY_BRIEF_OL.md": [
+    "ezek_pr_OL_c04_a1#e1",
+    "ezek_pr_OL_c05_a1#e1",
+    "ezek_pr_OL_c06_a1#e1",
+    "ezek_pr_OL_c07_a1#e1"
+   ],
+   "Ezek/repair/rows_v7_cwo24.jsonl": [
+    "ezek_pr_LF_c04_a1#e1",
+    "ezek_pr_LF_c05_a1#e1",
+    "ezek_pr_LF_c06_a1#e1",
+    "ezek_pr_LF_c07_a1#e1",
+    "ezek_pr_OL_c04_a1#e1",
+    "ezek_pr_OL_c05_a1#e1",
+    "ezek_pr_OL_c06_a1#e1",
+    "ezek_pr_OL_c07_a1#e1"
+   ],
+   "Ezek/review_clusters.json": [
+    "ezek_pr_LF_c04_a1#e1",
+    "ezek_pr_LF_c05_a1#e1",
+    "ezek_pr_LF_c06_a1#e1",
+    "ezek_pr_LF_c07_a1#e1",
+    "ezek_pr_OL_c04_a1#e1",
+    "ezek_pr_OL_c05_a1#e1",
+    "ezek_pr_OL_c06_a1#e1",
+    "ezek_pr_OL_c07_a1#e1"
+   ]
+  }
+ },
+ "for_the_controlling_agent": "two questions, neither blocking the wave. (1) Is the launch-record field the right carrier, or should the guard instead derive an execution's brief from the launch MESSAGE it was given? The field is durable and under SP; the message is the thing the agent actually received, and lives outside SP. (2) The guard is O(targets x in-flight) full re-reads of the book's briefs and takes minutes at eight in flight - see the separate entry. A control slow enough to tempt an orchestrator into skipping it is a weak control, and that is a design defect, not a preference.",
+ "limits": [
+  "the guard protects only what a launch record names. An execution whose map entry has no brief field is still invisible to this rule; post_launch_primary.py now writes the field, and any other launcher must too.",
+  "a pin written as an absolute path OUTSIDE SP is still not detected (pre-existing limitation, unchanged)",
+  "runtime is O(targets x in-flight) full re-reads of the book's briefs; at eight in flight and ten targets one run takes minutes. Recorded as a separate defect: a control slow enough to tempt an orchestrator into skipping it is a weak control."
+ ]
+}

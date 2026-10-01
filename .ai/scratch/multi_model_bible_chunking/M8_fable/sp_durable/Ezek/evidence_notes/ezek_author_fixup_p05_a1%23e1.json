@@ -1,0 +1,211 @@
+{
+ "attempt_id": "ezek_author_fixup_p05_a1",
+ "execution_id": "ezek_author_fixup_p05_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup1\\orders_ezek_author_fixup_p05_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json (R1, R2, P2, P4, P5, G12 read in full as instructed; P1 and P3 fell inside the same contiguous line range and were incidentally read too, unused in any decision)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v3_cwo18.jsonl (read only via a private copy at the same pinned digest; current_row for both rows was also embedded verbatim in the orders file)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py (invoked)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\normalize_hebrew_in_json.py (invoked)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py (invoked)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P05-006.boundary_evidence_refs: +2 entries (oshb:Ezek.23.35 SAMEKH front-seam, oshb:Ezek.23.45 SAMEKH interior); no other field touched",
+    "why": "S1-09: span-relevant parashah marks left undisclosed (front seam or interior); pmarks_Ezek.json confirms SAMEKH at 23.35 and 23.45, neither present in current_row"
+   },
+   {
+    "what": "P05-007.boundary_evidence_refs: +3 entries (oshb:Ezek.23.49 PE front-seam, oshb:Ezek.24.5 SAMEKH interior, oshb:Ezek.24.8 PE interior); no other field touched",
+    "why": "S1-09: same defect class; pmarks_Ezek.json confirms PE at 23.49 and 24.8, SAMEKH at 24.5, none present in current_row (23.49 PE was already disclosed as P05-006's own close, but not as P05-007's front seam, per TOOLKIT.md: a seam is assessed from both sides)"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "Brief digest matches the pinned value at launch",
+   "how": "certutil -hashfile FIXUP_BRIEF.md SHA256",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Orders file digest matches the pinned value at launch",
+   "how": "certutil -hashfile orders_ezek_author_fixup_p05_a1.json SHA256",
+   "result": "confirmed"
+  },
+  {
+   "claim": "TOOLKIT.md digest matches the brief's PINNED INPUTS table",
+   "how": "certutil -hashfile TOOLKIT.md SHA256 vs table value b247cea5...",
+   "result": "confirmed"
+  },
+  {
+   "claim": "rows_v3_cwo18.jsonl digest matches orders.sources.rows.sha256",
+   "how": "certutil -hashfile on the source path, and on my private copy, SHA256 vs 568f004b...",
+   "result": "confirmed"
+  },
+  {
+   "claim": "23:35 and 23:45 carry SAMEKH, undisclosed in P05-006 current_row",
+   "how": "Grep + Read of pmarks_Ezek.json .marks at exact verse keys",
+   "result": "confirmed"
+  },
+  {
+   "claim": "23:49 PE / 24:5 SAMEKH / 24:8 PE, undisclosed as P05-007's own evidence",
+   "how": "Read of pmarks_Ezek.json .marks at exact verse keys",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep problems = 0 on both emitted rows",
+   "how": "run_validator_suite.py over a private modified copy; filtered citation_sweep.problems by decision_id",
+   "result": "confirmed"
+  },
+  {
+   "claim": "normalizer defects = 0 and fixed = 0 on the emitted rows",
+   "how": "normalize_hebrew_in_json.py dry-run over a private file holding only the 2 emitted rows: ok=13, fixed=0, defect_count=0",
+   "result": "confirmed"
+  },
+  {
+   "claim": "cap_sweep failures = 0",
+   "how": "run_validator_suite.py cap_sweep.failures over the private modified copy (global, status GREEN, failures=[])",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_register flags = 0 on the emitted rows",
+   "how": "run_validator_suite.py register.flags filtered by decision_id, before and after",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no ngram7 offending 7-gram includes the emitted rows",
+   "how": "run_validator_suite.py ngram7.offending_7grams (global count 0)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_web_quotes class flags and e15d count = 0 on the emitted rows",
+   "how": "run_validator_suite.py web_quotes.flags filtered by decision_id, before and after",
+   "result": "confirmed"
+  },
+  {
+   "claim": "mark_symmetry_gap flags on the emitted rows resolved by the added disclosures, no new flag elsewhere",
+   "how": "run_validator_suite.py mark_symmetry.flags, unmodified vs modified private copies, filtered by decision_id: 5 -> 0",
+   "result": "confirmed"
+  },
+  {
+   "claim": "refs_mirror flag count on the emitted rows is unchanged by this cure (pre-existing, driven by unmodified boundary_rationale/strongest_rejected_alternative range language)",
+   "how": "run_validator_suite.py refs_mirror.flags, unmodified vs modified, filtered by decision_id: 2 -> 2, identical content",
+   "result": "confirmed"
+  },
+  {
+   "claim": "local tiling for part p05 (Ezek.22.1-Ezek.24.27) intact with both rows replaced",
+   "how": "check_tiling.py --range Ezek.22.1-Ezek.24.27 over a private copy holding only part p05's 8 rows",
+   "result": "confirmed (GREEN, 107/107 verses, 0 problems)"
+  },
+  {
+   "claim": "the 9 locked fields are byte-identical to current_row on both emitted rows",
+   "how": "Python equality assertions against current_row loaded from the private copy (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection)",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Reading ezek_controlling_agent_rulings.v1.json by line range incidentally also surfaced rulings P1 and P3, outside the R1/R2/P2/P4/P5/G12 set named",
+   "why_it_matters": "the brief says to read nothing else in the rulings files; P1 (E-19 listing self-disclosure) and P3 (p03's prose-format record) were not used in any decision on these two rows, but full disclosure is owed under honest reporting"
+  },
+  {
+   "what": "refs_mirror still flags 2 pre-existing 'argued_but_unmirrored' items (P05-006, P05-007), driven by dateline/range language already in boundary_rationale and strongest_rejected_alternative",
+   "why_it_matters": "no ruling_order, cwo_item or hard_finding in my orders named these rows for that defect class, and FIXUP-1 LAW bars touching fields beyond an embedded order; left as-is so the distinct checker does not mistake this wave for having addressed it"
+  }
+ ],
+ "items": [
+  {
+   "row": "P05-006",
+   "item": "S1-09",
+   "action": "cured",
+   "reason": "Disclosed oshb:Ezek.23.35 (SAMEKH, front seam) and oshb:Ezek.23.45 (SAMEKH, interior) as tier-3 single-witness boundary_evidence_refs entries; mark_symmetry_gap flags for this row fell from 2 to 0"
+  },
+  {
+   "row": "P05-007",
+   "item": "S1-09",
+   "action": "cured",
+   "reason": "Disclosed oshb:Ezek.23.49 (PE, front seam), oshb:Ezek.24.5 (SAMEKH, interior) and oshb:Ezek.24.8 (PE, interior) as tier-3 single-witness boundary_evidence_refs entries; mark_symmetry_gap flags for this row fell from 3 to 0"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "S1-09 (P05-006)",
+   "test": "run_validator_suite.py mark_symmetry flags for P05-006, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-09 (P05-007)",
+   "test": "run_validator_suite.py mark_symmetry flags for P05-007, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "THE ONE OP: replace / locked-field byte-identity",
+   "test": "Python equality assertions vs current_row for the 9 locked fields",
+   "result": "PASS"
+  },
+  {
+   "order": "FIXUP-1 LAW (3) NO SPAN CHANGES",
+   "test": "span/unit_type/confidence/parent_collection diffed unchanged on both rows",
+   "result": "PASS"
+  },
+  {
+   "order": "citation_sweep HARD member",
+   "test": "run_validator_suite.py citation_sweep.problems filtered to P05-006/P05-007",
+   "result": "PASS"
+  },
+  {
+   "order": "normalizer HARD member (E-01)",
+   "test": "normalize_hebrew_in_json.py dry-run over the 2 emitted rows only",
+   "result": "PASS"
+  },
+  {
+   "order": "cap_sweep HARD member (E-02)",
+   "test": "run_validator_suite.py cap_sweep.failures (global)",
+   "result": "PASS"
+  },
+  {
+   "order": "ngram7 HARD member (gate 10)",
+   "test": "run_validator_suite.py ngram7.offending_7grams (global)",
+   "result": "PASS"
+  },
+  {
+   "order": "check_register FLAGS",
+   "test": "run_validator_suite.py register.flags filtered to P05-006/P05-007",
+   "result": "PASS"
+  },
+  {
+   "order": "check_web_quotes class + e15d",
+   "test": "run_validator_suite.py web_quotes.flags filtered to P05-006/P05-007",
+   "result": "PASS"
+  },
+  {
+   "order": "local tiling, part p05",
+   "test": "check_tiling.py over an 8-row p05-only private copy, --range Ezek.22.1-Ezek.24.27",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep": 0,
+   "web_quotes": 0,
+   "refs_mirror": 2,
+   "mark_symmetry": 5,
+   "universals": 0,
+   "register": 0
+  },
+  "after": {
+   "citation_sweep": 0,
+   "web_quotes": 0,
+   "refs_mirror": 2,
+   "mark_symmetry": 0,
+   "universals": 0,
+   "register": 0
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

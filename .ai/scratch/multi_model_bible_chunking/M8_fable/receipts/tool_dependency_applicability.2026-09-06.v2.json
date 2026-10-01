@@ -1,0 +1,71 @@
+{
+ "schema": "m8_tool_dependency_applicability.v1",
+ "version": "v2 (supersedes the checker/sweep/slice/apply/dispositions/stray lines of v1 going forward; v1 stands as history)",
+ "built": "2026-09-06T05:43:20.439479+00:00",
+ "prior_record": {
+  "path": "receipts/tool_dependency_applicability.2026-09-06.v1.json",
+  "sha256": "0a155a734bf1291226f5bc0bf96caa68b0fec9ea2bc3f9020d4a1cd499f627e8"
+ },
+ "authority": "OW-3 permanent safeguard (dependency-applicability record when a pinned shared tool changes) + OWNER_REPAIR_ADVANCE_2026-09-06 item 1 (update affected hashes and dependency-applicability evidence)",
+ "trigger": "E-24 (ERROR_PATTERN_LEDGER.v1.md Addendum 2026-09-06) corrective controls + second-cycle slice splitting + partner pull-in routing",
+ "changes": [
+  {
+   "tool": "sp_durable/Jer/_safe_to_clear_check.py",
+   "old_sha256": "81a04f87a265078ebe2884bb9f5b73557fbab47c899a8bdf5ce5abbfd477c6c7",
+   "new_sha256": "9b738d3036abc7069e84fb7608d31d8da27b2c32eed7e2fd3a48a9f500830e60",
+   "scope": "v3 -> v3.1 (recorded in the prior session, mirrored now): repairs_done/rows_repaired exempted only when followed within 160 chars by 'post-feedback' or 'OW2_repairs_'; selftest fixtures kept.",
+   "affects_earlier_receipts": "NO - no audit receipt pins the checker."
+  },
+  {
+   "tool": "sp_durable/Jer/_book_repair_sweep.py",
+   "old_sha256": null,
+   "new_sha256": "f8b5b18324f87e69185fbd169946edf822ad110ce50be06fb5f18978252de0bd",
+   "scope": "E-24 controls: content_address() (final_sha256 recipe re-derived from shipped Job 194/194); recompute for every sim row whose content differs from its shipped row (touched or renumber-shifted); coherence gate (non-inherited incoherence FAILS; inherited recorded); r2 packets may carry a letter suffix (_r2a/_r2b); plan authorization judged PER CYCLE (first-cycle packets against orders_rep_<Book>_NN.json, second-cycle against orders_rep_<Book>_r2*.json).",
+   "affects_earlier_receipts": "Song (OW2_repairs_Song.v1.json): NO - Song rows carry no final_sha256 and no second cycle ran; the Song sweep report that receipt pins was produced by the earlier sweep version and stands as history. Eccl (OW2_repairs_Eccl.v1.json): produced BY this version (sweep over repair_Eccl_01 + repair_Eccl_r2). Job/Ps: not yet applied; their pending applies use this version."
+  },
+  {
+   "tool": "sp_durable/Jer/_build_r2_orders.py",
+   "old_sha256": "0c8db51a00fbb923928767bebbe323ec86420c2d163add95d2bcf6cbf992e5c6",
+   "new_sha256": "ef0f2628975b4dd6a523820213a8f52bcf3e90801def7849427aacceb80d469d",
+   "preserved_old_copy": "orchestrator scratch _build_r2_orders.v1_2026-09-06.py (the v1 produced no artifact that shipped: its single Job run aborted on the >8-row assertion before writing)",
+   "scope": "v2: pipeline-owned findings (chunk_index_in_book, final_sha256) recorded never ordered; cross-row / neighbour / partner findings routed to the named row (partner pull-in against the SHIPPED row when the first cycle never touched it); <=8-row slices r2 | r2a, r2b, ...; findings_not_ordered + findings_routed recorded in every orders slice.",
+   "affects_earlier_receipts": "NO - the Eccl r2 orders (orders_rep_Eccl_r2.json) were produced by the v1 builder before this change and stand as recorded; the Eccl r2 slice carried no routed or pipeline-owned finding."
+  },
+  {
+   "tool": "sp_durable/Jer/_build_semcheck_slices.py",
+   "old_sha256": null,
+   "new_sha256": "69f551b74fab4a3f98b63f7537d11f051a9542be550a16a4ad27b3e7633f7968",
+   "scope": "slices carry repaired_row_as_shipped (the sweep's sim row) + pipeline_owned_fields_note; r2 finding items kept whole; the repair author's reported discrepancies (repair_attempt_receipts.jsonl) attached per row; r2* packet glob.",
+   "affects_earlier_receipts": "NO - earlier semcheck packets stand; their pipeline-owned findings were resolved deterministically (E-24) and recorded in the r2 orders slices."
+  },
+  {
+   "tool": "sp_durable/Jer/_apply_repairs_to_shipped.py",
+   "old_sha256": null,
+   "new_sha256": "3035dc86dfaa1645b38b4d76ffbae8f873f292b47ad61401bd1c86e80b70efa7",
+   "scope": "packet + semcheck globs accept the r2 letter suffix (r[2-9]*); gates unchanged.",
+   "affects_earlier_receipts": "NO"
+  },
+  {
+   "tool": "sp_durable/Jer/_update_dispositions.py",
+   "old_sha256": null,
+   "new_sha256": "f450f460a5efa81df9782035b83b1b48af97c4532f67557ed1e0732b1c914a14",
+   "scope": "second-cycle finding entries (no docket classification) are skipped when mapping docket items to repaired rows.",
+   "affects_earlier_receipts": "NO"
+  },
+  {
+   "tool": "sp_durable/Jer/_repair_stray_sweep.py",
+   "old_sha256": null,
+   "new_sha256": "e06d754fb9ea77156e5aef552c86c1160da6188ed569cec3ca62e764929788c4",
+   "scope": "ALLOW: repair_*_r[2-9]*.jsonl (letter-suffixed second-cycle packets).",
+   "affects_earlier_receipts": "NO"
+  },
+  {
+   "tool": "sp_durable/REPAIR/SEMCHECK_BRIEF.md",
+   "old_sha256": null,
+   "new_sha256": "7ec2fb1e2fdd46882538cbf4d62031f85c8c9bc95e8c1de5b767428589a92d14",
+   "scope": "appended section 'PIPELINE-OWNED FIELDS (added 2026-09-06, E-24)'; every earlier clause unchanged.",
+   "affects_earlier_receipts": "NO - the four r1 semcheck packets that flagged the pipeline-owned fields were correct to flag them; the brief now routes such findings, it does not retract them."
+  }
+ ],
+ "non_authorizing": true
+}

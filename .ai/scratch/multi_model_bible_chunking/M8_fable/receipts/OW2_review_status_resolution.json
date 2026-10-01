@@ -1,0 +1,63 @@
+{
+ "schema": "m8_ow2_review_status_resolution.v1",
+ "executed": "2026-08-31",
+ "authorization": "owner directive OW-2 item 3, in chat 2026-08-31 ('Resolve the 347 finalized Eccl/Song/Isa rows still labeled draft')",
+ "change": {
+  "field": "review_status",
+  "from": "draft",
+  "to": "candidate_review_complete",
+  "books": {
+   "Eccl": 86,
+   "Song": 38,
+   "Isa": 223
+  }
+ },
+ "method": "line-level substring replacement of the review_status value only; no reserialization; untouched lines byte-identical; field-level diff proven per changed line",
+ "files": {
+  "book_chunks/Eccl/chunks.jsonl": {
+   "sha256_pre": "47a47c46994f85b65f91fc77a793ce65f8bb0ef8cf1892aadaed5dbb70e78c02",
+   "sha256_post": "6e8c06daf57ca372a53c902a64e0b134bb50ba339e0e6e89d881645cfe54107d",
+   "rows_changed": 86
+  },
+  "book_chunks/Song/chunks.jsonl": {
+   "sha256_pre": "514f5bfbc80c4916f37014b7f94916a6cc59aeb3f9a8c09511def9fbf925dfef",
+   "sha256_post": "ba5ddada25436db127db46702fb44676240cc3e4f0d8c7580f40c0af6358167a",
+   "rows_changed": 38
+  },
+  "book_chunks/Isa/chunks.jsonl": {
+   "sha256_pre": "b1fdf3a1524d52538c3157544cf3af40f96d8553687daf7c6c136a26e23a0293",
+   "sha256_post": "f4a411eff1e5eccb29ba16815ee4789506601993778802247321ae2989556a69",
+   "rows_changed": 223
+  },
+  "whole_bible_chunk_map.jsonl": {
+   "sha256_pre": "2fda165432d34966ee606f9d3d4f0647d73d8606dc80b8706368a8d5822aa939",
+   "sha256_post": "cbffd8bc377e4ba756ea554c70bc3f0cc0d2c0b1470da85bf4b0507d36a860cc",
+   "rows_changed": 347
+  }
+ },
+ "total_row_edits": 694,
+ "note": "total_row_edits counts per-surface edits: 347 rows on the book_chunks surface + the same 347 rows mirrored in whole_bible_chunk_map.jsonl",
+ "completion_receipt_supersession": {
+  "note": "the three book completion receipts pin chunk_file_sha256 of the pre-OW2 corpora; those pins now identify the PRE-change state, proven identical to the OW2 pre-hashes; the post-change hashes below supersede them as the current corpus identity; the historical completion receipts are preserved unmodified",
+  "books": {
+   "Eccl": {
+    "completion_receipt": "Eccl_completion.json",
+    "pinned_chunk_file_sha256": "47a47c46994f85b65f91fc77a793ce65f8bb0ef8cf1892aadaed5dbb70e78c02",
+    "matches_ow2_pre_hash": true,
+    "superseded_by_sha256": "6e8c06daf57ca372a53c902a64e0b134bb50ba339e0e6e89d881645cfe54107d"
+   },
+   "Song": {
+    "completion_receipt": "Song_completion.json",
+    "pinned_chunk_file_sha256": "514f5bfbc80c4916f37014b7f94916a6cc59aeb3f9a8c09511def9fbf925dfef",
+    "matches_ow2_pre_hash": true,
+    "superseded_by_sha256": "ba5ddada25436db127db46702fb44676240cc3e4f0d8c7580f40c0af6358167a"
+   },
+   "Isa": {
+    "completion_receipt": "Isa_completion.json",
+    "pinned_chunk_file_sha256": "b1fdf3a1524d52538c3157544cf3af40f96d8553687daf7c6c136a26e23a0293",
+    "matches_ow2_pre_hash": true,
+    "superseded_by_sha256": "f4a411eff1e5eccb29ba16815ee4789506601993778802247321ae2989556a69"
+   }
+  }
+ }
+}

@@ -1,0 +1,118 @@
+--- SP/campaign/_cure_verification.py (installed a61ec7ff85ae)
++++ proposals/toolfix4_batch1/staged/campaign/_cure_verification.py (e02491bfc4be)
+@@ -37,6 +37,15 @@
+       only when that ruling's decision or orders place the retired cure id within 200 characters of supersession,
+       supersede or retire. The classification is ruling_orders_retirement, ruling_mentions_cure_id, r5_with_trigger or
+       unclassified - a classification only, never a refusal.
++
++TOOLFIX-4 (ezek_controlling_rulings_a1#e8 ruling T6-01, on T6-01 and E8-01):
++  (7) a counts object carries a machine result only when checks is present as a positive integer and passed is present as an
++      integer; any other counts object (empty, all-zero, checks 0, checks or passed absent, failed 0 alone) carries none, and the
++      entry then binds only through an integer exit or a 64-hex output_sha256. A negative counts member is refused with its own
++      reason.
++  Disclosed (T6-02, ruled no change): REFUSE's red, reject* and blocker* forms can refuse a benign accepting verdict that uses
++  those words in another sense. Refusal is the safe direction; recorded verdicts are worded from ACCEPT with no REFUSE token, and
++  the selftest pins the refusals as *_disclosed_false_refusal vectors.
+ 
+ This tool does not replace the distinct-checker review required by the standing second-generation-sweep rule. It
+ asserts that the review HAPPENED and was done by someone else, and it adds the artifact binding that review alone
+@@ -156,16 +165,22 @@
+                     val = counts.get(k)
+                     if val is None:
+                         continue
+-                    if is_int(val):
++                    if not is_int(val):
++                        reasons.append("%s counts.%s %r is neither an integer nor null (T5-01)" % (tag, k, val))
++                    elif val < 0:
++                        reasons.append("%s counts.%s %d is negative (T6-01)" % (tag, k, val))   # E8-01
++                    else:
+                         cvals[k] = val
+-                    else:
+-                        reasons.append("%s counts.%s %r is neither an integer nor null (T5-01)" % (tag, k, val))
+-        has_machine_result = exit_ok or bool(cvals) or osha_ok
++        # T6-01 rule (7): counts are a machine result only with a positive integer checks and an integer passed
++        counts_mr = cvals.get("checks", 0) > 0 and "passed" in cvals
++        has_machine_result = exit_ok or counts_mr or osha_ok
+         if not v.get("tool"):
+             reasons.append("%s names no tool" % tag)
+         if not has_machine_result:
+             reasons.append("%s carries no machine result (an integer exit status, integer counts, or an output digest); a "
+-                           "prose verdict is the thing this gate exists to reject" % tag)
++                           "prose verdict is the thing this gate exists to reject%s"
++                           % (tag, "; counts carries no machine result: checks must be a positive integer and passed an integer "
++                                   "(T6-01)" if isinstance(counts, dict) and counts else ""))
+         if not at_run:
+             reasons.append("%s does not record artifact_sha256_at_run, so nothing ties it to any particular bytes"
+                            % tag)
+@@ -484,12 +499,56 @@
+     return vec
+ 
+ 
++def tf4_vectors(tmp):
++    """TOOLFIX-4 (ezek_controlling_rulings_a1#e8 ruling T6-01): rule (7)'s counts shapes, E8-01, T6-A1 to T6-A10 as T6 ran them, and the
++    GREEN controls. A claim vector may carry a fifth element: a reason substring the refusal must contain (a pinned reason class)."""
++    tmp = Path(tmp)
++    art = tmp / "rows_tf4.jsonl"
++    art.write_text('{"row":4}\n', encoding="utf-8")
++    d = sha_file(art)
++    dc = {"attempt_id": "chk_a1", "verdict": "confirmed", "evidence_path": "e.json", "artifact_sha256_at_review": d}
++    good = {"cure_id": "TF4", "author_attempt_id": "auth_a1", "artifact_path": art.name, "artifact_sha256": d,
++            "verification": [{"tool": "t.py", "artifact_sha256_at_run": d, "exit": 0}], "distinct_checker": dc}
++
++    def counts_only(c):
++        return dict(good, verification=[{"tool": "t.py", "artifact_sha256_at_run": d, "counts": c}])
++
++    no_mr = "counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)"
++    return [
++        ("claim", "tf4_t6_a1_zero_counts_no_machine_result", counts_only({"checks": 0, "passed": 0, "failed": 0}), "REFUSED", no_mr),
++        ("claim", "tf4_t6_a2_checks_zero_alone_no_machine_result", counts_only({"checks": 0}), "REFUSED", no_mr),
++        ("claim", "tf4_t6_a3_failed_zero_alone_no_machine_result", counts_only({"failed": 0}), "REFUSED", no_mr),
++        ("claim", "tf4_checks_without_passed_no_machine_result", counts_only({"checks": 5, "failed": 0}), "REFUSED", no_mr),
++        ("claim", "tf4_passed_alone_no_machine_result", counts_only({"passed": 5}), "REFUSED", no_mr),
++        ("claim", "tf4_e8_01_negative_counts_refused", counts_only({"checks": -1, "passed": -1, "failed": 0}), "REFUSED", "is negative (T6-01)"),
++        ("claim", "tf4_bound_and_failed_reason_class_pinned", counts_only({"checks": 5, "passed": 3, "failed": 2}), "REFUSED", "passed 3 of 5 checks"),
++        ("claim", "tf4_green_counts_11_11_0_no_exit", counts_only({"checks": 11, "passed": 11, "failed": 0}), "ACCEPTED"),
++        ("claim", "tf4_green_exit0_counts_passed_null_binds_through_exit",
++         dict(good, verification=[{"tool": "t.py", "artifact_sha256_at_run": d, "exit": 0, "counts": {"checks": 28, "passed": None, "failed": 0}}]),
++         "ACCEPTED"),
++        ("claim", "tf4_t6_a4_nbsp_author_refused", dict(good, author_attempt_id="\u00a0"), "REFUSED"),
++        ("claim", "tf4_t6_a5_red_disclosed_false_refusal",
++         dict(good, distinct_checker=dict(dc, verdict="fit_to_accept; the wall carvings show a red ochre pigment")), "REFUSED"),
++        ("claim", "tf4_t6_a6_rejected_disclosed_false_refusal",
++         dict(good, distinct_checker=dict(dc, verdict="fit_to_accept (no findings rejected as out of scope)")), "REFUSED"),
++        ("claim", "tf4_t6_a7_blockers_disclosed_false_refusal",
++         dict(good, distinct_checker=dict(dc, verdict="fit_to_accept; no blockers remain")), "REFUSED"),
++        ("claim", "tf4_t6_a8_uppercase_artifact_digest_refused", dict(good, artifact_sha256=d.upper()), "REFUSED"),
++        ("claim", "tf4_t6_a9_float_counts_refused", counts_only({"checks": 28.0, "passed": 28.0, "failed": 0.0}), "REFUSED"),
++        ("claim", "tf4_t6_a10_exit_minus_one_refused", dict(good, verification=[{"tool": "t.py", "artifact_sha256_at_run": d, "exit": -1}]),
++         "REFUSED"),
++    ]
++
++
+ def evaluate(mod, vec, tmp):
+     """Evaluate one tf3 vector with a verifier module's check_claim and run (this module, or another for discrimination)."""
+     tmp = Path(tmp)
+     if vec[0] == "claim":
+         got, reasons = mod.check_claim(vec[2], tmp)
+-        return {"vector": vec[1], "expected": vec[3], "got": got, "ok": got == vec[3], "first_reason": reasons[0] if reasons else None}
++        want_reason = vec[4] if len(vec) > 4 else None   # TOOLFIX-4: a pinned reason class, not only the verdict
++        ok = got == vec[3] and (want_reason is None or any(want_reason in r for r in reasons))
++        return {"vector": vec[1], "expected": vec[3], "got": got, "ok": ok, "first_reason": reasons[0] if reasons else None,
++                **({"expected_reason": want_reason} if want_reason else {})}
+     _, name, lines, rulings, want = vec
+     cf = tmp / ("claims_%s.jsonl" % re.sub(r"\W", "_", name))
+     cf.write_text("".join(json.dumps(line) + "\n" for line in lines), encoding="utf-8")
+@@ -619,6 +678,13 @@
+         r = evaluate(this, v, tf3_dir)
+         failed += not r["ok"]
+         results.append(r)
++    # TOOLFIX-4 (ezek_controlling_rulings_a1#e8 ruling T6-01): rule (7), E8-01, T6-A1 to T6-A10 and the GREEN controls
++    tf4_dir = tmp / "tf4"
++    tf4_dir.mkdir()
++    for v in tf4_vectors(tf4_dir):
++        r = evaluate(this, v, tf4_dir)
++        failed += not r["ok"]
++        results.append(r)
+     return {"vectors": len(results), "failed": failed, "results": results,
+             "verdict": "GREEN" if not failed else "RED"}
+ 

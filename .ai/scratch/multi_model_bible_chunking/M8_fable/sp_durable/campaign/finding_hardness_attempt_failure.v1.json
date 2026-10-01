@@ -1,0 +1,19 @@
+{
+ "schema": "m8_attempt_failure.v1",
+ "id": "CAMPAIGN-HARDNESS-01-OUTPUT-LIMIT-2026-09-07",
+ "attempt_id": "campaign_hardness_01_a1",
+ "model": "claude-fable-5-1",
+ "lane": "campaign_controlling_agent",
+ "outcome": "FAILED - terminated by the runtime: response exceeded the 64,000 output-token maximum",
+ "produced": "nothing; no deliverable and no private scratch were written before termination",
+ "root_cause": "ORCHESTRATOR DESIGN ERROR, not an agent failure. The task asked for ONE JSON object covering all 42 remaining books, each with five criterion scores plus per-criterion evidence, a boundary-risk paragraph and an extra-scrutiny focus list, PLUS the rubric, summary, sequencing advice and escalation packet. Written out, that is far beyond a single response's output budget. Roughly 42 books x ~250 words of structured evidence is on the order of 40-60k tokens of JSON before the framing, and the whole artifact had to be emitted in one Write call.",
+ "why_it_matters": "this was the first task given to the Fable controlling agent under OW-6b, and it failed for a reason that had nothing to do with the judgment being asked of it. Recording it as an orchestrator error rather than a model limitation keeps the ledger honest.",
+ "control_installed": "a deliverable whose size scales with a large enumeration is SPLIT into batches sized so each agent's output fits comfortably in one response, with a separate consolidating pass that rules on the whole. The consolidator reads the batch files rather than re-deriving them, so the judgment stays with one agent while the writing is distributed.",
+ "redesign": {
+  "batches": 4,
+  "books_per_batch": "10-11",
+  "batch_deliverable": "SP/campaign/hardness_batch_NN.json",
+  "consolidator": "one further Fable agent that sets the threshold, applies it uniformly, writes book_hardness_classification.v1.json, and decides under OW-6 whether the routing decision needs the owner"
+ },
+ "cost": "the failed attempt consumed runtime before terminating; its token figure is not recoverable from the runtime, so it is recorded as unreported rather than estimated"
+}

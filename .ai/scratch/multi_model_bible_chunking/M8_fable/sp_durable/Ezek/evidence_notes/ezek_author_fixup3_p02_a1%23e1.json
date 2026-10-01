@@ -1,0 +1,381 @@
+{
+ "attempt_id": "ezek_author_fixup3_p02_a1",
+ "execution_id": "ezek_author_fixup3_p02_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP3_BRIEF.md (sha256 029ac77fc94d972be93f7f65bce7472eadfc57d6e48f6ba9b08316f36179c28b, matches brief)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup3\\orders_ezek_author_fixup3_p02_a1.json (sha256 f53969654f5db04a7eafae2ac459304185e3cddd39a71b153b220b38947c9810, matches orders)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md (sha256 pinned in brief; opened, not independently re-hashed by me)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v5_cwo23.jsonl (sha256 3f0c7aee0fc68e767c5de5ff6b65fbcd00a1837d504066897fde845579e5c5c6, matches pinned table)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_register.py (read for its exact CLASSES regexes; a named MAY-run tool)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_universals.py (read for its exact claim lexicon; a named MAY-run tool)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py (read for its usage; a named MAY-run tool)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py (executed, not opened, per brief's MAY-run list)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md (sha256 2ec6b147374e9cc0a07b6d1ae8dbc16cd0a2d6af90f155ab060820226026b15d; opened to verify OW-11 by its exact path, per the brief's AUTHORITY paragraph)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P02-003 device_notes replaced",
+    "why": "CWO-EZ-22 R1/R3/R6 hits ('per the standing rule', 'the standing rule', 'the writer') and S3-08's writer-era talk removed; content restated as the row's own reasoned condition"
+   },
+   {
+    "what": "P02-006 device_notes replaced",
+    "why": "CWO-EZ-22 R1/R3/R6 hits ('per the standing instruction', 'the standing instruction', 'standing instruction', 'staged formula inventory') and S3-08's staged-inventory talk removed; restated from the absence of a formula at 10:9"
+   },
+   {
+    "what": "P02-009 boundary_rationale replaced",
+    "why": "S3-08 defect and CWO-EZ-22 R6 hit ('the assignment') removed; the pre-existing PE/front-seam disclosure (S2-14, already correct per S3's replaced_rows note) left untouched"
+   },
+   {
+    "what": "P02-010 device_notes replaced",
+    "why": "S3-08 defect and CWO-EZ-22 R6 hit ('the assignment names') removed; the parent seam is now named directly from oshb:Ezek.11.25/12.1"
+   },
+   {
+    "what": "P02-013 strongest_rejected_alternative replaced",
+    "why": "CWO-EZ-22 R3/R5 hits ('the over-split guard', \"over-split guard's\") removed; content restated as the row's own premise"
+   },
+   {
+    "what": "P02-015 boundary_rationale replaced",
+    "why": "CWO-EZ-22 R3/R5 hits ('the over-split guard', \"over-split guard's\", 'named exception') removed"
+   },
+   {
+    "what": "P02-019 strongest_rejected_alternative replaced",
+    "why": "CWO-EZ-22 R2/R3 hits ('the chapter-division rule treats', 'the chapter-division rule') removed; restated from 14:1's own place in the text"
+   },
+   {
+    "what": "P02-020 boundary_rationale replaced",
+    "why": "CWO-EZ-22 R1/R3 hits ('per the book's own guard', \"the book's own guard\") removed; restated as a because-clause from the refrain list itself"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "rows_v5_cwo23.jsonl (my read copy) matches the brief's pinned digest",
+   "how": "sha256 by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "orders_ezek_author_fixup3_p02_a1.json matches the launch-message digest",
+   "how": "sha256 by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "each of the 8 exact-substring edits occurs exactly once in its field before replacement",
+   "how": "python str.count()==1 gate on the source field text; refused if not 1",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every field other than the one ordered edit is byte-identical to current_row, all Hebrew included",
+   "how": "python key-by-key equality over all 22 fields on the source row vs the emitted row",
+   "result": "confirmed"
+  },
+  {
+   "claim": "protected fields (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection) are byte-identical",
+   "how": "explicit per-field equality check",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep problems = 0 over the private full-book copy with my 8 rows replaced",
+   "how": "run_validator_suite.py <private copy>",
+   "result": "confirmed (hard_status GREEN; first run before my Hebrew-splice fix was RED with 7 defects on P02-009/015/020 - see unresolved_uncertainty)"
+  },
+  {
+   "claim": "hebrew_normalize_dryrun defects=0, fixed=0",
+   "how": "run_validator_suite.py output",
+   "result": "confirmed"
+  },
+  {
+   "claim": "cap_sweep failures = 0",
+   "how": "run_validator_suite.py output",
+   "result": "confirmed"
+  },
+  {
+   "claim": "ngram7: offending_7grams=0 (gate 10); no worst_reuse entry reaches the gate and none is a phrase I introduced",
+   "how": "run_validator_suite.py output, ngram7 section",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_register flags = 0 on all 8 emitted rows (down from 18 before the fix)",
+   "how": "validator_report.json register.flags filtered to decision_ids p02-3,p02-6,p02-9,p02-10,p02-13,p02-15,p02-19,p02-20",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no new CWO-EZ-22 or check_register class fires inside my replacement clauses",
+   "how": "first, a hand-written regex re-implementation of the 6 CWO-EZ-22 arms (caught 0 in my final wording); second, check_register.py's own CLASSES source read by exact path and its live run via run_validator_suite.py (this caught 'neighbou?ring row' and check_universals.py's 'continuous' lexicon hit in two of my earlier drafts, which I reworded)",
+   "result": "confirmed after two reword iterations"
+  },
+  {
+   "claim": "FLAGS do not rise on my 8 rows across web_quotes/refs_mirror/mark_symmetry/universals/register",
+   "how": "diffed an UNMODIFIED private baseline copy's validator_report.json against the modified copy's, filtered to my 8 rows",
+   "result": "confirmed: web_quotes 0->0, refs_mirror 7->7 (unchanged pre-existing disclosures), mark_symmetry 0->0, universals 5->5 (same claim words, same count, context windows shifted only because neighboring text changed), register 18->0"
+  },
+  {
+   "claim": "p02's own tiling is exact over its verse range",
+   "how": "check_tiling.py on a p02-only extract of the modified rows, --range Ezek.8.1-Ezek.14.23",
+   "result": "confirmed: verses_expected=150, verses_covered=150, 0 problems, GREEN"
+  },
+  {
+   "claim": "the OW-11 authorization this brief cites is genuinely recorded",
+   "how": "opened ERROR_PATTERN_LEDGER.v1.md by exact path and read the 2026-09-10 addendum in full",
+   "result": "confirmed: authorization_ref lowell_chat_2026-09-10_m8_opus_orchestration_ezek_dan matches verbatim, and its item (g) is exactly what I did (deliverable written outside the worktree, for the orchestrator to land)"
+  },
+  {
+   "claim": "deliverable is well-formed",
+   "how": "python: 8 lines, each valid JSON, 22 content/identity fields plus \"_op\":\"replace\", \"non_authorizing\":true on every row",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "P02-010 device_notes still reads 'Under-three-verse guard does not apply' (no preceding article, so neither the CWO-EZ-22 regex nor check_register's named_rule_or_guard arm matches it, and it was not a listed item in my orders)",
+   "why_it_matters": "it is the same rhetorical class (a named internal guard cited as warrant) that CWO-EZ-22/S3-16 targets elsewhere in this very row; I left it untouched because it was not an ordered item and my job is to execute orders, not re-litigate beyond them, but a later sweep with a looser pattern could still catch it"
+  },
+  {
+   "what": "I did not independently re-derive the pre-existing Hebrew citations, K/Q, mark and formula-count claims already in these 8 rows beyond confirming they are byte-identical before and after my edit",
+   "why_it_matters": "my ordered task was wording-only (CWO-EZ-22 + S3-08 governance-talk removal) with span/unit_type/confidence/parent_collection and all other content frozen; I treated the rest of current_row as already S1/S2/S3-reviewed, per BINDING REPAIR LAW's replace-only rule"
+  },
+  {
+   "what": "self-caught mistakes during drafting: (1) my first pass typed Hebrew as literal characters/escapes for the three boundary_rationale edits (P02-009/015/020) instead of preserving the source bytes, which citation_sweep caught as RED (7 collation defects); I fixed this by switching to exact-substring replacement on the original field text so every byte outside my ordered edit, Hebrew included, is untouched. (2) my first two reworded clauses used 'neighboring row' and 'continuous', which check_register.py and check_universals.py's real lexicons (not my hand-approximated regex) flag; both are reworded in the final text. (3) I once wrote one throwaway inspection file to a path outside my private scratch subdirectory via a shell redirect; I deleted it immediately, before it was used for anything, and no deliverable or campaign-visible artifact was affected",
+   "why_it_matters": "none of these reached the shipped deliverable, but they are the kind of near-miss the DAD learning-loop and OW-7/OW-8 capture exist to record; flagging them here for the record rather than omitting them"
+  }
+ ],
+ "items": [
+  {
+   "row": "P02-003",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "device_notes replaced via _op:replace; span/identity fields unchanged"
+  },
+  {
+   "row": "P02-003",
+   "item": "S3-08",
+   "action": "cured",
+   "reason": "'the writer weighed' removed, matching the suggested wording 'disclosed as tension weighed and not adopted'"
+  },
+  {
+   "row": "P02-003",
+   "item": "CWO-EZ-22 R1 'per the standing rule'",
+   "action": "cured",
+   "reason": "removed; reason clause kept as 'because a mark informs and never alone decides a boundary'"
+  },
+  {
+   "row": "P02-003",
+   "item": "CWO-EZ-22 R3 'the standing rule'",
+   "action": "cured",
+   "reason": "same edit as above"
+  },
+  {
+   "row": "P02-003",
+   "item": "CWO-EZ-22 R6 'the writer'",
+   "action": "cured",
+   "reason": "same edit as above"
+  },
+  {
+   "row": "P02-006",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "device_notes replaced via _op:replace"
+  },
+  {
+   "row": "P02-006",
+   "item": "S3-08",
+   "action": "cured",
+   "reason": "dropped 'per the standing instruction' and 'staged formula inventory'; restated from the absence of a formula at oshb:Ezek.10.9"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-22 R1 'per the standing instruction'",
+   "action": "cured",
+   "reason": "removed"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-22 R3 'the standing instruction'",
+   "action": "cured",
+   "reason": "removed"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-22 R6 'standing instruction'",
+   "action": "cured",
+   "reason": "removed"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-22 R6 'staged formula inventory'",
+   "action": "cured",
+   "reason": "removed"
+  },
+  {
+   "row": "P02-009",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "boundary_rationale replaced via _op:replace"
+  },
+  {
+   "row": "P02-009",
+   "item": "S3-08",
+   "action": "cured",
+   "reason": "'This is the embedded salvation oracle the assignment specifically raises:' shortened to 'This embedded salvation oracle', dropping the assignment-naming lead-in only"
+  },
+  {
+   "row": "P02-009",
+   "item": "S3 replaced_rows defect",
+   "action": "cured",
+   "reason": "the one live defect (assignment talk) fixed; the already-correct PE/front-seam disclosure (S2-14) in prose and refs[0] left byte-identical"
+  },
+  {
+   "row": "P02-009",
+   "item": "CWO-EZ-22 R6 'the assignment'",
+   "action": "cured",
+   "reason": "removed by the same edit"
+  },
+  {
+   "row": "P02-010",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "device_notes replaced via _op:replace"
+  },
+  {
+   "row": "P02-010",
+   "item": "S3-08",
+   "action": "cured",
+   "reason": "'at the INTERNAL PARENT SEAM the assignment names' replaced with a direct naming of the oshb:Ezek.11.25/12.1 seam"
+  },
+  {
+   "row": "P02-010",
+   "item": "CWO-EZ-22 R6 'the assignment'",
+   "action": "cured",
+   "reason": "removed by the same edit"
+  },
+  {
+   "row": "P02-013",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "strongest_rejected_alternative replaced via _op:replace"
+  },
+  {
+   "row": "P02-013",
+   "item": "CWO-EZ-22 R3 'the over-split guard'",
+   "action": "cured",
+   "reason": "removed; content kept as 'a short, complete word-event unit stands on its own here'"
+  },
+  {
+   "row": "P02-013",
+   "item": "CWO-EZ-22 R5 \"over-split guard's\"",
+   "action": "cured",
+   "reason": "removed by the same edit"
+  },
+  {
+   "row": "P02-015",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "boundary_rationale replaced via _op:replace"
+  },
+  {
+   "row": "P02-015",
+   "item": "CWO-EZ-22 R3 'the over-split guard'",
+   "action": "cured",
+   "reason": "removed; content kept as 'a complete word-event unit that stands on its own under three verses'"
+  },
+  {
+   "row": "P02-015",
+   "item": "CWO-EZ-22 R5 \"over-split guard's\"",
+   "action": "cured",
+   "reason": "removed by the same edit"
+  },
+  {
+   "row": "P02-015",
+   "item": "CWO-EZ-22 R5 'named exception'",
+   "action": "cured",
+   "reason": "removed by the same edit"
+  },
+  {
+   "row": "P02-019",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "strongest_rejected_alternative replaced via _op:replace"
+  },
+  {
+   "row": "P02-019",
+   "item": "CWO-EZ-22 R2 'the chapter-division rule treats'",
+   "action": "cured",
+   "reason": "removed; restated as '14:1 itself precedes and motivates the word-event that follows'"
+  },
+  {
+   "row": "P02-019",
+   "item": "CWO-EZ-22 R3 'the chapter-division rule'",
+   "action": "cured",
+   "reason": "removed by the same edit"
+  },
+  {
+   "row": "P02-020",
+   "item": "e10:S3-16#2",
+   "action": "cured",
+   "reason": "boundary_rationale replaced via _op:replace"
+  },
+  {
+   "row": "P02-020",
+   "item": "CWO-EZ-22 R1 'per the book's own guard'",
+   "action": "cured",
+   "reason": "removed; restated as 'because a refrain-marked list of this kind is read as one unit across its members'"
+  },
+  {
+   "row": "P02-020",
+   "item": "CWO-EZ-22 R3 \"the book's own guard\"",
+   "action": "cured",
+   "reason": "removed by the same edit"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-22 (all 8 rows)",
+   "test": "regex re-scan of the 6 CWO-EZ-22 arms plus check_register.py's live CLASSES against the new field text",
+   "result": "PASS"
+  },
+  {
+   "order": "S3-08 (P02-003,006,009,010)",
+   "test": "exact-substring confirmation that each suggested-fix target phrase is gone and the byte-grounded replacement reads correctly in its sentence",
+   "result": "PASS"
+  },
+  {
+   "order": "S3 replaced_rows / P02-009 defect",
+   "test": "confirmed the only listed live defect is fixed and the previously-cured PE/front-seam disclosure is untouched",
+   "result": "PASS"
+  },
+  {
+   "order": "HARD gates (citation_sweep, hebrew_normalize E-01, ngram7, cap_sweep)",
+   "test": "run_validator_suite.py over the private full-book copy with my 8 rows replaced",
+   "result": "PASS (hard_status GREEN)"
+  },
+  {
+   "order": "whole-book tiling for p02 (#e10 S3-ROUTING (6))",
+   "test": "check_tiling.py on a p02-only extract, --range Ezek.8.1-Ezek.14.23",
+   "result": "PASS"
+  },
+  {
+   "order": "FLAGS not to rise per row (#e4 FIXUP-1 (4))",
+   "test": "before/after diff of validator_report.json's web_quotes/refs_mirror/mark_symmetry/universals/register flags, filtered to my 8 rows",
+   "result": "PASS (no rises; register dropped 18->0, all others unchanged)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "web_quotes": 0,
+   "refs_mirror": 7,
+   "mark_symmetry": 0,
+   "universals": 5,
+   "register": 18
+  },
+  "after": {
+   "web_quotes": 0,
+   "refs_mirror": 7,
+   "mark_symmetry": 0,
+   "universals": 5,
+   "register": 0
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

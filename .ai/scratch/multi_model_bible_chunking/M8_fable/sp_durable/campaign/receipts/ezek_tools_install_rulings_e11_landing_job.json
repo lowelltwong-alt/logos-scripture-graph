@@ -1,0 +1,54 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "batch": "e11_landing_job",
+ "installed_at": "2026-09-14T16:29:55.242451+00:00",
+ "installed_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "ordered_by": "the resume prompt's step (4) and close-gate item 17 (OW-13): the primaries' lane models go to the controlling agent to re-rule before they launch, and #e10 left primaries_may_launch false. A controlling execution #e11 therefore runs, and the landing tool must carry its job.",
+ "why": "the landing tool's JOBS table ends at rulings_e10; #e11 could not be landed without its own job and validator",
+ "files": [
+  {
+   "path": "sp_durable/Ezek/_land_rulings_and_t1.py",
+   "sha256_before": "b31300eb73e0843c5fa06784c7d3f8bc0d57355300ec3101a7ea4991fff13dcb",
+   "sha256_after": "6eaed4fc8848a8e1e0a33945a1d24ee017f8b0be45d31e70b04b4a29ff05bd9b",
+   "preimage": "sp_durable/campaign/tool_preimages/_land_rulings_and_t1.pre_e11.b31300eb.py",
+   "diff": {
+    "path": "sp_durable/Ezek/proposals/e11_plumbing/_land_rulings_and_t1.e11.diff",
+    "sha256": "48920f9201b4faac785f2f2bf11dc0caa8d76ac8467d5bcb5efa7de29aba11f7",
+    "lines_added": 57,
+    "lines_removed": 1
+   }
+  }
+ ],
+ "change": "three count-checked insertions: a JOBS entry rulings_e11; def validate_rulings_e11 (form only); and the dispatch entry. No existing job, validator, output field or receipt format changed.",
+ "the_new_validator_checks": [
+  "one ruling per id of ezek_controlling_agent_queue_e11.v1.json, no duplicate and no id outside it",
+  "ruling values inside the allowed set",
+  "previous_execution_id == ezek_controlling_rulings_a1#e10",
+  "gate.primaries_may_launch and gate.conditions_before_primaries present",
+  "lane_models present, with a model AND a reason for each of primaries_lf, primaries_ol, peer, boss and author_wave - this is the OW-13 arm, and it is new: no earlier rulings validator required a model to be named",
+  "inputs_ruled_on bound by digest to the launch table"
+ ],
+ "regression": {
+  "rule": "the patch adds a job and changes none, so the existing behaviour is proven by re-validating a LANDED deliverable through both the candidate and the installed tool",
+  "case": "the landed ezek_controlling_agent_rulings_e10.v1.json through validate_rulings_e10",
+  "queue_read_by_both_sha256": "96a715e91bbbb06107a57ebdfda2609352d7d1d5e5e302096d9278471eae6ae7",
+  "defects_candidate": [],
+  "defects_installed": [],
+  "summary_identical": true,
+  "tool_selftest_after": "GREEN"
+ },
+ "discrimination": {
+  "rule": "an empty deliverable must trip each named arm; a count would pass when the wrong arms fire",
+  "arms_tripped": [
+   "rulings missing for",
+   "previous_execution_id",
+   "gate.primaries_may_launch absent",
+   "gate.conditions_before_primaries absent",
+   "lane_models absent"
+  ],
+  "arms_not_tripped": [],
+  "complete_fixture_defects": []
+ },
+ "dependency_applicability": "No ruling, row, claim or earlier receipt depends on the changed lines: the three insertions are additive and the #e10 regression reproduces its defects and summary exactly. Earlier landings are unaffected and are not re-run.",
+ "limit": "form, completeness and digest binding only. This tool never rules; the controlling agent does."
+}

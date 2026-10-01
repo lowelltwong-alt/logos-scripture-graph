@@ -1,0 +1,228 @@
+{
+ "attempt_id": "ow2p38_02_a1",
+ "role": "ow2_prov38_opus_ol_reviewer",
+ "book": "Prov",
+ "model": "claude-opus-5",
+ "effort": "ORDERED high, NOT VERIFIED",
+ "rows": [
+  {
+   "row_id": "M8-Prov-158",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "E-23 English-side ground presented as independent",
+     "claim": "The row's stated second, independent cluster ground is an English structural paraphrase, not a byte object, and it is not independent of the hinge-word ground it is offered alongside.",
+     "grounds": "The row states that a second, independently named ground supports the pairing: both verses share the identical appearance-vs-outcome template (what seems/is X in the moment ends in Y). Re-derived from the bytes, that template has no object apart from the hinge word already named as ground one: the construction in both verses is [colon A] + the same waw-prefixed noun + [outcome], i.e. וְ֝אַחֲרִיתָ֗הּ (oshb:Prov.14.12, byte tier) and וְאַחֲרִיתָ֖הּ (oshb:Prov.14.13, byte tier), so the second ground restates the first in semantic dress rather than adding evidence, and E-23 makes an English topic/structure resemblance tier-4 and never a cluster warrant. Machine witness: check_universals.py run over the shipped row flags this string ([0].boundary_rationale, claim 'identical') as a universal claim with no digit-bearing sweep in the same sentence. The genuinely independent byte ground the row does not state in this field sits at accent tier and is byte-true: 14:12's אִ֑ישׁ and 14:13's לֵ֑ב each carry ETNAHTA (U+0591 verified in the staged bytes), so both occurrences of the hinge word stand as the first word after the verse's main division - the observed_substrate_signals field asserts this B-colon pivot but the rationale's second ground does not use it.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only, non-authorizing): in boundary_rationale, delete the appearance-vs-outcome template as a second independent ground, and either rest the row on the single hinge-word ground or replace the second ground with the accent-tier fact - each occurrence of the hinge word is the first word after ETNAHTA (14:12 אִ֑ישׁ; 14:13 לֵ֑ב), which is byte-verifiable and genuinely distinct from the lexical repetition."
+    },
+    {
+     "severity": "low",
+     "class": "count-object discipline (driver carries no digit)",
+     "claim": "The cluster's sole driver is cited with no book-wide sweep digit, and the row's own uniqueness disclaimer likewise carries none.",
+     "grounds": "The rationale and observed_substrate_signals cite the hinge word at byte tier in each verse but attach no book-wide count, while the rejected_alternative disclaims 'a construction unique to this seam' with no digit (check_universals.py flags [0].strongest_rejected_alternative, claim 'unique'). Re-swept with the staged tool, naming the object first: the word-bound skeleton form of the hinge word stands in 5 verses book-wide (Prov.5.4, Prov.14.12, Prov.14.13, Prov.16.25, Prov.20.21; sweep.py --skel, verse counts) and in 4 verses at accent-stripped tier (Prov.14.12, Prov.14.13, Prov.16.25, Prov.20.21) - Prov.5.4 drops out at that tier because its form וְֽ֭אַחֲרִיתָהּ carries METEG (U+05BD), which accent_stripped retains. Among those 5 skeleton-tier verses and those 4 accent-stripped-tier verses, Prov.14.12|Prov.14.13 is the sole adjacent pair at every tier (1 adjacent pair of 5, and 1 of 4). The digit therefore strengthens the row it is missing from. The row's separate byte-identity claim checks out: Prov.14.12 and Prov.16.25 are identical across all 69 codepoints of the staged MT text (byte tier).",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): add the swept object and digit to observed_substrate_signals - the hinge word stands word-bound in 5 verses book-wide at skeleton tier and 4 at accent-stripped tier, with oshb:Prov.14.12|oshb:Prov.14.13 the sole adjacent pair - and carry the same digit into the uniqueness disclaimer in strongest_rejected_alternative."
+    },
+    {
+     "severity": "low",
+     "class": "cross-seam cohesion undisclosed at both edges",
+     "claim": "A word-bound content token straddles the row's forward seam and is disclosed from neither side, though the corpus discloses exactly this object elsewhere in the same collection.",
+     "grounds": "Both sides of the forward seam, spliced at byte tier. The row's closing verse, oshb:Prov.14.13: גַּם בִּשְׂח֥וֹק יִכְאַב לֵ֑ב וְאַחֲרִיתָ֖הּ שִׂמְחָ֣ה תוּגָֽה. The following row's opening verse, oshb:Prov.14.14: מִדְּרָכָ֣יו יִ֭שְׂבַּע ס֣וּג לֵ֑ב וּ֝מֵעָלָ֗יו אִ֣ישׁ טֽוֹב. The deciding object is word-bound content-token overlap (the metric this collection's rows use): the two verses share the token לֵ֑ב / לֵ֑ב, which is byte-identical in both (same consonants, same ETNAHTA U+0591), and the root for way also straddles the seam from inside the row (14:12 carries דֶּ֣רֶךְ and דַּרְכֵי; 14:14 opens מִדְּרָכָ֣יו) though not word-bound. Neither this row nor the row opening at Prov.14.14 discloses either object, while the row spanning Prov.15.15 discloses the same heart-token straddle at its own back seam (against oshb:Prov.15.14) and rates it too slight to move a boundary - so the omission is a disclosure asymmetry, not a metric disagreement. Digit, object named: the shared token stands word-bound in 47 verses book-wide, one of the collection's most frequent content tokens, so it does not threaten the forward edge; the shortfall is the missing disclosure. The back seam is clean by the same metric: oshb:Prov.14.11|oshb:Prov.14.12 share no word-bound token (only the root for upright/straight, in the distinct forms at 14:11 and 14:12).",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): add a disclosure to observed_substrate_signals or device_notes naming the word-bound heart token shared by oshb:Prov.14.13 and oshb:Prov.14.14 (47 verses book-wide) and rating it too slight to carry the seam, matching the disclosure practice this collection already uses for the same object."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-165",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "tier/count blend (SEMANTIC-CLASS COUNT DISCIPLINE)",
+     "claim": "The driver signal names a byte-tier object but attaches a digit swept at a different tier, and asserts that byte form is repeated at the seam when it stands in only one of the two verses.",
+     "grounds": "observed_substrate_signals[0] cites the bare word לְרֵעֵ֥הוּ (oshb:Prov.14.21, byte tier) as 'repeated at the seam between the two verses' and attaches the digit '3 verses book-wide: Prov.11.12, Prov.14.20, Prov.14.21'. Re-swept with the staged tool: that byte form stands in 2 verses book-wide (Prov.11.12, Prov.14.21) and NOT in Prov.14.20, whose own form is לְ֭רֵעֵהוּ (byte tier, 1 verse book-wide); the 3-verse set the digit names is the accent-stripped and skeleton object (Prov.11.12, Prov.14.20, Prov.14.21). So the swept object and the cited object are at different tiers - a blended sweep. The same slip recurs in strongest_rejected_alternative, which calls the shared item 'the repeated exact phrase': it is one word, not a phrase, and the two occurrences are not byte-identical (they agree only from accent-stripped tier down). The underlying repetition is real and rare, and the row's harder claim is byte-exact as written: the two-word construct בָּז לְרֵעֵ֥הוּ (oshb:Prov.14.21) matches בָּז לְרֵעֵ֥הוּ (oshb:Prov.11.12) at byte tier and stands in exactly 2 verses book-wide, as the row states. Unclaimed byte strength: both occurrences of the shared word sit as the second word of their verse (oshb:Prov.14.20 word 2, oshb:Prov.14.21 word 2).",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): in observed_substrate_signals[0], name the object at the tier the digit was swept at - the accent-stripped form shared by oshb:Prov.14.20 and oshb:Prov.14.21 stands in 3 verses book-wide (Prov.11.12, Prov.14.20, Prov.14.21), the sole adjacent pair - and cite the two distinct byte forms separately (לְ֭רֵעֵהוּ at oshb:Prov.14.20, לְרֵעֵ֥הוּ at oshb:Prov.14.21) as the boundary_rationale already does correctly; replace 'the repeated exact phrase' in strongest_rejected_alternative with a tier-named formulation."
+    },
+    {
+     "severity": "low",
+     "class": "K/Q in-field disclosure placement",
+     "claim": "Hebrew quotes bound to a ketiv/qere verse carry no in-field K/Q disclosure; the disclosure sits only in a different field.",
+     "grounds": "citation_sweep.py run over the shipped row returns status GREEN with 3 prose_dual_warns, all on this row: the Hebrew quotes in boundary_rationale (2 warns) and in observed_substrate_signals[0] (1 warn) bind to K/Q verse oshb:Prov.14.21 with no ketiv/qere disclosure in-field. The claim itself is inventory-true - pmarks_Prov.json records 1 ketiv/qere note at Prov.14.21 - and it is disclosed, but only in observed_substrate_signals[2]. Byte context: the staged MT text of Prov.14.21 carries the unpointed ketiv inline before the pointed qere, so any splice from that verse sits beside the crux. No other span-relevant mark is missed: the parashah inventory records no PE or SAMEKH anywhere in Prov 14-16, and pmarks paseq records none at Prov.14.20 or Prov.14.21.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): carry a short ketiv/qere qualifier (oshb:Prov.14.21, single note per the inventory) into boundary_rationale and into observed_substrate_signals[0] alongside the splices that bind to that verse, so each field that quotes Prov.14.21 discloses the crux in-field."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-187",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "non-distinguishing construction offered as a binding ground",
+     "claim": "The row's second ground, the repeated wicked-genitive template, does not distinguish this pair from its immediate neighbourhood and carries no swept object or digit.",
+     "grounds": "The rationale states that זֶ֣בַח רְ֭שָׁעִים (oshb:Prov.15.8) and דֶּ֣רֶךְ רָשָׁ֑ע (oshb:Prov.15.9) repeat a wicked-genitive template that supplies the construction ground binding the pair into one boundary decision. Re-derived from the bytes, that template binds nothing specific to this seam: the same construct-plus-wicked pattern stands two verses before the row's span at oshb:Prov.15.6, וּבִתְבוּאַ֖ת רָשָׁ֣ע (byte tier), and the two lexemes are ubiquitous - swept word-bound, the singular form stands in 36 verses and the plural in 35 verses book-wide - while word-bound the row's own two forms are different tokens (plural at 15:8, singular at 15:9), so the pair shares no wicked-token at that tier at all. No digit or swept object is named for the template anywhere in the row. This is not load-bearing: the primary hook is exemplary and verifies exactly as stated - the contiguous skeleton construction תּוֹעֲבַ֣ת יְהוָ֑ה / תּוֹעֲבַ֣ת יְ֭הוָה stands in 11 verses book-wide (sweep.py --skel: Prov.3.32, Prov.11.1, Prov.11.20, Prov.12.22, Prov.15.8, Prov.15.9, Prov.15.26, Prov.16.5, Prov.17.15, Prov.20.10, Prov.20.23) and Prov.15.8|Prov.15.9 is the sole adjacent pair among them, the seam shares two word-bound tokens, and the accent claim is byte-true (יְהוָ֑ה at oshb:Prov.15.8 carries ETNAHTA U+0591, so the phrase does close colon A there and open the line at 15:9). Both edges are clean by the word-bound metric: oshb:Prov.15.7|oshb:Prov.15.8 and oshb:Prov.15.9|oshb:Prov.15.10 each share no word-bound content token, as the neighbouring rows state.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): demote the wicked-genitive template from a binding construction ground to disclosed texture, naming its swept object and digit (word-bound, the singular wicked-token stands in 36 verses and the plural in 35 verses book-wide, and the same construct pattern stands at oshb:Prov.15.6 immediately outside the span), and leave the tocevat-YHWH hook as the row's single driver, which the sweep already sustains."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-194",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "register purge (planning-document reference in row prose)",
+     "claim": "device_notes points the reader at the planning document rather than at the text.",
+     "grounds": "device_notes closes: this is one of the strategy's named construction-run candidates, realized here across a span of two verses. The campaign register rule bars strategy-file citations, workflow narration and file-order talk from row prose without exception, and the byte facts the sentence gestures at are already stated in the row from the text itself, so nothing is lost by removing the reference. Recorded as a register shortfall only; the row's construction claim is byte-sound.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): replace the closing sentence of device_notes with a text-anchored statement of the same construction (a comparative better-than line in both verses, each closing on a two-word cost tag), with no reference to the planning document."
+    },
+    {
+     "severity": "low",
+     "class": "grammatical category error in a cited object",
+     "claim": "The closing tag's shared element is labelled a noun; it is a preposition with a pronominal suffix.",
+     "grounds": "observed_substrate_signals[1] describes the matching closing tag as having the 'same head noun' meaning in it, with a different abstract noun in each verse. The spliced runs are וּמְה֥וּמָה בֽוֹ (oshb:Prov.15.16, byte tier) and וְשִׂנְאָה בֽוֹ (oshb:Prov.15.17, byte tier); the shared element בֽוֹ is the preposition with a third-person masculine singular suffix, not a noun, and it is the tag's second element rather than its head. The observation itself is byte-true - the two verses do close on the identical token, and the differing abstract nouns are correctly identified - so this is a labelling defect, not a false object. The staged extract carries no morphology layer, so no form claim here is machine-verifiable; the category is nonetheless plain from the pointed bytes.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): restate observed_substrate_signals[1] as a matching closing two-word tag in which the second element is the identical prepositional form with a third-person suffix and the first element is a different abstract noun in each verse."
+    },
+    {
+     "severity": "low",
+     "class": "count-object discipline (sharper ground carries no book-wide digit)",
+     "claim": "The row's sharper ground, the matching closing tag, carries no book-wide digit; the row's only sweep citation reports its own span size.",
+     "grounds": "observed_substrate_signals[0] cites '(sweep: 2 consecutive verses)' for the opening comparative, which restates the row's span rather than giving a book-wide distinctiveness digit, and the closing tag - the sharper of the two grounds, since the opening construction is common - carries no digit at all. Re-swept, object named first: 6 verses book-wide close on the word-bound token shared by the two tags (Prov.15.16, Prov.15.17, Prov.17.11, Prov.23.24, Prov.28.17, Prov.30.5) and Prov.15.16|Prov.15.17 is the sole adjacent pair among them; the seam also shares a second word-bound token, the comparative opener. For contrast the opening construction is not distinctive: the contiguous skeleton of the comparative opener returns 4 verses (Prov.3.27, Prov.15.16, Prov.16.8, Prov.16.16), of which Prov.3.27 is the phrase-extension false hit the toolkit hazard catalog names, Prov.15.16's own hit comes from the following word meaning a little rather than from the comparative particle (which attaches later in that line), and Prov.15.17 is not among the 4 at all because its comparative is realized across the line rather than contiguously - so the contiguous sweep is not measuring the construction the row argues. The missing digits understate the row.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): replace the span-size sweep citation with book-wide digits - 6 verses close on the shared tag token, Prov.15.16|Prov.15.17 being the sole adjacent pair - and name the comparative opener as a construction-level object rather than a contiguous-string sweep, since the contiguous sweep does not return Prov.15.17."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-208",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "byte-false adjacency claim defending the back seam",
+     "claim": "The row excludes the preceding verse's shared root on the stated ground that it is not adjacent to the chain, but that verse stands immediately before the chain's first verse.",
+     "grounds": "observed_substrate_signals[2] states that the report-noun at 15:30 shares the hearing root but is not adjacent to this chain and is excluded from it. Both sides of that seam, spliced at byte tier. Preceding row's closing verse, oshb:Prov.15.30: מְֽאוֹר עֵ֭ינַיִם יְשַׂמַּֽח לֵ֑ב שְׁמוּעָ֥ה ט֝וֹבָ֗ה תְּדַשֶּׁן עָֽצֶם. This row's opening verse, oshb:Prov.15.31: אֹ֗זֶן שֹׁ֭מַעַת תּוֹכַ֣חַת חַיִּ֑ים בְּקֶ֖רֶב חֲכָמִ֣ים תָּלִֽין. Prov.15.30 is immediately adjacent to Prov.15.31, so the stated exclusion ground is false as written. The deciding object is word-bound content-token overlap, and by it the seam is empty: 15:30 carries שְׁמוּעָ֥ה ט֝וֹבָ֗ה (byte tier) against 15:31's participle שֹׁ֭מַעַת (byte tier) - the same root in different word-bound tokens - and the two verses share no word-bound token at all, which is what actually holds the back edge. The preceding row states this correctly (a noun there against a participle here), so the boundary survives on grounds the corpus already carries; the defect is this row's own stated reason.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only, no span change): restate observed_substrate_signals[2] to exclude the 15:30 link on the true byte ground - oshb:Prov.15.30 stands immediately before the chain's first verse and shares the hearing root with it, but in a different word-bound token (שְׁמוּעָ֥ה ט֝וֹבָ֗ה against שֹׁ֭מַעַת), so the seam carries no word-bound overlap and the root-level echo is disclosed as texture rather than as a chain link."
+    },
+    {
+     "severity": "low",
+     "class": "gloss extent exceeds splice extent",
+     "claim": "A one-word splice is glossed with a two-word construct phrase.",
+     "grounds": "The rationale cites מוּסַ֣ר (oshb:Prov.15.33) in the construct state with the gloss discipline of wisdom. The gloss covers the two-word construct מוּסַ֣ר חָכְמָ֑ה (oshb:Prov.15.33, byte tier), while the splice is the single head word; gloss extent must equal splice extent. The state contrast the row draws is byte-true - the 15:32 form מ֭וּסָר and the 15:33 form מוּסַ֣ר are the same word-bound skeleton token in different pointings - so only the gloss extent is at fault.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): splice the full construct מוּסַ֣ר חָכְמָ֑ה (oshb:Prov.15.33, byte tier) to carry the gloss, or cut the gloss back to the single word actually spliced."
+    },
+    {
+     "severity": "low",
+     "class": "count-object discipline (chain objects carry no book-wide digit)",
+     "claim": "Neither chain object carries a book-wide digit, and both recur elsewhere in the same chapter, including together in one verse.",
+     "grounds": "Both sweep citations in observed_substrate_signals report '(sweep: 2 consecutive verses)', which restates the span rather than giving a book-wide count. Re-swept, objects named first: the reproof noun stands word-bound in 8 verses book-wide (Prov.10.17, Prov.12.1, Prov.13.18, Prov.15.5, Prov.15.10, Prov.15.31, Prov.15.32, Prov.27.5), with Prov.15.31|Prov.15.32 the sole adjacent pair; the discipline noun stands word-bound in 23 verses book-wide. Both objects also stand inside this chapter outside the span, and oshb:Prov.15.10 carries BOTH of them in one verse (word-bound tokens for discipline and for reproof), so the vocabulary is a chapter-wide field and the row's real differentiator is adjacency, not the vocabulary itself - which the missing digits would have shown. The links themselves verify at the word-bound tier the row needs: 15:31|15:32 share the reproof token (תּוֹכַ֣חַת / תּ֝וֹכַ֗חַת, byte tier at each ref) and 15:32|15:33 share the discipline token (מ֭וּסָר / מוּסַ֣ר). The forward edge is clean by the same metric: oshb:Prov.15.33|oshb:Prov.16.1 share no word-bound content token, the divine name standing word-bound at 15:33 but only under prefixes at 16:1.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): replace the two span-size sweep citations with book-wide digits (reproof noun: 8 verses word-bound, sole adjacent pair at oshb:Prov.15.31|oshb:Prov.15.32; discipline noun: 23 verses word-bound), and disclose that oshb:Prov.15.10 carries both objects in one verse outside the span, so that adjacency rather than vocabulary is named as the chain's warrant."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-218",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "high",
+     "class": "cluster warrant fails the corpus's own adjacent-seam metric",
+     "claim": "The pair's sole cohesion object is lexeme-level only - the seam shares no word-bound content token - which is the exact condition two rows earlier in this chapter give for refusing a multi-verse unit, and the row never states the book's default atomization rival.",
+     "grounds": "Re-derived from the bytes with the sweeps, object named first. The seam oshb:Prov.16.10|oshb:Prov.16.11 shares ZERO word-bound content tokens: 16:10 carries בְּ֝מִשְׁפָּ֗ט (byte tier), whose word-bound skeleton stands in 4 verses book-wide (Prov.16.10, Prov.18.5, Prov.24.23, Prov.29.4), and 16:11 carries מִ֭שְׁפָּט (byte tier), whose word-bound skeleton stands in 12 verses book-wide (Prov.2.8, Prov.8.20, Prov.12.5, Prov.13.23, Prov.16.8, Prov.16.11, Prov.17.23, Prov.19.28, Prov.21.7, Prov.21.15, Prov.28.5, Prov.29.26) - two different word-bound objects. The apparent match is the contained-substring effect the toolkit hazard catalog warns about: a sweep of the 16:11 form returns 1 verse at byte tier but 13 at accent-stripped tier INCLUDING Prov.16.10, only because the prefixed form contains the bare one. The nearest word-bound match to 16:11's token is not 16:10 but מִשְׁפָּֽט at oshb:Prov.16.8, two verses before this row's span. Both sides of the row's outer seams, spliced at byte tier, per the both-sides law: the preceding row's closing verse oshb:Prov.16.9: לֵ֣ב אָ֭דָם יְחַשֵּׁ֣ב דַּרְכּ֑וֹ וַֽ֝יהוָ֗ה יָכִ֥ין צַעֲדֽוֹ ; the following row's opening verse oshb:Prov.16.12: תּוֹעֲבַ֣ת מְ֭לָכִים עֲשׂ֣וֹת רֶ֑שַׁע כִּ֥י בִ֝צְדָקָ֗ה יִכּ֥וֹן כִּסֵּֽא ; and the row's own two verses, oshb:Prov.16.10: קֶ֤סֶם עַֽל שִׂפְתֵי מֶ֑לֶךְ בְּ֝מִשְׁפָּ֗ט לֹ֣א יִמְעַל פִּֽיו ; oshb:Prov.16.11: פֶּ֤לֶס וּמֹאזְנֵ֣י מִ֭שְׁפָּט לַֽיהוָ֑ה מַ֝עֲשֵׂ֗הוּ כָּל אַבְנֵי כִֽיס. By the deciding object - word-bound content-token overlap - all 3 of the 3 seams touching this row (16:9|16:10, 16:10|16:11, 16:11|16:12) are empty, so nothing binds these two verses more tightly than either is bound to its outside neighbour. The rows spanning Prov.16.1 and Prov.16.9 refuse a multi-verse unit in this same chapter on precisely this test, stating that seams there share no word-bound token at all; this row builds a cluster at a seam of that description. Its strongest_rejected_alternative rejects only the wider royal-noun extension and never states the collection's default single_proverb atomization. Honest qualification: lexeme-level cohesion IS accepted elsewhere in the corpus - the row at Prov.16.12-Prov.16.15 spans the seam 16:13|16:14, which is also word-bound empty (plural against singular) - but there the object recurs gap-free in 4 of 4 verses as a domain, whereas here it is a single lexeme in two verses that also stands bare two verses earlier.",
+     "span_change": true,
+     "proposed_change": "Proposal only, owner-triage input, applied to nothing: retire the proverb_cluster at Prov.16.10-Prov.16.11 and carry two single_proverb rows, Prov.16.10-Prov.16.10 and Prov.16.11-Prov.16.11 (full X-X span form), restoring the collection's ruled default. Both-sides resolution: because oshb:Prov.16.9|oshb:Prov.16.10 and oshb:Prov.16.11|oshb:Prov.16.12 are each word-bound empty, the retirement dissolves only the interior seam and disturbs neither outer boundary, and the row at Prov.16.12-Prov.16.15 is untouched. If the adjudicator instead rules that lexeme-level adjacency governs (the standard the royal-noun run relies on at its 16:13|16:14 seam), the cluster stands but its rationale must be re-cut to name the object as a shared LEXEME in prefixed and bare forms rather than as a shared noun, to carry the book-wide digits above, and to state and reject the single_proverb atomization on byte grounds; the two remedies are mutually exclusive and the choice is the owner's, not this review's."
+    },
+    {
+     "severity": "medium",
+     "class": "mark tier mislabel and mark used for a function it cannot serve",
+     "claim": "The paseq is presented as a tier-3 corroborating signal for a verse-pair boundary; the tier belongs to a different layer and an intra-verse separator cannot corroborate that two verses cohere.",
+     "grounds": "The rationale states that both verses carry a paseq seg per the inventory (single-witness at each), a corroborating tier-3 signal rather than the boundary driver. The citation hygiene is right and the claim is inventory-true: pmarks_Prov.json records paseq at Prov.16.10 (1) and Prov.16.11 (1), the row makes no intra-verse position claim, and the single-witness qualifier is present. Two things are not right. First, the owner tier assignment of TIER-3 WEAK belongs to the parashah layer - the pmarks marks_note assigns it to petuchah and setumah in the Writings - while the paseq inventory carries no tier at all and is documented as count-only; importing the parashah tier onto the paseq layer is a tier conflation of the class the campaign forbids. Second, a paseq is an intra-verse separator: a paseq inside 16:10 and a separate paseq inside 16:11 carry no information about whether the two VERSES cohere, so the signal cannot corroborate this pairing in either direction. Not load-bearing on its own, since the row calls it corroboration rather than the driver.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): drop both the tier label and the corroboration function from the paseq sentence, or restate it as an untiered span-relevant disclosure - pmarks_Prov.json records one paseq seg at each of Prov.16.10 and Prov.16.11, count-only, single-witness, disclosed because the span touches them and bearing on nothing in the boundary decision."
+    },
+    {
+     "severity": "low",
+     "class": "gloss extent exceeds splice extent",
+     "claim": "A one-word splice is glossed with a three-word phrase.",
+     "grounds": "The rationale cites מִ֭שְׁפָּט (oshb:Prov.16.11) with the gloss a balance and scales of judgment. That gloss covers the three-word run פֶּ֤לֶס וּמֹאזְנֵ֣י מִ֭שְׁפָּט (oshb:Prov.16.11, byte tier); the splice is the single final word of it. Gloss extent must equal splice extent, and the first two words carry the balance-and-scales sense that the gloss attributes to the one word spliced. The companion citation in the same sentence is correctly cut (the 16:10 splice בְּ֝מִשְׁפָּ֗ט is glossed in judgment).",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): either splice the full run פֶּ֤לֶס וּמֹאזְנֵ֣י מִ֭שְׁפָּט (oshb:Prov.16.11, byte tier) to carry the existing gloss, or cut the gloss back to the single word spliced."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-219",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "register purge (planning-document reference and authoring narration)",
+     "claim": "device_notes cites the planning document and strongest_rejected_alternative narrates the drafting process.",
+     "grounds": "device_notes closes: this is the strategy's named kings run candidate realized at the span the bytes actually sustain; and strongest_rejected_alternative states that 16:11 carries zero instances of the royal-noun root, so it is drafted with 16:10 as its own mishpat-linked pair instead. The campaign register rule bars strategy-file citations, erratum and authoring narration, and file-order talk from row prose without exception; verse-anchored cross-row reference is what it permits, and the rest of the field already meets that standard. Recorded as a register shortfall only: every substantive claim in this row re-derives byte-true, and it is the strongest-warranted row in this slice. Verified: the royal noun stands word-bound in all four verses of the span (מְ֭לָכִים at oshb:Prov.16.12 and מְ֭לָכִים at oshb:Prov.16.13, plural; מֶ֥לֶךְ at oshb:Prov.16.14 and מֶ֥לֶךְ at oshb:Prov.16.15, singular; byte tier at each ref), a gap-free 4-of-4 run, with the plural in 6 verses and the singular in 21 verses book-wide word-bound; oshb:Prov.16.11 carries no royal-noun token at any tier, as claimed; oshb:Prov.16.10 does independently carry מֶ֑לֶךְ (byte tier), as disclosed; and both outer seams are word-bound empty (16:11|16:12 and 16:15|16:16), so the run's cohesion does stop exactly where the row stops it.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): delete the planning-document reference from device_notes and restate the drafting clause in strongest_rejected_alternative in verse-anchored terms - the royal-noun root is absent from Prov.16.11, so the run is bounded to the four verses that carry it, and Prov.16.10 is bound forward instead - with no reference to how or where either row was written."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Prov-222",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "K/Q claim cannot bind to its verse (machine-flagged)",
+     "claim": "A ketiv/qere claim cited in bare colon form binds to a verse the inventory records no note at, and the mark checker flags the row twice.",
+     "grounds": "check_marks.py run over the shipped row returns FLAGS: two kq_claim flags on this row at verse Prov.16.18, a verse where pmarks_Prov.json records no ketiv/qere note, with the adjacent inventory hit reported as Prov.16.19. Field isolation (re-running the checker with one field removed at a time) shows device_notes is the flagging field: it states that the ketiv/qere crux at 16:19 is the reason this cluster's confidence sits lower, citing the verse in bare colon form with no Prov.C.V token, so the claim cannot bind to Prov.16.19 and attaches to the row's span-start verse instead. The row's other two K/Q statements cite Prov.16.19 in resolvable form and pass. The substance is inventory-true - pmarks_Prov.json records 1 note at Prov.16.19 - and byte-true: the staged MT text of Prov.16.19 carries the unpointed ketiv inline before the pointed qere, exactly as the rationale describes. Mark symmetry is otherwise complete for this row: no PE or SAMEKH stands anywhere in Prov 14-16 and no paseq is recorded at Prov.16.18 or Prov.16.19.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): cite the K/Q in device_notes as oshb:Prov.16.19, matching the form already used in this row's boundary_rationale, so the claim binds to the inventory verse and the checker clears."
+    },
+    {
+     "severity": "low",
+     "class": "gloss extent exceeds splice extent (twice)",
+     "claim": "Both spirit-word splices are single words glossed with the two-word constructs they head.",
+     "grounds": "The rationale cites רֽוּחַ (oshb:Prov.16.18) glossed height of spirit and ר֭וּחַ (oshb:Prov.16.19) glossed lowly of spirit. Each splice is the single shared noun; each gloss covers the two-word construct - גֹּ֣בַהּ רֽוּחַ (oshb:Prov.16.18, byte tier) and שְׁפַל ר֭וּחַ (oshb:Prov.16.19, byte tier). The observation is byte-true and the full constructs are the stronger objects: swept at byte tier the 16:18 construct stands in 1 verse book-wide and is unique at accent-stripped and skeleton tiers too, and the 16:19 construct stands in 1 verse at byte tier and 2 at accent-stripped and skeleton tiers (adding Prov.29.23). Only the gloss extents are at fault. The companion pride-root citations in the same sentence are correctly cut (גָּא֑וֹן glossed pride, גֵּאִֽים glossed the proud).",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): splice the full constructs גֹּ֣בַהּ רֽוּחַ (oshb:Prov.16.18) and שְׁפַל ר֭וּחַ (oshb:Prov.16.19) to carry the existing glosses, which also lets the row cite the sharper digits (the 16:18 construct stands in 1 verse book-wide at byte, accent-stripped and skeleton tiers alike, the only book-wide occurrence at every tier)."
+    },
+    {
+     "severity": "low",
+     "class": "cross-seam cohesion disclosed only from the far side",
+     "claim": "A word-bound content token straddles the row's forward seam and is disclosed at the neighbouring row but not here.",
+     "grounds": "Both sides of the forward seam, spliced at byte tier. The row's closing verse, oshb:Prov.16.19: ט֣וֹב שְׁפַל ר֭וּחַ אֶת עניים עֲנָוִ֑ים מֵֽחַלֵּ֥ק שָׁ֝לָ֗ל אֶת גֵּאִֽים. The following row's opening verse, oshb:Prov.16.20: מַשְׂכִּ֣יל עַל דָּ֭בָר יִמְצָא ט֑וֹב וּבוֹטֵ֖חַ בַּיהוָ֣ה אַשְׁרָֽיו. The deciding object is word-bound content-token overlap, and the seam does carry one: ט֣וֹב (oshb:Prov.16.19) and ט֑וֹב (oshb:Prov.16.20) are the same word-bound token. The row at Prov.16.20 discloses this straddle explicitly and rejects the join on the ground that the two uses sit in different constructions, so the corpus does carry the disclosure and the two rows agree; only this row's own side of the seam is silent. Digit, object named: the token stands word-bound in 52 verses book-wide, the most frequent of every object swept for this slice, so it does not threaten the edge. The back seam is clean by the same metric - oshb:Prov.16.17|oshb:Prov.16.18 share no word-bound token, as the preceding row states.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): add the forward-seam disclosure to this row's observed_substrate_signals or device_notes, naming the word-bound token shared with oshb:Prov.16.20 (52 verses book-wide) and the construction difference that keeps it from carrying the seam, so the disclosure is symmetric across the boundary."
+    },
+    {
+     "severity": "low",
+     "class": "count-object discipline and confidence rationale",
+     "claim": "Neither cohesion object carries a book-wide digit, while the ground the row gives for its low confidence touches neither object.",
+     "grounds": "observed_substrate_signals cites both objects with '(sweep: 2 consecutive verses)', which restates the span rather than giving a book-wide count. Re-swept, objects named first: the shared spirit noun stands word-bound in 12 verses book-wide (Prov.11.13, Prov.11.29, Prov.14.29, Prov.15.13, Prov.16.18, Prov.16.19, Prov.17.27, Prov.18.14, Prov.25.23, Prov.27.16, Prov.29.23, Prov.30.4), with Prov.16.18|Prov.16.19 the sole adjacent pair among them; the pride-root forms are rarer still - גָּא֑וֹן stands word-bound in 1 verse book-wide (Prov.16.18 only) and גֵּאִֽים in 2 (Prov.15.25, Prov.16.19). Two shared objects at a seam, one of them a word-bound token of 12 verses whose only adjacent pair in the book is this one (1 adjacent pair of 12), is stronger evidence than the row claims. device_notes gives the ketiv/qere crux as the reason the confidence sits lower than the royal-noun run's, but that crux falls on the word for the poor or lowly in colon B of 16:19 and touches neither the spirit noun nor the pride root, so the stated calibration ground is not the objects the cluster rests on. Recorded as a disclosure and calibration shortfall, not as a boundary defect: the span itself re-derives sound at both edges.",
+     "span_change": false,
+     "proposed_change": "Field repair (proposal only): carry the book-wide digits into observed_substrate_signals (spirit noun 12 verses word-bound, sole adjacent pair here; pride-root forms 1 and 2 verses word-bound) and restate the confidence ground in device_notes so that it names what the crux does and does not touch, leaving any confidence change to the owner."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 8,
+  "clean": 0,
+  "defect_rows": 8,
+  "findings": {
+   "low": 14,
+   "medium": 5,
+   "high": 1
+  },
+  "span_changes_proposed": 1
+ }
+}

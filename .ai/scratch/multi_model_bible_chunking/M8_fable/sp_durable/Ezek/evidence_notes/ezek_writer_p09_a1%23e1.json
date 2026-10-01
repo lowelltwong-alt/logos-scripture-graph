@@ -1,0 +1,96 @@
+{
+ "attempt_id": "ezek_writer_p09_a1",
+ "execution_id": "ezek_writer_p09_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\WRITER_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\verse_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\writer_parts.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_denominator_reconciliation.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_p0_retained_lows.v1.json"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "11 chunk rows (P09-001..P09-011) written to draft_p09.jsonl, tiling Ezek.37.1-Ezek.39.29 exactly: 37.1-14 (vision_report), 37.15-28 (sign_act), 38.1-9/38.10-13/38.14-16/38.17-23/39.1-10/39.11-16/39.17-20/39.21-24 (oracle_against_nation), 39.25-29 (salvation_oracle)",
+    "why": "fulfills the p09 assignment (P7(b), 80 WEB verses) under the r3 HYBRID writer wave"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "rows tile Ezek.37.1-Ezek.39.29 with no gap, overlap, or verse outside range",
+   "how": "hand-written Python script cross-checking row spans against verse_inventory.json's per-chapter counts (37=28, 38=23, 39=29, sum 80)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 11 rows carry exactly the 22 schema fields, unit_type/confidence in the closed vocabularies, non_authorizing=true, review_status=pending",
+   "how": "hand-written Python schema check over the finished JSONL",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every quoted Hebrew string is a literal substring of Ezek_oshb.txt, or a Qere from pmarks_Ezek.json's kq layer with morpheme slashes stripped",
+   "how": "hand-written Python check reading the finished JSONL back and testing each Hebrew value against the raw source file plus a Qere whitelist derived programmatically from pmarks_Ezek.json (niqqud-boundary split, never hand-typed)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every K/Q verse in chs 37-39 (37.16 doubled note, 37.19, 37.22, 39.25) is disclosed in the row covering it",
+   "how": "hand-written Python cross-reference of pmarks_Ezek.json kq keys against row spans",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every paseq verse in chs 37-39 (37.2, 37.9, 38.8x2, 38.10, 38.13, 38.14, 38.18, 38.19, 39.9, 39.11, 39.17x2) is disclosed in its covering row's device_notes",
+   "how": "hand-written Python cross-reference of pmarks_Ezek.json paseq list against row spans",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no row straddles a hard seam and 37.1/37.15/38.1 each open a row",
+   "how": "hand-written Python check",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no fabrication-class claim (selah, large/small letter, reversed nun, Aramaic) appears in any prose field",
+   "how": "hand-written Python keyword sweep over the finished JSONL",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no positional row-reference or other forbidden register term in prose fields",
+   "how": "hand-written Python keyword sweep; caught and corrected several 'this row'/'the preceding row' violations before this pass",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no recurring disclosure-sentence 7-gram is shared by >=10 rows (CWO-1 convergence guard)",
+   "how": "hand-written Python n-gram check over boundary_rationale + strongest_rejected_alternative + device_notes",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "whether MT 39.1-3's near-verbatim repetition of 38.3's verdict against Gog restarts the oracle's movement or advances it",
+   "why_it_matters": "this is the flagged recapitulation-versus-sequence question for chs 38-39; row P09-007 takes a seam at 39.1 because it carries real (sub-onset + messenger) evidence and 38.23 is already closed by a strict recognition formula plus samekh, but whether the material that follows repeats or advances is not settled by these bytes and is held at low confidence"
+  },
+  {
+   "what": "a samekh mark is recorded on MT 38.17 itself, immediately after the messenger-formula onset that opens the 38.17-23 unit",
+   "why_it_matters": "a genuine one-verse masoretic paragraph inside the tradition's own layout; disclosed but not followed as an internal cut, since isolating 38.17 alone would violate the single-verse row guard with no tier-1 reason"
+  },
+  {
+   "what": "37.15-28 is anchored under sign_act but its 37.21-28 half carries the salvation_oracle burden (covenant of peace, 'my servant David', 'my sanctuary')",
+   "why_it_matters": "a genuine category-sharing case (named in the strategy) rather than a data error; resolved here as a one-clause disclosure rather than a split, since no parashah mark or addressee change divides the two halves"
+  },
+  {
+   "what": "39.11-16 and 39.21-24 open on topical grounds alone, with no tracked frame-spine formula at their onset verse",
+   "why_it_matters": "the recurring 'it will happen in that day' phrase corroborates but is not one of the book's twelve closed formulae; both rows are held at low confidence rather than merged into stronger-evidenced neighbors, to avoid crossing the utterance-plus-samekh closes that bound them"
+  },
+  {
+   "what": "39.9-10 was merged into the 39.1-10 row rather than kept as its own 2-verse unit or merged with 39.11-16",
+   "why_it_matters": "39.10's utterance formula plus samekh mark is real internal refrain evidence for an alternative seam inside 39.1-10, disclosed there as the strongest rejected alternative; a peer reviewer weighing the Gog complex differently could reasonably prefer a 39.9-10 row of its own"
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the writer's own OW-8 final message."
+}

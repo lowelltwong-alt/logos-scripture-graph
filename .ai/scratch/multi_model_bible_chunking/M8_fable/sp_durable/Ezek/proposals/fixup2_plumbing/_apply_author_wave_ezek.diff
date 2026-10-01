@@ -1,0 +1,119 @@
+--- a/Ezek/_apply_author_wave_ezek.py
++++ b/Ezek/_apply_author_wave_ezek.py
+@@ -33,6 +33,8 @@
+ EZ = Path(__file__).resolve().parent
+ SP = EZ.parent
+ RECEIPTS = EZ / "author" / "ezek_author_attempt_receipts.jsonl"
++FIXUP1_RECEIPTS = "fixup1/ezek_author_fixup_attempt_receipts.jsonl"
++FIXUP1_ORDERED_BY = "ezek_controlling_rulings_a1#e4 ruling FIXUP-1"
+ sys.path.insert(0, str(EZ / "tools"))
+ from ezek_lib import LAST_VERSE  # noqa: E402
+ 
+@@ -60,18 +62,70 @@
+     raise SystemExit("ABORT: " + msg + " - nothing written")
+ 
+ 
++def fixup_receipts_path(arg):
++    """The fix-up receipts path under SP/Ezek: --receipts when given, else the FIXUP-1 path (#e9 ruling S2-ROUTING (5))."""
++    return EZ / (arg if arg else FIXUP1_RECEIPTS)
++
++
++def fixup_ordered_by(orders_list):
++    """The apply manifest's ordered_by in fix-up mode: the landed orders files' own field, one value across all parts; FIXUP-1's
++    literal when the field is absent (#e9 ruling S2-ROUTING (5))."""
++    vals = {o.get("ordered_by") or FIXUP1_ORDERED_BY for o in orders_list}
++    if len(vals) != 1:
++        abort("the landed orders name %d different ordering rulings" % len(vals))
++    return vals.pop()
++
++
++def no_op_ids(chain, replaced):
++    """Replaced rows whose serialized bytes equal the chain row's (S2-16: a no-op replace is recorded as such)."""
++    cur = {r["decision_id"]: r for r in chain}
++    return sorted(d for d, row in replaced.items() if json.dumps(row, ensure_ascii=False) == json.dumps(cur[d], ensure_ascii=False))
++
++
++def selftest():
++    s2r = "ezek_controlling_rulings_a1#e9 ruling S2-ROUTING"
++    results = []
++
++    def check(name, got, want):
++        results.append({"vector": name, "want": str(want), "got": str(got), "ok": got == want})
++
++    check("--receipts absent keeps the fixup1 receipts path", fixup_receipts_path(None), EZ / "fixup1" / "ezek_author_fixup_attempt_receipts.jsonl")
++    check("--receipts names the FIXUP-2 receipts path", fixup_receipts_path("fixup2/ezek_author_fixup_attempt_receipts.jsonl"),
++          EZ / "fixup2" / "ezek_author_fixup_attempt_receipts.jsonl")
++    check("FIXUP-1 orders keep the FIXUP-1 ordered_by", fixup_ordered_by([{"ordered_by": FIXUP1_ORDERED_BY}, {}]), FIXUP1_ORDERED_BY)
++    check("FIXUP-2 orders resolve #e9's ruling", fixup_ordered_by([{"ordered_by": s2r}, {"ordered_by": s2r}]), s2r)
++    try:
++        fixup_ordered_by([{"ordered_by": s2r}, {"ordered_by": FIXUP1_ORDERED_BY}])
++        got = "accepted"
++    except SystemExit:
++        got = "refused"
++    check("orders naming two ordering rulings are refused", got, "refused")
++    row = {k: (1 if k == "chunk_index_in_book" else "x") for k in FIELDS}
++    check("a byte-identical replace is a no-op", no_op_ids([dict(row, decision_id="P01-001")], {"P01-001": dict(row, decision_id="P01-001")}), ["P01-001"])
++    check("a changed replace is not a no-op",
++          no_op_ids([dict(row, decision_id="P01-001")], {"P01-001": dict(row, decision_id="P01-001", device_notes="y")}), [])
++    failed = [r for r in results if not r["ok"]]
++    print(json.dumps({"selftest": "_apply_author_wave_ezek fix-up plumbing", "vectors": len(results), "failed": failed,
++                      "verdict": "GREEN" if not failed else "RED"}, indent=1))
++    return 1 if failed else 0
++
++
+ def main():
++    if "--selftest" in sys.argv:
++        return selftest()
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--rows", required=True)
+     ap.add_argument("--out", required=True)
+     ap.add_argument("--landed", nargs="+", required=True)
+     ap.add_argument("--fixup", action="store_true", help="FIXUP-1 mode (#e4 ruling FIXUP-1 (3), (5))")
++    ap.add_argument("--receipts", default=None, help="fix-up receipts path under SP/Ezek; the fixup1 path when omitted (#e9 ruling S2-ROUTING (5))")
+     a = ap.parse_args()
+-    receipts_p = (EZ / "fixup1" / "ezek_author_fixup_attempt_receipts.jsonl") if a.fixup else RECEIPTS
++    receipts_p = fixup_receipts_path(a.receipts) if a.fixup else RECEIPTS
+     rows_p, out_p = EZ / a.rows, EZ / a.out
+     chain = [json.loads(l) for l in rows_p.read_text(encoding="utf-8").splitlines() if l.strip()]
+     receipts = [json.loads(l) for l in receipts_p.read_text(encoding="utf-8").splitlines() if l.strip()]
+     replaced, retired, new, inputs, parts_done = {}, set(), [], [], set()
++    orders_seen = []
+     for lp in a.landed:
+         p = EZ / lp
+         rel = "Ezek/" + lp.replace("\\", "/")
+@@ -89,6 +143,7 @@
+         if orders["part"] in parts_done:
+             abort("two deliverables for %s" % orders["part"])
+         parts_done.add(orders["part"])
++        orders_seen.append(orders)
+         for line in p.read_text(encoding="utf-8").splitlines():
+             if not line.strip():
+                 continue
+@@ -159,7 +214,7 @@
+         abort("%s exists with different content" % a.out)
+     out_p.write_text(body, encoding="utf-8", newline="\n")
+     manifest = {"schema": "m8_fixup_apply.v1" if a.fixup else "m8_author_wave_apply.v1", "book": "Ezek",
+-                "ordered_by": "ezek_controlling_rulings_a1#e4 ruling FIXUP-1" if a.fixup else "ezek_controlling_rulings_a1#e2 ruling R2",
++                "ordered_by": fixup_ordered_by(orders_seen) if a.fixup else "ezek_controlling_rulings_a1#e2 ruling R2",
+                 "input_rows": {"path": "Ezek/" + a.rows, "sha256": sha(rows_p), "rows": len(chain)},
+                 "landed": inputs, "parts_applied": sorted(parts_done),
+                 "parts_not_applied": sorted({r["writer_part"] for r in chain} - parts_done),
+@@ -167,6 +222,12 @@
+                 "chunk_index_renumbered": ci_map,
+                 "tiling": {"verses": len(got), "expected": len(book), "assert": "every WEB verse exactly once, span order"},
+                 "output": {"path": "Ezek/" + a.out, "sha256": sha(out_p), "rows": len(result)}}
++    if a.fixup and a.receipts:
++        nops = no_op_ids(chain, replaced)
++        manifest["no_op_replaced"] = nops
++        manifest["replaced_statement"] = "replaced %d, of which %d no-op%s" % (len(replaced), len(nops), (" (%s)" % ", ".join(nops)) if nops else "")
++        manifest["receipts"] = {"path": "Ezek/" + a.receipts.replace("\\", "/"), "sha256": sha(receipts_p)}
++        manifest["tools"] = {n: sha(EZ / n) for n in ("_apply_author_wave_ezek.py", "_land_author_part_ezek.py")}
+     mp = out_p.with_suffix(".manifest.json")
+     mbody = json.dumps(manifest, ensure_ascii=False, indent=1)
+     if mp.exists() and mp.read_text(encoding="utf-8") != mbody:
+@@ -177,4 +238,4 @@
+ 
+ 
+ if __name__ == "__main__":
+-    main()
++    raise SystemExit(main())

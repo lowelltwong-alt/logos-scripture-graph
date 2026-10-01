@@ -1,0 +1,372 @@
+#!/usr/bin/env python3
+"""Adversarial test of _close_book.py's lane, delta, docket and disposition gates: a passing fixture, then one tampering
+at a time.
+
+AMENDED 2026-09-23 (v9 fix round, OW-28). The v1 fixture is now a COPY of the real v1 merged-close lane files. Their
+residuals and unmet close-gate entries are what the pinned docket and dispositions key on, so a synthetic v1 set could
+not pass them. The delta fixture is synthetic, keyed from the real docket and dispositions. The earlier test is kept as
+_test_close_book_gates.py.pre_abc6d617815b.
+
+Everything is built under --dest, which must lie outside M8. _close_book.py is run DRY with --landing, --delta-landing
+and, for the disposition tamperings, --dispositions pointed at the fixture. The real landing sets, the shared files and
+every pinned record stay untouched. --close is never run. Every run passes --acf: lam_pattern, or item22 for its own
+tampering. That exercises the v9b coverage gate dry.
+
+The passing fixture must leave REQUIRED_UNMET unmet: the packet carries the REAL delta landing's digest, never a
+fixture's. It may also leave TIME_DEPENDENT gates unmet. Those are true or false by real records the fixture does not
+control: completion receipts, which exist only after a real landing, and the Fable packet, built only after the real
+delta landing. Any other unmet gate fails the passing fixture. Each tampering must make its named gate go unmet. A
+tampering that no gate notices is a FAIL of this test.
+
+AMENDED 2026-09-23 (v9c/v9d). Unit cases for the coverage gate's own function, lifted from _close_book.py by AST and
+run on synthetic rows: a held feed row over a final chunk is stale (v9b), a packet state the hold does not imply is
+stale (v9c), and a row outside the low/medium_low set is an orphan only, never stale and never a KeyError (v9d). The
+previous test is kept as _test_close_book_gates.py.pre_5f8445119e79.
+
+AMENDED 2026-09-23 (v10 hold round, OW-30). A synthetic v10 delta set, keyed from the pinned ruling, is passed with
+--delta10-landing, and its tamperings name the v10 lane gates. The v9 delta fixture is still over v9 with base v8,
+which is now the v10 delta's base. The passing fixture runs twice, once per --acf option. The v9 case "item-22 rows
+chosen" can no longer fire: the v10 feed mirrors the corpus. It is replaced by an --feed fixture that releases the
+ruled hold in the feed while the corpus still holds it. A coverage unit shows that a ruled hold mirrored as held
+passes. The previous test is kept as _test_close_book_gates.py.pre_e648cda34946.
+
+usage: _test_close_book_gates.py --dest <dir outside M8>
+"""
+import argparse
+import ast
+import copy
+import hashlib
+import json
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding="utf-8")
+EZ = Path(__file__).resolve().parent
+M8 = EZ.parent.parent
+V8 = "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7"
+V9 = "a80b6e6712aa43bf3d8652255b4655a934af08a9cd3e036f9b320a37bbd1098c"
+MAN = "91736024a4ac2ee44d37077a136355554f0bc27bdf012198f6c684adc3f5853c"
+FR = EZ / "repair2" / "fixround_v9"
+ATT = {"A": "ezek_merged_close_lane_a_a1", "B": "ezek_merged_close_lane_b_a1"}
+DATT = {"A": "ezek_fixround_v9_delta_lane_a_a1", "B": "ezek_fixround_v9_delta_lane_b_a1"}
+V10 = "106f355324fb867055e4f1ec25cc30ced8607b69a7ce0489b9d953e30e18608b"
+MAN10 = "f8bd078b70cee18a9e54e02d1d3a5a7ba6b8aab3d1b0c48aa2e91d0f536be040"
+RULING = EZ / "fable_end_review" / "atlas_hold_ruling.v1.json"
+RULING_PIN = "24f6f8b0f4b2c4527db95505c9cf44d7a547c68b725675d32aa437d8bc130e5c"
+DATT10 = {"A": "ezek_fixround_v10_delta_lane_a_a1", "B": "ezek_fixround_v10_delta_lane_b_a1"}
+FEED = EZ / "deliverables" / "atlas_candidate_feed_rows.jsonl"
+HELD = "M8-Ezek-113"
+DERIVED = ("atlas_rows", "atlas_dimensions", "atlas_check", "sidecars", "proposals", "readme")
+M = "claude-opus-5-5"
+REQUIRED_UNMET = {"fable end packet carries THIS delta landing"}
+TIME_DEPENDENT = {"lane A: completion receipt COMPLETED on " + M, "lane B: completion receipt COMPLETED on " + M,
+                  "delta lane A: completion receipt COMPLETED on " + M, "delta lane B: completion receipt COMPLETED on " + M,
+                  "v10 delta lane A: completion receipt COMPLETED on " + M,
+                  "v10 delta lane B: completion receipt COMPLETED on " + M,
+                  "fable end packet reproduces (--check MATCH)", "fable end packet over this corpus, rows == low/medium_low"}
+sha = lambda b: hashlib.sha256(b).hexdigest()      # noqa: E731
+jload = lambda p: json.loads(Path(p).read_text(encoding="utf-8-sig"))      # noqa: E731
+
+
+def real_v1():
+    land = jload(EZ / "merged_close" / "landing_manifest.v1.json")
+    out = {}
+    for L in ATT:
+        out[L] = {}
+        for fn, f in land["lanes"][L]["files"].items():
+            p = EZ / "merged_close" / f["durable"]
+            if sha(p.read_bytes()) != f["sha256"]:
+                raise SystemExit("REFUSED: the real v1 lane file %s does not match its landing manifest" % fn)
+            out[L][fn] = p.read_bytes() if fn.endswith(".md") else jload(p)
+    return out
+
+
+def good_delta(docket, disp):
+    need = {k for k, v in docket.items() if v["v1_severity"] in ("high", "medium")}
+    out = {}
+    for L in DATT:
+        msg = ("delta lane %s\n" % L).encode("utf-8")
+        out[L] = {"final_message.md": msg, "delta_check.json": {
+            "attempt_id": DATT[L], "model": M, "grader_role": "grader_fallback (OW-25)", "corpus_sha256": V9,
+            "base_corpus_sha256": V8, "manifest_sha256": MAN, "lineage": {"confined_to_manifest": True},
+            "docket": {k: {"judged": "cured" if k in need else "carried", "severity_now": "none" if k in need else "low",
+                           "evidence": "e", "tier": "MEASURED"} for k in docket},
+            "derived_records": {k: {"fit": True, "evidence": "e"} for k in DERIVED},
+            "items": {"item_22": {"fit_to_accept": True}, "item_23": {"fit_to_accept": True}},
+            "gate_dispositions": {k: {"accept": True, "note": "n"} for k in disp},
+            "residual": [{"severity": "low", "row_or_artifact": "x"}], "for_fable_end_review": [],
+            "assembly_verdict": "fit_to_assemble", "verdict": "fit_to_close", "bounded_fix": None,
+            "transcript_coverage": {"statement": "The stage-1 transcript audit is OWED, NOT MET (OW-26)."},
+            "e19_selfreport": "no directory listed, globbed or searched", "output_sha256": sha(msg)}}
+    return out
+
+
+def good_delta10():
+    ruling = {k: v["decision"] for k, v in jload(RULING)["rulings"].items()}
+    if sha(RULING.read_bytes()) != RULING_PIN:
+        raise SystemExit("REFUSED: the ruling is not at its pinned digest")
+    out = {}
+    for L in DATT10:
+        msg = ("v10 delta lane %s\n" % L).encode("utf-8")
+        out[L] = {"final_message.md": msg, "delta_check.json": {
+            "attempt_id": DATT10[L], "model": M, "grader_role": "grader_fallback (OW-25)", "corpus_sha256": V10,
+            "base_corpus_sha256": V9, "manifest_sha256": MAN10, "ruling_sha256": RULING_PIN,
+            "lineage": {"confined_to_manifest": True},
+            "ruling_implementation": {k: {"decision": d, "implemented": True, "evidence": "e"} for k, d in ruling.items()},
+            "changed_rows": {"P10-016": {"new_defects": [], "evidence": "e"}},
+            "derived_records": {k: {"fit": True, "evidence": "e"} for k in DERIVED},
+            "items": {"item_22": {"fit_to_accept": True}},
+            "residual": [{"severity": "low", "row_or_artifact": "x"}], "for_fable_end_review": [],
+            "assembly_verdict": "fit_to_assemble", "verdict": "fit_to_close", "bounded_fix": None,
+            "transcript_coverage": {"statement": "The stage-1 transcript audit is OWED, NOT MET (OW-26)."},
+            "e19_selfreport": "no directory listed, globbed or searched", "output_sha256": sha(msg)}}
+    return out
+
+
+def first(disp, t):
+    return next(k for k, d in disp.items() if d["type"] == t)
+
+
+def tamper(name, v1, dl, disp, d10):
+    v1, dl, disp, d10 = copy.deepcopy(v1), copy.deepcopy(dl), copy.deepcopy(disp), copy.deepcopy(d10)
+    fc, pc, it, nq = (v1["A"][f] for f in ("final_check.json", "postcheck.json", "items_20_23.json", "named_questions.json"))
+    dc = dl["A"]["delta_check.json"]
+    tc = d10["A"]["delta_check.json"]
+    ri = tc["ruling_implementation"]
+    t = {
+        "v10: fable model claimed": lambda: tc.update(model="claude-fable-5-1"),
+        "v10: v9 audited as final": lambda: tc.update(corpus_sha256=V9),
+        "v10: ruling digest misstated": lambda: tc.update(ruling_sha256="0" * 64),
+        "v10: a ruled id unimplemented": lambda: ri["M8-Ezek-035"].update(implemented=False),
+        "v10: a ruled id missing": lambda: ri.pop("M8-Ezek-083"),
+        "v10: a ruling misstated": lambda: ri[HELD].update(decision="release"),
+        "v10: changed row not judged": lambda: tc.update(changed_rows={}),
+        "v10: lineage not confined": lambda: tc["lineage"].update(confined_to_manifest=False),
+        "v10: derived record unfit": lambda: tc["derived_records"]["atlas_check"].update(fit=False),
+        "v10: item 22 not fit": lambda: tc["items"]["item_22"].update(fit_to_accept=False),
+        "v10: not_fit verdict": lambda: tc.update(verdict="not_fit"),
+        "v10: medium residual": lambda: tc["residual"].append({"severity": "medium", "row_or_artifact": "P10-016"}),
+        "v10: owed statement dropped": lambda: tc["transcript_coverage"].update(statement="audited"),
+        "fable model claimed": lambda: fc.update(model="claude-fable-5-1"),
+        "v1 final check claimed over the delta corpus": lambda: fc.update(corpus_sha256=V9),
+        "transcript audit claimed as run": lambda: fc["transcript_coverage"].update(reconcile_verdict="GREEN"),
+        "owed statement dropped": lambda: fc["transcript_coverage"].update(statement="coverage was adequate"),
+        "item 20 not fit": lambda: it["item_20"].update(fit_to_accept=False),
+        "a named question unanswered": lambda: nq["NQ-8"].update(answer=""),
+        "undocketed v1 residual": lambda: fc["residual"].append({"severity": "low", "row_or_artifact": "P09-999"}),
+        "v1 medium rewritten as low": lambda: fc["residual"][0].update(
+            severity="low" if fc["residual"][0]["severity"] != "low" else "high"),
+        "a new unmet v1 gate": lambda: fc["close_gate_assessment"].append({"gate": "sidecar set equality", "met": False,
+                                                                           "evidence": "x"}),
+        "undocketed postcheck medium": lambda: pc["residual"].append({"severity": "medium", "row_id": "P09-999"}),
+        "delta: fable model claimed": lambda: dc.update(model="claude-fable-5-1"),
+        "delta: base audited as final": lambda: dc.update(corpus_sha256=V8),
+        "delta: lineage not confined": lambda: dc["lineage"].update(confined_to_manifest=False),
+        "delta: derived record unfit": lambda: dc["derived_records"]["proposals"].update(fit=False),
+        "delta: item 23 not fit": lambda: dc["items"]["item_23"].update(fit_to_accept=False),
+        "delta: medium residual": lambda: dc["residual"].append({"severity": "medium", "row_or_artifact": "P06-015"}),
+        "delta: not_fit verdict": lambda: dc.update(verdict="not_fit"),
+        "delta: v1 medium judged carried": lambda: dc["docket"]["A0"].update(judged="carried"),
+        "delta: docket key missing": lambda: dc["docket"].pop(sorted(dc["docket"])[-1]),
+        "delta: key judged medium now": lambda: dc["docket"]["B3"].update(severity_now="medium"),
+        "delta: disposition rejected": lambda: dc["gate_dispositions"][sorted(disp)[0]].update(accept=False),
+        "delta: owed statement dropped": lambda: dc["transcript_coverage"].update(statement="audited"),
+        "delta: message digest mismatch": lambda: dc.update(output_sha256="0" * 64),
+        "misapplied DEFERRED": lambda: disp[first(disp, "OWED_OW26")].update(
+            type="DEFERRED_OW28_FABLE_END_REVIEW", state="DEFERRED, NOT MET (OW-28)"),
+        "unknown disposition type": lambda: disp[first(disp, "OWED_OW26")].update(type="WAIVED"),
+        "DEFERRED claimed MET": lambda: disp[first(disp, "DEFERRED_OW28_FABLE_END_REVIEW")].update(
+            state="MET by the fallback grader"),
+        "disposition evidence rewritten": lambda: disp[sorted(disp)[0]].update(v1_evidence="met in substance"),
+    }
+    if name in t:
+        t[name]()
+    return v1, dl, disp, d10
+
+
+EXPECT = {"fable model claimed": "lane A: final check names the carrier's model",
+          "v1 final check claimed over the delta corpus": "lane A: v1 final check over the base corpus (v8), verdict recorded",
+          "transcript audit claimed as run": "lane A: transcript audit recorded OWED, NOT run",
+          "owed statement dropped": "lane A: transcript audit recorded OWED, NOT run",
+          "item 20 not fit": "lane A: items 20-21 fit_to_accept (22 and 23 are the delta lanes')",
+          "a named question unanswered": "lane A: NQ-1..NQ-10 answered",
+          "manifest digest mismatch": "lane A: six durable outputs match the landing manifest",
+          "undocketed v1 residual": "docket covers every v1 residual, severities verbatim",
+          "v1 medium rewritten as low": "docket covers every v1 residual, severities verbatim",
+          "a new unmet v1 gate": "every unmet v1 gate has a disposition, evidence verbatim",
+          "undocketed postcheck medium": "v1 postcheck high/medium residuals are docketed high/medium",
+          "delta: fable model claimed": "delta lane A: names the carrier's model",
+          "delta: base audited as final": "delta lane A: over v9, base v8, manifest pinned",
+          "delta: lineage not confined": "delta lane A: lineage confined to the manifest",
+          "delta: derived record unfit": "delta lane A: derived records fit",
+          "delta: item 23 not fit": "delta lane A: items 22-23 fit_to_accept",
+          "delta: medium residual": "delta lane A: fit_to_assemble and fit_to_close, no high/medium residual",
+          "delta: not_fit verdict": "verdict-cured gates: both delta lanes returned the named verdict",
+          "delta: v1 medium judged carried": "docket: every v1 high/medium cured in both delta lanes",
+          "delta: docket key missing": "docket: both delta lanes judged every key",
+          "delta: key judged medium now": "docket: no key judged high/medium now",
+          "delta: disposition rejected": "dispositions: both delta lanes accept every one",
+          "delta: owed statement dropped": "delta lane A: transcript audit stated OWED, e19 self-report, message digest",
+          "delta: message digest mismatch": "delta lane A: transcript audit stated OWED, e19 self-report, message digest",
+          "delta manifest digest mismatch": "delta lane A: durable outputs match the delta landing manifest",
+          "misapplied DEFERRED": "every disposition's type holds by its text (DEFERRED never MET)",
+          "unknown disposition type": "every disposition's type holds by its text (DEFERRED never MET)",
+          "DEFERRED claimed MET": "every disposition's type holds by its text (DEFERRED never MET)",
+          "disposition evidence rewritten": "every unmet v1 gate has a disposition, evidence verbatim",
+          "v10: fable model claimed": "v10 delta lane A: names the carrier's model",
+          "v10: v9 audited as final": "v10 delta lane A: over v10, base v9, manifest and ruling pinned",
+          "v10: ruling digest misstated": "v10 delta lane A: over v10, base v9, manifest and ruling pinned",
+          "v10: a ruled id unimplemented": "v10 delta lane A: every ruled id judged implemented as ruled",
+          "v10: a ruled id missing": "v10 delta lane A: every ruled id judged implemented as ruled",
+          "v10: a ruling misstated": "v10 delta lane A: every ruled id judged implemented as ruled",
+          "v10: changed row not judged": "v10 delta lane A: the changed row judged",
+          "v10: lineage not confined": "v10 delta lane A: lineage confined to the manifest",
+          "v10: derived record unfit": "v10 delta lane A: derived records fit",
+          "v10: item 22 not fit": "v10 delta lane A: item 22 fit_to_accept",
+          "v10: not_fit verdict": "v10 delta lane A: fit_to_assemble and fit_to_close, no high/medium residual",
+          "v10: medium residual": "v10 delta lane A: fit_to_assemble and fit_to_close, no high/medium residual",
+          "v10: owed statement dropped": "v10 delta lane A: transcript audit stated OWED, e19 self-report, message digest",
+          "v10 manifest digest mismatch": "v10 delta lane A: durable outputs match the v10 delta landing manifest",
+          "atlas feed: ruled hold released in the feed":
+              "atlas feed option item22 meets the coverage validator's per-book rule"}
+
+
+def write_set(root, lanes, att, schema, break_file=None):
+    man = {"schema": schema, "lanes": {}}
+    for L, files in lanes.items():
+        ent = {"attempt_id": att[L], "files": {}}
+        for fn, obj in files.items():
+            p = root / ("lane_" + L.lower()) / fn
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_bytes(obj if isinstance(obj, bytes) else json.dumps(obj, ensure_ascii=False).encode("utf-8"))
+            d = "f" * 64 if (L, fn) == break_file else sha(p.read_bytes())
+            ent["files"][fn] = {"durable": "lane_%s/%s" % (L.lower(), fn), "sha256": d}
+        man["lanes"][L] = ent
+    (root / "landing_manifest.v1.json").write_bytes(json.dumps(man).encode("utf-8"))
+    return root / "landing_manifest.v1.json"
+
+
+def run_case(root, v1, dl, disp, real_disp, d10, name="", acf="lam_pattern"):
+    if root.exists():
+        shutil.rmtree(root)  # only ever a fixture this test made under --dest
+    a = write_set(root / "v1", v1, ATT, "ezek_merged_close_landing.v1",
+                  ("A", "postcheck.json") if name == "manifest digest mismatch" else None)
+    b = write_set(root / "delta", dl, DATT, "ezek_delta_v9_landing.v1",
+                  ("A", "delta_check.json") if name == "delta manifest digest mismatch" else None)
+    c = write_set(root / "delta10", d10, DATT10, "ezek_delta_v10_landing.v1",
+                  ("A", "delta_check.json") if name == "v10 manifest digest mismatch" else None)
+    argv = [sys.executable, "-B", str(EZ / "_close_book.py"), "--landing", str(a), "--delta-landing", str(b),
+            "--delta10-landing", str(c), "--acf", acf]
+    if name == "atlas feed: ruled hold released in the feed":
+        rows = [json.loads(l) for l in FEED.read_text(encoding="utf-8-sig").splitlines() if l.strip()]
+        hit = [x for x in rows if x["chunk_decision_id"] == HELD]
+        if len(hit) != 1:
+            raise SystemExit("REFUSED: the real feed does not hold the ruled hold's row once")
+        hit[0].update(chunk_review_status="candidate_review_complete", candidate_hold_state=None,
+                      review_packet_final_state="accepted_candidate")
+        fp = root / "feed.jsonl"
+        fp.write_bytes("".join(json.dumps(x, ensure_ascii=False) + "\n" for x in rows).encode("utf-8"))
+        argv += ["--feed", str(fp)]
+    if disp != real_disp:
+        dp = root / "dispositions.json"
+        base = jload(FR / "v1_unmet_gate_dispositions.v1.json")
+        base["entries"] = disp
+        dp.write_bytes(json.dumps(base, ensure_ascii=False).encode("utf-8"))
+        argv += ["--dispositions", str(dp)]
+    p = subprocess.run(argv, cwd=str(EZ), capture_output=True, text=True, encoding="utf-8",
+                       env={**__import__("os").environ, "PYTHONUTF8": "1"}, timeout=300)
+    if p.returncode != 0:
+        return None, (p.stderr or p.stdout)[-300:]
+    return {g["gate"] for g in json.loads(p.stdout)["unmet"]}, ""
+
+
+def coverage_units():
+    """The close tool's coverage() on synthetic rows; each case names what it must report."""
+    tree = ast.parse((EZ / "_close_book.py").read_text(encoding="utf-8"))
+    fn = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and n.name == "coverage"]
+    if len(fn) != 1:
+        return {"coverage unit: function found once": {"PASS": False, "err": "found %d" % len(fn)}}
+    chunk = lambda i, c: {"decision_id": i, "span": "S" + i, "confidence": c,        # noqa: E731
+                          "review_status": "candidate_review_complete", "candidate_hold_state": None}
+    by_id = {"L1": chunk("L1", "low"), "L2": chunk("L2", "medium_low"), "H1": chunk("H1", "high")}
+    ns = {"by_id": by_id, "low_ids": {"L1", "L2"}}
+    exec(compile(ast.Module(body=fn, type_ignores=[]), "coverage", "exec"), ns)
+    good = lambda i: {"chunk_decision_id": i, "span": "S" + i, "confidence": by_id[i]["confidence"],        # noqa: E731
+                      "chunk_review_status": "candidate_review_complete", "candidate_hold_state": None,
+                      "review_packet_final_state": "accepted_candidate"}
+    held = dict(good("L2"), chunk_review_status="final_deferred_review",
+                candidate_hold_state="deferred_human_or_external_ai", review_packet_final_state="held_lower_confidence")
+    cases = {
+        "coverage unit: mirrored rows pass": ([good("L1"), good("L2")], {"missing": [], "orphan": [], "stale": []}),
+        "coverage unit: held row over a final chunk is stale (v9b)": ([good("L1"), held], {"stale": ["L2"]}),
+        "coverage unit: packet state the hold does not imply is stale (v9c)":
+            ([good("L1"), dict(good("L2"), review_packet_final_state="held_lower_confidence")], {"stale": ["L2"]}),
+        "coverage unit: high-graded held row is orphan only (v9d)":
+            ([good("L1"), good("L2"), dict(good("H1"), review_packet_final_state="held_lower_confidence",
+                                           candidate_hold_state="deferred_human_or_external_ai")],
+             {"orphan": ["H1"], "stale": []}),
+        "coverage unit: foreign chunk id is orphan, not KeyError (v9d)":
+            ([good("L1"), good("L2"), dict(good("L1"), chunk_decision_id="X9")], {"orphan": ["X9"], "stale": []}),
+    }
+    out = {}
+    for name, (rows, want) in cases.items():
+        try:
+            got = ns["coverage"](rows)
+            out[name] = {"PASS": all(got.get(k) == v for k, v in want.items()), "got": got}
+        except Exception as e:          # noqa: BLE001 - a raise is this test's failure, reported not propagated
+            out[name] = {"PASS": False, "err": "%s: %s" % (type(e).__name__, e)}
+    # OW-30: the corpus itself holds a ruled row, so a feed row mirroring that hold is fit, and releasing it is stale.
+    hb = dict(by_id, L2=dict(by_id["L2"], review_status="final_deferred_review",
+                             candidate_hold_state="deferred_human_or_external_ai"))
+    ns2 = {"by_id": hb, "low_ids": {"L1", "L2"}}
+    exec(compile(ast.Module(body=fn, type_ignores=[]), "coverage", "exec"), ns2)
+    for name, (rows, want) in {
+            "coverage unit: ruled hold mirrored as held passes (OW-30)":
+                ([good("L1"), held], {"missing": [], "orphan": [], "stale": []}),
+            "coverage unit: ruled hold released in the feed is stale (OW-30)": ([good("L1"), good("L2")], {"stale": ["L2"]}),
+    }.items():
+        try:
+            got = ns2["coverage"](rows)
+            out[name] = {"PASS": all(got.get(k) == v for k, v in want.items()), "got": got}
+        except Exception as e:          # noqa: BLE001 - a raise is this test's failure, reported not propagated
+            out[name] = {"PASS": False, "err": "%s: %s" % (type(e).__name__, e)}
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dest", required=True)
+    dest = Path(ap.parse_args().dest).resolve()
+    if dest == M8 or M8 in dest.parents:
+        raise SystemExit("REFUSED: --dest is inside the M8 tree")
+    v1 = real_v1()
+    docket = jload(FR / "delta_docket_v9.v1.json")["entries"]
+    disp = jload(FR / "v1_unmet_gate_dispositions.v1.json")["entries"]
+    dl = good_delta(docket, disp)
+    d10 = good_delta10()
+    results, ok = {}, True
+    for acf in ("item22", "lam_pattern"):
+        got, err = run_case(dest / "fx_good", v1, dl, disp, disp, d10, acf=acf)
+        passed = got is not None and REQUIRED_UNMET <= got <= REQUIRED_UNMET | TIME_DEPENDENT
+        results["passing fixture (--acf %s)" % acf] = {"unmet": sorted(got or []), "err": err, "PASS": passed}
+        ok &= passed
+    for name, want in EXPECT.items():
+        tv1, tdl, tdisp, td10 = tamper(name, v1, dl, disp, d10)
+        got, err = run_case(dest / "fx_t", tv1, tdl, tdisp, disp, td10, name,
+                            "item22" if name.startswith("atlas feed:") else "lam_pattern")
+        caught = got is not None and want in got
+        results[name] = {"CAUGHT": caught, "err": err,
+                         "extra_unmet": sorted((got or set()) - REQUIRED_UNMET - TIME_DEPENDENT - {want})}
+        ok &= caught
+    for name, r in coverage_units().items():
+        results[name] = r
+        ok &= r["PASS"]
+    print(json.dumps({"verdict": "PASS" if ok else "FAIL", "cases": len(results), "results": results},
+                     ensure_ascii=False, indent=1))
+    sys.exit(0 if ok else 1)
+
+
+if __name__ == "__main__":
+    main()

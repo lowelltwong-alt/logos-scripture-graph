@@ -1,0 +1,21 @@
+{
+ "schema": "m8_lane_result_note.v1",
+ "id": "LAM-S5-E23-NULL-TESTED-2026-09-07",
+ "why_recorded": "the deterministic punctuation sweep returned ZERO flags over all 26 rows. A zero result is either a true null or a blind instrument, and the difference matters because tier-4 translation metadata may never drive or corroborate a boundary. This lane was told to test the null rather than accept it, and the test changed the answer.",
+ "what_the_lane_did": [
+  "reproduced the shipped null under the shipped sweep (0 flags / 26 rows)",
+  "re-ran the same classes with the curly-quote mask disabled and the field scope widened to all four seam-bearing fields - still 0, proving neither the mask nor the field scope caused the null",
+  "ran a private broadened 14-class needle sweep over those fields: 35 hits, 34 dispositioned clean, 1 genuine",
+  "spliced eleven verses with their translation counterparts directly from the verse maps to check each hit against the source"
+ ],
+ "the_finding": {
+  "row": "P02-005",
+  "severity": "medium",
+  "class": "E-23 corroboration (not driver)",
+  "substance": "the row's two-verse interrogative census is byte-true, but the evidence it offers for the SECOND member rests on the English rendering's question mark rather than on the Hebrew interrogative particle. The same sentence contains the counterexample that disqualifies that evidence layer: the intervening verse carries no interrogative particle in the source, yet its English rendering is also phrased as a question. The translation's punctuation is therefore not a reliable witness to the feature being counted.",
+  "proposed_cure": "splice the source interrogative particle at that verse beside the existing translation rendering, so the second member rests on the source rather than on a question mark"
+ },
+ "why_it_is_a_real_catch": "the claim itself is true and an earlier wave verified it from bytes. What is defective is the EVIDENCE presented for it. A validator cannot see that difference; only reading the argument can.",
+ "instrument_verdict": "the shipped sweep's null is confirmed for DRIVER use (0 of 26 rows) and refuted for CORROBORATION use (1 of 26). The sweep's blind spot is question-family phrasing that carries no flagged punctuation class.",
+ "disposition": "ordered to the micro cure round"
+}

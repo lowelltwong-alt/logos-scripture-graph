@@ -1,0 +1,350 @@
+{
+ "attempt_id": "ezek_merged_close_lane_a_a1",
+ "execution_id": "ezek_merged_close_lane_a_a1#e1",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "effort": "ORDERED by the brief's dispatcher, NOT VERIFIED (no runtime effective-effort evidence available to this lane)",
+ "book": "Ezek",
+ "corpus": "rows_v8_final.jsonl",
+ "corpus_sha256": "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7",
+ "rows": 138,
+ "audit_coverage": {
+  "corpus_rows_checked": "138 by mechanical field checks; 20 rows by targeted reading",
+  "receipts_read": "none beyond the records the brief names",
+  "subagent_packets_read": "s1/h1 adjudications, author_wave_apply.v1.json and step2 adjudication_a1, as named by the parity record (read before the interruption)",
+  "stage1_packets_read": 0,
+  "transcripts_covered_by_stage1": 0,
+  "what_i_did_not_check": [
+   "the reasoning transcripts (stage-1 audit OWED, NOT MET, OW-26)",
+   "boundaries re-derived from the Hebrew for every row",
+   "chapter-final verses against a versification table",
+   "the four conditional items moved to reported review (P01-001, P03-005, P03-023, P04-012)",
+   "effort actually applied by any model",
+   "the 72M ledger headroom (OW-22)"
+  ]
+ },
+ "transcript_coverage": {
+  "attempts_total": 66,
+  "attempts_with_a_transcript": 48,
+  "attempts_with_no_transcript": 18,
+  "transcripts_permanently_lost": 15,
+  "bytes_audited_by_stage1": 0,
+  "reconcile_verdict": "NOT_RUN",
+  "fields_used": "ezek_ow15_residual.v1.json: provenance.transcripts_read (length), findings (length), findings[].task_output_file_bytes (== 0 counted as permanently lost; None = no agent id recorded)",
+  "tier": "INFERRED (the total is the sum of the two measured lengths)",
+  "statement": "The stage-1 transcript audit is OWED, NOT MET per OW-26. 48 attempts have a transcript and 18 have none (15 with a zero-byte task output: permanently lost; 3 with no agent id). Outside every figure: the eleven rate-limited attempts that produced no receipt at all, the in-flight adjudication launched 2026-09-16, and this orchestrator's own context spend, which the census does not model No transcript byte was audited by a stage-1 reader; this verdict rests on the rows and records, not on the reasoning transcripts."
+ },
+ "byte_verifications": [
+  {
+   "claim": "corpus is the pinned corpus",
+   "row_or_artifact": "rows_v8_final.jsonl",
+   "tool_run": "sha256 in build.py",
+   "result": "confirmed",
+   "evidence": "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7"
+  },
+  {
+   "claim": "brief pins hold",
+   "row_or_artifact": "brief pin table",
+   "tool_run": "sha256 of every pinned path",
+   "result": "confirmed",
+   "evidence": "50/50 match; not matching: []"
+  },
+  {
+   "claim": "138 rows, index 1..N",
+   "row_or_artifact": "corpus",
+   "tool_run": "json parse",
+   "result": "confirmed",
+   "evidence": "rows 138"
+  },
+  {
+   "claim": "spans tile the book without gap or overlap (chapter-final verses not checked against a versification table)",
+   "row_or_artifact": "corpus spans",
+   "tool_run": "adjacency scan",
+   "result": "confirmed",
+   "evidence": "first [1, 1] last [48, 35] violations []"
+  },
+  {
+   "claim": "review_status final on every row",
+   "row_or_artifact": "corpus",
+   "tool_run": "counter",
+   "result": "confirmed",
+   "evidence": "{'candidate_review_complete': 138}"
+  },
+  {
+   "claim": "v7_cwo24 -> v8 changed only review_status",
+   "row_or_artifact": "repair/rows_v7_cwo24.jsonl",
+   "tool_run": "field diff",
+   "result": "confirmed",
+   "evidence": "{'review_status': 138}"
+  },
+  {
+   "claim": "sidecar set == low/medium_low rows, unique, complete",
+   "row_or_artifact": "sidecar_src_ezek.jsonl",
+   "tool_run": "set compare",
+   "result": "confirmed",
+   "evidence": "rows 101 low 101"
+  },
+  {
+   "claim": "sidecar copied fields equal atlas",
+   "row_or_artifact": "sidecar vs atlas rows",
+   "tool_run": "field compare",
+   "result": "confirmed",
+   "evidence": "mismatch 0 unmapped []"
+  },
+  {
+   "claim": "suite GREEN, normalize clean",
+   "row_or_artifact": "validator report",
+   "tool_run": "read",
+   "result": "confirmed",
+   "evidence": "{'hard_status': 'GREEN', 'nfd_hard_e01': False, 'triage_flags': 804}"
+  },
+  {
+   "claim": "parity GREEN for this corpus",
+   "row_or_artifact": "cwo parity record",
+   "tool_run": "sha + fields",
+   "result": "confirmed",
+   "evidence": "{'sha_matches_brief': True, 'post_corpus_sha_ok': True, 'exact_arm_residual': 0, 'routed_open': 0, 'status': 'GREEN', 'rows': 138}"
+  },
+  {
+   "claim": "atlas confidence/signals equal corpus",
+   "row_or_artifact": "atlas rows",
+   "tool_run": "row compare",
+   "result": "confirmed",
+   "evidence": "rows 102"
+  },
+  {
+   "claim": "shared feed untouched by Ezekiel",
+   "row_or_artifact": "M8/atlas_candidate_feed.jsonl",
+   "tool_run": "pin + count",
+   "result": "confirmed",
+   "evidence": "pin True; M8-Ezek mentions 0"
+  },
+  {
+   "claim": "proposals candidate-only",
+   "row_or_artifact": "method_change_proposals.Ezek.candidate.jsonl",
+   "tool_run": "count",
+   "result": "refuted",
+   "evidence": "5 proposals, adjudication null 5, shared-file MCP-Ezek 1"
+  },
+  {
+   "claim": "P03-001 pe facts as transcribed",
+   "row_or_artifact": "P03-001",
+   "tool_run": "substring",
+   "result": "confirmed",
+   "evidence": "rows_v8_final.jsonl line 35 (line sha256[:16] 0e06cf4a2a668469), span Ezek.15.1-Ezek.15.8, confidence medium_low; substrings present: {'matched by a pe mark recorded on 15:8': True, 'A pe is written after MT 14:23': True}"
+  }
+ ],
+ "residual": [
+  {
+   "row_or_artifact": "P03-001",
+   "class": "O-63/X-9 grade without a stated ground (F-414)",
+   "severity": "medium",
+   "origin": "author wave / #e16 application: F-414 left uncured in bytes",
+   "defective_text": "confidence medium_low: boundary_rationale, device_notes and strongest_rejected_alternative record the pe marks (after MT 14:23; on 15:8) but no sentence states why the grade is medium_low. Rationale head: Onset side: MT 15:1 opens with the strict word-event formula, וַיְהִ֥י דְבַר יְהוָ֖ה אֵלַ֥י לֵאמֹֽר (oshb:Ezek.15.1), immediately followed by the address בֶּן א",
+   "evidence": "rows_v8_final.jsonl line 35 (line sha256[:16] 0e06cf4a2a668469), span Ezek.15.1-Ezek.15.8, confidence medium_low; substrings present: {'matched by a pe mark recorded on 15:8': True, 'A pe is written after MT 14:23': True}; grade-vocabulary hits per field (supporting only): {'boundary_rationale': [], 'device_notes': ['grade'], 'strongest_rejected_alternative': []}",
+   "proposed_cure": "One bounded author edit adding a single grade-ground sentence to P03-001 (what the pe marks settle and do not settle for the grade), then suite + CWO parity over the new corpus and a re-check of that row; or an owner ruling on the grade ground (OW-11). Weigh against the OW-22 72M line."
+  },
+  {
+   "row_or_artifact": "P01-014",
+   "class": "T-3 grade question: under #e16 alone the grade would be low",
+   "severity": "low",
+   "origin": "#e16 grade move resting on the orchestrator's reading (NQ-2)",
+   "defective_text": "confidence medium_low; sidecar why_low_confidence: 18 verses in one row: the length is disclosed as a fact and is no ground for the grade, which rests on the faces the rationale states. K/Q at 7:21 checked before quoting: the qere note's own bytes are",
+   "evidence": "rows_v8_final.jsonl line 14 (line sha256[:16] 4647297a757a7f19), span Ezek.7.10-Ezek.7.27, confidence medium_low; substrings present: {'oshb:Ezek.7.10 [WARRANT-onset:near] unmarked doom-poem opens here': True}",
+   "proposed_cure": "State the ground for keeping the grade in one sentence, or regrade to low; the owner decides under R-5."
+  },
+  {
+   "row_or_artifact": "P03-004",
+   "class": "label wording: 16.23 still labelled a verse-final 'close' beside the O-06 declined forward merge",
+   "severity": "low",
+   "origin": "carry-over from before O-06 (INFERRED: 16.23 opens a sentence that runs into 16.24)",
+   "defective_text": "oshb:Ezek.16.23 (disclosure: verse-final woe-cry and utterance-of-the-Lord-YHWH close; ...)",
+   "evidence": "rows_v8_final.jsonl line 38 (line sha256[:16] 91c5509735ab4df4), span Ezek.16.20-Ezek.16.23, confidence medium_low; substrings present: {'web:Ezek.16.24-Ezek.16.34 [WARRANT-rival:merge] 16.23/16.24 forward merge weighed and declined': True, 'oshb:Ezek.16.23 (disclosure: verse-final woe-cry': True}",
+   "proposed_cure": "Reword the 16.23 disclosure so it cannot be read as a second boundary claim; no boundary change."
+  },
+  {
+   "row_or_artifact": "P10-016",
+   "class": "F-337 partly cured",
+   "severity": "low",
+   "origin": "named open item (NQ-3)",
+   "defective_text": "F-337 residual as read before the interruption; see byte_evidence excerpts (this lane's own earlier output)",
+   "evidence": "rows_v8_final.jsonl line 113 (line sha256[:16] 8305df6d14173a5f), span Ezek.40.28-Ezek.40.37, confidence low; substrings present: {'F-337': False}; lane evidence: ['66: P01-001 (line 1), P01-014 (line 14), P02-006 (line 20, low), P02-008 (line 22), P03-001 (line 35), P03-003 (line 37), P03-004 (line 38), P03-005 (line 39), P03-022 (line 41), P03-023 (line 44), P03-021 (line 49), P04-012 (line 52), P04-', '157:   - F-337: P10-016, class E17, STOP;', \"NQ6STRUCT author/final/s1_adjudication/adjudication.json keys ['schema', 'attempt_id', 'execution_id', 'model', 'role', 'stage', 'brief', 'authority', 'pinned_inputs_bound', 'pinned_inputs_all_match_at_start', 'divergence_map_used', 'summar\"]",
+   "proposed_cure": "Finish F-337 at the next author touch; non-blocking."
+  },
+  {
+   "row_or_artifact": "deliverables/atlas_candidate_feed_rows.jsonl + sidecar_src_ezek.jsonl",
+   "class": "derived prose defects",
+   "severity": "low",
+   "origin": "gen_atlas_rows.py / gen_sidecars.py derivation",
+   "defective_text": "M8-Ezek-090 why_low_confidence: 'The disputation-oracle category fits 33.10-20 as one unit; no category deviation. Recorded alternative: WLC/OSHB, single witness).'; 'no ground' in why_low_confidence on ['P01-001', 'P01-014', 'P04-001', 'P07-006', 'P08-015']; P01-010 why_frontier_review_needed is the COMPOSED fallback",
+   "evidence": "atlas rows 102; sidecar rows 101; copied-field mismatches 0",
+   "proposed_cure": "Repair the fragment and the five 'no ground' reasons at the next generator run; non-blocking."
+  },
+  {
+   "row_or_artifact": "cwo/cwo_parity.rows_v8_final.json (NQ-6)",
+   "class": "ruled-rewrite attribution not traceable by row id",
+   "severity": "low",
+   "origin": "parity side_records",
+   "defective_text": "CWO-EZ-24: 6 pairs carry a ruled_rewrite (brief says 7); s1_adjudication never names P05-004 (it names image 03327cf4); author_wave_apply.v1.json names no row id; h1 attribution (P06-003.device_notes, source B) is true",
+   "evidence": "measured before the interruption; lane evidence: ['NQ6 repair2/session_910cbe15/ezek_aw/author_wave_apply.v1.json sha_ok True row_mentions 0', \"C23 keys ['arm', 'method', 'tool_verdict', 'record', 'pairs_verified', 'pairs_ordered', 'status', 'ruled_rewrites', 'residual_count', 'residual'] n_ruled 11 recs ['author/final/s1_adjudication/adjudication.json', 'author/repair2_step6/h1_ad\", \"C24 keys ['arm', 'method', 'record', 'record_sha256', 'status', 'pair_checks', 'pairs_superseded_by_ruled_waves', 'residual_count', 'residual'] n_pairs 18 n_ruled 6 recs ['author/final/s1_adjudication/adjudication.json', 'repair2/session_91\"]",
+   "proposed_cure": "Add a row-id keyed attribution table to the parity record's side records."
+  },
+  {
+   "row_or_artifact": "deliverables + scholar record generators",
+   "class": "bound to the preimage corpus",
+   "severity": "low",
+   "origin": "generators read repair/rows_v7_cwo24.jsonl",
+   "defective_text": "gen_atlas_rows L36: 'ROWS = EZ / \"repair\" / \"rows_v7_cwo24.jsonl\"'; gen_scholar_record L50: '\"rows\": EZ / \"repair\" / \"rows_v7_cwo24.jsonl\",'; atlas check input_rows_sha256 e24048cc869f",
+   "evidence": "v7_cwo24 vs v8 fields differing: {'review_status': 138}; ids equal True",
+   "proposed_cure": "Record the equivalence in the close packet, or re-point the generators at rows_v8_final and regenerate as a new version."
+  },
+  {
+   "row_or_artifact": "method_change_proposals.Ezek.candidate.jsonl + gen_proposals.py",
+   "class": "stale Fable wording under OW-25",
+   "severity": "low",
+   "origin": "written before OW-25",
+   "defective_text": "'single Fable execution' in 1 proposal(s); gen_proposals.py Fable lines [10, 15, 26]",
+   "evidence": "byte count over the files",
+   "proposed_cure": "Annotate under OW-25 (Opus fallback) when the proposals are adjudicated."
+  },
+  {
+   "row_or_artifact": "scholar_record/EZEKIEL_SCHOLAR_RECORD.v2.md",
+   "class": "presentation leaks",
+   "severity": "low",
+   "origin": "gen_scholar_record.py rendering",
+   "defective_text": "raw dict 'What this reader proposed: {...}' at lines [45, 55, 76, 86, 107, 117, 138, 148, 169, 179, 200, 210, 231, 241, 262, 272, 293, 303, 324, 334, 354, 364, 384, 394, 415, 425, 445, 455, 475, 485, 506, 516, 536, 546, 566, 594, 623, 633, 654, 664, 684, 694, 714, 724, 744, 750, 770, 780, 800, 810, 830, 836, 856, 866, 886, 896, 916, 926, 947, 957, 977, 987, 1007, 1017, 1037, 1047, 1075, 1095, 1105, 1126, 1136, 1156, 1166, 1186, 1196, 1216, 1226, 1247, 1257, 1277, 1305, 1315, 1335, 1345, 1365, 1375, 1395, 1405, 1425, 1435, 1455, 1465, 1485, 1495, 1515, 1543, 1553, 1581, 1602, 1612, 1632, 1642, 1663, 1673, 1693, 1703, 1724, 1734, 1754, 1764, 1784, 1794, 1814, 1824, 1844, 1854, 1874, 1884, 1905, 1915, 1935, 1945, 1965, 1975, 1995, 2005, 2025, 2035, 2056, 2066, 2094, 2114, 2124, 2144, 2154, 2175, 2185, 2205, 2215, 2235, 2245, 2265, 2275, 2295, 2305, 2325, 2335, 2356, 2366, 2386, 2396, 2416, 2426, 2446, 2456, 2476, 2486, 2506, 2516, 2536, 2546, 2566, 2576, 2596, 2606, 2626, 2636, 2656, 2666, 2687, 2697, 2717, 2727, 2747, 2757, 2785, 2805, 2815, 2835, 2841, 2861, 2885, 2895, 2923, 2951, 2971, 2981, 3001, 3011, 3031, 3041, 3061, 3071, 3091, 3119, 3129, 3149, 3159, 3179, 3189, 3209, 3219, 3239, 3249, 3269, 3279, 3299, 3309, 3337, 3365, 3393, 3413, 3423, 3443, 3453, 3473, 3483, 3503, 3513, 3533, 3543, 3563, 3573, 3593, 3603, 3631, 3651, 3661, 3682, 3692, 3712, 3722, 3742, 3752, 3772, 3782, 3802, 3812, 3832, 3860, 3888, 3898, 3918, 3928]; 'severity ?.' at lines [140, 568, 596, 686, 822, 1059, 1128, 1279, 1387, 1417, 1517, 1565, 1907, 1937, 2078, 2378, 2719, 2769, 2827, 2863, 2907, 2935, 2973, 2993, 3003, 3023, 3033, 3093, 3111, 3141, 3151, 3241, 3261, 3271, 3291, 3301, 3321, 3349, 3377, 3405, 3415, 3445, 3475, 3495, 3525, 3585, 3595, 3615, 3623, 3653, 3674, 3714, 3734, 3794, 3824, 3834, 3862, 3880]; repeated 'inventory' phrasing at 2681-2685",
+   "evidence": "line scan of the pinned file",
+   "proposed_cure": "Render dicts as prose and regenerate as v3 (re-version, never overwrite, OW-17)."
+  },
+  {
+   "row_or_artifact": "atlas rows vs corpus review_status",
+   "class": "held regions vs final status",
+   "severity": "low",
+   "origin": "gen_atlas_rows.py L189 derives status from held state",
+   "defective_text": "atlas chunk_review_status {'candidate_review_complete': 94, 'final_deferred_review': 8} while the corpus review_status is {'candidate_review_complete': 138}",
+   "evidence": "gen_atlas_rows L189: '\"chunk_review_status\": \"final_deferred_review\" if held else \"candidate_review_complete\",'",
+   "proposed_cure": "Owner disposition in the close packet: the 8 holds stay deferred in the atlas while the rows are final."
+  }
+ ],
+ "stage1_findings_disposition": [],
+ "close_gate_assessment": [
+  {
+   "gate": "L22-24 postcheck verdict fit_to_assemble, no high/medium residual",
+   "met": false,
+   "evidence": "lane A postcheck verdict not_fit; residual {'high': 0, 'medium': 1, 'low': 3}"
+  },
+  {
+   "gate": "L25-27 review_status candidate_review_complete on every row",
+   "met": true,
+   "evidence": "{'candidate_review_complete': 138}"
+  },
+  {
+   "gate": "L28 chunk_index_in_book == 1..N",
+   "met": true,
+   "evidence": "rows 138"
+  },
+  {
+   "gate": "L29-35 sidecar set equals low/medium_low rows, no duplicates",
+   "met": true,
+   "evidence": "sidecar 101 / low rows 101"
+  },
+  {
+   "gate": "L36-38 six sidecar fields non-empty",
+   "met": true,
+   "evidence": "missing []"
+  },
+  {
+   "gate": "L39 why_low_confidence unique",
+   "met": true,
+   "evidence": "text set size equals row count"
+  },
+  {
+   "gate": "L40-42 suite GREEN, nfd_hard_e01 false, normalize fixed 0 / defects 0",
+   "met": true,
+   "evidence": "{'hard_status': 'GREEN', 'nfd_hard_e01': False, 'triage_flags': 804} {'file': 'rows_v8_final.jsonl', 'mode': 'dry-run', 'ok': 898, 'qere': 57, 'fixed': 0, 'mention': 32, 'defect_count': 0, '_exit': 0}"
+  },
+  {
+   "gate": "L43-54 CWO parity record for this corpus, GREEN, empty exact-arm residual",
+   "met": true,
+   "evidence": "{'sha_matches_brief': True, 'post_corpus_sha_ok': True, 'exact_arm_residual': 0, 'routed_open': 0, 'status': 'GREEN', 'rows': 138}"
+  },
+  {
+   "gate": "L55-58 OW-6 final-check packet in SP/Ezek/final_check/",
+   "met": false,
+   "evidence": "No Ezekiel final_check/ exists (decision v2 section 2); this lane's final_check.json is a candidate in the lane directory; placing it is the owner's act (OW-11)."
+  },
+  {
+   "gate": "L60 final checker model == claude-fable-5-1",
+   "met": false,
+   "evidence": "Model claude-opus-5-5 under OW-25. The Lam assertion is not edited; the Ezekiel tool must read the fallback grader from campaign/grader_models.v1.json and assert the downgrade statement."
+  },
+  {
+   "gate": "L61-62 verdict fit_to_close, no high/medium residual",
+   "met": false,
+   "evidence": "lane A final verdict not_fit; residual {'high': 0, 'medium': 1, 'low': 9}"
+  },
+  {
+   "gate": "L63-64 corpus_sha256 equals the corpus closed",
+   "met": true,
+   "evidence": "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7"
+  },
+  {
+   "gate": "L65-77 stage-1 transcript-audit packets and dispositions",
+   "met": false,
+   "evidence": "OWED, NOT MET (OW-26): no stage-1 transcript audit exists for Ezekiel; stage1_findings_disposition is []."
+  },
+  {
+   "gate": "L78-85 transcript_coverage stated, reconcile_verdict GREEN",
+   "met": false,
+   "evidence": "Integers and statement present; reconcile_verdict NOT_RUN."
+  },
+  {
+   "gate": "L86-99 stage-1 packet model and byte accounting",
+   "met": false,
+   "evidence": "No stage-1 packets (OW-26)."
+  },
+  {
+   "gate": "L100-105 _final_check_reconcile.py returns 0",
+   "met": false,
+   "evidence": "Not run: no stage-1 packets to reconcile."
+  },
+  {
+   "gate": "L106-112 non-straddle, parent parity, tiling",
+   "met": true,
+   "evidence": "Lam-specific (poem starts, lam_lib). Ezekiel analogue: adjacency over 138 spans, first [1, 1], last [48, 35], violations 0; chapter-final verses not checked against a versification table."
+  }
+ ],
+ "process_findings": [
+  "OW-26 weakness holds: one reader carries all three verdicts; lanes A and B are same-family (OW-19: one voice).",
+  "Stage-1 transcript audit OWED, NOT MET (OW-26).",
+  "The Lam close tool appends to shared files (L4: 'M8-Lam-NNN, appends the three sidecars + the whole-Bible map, writes receipts/Lam_completion.json carrying the'; L138-141). Ezekiel's close tool must stage rows and assert the shared feed unchanged (OW-11).",
+  "The Lam model gates (L60, stage-1) cannot be met under OW-25; the Ezekiel tool must carry the declared downgrade.",
+  "This run was stopped once by an API 429 session limit and resumed after a context compaction; four conditional low items could not be re-established in bytes and were moved to reported review."
+ ],
+ "escalation": {
+  "needs_human": true,
+  "question": "P03-001 carries a grade with no stated ground (F-414, O-63/X-9), a medium residual that blocks both gates. Cure by one bounded author edit, or by an owner ruling on the grade ground?",
+  "recommendation": "One bounded author edit to P03-001 plus suite, parity and a single-row re-check.",
+  "recommendation_reason": "One row, one sentence; the smallest cure that makes the ground explicit, weighed against the OW-22 72M line.",
+  "alternatives": [
+   "Owner rules the grade ground from the row's own pe facts (OW-11) and records the ruling in the close packet",
+   "Regrade P03-001 to low under #e16, with the sidecar/atlas regenerated"
+  ],
+  "rulings_made_without_the_owner": []
+ },
+ "verdict": "not_fit",
+ "blocking": [
+  "P03-001 (medium)"
+ ],
+ "digits": {
+  "rows": 138,
+  "byte_verifications": 14,
+  "confirmed": 13,
+  "refuted": 1,
+  "residual_high": 0,
+  "residual_medium": 1,
+  "residual_low": 9
+ },
+ "self_check": "Built from build.py over the pinned corpus (sha re-verified); measurements in work/build_measurements.json.",
+ "written_at": "2026-09-23T03:50:11.437374+00:00"
+}

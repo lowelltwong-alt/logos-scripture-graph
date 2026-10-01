@@ -1,0 +1,765 @@
+{
+ "attempt_id": "ezek_author_fixup_p08_a1",
+ "execution_id": "ezek_author_fixup_p08_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup1\\orders_ezek_author_fixup_p08_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v3_cwo18.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_web_quotes.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_register.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\normalize_hebrew_in_json.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\cap_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "12 rows replaced (P08-001, P08-002, P08-004, P08-005, P08-006, P08-015, P08-007, P08-010, P08-011, P08-012, P08-013, P08-014); P08-003 has no orders and is not emitted",
+    "why": "execute the embedded ruling orders (G9-B1 for P08-007; CWO18-R1-1 for P08-013), the CWO-EZ-14 register cures, and the CWO-EZ-18 web-quotation cures, with no span/unit_type/confidence/parent_collection change on any row"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "orders file matches the digest pinned at launch",
+   "how": "sha256sum equivalent (Python hashlib) on orders_ezek_author_fixup_p08_a1.json",
+   "result": "confirmed (b09641c1afa52601cbc1ef1c8a951f45e9f11ca12cd1d61e689864bb821d0343)"
+  },
+  {
+   "claim": "TOOLKIT.md matches the digest pinned in the brief's table",
+   "how": "Get-FileHash -Algorithm SHA256",
+   "result": "confirmed (b247cea5b0af11a7708b5b0a53383d4b5abd9940b016e045bd1f317d97c1c0b6)"
+  },
+  {
+   "claim": "rows_v3_cwo18.jsonl matches the digest pinned in the brief's table",
+   "how": "Get-FileHash -Algorithm SHA256",
+   "result": "confirmed (568f004b6a4512f6de91e6c6aeaa10d80fa3956bbafad9454e79544dd8ed15d4)"
+  },
+  {
+   "claim": "every emitted row has all 22 fields plus _op:replace, non_authorizing true, and the 9 THE-ONE-OP fields byte-identical to current_row",
+   "how": "private structural diff script against orders current_row (own scratch)",
+   "result": "confirmed, 0 problems"
+  },
+  {
+   "claim": "citation_sweep problems = 0 on my rows",
+   "how": "citation_sweep.py my_rows_only.jsonl (own scratch, 12-row file)",
+   "result": "confirmed (status GREEN, problems: [])"
+  },
+  {
+   "claim": "normalizer defects = 0 and fixed = 0 on my rows",
+   "how": "normalize_hebrew_in_json.py my_rows_only.jsonl (dry-run only)",
+   "result": "confirmed (fixed=0, defect_count=0)"
+  },
+  {
+   "claim": "cap_sweep failures = 0 on my rows",
+   "how": "cap_sweep.py my_rows_only.jsonl",
+   "result": "confirmed (status GREEN, failures: [])"
+  },
+  {
+   "claim": "check_register flags = 0 on my rows",
+   "how": "check_register.py my_rows_only.jsonl",
+   "result": "confirmed (status GREEN, flag_count 0)"
+  },
+  {
+   "claim": "check_web_quotes 'curly quote with NO web: ref' class = 0 on my rows",
+   "how": "check_web_quotes.py my_rows_only.jsonl",
+   "result": "confirmed for that class; 1 unrelated flag found (see unresolved_uncertainty)"
+  },
+  {
+   "claim": "check_tiling PASS over the part's own span",
+   "how": "check_tiling.py part_p08_only.private.jsonl --range Ezek.33.1-Ezek.36.38 (13-row private slice: my 12 rows + untouched P08-003)",
+   "result": "confirmed (status GREEN, verses_expected=117, verses_covered=117, problems: [])"
+  },
+  {
+   "claim": "FLAGS (mark_symmetry, universals, web_quotes, refs_mirror) do not rise on my rows, except where a disclosure requires it",
+   "how": "run_validator_suite.py over a private whole-book copy with my 12 rows substituted, vs. the same suite over an unmodified private copy of the same chain-head file; per-row flag diff by decision_id",
+   "result": "confirmed: mark_symmetry -1 (P08-007, resolved by the G9-B1-ordered front-seam pe disclosure), universals 0, web_quotes 0, refs_mirror 0 - no unexplained rise"
+  },
+  {
+   "claim": "e4:G9-B1#1 executed exactly as embedded for P08-007 (35:12 wording kept; two narration clauses deleted; front-seam pe disclosed; 'last of four' claim corrected; oshb:Ezek.36.1 mirrored in refs)",
+   "how": "line-for-line diff of device_notes/boundary_rationale/boundary_evidence_refs against the order's own text",
+   "result": "confirmed"
+  },
+  {
+   "claim": "e7:CWO18-R1-1#1 executed exactly as embedded for P08-013 ('one heart' remedied with an inline web: ref inside the entry's own parenthetical; 'a new heart' left as the already-ratified single-quoted label; no words dropped, no reshape forced)",
+   "how": "line-for-line diff of boundary_evidence_refs[1] against the order's own text",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "P08-004's 'then they will know that I am Yahweh' and P08-005's 'know ... that I am Yahweh', and several P08-007 spans ('behold, I am against you', two 'then you will know that I am Yahweh' instances, 'I have heard', 'they have been laid desolate'), were converted to single-quoted glosses rather than given an inline web: ref",
+   "why_it_matters": "the CWO-EZ-18 order's own verbatim/folded verse lists for these spans name a DIFFERENT verse than the one the row's prose is actually discussing at that point (e.g. P08-004's phrase is verbatim only at Ezek.32.15, not at the Ezek.33.29 it describes; P08-007's 'behold, I am against you' is verbatim only at 13:8/29:10, not at the 35:3 it describes). Citing the tool-verified verse there would misdirect the reader, so the single-quote option the ruling itself offers was used instead. A checker who wants ref-bearing citations at those points instead should treat this as an open editorial choice, not a byte error."
+  },
+  {
+   "what": "check_web_quotes flags P08-012 boundary_rationale's pre-existing curly SINGLE-quoted span 'know ... that I am Yahweh' as 'verbatim WEB text in SINGLE curly quotes (delimiter evasion)'",
+   "why_it_matters": "this text was already in current_row before this execution and is not named by any item embedded in my orders file for P08-012 (my two P08-012 items were the device_notes register reword and the 'I don't do this for your sake' ref addition only). Per FORBIDDEN/'NOT YOURS: any order not embedded in your file', it was left untouched rather than cured on my own initiative; it is reported here for the checker or a later wave."
+  },
+  {
+   "what": "mark_symmetry still flags 6 undisclosed-mark gaps on my rows after landing (P08-001 Ezek.32.32 PE; P08-004 Ezek.33.22 PE; P08-006 Ezek.33.33 SAMEKH; P08-010 Ezek.35.15 PE; P08-012 Ezek.36.15 and Ezek.36.21 SAMEKH; P08-013 Ezek.36.32 SAMEKH)",
+   "why_it_matters": "none of these specific marks is named by any item embedded in my orders file (S1-09's specific list names only P08-007's 34:31 pe, which this execution disclosed and which is confirmed cleared). These 6 are pre-existing and out of this execution's embedded scope; left undisclosed and reported rather than cured on my own initiative."
+  },
+  {
+   "what": "refs_mirror still flags 'argued_but_unmirrored' verses on 8 of my 12 rows (P08-005, P08-006, P08-015, P08-007, P08-010, P08-011, P08-013, P08-014), unchanged before/after",
+   "why_it_matters": "this automated class checks every verse named anywhere in strongest_rejected_alternative comparative reasoning, a broader condition than S1-13's specific per-row seam-verse list. S1-13's own named verses (P08-006 34:17; P08-015 34:15/34:16/35:1; P08-007 36:1 plus the 34:31 pe; P08-010 36:13; P08-011 36:16) were all added to boundary_evidence_refs by this execution and are confirmed present. The remaining flagged verses are comparative asides inside strongest_rejected_alternative, not seam evidence, and were not named by any item in my orders file."
+  }
+ ],
+ "items": [
+  {
+   "row": "P08-001",
+   "item": "S1-05",
+   "action": "informational",
+   "reason": "The wave introduced section 8-barred register into the rows (repair narration, p"
+  },
+  {
+   "row": "P08-001",
+   "item": "S1 cwo_sample",
+   "action": "cured",
+   "reason": "row-specific defects addressed"
+  },
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-14 boundary_rationale 'opens the part'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-14 device_notes 'strategy's'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-14 device_notes 'strategy's'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'children of your people' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-18 boundary_rationale 'the children of your people' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-18 boundary_rationale 'the house of Israel' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-18 boundary_rationale 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-001",
+   "item": "CWO-EZ-18 device_notes 'Son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-002",
+   "item": "S1-05",
+   "action": "informational",
+   "reason": "The wave introduced section 8-barred register into the rows (repair narration, p"
+  },
+  {
+   "row": "P08-002",
+   "item": "CWO-EZ-14 device_notes 'strategy's'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-002",
+   "item": "CWO-EZ-18 boundary_rationale 'the children of your people' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-002",
+   "item": "CWO-EZ-18 boundary_rationale 'I will judge every one of you after his ways' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-002",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'As I live' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-002",
+   "item": "CWO-EZ-18 boundary_rationale 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-002",
+   "item": "CWO-EZ-18 boundary_rationale 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-004",
+   "item": "S1-05",
+   "action": "informational",
+   "reason": "The wave introduced section 8-barred register into the rows (repair narration, p"
+  },
+  {
+   "row": "P08-004",
+   "item": "CWO-EZ-14 device_notes 'strategy's'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-004",
+   "item": "CWO-EZ-18 boundary_rationale 'then they will know that I am Yahweh' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-004",
+   "item": "CWO-EZ-18 boundary_rationale 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-004",
+   "item": "CWO-EZ-18 boundary_rationale 'As I live' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-004",
+   "item": "CWO-EZ-18 boundary_rationale 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-004",
+   "item": "CWO-EZ-18 device_notes 'mountains of Israel' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-005",
+   "item": "S1-05",
+   "action": "informational",
+   "reason": "The wave introduced section 8-barred register into the rows (repair narration, p"
+  },
+  {
+   "row": "P08-005",
+   "item": "CWO-EZ-14 device_notes 'strategy's'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-005",
+   "item": "CWO-EZ-18 boundary_rationale 'as for you, son of man' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-005",
+   "item": "CWO-EZ-18 boundary_rationale 'then they will know that a prophet has been among them' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-005",
+   "item": "CWO-EZ-18 boundary_rationale 'know that I am Yahweh' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-005",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-005",
+   "item": "CWO-EZ-18 strongest_rejected_alternative 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-006",
+   "item": "S1-05",
+   "action": "informational",
+   "reason": "The wave introduced section 8-barred register into the rows (repair narration, p"
+  },
+  {
+   "row": "P08-006",
+   "item": "S1-13",
+   "action": "informational",
+   "reason": "Verses argued as the seam's far-side evidence are not mirrored in boundary_evide"
+  },
+  {
+   "row": "P08-006",
+   "item": "G9#2",
+   "action": "cured",
+   "reason": "row-specific defects addressed"
+  },
+  {
+   "row": "P08-006",
+   "item": "S1 cwo_sample",
+   "action": "cured",
+   "reason": "row-specific defects addressed"
+  },
+  {
+   "row": "P08-006",
+   "item": "CWO-EZ-14 device_notes 'strategy’s'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-006",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'As I live' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-006",
+   "item": "CWO-EZ-18 boundary_rationale 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-015",
+   "item": "S1-05",
+   "action": "informational",
+   "reason": "The wave introduced section 8-barred register into the rows (repair narration, p"
+  },
+  {
+   "row": "P08-015",
+   "item": "S1-11",
+   "action": "informational",
+   "reason": "Curly double quotes wrap English glosses that are not WEB text, with no web: ref"
+  },
+  {
+   "row": "P08-015",
+   "item": "S1-13",
+   "action": "informational",
+   "reason": "Verses argued as the seam's far-side evidence are not mirrored in boundary_evide"
+  },
+  {
+   "row": "P08-015",
+   "item": "S1-14",
+   "action": "informational",
+   "reason": "Small unsupported or incorrect statements in new text."
+  },
+  {
+   "row": "P08-015",
+   "item": "G9#2",
+   "action": "cured",
+   "reason": "row-specific defects addressed"
+  },
+  {
+   "row": "P08-015",
+   "item": "CWO-EZ-14 device_notes 'strategy’s'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-015",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'I, Yahweh, have spoken' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-015",
+   "item": "CWO-EZ-18 boundary_rationale 'I, Yahweh, have spoken' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-015",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'my flock' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-015",
+   "item": "CWO-EZ-18 boundary_rationale 'my flock' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-015",
+   "item": "CWO-EZ-18 boundary_rationale 'one shepherd' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-007",
+   "item": "e4:G9-B1#1",
+   "action": "cured",
+   "reason": "ruling order executed as embedded"
+  },
+  {
+   "row": "P08-007",
+   "item": "S1-05",
+   "action": "informational",
+   "reason": "The wave introduced section 8-barred register into the rows (repair narration, p"
+  },
+  {
+   "row": "P08-007",
+   "item": "S1-09",
+   "action": "informational",
+   "reason": "Span-relevant parashah marks are left undisclosed (front seam or interior)."
+  },
+  {
+   "row": "P08-007",
+   "item": "S1-11",
+   "action": "informational",
+   "reason": "Curly double quotes wrap English glosses that are not WEB text, with no web: ref"
+  },
+  {
+   "row": "P08-007",
+   "item": "S1-13",
+   "action": "informational",
+   "reason": "Verses argued as the seam's far-side evidence are not mirrored in boundary_evide"
+  },
+  {
+   "row": "P08-007",
+   "item": "S1-14",
+   "action": "informational",
+   "reason": "Small unsupported or incorrect statements in new text."
+  },
+  {
+   "row": "P08-007",
+   "item": "G9#1",
+   "action": "cured",
+   "reason": "row-specific defects addressed"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-14 device_notes 'correction to an earlier'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-14 device_notes 'the order's'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'behold, I am against you' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'will not be inhabited' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'they have been laid desolate' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'Set your face' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'behold, I am against you' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'then you will know that I am Yahweh' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'will not be inhabited' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'then you will know that I am Yahweh' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'I have heard,' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'they have been laid desolate' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'As I live' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'As I live' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'As I live' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-007",
+   "item": "CWO-EZ-18 boundary_rationale 'As I live' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-010",
+   "item": "S1-13",
+   "action": "informational",
+   "reason": "Verses argued as the seam's far-side evidence are not mirrored in boundary_evide"
+  },
+  {
+   "row": "P08-010",
+   "item": "S1-14",
+   "action": "informational",
+   "reason": "Small unsupported or incorrect statements in new text."
+  },
+  {
+   "row": "P08-010",
+   "item": "CWO-EZ-18 boundary_rationale 'the mountains of Israel,' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-010",
+   "item": "CWO-EZ-18 device_notes 'the mountains of Israel,' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-011",
+   "item": "S1-11",
+   "action": "informational",
+   "reason": "Curly double quotes wrap English glosses that are not WEB text, with no web: ref"
+  },
+  {
+   "row": "P08-011",
+   "item": "S1-13",
+   "action": "informational",
+   "reason": "Verses argued as the seam's far-side evidence are not mirrored in boundary_evide"
+  },
+  {
+   "row": "P08-011",
+   "item": "CWO-EZ-18 boundary_rationale 'your nation,' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-011",
+   "item": "CWO-EZ-18 device_notes 'the mountains of Israel,' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-011",
+   "item": "CWO-EZ-18 boundary_rationale 'your nation' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-011",
+   "item": "CWO-EZ-18 device_notes 'the land' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-012",
+   "item": "S1-05",
+   "action": "informational",
+   "reason": "The wave introduced section 8-barred register into the rows (repair narration, p"
+  },
+  {
+   "row": "P08-012",
+   "item": "CWO-EZ-14 device_notes 'strategy's'",
+   "action": "cured",
+   "reason": "barred register phrase reworded"
+  },
+  {
+   "row": "P08-012",
+   "item": "CWO-EZ-18 boundary_rationale 'I don't do this for your sake' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-012",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-012",
+   "item": "CWO-EZ-18 boundary_rationale 'Son of man' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-012",
+   "item": "CWO-EZ-18 boundary_rationale 'mountains of Israel' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-013",
+   "item": "e7:CWO18-R1-1#1",
+   "action": "cured",
+   "reason": "ruling order executed as embedded"
+  },
+  {
+   "row": "P08-013",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'you will be my people' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-013",
+   "item": "CWO-EZ-18 boundary_rationale 'one heart' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-013",
+   "item": "CWO-EZ-18 boundary_rationale 'you will be my people, and I will be your God' (near_web_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-013",
+   "item": "CWO-EZ-18 boundary_rationale 'a new heart' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-013",
+   "item": "CWO-EZ-18 boundary_rationale 'a new spirit' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-013",
+   "item": "CWO-EZ-18 boundary_rationale 'new heart' (short_common_label)",
+   "action": "informational",
+   "reason": "already single-quoted in current_row; no action required"
+  },
+  {
+   "row": "P08-013",
+   "item": "CWO-EZ-18 entry-level {\"kind\": \"cwo_item\", \"cwo\": \"CWO-EZ-18\", \"entry_level\": true",
+   "action": "cured",
+   "reason": "entry-level item resolved per its ruling"
+  },
+  {
+   "row": "P08-014",
+   "item": "CWO-EZ-18 boundary_evidence_refs 'I, Yahweh, have spoken' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  },
+  {
+   "row": "P08-014",
+   "item": "CWO-EZ-18 boundary_rationale 'I, Yahweh, have spoken' (verbatim_author)",
+   "action": "cured",
+   "reason": "web: ref added or curly form dropped for single quotes"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-14 register cures (11 items across P08-001, P08-002, P08-004, P08-005, P08-006, P08-015, P08-007 x2, P08-012)",
+   "test": "check_register.py my_rows_only.jsonl",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-18 verbatim_author / near_web_author cures (all rows)",
+   "test": "citation_sweep.py my_rows_only.jsonl",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-18 web: ref coverage (all rows)",
+   "test": "check_web_quotes.py my_rows_only.jsonl, class 'curly quote with NO web: ref in its field'",
+   "result": "PASS (0 of that class; see unresolved_uncertainty for one unrelated, out-of-scope flag)"
+  },
+  {
+   "order": "e4:G9-B1#1 (P08-007)",
+   "test": "byte re-check of the order's own evidence (Ezek.35.4/35.5/35.9/35.10/35.12/35.13 bytes and pmarks) against the executed device_notes/boundary_rationale text",
+   "result": "PASS"
+  },
+  {
+   "order": "e7:CWO18-R1-1#1 (P08-013)",
+   "test": "citation_sweep.py my_rows_only.jsonl (ref-grammar over P08-013 boundary_evidence_refs[1])",
+   "result": "PASS"
+  },
+  {
+   "order": "whole-chapter cap discipline (P08-007)",
+   "test": "cap_sweep.py my_rows_only.jsonl",
+   "result": "PASS"
+  },
+  {
+   "order": "Hebrew byte fidelity (no Hebrew typed or altered by this execution)",
+   "test": "normalize_hebrew_in_json.py my_rows_only.jsonl (dry-run)",
+   "result": "PASS (fixed=0, defects=0)"
+  },
+  {
+   "order": "local tiling over the part's own span",
+   "test": "check_tiling.py part_p08_only.private.jsonl --range Ezek.33.1-Ezek.36.38",
+   "result": "PASS (117/117)"
+  },
+  {
+   "order": "NO SPAN CHANGES / frozen-field integrity",
+   "test": "private structural diff of all 12 emitted rows against orders current_row",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "mark_symmetry": 8,
+   "universals": 0,
+   "web_quotes": 0,
+   "refs_mirror": 8
+  },
+  "after": {
+   "mark_symmetry": 7,
+   "universals": 0,
+   "web_quotes": 0,
+   "refs_mirror": 8
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

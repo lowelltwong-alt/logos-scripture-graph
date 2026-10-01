@@ -1,0 +1,266 @@
+{
+ "attempt_id": "ezek_author_fixup_p09_a1",
+ "execution_id": "ezek_author_fixup_p09_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup1\\orders_ezek_author_fixup_p09_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v3_cwo18.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json (header + rulings R1, R2, P2, P4, P5, G12 read in full)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_web_quotes.py (run + source read)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_universals.py (source read, for gate semantics only)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P09-001 (Ezek.37.1-Ezek.37.14) replaced, content unchanged",
+    "why": "row's one item (CWO-EZ-18 short_common_label 'son of man') was already applied by the upstream sweep; re-emitted as replace with no live cure needed"
+   },
+   {
+    "what": "P09-002 (Ezek.37.15-Ezek.37.28) replaced, boundary_rationale + boundary_evidence_refs edited",
+    "why": "restored WEB-verbatim case on the 37:16 quotation and added its inline web:Ezek.37.16 ref (CWO-EZ-18 near_web_author); removed the barred positional phrase 'weighed as onset evidence for the NEXT row' from the oshb:Ezek.38.1 refs entry (S1-05 / CWO-EZ-02 register)"
+   },
+   {
+    "what": "P09-008 (Ezek.39.11-Ezek.39.16) replaced, boundary_rationale edited",
+    "why": "restored WEB-verbatim case on the 'it will happen in that day' quotation and added its inline web:Ezek.39.11 ref, naming this row's own onset verse (CWO-EZ-18 near_web_author)"
+   },
+   {
+    "what": "P09-010 (Ezek.39.21-Ezek.39.24) replaced, boundary_rationale edited",
+    "why": "added inline web:Ezek.39.22 ref to the already WEB-verbatim 'the house of Israel' quotation (CWO-EZ-18 verbatim_author)"
+   },
+   {
+    "what": "P09-011 (Ezek.39.25-Ezek.39.29) replaced, content unchanged",
+    "why": "row's one item (s1_row_defect CWO-EZ-02 'hebrew: None' leak claim) verified byte-false against the current chain head; re-emitted as replace with no live cure needed"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "orders file byte-matches the brief's pinned digest 6986b8b0e8b43d4ce35262e29576d8f1868bf40f9a0c707cdf8b8ebc286d39c5",
+   "how": "Python hashlib.sha256 over the orders file read by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "SP\\Ezek\\repair\\rows_v3_cwo18.jsonl byte-matches the brief's pinned digest 568f004b6a4512f6de91e6c6aeaa10d80fa3956bbafad9454e79544dd8ed15d4",
+   "how": "Python hashlib.sha256 over the rows file read by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "WEB Ezek.37.16 opens 'You, son of man, take one stick...' (case-exact)",
+   "how": "direct read of Ezek_web_clean.txt lines 1791-1901 by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "'It will happen in that day' is a case-exact WEB substring at Ezek.38.10, Ezek.38.18 and Ezek.39.11",
+   "how": "same direct read of Ezek_web_clean.txt",
+   "result": "confirmed"
+  },
+  {
+   "claim": "'the house of Israel' is a case-exact WEB substring at Ezek.39.22 ('So the house of Israel will know...')",
+   "how": "same direct read of Ezek_web_clean.txt",
+   "result": "confirmed"
+  },
+  {
+   "claim": "P09-002 device_notes' two חברו/חֲבֵרָ֑יו occurrences (37:16, 37:19) each carry an in-sentence ketiv/Qere keyword within 160 chars and each citing ref entry names exactly its own single K/Q verse (T5-CITATION-RESIDUALS R1/R2)",
+   "how": "direct text read-back plus citation_sweep.py via run_validator_suite.py over a private copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 5 emitted rows carry all 22 fields plus _op:replace and non_authorizing:true, with the 9 frozen fields (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection) byte-identical to current_row, and only the 4 targeted substrings differ",
+   "how": "Python diff script comparing emitted JSONL to the orders file's current_row objects field-by-field",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep problems=0, prose_dual_warns=0, hebrew-normalizer defects=0 and fixed=0, cap_sweep=0, check_register flags=0, ngram7 offending-gram=0, web_quotes class 'curly quote with NO web: ref'=0 and e15d=0, refs_mirror=0 on my 5 rows after the edit",
+   "how": "run_validator_suite.py and check_web_quotes.py run over a private copy of rows_v3_cwo18.jsonl with my 5 rows substituted by decision_id, filtered to rows [107],[108],[111],[113],[114]",
+   "result": "confirmed"
+  },
+  {
+   "claim": "FLAGS categories (mark_symmetry, universals, web_quotes, refs_mirror, register) on my 5 rows do not rise between the unmodified and modified private copies",
+   "how": "same tools run over an unmodified private copy and diffed by row index against the modified copy",
+   "result": "confirmed - mark_symmetry 2->2 (unchanged, pre-existing), universals 28->28 (unchanged, pre-existing), register 0->0, refs_mirror 0->0, web_quotes 3->0 (my cure; a drop, not a rise)"
+  },
+  {
+   "claim": "local tiling for part p09 (Ezek.37.1-Ezek.39.29, its 8 rows P09-001/002/003/007/008/009/010/011) is exact 1:1, 80/80 verses, no gaps or overlaps",
+   "how": "check_tiling.py run over a private 8-row p09 subset of the modified copy with --range Ezek.37.1-Ezek.39.29",
+   "result": "confirmed"
+  },
+  {
+   "claim": "the S1-15 'hebrew: None' leak claim does not appear anywhere in the current chain-head text of P09-002, P09-008, P09-010 or P09-011",
+   "how": "direct Python substring search of each row's boundary_evidence_refs for the literal text 'hebrew: None'",
+   "result": "confirmed absent (already resolved upstream of this chain head)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "P09-001 carries a pre-existing mark_symmetry_gap flag (undisclosed samekh at Ezek.36.38, the verse immediately before this row's own span) and a pre-existing 'verbatim WEB text in SINGLE curly quotes' flag on device_notes ('Son of man, can these bones live?')",
+   "why_it_matters": "neither was named in my orders (P09-001's only item was already-applied and informational), so under 'NOT YOURS: any order not embedded in your file' I verified but did not cure them; both are real FLAGS-tier findings a later checker may still need to route"
+  },
+  {
+   "what": "P09-002 carries a pre-existing false_mark_absence_claim flag on strongest_rejected_alternative ('no samekh or pe mark falls anywhere inside 37.15-28') because a samekh IS recorded immediately after 37.28, the row's own last verse",
+   "why_it_matters": "not named in my orders, not cured; this is exactly the comma-adjacent denial shape T5-06(b)/(P2) calls out for hand-check even though it is FLAGS- not HARD-tier"
+  },
+  {
+   "what": "P09-002, P09-008, P09-010 and P09-011 all carry pre-existing 'universals' flags (digit-less only/never/single/unbroken/etc. claims) inherited unchanged from the writer wave, 28 in total across my 5 rows",
+   "why_it_matters": "none were named in my orders and none were touched; flagged here only because step 3 of the self-check requires reporting the before/after numbers"
+  },
+  {
+   "what": "TOOLKIT.md and book_strategy_Ezek.md were not reopened directly; I relied on the brief's and orders' verbatim quotations of the specific clauses I needed (T5-TOOLKIT-DOCS, T5-REGISTER, T5-CITATION-RESIDUALS, CWO18-SCOPE-1/NEARWEB-1/SHORT-1, strategy §8's register block)",
+   "why_it_matters": "the brief states the embedded text is controlling; none of my cures touched book-facts, parent_collection, unit_type or confidence, so this scope limit did not bear on the edits made"
+  }
+ ],
+ "items": [
+  {
+   "row": "P09-001",
+   "item": "CWO-EZ-18 short_common_label 'son of man'",
+   "action": "informational",
+   "reason": "already converted to single quotes by the upstream CWO-EZ-18 sweep; item itself requires no action"
+  },
+  {
+   "row": "P09-002",
+   "item": "e6:T5-CITATION-RESIDUALS#1",
+   "action": "cured",
+   "reason": "read back both חברו/חֲבֵרָ֑יו occurrences in device_notes; each already carries an in-sentence ketiv/Qere keyword within 160 chars and each citing ref names exactly its own K/Q verse; R1-R3 satisfied, no edit needed beyond verification"
+  },
+  {
+   "row": "P09-002",
+   "item": "s1_finding S1-05 (register)",
+   "action": "cured",
+   "reason": "removed the positional 'weighed as onset evidence for the NEXT row' phrase from the oshb:Ezek.38.1 boundary_evidence_refs entry, replacing it with the verse-anchored phrasing the rest of that entry already uses"
+  },
+  {
+   "row": "P09-002",
+   "item": "s1_row_defect CWO-EZ-02",
+   "action": "cured+reported",
+   "reason": "'NEXT row' phrase cured (same edit as S1-05); 'hebrew: None' leak verified ABSENT from the current chain-head text, reported per BINDING REPAIR LAW as already resolved upstream, no cure needed; the '39 strict-form verses' claim verified already digit-bearing, no action needed"
+  },
+  {
+   "row": "P09-002",
+   "item": "CWO-EZ-18 near_web_author (37:16 'you, son of man, take one stick')",
+   "action": "cured",
+   "reason": "restored WEB-verbatim capitalization and added inline web:Ezek.37.16 ref, per CWO18-NEARWEB-1"
+  },
+  {
+   "row": "P09-002",
+   "item": "CWO-EZ-18 short_common_label 'the nations'",
+   "action": "informational",
+   "reason": "already single-quoted by the upstream sweep"
+  },
+  {
+   "row": "P09-008",
+   "item": "CWO-EZ-18 near_web_author ('it will happen in that day')",
+   "action": "cured",
+   "reason": "restored WEB-verbatim capitalization and added inline web:Ezek.39.11 ref naming this row's own onset verse, per CWO18-NEARWEB-1 and the item's 'name the verse the row means' instruction; the shared phrasing at 38:10/38:18 is left as plain uncited pattern reference since only this row's own span gets a ref"
+  },
+  {
+   "row": "P09-010",
+   "item": "CWO-EZ-18 verbatim_author ('the house of Israel')",
+   "action": "cured",
+   "reason": "added inline web:Ezek.39.22 ref to the already WEB-verbatim quotation, per CWO18-SCOPE-1"
+  },
+  {
+   "row": "P09-010",
+   "item": "CWO-EZ-18 short_common_label 'the nations'",
+   "action": "informational",
+   "reason": "already single-quoted by the upstream sweep"
+  },
+  {
+   "row": "P09-011",
+   "item": "s1_row_defect CWO-EZ-02",
+   "action": "reported",
+   "reason": "'hebrew: None' leak verified ABSENT from the current chain-head boundary_evidence_refs, already resolved upstream, no cure needed; ketiv/Qere 39:25 disclosure confirmed correct as the finding itself states"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "e6:T5-CITATION-RESIDUALS#1 (P09-002 device_notes read-back)",
+   "test": "manual read-back of both K/Q occurrences for in-sentence keyword; citation_sweep.py via run_validator_suite.py over private copy",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-05 / CWO-EZ-02 (P09-002 'NEXT row' register)",
+   "test": "check_register.py via run_validator_suite.py over private copy, filtered to row [108]",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-02 (P09-002 'hebrew: None' leak claim)",
+   "test": "Python substring search of current_row for 'hebrew: None'",
+   "result": "PASS (not present)"
+  },
+  {
+   "order": "CWO-EZ-18 near_web_author P09-002 (37:16)",
+   "test": "exact-substring check against Ezek_web_clean.txt; check_web_quotes.py before/after private copies",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-18 near_web_author P09-008 (39:11)",
+   "test": "exact-substring check against Ezek_web_clean.txt; check_web_quotes.py before/after private copies",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-18 verbatim_author P09-010 ('the house of Israel')",
+   "test": "exact-substring check against Ezek_web_clean.txt; check_web_quotes.py before/after private copies",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-02 (P09-011 'hebrew: None' leak claim)",
+   "test": "Python substring search of current_row for 'hebrew: None'",
+   "result": "PASS (not present)"
+  },
+  {
+   "order": "all 5 rows: frozen-field integrity + 22-field/_op shape",
+   "test": "Python diff script vs orders file current_row",
+   "result": "PASS"
+  },
+  {
+   "order": "all 5 rows: citation_sweep/normalizer/cap_sweep/register/ngram7/web_quotes e15d = 0",
+   "test": "run_validator_suite.py + check_web_quotes.py over private modified copy, filtered to rows [107],[108],[111],[113],[114]",
+   "result": "PASS"
+  },
+  {
+   "order": "FLAGS parity before vs after (mark_symmetry, universals, web_quotes, refs_mirror, register)",
+   "test": "run_validator_suite.py + check_web_quotes.py over private unmodified vs modified copies, diffed by row index",
+   "result": "PASS"
+  },
+  {
+   "order": "local tiling for part p09 (Ezek.37.1-Ezek.39.29)",
+   "test": "check_tiling.py over private 8-row p09 subset of modified copy",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep_problems": 0,
+   "citation_sweep_prose_dual_warns": 0,
+   "hebrew_normalize_defects": 0,
+   "hebrew_normalize_fixed": 0,
+   "web_quotes_class_no_web_ref": 3,
+   "web_quotes_e15d": 0,
+   "refs_mirror": 0,
+   "mark_symmetry": 2,
+   "universals": 28,
+   "register": 0,
+   "cap_sweep": 0,
+   "ngram7": 0
+  },
+  "after": {
+   "citation_sweep_problems": 0,
+   "citation_sweep_prose_dual_warns": 0,
+   "hebrew_normalize_defects": 0,
+   "hebrew_normalize_fixed": 0,
+   "web_quotes_class_no_web_ref": 0,
+   "web_quotes_e15d": 0,
+   "refs_mirror": 0,
+   "mark_symmetry": 2,
+   "universals": 28,
+   "register": 0,
+   "cap_sweep": 0,
+   "ngram7": 0
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

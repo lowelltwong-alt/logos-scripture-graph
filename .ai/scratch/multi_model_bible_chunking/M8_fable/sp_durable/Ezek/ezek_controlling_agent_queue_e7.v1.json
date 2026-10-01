@@ -1,0 +1,32 @@
+{
+ "schema": "m8_controlling_agent_queue.v1",
+ "book": "Ezek",
+ "execution": "ezek_controlling_rulings_a1#e7",
+ "previous_execution_id": "ezek_controlling_rulings_a1#e6",
+ "built_by": "orchestrator (claude-opus-5); proposes, never rules",
+ "items": [
+  {
+   "id": "CWO18-R1-1",
+   "question": "CWO18-SCOPE-1 (1) orders the amended sweep to assert that every touched boundary_evidence_refs entry 'still matches the strict R1 shape exactly as CWO-EZ-13's manifest asserted (outside_r1_after 0)'. One touched entry was outside that shape BEFORE the sweep, so the assertion cannot hold, and the dry run reports it as its only problem. Rule how the assertion reads for an entry already outside the shape, what the sweep does with that entry, and whether the real run may proceed.",
+   "facts": [
+    "The amended script SP/Ezek/_cwo18_gloss_quotes.py (sha256 2ca40fbd4e6f6e1f0e40d66e406e1336df3835ab70638152cb20c56608e02866) dry-ran over rows_v3_cwo13.jsonl (324d23589924e405c09c3aeaf178867449ba33fa949cefa63258ff3250288f27). Verdict 'ABORT - nothing written'; its only problem reads: touched refs entries outside the strict R1 shape after the change: [{'row': 'P08-013', 'path': '[105].boundary_evidence_refs[1]', 'r1_before': False, 'r1_after': False}]",
+    "Every other assertion holds on that run (report SP/Ezek/repair/cwo18_dry_run_amended_over_cwo13.v1.json):",
+    "  - per-span class equality: 148 spans, 0 mismatches;",
+    "  - class counts equal #e6's cross-check (prose {\"gloss\": 21, \"short_common_label\": 34, \"near_web_author\": 26, \"verbatim_author\": 37}; outside-prose {\"gloss\": 4, \"short_common_label\": 11, \"near_web_author\": 4, \"verbatim_author\": 11}); 70 conversions; 78 author items; 45 informational labels;",
+    "  - changes only at quote characters: True; only converted strings changed: True;",
+    "  - suite parity outside the accounted checks: {}; universals added 1 at converted paths (blanked runs identical True); register added 0, removed 0; refs_mirror moved False;",
+    "  - citation_sweep problems 10 and check_marks flags 78 unchanged; triage 1037 -> 968.",
+    "15 boundary_evidence_refs entries hold a conversion: 14 matched the strict shape before and after; P08-013 [105].boundary_evidence_refs[1] matched it neither before nor after.",
+    "That entry's bytes on the chain head: 'oshb:Ezek.36.26 “a new heart” — contrasted, single-witness, with oshb:Ezek.11.19 “one heart” (same witness); both spliced verbatim'",
+    "It holds 2 class spans: 'a new heart' ruled short_common_label; 'one heart' ruled verbatim_author (verse keys Ezek.11.19). The conversion changes only the two quote characters of “a new heart” ('“a new heart”' -> \"'a new heart'\").",
+    "It is the only witness-prefixed entry on the chain head outside the strict shape (1 found by CANON_REF, SP/Ezek/_cwo_coverage_ezek.py line 37).",
+    "CWO-EZ-11 (SP/Ezek/repair/rows_v3_cwo11.manifest.json) reported this entry untouched, with the reason 'words between refs in the head; a split would drop them'; that manifest's assertion is named assert_only_reported_entries_remain_outside_the_strict_shape.",
+    "CWO-EZ-01's coverage report SP/Ezek/repair/cwo_coverage_v3/CWO-EZ-01.json reads COVERED with residual 0, and lists this entry as a triage flag: 'outside the strict ruling-R1 shape (ref, optional dual, then a parenthesised disclosure)'.",
+    "CWO-EZ-13's manifest asserted {\"touched_entries\": 25, \"outside_r1_after\": 0, \"outside_r1_before\": 0} over its touched entries; this entry was not among them.",
+    "Orchestrator measurement, not in a pinned input: on the chain head's bytes, citation_sweep's 10 HARD problems stand on rows P01-012, P02-013, P03-004, P03-005, P03-006, P03-010, P03-012, P03-017, P03-019.",
+    "Disclosed: the #e6 queue's CWO18-SCOPE-1 facts, written by the orchestrator, said the strict R1 shape keeps an entry in shape under a quote-character change, without noting that one class entry was outside the shape to begin with. That omission is the orchestrator's; #e6 ruled on the queue as written."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED (A): the assertion reads as CWO-EZ-11's did. Every touched entry inside the strict shape before is inside it after, and a touched entry outside it before is reported by row and path, with its bytes before and after, and must stay outside it only in the same way (the change is the quote characters alone, which the existing assertion already proves). “a new heart”'s label converts as CWO18-SHORT-1 rules, so the real run proceeds. The entry's shape stays the CWO-EZ-01 triage flag that coverage v3 records. The P08-013 FIXUP-1 author already holds this entry's verbatim item, and also gets an informational note: 'this entry sits outside the strict R1 shape; a reshape is optional'. ALTERNATIVE (B): leave this entry's spans unconverted and route its label to the author as an author item, keeping outside_r1_after 0 over the touched entries (69 conversions, 44 labels, 79 author items)."
+  }
+ ]
+}

@@ -1,0 +1,272 @@
+{
+ "attempt_id": "spot_isa_s5_r1",
+ "lane": "B-8 LF-SUPPORT audit, first half (sample rows 1-16)",
+ "frame": {
+  "frame_object": "rows LF verdict=support",
+  "frame_size": 155,
+  "sample_size": 31,
+  "this_agent_scope": "sample rows 1-16",
+  "lf_verdict_confirmed": "16/16 carry LF verdict=support"
+ },
+ "sample_rows": [
+  "P01-001",
+  "P01-006",
+  "P01-012",
+  "P02-005",
+  "P02-012",
+  "P03-005",
+  "P03-013",
+  "P04-006",
+  "P05-010",
+  "P06-004",
+  "P07-004",
+  "P07-012",
+  "P08-001",
+  "P08-008",
+  "P09-003",
+  "P10-003"
+ ],
+ "defect_rows": [
+  "P01-001",
+  "P01-006",
+  "P02-005",
+  "P03-013",
+  "P05-010",
+  "P06-004",
+  "P07-012",
+  "P09-003"
+ ],
+ "clean_rows": [
+  "P01-012",
+  "P02-012",
+  "P03-005",
+  "P04-006",
+  "P07-004",
+  "P08-001",
+  "P08-008",
+  "P10-003"
+ ],
+ "scope_items_reviewed": 8,
+ "rows_reviewed": 16,
+ "clean": 8,
+ "defect_rate": {
+  "defect_rows": 8,
+  "rows_reviewed": 16,
+  "rate": 0.5,
+  "rate_pct": 50,
+  "medium_or_high_severity_only": {
+   "rows": [
+    "P01-001",
+    "P02-005",
+    "P05-010",
+    "P07-012",
+    "P09-003"
+   ],
+   "count": 5,
+   "rate_pct": 31
+  },
+  "lf_attributable_defect_present_in_the_text_lf_reviewed": {
+   "rows": [
+    "P06-004",
+    "P09-003",
+    "P03-013"
+   ],
+   "count": 3,
+   "rate_pct": 19,
+   "note": "P03-013 qualifies on its secondary register item only; its primary defect is repair-installed."
+  },
+  "second_generation_only_installed_after_lf_reviewed": {
+   "rows": [
+    "P01-001",
+    "P01-006",
+    "P02-005",
+    "P05-010",
+    "P07-012"
+   ],
+   "count": 5,
+   "rate_pct": 31
+  },
+  "reading": "Half the sampled rows carry a defect as they now stand, but only 3 of 16 carry one that existed when LF wrote 'support'; the other 5 were installed by the author/repair wave."
+ },
+ "findings": [
+  {
+   "row_id": "P01-001",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "E-05",
+   "severity": "medium",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "postdates_lf_review (device_notes rewritten by the author wave; the pre-repair text read 'differ in header-noun class' with no exclusivity)",
+   "defective_text": "the two superscriptions share the seer's name and the Judah/Jerusalem object and differ only in header-noun class, the sole discriminator",
+   "byte_evidence": "A repair-installed exclusivity carrying no digit-bearing sweep, and false on the bytes. MT 1:1 runs 16 tokens and MT 2:1 runs 9: the seven-token regnal window בִּימֵ֨י עֻזִּיָּ֧הוּ יוֹתָ֛ם אָחָ֥ז יְחִזְקִיָּ֖הוּ מַלְכֵ֥י יְהוּדָֽה (oshb:Isa.1.1, byte tier) has no counterpart in 2:1, so the header-noun class is not the sole discriminator - the row's own strongest_rejected_alternative says as much ('names a distinct royal-regnal frame absent from verse 2'), and the word order differs too (1:1 חֲזוֹן֙ + name + patronym + אֲשֶׁ֣ר חָזָ֔ה; 2:1 הַדָּבָר֙ + אֲשֶׁ֣ר חָזָ֔ה + name). The same paragraph's untiered two-site framing of the relative clause also understates it: אֲשֶׁ֣ר חָזָ֔ה is byte-identical at THREE verses - oshb:Isa.1.1, oshb:Isa.2.1 and oshb:Isa.13.1 (sweep: 3 verses, byte) - the third being the massa hinge.",
+   "checker_note": "check_universals did not flag 'only'/'sole' here: its TIER-VOCABULARY dampener suppresses a universal whenever a tier word and a ref share the sentence, and '(oshb:Isa.1.1 / oshb:Isa.2.1, byte tier)' sits adjacent - a tier label proves the QUOTE is byte-true, not that the EXCLUSIVITY was swept.",
+   "proposed_cure": "Strike 'only ... the sole discriminator' and restate the contrast as the regnal-window presence/absence plus the header-noun class, citing the relative clause at its true three-verse byte census."
+  },
+  {
+   "row_id": "P01-006",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "E-05",
+   "severity": "low",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "postdates_lf_review (the whole orphan/widow sentence is repair-installed; absent from the pre-repair device_notes)",
+   "defective_text": "the orphan/widow pair recurs with its two governing verbs in inverted order",
+   "byte_evidence": "A form-class label the bytes refute at the second site. At MT 1:17 both members are governed by imperatives (שִׁפְט֣וּ יָת֔וֹם), but at MT 1:23 the widow member is a construct NOUN phrase, יִשְׁפֹּ֔טוּ וְרִ֥יב (oshb:Isa.1.23, byte tier), whose finite verb אַלְמָנָ֖ה לֹֽא יָב֥וֹא (oshb:Isa.1.23, byte tier) lies outside the row's own splice - WEB 1:23 renders it 'the cause of the widow'. Only the orphan clause actually inverts: שִׁפְט֣וּ יָת֔וֹם (oshb:Isa.1.17, byte tier, verb-noun) against שַׁלְמֹנִ֑ים יָתוֹם֙ לֹ֣א (oshb:Isa.1.23, byte tier, noun-verb); the widow member keeps its order at both sites.",
+   "proposed_cure": "Re-cut the sentence to say the orphan clause inverts verb-noun to noun-verb while the widow member recurs as a construct noun phrase, dropping 'its two governing verbs'.",
+   "verified_and_sound": "Every other digit in this row re-derived true: the inclusio matches at skeleton tier only (sweep: 2 verses), the neum census is 23 verses and verse-initial only at oshb:Isa.56.8 (23/23 re-checked), the 1:24 stack stands at token 2 of 12, the orphan noun sweeps 2 verses and the widow noun 3 (token-exact skeleton), and the 1:20 SAMEKH / 1:23 PE are correctly typed."
+  },
+  {
+   "row_id": "P02-005",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "E-05",
+   "severity": "medium",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "postdates_lf_review (the participle sentence is repair-installed; the pre-repair device_notes carried the parashah disclosure only)",
+   "defective_text": "both pointed forms byte-unique to their own verse",
+   "byte_evidence": "False for one of the two forms. The MT 5:20 participle הָאֹמְרִ֥ים (oshb:Isa.5.20, byte tier) stands byte-identical at TWO verses - oshb:Isa.5.20 and oshb:Isa.42.17 (sweep: 2 verses, byte); only the MT 5:19 form הָאֹמְרִ֗ים is byte-unique (sweep: 1 verse, byte). The row's own adjacent digit already contains the counterexample: its accent-stripped census of 3 verses is 5:19, 5:20 and 42:17, and the 42:17 member is a byte match, not merely an accent-stripped one.",
+   "secondary_defect": "'the participle opening MT 5:20' - a false position claim that contradicts the row's own boundary_rationale. MT 5:20 opens on ה֣וֹי (oshb:Isa.5.20, byte tier), the hoy onset the row itself quotes and calls the verse's opening; the participle is token 2.",
+   "swept_digits_confirmed": "'(sweep: 3 verses book-wide at accent-stripped tier, 4 at skeleton tier)' re-derived exactly: accent-stripped 5:19/5:20/42:17, skeleton adds 65:5.",
+   "proposed_cure": "Restate as byte-unique at oshb:Isa.5.19 only, giving the 5:20 form its true two-verse byte census, and change 'opening MT 5:20' to the participle following that verse's hoy onset."
+  },
+  {
+   "row_id": "P03-013",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "E-05",
+   "severity": "low",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "primary defect postdates_lf_review (the whole frame-comparison sentence is repair-installed); secondary register item PREDATES the repairs",
+   "defective_text": "matches the same formula's openers at oshb:Isa.10.20 and oshb:Isa.10.27 at those same tiers",
+   "byte_evidence": "The named tiers are 'accent-stripped and skeleton tier, not at byte', and that is wrong for the two verses the clause carries over to. The row's own onset splice וְהָיָ֣ה בַּיּ֣וֹם הַה֗וּא (oshb:Isa.11.11, byte tier) is byte-identical at oshb:Isa.10.20 and oshb:Isa.10.27 - byte sweep: 5 verses (7:18, 10:20, 10:27, 11:11, 27:13). The 'not at byte' qualifier is true only of the 11:10 pair it was written for; carried across to 10:20/10:27 it asserts a non-identity the bytes contradict.",
+   "secondary_defect": "'distinct from the name-reactivating clauses argued earlier in this stretch' (present in the pre-repair row, so LF-attributable) - a cross-row reference with no verse anchor, where campaign register law requires cross-row references to be verse-anchored; the clauses are MT 10:21-22.",
+   "verified_and_sound": "'that verb form reaching exactly 2 verses book-wide (sweep: 2 verses), both inside this span' re-derived true (oshb:Isa.11.11, oshb:Isa.11.16 at accent-stripped and skeleton); the PE at oshb:Isa.11.10 is correctly typed.",
+   "proposed_cure": "Split the tier statement so the byte-identity at oshb:Isa.10.20 and oshb:Isa.10.27 is stated as byte tier, and anchor the remnant cross-reference to MT 10:21-22."
+  },
+  {
+   "row_id": "P05-010",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "new (cross-field contradiction created by a repair)",
+   "severity": "medium",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "contradiction created by the repair - the defective sentence PREDATES it, but the field that refutes it (strongest_rejected_alternative) was rewritten by the author wave while the rationale was left standing",
+   "defective_text": "No internal tier-1 addressee shift separates the banquet from the commissioning or the report",
+   "byte_evidence": "The row's own repair-installed strongest_rejected_alternative identifies exactly such a shift at the seam the rationale declares clear: the singular command לֵ֚ךְ הַעֲמֵ֣ד (oshb:Isa.21.6, byte tier) 'turning from the plural imperative addressed to the group at Isa.21.5', אָכ֣וֹל שָׁתֹ֑ה (oshb:Isa.21.5, byte tier). The rejected_alternative then concedes the shift and argues only that it 'sits inside one reported command rather than opening a fresh narrating voice' - which is the accurate statement the rationale should carry.",
+   "verified_and_sound": "Every disclosure digit re-derived true: SAMEKH at oshb:Isa.20.6, PE at oshb:Isa.21.5, SAMEKH at oshb:Isa.21.10; paseq 2 segs at oshb:Isa.21.2 and 1 at oshb:Isa.21.8; 209 marked verses; 16 continuation folds; oshb:Isa.21.6 is a divine koh-amar frame (intervening dative), not royal-messenger.",
+   "proposed_cure": "Narrow the rationale's negative to 'no addressee shift that opens a fresh narrating voice', matching the concession the row's own rejected_alternative already makes."
+  },
+  {
+   "row_id": "P06-004",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "new (mirror gap by descriptive reference)",
+   "severity": "low",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "PREDATES the repairs - LF-attributable; the pre-repair row carried the same phrasing and an even shorter ref list, and the author wave extended the refs without adding this verse",
+   "defective_text": "The row stops before the following verse's own renewed in-that-day formula and postpositive divine signature, which open a further reversal on the same figure",
+   "byte_evidence": "The rear-seam warrant rests on a verse outside the span that is never named and never mirrored. The verse is MT/WEB 22:25, בַּיּ֣וֹם הַה֗וּא נְאֻם֙ יְהוָ֣ה צְבָא֔וֹת (oshb:Isa.22.25, byte tier), and boundary_evidence_refs holds only web:Isa.22.20, oshb:Isa.22.20, web:Isa.22.24, oshb:Isa.22.16, oshb:Isa.22.21. Because the row writes 'the following verse' rather than a coordinate, check_refs_mirror has no numeral to resolve and passes it.",
+   "verified_and_sound": "The row is otherwise sound and its repair was a real correction: the pre-repair claim that 22:20 'opens a fresh addressee shift' was wrong (Eliakim enters as the object of the divine verb) and the author wave replaced it and disclosed the 2ms address chain from oshb:Isa.22.16. Paseq 1 seg at oshb:Isa.22.24 confirmed; no parashah mark falls at either seam and the row claims none.",
+   "proposed_cure": "Name the verse (web:Isa.22.25 = oshb:Isa.22.25) at both mentions and add it to boundary_evidence_refs."
+  },
+  {
+   "row_id": "P07-012",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "E-05",
+   "severity": "medium",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "postdates_lf_review (the entire sweep-bearing paragraph is repair-installed; the pre-repair device_notes carried the parashah sentence only)",
+   "defective_text": "The front-edge echo to [lifqod] (oshb:Isa.26.21, byte tier) links only at the consonantal skeleton (sweep: 18 verses book-wide on that skeleton), not at byte tier",
+   "byte_evidence": "The two tokens do not share a consonantal skeleton at all, and the digit counts a different object. מִמְּקוֹמ֔וֹ (oshb:Isa.26.21, byte tier) skeletonises to a lamed-initial form and יִפְקֹ֣ד (oshb:Isa.27.1, byte tier) to a yod-initial one; a token-bound skeleton sweep of the 26:21 form returns 1 verse (oshb:Isa.26.21) and of the 27:1 form 4 verses (23:17, 24:21, 27:1, 27:3). The 18 is the book-wide count of the bare three-consonant root as a substring (sweep: 18 verses) - a root object, not 'that skeleton'. This is the hazard the toolkit names explicitly: the skeleton sweep is a contiguous substring search, not a root or lemma search.",
+   "swept_digits_confirmed": "The row's other two digits re-derived exactly: the onset formula's byte census is 3 verses (7:20, 19:18, 27:1), and the verb recurrence oshb:Isa.27.1/oshb:Isa.27.3 is 2 verses at byte tier. Marks confirmed: SAMEKH after 26:21 and after 27:1, next mark at 27:6, nothing at 27:2-27:5.",
+   "proposed_cure": "Restate the front-edge link as a shared three-consonant root across two distinct attested spellings, citing the root sweep as the root object rather than as 'that skeleton'."
+  },
+  {
+   "row_id": "P09-003",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "new (tier-4 warrant certified by the reviewer)",
+   "severity": "high",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "PREDATES the repairs - LF-attributable, and the clearest miss in this half of the sample",
+   "defective_text": "As LF reviewed it, the row held its span on modern-translation punctuation: 'the desolation clause at web:Isa.32.14 ... and the following turn at web:Isa.32.15 ... form one sentence in the WEB rendering: the second verse's \"until\" clause completes rather than opens a new main clause; the resolution therefore stays inside this address rather than opening the following unit', with the strongest_rejected_alternative resting on the same ground ('set aside because web:Isa.32.14-Isa.32.15 form one sentence').",
+   "byte_evidence": "Tier-4 metadata - modern sentence punctuation and capitalisation in a translation - is never boundary evidence, and the pre-repair row carried NO pointed-Hebrew splice for the hold at all (its only oshb: refs were the PE mark and the K/Q note). The LF support evidence did not catch this; it certified the tier-4 fact itself: '32:14 ends on an open comma ... and 32:15 continues lower-case with \"until...\", closing the sentence with a period.' The Hebrew ground that does carry the hold - the subordinating עַד יֵ֨עָרֶ֥ה עָלֵ֛ינוּ ר֖וּחַ מִמָּר֑וֹם (oshb:Isa.32.15, byte tier) resolved by the waw-plus-perfect וְשָׁכַ֥ן בַּמִּדְבָּ֖ר מִשְׁפָּ֑ט (oshb:Isa.32.16, byte tier) - was supplied only by the later author wave, which also moved the span from Isa.32.9-Isa.32.15 to Isa.32.9-Isa.32.20.",
+   "proposed_cure": "No edit is needed on the current row (the repair already re-grounded it in the bytes); record the class and re-scan the LF-support column for warrants resting on WEB rendering rather than on original-language evidence."
+  },
+  {
+   "row_id": "P09-003",
+   "lane": "B-8 LF-SUPPORT audit",
+   "e_class": "E-05",
+   "severity": "medium",
+   "verdict_on_lf": "support_not_sustained",
+   "repair_dating": "postdates_lf_review (repair-installed with the rewritten rationale)",
+   "defective_text": "the English adverb rendering that verse's opening renders this waw form rather than a distinct Hebrew adverb, which stands verse-initial at six sites book-wide, none of them this verse",
+   "byte_evidence": "The digit is right but its count object is never named or spliced, on a claim that is load-bearing for the refusal of the 32:16 rival. The lexeme meant is אָ֥ז, which stands verse-initial at exactly 6 verses (35:5, 35:6, 58:8, 58:9, 58:14, 60:5) and at 8 verses token-exact - none of them 32:16, so the arithmetic holds. But the row names it only as 'a distinct Hebrew adverb', giving no pointed splice and no tier label where the engagement class makes both mandatory for a boundary-relevant Hebrew claim.",
+   "verified_and_sound": "The row's other digits re-derived exactly: the at-ease catchword stands at 3 verses book-wide at skeleton tier and nowhere else (32:9 = 32:11 at byte, 32:18 at skeleton only); the trust-noun at 32:18 is 1 verse book-wide and its 32:9 counterpart 3 verses at skeleton; the K/Q doubled pair at 32:15 does sit later in the verse than the quoted opener; PE at 32:8 and SAMEKH at 32:20 are the only ch-32 marks and both are disclosed.",
+   "proposed_cure": "Splice and name the adverb at byte tier with its verse-initial sweep, so the six-site digit carries its object."
+  }
+ ],
+ "warn_flags_dispositioned": [
+  {
+   "flag": "P01-001 [0].boundary_rationale 'single'",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_classes",
+   "note": "'the single chazon header verse' describes the row's own one-verse span, not an exclusivity claim."
+  },
+  {
+   "flag": "P01-001 [0].strongest_rejected_alternative 'carries no imperative or address of its own'",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "Bounded negative about one verse's own content; byte-true (MT 1:1 carries no imperative or vocative)."
+  },
+  {
+   "flag": "P01-001 [0].strongest_rejected_alternative 'absent from'",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "Two-verse comparison, byte-true: the regnal window of MT 1:1 has no counterpart in MT 2:1."
+  },
+  {
+   "flag": "P01-006 [5].strongest_rejected_alternative 'single'",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "'a single tier-3 parashah witness' is mandated single-witness language, not exclusivity."
+  },
+  {
+   "flag": "P05-010 [66].device_notes 'only'",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "'count-only' is the mandated paseq disclosure formula."
+  },
+  {
+   "flag": "P10-003 [113].boundary_rationale 'throughout'",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "The mandated all-Hebrew disclosure; the morph tally is 16,988 H-prefixed codes with no Aramaic zone."
+  },
+  {
+   "flag": "P10-003 [113].strongest_rejected_alternative 'continuous'",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "Describes the shape of the rival architecture, not a swept universal."
+  },
+  {
+   "flag": "P10-003 [113].device_notes 'never' (x2)",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "The mandated 'never as boundary evidence' single-witness formula."
+  },
+  {
+   "flag": "P10-003 [113].device_notes 'single'",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "'a single compound word' is the two-token disclosure for the Rabshakeh title, not exclusivity."
+  },
+  {
+   "flag": "P10-003 [113].boundary_rationale language_zones aramaic_label_in_isa_all_hebrew",
+   "disposition": "declared_fp",
+   "class": "E-12",
+   "note": "The row does exactly what the checker note asks: it labels the Aramaic request as narrated story content and states the verse's own language stays Hebrew."
+  }
+ ],
+ "collateral_observations": [
+  "check_universals TIER-VOCABULARY dampener is a live blind spot: it suppresses a universal whenever a tier word and a ref share the sentence, which is exactly how P01-001's repair-installed false 'sole discriminator' passed. A tier label proves a quote is byte-true; it says nothing about whether an exclusivity was swept. Candidate gate change: do not dampen when the universal token is only/sole/unique/never.",
+  "isa_device_inventory.json superscriptions.yeshayahu_note says '13 verses carry the prophet's name' while its own enumeration and yeshayahu_name_verses both list 16 (and the toolkit says 16). E-03 class in shared-inventory prose, not in any row; no sampled row cites the digit.",
+  "Register patterns that are systemic rather than row-unique, so they were NOT counted against any row here and belong to a corpus-wide sweep: schema field names in prose ('unit_type', 11 rows; 'evidence refs', 12 rows, all in part P08), document-position references ('disclosed above', 8 rows), part-range references ('in this part', 5 rows), governance-rule references ('the campaign's standing guidance', P05-010), and ALLCAPS emphasis (88 rows).",
+  "Descriptive verse references ('the following verse' 18 rows, 'the next verse' 15) are systemic; they only become a mirror gap where no coordinate for that verse appears anywhere in the row, as at P06-004."
+ ],
+ "method": "Fresh-eyes adversarial re-derivation of every load-bearing digit in each row from the staged toolkit; row Hebrew read by programmatic splice from the row bytes and re-collated, never re-keyed; predates/postdates attribution taken from a field-level diff of draft_rows_combined.jsonl against rows_v2.jsonl plus the author-apply changed-fields record.",
+ "self_check": "Tools run: collate (isa_lib.collate_hebrew) on every Hebrew run in all 16 rows plus the 20 splices written into this file (20/20 byte tier, self-collated before write); book-wide byte / accent_stripped / skeleton and token-exact skeleton sweeps for every asserted digit (asher-chazah 3 byte; haomrim 2 byte / 3 acc / 4 skel; kiryah-neemanah 2 skel; neum 23 with exactly 1 verse-initial; orphan 2 / widow 3; mippenei core 3 acc and the 8-token run 2 byte; yeshaer 2; crown noun 4 skel with 3 in chapter; al-am-lo-yoilu 2 skel; yifqod 2 byte / 4 skel, lifqod 1, root 18; bayom-hahu 3 byte at 27:1; shaanannot 3 skel; mivtachim 1; botchot 3 skel; az 6 verse-initial; bare-adonai 44 qamats vs 3 hiriq); pmarks PE/SAMEKH, K/Q and paseq checked at MT keys for all 16 spans and their seams; validator_report WARN flags re-scoped by row index (10 universals + 1 language_zones in scope, all dispositioned declared_fp). Result: 8 rows clean, 8 rows defective, 9 findings; 3 of the 8 defective rows carry a defect that predates the repairs and is therefore attributable to the LF support verdict."
+}

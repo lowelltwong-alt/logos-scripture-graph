@@ -1,0 +1,40 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_ol_primary_assembled_a_hebrew_quotation",
+ "recorded_at": "2026-09-15T02:25:18.512236+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15, at the OL c01 landing",
+ "book": "Ezek",
+ "class": "a review packet cited a Hebrew quotation that is not in the witness; the conclusion it supported was correct",
+ "severity": "medium. Zero corpus impact - the packet is a review, not a row, and it landed with the defect NAMED by E-01 rather than silently accepted. It is recorded at medium because the same lane runs 21 more times and because a fabricated quotation is the one defect a downstream lane cannot detect from the packet alone.",
+ "self_disclosed": false,
+ "found_by": "the E-01 normalizer arm of _land_review_packet_ezek.py, which applies to review prose and not only to rows",
+ "execution": "ezek_pr_OL_c01_a1#e1",
+ "what_the_packet_wrote": {
+  "string": "ו/אשרוָֽ/אֵשֵׁ֔ב",
+  "presented_as": "the OSHB ketiv/qere record at Ezek.3.15, written form then read form, morpheme-separated",
+  "where": "items[4].evidence[3] of Ezek/reviews/rev_OL_c01.json"
+ },
+ "what_the_witness_actually_reads": {
+  "source": "Ezek/Ezek_oshb.txt line Ezek.3.15",
+  "the_ketiv": "the unpointed word after the river name, vav-alef-shin-resh",
+  "the_later_word": "a separate fully pointed word carrying U+05A5 MERKHA",
+  "codepoints_of_the_later_word": "05D5 05B8 05D0 05B5 05E9 05B5 05C1 05A5 05D1",
+  "what_the_packet_changed": "it merged fragments of the two words and wrote U+0594 ZAQEF QATAN where the source carries U+05A5 MERKHA, and added a U+05BD METEG the source does not have",
+  "neither_string_occurs_in_the_source": true
+ },
+ "the_finding_it_supported_is_CORRECT": {
+  "claim": "P01-005's splice at Ezek.3.15 does not read the qere; the variant site is the unpointed form and the splice quotes a different, later word",
+  "verified_by_the_orchestrator": "the source line carries the unpointed form after the river name and the pointed later word separately, exactly as the packet's prose says",
+  "so_the_defect_is_the_EVIDENCE_not_the_CONCLUSION": true
+ },
+ "why_this_class_matters": "this is finding_correction_text_carries_its_own_defects again: the fix was right and the text explaining it was wrong. A downstream lane reading the packet alone cannot tell a copied quotation from an assembled one - only a re-collation against the witness can, which is why E-01 runs over review prose at all.",
+ "containment": [
+  "the packet LANDED with the form problem named in its receipt; nothing was silently accepted",
+  "the two in-flight OL executions (c02, c03) were corrected BY MESSAGE, because their brief is pinned and a pinned record is never edited under a running agent",
+  "the OL brief builder is corrected so every later OL execution carries the rule in the brief itself",
+  "no corpus row changed; the packet is review evidence, not corpus"
+ ],
+ "the_control_added": "every Hebrew run in an OL deliverable must be COPIED from the witness and verified present in it as an exact substring, programmatically, before the packet is written - and the count checked is reported in verification_evidence. A variant site is NAMED in words rather than rendered as a composite.",
+ "routing": "the substantive finding stands and goes to the peer and boss as written; the evidence string is replaced by the named form",
+ "limit": "one packet, one string; no other Hebrew run in this packet failed the collation the reviewer itself ran"
+}

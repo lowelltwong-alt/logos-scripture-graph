@@ -1,0 +1,750 @@
+{
+ "attempt_id": "lam_final_check_04_a1",
+ "model": "claude-fable-5-1",
+ "effort": "ORDERED high, NOT VERIFIED (no runtime effective-effort evidence is available to this agent about itself; the two earlier attempts of this lane whose transcripts survive carry the runtime key max on every assistant record, so a reader should not assume the ordered value describes what ran)",
+ "book": "Lam",
+ "corpus": "rows_v14.jsonl",
+ "corpus_sha256": "49fad3030240679419c63aa8ce64dc9792dd287dab42fa9899240c5f7768e3d1",
+ "rows": 26,
+ "previous_final_checks": "final_check_01.json (not_fit_to_close over rows_v9; 14 residuals), final_check_02.json (not_fit_to_close over rows_v11; 9 residuals) and final_check_03.json (not_fit_to_close over rows_v13; 2 medium, 11 low). Status of the third check's residuals as verified here against the artifacts, never against a receipt: medium 1 (the third order-correction attempt unreceipted) CURED - a receipt with every field read from an artifact and the model recorded UNKNOWN, and my exact-path census finds no attempt without a receipt; medium 2 (P01-007's byte-false absolute) CURED and verified from the bytes of 2:13-2:17; low 1 and low 2 (P01-005 eini/kevedi, P02-007 lanu) CURED and verified with whole-token and substring sweeps, and the class sweep the orchestrator ran instead of a patch restated three further rows (P02-002, P03-002, P03-005) that the sample had not reached - two of those three verified sound here, one carrying a new low; low 3 (the ledger's n=6 reason) NOT cured; low 4 (n=8 partial) NOT cured, and the ledger's description of it is now stale; low 5 (B3-2 n=1 stay) NOT recorded; low 6 (n=2 surfaced-before-the-fact) NOT cured; low 7 (the reused parity name) NOT cured; low 8 (the effort amendment) NOT cured; low 9 (the decay absolute) NOT cured; low 10 (the stale manifest) NOT cured and now five attempts behind; low 11 (the two unaudited audit-lane transcripts) unchanged. New this round: a form word installed by the class sweep on P02-002 (low); a pinned record re-hashed by in-place append (low); the orchestrator's self-recorded paraphrase corruption in the sweep orders (process finding, caught by an author, rows correct).",
+ "audit_coverage": {
+  "corpus_rows_checked": 26,
+  "receipts_read": [
+   "writer/lam_writer_attempt_receipts.jsonl (3 records)",
+   "reviews/lam_pr_attempt_receipts.jsonl (8 records)",
+   "reviews/lam_peer_attempt_receipts.jsonl (4 records)",
+   "reviews/lam_boss_attempt_receipts.jsonl (3 records)",
+   "author/lam_author_attempt_receipts.jsonl (4 records)",
+   "cwo/lam_cwo_attempt_receipts.jsonl (7 records incl. the late-written third correction)",
+   "spot/lam_spot_attempt_receipts.jsonl (5 records)",
+   "spot/lam_micro_attempt_receipts.jsonl (2 records)",
+   "spot/lam_fix_attempt_receipts.jsonl (8 records: f02, f03, f01, f04, f05, f06, f07, f08)",
+   "postcheck/lam_postcheck_attempt_receipts.jsonl (2 records)",
+   "postcheck/lam_sidecar_attempt_receipts.jsonl (3 records)",
+   "final_check/lam_final_check_attempt_receipts.jsonl (11 records: 4 stopped stage-1 auditors, 4 landed stage-1 auditors, the three earlier stage-2 checks; none for this attempt)",
+   "final_check/receipt_amendments.v1.jsonl (4 amendments)"
+  ],
+  "subagent_packets_read": [
+   "rows_v14.jsonl: all 26 rows in full, every field; rows_v13.jsonl and rows_v12.jsonl as private copies for the lineage diffs",
+   "reviews/boss_lam_b3.json in full (B3-1 with its companion edits and history rule, B3-2 with its conditions and owner packet, the embedded reasoning record); reviews/boss_lam_b1.json hashed (unedited)",
+   "spot/orders_fix_06.json, orders_fix_07.json, orders_fix_08.json in full apart from the embedded current rows; spot/fix_06.jsonl, fix_07.jsonl, fix_08.jsonl in full and field-diffed against rows_v13 and rows_v14",
+   "cwo/cwo_parity.rows_v14.json in full; cwo/cwo1_predicate_label.v1.json in full; cwo/cwo_parity.rows_v13.json, rows_v11.json, rows_v11.finals4.json, rows_v7.json hashed; _cwo_scan.py head and _final_check_reconcile.py and _receipt_census.py in full before running or declining to run",
+   "reviews/ruling_execution_ledger.v1.json, spot/second_generation_catch.v1.json, _02, _03, receipts/Jer_retained_residual_2026-09-07.json (worktree) in full; the seven apply reports' base/out/status fields",
+   "final_check/final_check_01.json, _02, _03 in full; final_check/transcript_audit_01..04.json in full; final_check/_audit_scope_note.v1.json, _cross_book_high_verification.v1.json, _orchestrator_path_checks.v1.json in full",
+   "SP/campaign/finding_orchestrator_shell_output_conflation.v1.json, finding_transcript_decay.v1.json and v2.json, finding_launch_orders_base_mismatch.v1.json in full; transcript_manifest.v2.json and v3.json in full; freeze/CYCLE_STATE.md in full twice (354 lines at launch, 366 at the end of the check); rows_v14.jsonl.validator_report.json in full",
+   "tools/TOOLKIT.md with its erratum; book_strategy/Lam.md; CAMPAIGN_CLOSE_GATE.v1.md; ERROR_PATTERN_LEDGER.v1.md in full incl. OW-6, OW-6b, OW-6c, E-27, E-28; FINAL_CHECKER_BRIEF.md; FIX_BRIEF.md pattern-searched; the usage heads of run_validator_suite, collate, sweep, cap_sweep, check_marks, check_universals, check_tiling, _punct_boundary_sweep, check_web_quotes and the lam_lib API; pmarks_Lam.json and both verse maps as data",
+   "the thirteen durable transcripts: sha256 against the manifest, every JSONL record counted, every thinking block tested for content, every assistant record's model and effort key tallied, the breach strings stage 1 cites grepped at the file level"
+  ],
+  "stage1_packets_read": [
+   "final_check/transcript_audit_01.json",
+   "final_check/transcript_audit_02.json",
+   "final_check/transcript_audit_03.json",
+   "final_check/transcript_audit_04.json"
+  ],
+  "transcripts_covered_by_stage1": 11,
+  "what_i_did_not_check": "I did not read the thirteen transcripts end to end (stage 1 read eleven; the second check re-read the cited lines; I censused all thirteen mechanically and grepped the cited breach strings). I opened no Jeremiah packet or corpus and ran no tool over that corpus; the cross-book findings rest on stage 1's readings, the orchestrator's tool evidence, the closed book's retained-residual record and the transcript bytes I grepped. I ran no listing or existence check against any shared directory and did not run the receipt census tool, which globs; residue status, the quarantine directory and the durable store's file count rest on the orchestrator's records, while the durable retention of 18 named artifacts and 13 transcripts is verified by hash. I did not verify _close_book.py, the stage-1 launch plan (read only by the reconciliation tool), _check_launch_orders_agree.py, or any manifest later than v3 (none was named to me). I did not read the writer, primary, peer, boss b1/b2, spot, cure, fix_01-05, postcheck or sidecar packets in full this round: each was hashed against its receipt (90 of 90 reproduce) and every corpus consequence is verified from the bytes of rows_v14; the three earlier checks read them. I did not verify the sweep authors' per-citation reports, which exist only in final messages no named artifact preserves; I re-derived every citation instead. I could not establish the producer model of the third order-correction attempt (recorded UNKNOWN), the transcript state of f05-f08, the third stage-2 check or this attempt, nor my own effective effort."
+ },
+ "transcript_coverage": {
+  "attempts_total": 49,
+  "attempts_with_a_transcript": 6,
+  "attempts_with_no_transcript": 43,
+  "transcripts_permanently_lost": 1,
+  "bytes_audited_by_stage1": 9778043,
+  "reconcile_verdict": "GREEN",
+  "reconcile_detail": "GREEN against transcript_manifest.v2.json, the manifest the slices were built from and the one every stage-1 receipt pins (11 transcripts, 4 disjoint slices, 11 assigned, every packet reporting exactly its assigned files, bytes processed equal to bytes assigned, close-read bytes below processed bytes, 0 problems). RED against transcript_manifest.v3.json for exactly two problems, the two audit-lane transcripts (a5f3d4b5, aa711eb9) held in the durable store and assigned to no slice; both censused mechanically here (digests match; 231 and 192 records; effort max throughout; 0 and 10 thinking blocks with content); neither close-read by anyone. Reconciliation output was written to my private scratch; the copy at the book's own path predates this check.",
+  "statement": "The count object is the 49 attempts that produced or reviewed this corpus through rows_v14: 3 writers, 8 primaries, 4 peers, 3 boss attempts, 4 authors, 7 order-execution attempts including three corrections, 5 spot lanes, 2 cure attempts, 1 fix attempt, 2 postchecks, 3 sidecars and the 7 fix and sweep authors ordered by the three earlier final checks. Six left a runtime transcript that still exists; 43 left none - 39 because the runtime never wrote one or wrote a zero-byte file, and 4 (the last two companion-edit authors and two of the three sweep authors, with the third sweep author and the third check also uncovered) because no manifest was rebuilt after they ran, so their state is unknown rather than known absent; one manifest-recorded transcript of 80 bytes, unattributed, is gone with only its digest surviving. The transcript layer covers, by bytes, six attempts of this book and five of the previous, closed book, and every one of the six showed at least one undisclosed departure from its launch rules, so a reader must not infer that the 43 untranscribed attempts behaved better - only that their outputs were verified from bytes, which they were, here and three times before. On reasoning itself: the thirteen transcripts in the store carry 454 thinking blocks, of which 10, all in one audit-lane transcript, hold short step summaries (3,095 characters in all); the rest are empty. The owner's phrase 'even chain of thought' is met for zero attempts in substance and touched at summary level for one attempt of the audit lane; any record that says no chain of thought exists anywhere overstates, and any record that implies it was audited overstates further. Nothing in this verdict rests on any transcript: it rests on the corpus bytes, the delivered artifacts, the receipts and the records, with the transcripts as corroboration for six attempts only.",
+  "unknown_state_attempts": [
+   "lam_fcfix_f05_a1",
+   "lam_fcfix_f06_a1",
+   "lam_fcfix_f07_a1",
+   "lam_fcfix_f08_a1",
+   "lam_final_check_03_a1",
+   "lam_final_check_04_a1 (this attempt)"
+  ]
+ },
+ "byte_verifications": [
+  {
+   "claim": "final corpus digest 49fad303 as pinned in the cycle log, the three sweep receipts and the parity record for rows_v14",
+   "row_or_artifact": "rows_v14.jsonl",
+   "tool_run": "sha256 over the file; a private copy of it is what every suite below ran over",
+   "result": "confirmed",
+   "evidence": "49fad3030240679419c63aa8ce64dc9792dd287dab42fa9899240c5f7768e3d1, 105,381 bytes, 26 lines"
+  },
+  {
+   "claim": "validator suite hard GREEN 10 of 10 members, 0 triage flags; normalize ok=143 fixed=0 defects=0; the recorded report reproduces member for member",
+   "row_or_artifact": "rows_v14.jsonl (private copy) vs rows_v14.jsonl.validator_report.json",
+   "tool_run": "run_validator_suite.py; normalize_hebrew_in_json.py dry-run; member-by-member JSON comparison of my report against the recorded one",
+   "result": "confirmed",
+   "evidence": "citation_sweep, web_quotes (72), refs_mirror, mark_symmetry, universals (69 claims, 0 undampened exclusivity), language_zones, ngram7 (worst reuse 9 rows), cap_sweep, register all GREEN; hard_status GREEN; nfd_hard_e01 false; ok=143 fixed=0 defect_count=0 read as counts; 0 member diffs between my report and the recorded one"
+  },
+  {
+   "claim": "exact tiling of 154 verses over 26 decisions; no whole-chapter row; no row straddles a poem seam; every ch-3 seam on a triplet edge except the disclosed 3:47|3:48 cut",
+   "row_or_artifact": "all 26 spans",
+   "tool_run": "check_tiling.py --range Lam.1.1-Lam.5.22; cap_sweep (suite); span arithmetic against verse_map_oshb.json acrostic positions (private script)",
+   "result": "confirmed",
+   "evidence": "verses_expected 154, covered 154, decisions 26, problems []; whole_chapter_rows []; ch-3 spans 1-9, 10-18, 19-27, 28-33, 34-39, 55-60, 61-66 start and end on triplet edges; 40-47 ends inside the pe triplet and 48-54 starts inside it, argued on both rows; parents F1-F5 hold 4/5/9/5/3 rows"
+  },
+  {
+   "claim": "ngram7 gate 10 GREEN; translation-punctuation sweep 0 flags; mark symmetry GREEN; cap sweep GREEN",
+   "row_or_artifact": "rows_v14.jsonl",
+   "tool_run": "ngram7.py --gate 10 --full-ids; _punct_boundary_sweep.py; check_marks.py; cap_sweep.py",
+   "result": "confirmed",
+   "evidence": "offending_7grams []; punct rows_checked 26 flag_count 0; marks rows_checked 26 rows_citing_marks 26 flag_count 0 warn_count 0; cap failures []"
+  },
+  {
+   "claim": "all five exact corpus-wide arms return 0 over the shipping corpus, and the parity record for rows_v14 is GREEN, pins the corpus, and carries a disposition for every heuristic row",
+   "row_or_artifact": "rows_v14.jsonl; cwo/cwo_parity.rows_v14.json",
+   "tool_run": "_cwo_scan.py from the book directory (--json to private scratch); parity record read",
+   "result": "confirmed",
+   "evidence": "CWO-1 0, CWO-2 0, CWO-4 0, CWO-6 0, CWO-10 0 (heuristic screens CWO-5 3 rows, CWO-12 1 row, the same two screens the earlier checks read); parity status GREEN, exact_arm_residual [], heuristic_rows_without_disposition {}, post_corpus_sha256 = 49fad303..., record sha256 f99b1e63... as the log pins, dispositions over the complete finals set (CWO-2 18, CWO-4 8, CWO-10 5)"
+  },
+  {
+   "claim": "every pointed Hebrew run in the corpus collates at byte tier against an oshb: ref cited in the same field",
+   "row_or_artifact": "all 26 rows, every string field",
+   "tool_run": "lam_lib.collate_hebrew over every run of two or more letters, nearest following ref first, then every ref in the field (private script)",
+   "result": "confirmed",
+   "evidence": "143 runs, tiers {byte: 143}, none below byte"
+  },
+  {
+   "claim": "every curly-quoted English run is verbatim WEB at a web: ref cited in the same field; no Hebrew inside a curly pair",
+   "row_or_artifact": "all 26 rows",
+   "tool_run": "substring check against verse_map_web.json with one-verse slack (private script)",
+   "result": "confirmed",
+   "evidence": "74 curly runs, 74 found verbatim at an in-field ref, 0 Hebrew codepoints inside a curly pair"
+  },
+  {
+   "claim": "no unexpanded brace token; no register, fabrication-class or positional phrase; keys one per device, none in a mark namespace, letter homonyms only under the acrostic prefix; field censuses",
+   "row_or_artifact": "rows_v14.jsonl",
+   "tool_run": "regex and literal scans; key census; field census (private script); check_register (suite)",
+   "result": "confirmed",
+   "evidence": "0 placeholder hits; 0 hits for reviewer/boss/peer/tool names, 'that row', 'cross-part', 'the span that follows', repair narration, selah, Aramaic, LXX/Qumran/Jeremiah, special letters, the neighbouring-unit phrases; 95 keys, 64 distinct, no row with a duplicate key, 0 mark-namespace keys, 0 positional keys, 2 homonym keys both under acrostic.*; unit_type 7 values inside the closed vocabulary; confidence medium_low 21 / medium 4 / high 1; 26 of 26 candidate_review_complete; frontier flag true on all 21 medium_low rows; chunk_index 1..26 in order"
+  },
+  {
+   "claim": "lineage rows_v13 -> rows_v14 changed exactly the ordered fields of six rows, every emitted sweep row equals its applied row, no immutable field moved; rows_v12 -> rows_v13 changed only P02-006 device_notes",
+   "row_or_artifact": "rows_v12, rows_v13, rows_v14 (private copies); spot/fix_06.jsonl, fix_07.jsonl, fix_08.jsonl",
+   "tool_run": "field-level diff (private script)",
+   "result": "confirmed",
+   "evidence": "v13->v14: P01-005 (boundary_evidence_refs, device_notes), P01-007 (boundary_rationale), P02-002 (device_notes), P02-007 (device_notes), P03-002 (boundary_evidence_refs, device_notes), P03-005 (boundary_evidence_refs, device_notes); 20 emitted rows equal their v14 rows apart from _op, 14 of them byte-identical to v13; v12->v13 P02-006 device_notes only, so the launch/orders mismatch record's 'no ordered row differs' claim holds"
+  },
+  {
+   "claim": "P01-007 cure (the medium of the previous check): the absence claim now names its object, the speaker's own first person, and discloses the four first-person-plural verbs of the quoted taunt",
+   "row_or_artifact": "P01-007 boundary_rationale",
+   "tool_run": "accent-stripped token read-back of Lam.2.13-2.17 (private script)",
+   "result": "confirmed",
+   "evidence": "2:13 carries four first-person prefix-conjugation verbs (a'idekh, adammeh, ashveh, va'anachamekh); 2:14-2:17 carry no first-person-singular form (the only hiriq-yod token, yofi at 2:15, is a noun); 2:16 carries billa'nu, qivvinuhu, matsanu, ra'inu inside the taunt; the row's sentence now reads 'no first-person form of the speaker's own ... (the four first-person-plural verbs at web:Lam.2.16 stand inside the enemies' quoted taunt)'"
+  },
+  {
+   "claim": "P01-005 cure: eini and kevedi restated as substring censuses with the whole-token count and the extras named",
+   "row_or_artifact": "P01-005 device_notes",
+   "tool_run": "whole-token versus substring skeleton sweeps with needles asserted against their anchor verses (private script)",
+   "result": "confirmed",
+   "evidence": "eini whole token 5 (1:16, 2:11, 3:48, 3:49, 3:51), substring 7 adding 4:17 and 5:17 where the token is eineinu (first plural); kevedi whole token 1 (2:11), substring 2 adding 1:8 (a different lexeme); me'ai 2 (1:20, 2:11); bat-ammi 5; the row states exactly these objects and digits"
+  },
+  {
+   "claim": "P01-005's other assertions: no second-person and no first-person-singular form across 2:1-2:10; bat-Tsiyon at 2:1, 2:4, 2:8, 2:10 inside and 2:13, 2:18 beyond; eikhah verse-initial in 3 verses; a mark at every one of the poem's 22 verses, 21 SAMEKH and the PE",
+   "row_or_artifact": "P01-005 boundary_rationale and device_notes",
+   "tool_run": "second-person and first-singular candidate scans over 2:1-2:10 with read-back; phrase test; inventory read",
+   "result": "confirmed",
+   "evidence": "the only candidate tokens in 2:1-2:10 are hishlikh, darakh, shafakh (third-person verbs), melekh (noun) and bachori (noun): no second-person or first-singular form; bat-Tsiyon in-span 2:1, 2:4, 2:8, 2:10 and beyond 2:13, 2:18; eikhah verse-initial 1:1, 2:1, 4:1; chapter 2 marked at all 22 verses, PE at 2:22 only"
+  },
+  {
+   "claim": "P02-007 cure: lanu restated with both objects and the in-span exclusion",
+   "row_or_artifact": "P02-007 device_notes",
+   "tool_run": "whole-token versus substring skeleton sweeps",
+   "result": "confirmed",
+   "evidence": "lanu whole token 5 (3:47, 4:19, 5:1, 5:5, 5:16), substring 7 adding 5:7 (sevalnu) and 5:15 (mecholenu); none of either inside 3:48-3:54; 3:50 carries no first-singular form, 3:48, 3:49, 3:51-3:54 do"
+  },
+  {
+   "claim": "P03-002 cure: YHWH 32 verses under the single-letter prefix test, 30 as the bare token, prefixed only at 2:9 and 3:18; 3 verses in chapter 4; bat-ammi on both sides of the 4:6|4:7 seam",
+   "row_or_artifact": "P03-002 device_notes",
+   "tool_run": "token sweeps with single-letter prefix tolerance",
+   "result": "confirmed",
+   "evidence": "bare 30, prefix-tolerant 32, prefixed-only 2:9 and 3:18; chapter 4 at 4:11, 4:16, 4:20; bat-ammi 4:3, 4:6, 4:10"
+  },
+  {
+   "claim": "P03-005 cure: bat-Tsiyon 8 under the prefix test, 7 as the bare two-token phrase, 1 prefixed at 1:6; bat-Edom 2",
+   "row_or_artifact": "P03-005 device_notes and strongest_rejected_alternative",
+   "tool_run": "two-token phrase test with and without prefix tolerance",
+   "result": "confirmed",
+   "evidence": "prefix-tolerant 1:6, 2:1, 2:4, 2:8, 2:10, 2:13, 2:18, 4:22; bare 7 with 1:6 the prefixed one; bat-Edom 4:21, 4:22"
+  },
+  {
+   "claim": "P02-002 cure: the imperative onset at 3:19 'shares its consonantal skeleton with forms elsewhere in the book, none of them inside this span (skeleton substring sweep: 5 verses book-wide, 3 as the whole imperative form)'",
+   "row_or_artifact": "P02-002 device_notes",
+   "tool_run": "substring and whole-token skeleton sweeps; pointed read-back of Lam.2.1, 3.19 and 5.1",
+   "result": "refuted",
+   "evidence": "the digits hold: substring 5 (1:7 and 1:9 carry the suffixed form; 2:1, 3:19, 5:1 the whole token), none inside 3:10-3:18. The form label does not: the whole token at 2:1 is the negated qal perfect zakhar ('he did not remember'), not an imperative; imperatives stand at 3:19 and 5:1 only. P03-006 states the same verse correctly as 'the negated third-person perfect at web:Lam.2.1'. The label was installed by the class sweep (the previous text read 'sweep: 5 verses book-wide, skeleton tier' with no form label)"
+  },
+  {
+   "claim": "the fourteen citations the sweep reported sound and left unchanged (P01-001, P01-003, P01-004, P01-006, P01-009, P02-001, P02-003, P02-004, P02-005, P02-008, P02-009, P03-001, P03-006, P03-007)",
+   "row_or_artifact": "the cited fields of those rows",
+   "tool_run": "recurrence table over every Hebrew run of the corpus (byte / accent-stripped / skeleton-substring / skeleton-token-sequence verse counts) plus the phrase and form censuses named below",
+   "result": "confirmed",
+   "evidence": "two-word refrain 3 (1:9, 1:17, 1:21) with the family at 5; bat-ammi 5; reeh 7 under the prefix test including 3:1 (6 as the bare token); beyom byte 2 (2:1, 2:22) and accent-stripped 5 including 2:21; reeh-YHWH-vehabitah byte 2 (1:11, 2:20); the three-token day-of-anger form 1, the two-token form at 2:1 1; derakhai accent-stripped 2 (3:9, 3:11; byte 1 each; the 1:4 token is darkhei); paseq 0 of 66 in chapter 3; al-ken-ochil 2; the yod-triplet verbs subjectless at 3:28-3:30; interrogatives at 3:37 and 3:39, none at 3:38; YHWH at 3:55 and 3:59 with Adonai at 3:58 and no name at 3:56, 3:57, 3:60; three verse-initial second-masculine prefix verbs at 3:64-3:66; PE 1 of 66 at 3:66; eikhah accent-stripped 4 with 3 verse-initial; the doubled K/Q at 4:3; first-plural 10 of 10 across 5:1-5:10 and 0 of 4 across 5:11-5:14; verse-initial bare plural nouns nashim, sarim, bachurim, zeqenim; remember-form bare 3 (2:1 the negated perfect, 3:19, 5:1) with 2 petition imperatives; look-form bare 2 (3:63, 5:1) and 4 under the prefix test (1:11, 2:20)"
+  },
+  {
+   "claim": "formula and divine-name censuses cited across the rows",
+   "row_or_artifact": "P01-001, P01-005, P01-006, P01-007, P02-008, P03-001, P03-002, P03-005, P03-008 and others",
+   "tool_run": "two-token phrase tests with single-letter prefix tolerance and token sweeps, every needle asserted against an anchor verse",
+   "result": "confirmed",
+   "evidence": "bat-Tsiyon 8; bat-ammi 5 (2:11, 3:48, 4:3, 4:6, 4:10); bat-Yehudah 3 (1:15, 2:2, 2:5); bat-Yerushalam 2 (2:13, 2:15); betulat-bat 2 (1:15 behind a lamed, 2:13) with the three-token form in 1; bat-Edom 2; ein menachem contiguous 3, family 5 (1:2, 1:9, 1:16, 1:17, 1:21); eikhah 4 tokens; ani ha-gever 1; Adonai 13 with 2:19 and 2:20 both carrying it; a'idekh, habbat-Yerushalam, tsarayikh, beyadeha, laggever 1 verse each"
+  },
+  {
+   "claim": "first-plural censuses of chapters 4 and 5",
+   "row_or_artifact": "P03-004, P03-006, P03-007",
+   "tool_run": "nu-final token census per verse with read-back (private script)",
+   "result": "confirmed",
+   "evidence": "4:1-4:16: the only nu-final tokens are the third-plural perfects he'eminu (4:12) and chananu (4:16), so 0 first-plural suffixes; 4:17 5, 4:18 5, 4:19 3, 4:20 2 = 15, plus the prefix-conjugation nichyeh at 4:20; 5:1-5:10 carry a first-plural form in 10 of 10 verses (5:6 by natannu, 5:8 by vanu); 5:11-5:14 zero (innu at 5:11 is the third-plural perfect); 5:18 zero"
+  },
+  {
+   "claim": "the second-person feminine singular addressee chain runs 2:13-2:19 and no other verse of the poem",
+   "row_or_artifact": "P01-006, P01-007, P01-008",
+   "tool_run": "final-kaf-plus-sheva token census over chapter 2 with read-back",
+   "result": "confirmed",
+   "evidence": "2:13 6, 2:14 5, 2:15 2, 2:16 3, 2:17 2, 2:18 2, 2:19 3; the hits at 2:1, 2:4, 2:6, 2:11, 2:12, 2:15 (derekh) and 2:16 (akh) are verbs, nouns, an infinitive and a particle; 2:20-2:22 none (2:21 apekha is second masculine)"
+  },
+  {
+   "claim": "form-class labels and K/Q disclosures read back from the pointed bytes",
+   "row_or_artifact": "P01-002, P01-003, P01-004, P01-008, P02-004, P02-005, P02-006, P02-008, P02-009, P03-001, P03-003, P03-004, P03-005, P03-006, P03-007, P03-008",
+   "tool_run": "pointed token read-back of 2:18, 2:19, 2:20, 1:10, 1:17, 1:18, 2:11, 3:17, 3:28-3:30, 3:37-3:39, 3:40-3:48, 3:55, 3:57, 3:58, 3:61-3:66, 4:3, 4:12, 4:17, 4:20, 4:21, 4:22, 5:1, 5:7, 5:11-5:14, 5:16, 5:18, 5:19, 5:21",
+   "result": "confirmed",
+   "evidence": "tsa'aq libbam (third-singular verb, third-plural-suffixed noun) then horidi; qumi, ronni, shifkhi, se'i at 2:19 with the K/Q on the night word; olalta at 2:20; tsivvitah and lakh at 1:10; 1:17 all suffixes third person; mariti, shim'u na and the K/Q on the peoples word at 1:18; einai, me'ai, kevedi, ammi at 2:11; vattiznach and nafshi at 3:17; three cohortatives at 3:40 and nissa at 3:41; pasha'nu, umarinu at 3:42; the first-plural object suffixes at 3:43 and 3:45; aleinu, oyeveinu, lanu, then eini at 3:48; the K/Q at 3:39 on the verse's final word with the plural qere; the K/Q pairs at 4:3 (two), 4:12, 4:17, 4:21, 5:1, 5:21 as quoted; zekhor, habbitah and ure'eh at 5:1; chatanu at 5:16"
+  },
+  {
+   "claim": "the acrostic spine and every row's letter statement",
+   "row_or_artifact": "verse_map_oshb.json acrostic_letter/acrostic_position; the 22 rows of chapters 1-4",
+   "tool_run": "map read; first-consonant read-back of all 154 verse skeletons; per-row letter census against the prose (private script)",
+   "result": "confirmed",
+   "evidence": "acrostic_letter equals the first consonant of the verse skeleton in all 132 acrostic verses; chapter 1 ayin then pe, chapters 2, 3, 4 pe then ayin, chapter 3 in uniform triplets, chapter 5 none; every chapter 1-4 row names every letter its span covers; P01-007 nun samekh pe ayin at positions 14-17, P01-008 tsadi qof at 18-19 with the swap at 2:16/2:17, P03-003 lamed..pe at 12-16, P03-004 ayin..resh at 17-20"
+  },
+  {
+   "claim": "parashah, paseq and K/Q inventories and every in-row citation of them",
+   "row_or_artifact": "pmarks_Lam.json; all 26 rows",
+   "tool_run": "inventory read; citation scan over refs entries and prose (private script); mark_symmetry (suite)",
+   "result": "confirmed",
+   "evidence": "89 marked verses, 5 PE (1:22, 2:22, 3:66, 4:22, 5:18), 84 SAMEKH; chapter 3 marked at 22 verses, every third; chapter 5 only 5:18; paseq 11 segs over 10 verses; K/Q 22 notes over 20 verses with 4:3 and 5:7 doubled, per chapter 3/3/4/6/6 notes; 83 mark citations in the rows all match the inventory under the right type; every paseq count and K/Q mention stands at an inventory verse"
+  },
+  {
+   "claim": "the declined half of boss ruling B3-1 companion edit 4: the ledger's reason 'no phrasing naming PE can pass check_marks on this row'",
+   "row_or_artifact": "reviews/ruling_execution_ledger.v1.json B3-1 n=6",
+   "tool_run": "check_marks.py, check_universals.py, check_register.py and _cwo_scan.py over two private test corpora: one with P02-006's close-seam clause extended by 'the PE type stands at 1 of this poem's 66 verses, Lam.3.66, and not at Lam.3.48', one with the bare 'not PE'",
+   "result": "refuted",
+   "evidence": "the Lam.3.66-anchored phrasing passes every arm (marks GREEN 0, universals GREEN 0, register GREEN 0, all five exact arms 0); the bare 'not PE' flags mark_symmetry (claimed PE bound to Lam.3.40). The literal half was executable; the ledger's reason is false as written, exactly as the previous check found, and it has not been corrected. The decline's substance is ruled sound below"
+  },
+  {
+   "claim": "B3-1 history rule (n=8): the narrowed-predicate label in the scanner report and the parity record",
+   "row_or_artifact": "cwo/cwo_parity.rows_v14.json; the scanner's JSON output from my own run",
+   "tool_run": "string search",
+   "result": "confirmed",
+   "evidence": "the scanner's JSON report carries 'CWO-1 as narrowed by B3-1 (2026-09-07)' (1 hit), so the ledger's statement that the scanner reports lack it is stale; the parity record for rows_v14 does not carry it (0 hits); the standalone label record states both digits (0 narrowed, 1 under the issued list, P02-006)"
+  },
+  {
+   "claim": "stage-1 coverage reconciles against the slice plan and the manifest",
+   "row_or_artifact": "final_check/transcript_audit_01..04.json; transcript_manifest.v2.json and v3.json",
+   "tool_run": "_final_check_reconcile.py from the book directory, --out to private scratch, once per manifest",
+   "result": "confirmed",
+   "evidence": "v2 (the manifest the slices were built from and every stage-1 receipt pins, dc532039): GREEN, 11 transcripts, 4 disjoint slices, 11 assigned, per slice assigned = reported (2/3/3/3), processed = assigned bytes, close-read 379608/485803/484695/783359, 0 problems; v3: RED for exactly two problems, the audit-lane transcripts a5f3d4b5 and aa711eb9 assigned to no slice"
+  },
+  {
+   "claim": "the thirteen durable transcripts, their digests, thinking content, effort keys and the breach strings stage 1 cites",
+   "row_or_artifact": "sp_durable transcripts a4d21ecf, aa08025b, ab6ac740, ac39de85, a4699dea, a773fff4, a09fab57, a2603ce7, a6f8a44d, a5565eb2, a7f88373, a5f3d4b5, aa711eb9",
+   "tool_run": "sha256 against transcript_manifest.v3.json; JSONL census of records, thinking blocks, model and effort keys per assistant record; grep for the cited strings (private script)",
+   "result": "confirmed",
+   "evidence": "13 of 13 digests match; 454 thinking blocks, 10 with content (3,095 characters, all in aa711eb9); every other block empty; models equal the ordered models; effort xhigh on every Lam and Jer lane record except cwo04 (63 xhigh then 100 max), and max on every record of both audit-lane transcripts (96; 92); cwo04 carries out_bat_edom.txt 5 times; a02 carries its in-tree private directory name 67 times and collate_out.tmp once; a03 carries the transient validator report name twice"
+  },
+  {
+   "claim": "every attempt that touched or reviewed the corpus carries a receipt, and every receipt-named artifact hashes to its receipt",
+   "row_or_artifact": "the twelve receipt files (60 records); 39 exact-path artifacts (orders files, apply reports, parity records, the cycle log, both manifests, the ledgers, the catch records, the amendments)",
+   "tool_run": "attempt-id census over the named artifacts against the receipt set; sha256 over every receipt-named output and orders file (private script; no directory was listed)",
+   "result": "confirmed",
+   "evidence": "47 attempt ids found in the artifacts, 47 with a receipt, 0 without; lam_cwo_corr_03_a1 now receipted with model UNKNOWN and every field read from an artifact (the medium of the previous check, cured); 90 receipt-named digests reproduce, 0 mismatches, 0 missing"
+  },
+  {
+   "claim": "every digest the cycle log pins reproduces from disk",
+   "row_or_artifact": "31 pinned artifacts: rows_v5..v14, the parity records v7/v11.finals4/v13/v14, boss b1 and b3, the four stage-1 packets, final checks 02 and 03, manifest v2, TOOLKIT.md, the spot records, the apply reports, both postchecks, the second-generation catch",
+   "tool_run": "sha256 (private script)",
+   "result": "confirmed",
+   "evidence": "31 of 32 checked pins reproduce their prefixes; the exception is the next item"
+  },
+  {
+   "claim": "cwo/scan_correction_record.v1.json sha256 0a16bde7 as pinned in the order-execution wave entry",
+   "row_or_artifact": "cwo/scan_correction_record.v1.json",
+   "tool_run": "sha256",
+   "result": "refuted",
+   "evidence": "the file now hashes 81e043ae; the sixth entry (the B3-1 narrowing) was appended into the pinned file, which the CWO-1 ruling entry discloses without recording the new digest - the same pinned-name class the parity records carry, reached by in-place append"
+  },
+  {
+   "claim": "cwo/cwo_parity.rows_v11.json still hashes to the pinned 3112ebbb",
+   "row_or_artifact": "cwo/cwo_parity.rows_v11.json; cwo/cwo_parity.rows_v11.finals4.json",
+   "tool_run": "sha256",
+   "result": "refuted",
+   "evidence": "19d78ae6 at the pinned name; the pinned bytes stand at the .finals4 name (3112ebbb); no log line has been added since the previous check named it"
+  },
+  {
+   "claim": "the effort-key amendment: 'xhigh throughout, one attempt switching to max' for five named attempts, 38 attempts without a key",
+   "row_or_artifact": "final_check/receipt_amendments.v1.jsonl (runtime_effort_key_evidence)",
+   "tool_run": "effort-key tally per transcript",
+   "result": "refuted",
+   "evidence": "the two audit-lane attempts it names carry max on every record, not xhigh; three further transcribed attempts (OL_c01 xhigh 85, OL_c04 xhigh 83, boss b1 xhigh 52) carry a readable key it omits; no correction has been appended since the previous check found this"
+  },
+  {
+   "claim": "the decay finding's absolute 'every thinking block is an empty string with a signature' and the owner packet's premise",
+   "row_or_artifact": "SP/campaign/finding_transcript_decay.v2.json; reviews/boss_lam_b3.json owner_packet",
+   "tool_run": "thinking-block content census",
+   "result": "refuted",
+   "evidence": "10 of 454 blocks carry content (summary-level, one transcript); no v3 of the finding exists in the evidence named to me; the owner packet still says no chain of thought exists"
+  },
+  {
+   "claim": "durable retention of the book's packets",
+   "row_or_artifact": "sp_durable/Lam copies of 18 artifacts named in receipts and the log",
+   "tool_run": "sha256 of each durable copy against its live original (exact paths; no listing)",
+   "result": "confirmed",
+   "evidence": "17 of 18 byte-identical (boss b1/b3, a primary, two peers, an author packet, two order-execution packets, a spot packet, a cure packet, a sweep packet, a postcheck, a final check, a stage-1 packet, rows_v14, a writer packet, a sidecar); the durable cycle log lags the live one (dc537854 vs 755eafe3), which the close mirror must refresh"
+  },
+  {
+   "claim": "the cross-book retained residual ordered by the earlier checks is written at the closed book's record",
+   "row_or_artifact": "receipts/Jer_retained_residual_2026-09-07.json (worktree)",
+   "tool_run": "file read",
+   "result": "confirmed",
+   "evidence": "names the attempt, the class, the postcheck catch, the digest check of the closed corpus and the no-reopen ruling"
+  },
+  {
+   "claim": "the launch/orders corpus-mismatch record: only P02-006 differs between rows_v12 and rows_v13 and it is in no sweep slice",
+   "row_or_artifact": "SP/campaign/finding_launch_orders_base_mismatch.v1.json; rows_v12, rows_v13",
+   "tool_run": "field-level diff",
+   "result": "confirmed",
+   "evidence": "one differing row, P02-006 device_notes; the 20 ordered rows are byte-identical across the two corpora"
+  },
+  {
+   "claim": "the orchestrator's self-recorded paraphrase error in the sweep orders (the 1:8 hit attributed to the eye-form)",
+   "row_or_artifact": "spot/orders_fix_06.json byte_evidence; freeze/CYCLE_STATE.md 'ORCHESTRATOR PARAPHRASE CORRUPTION'",
+   "tool_run": "orders read; sweeps above",
+   "result": "confirmed",
+   "evidence": "the orders text gives the eye-form's extras as 'a first-PLURAL form and, at 1.8, a different lexeme'; the bytes give 4:17 and 5:17 (both first plural) for the eye-form and 1:8 for the liver-form; rows_v14 carries the correct attribution; the log entry was appended after this check launched (the log grew from 354 to 366 lines during the check) and records it against the orchestrator"
+  },
+  {
+   "claim": "the fix brief carries the universals and marks arms and no reasoning-record clause; the boss ledgers are unedited; the toolkit erratum stands",
+   "row_or_artifact": "FIX_BRIEF.md; reviews/boss_lam_b1.json; reviews/boss_lam_b3.json; tools/TOOLKIT.md",
+   "tool_run": "pattern search; sha256",
+   "result": "confirmed",
+   "evidence": "check_universals and check_marks named at line 52 of the brief; 0 hits for a record clause; b1 6cf5fec8, b3 69419458, TOOLKIT df93c03d reproduce"
+  }
+ ],
+ "residual": [
+  {
+   "row_or_artifact": "P02-002 device_notes",
+   "class": "E-05 form-class label on a skeleton count (second-generation: installed by the class sweep; contradicts the sibling statement on P03-006)",
+   "severity": "low",
+   "origin": "new",
+   "defective_text": "shares its consonantal skeleton with forms elsewhere in the book, none of them inside this span (skeleton substring sweep: 5 verses book-wide, 3 as the whole imperative form)",
+   "evidence": "the whole token stands in 3 verses (2:1, 3:19, 5:1) but the 2:1 token is the negated qal perfect ('he did not remember'), so 'the whole imperative form' is false of one of the three; P03-006 calls the same verse 'the negated third-person perfect'. The load-bearing half (none inside 3:10-3:18) holds and the seam argument does not rest on the label; the previous wording carried no form label, so the sweep installed this",
+   "proposed_cure": "restate as '3 as the whole token, of which 2 are the imperative (web:Lam.3.19, web:Lam.5.1) and one the negated perfect at web:Lam.2.1' or drop the form word; retained with explicit handling at this close (an edit before assembly would require a fresh final check); cure in the first maintenance round the campaign opens on this book"
+  },
+  {
+   "row_or_artifact": "reviews/ruling_execution_ledger.v1.json B3-1 n=6",
+   "class": "record accuracy: a consequence DECLINED on a reason the bytes refute, uncorrected after the previous check refuted it",
+   "severity": "low",
+   "origin": "receipt",
+   "defective_text": "no phrasing naming PE can pass check_marks on this row ... the two independent tool paths that bar every alternative phrasing",
+   "evidence": "reproduced here: a Lam.3.66-anchored PE phrasing passes every arm; only the bare 'not PE' and the absence phrasings flag; the ledger is unchanged since 22:34Z",
+   "proposed_cure": "append-only correction of the entry's reason to the ruling given in this packet: declined as REDUNDANT (the positive statement of the SAMEKH type beside the letter-versus-mark sentence already carries the exclusion; a PE citation eighteen verses outside the span adds nothing), not as inexecutable"
+  },
+  {
+   "row_or_artifact": "reviews/ruling_execution_ledger.v1.json B3-1 n=8; cwo/cwo_parity.rows_v14.json",
+   "class": "ledger law: a consequence still at PARTIALLY EXECUTED at the close; the ledger's own description is now stale (the scanner report carries the label; the parity record does not)",
+   "severity": "low",
+   "origin": "receipt",
+   "defective_text": "state PARTIALLY EXECUTED; evidence: 'the label is in _cwo_scan.py (CWO1_LABEL) but the parity records and the scanner's JSON reports do not carry it'",
+   "evidence": "my own scanner run's JSON output carries the label once; cwo_parity.rows_v14.json carries it 0 times; the standalone label record states both digits",
+   "proposed_cure": "record n=8 as DECLINED with reason by this ruling: the standalone label record, the scanner report and the close receipt carry the label and both digits, so carrying the string into the parity record adds nothing; the close receipt must state both CWO-1 digits (0 under the narrowed predicate; 1 under the issued list, P02-006)"
+  },
+  {
+   "row_or_artifact": "reviews/ruling_execution_ledger.v1.json B3-2 n=1",
+   "class": "ordered disposition not recorded: the previous check STAYED the record clause under OW-6 on the condition that the ledger record the stay and the launches that ran without it; the ledger is unchanged and four further launches ran without the clause or a recorded stay",
+   "severity": "low",
+   "origin": "receipt",
+   "defective_text": "state NOT EXECUTED; orchestrator_note: 'not retroactive by the ruling's own terms; it binds the NEXT launch onward'",
+   "evidence": "the three sweep launches and this attempt's launch carry no record clause; the fix brief carries none (0 hits); the stay exists only in the previous check's packet",
+   "proposed_cure": "append the stay to the ledger with the full list of launches that ran without the clause (three sidecars, two postchecks, f01, the stage-1 auditors, four stage-2 checks, f02-f08), reaffirmed by this packet; the next book's first brief-authoring step resolves the clause one way"
+  },
+  {
+   "row_or_artifact": "reviews/ruling_execution_ledger.v1.json B3-2 n=2; freeze/CYCLE_STATE.md 'BOSS RULINGS B3-1 / B3-2 EXECUTION LEDGER'",
+   "class": "record honesty: a state recorded as done before the event it names, unchanged since the previous check named it",
+   "severity": "low",
+   "origin": "receipt",
+   "defective_text": "state SURFACED 2026-09-07; evidence: carried to the owner in the session's close report",
+   "evidence": "the printed close packet follows this book's close and does not yet exist; no owner answer is on the record",
+   "proposed_cure": "relabel SCHEDULED until the packet exists, then SURFACED with the packet's path and digest"
+  },
+  {
+   "row_or_artifact": "cwo/scan_correction_record.v1.json versus the cycle log's order-execution entry (pin 0a16bde7)",
+   "class": "E-25 class: a pinned artifact re-hashed after an in-place append, disclosed without the new digest",
+   "severity": "low",
+   "origin": "new",
+   "defective_text": "cwo/scan_correction_record.v1.json (sha256 0a16bde706c39ceb...)",
+   "evidence": "the file hashes 81e043ae; the sixth entry was appended into it and the CWO-1 ruling entry says so without a digest line; entries 1-5 were read unedited by the second check",
+   "proposed_cure": "append a log line naming the old and new digests and the scope of the append; forward law: a pinned record that must grow takes a new versioned name"
+  },
+  {
+   "row_or_artifact": "cwo/cwo_parity.rows_v11.json (now 19d78ae6) versus the cycle-log pin 3112ebbb",
+   "class": "E-25 class: a pinned name reused after a rename (carried from the previous check; no log line since)",
+   "severity": "low",
+   "origin": "receipt",
+   "defective_text": "EXECUTION PARITY re-run over the shipping corpus: cwo/cwo_parity.rows_v11.json (sha256 3112ebbb3cd190a2...)",
+   "evidence": "19d78ae6 at the pinned name; 3112ebbb at .finals4; the later entry discloses the rename but no line corrects the pin",
+   "proposed_cure": "append the log line the previous check ordered; extend the no-overwrite control to every name the log has pinned"
+  },
+  {
+   "row_or_artifact": "final_check/receipt_amendments.v1.jsonl (runtime_effort_key_evidence)",
+   "class": "honest-effort law: an amendment that misdescribes two transcripts and omits three (carried from the previous check; uncorrected)",
+   "severity": "low",
+   "origin": "receipt",
+   "defective_text": "xhigh throughout, one attempt switching to max mid-run ... attempts_with_a_readable_effort_key: 5",
+   "evidence": "both audit-lane transcripts carry max on every record (96; 92); OL_c01, OL_c04 and boss b1 carry xhigh on every record and are not named; the readable-key count is 8",
+   "proposed_cure": "append-only correction naming the key per transcribed attempt, stating max for the two audit-lane attempts, and restating that a declared key is what the runtime was asked for and not a measurement"
+  },
+  {
+   "row_or_artifact": "SP/campaign/finding_transcript_decay.v2.json; reviews/boss_lam_b3.json owner_packet",
+   "class": "record accuracy: an absolute about chain-of-thought capture that the durable store contradicts (carried; no v3 issued)",
+   "severity": "low",
+   "origin": "receipt",
+   "defective_text": "the surviving transcripts contain NO chain of thought: every thinking block is an empty string with a signature",
+   "evidence": "10 non-empty summary-level thinking blocks (3,095 characters) in the first stage-2 checker's transcript; 444 empty blocks elsewhere",
+   "proposed_cure": "issue v3 beside v2 with the corrected sentence and digits (13 transcripts, 454 blocks, 10 with content in one transcript); carry the corrected premise into the owner packet before it is printed"
+  },
+  {
+   "row_or_artifact": "transcript_manifest.v3.json (built 22:07Z) versus the attempts since; the mirror-before-final-check control",
+   "class": "evidence preservation: the manifest predates the completion of f04 (recorded at 0 bytes while running), carries no entry for f05, f06, f07, f08, the third stage-2 check or this attempt, and the control that the mirror runs before any final check is not evidenced for this check (third recurrence)",
+   "severity": "low",
+   "origin": "new",
+   "defective_text": "lam_fcfix_f04_a1 ... bytes 0 (recorded while the attempt was running); (no entry for lam_fcfix_f05_a1..f08 or lam_final_check_03_a1)",
+   "evidence": "the f04 receipt is recorded 22:23Z and f05 22:34Z, f06-f08 23:37Z, all after the manifest was built; no later manifest is named to me and I did not search; the transcript state of five attempts of this cycle is therefore unknown, not absent",
+   "proposed_cure": "rebuild the manifest after the last attempt of every round and before the close (v4 beside v3) mapping f05-f08, the third stage-2 check and this attempt with their transcript states; make the rebuild an assertion the launch of a final check makes, not a step the orchestrator remembers; state the four unknown-state attempts in the close receipt"
+  },
+  {
+   "row_or_artifact": "the two audit-lane transcripts a5f3d4b5 and aa711eb9; the reconciliation against transcript_manifest.v3.json",
+   "class": "coverage: two subagent transcripts of this cycle exist in the durable store and were close-read by no stage-1 slice (RED against the current manifest for exactly these two); censused mechanically here and by the previous check",
+   "severity": "low",
+   "origin": "receipt",
+   "defective_text": "manifest transcript assigned to NO slice: a5f3d4b5b10b2abc6.output; manifest transcript assigned to NO slice: aa711eb9237adc50b.output",
+   "evidence": "both are transcripts of the final-check lane itself, produced after the slices were cut; digests match; 231 and 192 records; effort max throughout; 0 and 10 thinking blocks with content; neither close-read by anyone",
+   "proposed_cure": "state the two unaudited transcripts in the close receipt and record the rule that the audit lane's own transcripts are covered by the next check's mechanical census; an unstated gap is the defect, not the gap"
+  }
+ ],
+ "stage1_findings_disposition": [
+  {
+   "slice": "1 of 4 - lam_cwo_04_a1",
+   "finding": "directory listings against shared SP paths (medium, self-disclosed)",
+   "disposition": "confirmed",
+   "reason": "recorded in the receipt and the breach amendment; the transcript hashes to the manifest; no foreign output content read; the corpus is unaffected (every run of rows_v14 collates byte)"
+  },
+  {
+   "slice": "1 of 4 - lam_cwo_04_a1",
+   "finding": "two sweep outputs redirected into SP/Lam/tools, undisclosed (medium)",
+   "disposition": "confirmed",
+   "reason": "the file name stands 5 times in the transcript bytes I grepped; the orchestrator's path check finds both files absent; the breach amendment records it"
+  },
+  {
+   "slice": "1 of 4 - lam_cwo_04_a1",
+   "finding": "P03-006 look-form digits taken from the ruling rather than reproduced (low)",
+   "disposition": "confirmed",
+   "reason": "process defect only; my own sweep reproduces 2 bare / 4 under the prefix test"
+  },
+  {
+   "slice": "1 of 4 - lam_cwo_04_a1",
+   "finding": "P03-004 first-plural digit object-short by one (low)",
+   "disposition": "superseded",
+   "reason": "the shipping row names the suffix census and discloses the prefix-conjugation form at 4:20; re-derived here (0 of 16; 15; nichyeh)"
+  },
+  {
+   "slice": "1 of 4 - lam_cwo_04_a1",
+   "finding": "P03-006 device_notes 'the Hebrew splices in this field' false (low)",
+   "disposition": "superseded",
+   "reason": "cured in rows_v10; the shipping text says 'in boundary_rationale', where the 5:1 and 5:10 splices stand (my per-field Hebrew census)"
+  },
+  {
+   "slice": "1 of 4 - lam_cwo_04_a1",
+   "finding": "P03-008 paseq citation logged as a defect that did not exist; final-message prose; stray out-of-scope tool call (low)",
+   "disposition": "confirmed",
+   "reason": "the inventory carries no chapter-4 paseq and one at 5:21; the rewrite is harmless; the other two are process only"
+  },
+  {
+   "slice": "1 of 4 - lam_pr_OL_c01_a1",
+   "finding": "four low findings in the review packet (scan range overstated; quote counts; 'complete scan' not run; over-broad flags print)",
+   "disposition": "confirmed",
+   "reason": "review-artifact defects with no corpus effect; 2:1-2:10 carry no second-person or first-singular form and 2:11 carries four first-singular suffixes on my read-back"
+  },
+  {
+   "slice": "2 of 4 - lam_auth_a03_a1",
+   "finding": "two undisclosed listings of shared SP directories incl. the author output directory (medium)",
+   "disposition": "confirmed",
+   "reason": "recorded in the breach amendment from the transcript lines; no read of another author's packet followed"
+  },
+  {
+   "slice": "2 of 4 - lam_auth_a03_a1",
+   "finding": "cure tests reported as run that the record does not show (medium); method substitution, a RED tiling run dropped, a transient report under SP (low)",
+   "disposition": "confirmed",
+   "reason": "process defects; the transient report name stands twice in the transcript I grepped; every digit involved reproduces from bytes here (bat-Edom 2, bat-Tsiyon 8, YHWH in chapter 4 at 3 verses, first-plural 0/15)"
+  },
+  {
+   "slice": "2 of 4 - lam_boss_b1_a1",
+   "finding": "B1-4 grounds count three first-person prefix-conjugation verbs at 2:13 where the verse carries four (medium)",
+   "disposition": "superseded",
+   "reason": "the row was cured in rows_v10 and the ground note against the ruling exists; the ruling itself stands unedited (6cf5fec8); four verbs on my read-back"
+  },
+  {
+   "slice": "2 of 4 - lam_boss_b1_a1",
+   "finding": "'complete enumeration' on 20 of 22 verses printed; staged tools read but not invoked (low)",
+   "disposition": "confirmed",
+   "reason": "the claim is true on my census (2:20-2:22 carry no feminine-singular addressee form); process only"
+  },
+  {
+   "slice": "2 of 4 - jer_cwo_03_a1",
+   "finding": "one disclosed listing, three further existence checks, two transient validator reports under the previous book's tree (low)",
+   "disposition": "confirmed",
+   "reason": "cross-book: real and immaterial to the shipped corpus of the closed book; retained residual against that book's record; no owner decision"
+  },
+  {
+   "slice": "3 of 4 - jer_spot_S3_a1",
+   "finding": "undisclosed listing of the previous book's tools directory (medium); three digit errors inside delivered findings and one unverifiable lane digit (low)",
+   "disposition": "confirmed",
+   "reason": "cross-book: real; the packet-digit errors do not change its cures; retained residual against the closed book's record; no reopen on this evidence"
+  },
+  {
+   "slice": "3 of 4 - lam_pr_OL_c04_a1",
+   "finding": "undisclosed listing of SP/Lam/tools (medium)",
+   "disposition": "confirmed",
+   "reason": "the tools directory holds no packet, so blindness was breached in letter; the receipt still records no breach and no amendment covers this attempt (process finding, not a corpus defect)"
+  },
+  {
+   "slice": "3 of 4 - lam_pr_OL_c04_a1",
+   "finding": "exclusivity claim that 5:11-5:14 is the only first-plural-free run in 5:1-5:18 contradicted by the agent's own sweep at 5:18 (medium)",
+   "disposition": "superseded",
+   "reason": "the shipped rows carry no 'only run' claim; my census confirms 5:18 carries no first-plural form and 5:11-5:14 carry none"
+  },
+  {
+   "slice": "3 of 4 - jer_cwo_10_a1",
+   "finding": "undisclosed scratch write into the previous book's tools directory (medium); three lows",
+   "disposition": "confirmed",
+   "reason": "cross-book: the orchestrator's path check finds the file absent; immaterial to the shipped corpus; retained residual against the closed book's record"
+  },
+  {
+   "slice": "4 of 4 - lam_auth_a02_a1",
+   "finding": "H1: private scratch created under SP/Lam/author and two stray files in SP/Lam/tools, undisclosed (high)",
+   "disposition": "confirmed",
+   "reason": "the in-tree directory name stands 67 times and collate_out.tmp once in the transcript bytes I grepped; residue gone per the orchestrator's path check and 227-file stray sweep; corpus unaffected: the deliverable hashes to its receipt value (24ee768b), its rows passed twelve further versions of review, and every Hebrew run of rows_v14 collates byte here; the breach amendment records it and trust in that agent's self-report is reduced by amendment. Resolved as a process finding, not a corpus defect"
+  },
+  {
+   "slice": "4 of 4 - lam_auth_a02_a1",
+   "finding": "undisclosed listing (medium); sweep on a degraded needle, cure tests overstated, a manufactured sweep citation, 'identically' overstated (low)",
+   "disposition": "confirmed",
+   "reason": "every underlying fact reproduces here (derakhai accent-stripped 2; 3:37 and 3:39 interrogatives with 3:38 not; 3:28-3:30 subjectless verbs; the two seam rows carry the same letter/mark structure)"
+  },
+  {
+   "slice": "4 of 4 - jer_micro_m11_a1",
+   "finding": "H2: a cure installed pairing defects and labelled the items cured, with residual flags mischaracterised as pre-existing (high)",
+   "disposition": "confirmed",
+   "reason": "cross-book. Real as to conduct on the transcript evidence the earlier checks re-read; inert about the shipped product on the orchestrator's evidence (digest unchanged since close, the three named rows clean, the flag count equal to the close record); the retained residual is WRITTEN at the closed book's record and was read here; no reopen; nothing remains open for this close"
+  },
+  {
+   "slice": "4 of 4 - jer_postcheck_02_a1",
+   "finding": "undisclosed listing (medium); packet self-check asserts reads of the strategy and the ledger that never happened (medium); three lows",
+   "disposition": "confirmed",
+   "reason": "cross-book; a record-honesty defect inside the closed book's final review packet; its byte checks stand on their own tool runs; retained residual against the closed book's record; no reopen"
+  },
+  {
+   "slice": "all slices",
+   "finding": "chain of thought absent from every transcript; runtime effort key xhigh on every assistant record (cwo04 later max) against ordered session-default or high",
+   "disposition": "confirmed",
+   "reason": "true of the eleven transcripts stage 1 read and re-counted here (444 empty blocks; keys as stated); not true as a generalization to the store: the first stage-2 checker's transcript carries 10 summary-level blocks and both audit-lane transcripts carry max"
+  }
+ ],
+ "close_gate_assessment": [
+  {
+   "gate": "Item 5 - corpus-wide-order execution parity",
+   "met": true,
+   "evidence": "every exact arm returns 0 on my own scan of rows_v14; the parity record for rows_v14 is GREEN, pins the shipping corpus digest, was built from the complete finals set (7 attempts; dispositions 18/8/5 on CWO-2/4/10) and carries a disposition for every heuristic row; the B3-1 narrowing is recorded with both CWO-1 digits in a standalone record and in the scanner report. The narrowed-predicate label is absent from the parity record (low; ruled declined as redundant below); the close receipt must state both CWO-1 digits"
+  },
+  {
+   "gate": "Item 5 - Hebrew quote bytes and tier labels",
+   "met": true,
+   "evidence": "143 of 143 runs byte at their cited refs; byte / accent-stripped / skeleton labels present and every tier-labelled digit re-derived; PE never conflated with SAMEKH; the letter/mark layers stated as distinct at the live collision site. One skeleton count carries a wrong form word in device_notes (P02-002; low, retained with explicit handling); no tier label is conflated"
+  },
+  {
+   "gate": "Item 5 - WEB quote and gloss fidelity",
+   "met": true,
+   "evidence": "74 of 74 curly runs verbatim with in-field refs; no Hebrew inside a curly pair; every gloss beside a splice is in straight quotes with 'roughly'"
+  },
+  {
+   "gate": "Item 5 - Unicode normalization fixed=0 defect=0 by count",
+   "met": true,
+   "evidence": "dry-run over a private copy: ok=143 fixed=0 defects=0"
+  },
+  {
+   "gate": "Item 5 - review-packet retention enumerated with hashes",
+   "met": true,
+   "evidence": "durable retention verified on evidence: 17 of 18 packets and corpora sampled by exact path under sp_durable/Lam are byte-identical to their live originals and the 13 transcripts match the manifest; the durable cycle log lags the live one and must be re-mirrored at close. The enumeration with hashes is produced by the close step and the close gate must assert it; it is not in the evidence named to me"
+  },
+  {
+   "gate": "Item 5 - appeals resolved or held, enumerated",
+   "met": true,
+   "evidence": "no appeal record exists or is referenced anywhere in this book's artifacts, receipts, ledgers or log; the truthful enumeration is 'none', which the close receipt must state explicitly rather than by silence"
+  },
+  {
+   "gate": "Item 5 - final review_status",
+   "met": true,
+   "evidence": "26 of 26 rows candidate_review_complete; no draft; no deferred-review label"
+  },
+  {
+   "gate": "Item 5 - second-generation role separation with producer/catcher recorded",
+   "met": true,
+   "evidence": "separation held on the record for every lane through rows_v14: the three sweep authors were distinct from the checker that raised the class and from this checker; each repair wave was followed by a distinct-checker sweep; this checker is distinct from every producer, every stage-1 auditor and the three earlier checkers; every attempt that touched or reviewed the corpus now carries a receipt (47 of 47 ids in the exact-path artifacts), with the reconstructed models READ from the launch record and the third order-correction attempt's model honestly UNKNOWN"
+  },
+  {
+   "gate": "Item 8 - OW-3 permanent safeguards",
+   "met": true,
+   "evidence": "met on evidence: audit-vs-repair distinction; repair proposals validated adversarially (the three sweep authors re-derived every citation, refused a mis-pinned corpus, and one corrected the orchestrator's own paraphrase); both-sides seam law (the two adopted seam moves and the 3:47|48 cut argued on both rows; refrain closes weighed at 1:9, 1:17, 1:21); low findings retained explicitly; no unexpanded placeholder; honest model reporting (every receipt states ORDERED, NOT VERIFIED). Record lows on the letter of two safeguards, each carried with explicit handling: dependency applicability (two pinned names re-hashed without a digest line) and honest effort reporting (an amendment that misdescribes two transcripts)"
+  },
+  {
+   "gate": "B-8 LF-support audit and E-23 digits in the close receipt",
+   "met": true,
+   "evidence": "B-8 record on disk (spot/s4_support_audit_record.v1.json 928e72f8: frame 13, sample 7, 7/7 defective, 12 findings cured) and the E-23 sweep 0 driver over 26 rows, re-run here with 0 flags; both records reproduce their pinned digests"
+  },
+  {
+   "gate": "Book law (identity numbering, acrostic spine, seam law, held-open regions, tier discipline, one key per device)",
+   "met": true,
+   "evidence": "154/154 identity tiling, X-X spans, no Lam.N.0; acrostic_letter equals the first consonant in all 132 acrostic verses; every seam on a letter or triplet boundary except the disclosed 3:47|48 cut, argued on both rows; poem seams all cut (parents 4/5/9/5/3); every strategy section-7 region held at medium_low with the frontier flag and a held-question sentence (1:9c/1:11c, 2:11-13, 2:18, 3:19-24, 3:39|40, 3:47|48, 4:17, 4:21-22, 5:19-22, the 3:1 persona); letters disclosed on every chapter 1-4 row in the witness's order; 64 distinct keys, one per device, none in a mark namespace, the two letter-named keys under the acrostic prefix; the letter and mark layers stated as distinct at the live collision site"
+  },
+  {
+   "gate": "Item 6 - Revelation requirements",
+   "met": true,
+   "evidence": "not applicable to this book"
+  },
+  {
+   "gate": "Item 10 - OW-6 final checker verdict of fit_to_close",
+   "met": true,
+   "evidence": "this packet: fit_to_close over rows_v14 (49fad303) with 0 high, 0 medium and 11 low residuals, each retained with explicit handling ordered below"
+  }
+ ],
+ "process_findings": [
+  "Role separation held on the record for every corpus lane through rows_v14: the three class-sweep authors were distinct from the checker that raised the class and from this checker; each was a different attempt from the authors whose rows it swept; the second-generation defect the sweep installed (the form word on P02-002) was caught here, by a checker distinct from the authors, which is what OW-2 item 4 orders. This checker is distinct from every producer, every stage-1 auditor and the three earlier stage-2 checkers, and edited nothing.",
+  "The previous check's two mediums are cured and verified from bytes (the third order-correction attempt's receipt, with its model honestly unknown; the object of P01-007's absence claim). Its three corpus lows are cured and verified (P01-005, P02-007 and, by the class sweep, P02-002 and the three further rows the sample had not reached). Of its eight record lows, none has been cured: the ledger is unchanged since 22:34Z, the effort amendment stands uncorrected, no v3 of the decay finding and no manifest later than v3 is named to me, and no log line covers the two reused pins. They are carried here with the same severity and explicit handling; they do not block a close, but a close that leaves them unrecorded would not be honest.",
+  "The class sweep was the right response to a sampled finding: 20 rows ordered, 6 restated (double the sample), the sound citations reported, and every restatement re-derived here from the bytes. It also shows the limit of a repair wave: one restatement added a form word that the bytes refute and that a sibling row already contradicts, and the validator suite cannot see a form word. The catch is this check's, not the suite's; a form-class read-back belongs in every sweep author's self-check.",
+  "The orchestrator's own error record grew during this check: the cycle log went from 354 to 366 lines while I read, adding the paraphrase-corruption entry (the sweep orders misattributed the 1:8 hit to the eye-form; a sweep author caught it and cured on the bytes). The entry is candid and names the control. It is the second hand-transformation error in one wave, both caught by authors and neither by the orchestrator, as the entry itself says.",
+  "The launch message that commissioned this check describes the sweep receipts as carrying every citation with both numbers. They do not: the receipts name the rows changed and the rows reported sound, and the per-citation numbers exist only in final messages that no artifact named to me preserves. I re-derived every citation from the bytes instead, so nothing in this verdict rests on the description; it is recorded so the next launch describes its evidence exactly.",
+  "The per-ruling execution ledger, ordered by the second check and installed by the orchestrator, has not been held to its own law: it still carries a decline on a refuted reason, a PARTIALLY that its own text now misdescribes, an unexecuted consequence that the third check stayed without the stay being recorded, and a surfacing recorded before the surfacing. The cure is the same as before: append the four states ordered in this packet before the close receipt is written. That the boss lane's rulings are the place where the orchestrator's execution is weakest was found by the second and third checks and is still true.",
+  "The orchestrator's error records, judged on the artifacts: the conflation class is controlled (content discriminator, quarantine with digests, versioned manifests, a reconciliation tool that makes every coverage claim falsifiable and returned GREEN against the pinned manifest on my own run). The decay class is honestly stated and not closed; the mirror-before-final-check control is again not evidenced, for the third check running, and the manifest does not cover five attempts of this cycle. The launch-mismatch and paraphrase records are candid, name the author as the catcher and the orchestrator as the fault, and install controls. Nothing in the corpus rests on any of these defects; the audit's coverage statement and the owner packet's premises do, and both are stated here with the digits the store actually carries.",
+  "History rewriting: none found. The wrong log entries stand beside their corrections; the boss ledgers are unedited (b1 6cf5fec8, b3 69419458); the receipts are amended beside, not over; the one in-place growth (the scan-correction record's sixth entry) is disclosed in the log, without its digest.",
+  "E-19 pattern this round: the three sweep authors reported no listing and independently reported the launch/orders mismatch; I ran no listing, glob or existence check against any shared directory (every path was named to me or derived from a named record's own pointer, and an absent path would have been reported, not searched); I did not run the receipt census tool because it globs shared directories, and performed the census over 39 exact-path artifacts instead.",
+  "My own method, recorded for honesty: every Hebrew needle in my sweeps is a consonantal string asserted against an anchor verse before use, and every pointed run was taken from the rows or the verse map, never typed; this packet carries no Hebrew bytes. The reconciliation tool was run from the book directory with its output redirected to my private scratch, and I confirmed afterwards that the copy at the book's own path predates this check (14:54 local) and was not written by me. My single write under SP is this file."
+ ],
+ "escalation": {
+  "needs_human": true,
+  "question": "OW-6 asks the final checker to audit chain of thought and OW-6c reserves an end-of-campaign re-check of 'all chain of thought'. The record after four checks is exact and unchanged: no transcript exists for the 24 books closed before this session; 43 of the 49 attempts that produced this book left none (4 of them of unknown state because no manifest covers them); the six that survive carry actions, tool arguments and results, not reasoning; thinking content is captured only sporadically and at summary level (one transcript of thirteen, ten short step summaries), never in full. The boss lane adopted a self-authored reasoning record as the durable substitute (B3-2) and escalated its ratification; three earlier final checks escalated the same re-scoping; no answer is on the record and the clause stands STAYED until you answer. Do you ratify the reasoning record with its conditions from the first brief of the next book, and re-scope OW-6 and OW-6c to the three-state form (transcript and record / record only / neither) with the capture premise stated per book as it actually is? This does not block the close of this book; it decides what the next 41 books capture, and each book that closes without an answer closes under the same gap.",
+  "recommendation": "Ratify B3-2's reasoning record with its conditions from the first brief of the next book; re-scope OW-6 and OW-6c now to the three-state form; require the OW-6c packet to state per book which controls were in force and that chain of thought is unrecoverable for the 24 closed books and unavailable in full for every attempt since, with summary-level capture noted where it exists rather than an absolute either way.",
+  "recommendation_reason": "The reserved option is already half-impossible and a decision at book 66 changes nothing about what is captured, whereas a decision now changes what 41 books capture; the transcript layer proved its value exactly where it existed (every transcribed attempt of this book showed an undisclosed departure nothing else exposed), so a substitute should be adopted rather than the goal abandoned; the record is cheap, additive, reversible and auditable against artifacts, its weakness (self-authorship) is disclosed and guarded by the boss's conditions, and its fidelity can be measured on the minority of transcripts the runtime preserves. Only the owner can re-scope an owner directive; four independent Fable rulings have now reached the same recommendation without conferring, which is worth the owner knowing.",
+  "alternatives": [
+   {
+    "choice": "Ratify the reasoning record and re-scope OW-6/OW-6c now (recommended)",
+    "pros": [
+     "durable and under the campaign's control",
+     "small per-attempt cost, reversible by striking one paragraph",
+     "auditable against artifacts and calibrated against the transcripts that exist",
+     "the OW-6c packet becomes an honest three-state choice"
+    ],
+    "cons": [
+     "self-authored: an agent that hides a breach in its final message can hide it in its record",
+     "adds one deliverable, one verifier arm per brief and an audit obligation for the final checker"
+    ]
+   },
+   {
+    "choice": "Leave OW-6c as written and state the gap at book 66",
+    "pros": [
+     "no interruption to book-to-book continuity",
+     "no new brief clauses"
+    ],
+    "cons": [
+     "41 more books accrue at roughly one transcribed attempt in eight with no reasoning artifact",
+     "the owner learns at the end that 'all chain of thought' was never available",
+     "the audit signal the transcript layer demonstrated is lost for most attempts"
+    ]
+   },
+   {
+    "choice": "Fix capture at the runtime or harness level (owner-side)",
+    "pros": [
+     "the only path to raw, non-self-authored reasoning",
+     "would also cover the transcripts the runtime drops and the thinking it truncates to summaries"
+    ],
+    "cons": [
+     "outside any agent's authority; feasibility unknown",
+     "may pause waves against the permanent continuity the owner ordered",
+     "megabyte-scale storage per attempt; nothing for the books already closed"
+    ]
+   },
+   {
+    "choice": "Drop the chain-of-thought half of OW-6c and re-check work products only",
+    "pros": [
+     "honest about what exists",
+     "simplest packet"
+    ],
+    "cons": [
+     "discards the one evidence layer that exposed undisclosed departures from launch rules",
+     "forgoes the improvement a reasoning record would bring for 41 books"
+    ]
+   }
+  ],
+  "rulings_made_without_the_owner": [
+   {
+    "question_put": "EVIDENCE RETENTION - is the residual mirror window acceptable for the remaining 41 books, or does closing it need an owner decision about cost and storage?",
+    "ruling": "Does not need the owner. The window is narrow and cheap to keep narrow (about 13 MB of transcripts for this book; a mirror at every wave landing and a snapshot loop during waves are installed), the eleven substantive transcripts still exist byte-identical in the durable store, the files observed vanishing were 80 and 714 bytes, and the dominant loss - most attempts leave no transcript at all - is not a cadence problem and no cadence recovers it. What does need fixing is not cost but execution: the manifest and mirror have now trailed the last attempts of the cycle before three consecutive final checks. Ordered under OW-6 as the boss lane: the manifest is rebuilt after the last attempt of every round and its version asserted by the launch of any final check; every receipt records the attempt's transcript state; the close receipt states the attempts whose state is unknown."
+   },
+   {
+    "question_put": "OW-6c SCOPE - does the decision packet need re-stating now so the owner is not choosing between options one of which is already impossible?",
+    "ruling": "Needs the owner, and is put above for the fourth time, compactly and with the capture premise stated as the store carries it; it is an ambiguity in an owner directive whose option set contains an impossible member, which is the class OW-6 reserves for a human. It is non-blocking for this close; the interim is honest because the substitute clause stands stayed and the gap is stated in every close packet."
+   },
+   {
+    "question_put": "THE ORCHESTRATOR'S OWN ERROR - are the corrective controls sufficient, is the disclosure complete and accurate, and does anything in this book's result rest on the defect?",
+    "ruling": "Does not need the owner. Controls sufficient for the conflation class (content discriminator, quarantine with digests, versioned manifests, the reconciliation tool that returned GREEN against the pinned manifest on my own run and RED, correctly, against the later manifest for the two audit-lane transcripts). Controls honest but not closed for the decay class: the mirror-before-final-check control is not evidenced for the third check running and five attempts of this cycle have no manifest entry. Disclosure: candid and now extensive - the model label, the reconstructed models, the lineage, the tombstone, the effort keys, the launch mismatch and the paraphrase corruption are all self-recorded with the author of the error named - but it still carries the absolute the store contradicts (no chain of thought anywhere), an effort amendment that describes two transcripts nobody read, a decline on a refuted reason, and a surfacing recorded before it happened, none corrected after the previous check named them. Nothing in the corpus rests on any of these; the audit's coverage and the owner packet's premises do, and this packet states both from the bytes. Judged plainly, auditing the agent that commissioned me: the orchestrator's self-audit is above the campaign's baseline in candour, its error handling is sound where a tool can hold it, and its execution of record corrections ordered by the boss lane is where it is still wanting - the same finding the second and third checks made. The cure is a bounded record round held to the ledger's own law at the close gate, not an owner decision."
+   },
+   {
+    "question_put": "Boss ruling B3-1 companion edit 4, the declined half ('the close-seam neighbour's mark at Lam.3.48 is SAMEKH, not PE'): is the decline sound and does it satisfy B3-1?",
+    "ruling": "SOUND IN SUBSTANCE, UNSOUND IN ITS STATED REASON; the decline SATISFIES B3-1. The ruling's purpose at the live collision site is that no reader takes the letter samekh or pe for a mark of the same name; rows_v14 P02-006 states the letter-versus-mark distinction with its tier caveat in the row's own words and states positively that the mark at Lam.3.48 is of the SAMEKH type, which the inventory confirms; a verse carries one mark type, so the positive statement excludes PE. The recorded reason - that no phrasing naming PE can pass the arm - is refuted on my own test corpora: a Lam.3.66-anchored phrasing passes every arm. The half is therefore declined as REDUNDANT (a mark citation eighteen verses outside the span adds nothing to the seam argument and would add a citation the seam does not need), not as inexecutable; the ledger entry's reason is to be corrected append-only, and no row change is required or ordered."
+   },
+   {
+    "question_put": "Boss ruling B3-1 history rule (n=8), still PARTIALLY EXECUTED at the close",
+    "ruling": "DECLINED with reason by this Fable lane: the scanner report, the standalone label record and this packet carry the narrowed-predicate label and both CWO-1 digits (0 under the narrowed predicate; 1 under the issued list, P02-006), and the close receipt is ordered to state both; carrying the label string into the parity record adds no information. The ledger records the decline append-only; the ledger's own law is then satisfied."
+   },
+   {
+    "question_put": "Boss ruling B3-2's interim clause, unexecuted for every launch since the ruling and STAYED by the third check without the stay being recorded",
+    "ruling": "The stay is REAFFIRMED under OW-6 from this packet until the owner answers, on the same three conditions: the owner packet and this escalation are surfaced verbatim in the printed close report; the ledger records the stay append-only with every launch that ran without the clause, now including f06, f07, f08 and this attempt; and the first brief-authoring step of the next book resolves the clause one way. The non-execution before the stay stands as a process finding against the orchestrator; the non-recording of the stay is the low residual above."
+   },
+   {
+    "question_put": "Cross-book high finding H2 (a cure round of the closed book labelled broken work as cured)",
+    "ruling": "Confirmed as to conduct; immaterial to the shipped corpus on the orchestrator's evidence; the retained residual is written at the closed book's record and was read here; no reopen; nothing remains open for this close."
+   },
+   {
+    "question_put": "The one corpus residual (P02-002's form word), found by this check after the corpus was assembled for audit",
+    "ruling": "Retained as a low with explicit handling rather than cured before the close: it sits in a non-driver field, its digits are right, its load-bearing half holds, and an edit before assembly would require a fifth final check for one word. The close receipt and the dispositions ledger carry it with the cure text given above; it is cured in the first maintenance round the campaign opens on this book, with a form-class read-back in that author's self-check."
+   }
+  ]
+ },
+ "verdict": "fit_to_close",
+ "blocking": [],
+ "orders_for_the_close_and_after": [
+  "The close receipt states: both CWO-1 digits (0 under the narrowed predicate; 1 under the issued list, P02-006); the retained low on P02-002 with its cure text; the eleven low residuals of this packet with their handling; the manifest version covering the cycle and the six attempts whose transcript state is unknown; the two audit-lane transcripts no slice close-read; appeals: none; the enumeration of retained packets with hashes; the B-8 and E-23 digits.",
+  "Before the close receipt is written, the ruling ledger is appended (never edited): B3-1 n=6 reason corrected to 'declined as redundant'; n=8 DECLINED with reason; B3-2 n=1 STAYED per the third and fourth checks with every launch that ran without the clause; n=2 SCHEDULED.",
+  "A bounded record round, no corpus edit: the log lines for the two re-hashed pins (parity v11 and the scan-correction record); the effort-key amendment corrected; the decay finding v3 with the owner packet's premise corrected; transcript manifest v4 beside v3 after the mirror runs, mapping f05-f08 and both stage-2 checks since v3; the durable cycle log re-mirrored.",
+  "The P02-002 form word is cured, with a form-class read-back in the author's self-check, in the first maintenance round the campaign opens on this book; no edit before this close.",
+  "The next book's first brief-authoring step resolves the reasoning-record clause one way (the owner's answer applied forward, or, absent an answer, the clause carried as the boss ruled), and carries a form-class read-back into every sweep author's self-check."
+ ],
+ "digits": {
+  "rows": 26,
+  "byte_verifications": 38,
+  "confirmed": 32,
+  "refuted": 6,
+  "residual_high": 0,
+  "residual_medium": 0,
+  "residual_low": 11
+ },
+ "self_check": "Ran from SP/Lam/tools over a private copy of rows_v14.jsonl (sha 49fad303): run_validator_suite.py hard GREEN 10/10 triage 0 (my report equal member for member to the recorded one); normalize dry-run ok=143 fixed=0 defects=0; check_tiling.py 154/154 26 decisions GREEN; ngram7.py --gate 10 --full-ids GREEN 0 offenders; _punct_boundary_sweep.py 26 rows 0 flags; check_marks.py GREEN 0; cap_sweep.py GREEN; _cwo_scan.py (from the book directory, --json to private scratch) five exact arms 0; _final_check_reconcile.py GREEN against transcript_manifest.v2.json and RED against v3 for the two audit-lane transcripts (outputs to private scratch); lam_lib.collate_hebrew 143/143 byte; 74 curly runs verbatim with in-field refs; field-level diffs v12-v13-v14 and the 20 emitted sweep rows against v14; sha256 over 90 receipt-named artifacts (90 reproduce), 32 cycle-log pins (31 reproduce), 18 durable copies (17 identical) and 13 durable transcripts (13 of 13 match); 454 thinking blocks tested (10 with content); effort keys tallied per transcript; whole-token, prefix-tolerant and substring skeleton sweeps with anchor-asserted needles for every digit under byte_verifications; person-marker and first-plural censuses with read-back; two private test corpora for the declined PE phrasing; no git command, no worktree write, no edit to any packet or row, no listing of any shared directory; private scratch only in lam_final_check_04_a1_private; this file is my only write under SP."
+}

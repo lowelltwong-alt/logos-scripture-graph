@@ -1,0 +1,80 @@
+{
+ "attempt_id": "jer_spot_S2_a1",
+ "lane": "one-zone",
+ "scope_items_reviewed": 3,
+ "rows_touched": ["P03-007", "P03-008", "P03-009", "P03-010", "P03-011", "P03-012", "P03-013"],
+ "clean": 3,
+ "findings": [],
+ "warn_flags_dispositioned": [
+  {
+   "flag": "mark_symmetry.paragraph_mark_claim: claimed=PE at Jer.9.2 (inventory says SAMEKH)",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 (heuristic_fp_classes)",
+   "note": "No PE claim exists in the row. The row's device_notes carries the campaign's own mandated conflation-avoidance phrase 'SAMEKH not conflated with PE'; the checker's proximity heuristic matched the bare substring 'PE' inside that disclaimer and misattributed it as a claimed mark type at the nearest cited verse (oshb:Jer.9.2 = web:Jer.9.3). The row's actual claim at that verse is SAMEKH, verified byte-true against pmarks_Jer.json marks['Jer.9.2']=['SAMEKH']."
+  },
+  {
+   "flag": "mark_symmetry.kq_claim at Jer.8.18 (x2)",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-07-guard (verified-accurate zero-claim)",
+   "note": "Row's device_notes states '0 ketiv/qere notes' for its span (WEB Jer.8.18-Jer.9.3 = MT 8.18-8.23,9.1-9.2). Checked against pmarks_Jer.json kq inventory: no entry for MT 8.18 through 9.2 (the nearest kq entry is MT 9.7, outside this row's span, inside P03-009). Claim is accurate; the checker anchors its triage flag to the span's first verse regardless of outcome."
+  },
+  {
+   "flag": "mark_symmetry.kq_claim at Jer.9.2 (x2)",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-07-guard (verified-accurate zero-claim)",
+   "note": "Row's device_notes states '0 ketiv/qere notes' for its span (WEB Jer.9.4-Jer.9.6 = MT 9.3-9.5). Checked against pmarks_Jer.json kq inventory: no entry for MT 9.3, 9.4, or 9.5. Claim is accurate; the checker's anchor verse (Jer.9.2, the row's own front-seam citation) is outside the row's own span and not itself the subject of the claim."
+  },
+  {
+   "flag": "universals: 'only' in 'held here as closure corroboration only'",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 (heuristic_fp_classes)",
+   "note": "Not a book-wide exclusivity claim; it is the owner-ruled Q3 strategy phrasing itself (Jer strategy §2a/§6: 'neum-YHWH is closure corroboration ONLY'). No adjacent digit-bearing sweep is required because no cross-corpus uniqueness is being asserted."
+  },
+  {
+   "flag": "universals: 'only' in 'count-only' (paseq disclosure)",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 (heuristic_fp_classes)",
+   "note": "The campaign's own mandated paseq-disclosure convention (TOOLKIT.md: paseq is 'COUNT-ONLY... position claims unsourceable'); not an exclusivity claim about the corpus."
+  },
+  {
+   "flag": "universals: 'only' in 'is a suffix only, with no vocative, no imperative...'",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 (heuristic_fp_classes)",
+   "note": "Describes the grammatical form of one word (shivtekha, MT 9.5) inside this row's own span, not a book-wide 'only/sole' claim; no cross-corpus sweep object is being asserted."
+  },
+  {
+   "flag": "universals: 'no vocative, no imperative, and no second-[person verb]'",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 (heuristic_fp_classes)",
+   "note": "Local single-verse grammatical negation used to justify why MT 9.5 does not meet the discourse-frame onset class; not a campaign-wide 'never/no other' exclusivity claim."
+  },
+  {
+   "flag": "universals: 'carries no vocative, imperative, or verb, so it does not...' (strongest_rejected_alternative)",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 (heuristic_fp_classes)",
+   "note": "Restates the same local grammatical fact as the boundary_rationale flag above to reject a rival cut point; not an exclusivity claim."
+  }
+ ],
+ "lane_digits": {
+  "rows_reviewed": 7,
+  "decisions_reviewed": 3,
+  "hebrew_quotes_extracted_and_byte_verified": 25,
+  "dual_cite_pairs_checked": 76,
+  "dual_cite_arithmetic_errors": 0,
+  "zone_touching_refs_missing_dual": 0,
+  "web_9_1_seam_byte_tier": "confirmed (oshb:Jer.8.23 = web:Jer.9.1, collate.py tier=byte)",
+  "shared_validator_warn_flags_in_scope": 10,
+  "warn_flags_declared_fp": 10,
+  "warn_flags_genuine": 0,
+  "genuine_findings": 0
+ },
+ "self_check": "tools run from SP/Jer/tools against a private S2_private copy (never against the SP path): collate.py --json (25/25 quotes extracted directly from rows_v3.jsonl bytes via regex, never hand-retyped, all tier=byte, status GREEN); a jer_lib-based script verifying every web:/oshb: dual pair (76 pairs, 0 arithmetic errors) and every zone-touching ref for a missing dual at row level (0 findings); check_tiling.py --range Jer.8.18-Jer.9.26 (31/31 verses, 0 gaps/overlaps, GREEN); citation_sweep.py (0 problems, 0 prose_dual_warns, 0 nfd_degraded, GREEN - reproduces the shared corpus-wide GREEN for these 7 rows); check_marks.py (5 WARN flags, matches the shared validator_report.json exactly, all dispositioned declared_fp); check_universals.py (5 WARN flags, matches shared report exactly by 0-based array index 48-54, all dispositioned declared_fp); check_language_zones.py, check_refs_mirror.py, check_web_quotes.py, check_register.py, cap_sweep.py (all GREEN, 0 flags). Cross-checked the shared rows_v3.jsonl.validator_report.json's non-decision_id-keyed sections (universals/web_quotes/refs_mirror use 0-based array 'path' indices, not decision_id) against index range 48-54 confirming no flags beyond the 10 already dispositioned. Effort: sonnet session-default, ordered, NOT independently verified against a higher-effort model."
+}

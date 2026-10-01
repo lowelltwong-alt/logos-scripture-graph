@@ -1,0 +1,305 @@
+{
+ "attempt_id": "ezek_author_p03_a1",
+ "execution_id": "ezek_author_p03_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\AUTHOR_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\author\\orders_ezek_author_p03_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v2_swept_r3.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\ezek_lib.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_marks.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\verse_map_oshb.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_marks.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\cap_sweep.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_register.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\ngram7.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py (run)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\normalize_hebrew_in_json.py (run, no --write)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P03-001..P03-020 (all 20 rows), _op=replace",
+    "why": "executed every embedded routed_residual (CWO-EZ-02), mark-claim correction (CWO-EZ-05), tags-vocabulary reformat (CWO-EZ-06), boilerplate variation (CWO-EZ-07), register hygiene (CWO-EZ-08), and ruling G4#1's rationale amendment on P03-006, per orders_ezek_author_p03_a1.json"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "every emitted row parses, has all 22 fields + _op, unit_type in the 12-value vocabulary, confidence in {high,medium,medium_low,low}, non_authorizing=true",
+   "how": "structural check script over the deliverable JSONL",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep problems = 0 on my 20 rows",
+   "how": "citation_sweep.py run directly on a private p03-only copy, and again inside run_validator_suite.py over a private full-book copy (my 20 rows replaced in-place)",
+   "result": "confirmed (status GREEN in isolation; 0 of my rows in the merged-suite problems list)"
+  },
+  {
+   "claim": "cap_sweep and check_register are clean on my rows",
+   "how": "cap_sweep.py and check_register.py run directly on the p03-only private copy",
+   "result": "confirmed (both GREEN, 0 failures/flags)"
+  },
+  {
+   "claim": "normalizer defects = 0, fixed = 0 on my rows",
+   "how": "normalize_hebrew_in_json.py dry-run (no --write) over the p03-only private copy",
+   "result": "confirmed (ok=111, qere=7, fixed=0, defects=0)"
+  },
+  {
+   "claim": "no ngram7 offending 7-gram (gate 10) touches my rows",
+   "how": "ngram7.py run on the p03-only private copy",
+   "result": "confirmed (status GREEN; worst reuse across my rows peaks at 9, under the gate)"
+  },
+  {
+   "claim": "check_tiling PASS for my part's verse range",
+   "how": "check_tiling.py --range Ezek.15.1-Ezek.19.14 on the p03-only private copy",
+   "result": "confirmed (141/141 verses, 20 decisions, 0 problems, status GREEN)"
+  },
+  {
+   "claim": "FLAGS members (mark_symmetry, universals, web_quotes, refs_mirror) do not rise on my rows vs. the unmodified baseline",
+   "how": "run_validator_suite.py over a private unmodified full-book copy vs. the private copy with my output applied, counts filtered to P03-001..P03-020",
+   "result": "confirmed (17->17, 0->0, 0->0, 17->17)"
+  },
+  {
+   "claim": "the G4#1 mashal-label splice at MT 16:44 is byte-true",
+   "how": "spliced programmatically from Ezek_oshb.txt (word-indices 2:5 of the verse line), never hand-typed; re-checked by citation_sweep",
+   "result": "confirmed"
+  },
+  {
+   "claim": "the Qere quotes at MT 16:31, 16:43 and 16:51 are byte-true to the K/Q note layer, not just the writer's inherited transcription",
+   "how": "ezek_lib.kq_split_bytes(note, verse_text) called directly (as a library) against pmarks_Ezek.json's kq entries and verse_map_oshb.json's verse text; the writer's original quotes matched only at NFD tier, not byte tier, so they were replaced with the function's raw output",
+   "result": "confirmed (citation_sweep tier=byte after the fix; before the fix it reported tier=skeleton/none)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "3 citation_sweep prose_dual_warns remain on P03-008 (tags[0]), P03-009 (tags[0]) and P03-016 (boundary_rationale): each quote correctly collates and is refed, but the cited verse (16:51, 16:59, 18:20) also carries an unrelated K/Q note elsewhere, and the tool wants an in-field ketiv/qere keyword regardless.",
+   "why_it_matters": "these are WARN-tier, not HARD 'problems' (citation_sweep problems=0 for all 20 of my rows), and my orders only said 'add a ref', not 'avoid K/Q-bearing verses' or 'add ketiv/qere language to unrelated tags'; adding that language would either break the P5 short-device-phrase tag contract or misrepresent what the quoted clause is actually citing, so I left them disclosed rather than improvising a cure beyond the order"
+  },
+  {
+   "what": "mark_symmetry (17) and refs_mirror (17) FLAGS remain on several of my rows, unchanged from the unmodified baseline",
+   "why_it_matters": "these are pre-existing gaps/mismatches in the original writer prose that no CWO-EZ-02/05/06/07/08 item in my orders routed to me; per the brief ('you do not re-litigate them') I left them for the distinct checker and any future repair wave, and confirmed via before/after comparison that my edits did not raise either count"
+  },
+  {
+   "what": "for the P03-002 and P03-015 CWO-EZ-05 fixes, I trusted the orders file's embedded span_relevant_marks_mt_keys verbatim (per the brief: 'the embedded text is CONTROLLING') rather than independently re-deriving the mark inventory from pmarks_Ezek.json for those two verses",
+   "why_it_matters": "this is the correct posture per my role (execute the ruling's text, don't re-litigate it), but it means my verification for those two items is 'disclosed as ordered and check_marks.py raised no new mark_symmetry_gap there', not an independent re-proof of the underlying mark claim"
+  },
+  {
+   "what": "for the ruling G4#1 mashal-label device I quoted a contiguous 3-word splice (הַמֹּשֵׁ֔ל עָלַ֥יִךְ יִמְשֹׁ֖ל) rather than reproducing the ruling text's own ellipsis form (הַמֹּשֵׁ֔ל ... יִמְשֹׁ֖ל)",
+   "why_it_matters": "the brief states elsewhere that citation-form Hebrew in the brief/rulings is never to be copied into a row verbatim, and a row may not contain an ellipsis-truncated splice; I judged the contiguous 3-word run as the correct byte-true way to carry the ruling's own device into row prose, and citation_sweep passed it at byte tier, but this is a judgment call on my part, not something the ruling spelled out explicitly"
+  }
+ ],
+ "items": [
+  {
+   "row": "P03-001",
+   "item": "CWO-EZ-02/06/hard_finding + CWO-EZ-07",
+   "action": "cured",
+   "reason": "refed tags[0] word-event formula to oshb:Ezek.15.1; reformulated the device_notes boilerplate sentence"
+  },
+  {
+   "row": "P03-002",
+   "item": "CWO-EZ-02 + CWO-EZ-05 + CWO-EZ-07",
+   "action": "cured",
+   "reason": "refed and Qere-labeled the 16:13 K/Q splice; refed tags[3]; disclosed the Ezek.15.8 pe as behind-seam onset corroboration (both boundary_rationale and boundary_evidence_refs); reformulated the close-side sentence"
+  },
+  {
+   "row": "P03-003",
+   "item": "CWO-EZ-02 + CWO-EZ-07 + CWO-EZ-08",
+   "action": "cured",
+   "reason": "refed the 16:18 ketiv notice; reformulated the close-side sentence; removed the positional reference 'the preceding row'"
+  },
+  {
+   "row": "P03-004",
+   "item": "CWO-EZ-02 + CWO-EZ-06 + CWO-EZ-07",
+   "action": "cured",
+   "reason": "refed the 16:20/16:22 ketiv notices; split the 6-word tags[0] into two <=5-word refed device phrases; reformulated the close-side sentence"
+  },
+  {
+   "row": "P03-005",
+   "item": "CWO-EZ-02 + CWO-EZ-06",
+   "action": "cured",
+   "reason": "refed the 16:25 ketiv notice and the 16:31 doubled K/Q notice, replacing the inherited Qere quote with ezek_lib-verified raw note bytes; shortened tags[0] from 8 to 3 words"
+  },
+  {
+   "row": "P03-006",
+   "item": "Ruling G4#1 + CWO-EZ-02",
+   "action": "cured",
+   "reason": "replaced 'a clear content shift with no formula device' with the mashal-label onset device at 16:44 (spliced live, sweep: 11 verses) per the boss ruling's exact instruction, mirrored into boundary_evidence_refs; refed the 16:43 doubled K/Q notice with byte-verified Qere bytes"
+  },
+  {
+   "row": "P03-007",
+   "item": "CWO-EZ-06 + CWO-EZ-07",
+   "action": "cured",
+   "reason": "shortened tags[0] to the same mashal-label device phrase used for G4#1; reformulated device_notes and the close-side sentence"
+  },
+  {
+   "row": "P03-008",
+   "item": "CWO-EZ-02 + CWO-EZ-06 + CWO-EZ-08",
+   "action": "cured",
+   "reason": "refed the 16:51 and 16:53 K/Q notices with byte-verified Qere bytes; shortened the whole-verse tags[0] to a 2-word refed phrase; changed 'in this part' to 'in this span'"
+  },
+  {
+   "row": "P03-008",
+   "item": "prose_dual_warn on tags[0] (binds to K/Q verse 16:51, no in-field ketiv/qere word)",
+   "action": "reported",
+   "reason": "WARN-tier, not a citation_sweep problem; not in my orders; fixing it would either break the P5 short-device-phrase contract or force an unwarranted ketiv/qere claim into a tag that doesn't quote the K/Q material itself"
+  },
+  {
+   "row": "P03-009",
+   "item": "CWO-EZ-02",
+   "action": "cured",
+   "reason": "refed the 16:59 ketiv notice"
+  },
+  {
+   "row": "P03-009",
+   "item": "prose_dual_warn on tags[0] (binds to K/Q verse 16:59)",
+   "action": "reported",
+   "reason": "same class as the P03-008 warn above; left disclosed"
+  },
+  {
+   "row": "P03-010",
+   "item": "CWO-EZ-02 + CWO-EZ-07",
+   "action": "cured",
+   "reason": "refed the 17:1 word-event formula and the 17:3 messenger formula (disambiguating from the 17:1/17:2 verse numbers named nearby); reformulated device_notes and the close-side sentence"
+  },
+  {
+   "row": "P03-011",
+   "item": "CWO-EZ-02/06/hard_finding + CWO-EZ-07",
+   "action": "cured",
+   "reason": "refed the 17:11 word-event formula in boundary_rationale and in tags[0]; reformulated device_notes and the close-side sentence"
+  },
+  {
+   "row": "P03-012",
+   "item": "CWO-EZ-02 + CWO-EZ-06 + CWO-EZ-07",
+   "action": "cured",
+   "reason": "refed the 17:21 ketiv notice; shortened tags[0] from 7 to 4 words; reformulated device_notes and the close-side sentence"
+  },
+  {
+   "row": "P03-013",
+   "item": "CWO-EZ-06 + CWO-EZ-07",
+   "action": "cured",
+   "reason": "shortened tags[0] from 6 to 4 words; reformulated device_notes"
+  },
+  {
+   "row": "P03-014",
+   "item": "CWO-EZ-07",
+   "action": "cured",
+   "reason": "reformulated device_notes and the close-side sentence (no CWO-EZ-02/06 items were routed to this row)"
+  },
+  {
+   "row": "P03-015",
+   "item": "CWO-EZ-05 + CWO-EZ-07 + CWO-EZ-08",
+   "action": "cured",
+   "reason": "disclosed the Ezek.18.4 samekh as behind-seam onset corroboration; reformulated device_notes and the close-side sentence; removed the part-range reference, made it verse-anchored (18:23, 18:30)"
+  },
+  {
+   "row": "P03-016",
+   "item": "CWO-EZ-06 + CWO-EZ-07",
+   "action": "cured",
+   "reason": "shortened tags[0] from 9 to 5 words; reformulated device_notes and the close-side sentence"
+  },
+  {
+   "row": "P03-016",
+   "item": "prose_dual_warn on boundary_rationale (binds to K/Q verse 18:20)",
+   "action": "reported",
+   "reason": "same class as the P03-008/009 warns; the quoted clause is the 18:20 thesis-restatement, already correctly refed, and does not itself contain the verse's unrelated ketiv"
+  },
+  {
+   "row": "P03-017",
+   "item": "CWO-EZ-02 + CWO-EZ-07",
+   "action": "cured",
+   "reason": "refed the 18:21 ketiv notice; reformulated device_notes"
+  },
+  {
+   "row": "P03-018",
+   "item": "CWO-EZ-07",
+   "action": "cured",
+   "reason": "reformulated device_notes and the close-side sentence (no CWO-EZ-02/06 items were routed to this row)"
+  },
+  {
+   "row": "P03-019",
+   "item": "CWO-EZ-02 + CWO-EZ-08",
+   "action": "cured",
+   "reason": "refed the 18:28 ketiv notice; removed the positional reference 'in the preceding row', made it verse-anchored"
+  },
+  {
+   "row": "P03-020",
+   "item": "CWO-EZ-02/06/hard_finding + CWO-EZ-07 + CWO-EZ-08",
+   "action": "cured",
+   "reason": "refed tags[1] to oshb:Ezek.19.2; reformulated device_notes; removed 'outside this part', made it verse-anchored"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-02 (Hebrew-quote binding, 35 embedded items)",
+   "test": "citation_sweep.py over the p03-only private copy",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-05 (mark/paseq claim verification, 2 items: P03-002 pe@Ezek.15.8, P03-015 samekh@Ezek.18.4)",
+   "test": "disclosed both-sides seam evidence per the routed span_relevant_marks_mt_keys (taken as controlling per the orders file); not independently re-derived from pmarks_Ezek.json beyond that routing",
+   "result": "PASS (disclosed; no residual false-absence claim found by check_marks.py's mark_symmetry_gap rule for these two verses)"
+  },
+  {
+   "order": "CWO-EZ-06 (tags vocabulary, 11 embedded items)",
+   "test": "citation_sweep.py Hebrew-quote arm (tags entries) + manual word-count check (<=5 words, refed, sliced from the original loaded tag rather than retyped)",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-07 (boilerplate variation, 35 embedded items across two shared sentences)",
+   "test": "ngram7.py over the p03-only private copy, gate=10",
+   "result": "PASS (GREEN; before this wave the same file was RED)"
+  },
+  {
+   "order": "CWO-EZ-08 (register hygiene, 5 embedded items)",
+   "test": "check_register.py over the p03-only private copy",
+   "result": "PASS (0 flags)"
+  },
+  {
+   "order": "ruling G4#1 (P03-006 rationale amendment)",
+   "test": "byte-checked the mashal-label device (הַמֹּשֵׁ֔ל עָלַ֥יִךְ יִמְשֹׁ֖ל) against Ezek_oshb.txt Ezek.16.44 and re-ran citation_sweep on the row",
+   "result": "PASS"
+  },
+  {
+   "order": "whole-part structural integrity",
+   "test": "check_tiling.py --range Ezek.15.1-Ezek.19.14 over the p03-only private copy",
+   "result": "PASS (141/141 verses, 20 decisions)"
+  },
+  {
+   "order": "no new byte-truth regressions introduced by my own edits",
+   "test": "normalize_hebrew_in_json.py dry-run over the p03-only private copy",
+   "result": "PASS (0 defects, 0 fixed)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep_problems": 3,
+   "cap_sweep_failures": 0,
+   "register_flags": 0,
+   "mark_symmetry": 17,
+   "universals": 0,
+   "web_quotes": 0,
+   "refs_mirror": 17,
+   "ngram7_status": "RED (whole-book baseline)"
+  },
+  "after": {
+   "citation_sweep_problems": 0,
+   "cap_sweep_failures": 0,
+   "register_flags": 0,
+   "mark_symmetry": 17,
+   "universals": 0,
+   "web_quotes": 0,
+   "refs_mirror": 17,
+   "ngram7_status": "GREEN"
+  }
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

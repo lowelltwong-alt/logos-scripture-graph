@@ -1,0 +1,429 @@
+{
+ "schema": "m8_tier0_suite_summary.v1",
+ "book": "Ezek",
+ "built_by": "orchestrator (claude-opus-5)",
+ "inputs": {
+  "rows": {
+   "path": "writer/draft_rows_combined.jsonl",
+   "sha256": "7b1a16ba5f07aa3443df2be423d6b1618319163720c8c3673409ff06198c6c0e"
+  },
+  "suite_view": {
+   "path": "writer/draft_rows_combined.suite_view.jsonl",
+   "sha256": "a4e24747d741805348e34478b1903cc29491d0a447fb6835d5e2fbe05c4b496a",
+   "why": "three parts wrote object refs; see draft_rows_combined.suite_view.manifest.json"
+  },
+  "report": {
+   "path": "writer/draft_rows_combined.suite_view.jsonl.validator_report.json",
+   "sha256": "0febdd93bee891cced87a9a1b65bece1083680d18857920d6fe34c956c9b8234"
+  },
+  "tools": {
+   "_adapt_book_specific_ezek.py": "b8a2ad59bfe817c8a6101e979015b649d2006c4acc822cba86ad27d948ccc72e",
+   "_adapt_zone_tools_ezek.py": "5cb0ff664be5846b11cf46996d92bee81727f0b327219f09eabc99995604e908",
+   "_audit_book_token_transform.py": "fd751416eb0ad237e571ec91048336ab4d5fad2e052ff085ead82c5233604908",
+   "_punct_boundary_sweep.py": "73eaa9fa9dbf3ae02b38e8fe979244caa0daf8ea1b5ada308c22a5b0cbdbe91e",
+   "_test_zone_tools_ezek.py": "e0686ef2f9a39e8652026b5fa6c62532bf6d50ea01a23122dcf44d15abc7ab9d",
+   "_toolkit_selfcheck.py": "9f0a2c6f02aa9b055beabdc7dd5027a1c947cfd31431e110279419bae5ec694f",
+   "build_verse_maps.py": "aea379415f97e1f3315645a03e0e37f6fe19f47922a42c9f640aa96e7ade22ca",
+   "cap_sweep.py": "07ff84e3c6ec8b05f46afe6e823c07771f7e031dee753376df027af6fe95223b",
+   "check_atomic_isolation.py": "dc54c6d530b36676c699334f54364da56f933b33dc6208a87837e8a07d1fd661",
+   "check_language_zones.py": "6807b3b7b19000cb08a508ffb2b142959a8f275ceba12da0fd2bcd357efbc828",
+   "check_marks.py": "be49861070fd6416b45fa6acecd636f0a52e891afd3e4eb1f5a6853e34c2a741",
+   "check_refs_mirror.py": "8abcfa2bf58e04093fc7a1881968e3d0ca2949cbebf6d4bfe9bbc63320d51d88",
+   "check_register.py": "8357cf4048356bdf821a85f744ac94b1b441106ee73bf3bec7e51c3e0919ae72",
+   "check_tiling.py": "6a92f6f4be73dc6ea804d7e1c4f639939e141c6f337a772db5889b21895da854",
+   "check_universals.py": "198e0c4cd20ca495b4e33a3df639b9e1e61320286a88db870ff5797a640dc341",
+   "check_web_quotes.py": "aad88bff8bd1c356ea3e1db16ff064cfb79c3aa5829a8452ac39896509d3f2a5",
+   "citation_sweep.py": "e020d4999fd7a547b65dcb988fdd80416b0db41944b7c244fb189eb4af5486d1",
+   "collate.py": "7ec9050cde6c03d0ad94b8c8abb68e1a8b7b33f7d1dc129bb5a0774f85cab249",
+   "ezek_lib.py": "083bdd854f5a2feb1edaa27263035754eb9355fa0859549a09983d762284177d",
+   "ngram7.py": "fe25efc22a0b01b099a8066b97a377ae125df349439d348074cb4fc5b04d271c",
+   "normalize_hebrew_in_json.py": "07b58b19f0883ecd32a353fa9b9189e68b97cbfca7d55dc35e416eaa17c94e86",
+   "run_validator_suite.py": "4c0caa08a2999089bcec23aee6e1a47963e4395fc86d75c1f8139c35775a78cb",
+   "sweep.py": "14f4aaf56fc8504d99536e9883eaf737b832e6f759a0f9b90d909b387283abb2"
+  }
+ },
+ "run": {
+  "command": "PYTHONIOENCODING=utf-8 python tools/run_validator_suite.py writer/draft_rows_combined.suite_view.jsonl",
+  "summary": {
+   "hard_status": "RED",
+   "nfd_hard_e01": true,
+   "triage_flags": 1450
+  }
+ },
+ "members": {
+  "citation_sweep": {
+   "status": "RED",
+   "count": 546
+  },
+  "hebrew_normalize_dryrun": {
+   "status": "RED",
+   "count": 24
+  },
+  "web_quotes": {
+   "status": "FLAGS",
+   "count": 423
+  },
+  "refs_mirror": {
+   "status": "FLAGS",
+   "count": 112
+  },
+  "mark_symmetry": {
+   "status": "FLAGS",
+   "count": 144
+  },
+  "universals": {
+   "status": "FLAGS",
+   "count": 582
+  },
+  "language_zones": {
+   "status": "GREEN",
+   "count": 0
+  },
+  "ngram7": {
+   "status": "RED",
+   "count": 3
+  },
+  "cap_sweep": {
+   "status": "RED",
+   "count": 4
+  },
+  "register": {
+   "status": "FLAGS",
+   "count": 189
+  }
+ },
+ "citation_sweep": {
+  "problems": 546,
+  "by_class": {
+   "Hebrew quote '…'… in row.boundary_rationale has NO oshb: ref in its field": 227,
+   "Hebrew quote '…'… in row.strong_or_hebrew_tags_used[N] has NO oshb: ref in its field": 126,
+   "non-Ezek or malformed ref '…'": 103,
+   "Hebrew quote '…'… in row.boundary_rationale does not collate against any nearby cited ref (best oshb:Ezek.N.N,": 38,
+   "Hebrew quote '…'… in row.device_notes has NO oshb: ref in its field": 12,
+   "Hebrew quote '…'… in row.strongest_rejected_alternative has NO oshb: ref in its field": 11,
+   "parashah-mark ref lacks single-witness disclosure (tier-N in Prophets): '…'": 10,
+   "Hebrew quote '…'… in row._view_ref_hebrew[N] does not collate against any nearby cited ref (best oshb:Ezek.N.N": 9,
+   "'…' claims paseq but OSHB carries none at Ezek.N.N": 2,
+   "Hebrew quote '…'… in row.device_notes does not collate against any nearby cited ref (best oshb:Ezek.N.N, tier=": 2,
+   "paseq ref lacks single-witness disclosure: '…'": 2,
+   "'…' claims pe but the marks inventory has none at Ezek.N.N (PE and SAMEKH are never conflated)": 1,
+   "Hebrew quote '…'… in row.strongest_rejected_alternative does not collate against any nearby cited ref (best os": 1,
+   "parashah-mark ref lacks single-witness disclosure (tier-N in Prophets): '…'s close (dual-written, MT chN terri": 1,
+   "'…' claims samekh but the marks inventory has none at Ezek.N.N (PE and SAMEKH are never conflated)": 1
+  },
+  "by_part": {
+   "p01": 75,
+   "p02": 41,
+   "p03": 181,
+   "p04": 19,
+   "p05": 26,
+   "p06": 60,
+   "p07": 1,
+   "p08": 61,
+   "p09": 26,
+   "p10": 45,
+   "p11": 11
+  },
+  "rows_with_most": {
+   "P03-005": 17,
+   "P03-002": 16,
+   "P03-008": 16,
+   "P03-006": 14,
+   "P01-009": 12,
+   "P03-001": 11,
+   "P03-010": 11,
+   "P03-020": 10,
+   "P03-019": 9,
+   "P06-010": 9,
+   "P08-011": 9,
+   "P10-001": 9
+  }
+ },
+ "hebrew_normalize": {
+  "ok": 621,
+  "qere": 30,
+  "fixed": 3,
+  "mention": 58,
+  "defect_count": 24,
+  "defects_listed": [
+   "וְלַגֵּאָיוֹת",
+   "וְחִלְּלוּהוּ",
+   "לבגלְבַז֙",
+   "לבגלְבַז֙",
+   "וקריתמהוְקִרְיָתָֽיְמָה",
+   "וקריתמהוְקִרְיָתָֽיְמָה",
+   "הישבתיהַיֹּשֶׁ֨בֶת֙",
+   "כתיםכִּתִּיִּֽים",
+   "והובניםוְהָבְנִ֔ים",
+   "מדנאלמִדָּֽנִיֵּ֑אל",
+   "מדנאלמִדָּֽנִיֵּ֑אל",
+   "שָׁמֵ֑מוּ",
+   "אָ֑תְּ",
+   "תְשַׁכְּלִי",
+   "אָ֑תְּ"
+  ],
+  "note": "the tool lists the first 15 of defect_count; the rest need a run over the rows"
+ },
+ "cap_sweep": {
+  "whole_chapter_rows": [
+   "p01-1",
+   "p01-2",
+   "p01-8",
+   "p01-9",
+   "p02-4",
+   "p03-1",
+   "p03-20",
+   "p06-9",
+   "p07-6",
+   "p08-6"
+  ],
+  "failures": [
+   "p01-2 whole-chapter (ch 2) at confidence 'medium' - the chapter-fallback cap is medium_low",
+   "p01-2 cap disclosure missing/incomplete (count-cited=True, cap-phrase=False)",
+   "p02-4 whole-chapter (ch 9) at confidence 'medium' - the chapter-fallback cap is medium_low",
+   "p02-4 cap disclosure missing/incomplete (count-cited=True, cap-phrase=False)"
+  ]
+ },
+ "ngram7": {
+  "offending_7grams": [
+   {
+    "gram": "and no editorial note fall inside this",
+    "rows": 12,
+    "row_ids": [
+     "P03-001",
+     "P03-007",
+     "P03-010",
+     "P03-011",
+     "P03-012",
+     "P03-013",
+     "P03-014",
+     "P03-015",
+     "P03-016",
+     "P03-017",
+     "P03-018",
+     "P03-020"
+    ]
+   },
+   {
+    "gram": "no editorial note fall inside this span",
+    "rows": 12,
+    "row_ids": [
+     "P03-001",
+     "P03-007",
+     "P03-010",
+     "P03-011",
+     "P03-012",
+     "P03-013",
+     "P03-014",
+     "P03-015",
+     "P03-016",
+     "P03-017",
+     "P03-018",
+     "P03-020"
+    ]
+   },
+   {
+    "gram": "close side the row ends at whose",
+    "rows": 11,
+    "row_ids": [
+     "P03-002",
+     "P03-003",
+     "P03-004",
+     "P03-007",
+     "P03-010",
+     "P03-011",
+     "P03-012",
+     "P03-014",
+     "P03-015",
+     "P03-016",
+     "P03-018"
+    ]
+   }
+  ]
+ },
+ "mark_symmetry_rules": {
+  "paragraph_mark_claim": 10,
+  "mark_symmetry_gap": 85,
+  "kq_claim": 35,
+  "false_mark_absence_claim": 14
+ },
+ "web_quotes_classes": {
+  "e15b_hebrew_in_curly_quotes (curly double quotes are for WEB English ONLY; Hebrew is splic": 242,
+  "curly quote with NO web: ref in its field": 150,
+  "e15c_web_text_in_straight_quotes (delimiter evasion - WEB quotes use curly double + inline": 13,
+  "e15a_curly_pairing_broken: double-open (nested “ before close)": 6,
+  "verbatim WEB text in SINGLE curly quotes (delimiter evasion - rows use double curly + inli": 5,
+  "e15a_curly_pairing_broken: unclosed “ (1 open at field end)": 5,
+  "unclassified": 2
+ },
+ "universals_classes": {
+  "only": 130,
+  "single": 59,
+  "never": 46,
+  "first": 42,
+  "none": 23,
+  "continuous": 22,
+  "each": 21,
+  "strongest": 19,
+  "all": 17,
+  "last": 15,
+  "matched": 15,
+  "matches": 10,
+  "throughout": 9,
+  "every": 7,
+  "None": 7,
+  "Every": 6,
+  "verbatim": 5,
+  "unbroken": 4,
+  "without an addressee change": 4,
+  "ONLY": 4,
+  "identical": 3,
+  "cleanest": 3,
+  "absent": 3,
+  "sole": 3,
+  "weakest": 2,
+  "absent from": 2,
+  "ABSENT from": 2,
+  "rare": 2,
+  "latest": 2,
+  "densest": 2,
+  "most holy": 2,
+  "clearest": 2,
+  "not until": 2,
+  "not begin until": 1,
+  "carries no formula-marked internal seam": 1,
+  "carries no independent onset device of its own - i": 1,
+  "has no onset device of its own (no word-event,": 1,
+  "with no claim about its intra-verse position": 1,
+  "with no scene change around it, so it is disclo": 1,
+  "with no messenger formula or word-event reopeni": 1,
+  "with no messenger formula, word-event or addres": 1,
+  "unique": 1,
+  "carries no boundary weight": 1,
+  "with no competing formula": 1,
+  "has no Masoretic mark at all (no pe or samekh ": 1,
+  "solely": 1,
+  "has no formula or transport-verb-adjacent clos": 1,
+  "has no formula but is a scene-change as strong": 1,
+  "with no intra-verse position claimed": 1,
+  "with no transport verb and no formula at all — ": 1,
+  "with no internal anchor of any kind in an alrea": 1,
+  "has no parashah mark (chapter 10 carries none)": 1,
+  "carries no word-event formula and is not itself an": 1,
+  "tightest": 1,
+  "with no vision frame at all — the class shifts ": 1,
+  "with no internal formula seam": 1,
+  "with no formula": 1,
+  "carries no formula of its own": 1,
+  "with no fresh formula device,     ('you took yo": 1,
+  "with no fresh formula device,    , continuing t": 1,
+  "with no formula device of its own but a clear c": 1,
+  "with no word-event or messenger formula but a c": 1,
+  "with no formula device,    , continuing the com": 1,
+  "carries no formula onset or mark of its own": 1,
+  "with no formula of its own, matching the campai": 1,
+  "with no formula device, the whole verse     ('i": 1,
+  "with no formula of its own": 1,
+  "with no formula device, the whole verse     ('a": 1,
+  "with no formula device,     ('but if the wicked": 1,
+  "with no formula device,     ('but when a righte": 1,
+  "carries no formula or mark of its own and answers ": 1,
+  "with no formula device,     ('again, when a wic": 1,
+  "carries no refrain of its own": 1,
+  "carry no word-event of its own and would need a ": 1,
+  "no further internal cut) — rejected because 24:15 ": 1,
+  "with no word-event of its own": 1,
+  "with NO recognition, utterance, or \"I YHWH have": 1,
+  "with no text-formula corroboration on the close": 1,
+  "with no word-event, recognition, utterance, or ": 1,
+  "fullest": 1,
+  "with no intervening onset, and because the stra": 1,
+  "LAST": 1,
+  "with no fresh formula onset, and a 3-verse rema": 1,
+  "carries NO sof-pasuq in this witness — it stands i": 1,
+  "has no sof-pasuq — disclosed, never argued as ": 1,
+  "continuously": 1,
+  "with no recognition or utterance formula": 1,
+  "no further word-event formula recurs until 36": 1,
+  "with no accompanying addressee change or refrai": 1,
+  "no new addressee — it continues the single jud": 1,
+  "isolated": 1,
+  "uninterrupted": 1,
+  "with no addressee change) as a single section": 1,
+  "with no accompanying text refrain": 1,
+  "with no content beyond its own onset formula, a": 1,
+  "with no text-formula refrain, but a samekh mark": 1,
+  "carries no word-event formula of its own and remai": 1,
+  "has no onset marker of any tracked class to ma": 1,
+  "has no verdict-against-Gog content at all, and": 1,
+  "carries no formula-grade close device": 1,
+  "with no measuring verb, while 40:5 onward is un": 1,
+  "nearest": 1,
+  "with no Masoretic paragraph corroboration avail": 1,
+  "with no transport verb or genre shift inside it": 1,
+  "identically": 1,
+  "has no transport or measuring verb": 1,
+  "most distinctive": 1,
+  "with no transport or measuring verb -- a conten": 1,
+  "carries no transport verb of its own": 1,
+  "not appear until": 1,
+  "not fall until": 1,
+  "most others": 1,
+  "carries no parashah corroboration on either side, ": 1,
+  "with no addressee-class change between them, so": 1,
+  "with no formula device of any kind": 1,
+  "with no formula device of any kind (no messenge": 1,
+  "carries no year word, so it fails the book's struc": 1,
+  "has no formula device of its own bounding it o": 1,
+  "with no messenger-formula reopening and no refr": 1,
+  "carries no messenger-formula or transport onset of": 1
+ },
+ "register_classes": {
+  "strategy_citation": 64,
+  "cross_part_or_part_range": 58,
+  "positional_row_reference": 33,
+  "staged_file_stem": 13,
+  "governance_tooling": 13,
+  "decision_id_in_prose": 6,
+  "review_actor": 2
+ },
+ "orchestrator_observations": {
+  "brief_gap": {
+   "classes": [
+    "has NO oshb: ref in its field",
+    "non-Ezek or malformed ref",
+    "web_quotes e15 classes and 'curly quote with NO web: ref'"
+   ],
+   "reading": "Conventions the Tier-0 tools enforce but WRITER_BRIEF.md never stated, because the toolchain was not staged when the writers ran: every Hebrew quote carries an oshb: ref in the same field; one witness-prefixed ref per boundary_evidence_refs entry; WEB quotes in curly double quotes with an inline web: ref, Hebrew spliced bare. The landing validator already proved byte truth for the Hebrew, so most of these are form, not fabrication. Which form is canonical, and whether the draft rows are repaired before or after primaries, is the controlling agent's call."
+  },
+  "content_defect_candidates": {
+   "classes": [
+    "hebrew_normalize_dryrun defects",
+    "cap_sweep failures",
+    "ngram7 offending 7-grams",
+    "claims paseq but OSHB carries none",
+    "parashah-mark ref lacks single-witness disclosure",
+    "does not collate against any nearby cited ref (a share of them)"
+   ],
+   "reading": "Findings that stand whatever the conventions: K/Q notes copied whole (ketiv and qere run together as one string that is neither reading); pointed forms in neither the verse bytes nor the Qere layer; two whole-chapter rows at medium confidence without the E-02 cap disclosure (p01-2 ch 2, p02-4 ch 9); p03 boilerplate repeated across 11-12 rows; paseq cited at MT 5:2 (it stands at 5:1) and at MT 26:19 (none)."
+  },
+  "heuristic_limits": {
+   "classes": [
+    "does not collate against any nearby cited ref (the rest)",
+    "mark_symmetry kq_claim",
+    "universals",
+    "register"
+   ],
+   "reading": "Window and nearest-ref heuristics bind a claim to the wrong verse where prose cites in another form (bare 2:3, MT 46.22). Each item needs a reader; none is a verdict."
+  },
+  "tool_defects_fixed_at_staging_before_this_run": [
+   "norm_english stripped only [fn ...]; the Ezek extract writes a bare [fn] at 38 sites",
+   "pm['paseq'] is a list in pmarks_Ezek.json; the Jer tools read a dict - converted in ezek_lib.load_pmarks",
+   "no Qere tier in the normalizer or the Hebrew-binding arm, although the brief permits disclosed Qere quotes",
+   "the first puncta arms raised 12 flags on 5 rows, every one wrong (negated disclosures, bare 41:20 / 46.22 numbers, spans covering the site, a distant 'not'); rewritten and regression-tested, 0 remain",
+   "the K/Q claim arms ignored the OSHB editorial notes that record a ketib/qere relative to BHS",
+   "the suite was first run without PYTHONIOENCODING=utf-8: four members (normalizer, web_quotes, universals, register) crashed on the Windows codec, and three more (citation_sweep, refs_mirror, check_marks) on the paseq and object-ref shapes"
+  ]
+ },
+ "limit": "a deterministic tally plus the orchestrator's reading; it rules on nothing"
+}

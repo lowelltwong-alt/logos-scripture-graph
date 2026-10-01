@@ -1,0 +1,67 @@
+{
+ "schema": "m8_cwo_coverage.v1",
+ "book": "Ezek",
+ "cwo": "CWO-EZ-19",
+ "stage": "v7",
+ "ordered_by": "ezek_controlling_rulings_a1#e9 corpus_wide_orders",
+ "ruled_predicate": "every element of observed_substrate_signals of every row that matches closure\\.(?:parashah_\\w+|pe|samekh)\\b",
+ "ruled_fields": "observed_substrate_signals (every element; no other field)",
+ "ruled_remedy": "deterministic: remove the matching element from the list, bytes otherwise unchanged; manifest records old and new bytes per change; runs first in the chain over rows_v4_fixup1.jsonl (63ac4677) -> repair/rows_v4_cwo19.jsonl; today 7 keys on 7 rows (P05-004, P05-005, P05-006, P05-008, P08-002, P08-003, P08-007); an author item only if the post-apply suite raises a new mark_symmetry_gap flag at one of those rows' close keys (none expected: every close mark is disclosed in prose and refs today)",
+ "ruled_coverage_report": "repair/cwo_coverage_v4/CWO-EZ-19.json over rows_v4_cwo19 (residual 0) and repair/cwo_coverage_v5/CWO-EZ-19.json over rows_v5_fixup2 (residual 0, plus the close-key mark_symmetry check for the seven rows)",
+ "executed_as": "its own coverage sweep (E-18) over the rows file the ruling names",
+ "rows_file": {
+  "path": "Ezek/repair/rows_v7_cwo24.jsonl",
+  "sha256": "25cdba568d98ec60aa719606be7b273e6a7c7256c55b79a3c579ada3c21d0ecc",
+  "rows": 145
+ },
+ "rows_manifest": {
+  "path": "Ezek/repair/rows_v7_cwo24.manifest.json",
+  "sha256": "5bf2cd5ce24263968c46a5af88624b0cfd51f2c941e89c59c8c6a13de0892826"
+ },
+ "residual_count": 0,
+ "residual": [],
+ "verdict": "COVERED",
+ "suite_report": {
+  "path": "Ezek/repair/suite_v7_6c843b14/rows.jsonl.validator_report.json",
+  "sha256": "d392dd29c89ae9b674ac6bdd67a75e4f24cbc08cbea97b64b5842dcce034a01a"
+ },
+ "close_key_check": [
+  {
+   "row": "P05-004",
+   "close_key": "Ezek.23.21",
+   "mark_symmetry_gap_at_close_key": false
+  },
+  {
+   "row": "P05-005",
+   "close_key": "Ezek.23.35",
+   "mark_symmetry_gap_at_close_key": false
+  },
+  {
+   "row": "P05-006",
+   "close_key": "Ezek.23.49",
+   "mark_symmetry_gap_at_close_key": false
+  },
+  {
+   "row": "P05-008",
+   "close_key": "Ezek.24.27",
+   "mark_symmetry_gap_at_close_key": false
+  },
+  {
+   "row": "P08-002",
+   "close_key": "Ezek.33.20",
+   "mark_symmetry_gap_at_close_key": false
+  },
+  {
+   "row": "P08-003",
+   "close_key": "Ezek.33.22",
+   "mark_symmetry_gap_at_close_key": false
+  },
+  {
+   "row": "P08-007",
+   "close_key": "Ezek.35.15",
+   "mark_symmetry_gap_at_close_key": false
+  }
+ ],
+ "field_scope": "observed_substrate_signals elements only",
+ "limit": "a residual count proves the predicate over the named rows file and nothing beyond it; it judges no content"
+}

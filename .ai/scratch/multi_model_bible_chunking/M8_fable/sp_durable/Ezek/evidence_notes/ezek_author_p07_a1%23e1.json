@@ -1,0 +1,231 @@
+{
+ "attempt_id": "ezek_author_p07_a1",
+ "execution_id": "ezek_author_p07_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\AUTHOR_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\author\\orders_ezek_author_p07_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json (rulings R1, R2, P1-P5, G12 read in full)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt (Ezek.29-32 full range)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json (Ezek.29-32 marks/paseq/K-Q/notes ranges)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v2_swept_r3.jsonl (sha256-verified, read-only, private-copied for self-check)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P07-001 replaced (tags reformatted CWO-EZ-06; register hygiene CWO-EZ-08 x2)",
+    "why": "tags lacked oshb: refs; boundary_rationale carried a part-range phrase and device_notes named the 'pmarks' staged-file stem"
+   },
+   {
+    "what": "P07-002 replaced (tags reformatted CWO-EZ-06 x3)",
+    "why": "tags lacked oshb: refs"
+   },
+   {
+    "what": "P07-003 replaced (tags reformatted CWO-EZ-06 x6; hard_finding cured)",
+    "why": "tags lacked oshb: refs; boundary_evidence_refs falsely claimed a single-witness samekh after oshb:Ezek.29.17, which pmarks_Ezek.json does not list (marks run 29:16 PE -> 29:18 SAMEKH)"
+   },
+   {
+    "what": "P07-004 replaced, re-spanned Ezek.30.1-Ezek.30.12 (ruling G8#1); tags reformatted CWO-EZ-06 x7",
+    "why": "30:13 opens on the messenger formula directly after the refrain close + samekh at 30:12 -- the licensed cut pattern; the original 19-verse span was cap-disclosed at low confidence"
+   },
+   {
+    "what": "P07-004.1 new_row Ezek.30.13-Ezek.30.19 (ruling G8#1)",
+    "why": "the second half of the G8#1 split; own boundary argument to the recognition-formula + pe close at 30:19"
+   },
+   {
+    "what": "P07-005 replaced (tags reformatted CWO-EZ-06 x5)",
+    "why": "tags lacked oshb: refs"
+   },
+   {
+    "what": "P07-006 replaced (tags reformatted CWO-EZ-06 x5)",
+    "why": "tags lacked oshb: refs"
+   },
+   {
+    "what": "P07-007 replaced (tags reformatted CWO-EZ-06 x4)",
+    "why": "tags lacked oshb: refs"
+   },
+   {
+    "what": "P07-008 replaced (tags reformatted CWO-EZ-06 x5)",
+    "why": "tags lacked oshb: refs; the utterance-formula tag cites a K/Q-bearing verse (32:32) so an in-field ketiv/qere disclosure was added to clear a citation_sweep prose_dual_warn"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "orders file byte-identical to the pinned digest",
+   "how": "sha256sum orders_ezek_author_p07_a1.json",
+   "result": "confirmed"
+  },
+  {
+   "claim": "sources.rows file byte-identical to the pinned digest",
+   "how": "sha256sum rows_v2_swept_r3.jsonl",
+   "result": "confirmed"
+  },
+  {
+   "claim": "P07-003's original samekh claim at oshb:Ezek.29.17 is false",
+   "how": "grep pmarks_Ezek.json for Ezek.29.1x-29.2x marks; citation_sweep problems on P07-003 before/after (1->0)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every emitted tag is 1-5 spliced Hebrew words + oshb: ref, never hand-typed",
+   "how": "script-level word-count assertion at build time + normalize_hebrew_in_json.py dry-run on the 9-row slice",
+   "result": "confirmed (0 defects, 0 fixed)"
+  },
+  {
+   "claim": "my 9 rows exactly tile Ezek.29.1-Ezek.32.32, no gaps/overlaps",
+   "how": "check_tiling.py --range Ezek.29.1-Ezek.32.32 on the isolated 9-row slice",
+   "result": "confirmed (97/97, status GREEN)"
+  },
+  {
+   "claim": "citation_sweep, register, cap_sweep, ngram7, language_zones clean for my rows in isolation",
+   "how": "citation_sweep.py / check_register.py / cap_sweep.py / ngram7.py / check_language_zones.py run directly on the 9-row slice",
+   "result": "confirmed (all GREEN; ngram7 worst reuse 6 rows, gate is 10)"
+  },
+  {
+   "claim": "FLAGS-tier members (mark_symmetry, universals, web_quotes, refs_mirror) did not regress for my rows",
+   "how": "run_validator_suite.py on an unmodified vs. modified private copy of the full 146/147-row book file, diffed by decision_id",
+   "result": "confirmed for mark_symmetry(10->10)/universals(0->0)/web_quotes(0->0); refs_mirror rose 8->9 entries but only as a row-count artifact of the split -- net unmirrored-ref count fell 4->3 and stray out-of-scope ch.20 citations in the original P07-004 prose are gone"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "mark_symmetry_gap / kq_claim FLAGS (10 entries, unchanged before/after) on P07-001,003,004,005,006,007,008",
+   "why_it_matters": "these are pre-existing tier-3 triage items from the writer wave; no CWO or ruling in my orders routed them to me, so I left them un-adjudicated rather than re-litigating outside scope"
+  },
+  {
+   "what": "choice of which single formula occurrence to splice into a tag when a row's span contains more than one instance of the same device (e.g. thus_says_the_lord_yhwh appearing at both 31:10 and 31:15 in P07-006)",
+   "why_it_matters": "P5 requires tokens 'actually cited in the row's prose'; I chose the instance the row's own boundary_evidence_refs foregrounds, but a reviewer could reasonably prefer a different instance or add both"
+  },
+  {
+   "what": "P07-008's utterance_of_the_lord_yhwh tag necessarily cites a K/Q-bearing verse (32:31 and 32:32 are both K/Q per pmarks) because that is where the row's own doubled close sits",
+   "why_it_matters": "I added an in-field ketiv/qere disclosure to clear the citation_sweep warn rather than moving the tag off the row's real close; a distinct checker may want the disclosure worded differently"
+  }
+ ],
+ "items": [
+  {
+   "row": "P07-001",
+   "item": "CWO-EZ-06 (5 tag entries)",
+   "action": "cured",
+   "reason": "whole-word tag glosses replaced with spliced device phrases + oshb: refs"
+  },
+  {
+   "row": "P07-001",
+   "item": "CWO-EZ-08 boundary_rationale part-range phrase",
+   "action": "cured",
+   "reason": "removed '(one of the six dateline verses of that form inside this part)'"
+  },
+  {
+   "row": "P07-001",
+   "item": "CWO-EZ-08 device_notes staged-file stem 'pmarks'",
+   "action": "cured",
+   "reason": "reworded to 'the ketiv/qere disclosure layer'"
+  },
+  {
+   "row": "P07-002",
+   "item": "CWO-EZ-06 (3 tag entries)",
+   "action": "cured",
+   "reason": "same class as P07-001"
+  },
+  {
+   "row": "P07-003",
+   "item": "CWO-EZ-06 (6 tag entries)",
+   "action": "cured",
+   "reason": "same class as P07-001"
+  },
+  {
+   "row": "P07-003",
+   "item": "hard_finding: false samekh claim at oshb:Ezek.29.17",
+   "action": "cured",
+   "reason": "verified false against pmarks_Ezek.json; claim removed, dateline evidence kept"
+  },
+  {
+   "row": "P07-004/P07-004.1",
+   "item": "ruling_order G8#1 (replace + new_row)",
+   "action": "cured",
+   "reason": "split executed exactly at the ruled seam 30:12/30:13; both-sides seam argument installed on both rows"
+  },
+  {
+   "row": "P07-004",
+   "item": "CWO-EZ-06 (7 tag entries)",
+   "action": "cured",
+   "reason": "reformatted for the re-spanned 30:1-12 row"
+  },
+  {
+   "row": "P07-004.1",
+   "item": "CWO-EZ-06 (2 tag entries)",
+   "action": "cured",
+   "reason": "reformatted for the new 30:13-19 row"
+  },
+  {
+   "row": "P07-005",
+   "item": "CWO-EZ-06 (5 tag entries)",
+   "action": "cured",
+   "reason": "same class as P07-001"
+  },
+  {
+   "row": "P07-006",
+   "item": "CWO-EZ-06 (5 tag entries)",
+   "action": "cured",
+   "reason": "same class as P07-001"
+  },
+  {
+   "row": "P07-007",
+   "item": "CWO-EZ-06 (4 tag entries)",
+   "action": "cured",
+   "reason": "same class as P07-001"
+  },
+  {
+   "row": "P07-008",
+   "item": "CWO-EZ-06 (5 tag entries)",
+   "action": "cured",
+   "reason": "same class as P07-001; one entry additionally carries an in-field K/Q disclosure since its ref (32:32) is a K/Q verse"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-06 (all rows)",
+   "test": "build-time word-count/oshb-ref assertion + citation_sweep.py + normalize_hebrew_in_json.py dry-run on the isolated 9-row slice",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-08 (P07-001)",
+   "test": "check_register.py on the isolated 9-row slice",
+   "result": "PASS"
+  },
+  {
+   "order": "hard_finding (P07-003)",
+   "test": "grep of pmarks_Ezek.json marks list + citation_sweep.py problem-count before/after on the full private copy",
+   "result": "PASS"
+  },
+  {
+   "order": "ruling G8#1 (P07-004 split)",
+   "test": "check_tiling.py --range Ezek.29.1-Ezek.32.32 + cap_sweep.py on the isolated 9-row slice",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "mark_symmetry": 10,
+   "universals": 0,
+   "web_quotes": 0,
+   "refs_mirror": 8,
+   "citation_sweep_problems": 1,
+   "citation_sweep_prose_dual_warns": 0,
+   "cap_sweep_failures": 0,
+   "register_flags": 0
+  },
+  "after": {
+   "mark_symmetry": 10,
+   "universals": 0,
+   "web_quotes": 0,
+   "refs_mirror": 9,
+   "citation_sweep_problems": 0,
+   "citation_sweep_prose_dual_warns": 0,
+   "cap_sweep_failures": 0,
+   "register_flags": 0
+  }
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

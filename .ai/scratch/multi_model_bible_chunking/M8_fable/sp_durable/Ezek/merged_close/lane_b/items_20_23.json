@@ -1,0 +1,114 @@
+{
+ "grading_order": [
+  "item_23",
+  "item_22",
+  "item_21",
+  "item_20"
+ ],
+ "item_23": {
+  "fit_to_accept": true,
+  "reservations": [
+   "All five proposals (MCP-Ezek-001..005) carry adjudication null. Adjudication must be run by an execution that is neither proposer/orchestrator nor the v6 author; this lane is not that adjudication, and a claude-opus-5-5 lane is the orchestrator's family (OW-19). The owner must name the adjudicator.",
+   "MCP-005 is self-rated LOW_REWARD with 'I recommend REJECT': honest, but its inclusion runs against the proposer brief's bar on low-reward proposals.",
+   "MCP-003 is untested in this book.",
+   "The proposer is the orchestration itself, not a separate proposer execution: disclosed, not cured."
+  ],
+  "findings": [
+   {
+    "finding": "Proposals are in scope and evidenced; MCP-001(c) line references match method v6 (§10 'Keep the generator' 369-383; obligation 13 at 579).",
+    "tier": "MEASURED"
+   },
+   {
+    "finding": "MCP-002 sentence counts (299/70/469) reproduce; its fraction claim does not: 539 dropped of 838 total = 0.643, not four fifths.",
+    "tier": "MEASURED"
+   }
+  ],
+  "checks_i_ran": [
+   "read the proposals and METHOD_PROPOSER_BRIEF",
+   "checked MCP-001(c) against method v6 line numbers",
+   "recounted sidecar sentence counts (probe_d)"
+  ]
+ },
+ "item_22": {
+  "fit_to_accept": true,
+  "reservations": [
+   "MANDATORY before any owner merge: regenerate after the P06-015 fix; feed row M8-Ezek-079 ships the four out-of-span tokens.",
+   "MANDATORY: rebind inputs to v8 (b2160ad6); the generator's pinned input is v7 (e24048cc), where every row is pending.",
+   "MANDATORY: record the concern_type rule and tier it; 11 of 25 formula_absent_onset rows carry an onset-formula signal in their own list: P01-013, P02-019, P03-014, P04-001, P05-004, P06-009, P08-001, P08-006, P09-002, P09-003, P11-007.",
+   "MANDATORY: fix the M8-Ezek-090 fragment 'Recorded alternative: WLC/OSHB, single witness).' and the dangling above/below references in 12 rows (015, 018, 020, 031, 033, 037, 038, 039, 040, 042, 072, 095); M8-Ezek-080's 'Three alternatives are weighed.' says nothing on its own."
+  ],
+  "findings": [
+   {
+    "finding": "close_check_mirror atlas PASS, byte-equal to d8465896; selftest PASS incl. the no_judgement_merged_into_the_feed tamper; gen_atlas_rows --check DETERMINISTIC MATCH.",
+    "tier": "MEASURED"
+   },
+   {
+    "finding": "README counts all reproduce: {\"rows\": 102, \"concern_type\": {\"formula_absent_onset\": 25, \"frame_edge\": 23, \"scope_hinge\": 22, \"mark_layer_absence\": 15, \"reading_rests_on_prose\": 13, \"numbering_zone_seam\": 2, \"compression_zone\": 2}, \"status\": {\"candidate_review_complete\": 94, \"final_deferred_review\": 8}, \"hold\": {\"None\": 94, \"deferred_human_or_external_ai\": 8}, \"non_authorizing_true\": 102, \"authority_none\": 102, \"hardness\": {\"low\": 48, \"medium\": 48, \"high\": 6}, \"sentences\": {\"kept\": 299, \"unquotable\": 70, \"unquotable_rows\": 50, \"over_cap\": 469, \"composed\": 0}, \"sidecar_signals_ne_v8\": 0}",
+    "tier": "MEASURED"
+   },
+   {
+    "finding": "Named question: candidate_review_complete is true of v8 ({\"candidate_review_complete\": 138}) but was not read from the v7 input ({\"pending\": 138}). With 0 content-key diffs v7->v8, a rebuild is for provenance only - and is due anyway after the P06-015 fix.",
+    "tier": "MEASURED"
+   },
+   {
+    "finding": "The concern_type contradiction is INFERRED: the shared feed's definition of formula_absent_onset was not read by this lane.",
+    "tier": "INFERRED"
+   }
+  ],
+  "checks_i_ran": [
+   "close_check_mirror --check atlas [--selftest]",
+   "gen_atlas_rows.py --check",
+   "probe_d recounts over all 102 rows",
+   "README audit"
+  ]
+ },
+ "item_21": {
+  "fit_to_accept": true,
+  "reservations": [
+   "The bidirectional check (§12) cannot catch an edit that carries neither a v6 marker nor a table row, nor wrong content inside a marked section.",
+   "The tool cures were preventive; the generator-retention (§10, obligation 13) and field-name cures are prose and would not have prevented this book's defects.",
+   "§10 says the scholar record v2 carries the lost-generator disclosure; the v2 document has 0 hits for 'reproducib', 'not retained' or 'extended in place' - a claim inside a marked section that the check passes."
+  ],
+  "findings": [
+   {
+    "finding": "close_check_mirror method PASS, byte-equal to 36d719f0; selftest PASS.",
+    "tier": "MEASURED"
+   },
+   {
+    "finding": "§10 at lines 324-393, §12 at 408-463, obligations 12/13 at 576/579.",
+    "tier": "MEASURED"
+   }
+  ],
+  "checks_i_ran": [
+   "close_check_mirror --check method [--selftest]",
+   "read method v6 §10, §12, obligations",
+   "phrase search over scholar v2 (probe_d)"
+  ]
+ },
+ "item_20": {
+  "fit_to_accept": true,
+  "reservations": [
+   "The check binds no corpus sha256 and the generator reads v7; content equals v8 now (0 content-key diffs) but nothing binds it.",
+   "The lost-generator disclosure is in the generator and method v6 §10, not in the v2 document (0 hits).",
+   "The unversioned generator name remains a hazard: the next in-place extension loses v2's generator the same way.",
+   "Garbled private-term replacements: 'a standing review requirement' x387, 'ruling a standing' x28, 'the a standing' x21, 'a the requirement' x1 - a reader cannot tell which ruling barred a finding.",
+   "Header grade vs resolution unreconciled: 18:1-4 recorded medium-low but resolution 'keep at high'; 11:14-21 recorded medium but 'HIGH STANDS, with mandatory repair'."
+  ],
+  "findings": [
+   {
+    "finding": "close_check_mirror scholar PASS 12/12, FAILED []; differs from shipped only in path fields.",
+    "tier": "MEASURED"
+   },
+   {
+    "finding": "Doc lines are complete; the truncations seen earlier were my dump's.",
+    "tier": "MEASURED"
+   }
+  ],
+  "checks_i_ran": [
+   "close_check_mirror --check scholar",
+   "read briefed ranges",
+   "phrase counts over v2 (probe_d)",
+   "scholar negative control not re-run"
+  ]
+ }
+}

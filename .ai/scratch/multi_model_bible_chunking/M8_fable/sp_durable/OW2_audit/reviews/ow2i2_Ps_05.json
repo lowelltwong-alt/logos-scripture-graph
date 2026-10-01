@@ -1,0 +1,193 @@
+{
+ "attempt_id": "ow2i2_Ps_05_a1",
+ "role": "ow2_item2_auditor",
+ "book": "Ps",
+ "rows": [
+  {
+   "row_id": "M8-Ps-336",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "Two section-10 register violations, both cosmetic (E-06 TEST 1); the TEST 2 re-derivation passes, so neither is an evidence defect. (i) boundary_rationale carries the bare inventory FILE name 'psalm_device_inventory.json hodu_openings'; the use behind it is correct - the splice 'הוֹד֣וּ לַ֭יהוָה' collates BYTE at oshb:Ps.105.1 (Ps 105 is an identity, untitled psalm per web_mt_offset_map.json, so no web:Ps.105.0 obligation arises), and a verse-opening sweep over both attested spellings returns 6 verse-initial hodu-la-YHWH verses book-wide (MT 33:2, 105:1, 107:1, 118:1, 118:29, 136:1), matching strategy 2c, so the tier-1 opener label stands. (ii) device_notes carries the positional row references 'every row below' and 'the rows that follow', banned outright by section 10; both underlying claims are byte-true (every Psalm-105 row in the slice carries parent_psalm 105, and the recital does run covenant 105:8-11, Joseph 105:16-22, Egypt and plagues 105:23-36, exodus 105:37-41, land grant 105:44) - true claims in workflow register, hence low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "Row prose describes the process rather than the text: an inventory file name in the driver field and two positional row references in device_notes.",
+     "grounds": "Section 10 bans positional row references and file-order talk in row prose 'EVER'; section 8 requires inventory-class facts to be cited as inventories, not as file paths. The evidence behind both mentions re-derives true from bytes: 'הוֹד֣וּ לַ֭יהוָה' collates BYTE at oshb:Ps.105.1; the 6-member verse-initial hodu-la-YHWH set re-sweeps at skeleton tier over both spellings; the parent claim holds under the section 6 150-parent rule. The row's own seams are sound and untouched by this finding: the front seam is the psalm boundary plus a tier-1 hodu opener, and the back seam at 105:6|105:7 is a byte-visible addressee shift from the vocative close of the imperative cluster to the third-person declaration opening 105:7, so high confidence survives.",
+     "span_change": false,
+     "proposed_change": "Field repair only, no span effect. boundary_rationale: replace '(psalm_device_inventory.json hodu_openings)' with a verse-anchored digit-bearing form such as '(verse-initial hodu-la-YHWH: 6 verses book-wide, skeleton tier, both attested spellings)'. device_notes: replace 'every row below shares that single parent' and 'across the rows that follow' with verse-anchored wording such as 'Psalm 105 is the single parent for 105:1-45' and 'the recital runs covenant (105:8-11) to Joseph (105:16-22) to Egypt and plagues (105:23-36) to exodus (105:37-41) to land grant (105:44)'."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-340",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "strongest_rejected_alternative carries the bare inventory FILE name in '(a ketiv/qere note sits later in this verse per pmarks_Ps.json kq, not quoted here)'. This is the brief's named low-severity case: the inventory was used CORRECTLY - pmarks_Ps.json kq records exactly 1 K/Q note at Ps.105.28, and the staged MT extract carries the ketiv+qere pair 'דברוו' verse-FINALLY, so 'later in this verse' is byte-visible in the verse's own tokens (unlike paseq, which the inventory rules count-only) and is true relative to the quoted opener 'שָׁ֣לַֽח', which collates BYTE at oshb:Ps.105.28. No K/Q falls inside the row's own span 105:23-27, and Psalm 105 carries no Selah at all, so nothing is owed under 2d. Register defect only, low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "An inventory file name stands in the rejected-alternative field where section 8 requires an inventory citation in prose register.",
+     "grounds": "Section 10 register law plus the section 8 marker-citation form. The cited fact is true: pmarks_Ps.json kq = 1 note at Ps.105.28; the pair 'דברוו' stands verse-finally in the staged extract; the quoted opener 'שָׁ֣לַֽח' collates BYTE at oshb:Ps.105.28.",
+     "span_change": false,
+     "proposed_change": "Field repair only: replace 'per pmarks_Ps.json kq' with 'per the ketiv/qere inventory (single-witness)'."
+    },
+    {
+     "severity": "medium",
+     "class": "E-05",
+     "claim": "The device_notes plague digit is false and internally inconsistent: the psalm's catalogue represents 8 of the traditional ten plagues, not 7, and 7 covered plus 2 omitted cannot total ten.",
+     "grounds": "device_notes states the sequence '(darkness, blood, frogs, insects, hail, locusts, and the death of the firstborn) covers 7 of the traditional plagues and omits the livestock-pestilence and boils'. From the bytes of 105:28-36 the catalogue names eight distinct plague objects, because 105:31 carries TWO nouns - 'עָרֹ֑ב' and 'כִּ֝נִּ֗ים' - which the sibling row M8-Ps-341 counts separately in its own observed_substrate_signals ('105:31 carries two nouns (arov, kinnim)'); collapsing them into the single word 'insects' is what produces the 7. With exactly two omissions named the arithmetic must close at ten, so 7 is one short on the row's own terms. The count OBJECT is also unnamed and out of scope: 'the traditional plagues' is an Exodus-scoped set that the Ps-scoped staged tools cannot sweep - the section 11 OL-c28 class, where a claim must be scoped explicitly or dropped. The trailing clause 'omits the livestock-pestilence and boils material present in this psalm's own catalogue by their absence' is self-contradictory as written. Not load-bearing: device_notes itself labels the observation 'texture, not boundary authority for these rows', and neither of the row's seams rests on it.",
+     "span_change": false,
+     "proposed_change": "Field repair only, no span effect. Either scope the count to the psalm's own bytes with its object named - for example 'the catalogue names 8 distinct plague objects across 105:28-36, two of them (arov, kinnim) inside 105:31' - or drop the cross-book comparison the Ps-scoped tools cannot verify. Rewrite the self-contradictory trailing clause."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-341",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "boundary_rationale carries the bare inventory FILE name in '(a ketiv/qere note sits later in this verse per pmarks_Ps.json kq, not quoted here)', repeated in observed_substrate_signals[0]. The brief's named low-severity case: the inventory is used correctly - pmarks_Ps.json kq = 1 note at Ps.105.28, the pair 'דברוו' stands verse-finally in the staged extract, and the quoted opener 'שָׁ֣לַֽח' collates BYTE at oshb:Ps.105.28, so 'later in this verse' is byte-true and the K/Q is properly disclosed for a span that opens on that verse. Register defect only, low; no evidence defect in this lane."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "An inventory file name stands in the driver field and is repeated in observed_substrate_signals, where section 8 requires an inventory citation in prose register.",
+     "grounds": "Section 10 register law; section 8 marker-citation form. Underlying fact true: pmarks_Ps.json kq = 1 note at Ps.105.28; the ketiv+qere pair 'דברוו' is verse-final in the staged extract. No PE/SAMEKH is claimed anywhere in the row, correctly - WLC Psalms carries none.",
+     "span_change": false,
+     "proposed_change": "Field repair only: replace both occurrences of 'per pmarks_Ps.json kq' with 'per the ketiv/qere inventory (single-witness)'."
+    },
+    {
+     "severity": "medium",
+     "class": "seam-warrant-weaker-than-disclosed-rival",
+     "claim": "The 105:31|32 seam rests on a content grouping the row itself concedes is not a grammatical break, while the row's own byte evidence names a stronger rival seam at 105:32|33 and a repeated verse-opening formula that the seam cuts apart.",
+     "grounds": "Re-derived from bytes. Verse-opening tokens MT 105:25-37: 105:25 'הָפַ֣ךְ', 105:26 'שָׁ֭לַח', 105:27 'שָֽׂמוּ', 105:28 'שָׁ֣לַֽח', 105:29, 105:30, 105:31 'אָ֭מַר וַיָּבֹ֣א' and 105:32 'נָתַ֣ן' are ALL waw-less; 105:33 'וַיַּ֣ךְ' is the first waw-initial opener; 105:34 'אָ֭מַר וַיָּבֹ֣א' is waw-less again; 105:35 and 105:36 'וַיַּ֣ךְ' are waw-initial. So (a) the shipped seam 105:31|32 falls INSIDE an unbroken run of waw-less 3ms perfect openers - the row concedes exactly this in its own observed_substrate_signals ('the split stands only as a content grouping, not a grammatical break') and names 105:32|33 'the byte-true rival seam'; (b) the row also discloses that the two-word opener 'אָ֭מַר וַיָּבֹ֣א' recurs BYTE-identically at oshb:Ps.105.31 and oshb:Ps.105.34 (re-collated here: byte tier at both refs), a repeated verse-opening formula whose two members the shipped seam separates into different rows while reading it only as a 'continuity signal'; taken as a group-opener it would seam at 105:30|31 and 105:33|34. (c) No section 5 tier-1 internal-seam class (superscription, hallelu-Yah/hodu frame, doxology, acrostic, explicit speaker/addressee shift) stands at 105:31|32, and section 6 requires strophe rows at tier-1-supported internal seams; by contrast the seam this pair holds at 105:27|28 IS byte-supported, by a 3mp-to-3ms subject shift ('שָֽׂמוּ', Moses and Aaron, to 'שָׁ֣לַֽח', YHWH), which 105:31|32 lacks. The defect is choosing the weaker of two byte-visible options the row itself lays out, not a byte-false statement: every Hebrew run in the row collates BYTE at its cited ref and all of its WEB quotations are verbatim.",
+     "span_change": true,
+     "proposed_change": "Seam-pair proposal - ONE cure installed on BOTH M8-Ps-341 and M8-Ps-342 per the section 10 seam-pair rule; routed onward, not adjudicated here. Option A (align with the catalogue's only waw-initial restart): respan M8-Ps-341 to Ps.105.28-Ps.105.32 and M8-Ps-342 to Ps.105.33-Ps.105.36. Option B (the row's own named rival): merge the catalogue into one row Ps.105.28-Ps.105.36 and retire the second row. Option C (the repeated verse-opening formula as group marker): seam at 105:30|31 and 105:33|34. Whichever is taken, the section 10 driver-swap rule reopens observed_substrate_signals, strongest_rejected_alternative, unit_type and confidence on both rows."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-342",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "lowband:medium_low",
+     "disposition": "not_a_defect",
+     "grounds": "The medium_low band is honestly earned and honestly explained, so the calibration lane itself is clean even though the seam is challenged in the finding below. The row states its own weakness verbatim in observed_substrate_signals[0] - the waw-less 3ms opener run is 'unbroken' across 105:28-32 and 105:32|33 is 'the byte-true rival seam', both re-derived true from bytes (105:32 'נָתַ֣ן' waw-less; 105:33 'וַיַּ֣ךְ' the catalogue's first waw-initial opener) - and it discloses the byte-identical opener 'אָ֭מַר וַיָּבֹ֣א' at oshb:Ps.105.31 and oshb:Ps.105.34 straddling its front edge. Its back seam is likewise content-based and stated as such: 105:36 'וַיַּ֣ךְ' and 105:37 are both wayyiqtol, so no grammatical break stands there either, and the row claims only that the plague sequence closes before the departure opens. Nothing is over-stated - every Hebrew run collates BYTE at its cited ref, all WEB quotations are verbatim, unit_type 'strophe' is in the section 6 controlled vocabulary, parent_psalm 105 is correct, and Psalm 105 is an identity psalm so its refs are arithmetically sound. The row is not a whole_psalm ruled unit and no whole-chapter cap is in play; medium_low is the lowest band the corpus uses and it is not masking a byte-defective warrant - the warrant is byte-complete and simply weaker than the rival the row names. Neither over-stated nor under-stated."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "seam-warrant-weaker-than-disclosed-rival",
+     "claim": "This row's front edge is the same 105:31|32 seam challenged on M8-Ps-341: a content grouping standing inside an unbroken waw-less opener run, against a byte-attested rival at 105:32|33 that the row itself names.",
+     "grounds": "Re-derived from bytes. Verse-opening tokens MT 105:25-37: 105:25 'הָפַ֣ךְ', 105:26 'שָׁ֭לַח', 105:27 'שָֽׂמוּ', 105:28 'שָׁ֣לַֽח', 105:29, 105:30, 105:31 'אָ֭מַר וַיָּבֹ֣א' and 105:32 'נָתַ֣ן' are ALL waw-less; 105:33 'וַיַּ֣ךְ' is the first waw-initial opener; 105:34 'אָ֭מַר וַיָּבֹ֣א' is waw-less again; 105:35 and 105:36 'וַיַּ֣ךְ' are waw-initial. So (a) the shipped seam 105:31|32 falls INSIDE an unbroken run of waw-less 3ms perfect openers - the row concedes exactly this in its own observed_substrate_signals ('the split stands only as a content grouping, not a grammatical break') and names 105:32|33 'the byte-true rival seam'; (b) the row also discloses that the two-word opener 'אָ֭מַר וַיָּבֹ֣א' recurs BYTE-identically at oshb:Ps.105.31 and oshb:Ps.105.34 (re-collated here: byte tier at both refs), a repeated verse-opening formula whose two members the shipped seam separates into different rows while reading it only as a 'continuity signal'; taken as a group-opener it would seam at 105:30|31 and 105:33|34. (c) No section 5 tier-1 internal-seam class (superscription, hallelu-Yah/hodu frame, doxology, acrostic, explicit speaker/addressee shift) stands at 105:31|32, and section 6 requires strophe rows at tier-1-supported internal seams; by contrast the seam this pair holds at 105:27|28 IS byte-supported, by a 3mp-to-3ms subject shift ('שָֽׂמוּ', Moses and Aaron, to 'שָׁ֣לַֽח', YHWH), which 105:31|32 lacks. The defect is choosing the weaker of two byte-visible options the row itself lays out, not a byte-false statement: every Hebrew run in the row collates BYTE at its cited ref and all of its WEB quotations are verbatim. Recorded on both rows of the pair because one cure moves both spans. One smaller observation folded in here rather than filed separately: the two rows sharing this single disclosed-weak seam carry different confidences (M8-Ps-341 medium, this row medium_low) although each rests on two content-class seams, so whichever cure is taken should settle the pair's bands together.",
+     "span_change": true,
+     "proposed_change": "Seam-pair proposal - ONE cure installed on BOTH M8-Ps-341 and M8-Ps-342 per the section 10 seam-pair rule; routed onward, not adjudicated here. Option A (align with the catalogue's only waw-initial restart): respan M8-Ps-341 to Ps.105.28-Ps.105.32 and M8-Ps-342 to Ps.105.33-Ps.105.36. Option B (the row's own named rival): merge the catalogue into one row Ps.105.28-Ps.105.36 and retire the second row. Option C (the repeated verse-opening formula as group marker): seam at 105:30|31 and 105:33|34. Whichever is taken, the section 10 driver-swap rule reopens observed_substrate_signals, strongest_rejected_alternative, unit_type and confidence on both rows."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-359",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "boundary_rationale carries the bare inventory FILE name inside 'Sweep of the verse-initial hodu-la-Yahweh formula (psalm_device_inventory.json hodu_openings, skeleton tier, both spellings checked)'. Section 10 register violation, cosmetic only: the sweep behind it re-derives EXACTLY true. Sweeping both attested spellings at skeleton tier over verse-opening tokens returns 6 verse-initial hodu-la-YHWH verses book-wide - MT 33:2, 105:1, 107:1, 118:1, 118:29, 136:1 - matching section 2c; of those exactly one is defective, oshb:Ps.107.1 'הֹד֣וּ' with no mater vav, against 5 full such as 'הוֹד֣וּ' at oshb:Ps.105.1, so 'the only one spelled defectively (1 of 6)' is byte-true and already carries its digit. MT 136:2, 136:3 and 136:26 also open with hodu but not with la-YHWH, so they sit correctly outside the count object. The splice 'הֹד֣וּ' collates BYTE at oshb:Ps.107.1. Register defect only, low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "An inventory file name stands inside the driver field's sweep citation.",
+     "grounds": "Section 10 register law; section 8 citation form. The sweep is byte-true with its unit and object named: 6 verse-initial hodu-la-YHWH verses book-wide, 1 defective ('הֹד֣וּ', oshb:Ps.107.1) against 5 full. Psalm 107 is an identity, untitled psalm (web_mt_offset_map.json; no Ps.107.0 title entry), so the row's bare web: and oshb: refs are unambiguous and correct and 'Untitled' is byte-true; the psalm has 43 verses in both spaces. The Book V remark in device_notes is section 5 discussion texture resting on the byte-verified 106:48 book-boundary doxology, not on the WEB 'BOOK n' editorial heading, so no tier-4 driver enters the row, and the seam it argues (the psalm boundary plus the tier-1 hodu opener) is independent of it. High confidence survives.",
+     "span_change": false,
+     "proposed_change": "Field repair only: replace '(psalm_device_inventory.json hodu_openings, skeleton tier, both spellings checked)' with '(verse-initial hodu-la-YHWH: 6 verses book-wide, skeleton tier, both attested spellings)'."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-365",
+   "verdict": "clean",
+   "triggers": [
+    {
+     "tag": "lowband:medium_low",
+     "disposition": "not_a_defect",
+     "grounds": "A well-calibrated low band on sound, fully byte-checked grounds. (1) The seg-layer object is real and correctly labelled: the reversed-nun inventory holds exactly 7 entries (MT 107:20, 107:21, 107:22, 107:23, 107:24, 107:25 and 107:39), so oshb:Ps.107.39 IS the 7th and final by MT order, and the row cites it 'single-witness, seg layer, not quotable as verse bytes' in the section 4 and section 8 form, as a disclosure and not as a driver; no PE/SAMEKH is claimed anywhere, correctly. (2) The closing-formula digit is true with its unit named: 'מִי חָכָ֥ם' collates BYTE at oshb:Ps.107.43, a skeleton sweep of that two-word object returns 1 verse book-wide, and word-bound inside Psalm 107 it stands in 1 of the psalm's 43 verses - so the observed_substrate_signals digit 'sweep: 1 of 43 verses' backs the driver field's 'a register no earlier verse of this psalm uses'. (3) The reversal opener 'וַיִּמְעֲט֥וּ וַיָּשֹׁ֑חוּ' collates BYTE at oshb:Ps.107.39. (4) The counter-signal is disclosed exactly and is byte-true: verse-opening tokens run waw-initial at MT 107:36, 107:37, 107:38 and 107:39 and break at 107:40 'שֹׁפֵ֣ךְ', so the grammatical chain does cross the shipped 107:38|39 edge, and both this row and its pair partner say so rather than hiding it. The row splits on the content pivot instead and prices that choice at medium_low - the lowest band in use - inside a zone section 7 pre-registers as expected-low; the seg-layer object standing at 107:39 is a further weak single-witness corroboration the row does not even lean on. (5) Nothing else is over-stated: the back edge is the psalm's own end, Psalm 107 is identity so the bare refs are arithmetically sound, no Selah and no K/Q falls in the span so nothing is owed under 2d or section 4, all WEB quotations are verbatim, unit_type 'strophe' is in the section 6 vocabulary and parent_psalm 107 is correct. Confidence is neither over-stated nor under-stated, and no other defect surfaced on a full adversarial pass, so the row is clean."
+    }
+   ],
+   "findings": []
+  },
+  {
+   "row_id": "M8-Ps-366",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "excl:no_digit",
+     "disposition": "confirmed_defect",
+     "grounds": "The sole-class claim 'the sole divergence is the conjunctive vav on \"and upon\"' ships with no digit and no named count object, so it falls to the E-16 disclosure arm. Re-collated with the object named (divergences between the two MT verse texts at byte tier): the claim is TRUE and exact - a character-level diff of oshb:Ps.57.12 against oshb:Ps.108.6 returns exactly ONE non-equal opcode, the insertion of 'וְעַ֖ל' where 57:12 reads 'עַ֖ל', i.e. one prefixed conjunctive vav (VAV plus SHEVA); every other character, point and accent is identical. The surrounding tier work is correct too: the full closing run collates BYTE at oshb:Ps.108.6 and 'none' at oshb:Ps.57.12, exactly as the row states, and the dual-cite web:Ps.57.11 = oshb:Ps.57.12 is right for a shift+1 psalm. True claim lacking its digit -> low (disclosure), per the lane test."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-16",
+     "claim": "A true 'sole divergence' claim ships without the adjacent digit and named count object that section 10 requires of every universal claim.",
+     "grounds": "Section 10: 'every universal claim carries an adjacent DIGIT-bearing sweep count NAMING ITS UNIT'. Verified true: exactly 1 divergence at byte tier between oshb:Ps.57.12 and oshb:Ps.108.6 - the conjunctive vav in 'וְעַ֖ל' against 'עַ֖ל'; all other codepoints identical. Disclosure shortfall only, no evidence defect.",
+     "span_change": false,
+     "proposed_change": "Field repair only: give the claim its digit and object, e.g. 'a single divergence at byte tier (1 of 1: the conjunctive vav prefixed to the second al)'."
+    },
+    {
+     "severity": "low",
+     "class": "numbering-space-prose-arithmetic",
+     "claim": "Two verse-distance statements in the driver field are false; both reproduce a WEB-against-MT hand subtraction, the section 3 hazard.",
+     "grounds": "boundary_rationale says 'The genuine byte-tier anchor sits two verses earlier' of web:Ps.108.2 = oshb:Ps.108.3 relative to the closing line at web:Ps.108.5 = oshb:Ps.108.6 - the true distance is THREE verses in both numbering spaces (108:2 to 108:5 WEB; 108:3 to 108:6 MT). It then says 'Two verses after that shared line, the divine name differs' of oshb:Ps.108.4 relative to oshb:Ps.108.3, and of oshb:Ps.57.10 relative to oshb:Ps.57.9 - the true distance is ONE verse in both spaces. Subtracting a WEB verse number from an MT verse number reproduces the stated 2 in each case, which is precisely what section 3 forbids ('NEVER hand-compute'; use the crosswalk). Low rather than medium: every ref in the row is itself correct and correctly dual-cited - web:Ps.108.0 = oshb:Ps.108.1, web:Ps.108.1 = oshb:Ps.108.2, web:Ps.108.5 = oshb:Ps.108.6, web:Ps.57.8 = oshb:Ps.57.9, web:Ps.57.9 = oshb:Ps.57.10, web:Ps.57.11 = oshb:Ps.57.12 and web:Ps.108.6 = oshb:Ps.108.7 all verify against the crosswalk for these shift+1 psalms - so no evidence is damaged and no seam depends on the distances.",
+     "span_change": false,
+     "proposed_change": "Field repair only: 'sits three verses earlier' and 'One verse after that shared line'; or drop the relative distances and let the dual-cites carry the positions."
+    },
+    {
+     "severity": "low",
+     "class": "title-label-order-vs-bytes",
+     "claim": "The prose label 'the mizmor-shir-le-David title' reverses the word order of the title it quotes in the same clause.",
+     "grounds": "oshb:Ps.108.1 reads 'שִׁ֖יר מִזְמ֣וֹר לְדָוִֽד' - 'שִׁ֖יר' first, 'מִזְמ֣וֹר' second (spliced from verse_map_oshb.json; the run collates BYTE at oshb:Ps.108.1). The WEB title pseudo-verse agrees: web:Ps.108.0 reads 'A Song. A Psalm by David.' Section 2a treats these label classes as byte-swept memberships and shir-mizmor against mizmor-shir is a distinguishable title order, so naming it 'mizmor-shir' mis-glosses the quoted run. Quote/gloss parity only, not load-bearing: the title is tier-1 opener evidence whatever its internal order, the dual-cite web:Ps.108.0 = oshb:Ps.108.1 required of a titled psalm's opening row by the section 1 owner gate is present and arithmetically correct, and the row's seam at 108:5|108:6 matches the section 11 p26 erratum's byte-verified join exactly (Ps 108 = Ps 57:7-11 + Ps 60:5-12, joining at WEB 108:5|108:6 = MT 108:6|108:7), which is why high confidence survives. The row's other tier claims also re-collate: 'ע֭וּרָֽה הַנֵּ֥בֶל וְכִנּ֗וֹר' is BYTE-identical at oshb:Ps.108.3 and inside oshb:Ps.57.9, and the divine-name tally re-sweeps exactly - Psalm 108 carries 1 YHWH and 6 Elohim tokens at skeleton tier, against Book V's 236 and 10 book-wide, matching section 2f.",
+     "span_change": false,
+     "proposed_change": "Field repair only: 'The shir-mizmor-le-David title heads the psalm'."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 7,
+  "clean": 1,
+  "defect_rows": 6,
+  "findings": {
+   "low": 7,
+   "medium": 3,
+   "high": 0
+  },
+  "span_changes_proposed": 2,
+  "triggers": {
+   "total": 7,
+   "confirmed_defect": 5,
+   "not_a_defect": 2
+  }
+ }
+}

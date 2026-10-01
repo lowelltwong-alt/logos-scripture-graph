@@ -1,0 +1,749 @@
+# Ezekiel book strategy, version 2 (planning record for the tiling of Ezekiel)
+
+- Candidate-only, non-authorizing research on the hard-book track: raised peer and spot coverage, no
+  sampling shortcut inside the §7 regions, and a second independent review of those regions before the close.
+- Witnesses: the World English Bible (WEB) and the Westminster Leningrad Codex as encoded by the Open
+  Scriptures Hebrew Bible (OSHB), with the OSHB Masoretic mark layers (parashah, paseq, ketiv/qere, editorial
+  notes) as disclosure objects. Device counts are the device census's (consonantal-skeleton predicates over the
+  MT extract, pointing stripped, verses containing the form); a count that comes from a sweep instead names the
+  swept object.
+- Status: no theology, no canon/authorship/redaction positions (the 'school of Ezekiel', a
+  Palestinian versus Babylonian setting, and the relation of chs 40-48 to the Priestly legislation are
+  never argued or assumed), no preferred readings. Interpretive alternatives are uncertainty under the
+  schema, not errors.
+- This version revises version 1 with its section structure kept. Every unit list describes the book as now
+  tiled: 138 rows over 1,273 verses, contiguous from 1:1 to 48:35. The changes are listed at the end.
+
+## §1 Objective and shape
+
+Tile all 1,273 WEB verses of Ezekiel (48 chapters; MT and WEB totals equal; ONE renumbering zone, §3)
+into adversarially reviewed candidate chunk rows under the hybrid review shape, sized to a
+prose-dominant prophetic book (487 `|q` poetry lines in 12 of 48 chapters; 36 chapters carry none —
+sweep of the WEB extract's ` |q` lines per chapter banner).
+
+What Ezekiel IS, structurally, from the bytes: a first-person book (the prophet narrates; 'he said to me'
+stands at the head of 31 verses inside the vision stretches, census, and mid-verse in five more) built from
+**dated vision-and-oracle complexes**. Fourteen verses carry a regnal/exilic YEAR dateline (census: MT 1:1,
+1:2, 8:1, 20:1, 24:1, 26:1, 29:1, 29:17, 30:20, 31:1, 32:1, 32:17, 33:21, 40:1). Between the datelines the
+text is a chain of formula-framed oracles: the word-event formula stands in 49 verses in some form
+(any-form 49 = the census family 48 plus MT 1:3; the labelled sub-counts are in §2a), each unit typically
+opened by the address 'son of man' (93 verses) and closed by a recognition refrain or the utterance
+signature. Four long prose visions (1:1-3:15; 8:1-11:25; 37:1-14; 40:1-48:35) and the short scene 3:22-27
+are marked at onset by the hand-of-YHWH idiom and internally by guided-motion transport verbs (33 verses /
+46 occurrences, census, §2b) and by 'he said to me' rather than by oracle formulae. Poetry is confined to
+lament and oracle-against-nation texture (chs 18, 19, 21, 23, 24, 26-32).
+
+A chunk row here is a **formula-bounded literary unit**: one oracle, one sign-act with its
+interpretation, one lament, one vision scene or measurement circuit, one law paragraph, one allotment
+list — bounded by the prophetic frame spine (§2) and never straddling a parent seam (§5). The
+architecture of this strategy is the eight-parent, byte-anchored division in §5 with a hard-seam
+layer (every dateline and vision onset) inside it.
+
+Review shape (scaled hybrid): (1) a whole-book writer wave over the eleven parts of §9, gated by validators
+(normalization of spliced Hebrew, the size-cap sweep, the numbering-zone dual-reference arm, the
+Aramaic-label arm); (2) two blind primary lenses over all rows in clusters of at most eight; (3) a peer round
+over challenged rows plus a raised sample, with no sampling shortcut inside the §7 regions, controlling
+rulings, and an explicit list of corpus-wide orders; (4) author waves consuming the remedies, validators
+re-run, a fresh second-generation sweep by a checker distinct from the authors after every repair wave, and
+every corpus-wide order run as its own sweep; (5) one book-level spot wave (cross-part seams, the
+second-generation checklist, punctuation, support audit) plus a second independent review of the §7
+regions; (6) one postcheck and the gated close.
+
+## §2 Device matrix (census counts unless a sweep is named)
+
+### §2a The prophetic frame spine (tier-1: the seam skeleton)
+
+| form | census verses | ROLE |
+|---|---|---|
+| word-event formula ויהי דבר יהוה אלי לאמר | strict 39 (labelled family below) | **ONSET** of an oracle unit (default row onset) |
+| 'son of man' בן אדם | 93 | address; onset corroboration, never an onset alone (it recurs inside units: 8:5-17 ×6, 33:2-30 ×6) |
+| messenger formula כה אמר אדני יהוה | 122 long form; 4 short-form verses (below) | opens a SPEECH inside a unit; a row-grade sub-onset only under the cutting rule (§2d.6) |
+| utterance formula נאם אדני יהוה | 81; 4 short-form verses (below) | **CLOSE** (oracle-final signature); mid-unit occurrences are paragraph-final, not row-final, unless a fresh onset follows |
+| recognition formula וידעו כי אני יהוה | strict 28 | **CLOSE** — the refrain closes the unit BEFORE it (standing rule) |
+| second-person-singular variant (gender unresolved in the skeleton; the pointing gives feminine at 16:62, 22:16 and masculine at 25:7, 35:4, 35:12) וידעת כי אני יהוה | 5 | **CLOSE** |
+| recognition with the divine-name pair כי אני אדני יהוה | 5 | **CLOSE**, verse-final in all five (13:9, 23:49, 24:24, 28:24, 29:16); outside the strict 28 and the family 64 |
+| 'I YHWH have spoken' אני יהוה דברתי | 14 | emphatic **CLOSE** (often stacked with the utterance formula: 24:14, 26:14); 5 of the 14 carry a preceding 'for'; the name-less כי אני דברתי stands in 4 further verses (23:34, 26:5, 28:10, 39:5), counted apart |
+| hand-of-YHWH יד יהוה / יד אדני יהוה | 7 | **ONSET** of a vision (1:3, 3:22, 8:1, 37:1, 40:1); at 3:14 it is transit texture, at 33:22 the mouth-opening event — neither opens a vision (§7) |
+| 'set your face' שים פניך | 9 | direction opener of a sign-act or oracle; onset corroboration, follows a word-event in 8 of 9 (13:17 follows 'and you, son of man') |
+| ORACLE DATELINES (year-bearing) | 14 | **ONSET of the first order**; every dateline is a HARD seam (rows never straddle) |
+| 'he said to me' ויאמר אלי / ויאמר יהוה אלי / וידבר אלי at the head of a verse inside a vision stretch | 31 | licensed **ONSET** inside a vision (§2b); outside a vision a speech introduction under the cutting rule |
+| guided-motion transport (predicate in §2b) | 33 (46 occurrences) | licensed **ONSET** inside a vision, on whichever face it stands |
+| 'and you, son of man' ואתה בן אדם | 23 (sweep) | onset-class device; row-grade only under the cutting rule (§2d.6) |
+| qinah or mashal command (§2c) | — | licensed **ONSET** |
+
+**The word-event family and the other labelled counts (census labels; the figures are never blended):**
+
+- The word-event family (דבר יהוה אל in some form), by fixed label: **strict 39** (the contiguous
+  wayyiqtol form); **vayehi-any 41** (the strict 39 plus 12:8, where בַּבֹּ֥קֶר interrupts, and **24:1**,
+  where the date interrupts); **hayah-perfect 7** (the dateline-bearing perfects at 26:1, 29:1, 29:17, 30:20,
+  31:1, 32:1, 32:17, הָיָ֥ה דְבַר יְהוָ֖ה אֵלַ֥י לֵאמֹֽר after the date); **family 48** (vayehi-any 41 plus hayah-perfect 7);
+  **any-form 49** (family 48 plus MT 1:3, הָיֹ֣ה הָיָ֣ה דְבַר יְ֠הוָה — infinitive absolute + perfect, third person, the
+  superscription, which stands in none of the three census lists). Rule: every one of the 49 is a word-event
+  ONSET for row purposes, and each figure is cited by its label.
+- **MT 24:1 is a year-bearing dateline**: וַיְהִי֩ דְבַר יְהוָ֨ה אֵלַ֜י בַּשָּׁנָ֤ה הַתְּשִׁיעִית֙ בַּחֹ֣דֶשׁ הָעֲשִׂירִ֔י בֶּעָשׂ֥וֹר לַחֹ֖דֶשׁ לֵאמֹֽר — ninth year, tenth month, tenth of the month.
+  Its year clause splits the contiguous word-event pattern and its numerals are ordinals, so it stands in
+  vayehi-any 41 and not in strict 39. It is a dateline-grade onset and hard seam and one of the fourteen census
+  datelines (a dateline is a year word together with a month or day term). A sweep on the singular year word
+  (`שנה`) returns 19 verses, of which 14 are year-formulae, 4 are durations (4:6, 29:11, 29:12,
+  29:13) and 1 is a false hit (26:10, where `שנה` is only a substring of the verb תרעשנה, 'will shake'); the plural
+  duration 'seven years' at 39:9 lies outside that skeleton.
+- Recognition family, wider: a ידע-root token in the verse together with the contiguous clause כי אני יהוה,
+  **64 verses** (census; exhaustive decomposition: 3mp contiguous 28, 3mp with a subject between verb and clause
+  8, 2mp 21, second person singular 5, 2fp 2). The 2mp form וידעתם כי אני יהוה = **21 verses** (6:7, 6:13, 7:4,
+  7:9, 11:10, 11:12, 12:20, 13:14, 14:8, 15:7, 17:21, 20:38, 20:42, 20:44, 22:22, 25:5, 35:9, 36:11, 37:6, 37:13,
+  37:14) is the dominant close in the Israel-addressed oracles of chs 6-22. The expansions are of two kinds: a
+  subject standing between verb and clause (17:24, MT 21:10 = WEB 21:5, 29:6, 36:23, 36:36, 37:28, 39:7,
+  39:22), and strict members extended by 'their God' after the name (for example 28:26, 34:30). Rule: any
+  member of the 64, and any of the five adonai-form verses, is refrain-grade close evidence; the strict 28, the
+  family 64 and the adonai-form 5 are cited apart and never blended.
+- Short forms: the utterance נאם יהוה without אדני **4 verses** (13:6, 13:7, 16:58, 37:14). The messenger
+  formula in short form stands in **4 verses** in two shapes: כה אמר יהוה at 11:5, MT 21:8 (= WEB 21:3) and
+  30:6, and כה אמר אדני with no divine name after it at MT 21:14 (= WEB 21:9). With the 122 long-form verses
+  every occurrence of כה אמר in the book is accounted for (126 verses). All count in their long-form roles.
+- Oath חי אני **16 verses** (13 with the utterance signature attached) — an emphatic sub-onset of a
+  verdict paragraph, never a row onset alone.
+- הנני אליך/עליך 'behold, I am against you' **14 verses** — verdict onset inside a unit (OAN-dense:
+  26:3, 28:22, 29:3, 29:10, 30:22, 35:3, 38:3, 39:1).
+
+### §2b Vision devices (tier-1 inside the vision stretches)
+- Hand-of-YHWH onsets: 1:3 (וַתְּהִ֥י עָלָ֛יו שָׁ֖ם יַד יְהוָֽה), 3:22, 8:1 (וַתִּפֹּ֤ל עָלַי֙ שָׁ֔ם יַ֖ד אֲדֹנָ֥י
+  יְהֹוִֽה — the אדני form, why the census matches the construct alone), 37:1, 40:1; the census's 7 add 3:14 and 33:22 (§2a).
+- Vision stretches (frames measured: the hand-of-YHWH and transport openers and the return clauses;
+  extents inferred from the frames): 1:1-3:15; 3:22-27; 8:1-11:25; 37:1-14; 40:1-48:35.
+- Guided-motion transport ('he brought me / brought me out / led me / made me pass / set me down / brought
+  me back / led me around / took me / the Spirit lifted me'): **33 verses / 46 occurrences** (census). The
+  class is what its lexical predicate defines: a wayyiqtol or perfect of a guided-motion verb {בוא, יצא, הלך, עבר, נשא, נוח, שוב, סבב, לקח}
+  carrying the first-person-singular object suffix — in skeleton terms, a token matching (וי|ות|וה|ה) + one of {ביא, בא, וציא, וצא, ולכ, עביר, עבר, שא, ניח, שב, סב, קח} + ני; or one of {ויבא, ותבא, ותשא, וישב} immediately followed by אתי, or ויביא immediately followed by אותי; or the perfect נשאתני (רוח as subject).
+  Named exclusions: ותעמדני at 2:2 and 3:24 (posture, not locomotion), הראני at 11:25 (showing, not
+  transport), בשובני at 47:7 (a first-person subject, not an object). Members: 3:12, 3:14, 8:3, 8:7, 8:14, 8:16, 11:1, 11:24, 37:1, 37:2, 40:1, 40:2, 40:3, 40:17, 40:24, 40:28, 40:32, 40:35, 40:48, 41:1, 42:1, 42:15, 43:1, 43:5, 44:1, 44:4, 46:19, 46:21, 47:1, 47:2, 47:3, 47:4, 47:6.
+  The closed 20-verse list this record once carried is retired: it was 20 of these 33 with no stated
+  predicate, and the 13 it lacked are 3:12, 3:14, 37:2, 40:2, 40:3, 40:24, 40:48, 42:15, 43:1, 44:1, 46:21,
+  47:3, 47:4. Sections 5 and 6 already used three of them — 44:1 as the P8 transport, 40:48 and 42:15 as
+  transport cuts — so the list and the cut rules now agree. Inside a vision stretch every member is a licensed
+  onset on whichever face it stands; a row seam inside a vision sits on a transport verse or a 'he said to
+  me' verse, never mid-scene. A row may describe guided motion by content, but only these 33 verses are
+  members of the class.
+- 'He said to me' at the head of a verse (ויאמר אלי, ויאמר יהוה אלי, וידבר אלי) inside a vision stretch: **31 verses**
+  (census: 2:1, 2:3, 3:1, 3:3, 3:4, 3:10, 8:5, 8:6, 8:8, 8:9, 8:12, 8:13, 8:15, 8:17, 9:9, 11:2, 37:3, 37:4, 37:9, 37:11, 40:4, 40:45, 42:13, 43:7, 43:18, 44:2, 44:5, 46:20, 46:24, 47:6, 47:8). It is a licensed onset on the near face of a row's own onset seam or of a
+  rival, and a licensed-onset signal on a close's far face. The phrase stands mid-verse at 3:22, 3:24, 11:5,
+  41:4 and 41:22, where speech begins inside the verse: disclosed, not licensed. Outside a vision stretch the
+  same words introduce speech, and the cutting rule applies (§2d.6).
+- 'In visions of God' במראות אלהים: the phrase with the preposition stands in **2 verses** (8:3, 40:2); 1:1
+  carries the same noun phrase without the preposition. The vision-transport frames as a category are three
+  (1:1, 8:3, 40:2), and a row that cites three frames is right for the category.
+- 'the river Chebar' **8 verses** (1:1, 1:3, 3:15, 3:23,
+  10:15, 10:20, 10:22, 43:3 — the inclusio device tying 10 and 43 back to 1); 'fell on my face' **5
+  verses** (1:28, 3:23, 11:13, 43:3, 44:4); 'the glory of YHWH' כבוד יהוה **9 verses** (1:28, 3:12, 3:23,
+  10:4, 10:18, 11:23, 43:4, 43:5, 44:4 — the departure/return arc).
+- Measurement: וימד 'and he measured' **21 verses** (40:5-41:5 ×18, 47:3-5 ×3); the wider מדד/מדה
+  family **40 verses** (sweep). This is the texture of the temple_measurement unit type (§6).
+
+### §2c Genre labels the text itself supplies (tier-1 for unit_type)
+- קינה 'lament' **8 verses** (19:1, 19:14, 26:17, 27:2, 27:32, 28:12, 32:2, 32:16; sweep) — the
+  qinah colophon at 19:14 קִ֥ינָה הִ֖יא וַתְּהִ֥י לְקִינָֽה and at 32:16 קִינָ֥ה הִיא֙ are CLOSES.
+- משל 'parable/proverb': the skeleton sweep returns **11 verses** (12:22, 12:23, 14:8, 16:44, 17:2, 18:2,
+  18:3, 19:11, MT 21:5 = WEB 20:49, 24:3, 42:6), and two of them do not carry the genre word: 19:11 carries
+  the ruling root (a participle, 'rulers') and 42:6 is a homograph ('taken away from'). The genre word stands
+  in **9** of the 11; the ruling-root form at 19:14 lies outside the skeleton. חידה **1 verse** (17:2).
+- 'And you, son of man' ואתה בן אדם **23 verses** (sweep) — an onset-class device that opens a new command
+  WITHOUT a word-event (4:1, 5:1, 36:1, 39:1, 39:17 …). It is a row-grade sub-onset only under the cutting
+  rule (§2d.6), which is why 36:1 and 39:1 open rows without cutting the word-event unit they sit in (§6).
+- 'Rebellious house' בית מרי / בית המרי **12 verses**, six of them in 2:5-3:27 and none in 4-11 — the
+  commission's refrain; its last occurrence at 3:27 (כִּ֛י בֵּ֥ית מְרִ֖י הֵֽמָּה) is a refrain-grade CLOSE
+  for parent P1 (§5).
+
+### §2d Rulings on interaction
+1. A refrain CLOSES a unit. When a recognition/utterance verse is immediately followed by a
+   word-event or dateline verse, the seam falls between them and both sides are cited (e.g. 7:27 →
+   8:1; 24:27 → 25:1; 32:32 → 33:1; 39:29 → 40:1).
+2. **Dateline + word-event in one verse** (24:1, 26:1, 29:1, 29:17, 30:20, 31:1, 32:1, 32:17): one
+   onset, cited as dateline-grade; the verse never splits.
+3. **Dateline without a word-event** (1:1-2, 8:1, 20:1, 33:21, 40:1): the dateline opens a NARRATIVE
+   frame (vision or scene); the first word-event after it (20:2; 33:23) opens the oracle INSIDE the
+   frame and is a sub-onset, not a competing onset. 1:1-3 is one superscription (two datelines and a
+   third-person word-event) and is never split across rows.
+4. **Onset/close collision** (a close-formula verse that also carries onset material): 20:44 (2mp
+   recognition + utterance, then the word-event at MT 21:1 = WEB 20:45) — no collision, the seam is at the
+   verse boundary. A real collision is a nation-oracle verdict verse where a messenger formula follows a
+   verse-final recognition close inside one chapter (26:6 → 26:7): the row seam sits at the verse boundary
+   AFTER the close verse. Two sites once listed here lack that shape. At 28:23 → 28:24, 28:24 carries
+   neither 'behold, I am against you' nor a messenger formula; it ends on the adonai-form recognition,
+   verse-final, with a samekh after it (single witness), so 28:23/28:24 is the seam of the Israel coda this
+   record names and 28:24/28:25 is a rival inside the coda (§7). At 29:9 → 29:10 the recognition in 29:9
+   stands mid-verse (an independent clause follows it); the WEB's mid-verse paragraph there is texture and
+   never cuts.
+5. **The three festival-calendar dates at MT 45:20, 45:21, 45:25 are NOT datelines.** Bytes: 45:21
+   בָּ֠רִאשׁוֹן בְּאַרְבָּעָ֨ה עָשָׂ֥ר יוֹם֙ לַחֹ֔דֶשׁ יִהְיֶ֥ה לָכֶ֖ם הַפָּ֑סַח (Passover, month and day, NO year);
+   45:20 בְּשִׁבְעָ֣ה בַחֹ֔דֶשׁ; 45:25 בַּשְּׁבִיעִ֡י בַּחֲמִשָּׁה֩ עָשָׂ֨ר י֤וֹם לַחֹ֨דֶשׁ֙ בֶּחָ֔ג. They sit inside the
+   temple-law paragraph opened by the messenger formula at 45:18 (which itself carries בָּֽרִאשׁוֹן֙
+   בְּאֶחָ֣ד לַחֹ֔דֶשׁ, a calendar date, not an onset). None of the four opens anything; a row seam at
+   45:20, 45:21 or 45:25 is a hard error. A day-formula sweep on the dateline phrasings
+   (`בעשור לחדש|באחד לחדש|בחמשה לחדש|בשבעה לחדש|בשנים עשר לחדש|בחמשה עשר לחדש|בארבעה עשר`) hits 16
+   verses: the fourteen year-bearing datelines plus 45:18 and 45:21 — the two calendar sites that
+   share a dateline's day-phrasing without a year; 45:20 and 45:25 phrase the day differently.
+6. **The cutting rule for speech openers (stated here once; other sections point to it).** A messenger
+   formula opens a speech inside a unit. It is a row-grade sub-onset only when (a) the addressee changes, or
+   (b) the verse immediately before it ENDS on a close-role formula — the utterance signature, any
+   recognition-family member including the adonai-form variant, or 'I YHWH have spoken' — verse-final, not
+   mid-verse. A parashah mark alone never satisfies (b). The same two limbs govern 'and you, son of man'
+   inside a unit already open: a renewed command to the same addressee after a verse-final utterance is a
+   paragraph. A 'therefore' messenger turn (לָכֵ֞ן) with no addressee change and no verse-final close-role
+   formula before it is NOT a licensed onset, with or without a mark on the verse before: it is the turn from
+   indictment to verdict inside one speech, which is what 'therefore' does in Ezekiel's prose. The measured
+   instances are 17:18/17:19 (the king stays in the third person), 20:29/20:30 (the house of Israel is
+   already the named audience at 20:27) and 39:24/39:25 (the same hearers as 39:21-24); a samekh follows
+   17:18 and 39:24 (single witness) and corroborates the paragraph without licensing anything. A change of
+   title inside one audience group is not an addressee change. Messenger clusters (36:2-7 ×6; 25:3-16 ×7;
+   13:3-20 ×5) therefore mark paragraphs; limb (a) cuts at 25:8 (Moab after Ammon), 25:12 (Edom) and 25:15
+   (Philistia).
+7. **Onset, close and rival: the definitions the confidence scale reads.**
+   - *Onset-class devices*: word-event (any of the 49), dateline (14), hand-of-YHWH (7), transport (33), 'he
+     said to me' inside a vision stretch (31), 'and you, son of man' (23), messenger formula (122 plus the 4
+     short-form verses), set-your-face (9), a qinah or mashal command.
+   - *Licensed onsets* (row-grade at that verse): word-event, dateline, hand-of-YHWH, transport and 'he said to
+     me' inside a vision stretch, a qinah or mashal command; a messenger formula or 'and you, son of man' only
+     under the cutting rule (item 6); set-your-face never alone.
+   - *Close-role signals*: a VERSE-FINAL close-role formula (utterance, any recognition-family member including
+     the adonai-form variant, 'I YHWH have spoken'), a genre colophon (read at 19:14 and 43:12), or a vision
+     return (read at 3:15 and 11:25). Verse-final means the formula's own clause runs to the end of the verse
+     or is followed only by a dependent completion (the shape of 36:23); an independent clause after it (the
+     shape of 29:9) makes it mid-verse.
+   - *Marks and mid-verse formulae* make no face, on a row's own seams or on a rival's; they are disclosed and
+     never fatal.
+   - *A row's own seams*: at the onset seam the near face is the row's first verse, licensed when it carries a
+     licensed onset, and the far face is the verse before, which carries a signal when it ends on a close-role
+     signal. At the close seam the near face is the row's last verse, licensed when it ends on a close-role
+     signal, and the far face is the verse after, which carries a signal when it carries a licensed onset or a
+     scene change; a 'therefore' turn of the item-6 shape on that far face carries none.
+   - *A rival* is an interior seam (near face the candidate onset verse, far face the verse before). It is
+     LICENSED when its near face carries a licensed onset; TWO-FACED when its near face carries an onset-class
+     device, licensed or not, and its far face ends on a close-role signal; otherwise PARAGRAPH-GRADE.
+   - *Grades*: HIGH — both own seams two-faced (near licensed, far signal) and no licensed or two-faced rival.
+     MEDIUM — both own near faces licensed but a far face carries only a mark or nothing, or a licensed or
+     two-faced rival held on stated grounds. MEDIUM_LOW — an own seam whose near face carries an onset-class
+     device that is not licensed, a discourse turn without formula, or a mid-verse formula, whatever its far
+     face carries; or a held question §7 names, without bespoke rationale. LOW — an own seam with no
+     onset-class device and no discernible discourse turn, or where this record directs low. Size, genre and
+     prose quality do not lower a grade where this record licenses the size or the genre hold with disclosure.
+   - *Named cut sites* license a face only where the bytes carry the onset-class device the naming rests on
+     (§6 classes every site this record names by verse).
+
+### §2e Texture and cohesion signals (staging; never row evidence alone)
+Poetry `|q` lines per WEB chapter (sweep): 18 (43), 19 (46), 21 (55), 23 (10), 24 (38), 26 (8), 27
+(68), 28 (75), 29 (14), 30 (55), 31 (27), 32 (48); zero elsewhere. WEB `[fn]` 38 sites (ch 45 alone
+9). Divine-name texture: אדני יהוה dominates the frame (messenger 122 / utterance 81); the short forms
+are rare (8 verses total, §2a). Repeated cross-unit refrains that argue continuity rather than a seam:
+'my eye will not spare, I will not pity' **5 verses** (5:11, 7:4, 7:9, 8:18, 9:10); 'my sanctuary'
+מקדשי **18 verses**; 'the mountains of Israel' **15 verses** (chs 6, 33-39 cluster). A byte-true device
+straddling a proposed row seam (e.g. the ropes עבותים of 3:25 and 4:8 across the P1/P2 seam) is
+disclosed as continuity evidence against the seam — the seam may still stand, but the disclosure is
+mandatory.
+
+### §2f Disclosure objects (the MT-keyed Masoretic mark inventories)
+Parashah marks (single witness): 113 samekh + 71 pe = 184 occurrences on 183 verses (MT 43:27 carries two consecutive samekh
+segs — counted as two occurrences on one verse, never added to the verse count). **Chapters with ZERO
+parashah marks: 10, 40, 41, 42** (tally over the marks list) — chs 40-42 (95 verses) carry no mark
+at all, and the unmarked stretch from the pe at 39:29 to the samekh at 43:9 (single witness) is 103 verses
+(40:1-43:8); the temple-measurement rows are cut on
+transport/measurement seams with no parashah corroboration available, and its absence is never
+counterevidence. Paseq 136 segs / 121 verses, COUNT-ONLY (chs 40-42 carry 30, ch 48 carries 17).
+K/Q 134 notes / 99 verses; the ch-16 cluster (11 verses / 17 notes — the archaic 2fs forms) and the
+ch-40 cluster (14 verses / 35 notes — the gate-measurement nouns) are the two dense sites; 23
+doubled-note verses (inventory count). OSHB editorial notes 71 verses (37 are the ch-21 KJV-variance
+layer). sof-pasuq 1,272 for 1,273 verses: MT 33:20 carries none, and three tiers apply. The verse's name is
+measured from the marks inventory; the finding — in place of the sof pasuq the OSHB editors wrote an untyped
+note ('We read punctuation in L differently from BHS'), followed directly by the pe (single witness) — is extracted from that
+inventory, which transcribes the OSHB XML; independent verification is unavailable to this record's witnesses,
+because the MT extract drops the sof pasuq at every verse and the XML itself is not among them. No row is scored
+on it: a row spanning MT 33:20 discloses it and argues no boundary from it. **Puncta
+extraordinaria: MT 41:20 and 46:22 only.** Absence proofs run for this strategy (code-point sweep of
+the extract): U+05C4 upper dot present in exactly those two verses (5 and 7 marks: וְקִ֖יר הַׄהֵׄיׄכָֽׄלׄ;
+מְׄהֻׄקְׄצָׄעֽׄוֹׄתׄ); U+05C5 lower dot 0; U+05C6 nun hafukha 0; U+05C0 paseq 0, U+05BE maqaf 0, U+05C3
+sof-pasuq 0 (the last three confirm that the extract drops those segs — a
+'no maqaf in the text' claim would be about the extract). The extract carries the puncta dots AS combining marks
+on the verse bytes at both sites, so a splice of either word carries U+05C4 and the row discloses it as
+single-witness.
+
+## §3 Numbering + language discipline
+
+**NOT an identity book — one renumbering zone, a SHIFT not a gap (byte-proven three ways; the crosswalk is
+injective):**
+
+```
+MT 21:1-5    =  WEB 20:45-49     (WEB ch 20 = 49 vv; MT ch 20 = 44)
+MT 21:6-37   =  WEB 21:1-32      (WEB ch 21 = 32 vv; MT ch 21 = 37)
+identity in every other chapter; totals equal at 1,273
+```
+
+Enforced at the writer gate: any structured ref touching WEB 20:45-49, WEB ch 21 or MT ch 21 carries an explicit
+dual or numeric qualifier — `web:Ezek.20.45 = oshb:Ezek.21.1`, or `(MT 21:1)` after a `web:` ref — in
+EVERY field where it appears, including device_notes prose. Bare coordinates are ambiguous exactly
+there and only there. Convention: bare/`web:` refs and row spans = WEB; `oshb:`/marks/census refs
+= MT. Convert with the offset map ALWAYS. This document itself follows the rule: unqualified refs
+elsewhere are identity; inside the zone it writes both.
+The zone is always written with both its MT and its WEB numbers, including on both faces of a seam at its
+edge (20:44/20:45 = MT 20:44/21:1; WEB 20:49/21:1 = MT 21:5/21:6).
+
+The zone is a seam site as well as a numbering site. Bytes: MT 21:1 (= WEB 20:45) is a word-event onset
+וַיְהִ֥י דְבַר יְהוָ֖ה אֵלַ֥י לֵאמֹֽר; MT 21:5 (= WEB 20:49) closes with the prophet's complaint הֲלֹ֛א מְמַשֵּׁ֥ל מְשָׁלִ֖ים הֽוּא, and a pe
+follows it (single witness); MT 21:6 (= WEB 21:1) is the next word-event. So
+`web:Ezek.20.45-Ezek.20.49 = oshb:Ezek.21.1-Ezek.21.5` is a complete five-verse unit (the forest-fire mashal).
+Inside the sword oracle that follows, the recognition at the head of MT 21:10 (= WEB 21:5), וְיָֽדְעוּ֙ כָּל בָּשָׂ֔ר כִּ֚י אֲנִ֣י יְהוָ֔ה,
+is followed by two independent clauses, so it stands mid-verse; a samekh follows the verse (single witness);
+and MT 21:11 (= WEB 21:6) opens the groaning with 'and you, son of man' and no addressee change — a
+paragraph-grade turn under the cutting rule (§2d.6). The groaning sign-act therefore stays inside the oracle.
+The zone as tiled (six rows, all dual-written):
+
+- `web:Ezek.20.45-Ezek.20.49 = oshb:Ezek.21.1-Ezek.21.5` — the forest-fire mashal (`parable_allegory`).
+- `web:Ezek.21.1-Ezek.21.7 = oshb:Ezek.21.6-Ezek.21.12` — the sword oracle with the groaning at MT 21:11-12
+  (= WEB 21:6-7) inside it (`judgment_oracle`, the sign-act disclosed as a per-bytes deviation); the utterance
+  stands verse-final at MT 21:12 (= WEB 21:7), a pe following (single witness).
+- `web:Ezek.21.8-Ezek.21.17 = oshb:Ezek.21.13-Ezek.21.22` — the sword song (`judgment_oracle`); 'I YHWH have
+  spoken' at MT 21:22 (= WEB 21:17), a pe following (single witness).
+- `web:Ezek.21.18-Ezek.21.24 = oshb:Ezek.21.23-Ezek.21.29` — the two ways (`sign_act`); a pe follows MT 21:28
+  (= WEB 21:23) and MT 21:29 (= WEB 21:24), single witness.
+- `web:Ezek.21.25-Ezek.21.27 = oshb:Ezek.21.30-Ezek.21.32` — the prince oracle (`judgment_oracle`); a pe follows
+  MT 21:32 (= WEB 21:27), single witness.
+- `web:Ezek.21.28-Ezek.21.32 = oshb:Ezek.21.33-Ezek.21.37` — Ammon (`oracle_against_nation`); 'I YHWH have
+  spoken' at MT 21:37 (= WEB 21:32), a pe following (single witness).
+
+The only K/Q in MT ch 21 is MT 21:28 (= WEB 21:23);
+the only paseq in the five-verse shift is MT 21:3 (= WEB 20:47). Both are disclosed dual.
+
+Arithmetic guard for writers: a span's verse count is computed from the WEB verse inventory and
+cross-checked against the MT count via the map; inside the zone the two chapter numbers differ but
+the count of any dual-written span is identical on both sides (injective map).
+
+**Language: Hebrew throughout.** The morphology prefixes are Hebrew only across 18,866 tokens, and no verse is
+tagged Aramaic. There is no Aramaic island (contrast Jer 10:11 — a different book; a bare 'MT 10:11' in this
+record is Ezekiel's 10:11, a cherubim verse). Any Aramaic label on any Ezekiel verse, in any field, is a hard
+error (the Aramaic-label arm flags it).
+
+## §4 Marker policy and cross-tradition scope
+
+Text signals drive: dateline; word-event; hand-of-YHWH; transport verb and 'he said to me' inside a vision;
+'and you, son of man' and the messenger formula under the cutting rule (§2d.6); set-your-face as
+corroboration; recognition/utterance/'I have spoken' closes; qinah/mashal labels; the muteness/mouth-opening
+arc 3:26 → 24:27 → 33:22. Masoretic parashah marks are tier-3 single-witness EVIDENCE that informs and never
+decides: a pe or samekh after the close verse of a proposed row is corroboration to disclose; a proposed seam
+with no mark is not weakened; a mark with no formula (e.g. the samekh chain in 23:10-45, seven marks, single witness) is
+disclosed and never cuts alone. PE is never conflated with SAMEKH. A mark is recorded on the verse it follows,
+and every mention of it carries 'single witness'. **Intra-verse position is not carried by the inventory** —
+the pe recorded at MT 3:16 (single witness) sits on the verse whose second clause is the book's first word-event formula, and
+whether the mark follows the verse or falls inside it cannot be settled from the staged witnesses (§7).
+Chapter/verse divisions, WEB `¶` paragraphing, `|q` line breaks, `[fn]` sites, capitalization and punctuation
+NEVER drive or corroborate a boundary; the WEB's mid-verse paragraphs (1:28, 3:3, 8:5, 8:8, 9:6, 9:7, 10:2,
+11:24, 17:24, 29:9, 31:18, 37:3, 47:6, 47:15) are cited only by the punctuation lane, as tier-4 texture.
+
+Cross-tradition material is METADATA in prose only, never a `refs` entry, never boundary evidence,
+never counterevidence: the Greek Ezekiel's shorter text and its differently ordered passage in ch 7,
+the Greek witness (Papyrus 967) whose order in chs 36-39 differs from the MT, the Qumran Ezekiel
+fragments and the Masada scroll, Targum/Peshitta/Vulgate. None of it is in the staged witnesses; a
+row may name it in device_notes as context for a held question (36:23-38; 7:3-9) and may not use it
+to move a seam. Intra-canon parallels (the watchman charge 3:16-21 // 33:1-9; the recognition
+formula's Priestly kinship; Ezek 1 // 10 // 43) are tradition metadata; the Ezek 1/10/43 parallel
+IS text-internal and is citable as the 'river Chebar' inclusio (§2b) with its sweep digit.
+
+## §5 Parent architecture (byte-anchored) — eight parents, one hard-seam layer
+
+Rule for a PARENT seam: (a) a dateline or hand-of-YHWH vision onset, or a word-event onset with an
+addressee-class or genre-class shift, on the onset side; AND (b) a refrain-grade close, a genre
+colophon, or a vision-return on the close side; AND (c) the tradition's five-block shape is tested
+against, not assumed from, that evidence. Every dateline (14) and every vision onset is a HARD seam
+inside its parent even where it is not a parent seam (rows never straddle a hard seam; parts may
+subdivide a parent only at a hard seam). The traditional shape survives in modified form: the
+'judgment on Judah' block splits into a sign-act/first-oracle complex, the temple vision, an undated
+oracle collection and a dated collection; the 'restoration' block begins at the addressee shift
+(33:1), not at the fugitive's dateline (33:21).
+
+| parent | span (WEB; identity except P5) | vv | onset evidence | close evidence | why the seam is here and not at the traditional alternative |
+|---|---|---|---|---|---|
+| **P1** inaugural vision and commission | Ezek.1.1-Ezek.3.27 | 65 | datelines 1:1-2; word-event 1:3 (perfect, 3rd person); hand-of-YHWH 1:3; vision 'I saw' 1:4 | 3:27 refrain כִּ֛י בֵּ֥ית מְרִ֖י הֵֽמָּה (6th and last of the commission's six in 2:5-3:27; sweep 12 verses book-wide, none in 4-11); a samekh follows 3:27 (single witness) | The competing seam 3:15/3:16 (seven-days close + word-event; the pe recorded on 3:16, single witness) is a HARD seam inside P1; it does not become the parent seam because the muteness command 3:22-27 and the 'ropes' of 3:25 are taken up at 4:8 — the commission's coda and the sign-acts are welded, and the refrain close at 3:27 is the last commission device. Held at §7. |
+| **P2** sign-acts and the first judgment oracles | Ezek.4.1-Ezek.7.27 | 75 | 4:1 וְאַתָּ֤ה בֶן אָדָם֙ קַח לְךָ֣ לְבֵנָ֔ה (sign-act sub-onset; 23-verse family); unit type changes from narrative to commanded action | 7:27 וְיָדְע֖וּ כִּֽי אֲנִ֥י יְהוָֽה and a pe follows (single witness); 8:1 is a dateline | Not merged with P1 because P2 has its own closes (5:13/5:15/5:17 'I YHWH have spoken' ×3, 6:14 and 7:27 recognition) and its own hard seams (word-events 6:1, 7:1). Not merged with P3 because 8:1 is a dateline + hand + transport. |
+| **P3** the temple vision | Ezek.8.1-Ezek.11.25 | 76 | dateline 8:1 (sixth year); hand 8:1 (אדני form); transport 8:3 בְּמַרְא֣וֹת אֱלֹהִ֗ים | 11:24 return transport וַיַּ֨עַל֙ מֵֽעָלַ֔י הַמַּרְאֶ֖ה אֲשֶׁ֥ר רָאִֽיתִי + 11:25 report to the exiles; a pe follows 11:25 (single witness) | One transported vision; the embedded word-event oracle 11:14-21 is a sub-unit (§7). 12:1 is a word-event with no vision frame — the class shifts from vision to oracle. |
+| **P4** the undated oracle collection | Ezek.12.1-Ezek.19.14 | 215 | word-event 12:1 after the vision return | 19:14 qinah colophon קִ֥ינָה הִ֖יא וַתְּהִ֥י לְקִינָֽה and a pe follows (single witness); 20:1 is a dateline | Thirteen word-event onsets (12:1, 12:8, 12:17, 12:21, 12:26, 13:1, 14:2, 14:12, 15:1, 16:1, 17:1, 17:11, 18:1) and the qinah onset 19:1 — all hard seams; no dateline and no class shift inside, so no parent seam inside. |
+| **P5** the dated disputation-to-siege collection | Ezek.20.1-Ezek.24.27 (contains the zone: MT 20:1-24:27, same total) | 188 | dateline 20:1 (seventh year) + elders' scene; word-event 20:2 | 24:27 וְיָדְע֖וּ כִּֽי אֲנִ֥י יְהוָֽה and a samekh follows (single witness); the mouth-opening promise that 33:22 fulfils | Hard seams inside: MT 21:1 (= WEB 20:45), MT 21:6 (= WEB 21:1), MT 21:13 (= WEB 21:8), MT 21:23 (= WEB 21:18), 22:1, 22:17, 22:23, 23:1, **24:1 (dateline)**, 24:15. The 24:1 dateline is not a parent seam: no addressee-class shift (Jerusalem throughout) and ch 24 closes the muteness arc opened in P1. Held at §7. |
+| **P6** oracles against the nations | Ezek.25.1-Ezek.32.32 | 197 | word-event 25:1; 25:2 בֶּן אָדָ֕ם שִׂ֥ים פָּנֶ֖יךָ אֶל בְּנֵ֣י עַמּ֑וֹן — the first foreign addressee of the nations collection (addressee-class shift); the Ammon sword oracle at MT 21:33-37 (= WEB 21:28-32) precedes it inside the dated collection; the recognition at 24:27, a samekh following (single witness), behind it | 32:32 נְאֻ֖ם אֲדֹנָ֥י יְהוִֽה and a pe follows (single witness); 33:1 word-event returns the addressee to 'the children of your people' | Seven datelines inside (26:1, 29:1, 29:17, 30:20, 31:1, 32:1, 32:17) are hard seams but NOT parent seams: the collection is nation-ordered, not date-ordered — the year-27 date at 29:17 (וַיְהִ֗י בְּעֶשְׂרִ֤ים וָשֶׁ֨בַע֙ שָׁנָ֔ה, the latest date in the book) stands between year 10 (29:1) and year 11 (30:20), byte evidence that dates here serve the Egypt dossier, not the book's chronology. 28:24-26 (Israel gathered) is an embedded salvation coda inside P6, not a P7 onset. |
+| **P7** restoration oracles and visions | Ezek.33.1-Ezek.39.29 | 197 | word-event 33:1 + addressee 'children of your people'; the utterance close at 32:32 (a pe follows, single witness) behind it | 39:29 נְאֻ֖ם אֲדֹנָ֥י יְהוִֽה and a pe follows (single witness); 40:1 is a dateline + hand + transport | Hard seams inside: 33:21 (dateline — the fugitive בָּא אֵלַ֨י הַפָּלִ֧יט מִירוּשָׁלִַ֛ם לֵאמֹ֖ר הֻכְּתָ֥ה הָעִֽיר; 33:22 hand + mouth opened), 33:23, 34:1, 35:1, 36:16, 37:1 (hand), 37:15, 38:1. The alternative parent seam at 33:20/33:21 (dateline; a pe follows 33:20, single witness; the verse without a sof pasuq) is held at §7. |
+| **P8** the temple vision and the land | Ezek.40.1-Ezek.48.35 | 260 | dateline 40:1 (year 25, the fourteenth year from the fall of the city); hand הָיְתָ֤ה עָלַי֙ יַד יְהוָ֔ה וַיָּבֵ֥א אֹתִ֖י שָֽׁמָּה; transport 40:2 בְּמַרְא֣וֹת אֱלֹהִ֔ים | end of book; 48:29's utterance, a pe following (single witness), closes the allotment; 48:30-35 city-gate coda ending וְשֵׁם הָעִ֥יר מִיּ֖וֹם יְהוָ֥ה שָֽׁמָּה (no formula after — the book's last verse is its own close) | Hard seams inside: 42:20/43:1 (measuring finished 42:15 וְכִלָּ֗ה אֶת מִדּוֹת֙ הַבַּ֣יִת הַפְּנִימִ֔י; 42:20 לְהַבְדִּ֕יל בֵּ֥ין הַקֹּ֖דֶשׁ לְחֹֽל; 43:1 transport + glory), 43:27/44:1 (utterance close with two samekh segments after it, single witness — the best-marked close in P8; 44:1 transport, a member of the class), 46:18/46:19 (law → transport), 47:12/47:13 (river → messenger formula on the border). |
+
+Sums (deterministic, over the WEB verse inventory): 65 + 75 + 76 + 215 + 188 + 197 + 197 + 260 = **1,273**.
+Rows never straddle a parent seam; `parent_collection` names the parent (P1…P8 with the labels above). No row
+carries a dated-block field or sentence: the dated block of any row is derivable from its parent, its span and
+the fourteen-verse dateline census, which lets a reviewer test the chronology layer independently of the parent
+layer.
+
+## §6 unit_type vocabulary and granularity
+
+**Closed 12-value vocabulary** (operative-category law: a per-bytes deviation is allowed with a
+one-sentence disclosure in device_notes; no free text). Each value is anchored on a byte device:
+
+1. `vision_report` — first-person vision narrative: hand/transport/'he said to me'/glory devices. As tiled: 1:1-28; 3:12-15; 3:22-27; 8:1-6; 8:7-13; 8:14-18; 9:1-11; 10:1-8; 10:9-17; 10:18-22; 11:1-13; 11:22-25; 37:1-14; 40:1-4; 43:1-9; 44:1-4; 46:19-24; 47:1-12.
+2. `commission_narrative` — the prophet's office: sending, scroll, watchman charge, muteness. As tiled: 2:1-7; 2:8-3:3; 3:4-11; 3:16-21; 33:1-9; 33:21-22.
+3. `sign_act` — a commanded symbolic action with its interpretation. As tiled: 4:1-17; 5:1-17; 12:1-7; 12:8-16; 12:17-20; `web:Ezek.21.18-Ezek.21.24 = oshb:Ezek.21.23-Ezek.21.29`; 24:15-27; 37:15-28. The groaning at MT 21:11-12 (= WEB 21:6-7) is a sign-act inside the sword oracle `web:Ezek.21.1-Ezek.21.7 = oshb:Ezek.21.6-Ezek.21.12` (type 4), disclosed there as a per-bytes deviation. Device: imperative to the prophet + 'sign' מופת/אות + 'in their sight'.
+4. `judgment_oracle` — Israel/Jerusalem-addressed word-event unit with a verdict and a refrain close. As tiled: 6:1-10; 6:11-14; 7:1-4; 7:5-9; 7:10-27; 13:1-9; 13:10-16; 13:17-23; 14:1-11; 14:12-23; `web:Ezek.21.1-Ezek.21.7 = oshb:Ezek.21.6-Ezek.21.12`; `web:Ezek.21.8-Ezek.21.17 = oshb:Ezek.21.13-Ezek.21.22`; `web:Ezek.21.25-Ezek.21.27 = oshb:Ezek.21.30-Ezek.21.32`; 22:1-16; 22:17-22; 22:23-31. 24:1-14 carries the mashal label and is tiled as type 7.
+5. `oracle_against_nation` — foreign addressee via set-your-face or naming. As tiled: `web:Ezek.21.28-Ezek.21.32 = oshb:Ezek.21.33-Ezek.21.37`; 25:1-7; 25:8-11; 25:12-14; 25:15-17; 26:1-6; 26:7-14; 26:15-21; 28:1-10; 28:20-23; 29:1-9; 29:10-16; 29:17-21; 30:1-12; 30:13-19; 30:20-26; 31:1-18; 32:17-32; 35:1-15; 38:1-23; 39:1-10; 39:11-16; 39:17-20; 39:21-24. 26:15-21 is dual-eligible (a nation oracle carrying the embedded qinah at 26:17-18; type 6 would also fit) and is tiled here. 35:1-15 and 36:1-15 (type 9) are the two sides of one word-event unit opened at 35:1. The Ammon unit `web:Ezek.21.28-Ezek.21.32 = oshb:Ezek.21.33-Ezek.21.37` sits in P5, disclosed. Device: הנני אליך; recognition close in the nations' mouth.
+6. `lament_qinah` — units the text labels קינה or נהה. As tiled: 19:1-14; 27:1-36; 28:11-19; 32:1-16. 32:17-32, labelled a wail (נהה), is tiled as type 5; type 6 would be allowed with disclosure. 26:15-21 is dual-eligible and tiled as type 5.
+7. `parable_allegory` — units the text labels משל/חידה or built as extended figure. As tiled: 15:1-8; 16:1-14; 16:15-19; 16:20-23; 16:24-34; 16:35-43; 16:44-58; 17:1-10; 17:11-21; 17:22-24; `web:Ezek.20.45-Ezek.20.49 = oshb:Ezek.21.1-Ezek.21.5`; 23:1-21; 23:22-35; 23:36-49; 24:1-14. The forest-fire unit `web:Ezek.20.45-Ezek.20.49 = oshb:Ezek.21.1-Ezek.21.5` is labelled mashal at MT 21:5 (= WEB 20:49).
+8. `disputation_oracle` — a quoted popular saying refuted. As tiled: 12:21-25; 12:26-28; 18:1-4; 18:5-9; 18:10-20; 18:21-32; 20:1-26; 20:27-38; 20:39-44; 33:10-20; 33:23-29; 33:30-33. 11:14-21 blends with type 9 and is tiled as 9.
+9. `salvation_oracle` — restoration promise as the unit's burden. As tiled: 11:14-21; 16:59-63; 28:24-26; 34:1-16; 34:17-31; 36:1-15; 36:16-23; 36:24-32; 36:33-38; 39:25-29. 37:15-28 shares its burden with type 3 and is tiled as 3. Device: gather/return, ברית שלום (2 verses), עבדי דוד (3 verses), שם קדשי (8 verses).
+10. `temple_measurement` — the guided measuring tour. As tiled: 40:5-16; 40:17-19; 40:20-27; 40:28-37; 40:38-47; 40:48-41:4; 41:5-11; 41:12-26; 42:1-14; 42:15-20; 43:13-17. 47:3-5 is a measuring circuit inside the river vision 47:1-12 (type 1). Device: וימד 21 verses; the ch-40 K/Q cluster.
+11. `temple_law` — statute paragraphs. As tiled: 43:10-12; 43:18-27; 44:5-14; 44:15-31; 45:1-8; 45:9-17; 45:18-25; 46:1-15; 46:16-18. Device: messenger formula + jussive/2mp instruction; the calendar dates (45:18, 45:20, 45:21, 45:25) live here and never open a row by themselves (45:18 opens its row on the messenger formula it also carries).
+12. `land_allotment` — borders, tribal portions, city exits. As tiled: 47:13-23; 48:1-7; 48:8-22; 48:23-29; 48:30-35. Device: גבול (33 verses), שבט (16 verses), the 'one portion' list refrain 48:1-7, 48:23-27.
+
+**Granularity.** A row is ONE formula-bounded unit: from a licensed onset (§2d.7: dateline; word-event in any
+of the 49 forms; hand-of-YHWH; a qinah or mashal command; a transport verb or 'he said to me' inside a vision
+stretch; a messenger formula or 'and you, son of man' under the cutting rule, §2d.6) to the verse BEFORE the next
+such onset, with the refrain close inside the row. Inside a long unit (16 = 63 vv; 20:1-44; 23 = 49 vv; 40 = 49
+vv) the row is cut at internal seams that are themselves formula-marked, or a change of measured object with
+וימד. Target density: 7-10 verses per row (projected ~130-170 rows), with the measured and listed
+blocks (40-42, 45, 48) allowed up to 14-16 verses where no formula seam exists and a cut would split a circuit
+or a list. As tiled: 138 rows over 1,273 verses, a mean of 9.2 verses per row.
+
+**Named cut sites.** A site this record names as a cut BY VERSE licenses an onset face only where the bytes
+carry the onset-class device the naming rests on. A naming that rests on no device, or whose premise is
+measured false, still carries the seam as this record's seam (a ground for medium_low) but licenses nothing.
+A held question or a region named in §7 is not a naming.
+
+| named site | what the naming rests on | class | in the tiling |
+|---|---|---|---|
+| 16:35 | 'therefore, prostitute, hear' (new address) | licensing | a row opens (16:35-43) |
+| 16:44 | the sisters' proverb הִנֵּה֙ כָּל הַמֹּשֵׁ֔ל, a proverb about the city, not a mashal command | named on no device | a row opens (16:44-58) |
+| 16:59 | messenger formula and covenant turn, after the verse-final short utterance at 16:58 (a samekh follows, single witness) | licensing | a row opens (16:59-63) |
+| 20:27 | 'therefore … thus says' after a refrain | premise byte-false: 20:26 ends on a recognition-shaped clause the census does not count (a samekh follows, single witness), and 20:27's therefore-command לָכֵ֞ן דַּבֵּ֨ר אֶל בֵּ֤ית יִשְׂרָאֵל֙ addresses the hearers already addressed | a row opens (20:27-38), kept because 20:1-26 is the history disputation and a merge would exceed every size cap |
+| 20:30 | 'therefore … thus says' after a refrain | premise byte-false: 20:29 ends on no close-role formula and carries no mark; 20:30 renews 20:27's command to the same hearers | no seam: a paragraph turn inside 20:27-38 |
+| 20:39 | וְאַתֶּ֨ם בֵּֽית יִשְׂרָאֵ֜ל כֹּֽה אָמַ֣ר after the verse-final recognition at 20:38 | licensing | a row opens (20:39-44) |
+| 23:22 | the Oholibah verdict as an addressee change | premise byte-false: the second-feminine-singular address already stands at 23:21 | a row opens (23:22-35) |
+| 36:33, 36:37 | messenger re-onsets | licensing | a row opens at 36:33 (36:33-38); 36:37 is a licensed rival inside it |
+| 40:17, 40:28, 40:32, 40:35, 40:48, 41:1, 42:1, 42:15 | transport verbs (members of the class) | licensing | rows open at 40:17, 40:28, 40:48, 42:1 and 42:15; 40:32 and 40:35 are licensed rivals held inside 40:28-37 on the list guard; 41:1 is a licensed rival inside 40:48-41:4 |
+| 46:1 | messenger formula (chapter-division sentence below) | licensing | a row opens (46:1-15) |
+| 48:1 | 'these are the names' list onset (chapter-division sentence below) | licensing | a row opens (48:1-7) |
+
+**Chapter divisions** cut where they coincide with a hard or default onset (most do: 6:1, 7:1, 8:1,
+12:1, 13:1, 15:1, 16:1, 17:1, 18:1, 19:1, 20:1, 22:1, 23:1, 24:1, 25:1, 26:1, 27:1, 28:1, 29:1, 30:1,
+31:1, 32:1, 33:1, 34:1, 35:1, 38:1, 40:1, 43:1, 44:1, 47:1 — and the WEB 20/21 division coincides with
+the pe after MT 21:5 = WEB 20:49, single witness / the word-event at MT 21:6 = WEB 21:1). They do NOT cut where the unit continues: 2:1 → 3:1 (the scroll
+scene runs 2:8-3:3 — cut at 2:1 'he said to me' if at all, not at 3:1 unless the row is sized there);
+9:1, 10:1, 11:1 (vision scenes — cut on the transport/cry verse, which 9:1 and 11:1 are; 10:1 is not, and the row that opens there rests on the scene change §7 describes);
+14:1 (the elders' scene 14:1 precedes the word-event 14:2 — the row opens at 14:1); 21:1 WEB (= MT
+21:6, a word-event — cuts); 36:1 (וְאַתָּ֣ה בֶן אָדָ֔ם הִנָּבֵ֖א אֶל הָרֵ֣י יִשְׂרָאֵ֑ל — a sub-onset inside
+the 35:1 word-event unit; a row seam here is allowed by the sub-onset but the two rows disclose the
+shared word-event frame); 37:1 (hand — cuts); 39:1 (sub-onset inside 38:1's unit — same rule as
+36:1); 41:1, 42:1, 46:1, 48:1 (measurement/law/allotment — cut only on transport, messenger formula
+or list onset, which 41:1 ויביאני, 42:1 ויוצאני, 46:1 messenger formula and 48:1 'these are the
+names' respectively are (as tiled, 41:1 stands inside 40:48-41:4, a licensed rival the row holds); 45:1 is a continuation 'and when you divide the land' with NO formula — it
+does not cut by chapter; the seam is at 44:31/45:1 only if the priests' portion 44:28-31 is argued as
+the close, held at §7; as tiled, a row opens at 45:1).
+
+**Over-split guard:** a row under 3 verses only when it is a complete word-event unit (12:26-28 is 3; 33:21-22
+is 2 and is held, §7); a qinah-labelled unit is never split; a numbered/refrain list (27:12-24 trade list;
+32:22-30 the nations in Sheol; 48:1-7 and 48:23-27 tribal portions; 40:20-37 the gate circuits) is never cut
+inside the list except at a licensed text-signal driver, which is disclosed. The transport at 40:28 is such a
+driver: it cuts the gate circuits into 40:20-27 and 40:28-37, and each row discloses the list tension. The
+transports at 40:32 and 40:35 are licensed rivals held on the list guard, and the transport at 40:24 is held
+because this record names the north and south outer gates as one row and the transport stays inside the outer
+court. A messenger formula is never separated from the speech it opens; the superscription 1:1-3 is never its
+own row unless the vision row would otherwise exceed the cap. Whole-chapter spans sit at medium_low/low with
+the cap disclosure; as tiled there are 10, all at medium_low: chs 1, 4, 5, 9, 15, 19, 27, 31, 35, 38. Chapter 34 is cut at 34:17 ('as for you,
+my flock'), giving 34:1-16 and 34:17-31.
+
+## §7 Expected low-confidence regions
+
+Hold at medium_low/low with bespoke rationale; never force. The hard-book track gives these regions raised
+peer and spot coverage and a second independent review.
+
+- **A class question: 'and you, son of man' after a refrain-grade close inside one word-event unit.** The
+  shape is two-faced (a verse-final close-role formula on the far face, the address on the near face), and the
+  worked instances divide. Held at MT 21:19 (= WEB 21:14): the same command continues after the verse-final
+  utterance at MT 21:18 (= WEB 21:13), a pe following (single witness). Held at 24:25: 24:24 ends on the
+  adonai-form recognition verse-final with a samekh after it (single witness), but the sign inclusio (מופת;
+  the prophet a sign at 24:24 and at 24:27) binds 24:24 to 24:27, and 24:25-27 is the unit's closing movement.
+  Cut at 33:30: 33:29 ends on the recognition verse-final, a samekh following (single witness), and a row opens
+  on the address. Whether the class cuts or holds is decided per site on a measured binding signal.
+- **chs 1-3 (flagged).** 1:1-3 — two datelines in two systems ('thirtieth year' / 'fifth year of
+  Jehoiachin's exile') and a third-person word-event in a first-person book: one superscription row
+  or the vision row's head. 1:28/2:1, the vision/commission seam: a samekh follows 1:28 (single witness) and 2:1 opens on 'he said to me' inside the vision stretch, a licensed onset. 3:12-15 the
+  transport to Tel-abib as the vision's close versus the commission's close (3:12 and 3:14 are both transport-class members; a cut at 3:14 would leave two 2-verse rows, so it is held on the guard). **3:16** — the book's
+  first word-event with a temporal onset וַיְהִ֕י מִקְצֵ֖ה שִׁבְעַ֣ת יָמִ֑ים and a pe whose intra-verse
+  position the inventory cannot give (§4; single witness); the P1/P2 alternative at 3:15/3:16 versus 3:27/4:1 is the
+  held parent question (§5). 3:22-27 — a hand-of-YHWH onset that opens a five-verse scene; whether it
+  is its own row or the head of the sign-act series (the ropes 3:25 // 4:8). As tiled: 1:1-28 | 2:1-7 | 2:8-3:3 | 3:4-11 | 3:12-15 | 3:16-21 | 3:22-27.
+- **chs 4-7.** Whether the four sign-acts (4:1-3, 4:4-8, 4:9-17, 5:1-4) are one row or two with the
+  interpretation 5:5-17; the triple 'I YHWH have spoken' at 5:13, 5:15, 5:17 (which one closes the
+  row); 6:1-10 / 6:11-14 (a pe follows 6:10, single witness, and a fresh messenger formula opens 6:11); 7:1-4 / 7:5-27 (a pe follows 7:4, single witness;
+  the 'end' poem is prose in the WEB — no `|q` lines in ch 7). As tiled: 4:1-17 | 5:1-17 | 6:1-10 | 6:11-14 | 7:1-4 | 7:5-9 | 7:10-27.
+- **chs 8-11 (flagged; ONE vision).** Scene seams at 8:5, 8:7, 8:14, 8:16 (transport/'he said to
+  me'), 9:1 (the cry), 10:1 (glory departs — no transport verb; a scene change argued from כבוד יהוה
+  10:4/10:18), 11:1 (transport), 11:13 (Pelatiah's death and the prophet's cry — a narrative close),
+  **11:14-21** a word-event oracle embedded inside the vision (own row, or held inside the 11:1-21
+  scene), 11:22-25 the return. Whether ch 10's wheel description (10:9-17, echoing ch 1) is a row or
+  texture. 'He said to me' heads 8:5, 8:6, 8:8, 8:9, 8:12, 8:13, 8:15, 8:17, 9:9 and 11:2 inside
+  the vision (licensed onsets, §2b), and the transports at 8:3, 8:7, 8:14, 8:16, 11:1 and 11:24 are class
+  members. As tiled: 8:1-6 | 8:7-13 | 8:14-18 | 9:1-11 | 10:1-8 | 10:9-17 | 10:18-22 | 11:1-13 | 11:14-21 | 11:22-25.
+- **ch 12 and the short disputations.** 12:1-16 sign-act with 12:8 as a morning re-onset (word-event
+  with בבקר); 12:21-25 / 12:26-28 two three-to-five-verse units on the same proverb — one row with
+  disclosure or two. As tiled: 12:1-7 | 12:8-16 | 12:17-20 | 12:21-25 | 12:26-28.
+- **chs 16-19 (ch 16: 63 vv; 11 K/Q verses).** Ch 16 as tiled: 16:1-14 | 16:15-19 | 16:20-23 | 16:24-34 | 16:35-43 | 16:44-58 | 16:59-63. The named internal cuts are 16:35
+  (addressee 'prostitute'; licensing), 16:44 (the sisters' proverb הִנֵּה֙ כָּל הַמֹּשֵׁ֔ל — named on no device, so the seam is
+  this record's and licenses nothing) and 16:59 (messenger formula and covenant turn, licensed by the verse-final
+  short utterance at 16:58, a samekh following, single witness). Inside 16:44-58 the turns at 16:50/16:51 (a
+  samekh follows 16:50, single witness; no device) and 16:52/16:53 (the restoration turn, no device) are
+  paragraph-grade, and the fifteen-verse row is disclosed against the density target. Held: whether 16:59-63 is
+  `salvation_oracle` or the allegory's close.
+  Ch 17 as tiled: 17:1-10 | 17:11-21 | 17:22-24. Inside 17:11-21 the turn at 17:18/17:19 is a 'therefore' messenger formula
+  with no addressee change after a verse with no close-role formula (a samekh follows 17:18, single witness) —
+  paragraph-grade under the cutting rule; 17:21 closes on the recognition with 'I YHWH have spoken',
+  verse-final, a samekh following (single witness). Held: 17:1-10 / 17:11-21 / 17:22-24 as one, two or three rows.
+  Ch 18 is one word-event unit (18:1-32), tiled 18:1-4 | 18:5-9 | 18:10-20 | 18:21-32. Every interior seam is a case turn with no formula
+  device on either face: a samekh follows 18:4, 18:20, 18:23 and 18:26 (single witness) and corroborates without
+  deciding; the utterance at 18:9 is verse-final but paragraph-final, because 18:10 brings no fresh onset; the
+  utterance at 18:23 stands mid-verse; 18:30's 'therefore' is a turn inside the closing appeal. Held: poetry
+  case-law (18:5-17 `|q`) versus prose disputation, and whether the tiling stands against 18:1-9 / 18:10-20 /
+  18:21-32 or one row with the cap disclosure.
+  Ch 19: one qinah row (never split; 19:10-14 the vine stanza is inside the colophon).
+- **the ch 20/21 numbering zone (flagged; every ref dual).** Chapter 20 as tiled: 20:1-26 | 20:27-38 | 20:39-44 | `web:Ezek.20.45-Ezek.20.49 = oshb:Ezek.21.1-Ezek.21.5`. The seams this
+  record named inside the history disputation carry what the bytes carry: 20:27's therefore-command לָכֵ֞ן דַּבֵּ֨ר אֶל בֵּ֤ית יִשְׂרָאֵל֙
+  follows a verse (20:26) ending on a recognition-shaped clause the census does not count, a samekh following
+  (single witness) — an onset-class device the cutting rule does not license, kept as a seam because 20:1-26 is
+  the history disputation and a merge would exceed every size cap; 20:29 ends on no close-role formula and
+  carries no mark, and 20:30 renews 20:27's command to the same hearers, so 20:27-38 is one commanded speech;
+  20:38 ends on the recognition verse-final and 20:39 (וְאַתֶּ֨ם בֵּֽית יִשְׂרָאֵ֜ל כֹּֽה אָמַ֣ר) is licensed by that close. Held: the ch-20
+  sequence (20:27-38 | 20:39-44) versus one long disputation row with the cap disclosure. A pe follows MT 21:5
+  (= WEB 20:49), single witness. Chapter 21 (WEB) as tiled: `web:Ezek.21.1-Ezek.21.7 = oshb:Ezek.21.6-Ezek.21.12` | `web:Ezek.21.8-Ezek.21.17 = oshb:Ezek.21.13-Ezek.21.22` | `web:Ezek.21.18-Ezek.21.24 = oshb:Ezek.21.23-Ezek.21.29` | `web:Ezek.21.25-Ezek.21.27 = oshb:Ezek.21.30-Ezek.21.32` | `web:Ezek.21.28-Ezek.21.32 = oshb:Ezek.21.33-Ezek.21.37`. Held: the two-ways sign-act
+  `web:Ezek.21.18-Ezek.21.24 = oshb:Ezek.21.23-Ezek.21.29` (a pe follows MT 21:28 = WEB 21:23 and MT 21:29 =
+  WEB 21:24, single witness) and the prince oracle `web:Ezek.21.25-Ezek.21.27 = oshb:Ezek.21.30-Ezek.21.32` (a pe
+  follows MT 21:32 = WEB 21:27, single witness) — one row or two; the groaning at MT 21:11-12 (= WEB 21:6-7)
+  inside the sword oracle (the recognition at MT 21:10 = WEB 21:5 stands mid-verse, and the address at MT 21:11
+  = WEB 21:6 brings no addressee change); the Ammon sword unit
+  `web:Ezek.21.28-Ezek.21.32 = oshb:Ezek.21.33-Ezek.21.37` — an OAN-form unit inside P5 (unit type 5 with parent
+  P5, disclosed).
+- **chs 22-24.** 22's three word-event units; 23:36-49 (a second cycle of judgment on Oholah and
+  Oholibah without a word-event, opened by ויאמר יהוה אלי at 23:36 — own row or the allegory's
+  close); **24:1, the dateline whose year clause splits the word-event formula** (§2a); 24:1-14 cauldron mashal + 24:15-27
+  wife's death; 24:25-27 the mouth-opening promise as the P5 close. 23:22 is named as a cut on an addressee change, and that premise is byte-false (the
+  second-feminine-singular address already stands at 23:21): the seam is this record's and licenses nothing. As tiled: 22:1-16 | 22:17-22 | 22:23-31 | 23:1-21 | 23:22-35 | 23:36-49 | 24:1-14 | 24:15-27.
+- **chs 25-32 (flagged; onset and close collide).** 25: four short OAN (Ammon 2-7 with TWO
+  recognition closes at 25:5 and 25:7; Moab 8-11; Edom 12-14; Philistia 15-17) — four rows of 3-6
+  verses, or two, or one 17-verse row; 26: four messenger units (1-6, 7-14, 15-18 with the embedded
+  qinah, 19-21) each with its own close — one row per unit is the default, held (as tiled, 26:15-21 keeps 15-18 and 19-21 together, 26:19's messenger formula a rival inside it, and the unit is dual-eligible between nation oracle and lament); 27: one 36-verse
+  qinah (the trade list 12-24 in prose inside a poem); 28:1-10 / 28:11-19 / 28:20-23 / 28:24-26 — the
+  Israel coda 28:24-26 (recognition ×3 at 28:22, 28:23, 28:26, and the adonai-form recognition verse-final at 28:24 with a samekh after it, single witness) as its own `salvation_oracle` row
+  inside P6, tiled so (28:24/28:25 is a licensed two-faced rival held inside the coda on the over-split guard, a one-verse remainder); 29:1-16 with the mid-verse WEB paragraph at 29:9 and the forty-years turn 29:13 (tiled 29:1-9 | 29:10-16); 29:17-21
+  the year-27 Nebuchadnezzar oracle; 30:1-19 undated with four messenger paragraphs (30:2, the short form at 30:6, 30:10,
+  30:13) inside, tiled 30:1-12 | 30:13-19; 30:20-26 (7 vv); 31 one cedar allegory under a dateline (unit type 5 or 7); 32:1-16
+  qinah; 32:17-32 the Sheol roster (32:22-30 never cut inside). As tiled: 25:1-7 | 25:8-11 | 25:12-14 | 25:15-17 | 26:1-6 | 26:7-14 | 26:15-21 | 27:1-36 | 28:1-10 | 28:11-19 | 28:20-23 | 28:24-26 | 29:1-9 | 29:10-16 | 29:17-21 | 30:1-12 | 30:13-19 | 30:20-26 | 31:1-18 | 32:1-16 | 32:17-32.
+- **ch 33 (the hinge).** 33:1-9 watchman recapitulation (type 2) / 33:10-20 disputation (a pe follows 33:11
+  and 33:20, single witness; MT 33:20's missing sof pasuq is disclosed with its tiers, §2f, and never argued); **33:21-22** — the fugitive
+  dateline and the mouth-opening: two verses that fulfil 24:26-27; own row (under-size, disclosed) or
+  the head of 33:23-29; whether the P6/P7 parent seam belongs at 32:32/33:1 (chosen) or at 33:20/33:21
+  (dateline) is the held parent question of this region. As tiled: 33:1-9 | 33:10-20 | 33:21-22 | 33:23-29 | 33:30-33.
+- **chs 34-37.** Ch 34 is tiled 34:1-16 | 34:17-31 (the cut at 34:17, 'as for you, my flock'), with the internal messenger
+  paragraphs (34:7-10, 34:11-16, 34:17-19, 34:20-31) held. **35:1-36:15** is one word-event unit across the chapter
+  break (Seir in 35; the mountains of Israel in 36:1-15), tiled 35:1-15 | 36:1-15: the sub-onset at 36:1
+  וְאַתָּ֣ה בֶן אָדָ֔ם הִנָּבֵ֖א אֶל הָרֵ֣י יִשְׂרָאֵ֑ל turns the address after 35:15's verse-final recognition (a pe follows, single witness), and
+  each row discloses the shared frame. Inside 36:1-15 the six-verse messenger chain 36:2-7 is paragraph-grade,
+  36:11's verse-final recognition has no onset device after it, and 36:13's messenger formula keeps the land as its
+  addressee — paragraph-grade; 36:1-15 is the half-chapter row, held with the cap disclosure. 36:16-38 is tiled
+  36:16-23 | 36:24-32 | 36:33-38, with the 36:33 and 36:37 messenger re-onsets and the recognition close 36:38 (the
+  cross-tradition question on 36:23-38 is metadata only, §4). 37:1-14 is one vision scene (recognition at 37:6,
+  37:13, 37:14 — which closes the row): 'he said to me' at 37:3, 37:4 and 37:9 are licensed onsets inside the vision,
+  held because the question, the two commands and their two results are one scene, and 37:2's transport leaves a
+  one-verse remainder; 37:10/37:11 is the rival that bears on the grade. 37:15-28 is the two-sticks sign-act with the
+  salvation burden 37:21-28.
+- **chs 38-39 (flagged; recapitulation-versus-sequence).** Gog: 38:1-9, 38:10-13, 38:14-16, 38:17-23,
+  39:1-8, 39:9-10, 39:11-16, 39:17-20, 39:21-24, 39:25-29 — a paragraph chain with FIVE samekh marks in
+  ch 38 (single witness) and utterance closes at 38:18, 38:21, 39:5, 39:8, 39:10, 39:13, 39:20, 39:29; whether 39:1
+  begins a second oracle (the 'and you, son of man' sub-onset) or a recapitulation of 38:1-9; whether
+  39:25-29 is the Gog unit's coda or the P7 close as `salvation_oracle`. 39:25's 'therefore' messenger turn speaks to the same hearers as 39:21-24 after a verse with no
+  close-role formula (a samekh follows 39:24, single witness) — paragraph-grade under the cutting rule; both
+  branches of the held question keep 39:25-29 as a unit. As tiled: 38:1-23 | 39:1-10 | 39:11-16 | 39:17-20 | 39:21-24 | 39:25-29.
+- **chs 40-48 (flagged; few formulae, no parashah marks in 40-42, the K/Q cluster on the measurements).** As
+  tiled, the measurement rows are 40:1-4 (the frame) | gates 40:5-16 | court 40:17-19 | north and south outer gates
+  40:20-27 | inner gates 40:28-37 | chambers and tables 40:38-47 | 40:48-41:4 | 41:5-11 | 41:12-26 | chambers
+  42:1-14 | outer measure 42:15-20. Each seam sits on a transport or וימד verse, and no parashah mark stands in
+  chs 40-42 to corroborate any of them. The transports inside rows are licensed rivals: 40:2 and 40:3 inside 40:1-4
+  (one-verse remainders); 40:24 inside 40:20-27, held because the north and south outer gates are named as one row
+  and the transport stays inside the outer court; 40:32 and 40:35 inside 40:28-37, held on the list guard (§6);
+  41:1 inside 40:48-41:4. The 41:20 and 46:22 puncta verses (disclosed single-witness, and present as U+05C4 in the
+  extract bytes); 43:1-9 the glory's return (vision) and 43:10-12 the torah of the house — different unit types on
+  either side of the turn at 43:9/43:10, a samekh following 43:9 (single witness) — with 43:12's double
+  זֹ֖את תּוֹרַ֣ת הַבָּ֑יִת inclusio as the colophon; 43:13-17 altar dimensions (a held question) versus 43:18-27 altar
+  ordinances (43:15 anomalous-form note); 44:1-4 the shut gate, closed by the prostration at 44:4 as 1:28 closes
+  before 2:1 (44:3 anomalous-form note); 44:5-14 / 44:15-31 the Levites/Zadokites contrast (utterance at 44:12,
+  44:15, 44:27; a pe follows 44:14 and 44:31, single witness); **44:31/45:1** — no formula at 45:1 (וּבְהַפִּֽילְכֶ֨ם,
+  'and when you divide'), the row that opens at 45:1 resting on the ground held here; 45:9 messenger formula
+  'enough, princes of Israel' as a law-paragraph onset; **45:18-25 the festival calendar: 45:20, 45:21, 45:25 never
+  open a row (§2d.5)**; 46:1-15 (46:1's messenger formula a named cut that licenses) / 46:16-18 (two messenger
+  formulae) / 46:19-24 the kitchens (transport — a `vision_report` island inside the law; 46:21's transport a rival
+  held on the guard); 47:1-12 the river (47:6 'have you seen, son of man'; the transports at 47:3 and 47:4 are
+  measuring-circuit steps inside 47:3-5); 47:13-23 borders; 48:1-7 | 48:8-22 | 48:23-29 the portions (48:1's list
+  onset 'these are the names' is a named cut that licenses, and the reduced confidence of 48:1-7 rests on its close,
+  48:7's refrain, with no formula and no mark); 48:30-35 the gates and the name — the book's close without a formula.
+
+Whole-chapter spans sit at medium_low/low with a frontier flag and the cap disclosure. As tiled there are 10,
+chs 1, 4, 5, 9, 15, 19, 27, 31, 35, 38, each at medium_low; 36:1-15 is the half-chapter row and carries the same disclosure.
+
+## §8 Register + hygiene (binding on every row)
+
+Row prose (all 22 fields) never contains: decision ids, citations of this record or its sections, erratum or
+repair narration, positional row references (including 'that row'), cross-part references, file-order talk,
+review-actor names, tool or file names, or session and wave talk. The '(sweep: N verses)' convention is the one
+sanctioned citation shorthand. Cross-row references are verse-anchored; self-reference ('this unit') is exempt.
+
+**Quotation and Hebrew.** A run of five or more consecutive words identical to the WEB is a quotation: it stands in
+double curly quotes with a `web:` reference in the SAME field. A run that is nothing but the WEB's fixed rendering
+of a counted device (messenger, utterance, recognition, word-event, hand-of-YHWH) or of an addressee title ('house
+of Israel', 'son of man', 'children of your people') is a gloss of a census object, not a quotation, when the row
+names the device. Pointed Hebrew is spliced programmatically from the MT verse map with its `oshb:` ref and tier
+named — never hand-typed, never copied through a draft; normalization degradation of a splice fails the writer
+gate. Gloss extent equals splice extent, and every splice is read back in its sentence.
+
+**Citations and sourcing.** Every argued citation — a verse a field weighs as warrant, rival or ground — is mirrored
+by a refs entry carrying a ROLE token: a warrant token carries its face qualifier (onset or close; near or far), a
+rival token names its seam pair first, and a merge rival carries ':merge'. A categorical claim or device class is
+unsourced only when it is absent from BOTH the device census and this record; where the two differ, the census
+governs counts and list membership and this record governs rules, named cut sites and named held questions; where
+one of them contradicts itself, the contradiction is reported and no row is scored on it. Counts are cited by their
+labels (word-event strict 39, vayehi-any 41, hayah-perfect 7, family 48, any-form 49; recognition strict 28,
+family 64, adonai-form 5; transport 33 verses / 46 occurrences); a right digit under a wrong label is a wording
+finding, never a fact finding. No row owes a dated-block field or sentence.
+
+**Numbering and language.** Every ref that touches WEB 20:45-49, WEB ch 21 or MT ch 21 is written dual
+(`web:Ezek.20.45 = oshb:Ezek.21.1`) or with a numeric qualifier, in EVERY field including prose; the zone
+MT 21:1-5 = WEB 20:45-49 is written with both numberings on BOTH faces of any seam that touches it; a bare
+coordinate there is a gate failure. No Aramaic label anywhere: the book is Hebrew throughout (18,866
+Hebrew-prefixed tokens, none Aramaic).
+
+**Claims.** Every universal claim (only/never/first/last/each/sole/densest/unique/nowhere/no-other …) carries an
+adjacent digit-bearing sweep citation naming the swept OBJECT and UNIT, and exclusivity claims are never
+tier-dampened. Tier-label every recurrence claim; 'verbatim/byte-identical' only per collation with the tier
+named. Form-class labels (imperative, jussive, participle, gender, person, perfect/wayyiqtol) are byte-checkable
+claims under the same discipline as digits; the MT extract has NO morphology layer and NO maqaf, paseq or
+sof-pasuq (a claim about their absence is a claim about the extract, not the source). Paseq is count-only; an
+intra-verse paseq position is unsourceable. Name the swept object FIRST, then count; blended sweeps are forbidden.
+
+**Marks and special signs.** Parashah marks are disclosed in prose on the verse they follow, each carrying 'single
+witness' ('pe follows MT 24:27, single witness'), and never as a signal key; intra-verse parashah position is never
+asserted, and a mark never decides a seam. K/Q verses are checked BEFORE slicing (the ch-16 and ch-40 clusters; the
+23 doubled-note verses); a Qere never argues a boundary. Puncta extraordinaria are disclosed only at MT 41:20 and
+46:22, single witness; anywhere else is a fabrication; selah, large/small letters and reversed nun are fabrication
+classes. A dateline is cited as 'dateline' only at the fourteen year-bearing verses; the calendar dates at MT
+45:18, 45:20, 45:21, 45:25 are never called datelines and never open a unit by themselves (45:18 opens its row on
+the messenger formula it also carries).
+
+**Disclosure by role.** A byte-true device straddling the row's own seam argues continuity against the row unless
+disclosed. Every row discloses the formula devices its span carries by role (onset / sub-onset / close) and —
+inside a vision — the transport or 'he said to me' verse it opens on. observed_substrate_signals uses the dotted
+signal-key taxonomy (dateline.*, wordevent.*, address.son_of_man, messenger.*, utterance.*,
+recognition.{3mp,2ms,2mp,nations,israel}, spoken.i_yhwh, hand.yhwh, face.set_toward,
+vision.{transport,glory,said_to_me}, signact.*, qinah.*, mashal.*, oath.as_i_live, against.behold_i_am, law.*,
+measure.*, allotment.*, closure.* …); parashah.* keys are barred from it. Repeated disclosure sentences (the
+dual-ref sentence, the K/Q sentence, the 'refrain closes' sentence) vary: no 7-gram, and no 7-gram of signal keys,
+stands in more than a handful of rows, and every repeated statement has at least four distinct formulations. Rows
+inside the same word-event unit (35:1-15 and 36:1-15; 38:1-23 and 39:1-10; the ch-16 and ch-40 cuts) disclose the
+shared frame in each row with a verse anchor, never with a positional reference.
+
+## §9 Writer part plan (tiling 1,273 EXACTLY, 11 parts, parent-aligned)
+
+| part | span (WEB) | vv | parent(s) | boundary warrant at onset (both sides) |
+|---|---|---|---|---|
+| p01 | Ezek.1.1-Ezek.7.27 | 140 | P1+P2 | book start; datelines 1:1-2 + hand 1:3; internal parent seam 3:27/4:1 (refrain close (samekh follows, single witness) / 'and you, son of man') — rows never straddle it; hard seams 3:16, 3:22, 6:1, 7:1 |
+| p02 | Ezek.8.1-Ezek.14.23 | 150 | P3 + P4(a) | dateline 8:1 + hand + transport; recognition (pe follows, single witness) at 7:27 behind; internal parent seam 11:25/12:1 (vision return (pe follows, single witness) / word-event); part end at 14:23 (utterance (pe follows, single witness); 15:1 word-event) |
+| p03 | Ezek.15.1-Ezek.19.14 | 141 | P4(b) | word-event 15:1; utterance (pe follows, single witness) at 14:23 behind; ends at the qinah colophon 19:14 (pe follows, single witness) |
+| p04 | Ezek.20.1-Ezek.21.32 (= MT 20:1-21:37) | 81 | P5(a) | dateline 20:1 + elders' scene; qinah colophon (pe follows, single witness) at 19:14 behind; the WHOLE numbering zone sits inside this part (no part seam near it); ends at MT 21:37 'I YHWH have spoken' (pe follows, single witness) (= WEB 21:32) |
+| p05 | Ezek.22.1-Ezek.24.27 | 107 | P5(b) | word-event 22:1; 'I YHWH have spoken' (pe follows, single witness) at MT 21:37 (= WEB 21:32) behind; hard seams 22:17, 22:23, 23:1, 24:1 (dateline), 24:15; ends at the P5 close 24:27 |
+| p06 | Ezek.25.1-Ezek.28.26 | 100 | P6(a) | word-event 25:1 + set-your-face 25:2 (first foreign addressee of the nations collection); recognition (samekh follows, single witness) at 24:27 behind; ends at 28:26 (recognition, 'YHWH their God' (samekh follows, single witness); 29:1 dateline) |
+| p07 | Ezek.29.1-Ezek.32.32 | 97 | P6(b) | dateline 29:1 (Egypt dossier onset); recognition (samekh follows, single witness) at 28:26 behind; six more datelines inside as hard seams; ends at the P6 close 32:32 |
+| p08 | Ezek.33.1-Ezek.36.38 | 117 | P7(a) | word-event 33:1 + addressee shift; utterance (pe follows, single witness) at 32:32 behind; hard seams 33:21 (dateline), 33:23, 34:1, 35:1, 36:16; ends at 36:38 recognition (samekh follows, single witness) (37:1 hand) |
+| p09 | Ezek.37.1-Ezek.39.29 | 80 | P7(b) | hand-of-YHWH 37:1 + transport; recognition (samekh follows, single witness) at 36:38 behind; hard seams 37:15, 38:1; ends at the P7 close 39:29 |
+| p10 | Ezek.40.1-Ezek.43.27 | 122 | P8(a) | dateline 40:1 + hand + transport; utterance (pe follows, single witness) at 39:29 behind; hard seam 42:20/43:1; ends at 43:27 utterance (the double samekh follows, single witness) |
+| p11 | Ezek.44.1-Ezek.48.35 | 138 | P8(b) | transport 44:1 (the shut east gate); utterance (double samekh follows, single witness) at 43:27 behind; hard seams 46:19, 47:1, 47:13; ends at the book's last verse |
+
+As tiled, the parts carry 14, 20, 16, 9, 8, 12, 9, 12, 8, 15 and 15 rows (138 in all).
+
+Arithmetic (per-chapter WEB counts from the WEB verse inventory, summed by a deterministic probe that
+also asserted contiguity 1:1 → 48:35 with no gap and no overlap):
+140 + 150 + 141 + 81 + 107 + 100 + 97 + 117 + 80 + 122 + 138 = **1,273**.
+Per-part derivations: p01 = 28+10+27+17+17+14+27; p02 = 18+11+22+25+28+23+23; p03 = 8+63+24+32+14;
+p04 = 49+32 (WEB; = MT 44+37); p05 = 31+49+27; p06 = 17+21+36+26; p07 = 21+26+18+32;
+p08 = 33+31+15+38; p09 = 28+23+29; p10 = 49+26+20+27; p11 = 31+25+24+23+35.
+Every part boundary is a parent seam or a hard seam (dateline, vision onset, or a word-event onset
+with a refrain close behind it); two parts DO span a parent seam and this is
+deliberate (below); the numbering zone is interior
+to p04 and every p04/p05 ref is written dual. Parts range 80-150 verses (mean 115.7), reviewable in
+<=8-row clusters.
+
+**Parts that span a parent seam.** p01 (1:1-7:27) spans the P1/P2 seam at 3:27/4:1 and p02 (8:1-14:23) spans the
+P3/P4 seam at 11:25/12:1, by design. The correctness boundary is the row, not the part: rows never straddle a
+parent seam, and a part is a work assignment. Parent-aligned parts would run from 65 verses (P1) to 260 (P8), a
+four-fold imbalance in review depth; a part that contains a parent seam puts both sides of that seam in one
+reviewer's hands, which the rule that a seam is assessed from both sides wants. Every writer whose part contains a
+parent seam is told so.
+
+**The dateline count is 14.** A dateline is a year word together with a month or day term, and fourteen verses
+carry one (§2a). MT 24:1 is among them: it writes its date with ordinal numerals, and its infixed date splits the
+strict word-event pattern.
+
+## §10 Self-checks — how a reviewer tests this record against the bytes
+
+- Device matrix (§2a-§2d): re-run the census predicates and the named sweeps against the MT extract; the digits
+  must reproduce exactly (word-event strict 39 / vayehi-any 41 / hayah-perfect 7 / family 48 / any-form 49;
+  recognition strict 28, family 64, 2mp 21, adonai-form 5; messenger long form 122 plus 4 short-form verses;
+  'I YHWH have spoken' 14 with the name-less 4 apart; transport 33 verses / 46 occurrences; 'he said to me' at the
+  head of a verse inside the vision stretches 31; qinah 8; mashal skeleton 11, genre word 9; 'and you, son of man'
+  23; וימד 21; בית מרי 12; U+05C4 in exactly 2 verses). Where the census and this record differ, the census
+  governs counts and list membership and this record governs rules, named cut sites and named held questions; a
+  self-contradiction in either is reported, never silently resolved.
+- Parent seams (§5): for each of the seven internal seams, read the close verse and the onset verse in both
+  witnesses and confirm the two-sided evidence named; confirm the traditional alternatives (3:16; 24:1; 33:21) are
+  held in §7 rather than adopted.
+- Granularity (§6): the 12-value vocabulary is closed; every 'as tiled' list reproduces from the rows' spans; the
+  list guard and its licensed-driver exception; the under-3-verse rule; the chapter-division rule and its named
+  cases (10:1, 36:1, 39:1, 41:1, 45:1); each named cut site in its class; the cap posture.
+- Marker policy (§4): parashah weights, the intra-verse-position bar, the punctuation classes (the fourteen WEB
+  mid-verse paragraphs are the punctuation lane's checklist), cross-tradition material in prose only.
+- Numbering/language (§3): the zone rows are listed dual; a validator arm flags any bare ref in WEB 20:45-49 /
+  WEB 21 / MT 21 in any field; the Aramaic-label arm; the dual-span count identity.
+- Calendar-date arm: any row whose onset rests on the calendar date at MT 45:18, or whose onset is MT 45:20, 45:21
+  or 45:25, fails.
+- Puncta arm: any puncta claim outside MT 41:20 / 46:22 fails; a splice of either verse must carry the
+  single-witness disclosure (and, because the extract carries U+05C4 in the bytes, the normalization arm treats
+  U+05C4 as a legitimate combining mark, not degradation).
+- Held questions (§7): named with spans; the second independent review covers exactly the flagged regions listed
+  there.
+- Part plan (§9): recompute the eleven sums from the WEB verse inventory; assert contiguity; assert each boundary
+  is in the hard-seam set.
+- Owner-correctable design choices: the frame-spine onset/close rules and the hard-seam layer (§2d, §5); the
+  eight-parent architecture with 33:1 (not 33:21) and 25:1 (no dateline) as parent seams and 24:1 as a hard seam
+  only (§5); the 12-value vocabulary and the dotted signal-key taxonomy (§6, §8); the 11-part plan (§9).
+
+## What changed from v1
+
+- C1 — §2d.6 (and pointers in §2a, §2c, §4, §6): the cutting rule for messenger formulae and 'and you, son of man' stated once, with the verse-final limb and the mark bar. Executes: #e13 conventions CUT-RULE_messenger_second_limb; #e13 rulings[7] R8; #e15 close_clearance.what_remains[3].
+- C2 — §2d.6, §2d.7, §2a: the 'therefore' messenger turn with no addressee change and no verse-final close before it stated as not a licensed onset (instances 17:19, 20:30, 39:25). Executes: #e16 c3_lakhen_turn.
+- C3 — §2a, §2b, §2d.7, §6, §7: 'he said to me' inside a vision stretch and every transport-class member stated as licensed onsets; the five vision stretches stated; the 31-verse census replaces the 36-verse sweep figure. Executes: #e16 c4_confcal_member (census: device inventory v3 said_to_me_in_vision).
+- C4 — §2b, §1, §2a, §10: the closed 20-verse transport list retired; the lexical predicate, 33 verses / 46 occurrences and the 13 added members stated; recorded that §5 (44:1) and §6 (40:48, 42:15) already used members outside the 20. Executes: #e12 rulings[16] A12; #e15 q8_transport_class (governs the count over #e12's 20).
+- C5 — §6 over-split guard and named-cut-site table; §7 chs 40-48: the list guard amended to 'never cut inside a list except at a licensed text-signal driver, which is disclosed', reconciling it with the transport cut list; the 40:24 hold ground stated. Executes: #e12 rulings[17] A13; #e17 seam_decisions[11] (K7); #e17 orders_for_final_remediation[23].
+- C6 — §2d.7: the unified onset-class, licensed-onset, close-role, face, rival and grade definitions added. Executes: #e15 q2_confcal_high_limb.unified_definitions_binding_for_ezekiel_proposed_to_method_s17; #e15 close_clearance.what_remains[3].
+- C7 — §6 named-cut-site table; §7 chs 16-19, zone, chs 22-24, chs 40-48: each verse-named cut site classed as licensing, named on no device (16:44) or premise byte-false (20:27, 20:30, 23:22); the ch-20 instances corrected to what the bytes carry. Executes: #e17 class_rulings K1; #e13 rulings[7] R8 (ch-20 instances); #e17 seam_decisions[3].
+- C8 — §3, §6 vocabulary, §6 over-split guard, §7 (every region), §9: every unit list read from the tiling of 138 rows; chs 16-18, 20-21, 28 and 35-36 described as re-tiled; whole-chapter rows and part row counts recomputed. Executes: #e17 retiling_orders RT-1..RT-7.
+- C9 — §7 chs 16-19 (ch 18): the ch-18 interior seams described as case turns without formula, samekh-corroborated; 18:9's utterance paragraph-final; the tiling 18:1-4 | 18:5-9 | 18:10-20 | 18:21-32 and its held question. Executes: #e15 q3_confidence_defects.P03-014_and_the_ch18_class; #e17 RT-1.
+- C10 — §2f; §7 ch 33: MT 33:20 restated in three tiers: name measured, finding extracted, verification unavailable. Executes: #e15 q7_r11_third_premise.
+- C11 — §2b: 'in visions of God': the phrase with the preposition in 2 verses (8:3, 40:2), 1:1 without it; the category of frames is 3. Executes: #e12 rulings[1] C2 (b).
+- C12 — §5 closing paragraph; §8: the dated-block metadata sentence corrected (no field or sentence; derivable from parent, span and the dateline census). Executes: #e12 rulings[15] A11.
+- C13 — §1, §2a, §8, §10: word-event figures cited by fixed labels with the identity any-form 49 = family 48 + MT 1:3. Executes: #e12 rulings[22] D1.
+- C14 — §2a recognition bullet: 39:28 dropped from the example list of expansions; the two kinds of expansion stated. Executes: #e12 rulings[27] D6 (membership per device inventory v2 recognition_family_64).
+- C15 — §5 P6 row; §9 p06 row: 'first foreign addressee' narrowed to the nations collection, with MT 21:33-37 (= WEB 21:28-32) preceding it. Executes: #e12 rulings[28] D7.
+- C16 — §7 chs 34-37: the ch-36 messenger chain stated as six. Executes: #e12 rulings[29] D8; #e13 rulings[7] R8.
+- C17 — §2d.4; §6 vocabulary items 5-6; §7 chs 25-32: the 28:23→28:24 collision entry removed and the coda seam and its 28:24/28:25 rival described; 26:15-21 marked dual-eligible. Executes: #e12 rulings[30] D9; #e13 rulings[7] R8; #e17 RT-6.
+- C18 — §2c; §10: mashal sweep corrected: 19:11 carries the ruling root; the genre word stands in 9 of the 11 skeleton hits. Executes: #e12 rulings[31] D10.
+- C19 — §2a short forms; §2a table; §2e: the fourth short-form messenger verse MT 21:14 (= WEB 21:9) added (messenger short forms 4 verses; all short forms 8). Executes: #e13 rulings[7] R8; #e12 D2 (census: device inventory v2 messenger_formula_variant_census).
+- C20 — §2a table and recognition bullet; §2d.6-7: the adonai-form recognition (5 verses) added as a refrain-grade close. Executes: #e12 D3; #e13 rulings[7] R8.
+- C21 — §2a table: the 2ms label restated as second person singular with gender per verse from the pointing. Executes: #e12 D4 (carried under #e13 R8 'every Track-D correction').
+- C22 — §2a table: emphatic family: 14 name-bearing verses (5 with a preceding 'for'), the name-less four counted apart. Executes: #e13 rulings[7] R8 (emphatic-family membership).
+- C23 — §2a 24:1 bullet: the plural duration at 39:9 noted outside the singular year-word sweep; the 24:1 discrepancy narration replaced by the census statement. Executes: #e12 D5; the dateline count ratified at 14 in v1's own disposition.
+- C24 — §7 (new first bullet): the class question 'and you, son of man' after a refrain-grade close inside one word-event unit, with 21:19 held, 24:25 held and 33:30 cut. Executes: #e13 span_candidate_ruling.P05-008_examined_by_the_controlling_agent; #e13 deferred[5].
+- C25 — §3: the zone's expected row set replaced by the six tiled rows; MT 21:10's recognition described as mid-verse and the groaning kept inside the sword oracle; seam faces at the zone's edge written dual. Executes: #e13 rulings[7] R8 (ch-21 row set); #e17 RT-5.
+- C26 — §8: row conventions restated as now ruled: argued-citation mirroring with role tokens, the quotation threshold and counted-device exemption, two-input sourcing, the zone on both faces, 7-gram and four-formulation variation. Executes: #e13 conventions A6-b and C2-amended; the strategy v2 author brief's conventions list.
+- C27 — whole body: register: rule ids, file and tool names, section-anchor ids, the orchestrator disposition narration (now §9's two substantive notes), the budget paragraph and ratification ids removed; every parashah-mark mention carries 'single witness'; glosses single-quoted and kept under five WEB words. Executes: the strategy v2 author brief's register and mark rules.
+- C28 — §2d.4; §7 chs 25-32; §6 item 11, §8 and §10 calendar-date statements; §5 P5 row: consistency edits no ruling orders, flagged for the distinct check: 29:9's recognition stated mid-verse (measured in #e13 CUT-RULE grounds and #e15 Q2); 30:1-19's four messenger paragraphs include the short form at 30:6; the calendar-date rule reconciled with the 45:18-25 row, which opens on 45:18's messenger formula; the P5 zone seams written dual. Executes: none (consistency with pinned measurements and the tiling).

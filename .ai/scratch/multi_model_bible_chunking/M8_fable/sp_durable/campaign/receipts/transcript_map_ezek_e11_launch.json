@@ -1,0 +1,54 @@
+{
+ "schema": "m8_launch_receipt.v1",
+ "book": "Ezek",
+ "attempt_id": "ezek_controlling_rulings_a1",
+ "execution_id": "ezek_controlling_rulings_a1#e11",
+ "previous_execution_id": "ezek_controlling_rulings_a1#e10",
+ "launched_at": "2026-09-14T16:35:56.218449+00:00",
+ "agent_id": "ad298b7e172edbb3e",
+ "session": "910cbe15-396b-4a0e-82f6-8aa1e2edf1e4",
+ "model_ordered": "claude-fable-5-1 at high effort (OW-6b controlling agent; OW-13 checker/adjudicator role)",
+ "launched_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "brief": {
+  "path": "sp_durable/Ezek/CONTROLLING_AGENT_BRIEF_E11.md",
+  "sha256": "db19ad9706da2de4defd3070c32d4ab58811603e756e5c1c62b5beb40a72f100"
+ },
+ "queue": {
+  "path": "sp_durable/Ezek/ezek_controlling_agent_queue_e11.v1.json",
+  "sha256": "13b8b81e33b311308cee28b4e39bc4afe46674f7c2870e0eba26cd0a074154a4",
+  "items": [
+   "S4-ROUTING",
+   "S4-GRAMS",
+   "TRANSCRIPT-ROUTE",
+   "PRIMARIES-MODELS",
+   "PRIMARIES-SHAPE",
+   "RETAINED-LOWS",
+   "GATE-E11"
+  ]
+ },
+ "launch_message": {
+  "path": "orchestrator_scratch (this session), launch_message_e11.txt",
+  "sha256": "b0ceab1460111e971ca0c229752a29924bfd5252367c7fa1b041c7b9030b3028"
+ },
+ "pre_launch_checks": {
+  "scoped_validator": "pass, relationship_scoped, unrelated_findings 0",
+  "lane_head": "8dce6681685c7a1d89978a9d90a11046e74fdfcc == origin/scratch/t423-m8-fable",
+  "pin_guard": "CLEAR on the queue and the brief",
+  "brief_pin_check": "MATCH (OW-11-l (p))",
+  "brief_schema_vs_validator": "AGREES_ON_TOP_LEVEL_KEYS, 6 of 6 required keys present, none missing (L-0018)",
+  "landing_job": "rulings_e11 installed by receipt ezek_tools_install_rulings_e11_landing_job.json"
+ },
+ "budget_test": {
+  "rule": "census at launch + the largest measured execution of the lane, against the ceiling read from the carrier",
+  "census_at_launch": 23580390,
+  "largest_measured_controlling_execution": 492830,
+  "largest_measured_ezekiel_execution_any_lane": 774493,
+  "ceiling": 55000000,
+  "ceiling_source": "campaign/budget_ceilings.v1.json (OW-15, effective 2026-09-14)",
+  "test_controlling_max": 24073220,
+  "test_conservative_any_lane": 24354883,
+  "crosses": false
+ },
+ "why_this_execution": "#e10 left primaries_may_launch false, and OW-13 sends the primaries' lane models to the controlling agent to re-rule before they launch. S4's twelve findings, the two residual seven-word families at headroom 0, and the transcript-route finding are ruled in the same execution.",
+ "limit": "a launch record. It asserts nothing about the outcome."
+}

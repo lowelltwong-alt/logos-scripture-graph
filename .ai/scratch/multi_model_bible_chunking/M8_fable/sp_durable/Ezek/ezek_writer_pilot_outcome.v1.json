@@ -1,0 +1,46 @@
+{
+ "schema": "m8_pilot_outcome.v1",
+ "book": "Ezek",
+ "phase": "ezek_phase1_writer_wave",
+ "recorded": "2026-09-08",
+ "why_a_pilot": "Eleven parts were planned. Three were launched first - deliberately the hardest (p01 with an internal parent seam and the superscription, p04 with the whole numbering zone, p10 with 103 unmarked verses and the K/Q cluster) - so that a defect in the brief would surface on three parts rather than eleven. It did, three times over.",
+ "drafts": [
+  {"part": "p01", "span": "Ezek.1.1-Ezek.7.27", "verses": 140, "rows": 13, "tiling": "EXACT",
+   "validator": "GREEN", "confidence": {"high": 0, "medium": 5, "medium_low": 6, "low": 2},
+   "note": "zero high-confidence rows across the inaugural vision - the flagged region where the strategy says to expect held judgment. Raised the P1/P2 seam question the strategy itself leaves open, noting the ropes device at 3:25 // 4:8 argues continuity across the seam it was assigned."},
+  {"part": "p04", "span": "Ezek.20.1-Ezek.21.32", "verses": 81, "rows": 11, "tiling": "EXACT",
+   "validator": "GREEN", "confidence": {"high": 4, "medium": 3, "medium_low": 4, "low": 0},
+   "note": "the numbering zone; every zone ref dual-written, including second mentions, which it had to fix on its own first pass."},
+  {"part": "p10", "span": "Ezek.40.1-Ezek.43.27", "verses": 122, "rows": 15, "tiling": "EXACT",
+   "validator": "GREEN", "confidence": {"high": 0, "medium": 2, "medium_low": 4, "low": 9},
+   "note": "nine low-confidence rows out of fifteen, and correctly so: twelve of its rows sit inside 40:1-42:20 with NO Masoretic corroboration available on either boundary. It said which three seams are the weakest and why, so the peer round knows where to spend its attention."}
+ ],
+ "defects_found_by_the_pilot": [
+  {"id": "PILOT-1", "whose": "ORCHESTRATOR (the brief)", "severity": "medium",
+   "what": "WRITER_BRIEF.md instructed writers to run five self-check tools - check_tiling.py, run_validator_suite.py, collate.py, check_universals.py, check_marks.py - that do not exist under SP/Ezek/tools/. The shared Jer/Isa validator toolchain was never staged for Ezekiel; that is a real Phase-0 gap.",
+   "how_the_writers_behaved": "All three attempted each tool BY EXACT PATH, found none, wrote their own equivalent checks in private scratch, and REPORTED THE ABSENCE UPWARD rather than claiming runs that never happened. That is the correct behaviour and it is why the gap was found.",
+   "cure": "the brief now states plainly that the toolchain is not staged, tells writers to write their own checks and report exactly what they ran, and says that a claimed tool run which did not happen is the worst thing they can put in a receipt. Staging an adapted Ezekiel toolchain remains open work, tracked here."},
+  {"id": "PILOT-2", "whose": "ORCHESTRATOR (the validator)", "severity": "medium_high",
+   "what": "_validate_writer_part.py flagged two of p01's Hebrew quotations as fabrications. Both were legitimate QERE readings - צפיעי at MT 4:15, וחללוהו at MT 7:21 - correctly cited and disclosed. A Qere lives in the OSHB NOTE layer, not the verse bytes, and the checker only knew about verse bytes.",
+   "why_it_mattered_more_than_a_false_positive": "left in, it would have flagged every properly-disclosed Qere in the book and trained writers away from citing exactly the textual-variant sites this campaign most wants surfaced. A checker that punishes correct behaviour is worse than no checker.",
+   "cure": "the Hebrew check now accepts the K/Q note layer with morpheme separators stripped, and the brief tells writers explicitly that a Qere is the one legitimate exception to verse-byte matching."},
+  {"id": "PILOT-3", "whose": "ORCHESTRATOR (the validator)", "severity": "low",
+   "what": "the validator flagged p01 for straddling the MT 1:2 dateline, when book_strategy/Ezek.md rules that MT 1:1-3 is ONE superscription and is never split.",
+   "cure": "the 1:1/1:2 pair is exempted; every other dateline remains a hard seam."},
+  {"id": "PILOT-4", "whose": "ORCHESTRATOR (the toolkit)", "severity": "medium",
+   "what": "TOOLKIT.md said 'eleven K/Q verses' in the ch-40 cluster while naming ten - the count is TEN - and said 'the disputed forms are frequently the measurements themselves'. THAT SECOND CLAIM IS FALSE. Every K/Q form in the ch-40 cluster is a ketiv-defective/qere-plene 3ms possessive suffix on an architectural noun (its chambers, its posts, its porches, its windows, its palm trees, its steps, its stairs) plus one lexical variant at MT 40:15. Not one sits on a cubit or reed numeral.",
+   "found_by": "writer p10, which checked every form it was told about and reported that the framing did not hold for any of them",
+   "why_it_mattered": "it was a false characterisation of a flagged region, sitting in the one file every lane reads and none re-derives. A reviewer would have gone into the hardest stretch of the book looking for disputed numbers that are not there.",
+   "cure": "corrected in TOOLKIT.md with both errors named; and BOTH claims are now pinned in _toolkit_selfcheck.py AGAINST pmarks_Ezek.json rather than against the prose, so neither can regress into the text. Selfcheck 92 -> 98 checks, GREEN.",
+   "cure_status": "APPLIED, NOT YET ACCEPTED AS CURED. The distinct checker that found it (ezek_writer_p10_a1#e1) reviewed the PRE-fix bytes, so under the OW-10 gate its review does not bind to the shipped artifact. The repair is applied and deterministically pinned; the cure claim stays OPEN until a review bound to the current digest closes it. It is disclosed here rather than labelled cured."}
+ ],
+ "the_pattern_this_confirms": "PILOT-4 is the THIRD instance of finding_correction_text_carries_its_own_defects.v1.json, and the first found by a downstream consumer rather than a commissioned checker. The two earlier instances were Hebrew quotations; this one is a CHARACTERISATION - a sentence about what a body of evidence is like, which no byte-substring sweep would ever catch. The proposed standing rule needs widening: it is not only Hebrew strings and verse claims in correction text that ship unverified, but every descriptive generalisation about a body of evidence. Where a claim like that can be tested against the data, pin it in a checker against the DATA, as PILOT-4's cure now does.",
+ "e19_disclosure_by_a_writer": {
+  "attempt": "ezek_writer_p10_a1#e1",
+  "what": "after its deliverable was already written to its exact named path, p10 ran one `ls -la` against the shared writer-output directory as a final confirmation step, in violation of the affirmative no-check line, which binds unconditionally. The listing surfaced the FILENAMES of two sibling parts' outputs (draft_p01.jsonl, draft_p04.jsonl); neither was opened or read.",
+  "assessment": "LOW. Contained, filename-only, no content read, and the deliverable was already complete so no contamination of its judgments is possible. This is the E-19 class the ledger records, and the affirmative no-check line exists precisely to remove the motive for that confirmation reflex - it did not hold here.",
+  "why_it_is_recorded_as_a_credit_as_well_as_a_breach": "the writer reported it in full and refused to fold it into a false 'ran no listing' claim. The campaign's own stage-1 finding is that the UNDISCLOSED instances are the materially worse variant; this is the disclosed variant, and the honesty is the reason it can be assessed at all.",
+  "control": "no new control. The affirmative line is already the strongest available wording; this is a habit failure, not a rule gap, and the correct response is to record the instance rather than add a rule that says the same thing again."
+ },
+ "verdict": "THE PILOT SUCCEEDED. Three drafts, all tiling exactly, all GREEN after the checker defects it exposed were fixed. Four defects found - three of them the orchestrator's - at a cost of three parts rather than eleven. The remaining eight parts run against the corrected brief."
+}

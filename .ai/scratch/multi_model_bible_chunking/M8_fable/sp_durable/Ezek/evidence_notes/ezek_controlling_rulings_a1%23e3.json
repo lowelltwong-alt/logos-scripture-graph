@@ -1,0 +1,136 @@
+{
+ "attempt_id": "ezek_controlling_rulings_a1",
+ "execution_id": "ezek_controlling_rulings_a1#e3",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\CONTROLLING_AGENT_BRIEF_E3.md",
+  "SP\\Ezek\\ezek_controlling_agent_queue_e3.v1.json",
+  "SP\\Ezek\\ezek_controlling_agent_rulings.v1.json",
+  "SP\\Ezek\\ezek_toolkit_review_T1.json",
+  "SP\\Ezek\\ezek_toolkit_repair_review_T2.json",
+  "SP\\Ezek\\ezek_toolkit_supplementary_review_T3.json",
+  "SP\\Ezek\\tools\\TOOLKIT.md",
+  "SP\\Ezek\\tools\\citation_sweep.py",
+  "SP\\Ezek\\tools\\check_marks.py",
+  "SP\\Ezek\\tools\\normalize_hebrew_in_json.py",
+  "SP\\Ezek\\tools\\ezek_lib.py",
+  "SP\\Ezek\\tools\\_test_zone_tools_ezek.py",
+  "SP\\Ezek\\repair\\cwo03_scan_report.json",
+  "SP\\Ezek\\_cwo03_scan.py",
+  "SP\\Ezek\\repair\\suite_r3_cs6c3b31\\rows.jsonl",
+  "SP\\Ezek\\repair\\suite_r3_cs6c3b31\\rows.jsonl.validator_report.json",
+  "SP\\Ezek\\author\\preview_for_e3\\orders_index.json",
+  "SP\\Ezek\\AUTHOR_BRIEF.md",
+  "SP\\Ezek\\_build_author_orders_ezek.py",
+  "SP\\Ezek\\_cwo_coverage_ezek.py",
+  "SP\\Ezek\\_land_author_part_ezek.py",
+  "SP\\Ezek\\_apply_author_wave_ezek.py",
+  "SP\\Ezek\\ezek_p0_retained_lows.v1.json",
+  "SP\\Ezek\\book_strategy_Ezek.md",
+  "SP\\Ezek\\Ezek_oshb.txt",
+  "SP\\Ezek\\Ezek_web_clean.txt",
+  "SP\\Ezek\\pmarks_Ezek.json",
+  "SP\\Ezek\\ezek_device_inventory.json",
+  "SP\\Ezek\\web_mt_offset_map.json",
+  "SP\\campaign\\CAPTURE_CONTRACT.v3.md",
+  "SP\\Ezek\\repair\\cwo_coverage_baseline_r3\\CWO-EZ-01.json",
+  "...CWO-EZ-02.json",
+  "...CWO-EZ-04.json",
+  "...CWO-EZ-05.json",
+  "...CWO-EZ-06.json",
+  "...CWO-EZ-07.json",
+  "...CWO-EZ-08.json",
+  "...CWO-EZ-09.json"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\221a93aa-d2a7-4d91-a265-84e495a39efa\\scratchpad\\ezek_rulings_out\\ezek_controlling_agent_rulings_e3.v1.json (sha256 6ecd9578593d4f85d4cccf0ce9a77334797de4d3330b34e5558ec6228ae56b7d, 54444 bytes): 14 rulings, 3 new corpus-wide orders (CWO-EZ-10 narrowing of CWO-EZ-03 test (c); CWO-EZ-11 refs re-shape/multi-ref split; CWO-EZ-12 canonical parent labels), gate author_wave_may_launch=true with launch conditions, primaries_may_launch=false with 8 restated conditions, 7 unresolved items",
+    "why": "R4(i) and (iii) ratified; R4(ii) ratified with a change order (a puncta claim whose verse number sits in a following parenthesis or >60 chars into its clause passes silently in both tools; not live in the 146 rows); R4(iv)-(v) recorded; T3-01 adopted with amendments (refusal, selftest vectors, proof run on the real claims file, distinct-checker binding); C3-1 hold (20:3 is an oath signature, 20:4 a bare address); C3-2 hold (44:27 a bare statute signature with no mark and no onset at 44:28); C3-3 hold both (5:7/5:8 one addressee party, 5:2//5:12 byte-identical close; 31:10/31:15 no addressee change); CAL-1 ratified with the apposition/parenthesis classes ordered closed and a primaries checklist; E18-1 confirmed with three conditions; Q3-1 additive form acknowledged; R1F-1 multi-ref entries split by sweep (citation_sweep validates only an entry's first ref), cosmetic class re-shaped, p06 '=' quotations to the author wave; PC-1 eight canonical labels by sweep; AW-1 ratified with three extra orders (C3-1, C3-3, R1F-1) and the post-apply sequence."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "Every input digest equals the digest the brief pinned",
+   "how": "Get-FileHash -Algorithm SHA256 on each of the 37 exact paths plus the brief; compared to the brief's table (brief itself = 265a8285…)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The T1/T2/T3 puncta fixtures reproduce under the current clause logic",
+   "how": "citation_sweep.py's clause functions copied verbatim into a private script (LAST_VERSE/web_to_mt rebuilt from ezek_device_inventory.json), 14 ref vectors + 4 prose vectors run",
+   "result": "confirmed"
+  },
+  {
+   "claim": "A parenthesised or >60-char verse number after a puncta mention is invisible when the range/span covers a site",
+   "how": "same private script: ' puncta extraordinaria (41:5)' and a 41:5 placed 70 chars into the clause on a covering range → pass; prose 'the puncta extraordinaria (five dots at 41:5)' on span Ezek.41.12-Ezek.41.20 → no flag",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The gap is not live in the corpus",
+   "how": "scan of all 146 rows for PUNCTA mentions (16) with their in-clause numbers and negation state; validator report citation_sweep problems classified (126: 54 no-ref, 33 no-collate, 36 malformed, 2 marks, 1 paseq, 0 puncta, 0 calendar)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The calendar-date constants equal the inventory (4 and 14) and the T3 prose vectors reproduce; apposition '45:18, a dateline-grade onset' and 'the dateline (45:18)' pass silently",
+   "how": "code read of CAL_DATE_PAIRS/DATELINE_PAIRS vs ezek_device_inventory.json; private script over 9 prose vectors",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Ezek.20.3 is the only verse-final oath-signature utterance in the book; 20:4 and 44:28 carry no onset device; 5:2 and 5:12 end byte-identically (sweep 3 verses: 5:2, 5:12, 12:14)",
+   "how": "skeleton sweeps over Ezek_oshb.txt (חי אני 16 verses, 14 with the signature, 1 verse-final); byte endswith on 5:2/5:12; marks read from pmarks_Ezek.json (ch 5, 20, 31, 44)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "parent_collection carries 13 distinct strings for 8 parents; '[fn]' occurs 38 times in the WEB extract; pmarks paseq lists Ezek.3.27 twice",
+   "how": "counted from rows.jsonl, Ezek_web_clean.txt and pmarks_Ezek.json by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The orders preview reconciles with the #e2 re-span rulings and has no problems",
+   "how": "orders_index.json per-part new/retire/hold counts checked against G2, G7, G8, G9, G10, G11, G12, R3 exact_spans; problems == []",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The deliverable is valid JSON with exactly the 14 queue ids, allowed verbs, well-formed exact_spans",
+   "how": "python json.load + id/verb/span checks over the written file",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The tool suite is 98/98 GREEN at the reviewed digests",
+   "how": "NOT run by me (no execution under the worktree); attested by ezek_toolkit_supplementary_review_T3.json",
+   "result": "confirmed by T3 only, not independently"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Suite GREEN at the digests ratified rests on T3's run and my copied-function re-derivations, not on a run of my own",
+   "why_it_matters": "the orchestrator's post-wave suite run is the first independent confirmation on the gating path"
+  },
+  {
+   "what": "Whether the R4(ii)/CAL-1 behaviours I ordered can be implemented without new false positives on real prose",
+   "why_it_matters": "T4 must test both directions as T2 did; an over-flagging HARD arm is noise on the gating run"
+  },
+  {
+   "what": "Whether CWO-EZ-10's narrowing under-cuts a long row on the post-wave spans (e.g. merged Ezek.38.1-Ezek.38.23 enters the predicate)",
+   "why_it_matters": "the re-run report routes any new qualifier back to this lane, never to the scan"
+  },
+  {
+   "what": "Author model claude-sonnet-5 at default effort on twenty re-spans of a HARD book",
+   "why_it_matters": "landing proves form only; the distinct checker and full dual-blind primaries are the compensations"
+  },
+  {
+   "what": "CWO-EZ-11's multi-ref split may surface unvalidated mark/K-Q claims on second refs in P02/P05/P08",
+   "why_it_matters": "each is a real unvalidated claim; fix-up executions are the cost of the hole"
+  },
+  {
+   "what": "_cure_verification.py was not among my inputs; T3-01 was ruled on behaviour, not bytes",
+   "why_it_matters": "the proof run on the real claims file before reliance is mandatory"
+  },
+  {
+   "what": "44:28-31 as its own low row remains a live literary alternative",
+   "why_it_matters": "if reopened, the same rule must apply to every bare statute signature in chs 43-46"
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

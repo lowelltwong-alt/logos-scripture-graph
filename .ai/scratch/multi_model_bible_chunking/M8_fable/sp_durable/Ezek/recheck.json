@@ -1,0 +1,145 @@
+{
+ "attempt_id": "ezek_p0_recheck_a1",
+ "execution_id": "ezek_p0_recheck_a1#e1",
+ "role": "distinct checker (did not author the repair)",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md"
+ ],
+ "artifact_sha256_at_run": {
+  "ezek_device_inventory.json": "5553edfad81613ec9e282d69d5c598e80bd5cf553f13e1f964be4240e98aac03",
+  "TOOLKIT.md": "d2f6eb7238a32661f7c075ddecc265094fd191debbe147e3f039d9714be71aa4"
+ },
+ "digest_match_vs_brief": {
+  "ezek_device_inventory.json": true,
+  "TOOLKIT.md": true,
+  "note": "both match the digests named in the brief; I checked the same bytes the claims are about",
+  "source_extract_sha256_observed": "337c779b75cad384f1f9c8d37e3f81999b021639cd3afa1a26519ae7438c329e"
+ },
+ "extract_structure_observed": {
+  "lines": 1273,
+  "chapters": 48,
+  "verses": 1273,
+  "bom": false,
+  "line_endings": "LF only",
+  "ref_format": "Ezek.C.V<TAB>text, 1273/1273 conform",
+  "verse_column_charset": "Hebrew letters U+05D0-U+05EA, combining marks U+0591-U+05C4, and U+0020 only; nothing else"
+ },
+ "claims": [
+  {
+   "id": 1,
+   "verdict": "confirmed",
+   "my_count": "14 datelines",
+   "my_list": "MT 1:1, 1:2, 8:1, 20:1, 24:1, 26:1, 29:1, 29:17, 30:20, 31:1, 32:1, 32:17, 33:21, 40:1",
+   "note": "Set-identical to the artifact list, derived independently. MT 24:1 BELONGS: its skeleton carries the year word בשנה plus the month terms בחדש and לחדש plus the day term בעשור - it satisfies the rule on three independent terms, not one. The rule is sound and, for the dateline output, robust: I ran the year test two ways - a strictly prefix-anchored token and a bare substring - and got the SAME 14 either way, because the two verses that separate those readings (26:10, 46:13) carry no month or day term. False-negative probe: every other verse in Ezekiel containing חדש/חדשים/עשור - MT 18:31, 36:26, 39:12, 39:14, 45:17, 45:18, 45:20, 45:21, 45:25, 46:1, 46:3, 46:6 - carries no year word, and each is either חדש meaning 'new' (18:31, 36:26, 'a new heart') or a cultic/calendar month, so none is a missed oracle dateline. The structural rule also survives MT 26:1 and 32:17, which give no month ordinal at all and are caught on לחדש alone - the cardinal-stem rule this repair replaced would have been fragile there too, not only at 24:1."
+  },
+  {
+   "id": 2,
+   "verdict": "partly",
+   "my_count": "7 verses under a loose (substring) year match; 5 under the literally-stated 'prefix optional' rule",
+   "my_list": "loose: MT 4:6, 26:10, 29:11, 29:12, 29:13, 46:13, 46:17 | prefix-anchored: MT 4:6, 29:11, 29:12, 29:13, 46:17",
+   "note": "The MT 26:10 sub-claim is CONFIRMED outright, and it is the important half. Ezek 26:10 reads 'תרעשנה' (your walls shall shake); the token skeleton is תרעשנה, a 3fp imperfect of רעש, in which the sequence שנה spans the root-final shin plus the -nun-he suffix. There is no year word in 26:10 and no month or day term. It is a substring artifact, exactly as the repair says. The PARTLY is about framing, not arithmetic - no verse is missing and none is extra. (a) The JSON key 'year_word_but_not_a_dateline' and the TOOLKIT sentence 'Seven verses carry one and are NOT datelines' are literally untrue of 26:10, which carries no year word at all; both texts correct themselves in the very next clause ('one substring artifact' / 'FALSE POSITIVE of the year regex alone'), so the artifact is self-consistent, but the label and the list are describing different things. (b) MT 46:13 is שנתו - שנת plus a 3ms SUFFIX. The rule as stated ('שנה/שנת, prefix optional') does not reach a suffixed form; 46:13 enters only under a substring or suffix-tolerant match. So the figure 7 is the output of the loose reading while the stated rule describes the anchored reading, which yields 5. Recommend the artifact say plainly that this list is the residue of the loose year regex - 6 genuine year words plus 1 substring artifact - which is what it actually is."
+  },
+  {
+   "id": 3,
+   "verdict": "confirmed",
+   "my_count": "strict 39 / vayehi-any 41 / hayah-perfect 7; verse counts and occurrence counts coincide at 39, 41, 7",
+   "my_list": "strict-misses = exactly MT 12:8 and MT 24:1",
+   "note": "All three verse lists are set-identical to the artifact. MT 12:8 infixes בבקר ('in the morning'), MT 24:1 infixes the full ninth-year dateline, and both still end in לאמר. Two closure checks I added: the strict and loose sets differ in one direction only (STRICT minus LOOSE is empty), and 41 + 7 = 48 with the two sets disjoint, which equals every occurrence in the book of 'דבר יהוה אלי' - nothing falls outside the three-way split. That independently matches the artifact's family_total_distinct = 48. I also re-ran the perfect form with a word-start anchor so היה could not match inside a longer word: still 7, the same 7. One robustness note with no impact here: my loose count simply drops the adjacency requirement rather than modelling 'infixed temporal phrase', which is broader than the gloss; it coincides only because no ויהי דבר יהוה אלי verse in Ezekiel lacks לאמר somewhere in the verse (I checked: zero such verses). On a book where that failed, the two definitions would diverge."
+  },
+  {
+   "id": 4,
+   "verdict": "confirmed",
+   "my_count": "U+05C4 total 12 = 5 + 7; U+05C5 total 0",
+   "my_list": "MT 41:20 (5 marks, one on each of the 5 consonants of ההיכל) and MT 46:22 (7 marks, one on each of the 7 consonants of מהקצעות); no other verse in the book carries U+05C4",
+   "note": "The dots ARE in the verse bytes, so the removed claim was rightly refuted and the replacement is exact - counts, verses, base letters and the U+05C5 absence all hold. The sweep covered the verse column of all 1,273 rows. I also checked the practical consequence the toolkit draws from the correction: the file is byte-identical under both NFC and NFD normalisation (length delta 0) and U+05C4 survives both, so an NFD validator arm does in fact see it as a legitimate combining mark rather than as degradation. The stated consequence is sound, not just the count."
+  },
+  {
+   "id": 5,
+   "verdict": "confirmed",
+   "my_count": "U+05BE 0, U+05C0 0, U+05C3 0, '/' 0, '>' 0",
+   "my_list": "zero occurrences of each, measured over the WHOLE FILE (ref column, tab and verse text), not only the verse column",
+   "note": "Also zero for U+05C5. Stronger form of the same check: the complete character inventory of the verse column is 68 distinct codepoints, all of them Hebrew letters U+05D0-U+05EA, combining marks in U+0591-U+05C4, or U+0020 - the set of non-Hebrew non-space characters in the verse column is EMPTY, so no punctuation of any kind survives staging, not merely the five named. TOOLKIT.md line 215 states the same absence list but omits '>'; that is a documentation gap only, since '>' is in fact absent."
+  }
+ ],
+ "findings_outside_the_five_claims": [
+  {
+   "severity": "minor-substantive",
+   "where": "ezek_device_inventory.json key 'calendar_dates_not_datelines' (count 3) and TOOLKIT.md line 174 ('THREE date formulae that are NOT datelines')",
+   "finding": "The enumeration MT 45:20, 45:21, 45:25 appears to UNDERCOUNT by one. MT 45:18 reads בראשון באחד לחדש - month ordinal plus day plus לחדש, and no year word - which is a FULLER date formula than MT 45:20 (בשבעה בחדש, day only). If 45:20 qualifies, 45:18 qualifies a fortiori.",
+   "why_it_matters": "MT 45:18 is the chapter-45 verse most likely to be misread as a unit onset, because it pairs that date formula with the messenger formula כה אמר אדני יהוה - the artifact's own thus_says_the_lord_yhwh list includes Ezek.45.18. The warning list exists precisely to stop a false boundary inside the law block, and it omits the strongest candidate for one.",
+   "impact_on_the_five_claims": "none - MT 45:18 has no year word, so the dateline count of 14 is unaffected",
+   "suggested_fix": "count 4, verses MT 45:18, 45:20, 45:21, 45:25"
+  },
+  {
+   "severity": "cosmetic",
+   "where": "ezek_device_inventory.json, word_event_family.note",
+   "finding": "the string reads 'the הest perfect form' - a Hebrew he spliced into an English word, which looks like a mangled substitution",
+   "why_it_matters": "it sits in a note a downstream reader is meant to quote; harmless to the counts, but it reads as corruption in an artifact whose credibility rests on byte care",
+   "suggested_fix": "'the hayah perfect form' or 'the היה perfect form'"
+  }
+ ],
+ "corroboration_not_asked_for": [
+  "verses_per_chapter_mt in the JSON matches the per-chapter verse counts I derived from the extract for all 48 chapters",
+  "the JSON's five in-scope verse lists (39/41/7/14/7) are set-identical to mine, compared programmatically as sets rather than by eye"
+ ],
+ "outcome": {
+  "no_change": true,
+  "why": "this is a review; it changes no artifact"
+ },
+ "verification": [
+  {
+   "claim": "artifact identity",
+   "how": "Get-FileHash -Algorithm SHA256 over both repaired artifacts and the source extract, before reading any of them",
+   "result": "confirmed"
+  },
+  {
+   "claim": "1 - 14 datelines including MT 24:1",
+   "how": "own tokeniser: strip every character that is not a Hebrew letter U+05D0-U+05EA (thus removing all U+0591-U+05C7 points and accents) to a consonantal skeleton, collapse whitespace, split on space; then require a year token AND a month/day token in the same verse. Ran the year test twice - anchored ^[prefix]{0,3}(שנה|שנת)$ and a bare substring - and compared the two outputs. Separately probed every verse in the book containing חדש/חדשים/עשור for a missed dateline.",
+   "result": "confirmed"
+  },
+  {
+   "claim": "2 - MT 26:10 is a false positive",
+   "how": "broad sweep printing all 26 distinct tokens in Ezekiel whose skeleton contains שנ, each with its verse list, so false positives and false negatives both had to surface; then read MT 26:10 in full, pointed and unpointed",
+   "result": "confirmed for 26:10; the 7-verse label is imprecise - see the claim note"
+  },
+  {
+   "claim": "3 - 39/41/7 with misses MT 12:8 and 24:1",
+   "how": "three regexes over the skeleton, counting verses and occurrences separately; the perfect form re-run with a word-start anchor; set difference taken in BOTH directions; plus a closure check that loose union perfect equals every occurrence of 'דבר יהוה אלי' in the book",
+   "result": "confirmed"
+  },
+  {
+   "claim": "4 - puncta U+05C4 five and seven, U+05C5 absent",
+   "how": "full codepoint frequency table over the verse column of all 1,273 rows, then per-verse U+05C4 counts plus identification of the base letter each mark sits on; plus an NFC/NFD round-trip over the whole file",
+   "result": "confirmed"
+  },
+  {
+   "claim": "5 - extract hygiene",
+   "how": "whole-file character counts for U+05BE, U+05C0, U+05C3, '/', '>' and U+05C5, plus a set-complement check that the verse column contains nothing outside Hebrew letters, Hebrew combining marks and space",
+   "result": "confirmed"
+  },
+  {
+   "claim": "cross-check of the artifact's own lists",
+   "how": "parsed ezek_device_inventory.json and set-compared its five in-scope verse lists against the lists I derived",
+   "result": "confirmed - all five identical"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Whether the intended year-word rule is prefix-anchored or substring. The dateline count of 14 is invariant either way, but the 'year word but not a dateline' figure is 7 under substring and 5 under the anchored rule as written.",
+   "why_it_matters": "a later sweep that implements the rule AS WRITTEN will reproduce 14 datelines but only 5 non-dateline year verses, and will then appear to disagree with the artifact for no real reason"
+  },
+  {
+   "what": "Whether MT 45:18 was deliberately excluded from calendar_dates_not_datelines on some criterion I cannot see, rather than simply missed.",
+   "why_it_matters": "I judged it from the bytes alone; if the operative criterion is 'the Passover/festival sequence 45:21-25 plus its 45:20 preface', 45:18 might be excluded on purpose - but neither artifact states such a criterion, so a reader cannot tell"
+  },
+  {
+   "what": "I verified only extract-internal claims. Whether Ezek_oshb.txt faithfully represents the WLC/OSHB XML - in particular whether staging dropped any dateline or puncta site before I ever saw it - is outside what these three files can prove.",
+   "why_it_matters": "every count here is a count over the staged extract; a staging loss would be invisible to all five sweeps"
+  }
+ ],
+ "e19_selfreport": "ran no listing, no glob, no recursive search; read only the exact paths named in the brief. Private scratch went to a uniquely-named subdirectory of my own session scratchpad (recheck_a1_priv) - nothing under sp_durable, nothing in the worktree - and I ran no git command. Touched no forbidden lane (M1-M7, comparison, other books) and sought no convergence with another model.",
+ "overall": "fit_to_accept",
+ "limit": "accountable work summary; not chain of thought and not independent proof"
+}

@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+"""Receipt-derived orchestration metrics for the M8_fable campaign (owner directive OW-14): which agent and subagent arrangement did what,
+at what cost and with what outcome. Deterministic and read-only over the receipts.
+
+It reads every attempt receipt under sp_durable (files named *_attempt_receipts.jsonl) and groups them in two ways:
+  - by book, lane and model ordered;
+  - by model ordered alone.
+For each group it reports:
+  - executions, and outcome classes (the outcome text up to ' - ');
+  - landed, refused and stopped counts;
+  - executions carrying form defects;
+  - subagent tokens (total, mean, max) and tool uses (total, mean).
+
+Limits, stated in the output:
+  - the model is the model ORDERED, because the runtime exposes no effective-model record;
+  - tokens are subagent tokens from receipts, and the orchestrator's own context is not counted;
+  - quality findings (lapses, checker findings, refusal reasons) live in ORCHESTRATION_LEARNING_LOG, not here.
+
+Without --write it prints the summary. With --write it writes M8_fable/orchestration_metrics.v1.json.
+Usage: _orchestration_metrics.py [--write]"""
+import argparse
+import hashlib
+import json
+import statistics
+import sys
+from collections import defaultdict
+from datetime import datetime, timezone
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding="utf-8")
+M8 = Path(r"C:\wt\logos-t423-m8-fable\.ai\scratch\multi_model_bible_chunking\M8_fable")
+SPD = M8 / "sp_durable"
+OUT = M8 / "orchestration_metrics.v1.json"
+
+
+def sha(p):
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def outcome_class(o):
+    s = str(o or "UNRECORDED").split(" - ")[0].strip()
+    return s.split(":")[0].strip() or "UNRECORDED"
+
+
+def book_of(r, path):
+    if r.get("book"):
+        return r["book"]
+    rel = path.relative_to(SPD).parts
+    return rel[0] if rel else "unknown"
+
+
+def is_amending(r):
+    return bool(r.get("amends_execution_id")) or str(r.get("schema", "")).endswith("_amendment.v1")
+
+
+def spend_unit(r):
+    # an amendment measured from the transcript as input + cache_creation + output (census spend), not the runtime
+    # notification; it is reported apart and never added to the notification-unit total
+    n = str(r.get("token_note", ""))
+    return "cache_creation" in n or "census-unit spend" in n
+
+
+def segment_only(r):
+    n = str(r.get("token_note", "")).upper()
+    return "SEGMENT" in n and "NOT A SEGMENT" not in n
+
+
+def fold(rows):
+    """An amending row (amends_execution_id, or an *_amendment.v1 schema) is never an execution. It is applied to the
+    one execution row whose execution_id it names (E-60). A completion row's outcome and form defects replace the
+    launch row's. Notification-unit token ints and tool uses fill a launch row that has none. Spend-unit ints go to
+    _spend. A target that is missing or not unique is counted and nothing is applied."""
+    execs = [r for r in rows if not is_amending(r)]
+    by_ex = defaultdict(list)
+    for r in execs:
+        if r.get("execution_id"):
+            by_ex[r["execution_id"]].append(r)
+    stats = {"amending_rows": 0, "applied": 0, "target_missing": 0, "target_not_unique": 0}
+    for a in rows:
+        if not is_amending(a):
+            continue
+        stats["amending_rows"] += 1
+        tgt = by_ex.get(a.get("amends_execution_id"), [])
+        if len(tgt) != 1:
+            stats["target_not_unique" if tgt else "target_missing"] += 1
+            continue
+        stats["applied"] += 1
+        tgt[0].setdefault("_amending", []).append(a)
+    for t in execs:
+        am = t.pop("_amending", [])
+        own = isinstance(t.get("tokens_reported"), int)
+        note_toks = []
+        for a in am:
+            if a.get("record_kind") == "completion":
+                for f in ("outcome", "form_defects"):
+                    if f in a:
+                        t[f] = a[f]
+            if not isinstance(t.get("tool_uses"), int) and isinstance(a.get("tool_uses"), int):
+                t["tool_uses"] = a["tool_uses"]
+            v = a.get("tokens_reported")
+            if isinstance(v, int):
+                if spend_unit(a):
+                    t["_spend"] = t.get("_spend", 0) + v
+                elif not own:
+                    note_toks.append(v)
+            if segment_only(a):
+                t["_partial"] = True
+        if note_toks:
+            t["tokens_reported"] = sum(note_toks)
+        if segment_only(t):
+            t["_partial"] = True
+    return execs, stats
+
+
+def summarize(rows):
+    toks = [r["tokens_reported"] for r in rows if isinstance(r.get("tokens_reported"), int)]
+    uses = [r["tool_uses"] for r in rows if isinstance(r.get("tool_uses"), int)]
+    spend = [r["_spend"] for r in rows if isinstance(r.get("_spend"), int)]
+    classes = defaultdict(int)
+    for r in rows:
+        classes[outcome_class(r.get("outcome"))] += 1
+    return {"executions": len(rows), "outcomes": dict(sorted(classes.items())),
+            "landed": sum(v for k, v in classes.items() if k.startswith("LANDED")),
+            "refused_no_deliverable": classes.get("REFUSED_NO_DELIVERABLE", 0),
+            "stopped": sum(v for k, v in classes.items() if k.startswith("STOPPED")),
+            "with_form_defects": sum(1 for r in rows if r.get("form_defects")),
+            "tokens_total": sum(toks), "tokens_mean": round(statistics.mean(toks)) if toks else None, "tokens_max": max(toks) if toks else None,
+            "tokens_counted_executions": len(toks), "tokens_partial_executions": sum(1 for r in rows if r.get("_partial")),
+            "spend_unit_amended_executions": len(spend), "spend_unit_amended_total": sum(spend),
+            "tool_uses_total": sum(uses), "tool_uses_mean": round(statistics.mean(uses), 1) if uses else None}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--write", action="store_true")
+    a = ap.parse_args()
+    files = sorted(SPD.rglob("*_attempt_receipts.jsonl"))
+    rows, sources = [], []
+    for f in files:
+        n = 0
+        for line in f.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            r["_book"], r["_file"] = book_of(r, f), str(f.relative_to(M8)).replace("\\", "/")
+            rows.append(r)
+            n += 1
+        sources.append({"path": str(f.relative_to(M8)).replace("\\", "/"), "sha256": sha(f), "receipts": n})
+    execs, fold_stats = fold(rows)
+    groups, by_model = defaultdict(list), defaultdict(list)
+    for r in execs:
+        groups[(r["_book"], r.get("lane") or "unrecorded", r.get("model") or "unrecorded")].append(r)
+        by_model[r.get("model") or "unrecorded"].append(r)
+    doc = {"schema": "m8_orchestration_metrics.v1", "generated_at": datetime.now(timezone.utc).isoformat(), "generator": "sp_durable/campaign/_orchestration_metrics.py",
+           "ordered_by": "owner directive OW-14 (2026-09-11), ERROR_PATTERN_LEDGER.v1.md",
+           "limits": ["model is the model ORDERED at launch; the runtime exposes no effective-model record",
+                      "tokens are runtime-reported subagent tokens from receipts; orchestrator context is not counted",
+                      "quality findings (lapses, checker findings, refusal reasons) are in orchestration_learning_log.v1.jsonl, not here",
+                      "books whose executions predate per-attempt receipts are absent or partial",
+                      "amending rows (completion, amendment, recovery note) are folded into the execution they name and "
+                      "are not executions; tokens_total is the runtime notification unit (OW-28); spend_unit_amended_total "
+                      "is transcript-measured input + cache_creation + output and is never added to it (E-60)",
+                      "tokens_partial_executions counts executions whose notification covers one segment only"],
+           "sources": sources, "receipts": len(rows), "executions": len(execs), "fold": fold_stats,
+           "by_model_ordered": {m: summarize(v) for m, v in sorted(by_model.items())},
+           "by_book_lane_model": [dict(book=b, lane=l, model=m, **summarize(v)) for (b, l, m), v in sorted(groups.items())]}
+    if a.write:
+        OUT.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+        print(json.dumps({"written": str(OUT), "sha256": sha(OUT), "receipts": len(rows), "files": len(files),
+                          "by_model_ordered": {m: {k: s[k] for k in ("executions", "landed", "refused_no_deliverable", "tokens_total")}
+                                               for m, s in doc["by_model_ordered"].items()}}, ensure_ascii=False, indent=1))
+    else:
+        print(json.dumps({k: doc[k] for k in ("receipts", "executions", "fold", "by_model_ordered")} | {"files": len(files), "groups": len(doc["by_book_lane_model"])},
+                         ensure_ascii=False, indent=1))
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,39 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "batch": "resume_checker_generator_ow13_ow14",
+ "installed_by": "orchestrator (claude-opus-5), session 6116e665",
+ "ordered_by": [
+  "owner directive OW-13 (2026-09-11), verbatim in ERROR_PATTERN_LEDGER.v1.md",
+  "owner directive OW-14 (2026-09-11), verbatim in ERROR_PATTERN_LEDGER.v1.md"
+ ],
+ "why": "carry the owner's model roles and the orchestration-playbook duty as canonical resume-prompt clauses, so a prompt without either fails verification",
+ "files": [
+  {
+   "path": "sp_durable/Jer/_safe_to_clear_check.py",
+   "sha256_before": "7739e910a35089e45b107090374764e5d6be0d4a3b9c73af28e4e475d4cd59ba",
+   "sha256_after": "8fb98c6a26a9990fadc9336704dbd1e96e43f437bd62c06dff6860e3c65f5bf4",
+   "preimage": "sp_durable/campaign/tool_preimages/_safe_to_clear_check.pre_ow13_ow14.7739e910.py",
+   "selftest_candidate": "SELFTEST: PASS (all fixtures behave as required)"
+  },
+  {
+   "path": "sp_durable/orchestrator_scratch/_gen_resume_prompt.py",
+   "sha256_before": "d04a99b24985c82daeb529b432b0afc91f05a1034a253408db2b51f68591c28b",
+   "sha256_after": "a3500c17cd96d6e97289acc0e404c25df554387cd2a3e5f0d9d2feecc822b1bb",
+   "preimage": "sp_durable/campaign/tool_preimages/_gen_resume_prompt.pre_ow13_ow14.d04a99b2.py",
+   "draft_check": "SAFE_TO_CLEAR_CHECK: PASS (marker + bound cursor + 5 receipt pointers + 3 docket pointers + 2 ruling/index pointers with hashes + 58 canonical clauses + 9 contradiction arms + state binding + 2 exact paths + corrupted-variant rejection + next-prompt instruction)"
+  }
+ ],
+ "selftest_installed": "SELFTEST: PASS (all fixtures behave as required)",
+ "method_installed": {
+  "playbook": "M8_fable/ORCHESTRATION_PLAYBOOK.v1.md",
+  "playbook_sha256": "0a041ba22eb0cf4f7170fe69d66572516ef82cddcba2ac417bdc8d657b8ce5a5",
+  "learning_log": "M8_fable/orchestration_learning_log.v1.jsonl",
+  "learning_log_sha256": "d7a58a7ca86720aec99c303e361e15af7a9aed2aadfcafae3048597c2fcc82b7",
+  "metrics_tool": "sp_durable/campaign/_orchestration_metrics.py",
+  "metrics_tool_sha256": "0a6a9e32581594e27f0ce3cbb0b3e76981e3f037b75ed152577f5db56d3ed6c5",
+  "metrics": "M8_fable/orchestration_metrics.v1.json",
+  "metrics_sha256": "528b02b34b0aeb2ed61420a20d0482366e6d9a736afdddc7d19473ca7e25c67c"
+ },
+ "dependency_applicability": "Prompts archived before this install were verified without the two clauses and stay valid history. From this install every generated prompt must carry ow13_model_roles and ow14_orchestration_playbook. No book row, ruling, receipt or gate verdict depends on the new clauses.",
+ "limit": "adds two canonical clauses, two selftest vectors and two generator safeguard lines; no other arm or pointer changed"
+}

@@ -1,0 +1,285 @@
+{
+ "attempt_id": "ezek_author_fixup_p10_a1",
+ "execution_id": "ezek_author_fixup_p10_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup1\\orders_ezek_author_fixup_p10_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v3_cwo18.jsonl",
+  "all 30 rows of the FIXUP_BRIEF.md PINNED INPUTS table, digest-verified by exact path via a script that read the table from the brief itself"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P10-004 (Ezek.40.20-Ezek.40.27) replaced",
+    "why": "S1-03: boundary_rationale and strongest_rejected_alternative claimed the south gate (40:24-27) was keyed to the same first-gate refrain as the north gate, and that the 'according to these measurements' refrain כַּמִּדּ֖וֹת הָאֵֽלֶּה never occurs inside 40:20-27. Both are byte-false: the refrain occurs at 40:24, inside this row's own south gate. Corrected with digit-bearing sweep citations (refrain: 6 verses across ch 40 - 40:24,28,29,32,33,35; first-gate phrase: 1 verse, 40:21), independently verified by a consonantal-skeleton sweep of the whole chapter. Span/unit_type/confidence/parent_collection unchanged."
+   },
+   {
+    "what": "P10-016 (Ezek.40.28-Ezek.40.37) replaced",
+    "why": "S1-03: same false exclusivity claim from the other side of the seam, corrected the same way; also corrected the false claim that 40:37 is 'worded identically to the close of 40:31 and 40:34' (only 40:34 matches; 40:31 has different word order, byte-verified). S1-05/CWO-EZ-14: replaced the barred positional register phrase '(outer court, preceding row)' with a verse-anchored span reference. S1-12: added the missing ketiv label to the 40:37 tag and to its boundary_rationale quote. Span/unit_type/confidence/parent_collection unchanged."
+   },
+   {
+    "what": "P10-007 (Ezek.41.5-Ezek.41.11) replaced",
+    "why": "S1-05: boundary_evidence_refs[3] read 'oshb:Ezek.41.12 (change of measured object, next row's onset)', a barred positional row reference; replaced with a verse-anchored span reference. Span/unit_type/confidence/parent_collection unchanged."
+   },
+   {
+    "what": "P10-008 (Ezek.41.12-Ezek.41.26) replaced",
+    "why": "S1-08: device_notes falsely claimed 'no other K/Q or editorial note touches this row'; pmarks_Ezek.json's notes_other carries one editorial note at 41:20 (the puncta-extraordinaria marking-convention note), the only notes_other key in 41:12-26. Disclosed the note and dropped the false claim. Span/unit_type/confidence/parent_collection unchanged."
+   },
+   {
+    "what": "P10-010 (Ezek.42.1-Ezek.42.14) replaced",
+    "why": "CWO-EZ-14/T5-REGISTER: boundary_rationale's closing sentence read '...making this one of the better-evidenced rows here...', a barred comparative/register phrase; reworded to a non-positional description of the same onset/close device pairing. Span/unit_type/confidence/parent_collection unchanged."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "brief + orders_p10 digests match the launch-time values",
+   "how": "Get-FileHash SHA256 by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 30 PINNED INPUTS table entries match their table digest",
+   "how": "script parsed FIXUP_BRIEF.md's own table and re-hashed each named file by exact path",
+   "result": "29/30 confirmed; SP\\Ezek\\ezek_p0_retained_lows.v1.json actual sha256 519dda47167a3a32aa0f079284387ca0eaccbc0ccc6dfdfc6cc417f69711d12c differs from the table's 85dfd154b4d05edfe626804842a39ddf2e2de593e9f04e3e99b8c089cbf82b0a; file not used in my 5 rows so I record both and used neither"
+  },
+  {
+   "claim": "כַּמִּדּ֖וֹת הָאֵֽלֶּה ('according to these measurements') occurs at exactly 6 verses in ch 40: 40:24,28,29,32,33,35",
+   "how": "independent consonantal-skeleton sweep of Ezek_oshb.txt ch 40 (Python, stripping the TOOLKIT-documented POINTS span U+0591-U+05C7), run over a fresh read of the pinned file",
+   "result": "confirmed"
+  },
+  {
+   "claim": "כְּמִדַּ֖ת הַשַּׁ֣עַר הָרִאשׁ֑וֹן ('the measure of the first gate') occurs at exactly 1 verse in ch 40: 40:21",
+   "how": "same skeleton sweep",
+   "result": "confirmed"
+  },
+  {
+   "claim": "40:31's steps refrain differs in word order from 40:34/40:37",
+   "how": "direct byte comparison of the three verse lines, extracted programmatically (Python string slicing, never hand-typed) from Ezek_oshb.txt",
+   "result": "confirmed: 40:31 = וּמַעֲל֥וֹת שְׁמוֹנֶ֖ה מעלו; 40:34/40:37 = וּשְׁמֹנֶ֥ה מַעֲל֖וֹת מעלו"
+  },
+  {
+   "claim": "pmarks_Ezek.json notes_other carries exactly one entry in 41:12-26, at Ezek.41.20",
+   "how": "grep + direct read of the notes_other section",
+   "result": "confirmed (a single untyped note explaining the U+05C4/U+05C5 puncta-extraordinaria convention)"
+  },
+  {
+   "claim": "citation_sweep problems = 0 on my rows",
+   "how": "citation_sweep.py and run_validator_suite.py over a private 5-row file and a private 145-row copy with my rows substituted",
+   "result": "confirmed, 0 before and after"
+  },
+  {
+   "claim": "normalizer defects = 0 and fixed = 0 on my rows",
+   "how": "normalize_hebrew_in_json.py dry-run over a private 5-row-only file",
+   "result": "confirmed: ok=43, qere=0, fixed=0, defects=0"
+  },
+  {
+   "claim": "check_register flags = 0 on my rows",
+   "how": "check_register.py over the private 5-row file and the full private copy (index- and id-aware filtering)",
+   "result": "first pass FAILED: my own P10-008 rewrite introduced a new 'Pmarks_Ezek.json' staged-file-name mention (barred by §8); corrected to plain disclosure prose; second pass confirmed 0"
+  },
+  {
+   "claim": "cap_sweep failures = 0 and ngram7 gate(10) has no offending gram on my rows",
+   "how": "cap_sweep.py and ngram7.py over the private 5-row file and the full private copy",
+   "result": "confirmed, both GREEN"
+  },
+  {
+   "claim": "check_web_quotes classes = 0 on my rows",
+   "how": "check_web_quotes.py over the private 5-row file and the full private copy",
+   "result": "confirmed, 0 (none of my rows carry curly WEB quotes)"
+  },
+  {
+   "claim": "check_tiling PASS for p10's range Ezek.40.1-Ezek.43.27",
+   "how": "check_tiling.py --range over a private 15-row p10-only subset (all p10 rows, mine substituted)",
+   "result": "confirmed, GREEN, 122/122 verses, 0 problems"
+  },
+  {
+   "claim": "locked fields byte-identical to current_row for all 5 rows (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection), 22 fields + _op present",
+   "how": "field-by-field equality assertion in the assembly script",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "SP\\Ezek\\ezek_p0_retained_lows.v1.json's actual digest does not match the brief's PINNED INPUTS table",
+   "why_it_matters": "per the brief's own instruction to record a digest mismatch; the file was not needed for my 5 rows and was not read for content, but the orchestrator should check whether other parts' low-confidence-region orders relied on the table value"
+  },
+  {
+   "what": "P10-004's strong_or_hebrew_tags_used[1] (וַיּוֹלִכֵ֨נִי֙, oshb:Ezek.40.24) still triggers citation_sweep's prose_dual_warn (no ketiv/qere disclosure in-field), the same defect class as S1-12",
+   "why_it_matters": "pre-existing before this fixup wave; S1-12's row_or_artifact named only P10-016's tag, not P10-004's, so I left it uncured rather than improvise past my orders; worth routing to the checker"
+  },
+  {
+   "what": "refs_mirror flags 'argued_but_unmirrored' verses on all 5 of my rows (a pre-existing, corpus-wide pattern: 110 flags across all 145 rows)",
+   "why_it_matters": "none of these were named in my orders and none rose from my edits (P10-007 actually improved 2->1); restructuring boundary_evidence_refs to close them was out of scope"
+  },
+  {
+   "what": "the universals FLAGS-tier check still lists 38 common-word occurrences on my rows (e.g. 'K/Q, single note'), down from 48",
+   "why_it_matters": "documented in TOOLKIT.md as a triage input to primaries, not a HARD gate; no new claim was introduced (net decrease, no rises), but a distinct checker should confirm none of the 38 residual items is an uncited exclusivity claim under E-16"
+  }
+ ],
+ "items": [
+  {
+   "row": "P10-004",
+   "item": "e4:FIXUP-1#2 (ruling_order)",
+   "action": "cured",
+   "reason": "op:replace applied, locked fields unchanged"
+  },
+  {
+   "row": "P10-004",
+   "item": "S1-03 (s1_finding)",
+   "action": "cured",
+   "reason": "false exclusivity/universal claims corrected with digit-bearing sweep citations, byte-verified independently"
+  },
+  {
+   "row": "P10-004",
+   "item": "S1 respans (s1_row_defect)",
+   "action": "cured",
+   "reason": "same underlying defect as S1-03, cured together"
+  },
+  {
+   "row": "P10-004",
+   "item": "S1 cwo_sample / CWO-EZ-02 (s1_row_defect)",
+   "action": "cured",
+   "reason": "same underlying defect as S1-03, cured together"
+  },
+  {
+   "row": "P10-016",
+   "item": "e4:FIXUP-1#2 (ruling_order)",
+   "action": "cured",
+   "reason": "op:replace applied, locked fields unchanged"
+  },
+  {
+   "row": "P10-016",
+   "item": "S1-03 (s1_finding)",
+   "action": "cured",
+   "reason": "false exclusivity claim and false '40:31 worded identically' claim corrected, byte-verified"
+  },
+  {
+   "row": "P10-016",
+   "item": "S1-05 (s1_finding)",
+   "action": "cured",
+   "reason": "'(outer court, preceding row)' replaced with a verse-anchored span reference"
+  },
+  {
+   "row": "P10-016",
+   "item": "S1-12 (s1_finding)",
+   "action": "cured",
+   "reason": "ketiv label added to the 40:37 tag and boundary_rationale quote"
+  },
+  {
+   "row": "P10-016",
+   "item": "S1 respans (s1_row_defect)",
+   "action": "cured",
+   "reason": "covers the same three defects above, cured together"
+  },
+  {
+   "row": "P10-016",
+   "item": "CWO-EZ-14 register (cwo_item)",
+   "action": "cured",
+   "reason": "same 'preceding row' fix as S1-05"
+  },
+  {
+   "row": "P10-007",
+   "item": "S1-05 (s1_finding)",
+   "action": "cured",
+   "reason": "'next row's onset' replaced with a verse-anchored span reference in boundary_evidence_refs[3]"
+  },
+  {
+   "row": "P10-008",
+   "item": "e4:FIXUP-1#2 (ruling_order)",
+   "action": "cured",
+   "reason": "op:replace applied, locked fields unchanged"
+  },
+  {
+   "row": "P10-008",
+   "item": "S1-08 (s1_finding)",
+   "action": "cured",
+   "reason": "41:20 editorial note disclosed in plain prose (no staged-file name), false exclusivity dropped"
+  },
+  {
+   "row": "P10-008",
+   "item": "S1 respans (s1_row_defect)",
+   "action": "cured",
+   "reason": "same defect as S1-08, cured together"
+  },
+  {
+   "row": "P10-008",
+   "item": "S1 cwo_sample / CWO-EZ-02 (s1_row_defect)",
+   "action": "cured",
+   "reason": "same defect as S1-08, cured together"
+  },
+  {
+   "row": "P10-010",
+   "item": "CWO-EZ-14 register (cwo_item)",
+   "action": "cured",
+   "reason": "'one of the better-evidenced rows' reworded to a non-comparative device description"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "S1-03 byte-false exclusivity/universal claims (P10-004, P10-016)",
+   "test": "independent skeleton sweep of Ezek_oshb.txt ch40 + citation_sweep.py + universals check",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-03 '40:37 worded identically to 40:31' (P10-016)",
+   "test": "direct byte comparison of 40:31/40:34/40:37 via programmatic extraction",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-05/CWO-EZ-14 positional register (P10-016, P10-007)",
+   "test": "check_register.py over private copies, before vs after",
+   "result": "PASS (2 flags -> 0 for these rows)"
+  },
+  {
+   "order": "S1-12 unlabelled ketiv (P10-016)",
+   "test": "citation_sweep.py prose_dual_warns, before vs after",
+   "result": "PASS (P10-016 warn cleared; P10-004's separate unordered instance left as-is)"
+  },
+  {
+   "order": "S1-08 false 'no other K/Q or editorial note' (P10-008)",
+   "test": "pmarks_Ezek.json notes_other lookup + check_register.py",
+   "result": "PASS after one correction (first draft's disclosure itself tripped check_register on a file-stem mention)"
+  },
+  {
+   "order": "CWO-EZ-14 register 'one of the better-evidenced rows' (P10-010)",
+   "test": "check_register.py over private copies, before vs after",
+   "result": "PASS (1 flag -> 0)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep_problems": 0,
+   "citation_sweep_prose_dual_warns": 2,
+   "hebrew_normalize_defects": 0,
+   "hebrew_normalize_fixed": 0,
+   "web_quotes_flags": 0,
+   "refs_mirror_flagged_rows": 5,
+   "mark_symmetry_flags": 0,
+   "universals_flags": 48,
+   "register_flags": 2,
+   "cap_sweep_failures": 0,
+   "ngram7_offending": 0
+  },
+  "after": {
+   "citation_sweep_problems": 0,
+   "citation_sweep_prose_dual_warns": 1,
+   "hebrew_normalize_defects": 0,
+   "hebrew_normalize_fixed": 0,
+   "web_quotes_flags": 0,
+   "refs_mirror_flagged_rows": 5,
+   "mark_symmetry_flags": 0,
+   "universals_flags": 38,
+   "register_flags": 0,
+   "cap_sweep_failures": 0,
+   "ngram7_offending": 0
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

@@ -1,0 +1,75 @@
+--- a/tools/check_web_quotes.py
++++ b/tools/check_web_quotes.py
+@@ -11,14 +11,17 @@
+ English spans ("…") that sit within 200 chars of a web:Ezek.C.V ref in the
+ same field, and verifies each span is a verbatim (ellipsis-aware, punctuation-
+ normalized) substring of the folded WEB text of that ref (range-aware, plus
+-one-verse slack on each side for quotes crossing the cited edge).
++one-verse slack on each side for quotes crossing the cited edge). TOOLFIX-5
++(ezek_controlling_rulings_a1#e10 ruling TOOLFIX-5 (2); #e9 S2-15 (3)): one-word
++spans are checked too - a one-word curly double quote with no web: ref in
++its field is flagged, and one near a ref must verbatim-match its WEB text.
+ 
+ Hebrew-majority quoted spans are skipped by the VERBATIM arm (collation's
+ job) but caught by the E-15 arms below. Flags are candidates for
+ orchestrator review, not auto-fails: a flagged span is either a
+ paraphrase/gloss presented with quote marks near a ref (the 2Chr systemic
+ class, again the dominant Ezra repair-site class) or a quote with a wrong
+-ref. Spans of fewer than 2 words are ignored by the verbatim arm.
++ref.
+ 
+ E-15 ARMS (NEW for Jer and inherited by Ezek, per the error-pattern ledger - the Isa spot wave
+ proved the closed-pair matcher leaves unclosed/uncurly quotes OUTSIDE
+@@ -47,7 +50,7 @@
+ therefore reported in neighbor_only_warns (WARN only - never a flag, never a
+ status change); identity-chapter neighbor matches stay silent, since there
+ the ref is simply off by one with no witness hazard.
+-Usage: check_web_quotes.py file1.json [file2.jsonl ...]
++Usage: check_web_quotes.py file1.json [file2.jsonl ...]   |   check_web_quotes.py --selftest
+ """
+ from __future__ import annotations
+ 
+@@ -120,7 +123,34 @@
+     return None
+ 
+ 
++def selftest() -> int:
++    """TOOLFIX-5 (#e10 ruling TOOLFIX-5 (4)): a one-word curly double quote with no web: ref is flagged; a one-word quote that
++    verbatim-matches its nearby ref is not; a two-word quote with no ref is still flagged; plain prose is not."""
++    import subprocess
++    import tempfile
++    cases = [
++        ("one-word gloss in curly double quotes with no web: ref is flagged", "the causal sub-onset gloss \u201cbecause\u201d marks the turn", 1),
++        ("one-word WEB word near its ref is not flagged", "WEB reads \u201cthirtieth\u201d (web:Ezek.1.1) at the dateline", 0),
++        ("two-word quote with no ref is still flagged", "the label \u201chouse of\u201d stands", 1),
++        ("plain prose with no quote is not flagged", "a plain sentence with no quotation", 0),
++    ]
++    results = []
++    with tempfile.TemporaryDirectory() as td:
++        for name, text, want in cases:
++            p = Path(td) / "vector.jsonl"
++            p.write_text(json.dumps({"decision_id": "P01-001", "device_notes": text}, ensure_ascii=False) + "\n", encoding="utf-8")
++            out = subprocess.run([sys.executable, str(Path(__file__).resolve()), str(p)], capture_output=True, text=True, encoding="utf-8")
++            got = json.loads(out.stdout)["flag_count"]
++            results.append({"vector": name, "want_flags": want, "got_flags": got, "ok": got == want})
++    failed = [r["vector"] for r in results if not r["ok"]]
++    print(json.dumps({"selftest": "check_web_quotes TOOLFIX-5", "vectors": len(results), "failed": failed, "results": results,
++                      "verdict": "GREEN" if not failed else "RED"}, ensure_ascii=False, indent=1))
++    return 0 if not failed else 1
++
++
+ def main() -> int:
++    if "--selftest" in sys.argv[1:]:
++        return selftest()
+     web, _ = load_verse_maps()
+     flags = []
+     neighbor_only_warns = []      # rev-round: WARN only, never a flag
+@@ -203,7 +233,7 @@
+                                       "issue": "verbatim WEB text in SINGLE curly quotes (delimiter evasion - rows use double curly + inline web: ref)"})
+             for qm in QUOTE.finditer(s):
+                 span = qm.group(1).strip()
+-                if len(span.split()) < 2:
++                if not span.split():   # TOOLFIX-5 (#e10 ruling TOOLFIX-5 (2)): one-word spans are checked too
+                     continue
+                 heb = len(HEBREW_CP.findall(span))
+                 lat = len(re.findall(r"[A-Za-z]", span))

@@ -1,0 +1,279 @@
+{
+ "attempt_id": "ezek_author_fixup_p07_a1",
+ "execution_id": "ezek_author_fixup_p07_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP_BRIEF.md (sha256 1823b285...c82856a, matched pinned)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup1\\orders_ezek_author_fixup_p07_a1.json (sha256 3cd81201...9e78d20, matched pinned)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md (sha256 b247cea5...d97c1c0b6, matched pinned)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json (sha256 d9c54100...168c80d1e, matched pinned; read rulings R1, R2, P2, P4, P5, G12 in full)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md (sha256 4c784753...ceda38330f3, matched pinned; read SS8 in full; SS5-7 not read -- none of my edits touch span/unit_type/confidence/parent_collection)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v3_cwo18.jsonl (sha256 568f004b...4dd8ed15d4, matched pinned; read-only, via private copy)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py, citation_sweep.py, normalize_hebrew_in_json.py, check_register.py, check_web_quotes.py, check_marks.py, cap_sweep.py, check_refs_mirror.py, check_universals.py, ngram7.py, check_tiling.py (read for usage/contract; executed read-only against private row copies)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P07-001 (writer_decision_id p07-1) replaced",
+    "why": "removed two S8-barred phrasings from boundary_rationale and strongest_rejected_alternative: a strategy-file citation ('the book strategy names', \"the strategy's own ruling\") and inventory-talk ('officially-inventoried') in boundary_rationale and boundary_evidence_refs[5]; only the SRA 'strategy's' occurrence was itemized (CWO-EZ-14), the rest is the same barred class found on a full read of the row"
+   },
+   {
+    "what": "P07-002 (writer_decision_id p07-2) replaced",
+    "why": "removed the itemized 'officially inventoried' inventory-talk phrase from boundary_rationale, kept the textually-supported 'strict' qualifier (TOOLKIT: recognition strict-28 vs named variant families)"
+   },
+   {
+    "what": "P07-004 (writer_decision_id p07-4) replaced",
+    "why": "rewrote strongest_rejected_alternative to remove repair narration ('former nineteen-verse span'), review-actor talk (\"the ruling's own inspection\") and a strategy citation ('the strategy licenses'), per the two itemized CWO-EZ-14 hits and s1_row_defect G8#1(b); removed 'officially-inventoried' from boundary_rationale and all 4 occurrences in boundary_evidence_refs per s1_row_defect G8#1(c) ('repeated in refs and prose'), not just the one example the item quoted"
+   },
+   {
+    "what": "P07-009 (writer_decision_id p07-9) replaced",
+    "why": "added boundary_evidence_refs entry for oshb:Ezek.30.20 (S1-13 / G8#1(c): the far-side seam-evidence dateline argued in boundary_rationale was not mirrored in refs; 30:20 is one of TOOLKIT's 14 pinned oracle datelines and is next_row P07-005's own span start); reworded refs[0] to drop the positional row reference \"the preceding row's\" (now verse-anchored via its own oshb: ref, per G8#1(b)); removed 'officially inventoried' from boundary_rationale and 2 refs entries; reworded strongest_rejected_alternative to drop the strategy citation 'the specific pattern the strategy licenses'"
+   },
+   {
+    "what": "P07-008 (writer_decision_id p07-8) replaced",
+    "why": "removed the itemized 'officially inventoried' phrase from device_notes (CWO-EZ-14), and also removed the un-itemized but same-class strategy-file citation 'named in the strategy'/'named in the book strategy' found in both boundary_rationale and device_notes on a full read of the row"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "all 5 replaced rows carry all 22 original fields plus \"_op\":\"replace\"; non_authorizing stays true; decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence and parent_collection are byte-identical to current_row",
+   "how": "programmatic equality assertion per field in build_fixup_rows.py, run over private copies",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no residual banned register phrase (officially inventoried, strategy/book-strategy citation, ruling's-own, preceding/next/following row, former-span, as-originally-drafted) remains in any of the 5 rows",
+   "how": "verify_diffs.py case-insensitive scan of every string field of the 5 replaced rows",
+   "result": "confirmed (0 hits)"
+  },
+  {
+   "claim": "citation_sweep problems = 0, nfd_degraded = 0 on my 5 rows",
+   "how": "citation_sweep.py run directly on a private file of just my 5 rows",
+   "result": "confirmed (status GREEN, problems=[], nfd_degraded_count=0)"
+  },
+  {
+   "claim": "Hebrew normalizer: fixed = 0 and defects = 0 on my 5 rows (dry-run, no --write)",
+   "how": "normalize_hebrew_in_json.py (no --write) on a private file of just my 5 rows",
+   "result": "confirmed (ok=32 qere=0 fixed=0 mention=0 defect_count=0)"
+  },
+  {
+   "claim": "check_register flags = 0 on my 5 rows (5 before my edit -> 0 after)",
+   "how": "check_register.py run separately on a same-order private extract of the 5 ORIGINAL rows (5 flags: p07-1, p07-2, p07-4 x2, p07-8) and on the 5 replaced rows (0 flags)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_web_quotes class flags = 0 on my 5 rows",
+   "how": "check_web_quotes.py run directly on the 5-row file",
+   "result": "confirmed (GREEN, 0 flags; none of my 5 rows carried a CWO-EZ-17/18 item to begin with)"
+  },
+  {
+   "claim": "cap_sweep failures = 0 on my 5 rows",
+   "how": "cap_sweep.py run directly on the 5-row file",
+   "result": "confirmed (GREEN, 0 failures; none of my rows are whole-chapter rows)"
+  },
+  {
+   "claim": "no ngram7 (gate 10) offending 7-gram involves my rows",
+   "how": "ngram7.py run over the full 145-row spliced private copy",
+   "result": "confirmed (GREEN, no offending gram)"
+  },
+  {
+   "claim": "check_tiling: the part's own verse range (Ezek.29.1-Ezek.32.32) has no gap, overlap or canonical-order problem after my edit",
+   "how": "check_tiling.py rows_modified.jsonl --range Ezek.29.1-Ezek.32.32 (whole-book 145-row file)",
+   "result": "confirmed (0 gap/overlap/order problems; the 20 reported problems are all outside_range -- an expected artifact of testing a part-scoped range against the whole-book file, since spans were never touched)"
+  },
+  {
+   "claim": "FLAGS members did not rise on my rows except where explained",
+   "how": "paired check_marks.py and check_universals.py runs on a same-order private extract of the 5 original rows vs. the 5 replaced rows",
+   "result": "confirmed (mark_symmetry 3/3 unchanged, same 3 pre-existing gaps; universals 16/16 unchanged, same claims -- one claim's captured context snippet shifted because of an adjacent edit, the claim itself is identical)"
+  },
+  {
+   "claim": "refs_mirror flags on my rows did not rise, and P07-009's pre-existing gap is resolved",
+   "how": "check_refs_mirror.py run on the same-order 5-row extracts before/after",
+   "result": "confirmed (P07-001/002/004/008 unchanged, 4 pre-existing unmirrored-verse flags carried over untouched since they were not itemized in my orders; P07-009's single flag [Ezek.30.20] is gone after my fix)"
+  },
+  {
+   "claim": "whole-file hard_status stays RED before and after, driven entirely by rows outside part p07",
+   "how": "run_validator_suite.py over the full 145-row private copy, unmodified vs. modified (968 -> 962 total triage_flags; hard_status RED both times from pre-existing citation_sweep/hebrew_normalize issues in other parts, confirmed 0 hits from my rows in citation_sweep.problems, web_quotes, universals, hebrew_normalize.defects at the whole-file level)",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "check_register.py's staged digest only scans PROSE_FIELDS = (boundary_rationale, strongest_rejected_alternative, device_notes) and appears to report at most the matches its own regex arms hit, not every repeated occurrence of a barred phrase in a field -- it never scans boundary_evidence_refs at all, even though book_strategy_Ezek.md SS8 says 'Row prose (all 22 fields) never contains' the barred classes",
+   "why_it_matters": "P07-009's boundary_evidence_refs[0] read \"the preceding row's emphatic close\" (a textbook positional-row reference) and was never flagged by check_register.py because refs entries are out of its scanned-field scope; P07-004's s1_row_defect finding explicitly said 'officially-inventoried repeated in refs and prose' (plural), i.e. more than the one example the itemized cwo_item quoted. I fixed every occurrence I could find by reading the full row text against SS8's rule directly, not only the tool's flagged matches. A distinct checker should confirm no instance of this coverage gap survives elsewhere in the corpus, and the orchestrator may want to widen check_register.py's PROSE_FIELDS to include boundary_evidence_refs as a toolkit-debt item (the same style of fix as CWO18-SCOPE-1's widening of check_web_quotes coverage)."
+  },
+  {
+   "what": "4 pre-existing refs_mirror 'argued_but_unmirrored' flags (P07-001, P07-002, P07-004, P07-008) and 3 pre-existing mark_symmetry gaps (P07-001, P07-004, P07-008) remain, unchanged from baseline",
+   "why_it_matters": "none of these were itemized in my orders file (NOT YOURS scope: 'any order not embedded in your file'), so I left them untouched; flagging so the orchestrator can confirm whether a later CWO pass is meant to cover them."
+  },
+  {
+   "what": "book_strategy_Ezek.md SS5 (parent architecture), SS6 (unit_type/granularity) and SS7 (low-confidence regions) were not read in full, only SS8 (register)",
+   "why_it_matters": "none of my 5 rows' span, unit_type, confidence or parent_collection changed (frozen per FIXUP-1 LAW), so those sections were not load-bearing for this delivery; recorded for completeness since the brief named SS5-8 together as required reading."
+  }
+ ],
+ "items": [
+  {
+   "row": "P07-001",
+   "item": "CWO-EZ-14 (strongest_rejected_alternative, match \"strategy's\")",
+   "action": "cured",
+   "reason": "removed the strategy-file citation, rewrote to a self-contained textual claim about the chapter's own onset/close collision pattern"
+  },
+  {
+   "row": "P07-001",
+   "item": "same barred class, un-itemized occurrences (boundary_rationale: 'the book strategy names'; 'officially-inventoried' in boundary_rationale and boundary_evidence_refs[5])",
+   "action": "cured",
+   "reason": "same S8-barred classes found on a full read of the row; fixed even though check_register's narrow scan did not independently flag them"
+  },
+  {
+   "row": "P07-002",
+   "item": "CWO-EZ-14 (boundary_rationale, match 'officially inventoried')",
+   "action": "cured",
+   "reason": "removed the inventory-talk qualifier, kept the textually-supported 'strict' form label"
+  },
+  {
+   "row": "P07-004",
+   "item": "s1_finding S1-05 (cross-part register-hygiene finding)",
+   "action": "informational",
+   "reason": "addressed for this row via the CWO-EZ-14 and s1_row_defect items below; no separate action"
+  },
+  {
+   "row": "P07-004",
+   "item": "s1_row_defect G8#1(a) (span/unit_type/confidence/parent confirmation)",
+   "action": "informational",
+   "reason": "confirms metadata already correct; these fields are frozen and unchanged"
+  },
+  {
+   "row": "P07-004",
+   "item": "s1_row_defect G8#1(b) + CWO-EZ-14 'former nineteen-verse span' + CWO-EZ-14 \"the ruling's\"",
+   "action": "cured",
+   "reason": "rewrote strongest_rejected_alternative to drop repair narration, review-actor talk and the strategy citation"
+  },
+  {
+   "row": "P07-004",
+   "item": "s1_row_defect G8#1(c) ('officially-inventoried' repeated in refs and prose)",
+   "action": "cured",
+   "reason": "removed all 5 occurrences (1 in boundary_rationale, 4 in boundary_evidence_refs), not only the one example quoted"
+  },
+  {
+   "row": "P07-009",
+   "item": "s1_finding S1-05",
+   "action": "informational",
+   "reason": "addressed via the items below; no separate action"
+  },
+  {
+   "row": "P07-009",
+   "item": "s1_finding S1-13 + s1_row_defect G8#1(c) (30:20 far-side seam evidence not mirrored)",
+   "action": "cured",
+   "reason": "added boundary_evidence_refs entry for oshb:Ezek.30.20, verified against TOOLKIT's pinned 14-dateline list and against next_row P07-005's own span start"
+  },
+  {
+   "row": "P07-009",
+   "item": "s1_row_defect G8#1(b) ('the preceding row's emphatic close'; SRA strategy citation; 'officially inventoried')",
+   "action": "cured",
+   "reason": "reworded refs[0] to drop the positional row reference (now verse-anchored via its own oshb: ref), removed 'officially inventoried' from 2 refs entries and boundary_rationale, reworded the SRA to drop the strategy citation"
+  },
+  {
+   "row": "P07-008",
+   "item": "CWO-EZ-14 (device_notes, match 'officially inventoried')",
+   "action": "cured",
+   "reason": "removed the inventory-talk qualifier from the doubled utterance-formula parenthetical"
+  },
+  {
+   "row": "P07-008",
+   "item": "same barred class, un-itemized occurrence ('named in the strategy' in boundary_rationale; 'named in the book strategy' in device_notes)",
+   "action": "cured",
+   "reason": "both are strategy-file citations barred by SS8; fixed alongside the itemized device_notes match"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "P07-001 CWO-EZ-14 + un-itemized same-class fixes",
+   "test": "check_register.py on same-order 5-row extract, before vs. after",
+   "result": "PASS (p07-1 flag cleared)"
+  },
+  {
+   "order": "P07-002 CWO-EZ-14",
+   "test": "check_register.py on same-order 5-row extract, before vs. after",
+   "result": "PASS (p07-2 flag cleared)"
+  },
+  {
+   "order": "P07-004 CWO-EZ-14 x2 + s1_row_defect(b)(c)",
+   "test": "check_register.py on same-order 5-row extract, before vs. after",
+   "result": "PASS (both p07-4 flags cleared)"
+  },
+  {
+   "order": "P07-008 CWO-EZ-14 + un-itemized same-class fix",
+   "test": "check_register.py on same-order 5-row extract, before vs. after",
+   "result": "PASS (p07-8 flag cleared)"
+  },
+  {
+   "order": "P07-009 s1_finding S1-13 / s1_row_defect(c) (30:20 mirror)",
+   "test": "check_refs_mirror.py on same-order 5-row extract, before vs. after",
+   "result": "PASS (P07-009 flag cleared)"
+  },
+  {
+   "order": "FIXUP-1 LAW (3): frozen fields",
+   "test": "programmatic byte-equality assertion (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection)",
+   "result": "PASS, all 5 rows"
+  },
+  {
+   "order": "BINDING REPAIR LAW: Hebrew is spliced, never typed / byte fidelity",
+   "test": "normalize_hebrew_in_json.py (no --write) over the 5-row file",
+   "result": "PASS (fixed=0, defect_count=0; no new Hebrew was introduced, only English prose/refs edited)"
+  },
+  {
+   "order": "BINDING REPAIR LAW: ref grammar / citation binding",
+   "test": "citation_sweep.py over the 5-row file",
+   "result": "PASS (GREEN, problems=[])"
+  },
+  {
+   "order": "CWO-EZ-17/18 curly-quote scope (not itemized for any of my 5 rows)",
+   "test": "check_web_quotes.py over the 5-row file",
+   "result": "PASS (GREEN, 0 flags -- confirms none of my rows carried an in-scope curly-quote item)"
+  },
+  {
+   "order": "cap discipline (whole-chapter rows)",
+   "test": "cap_sweep.py over the 5-row file",
+   "result": "PASS (GREEN, 0 failures)"
+  },
+  {
+   "order": "BOILERPLATE (CWO-EZ-07) 7-gram gate",
+   "test": "ngram7.py over the full 145-row spliced file",
+   "result": "PASS (GREEN, no offending gram)"
+  },
+  {
+   "order": "part tiling",
+   "test": "check_tiling.py rows_modified.jsonl --range Ezek.29.1-Ezek.32.32",
+   "result": "PASS (0 gap/overlap/order problems in range)"
+  },
+  {
+   "order": "FLAGS non-rise (mark_symmetry, universals)",
+   "test": "paired check_marks.py / check_universals.py, same-order 5-row extract before vs. after",
+   "result": "PASS (3/3 and 16/16 unchanged respectively)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "register": 5,
+   "refs_mirror_rows_flagged": 5,
+   "mark_symmetry": 3,
+   "universals_claims": 16,
+   "web_quotes": 0,
+   "citation_sweep_problems": 0,
+   "hebrew_normalize_defects": 0,
+   "cap_sweep_failures": 0
+  },
+  "after": {
+   "register": 0,
+   "refs_mirror_rows_flagged": 4,
+   "mark_symmetry": 3,
+   "universals_claims": 16,
+   "web_quotes": 0,
+   "citation_sweep_problems": 0,
+   "hebrew_normalize_defects": 0,
+   "cap_sweep_failures": 0
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

@@ -1,0 +1,141 @@
+#!/usr/bin/env python3
+"""Build Ezekiel's close sidecar `Ezek/sidecar_src_ezek.jsonl`: one row per corpus row graded low or medium_low.
+
+THE GATE IT MEETS (the Lamentations close tool, lines 29-38). The sidecar rows, keyed by writer_decision_id, must be
+EXACTLY the corpus rows whose confidence is medium_low or low. Every row must carry concern_type, why_low_confidence,
+why_frontier_review_needed, possible_downstream_risk, suggested_reviewer and proposed_atlas_action, and no two rows may
+share a why_low_confidence.
+
+DERIVED, NOT AUTHORED. Five fields are copied unchanged from the item-22 atlas row for the same chunk:
+concern_type, why_low_confidence, possible_downstream_risk, suggested_reviewer and proposed_atlas_action.
+why_frontier_review_needed is TRANSCRIBED from the row's own prose, under a fixed label and the atlas generator's
+sentence filter (imported, not copied). The filter lets no Hebrew, no quoted translation and no internal code travel.
+The first usable sentence not already in why_low_confidence is taken, searching strongest_rejected_alternative first
+and then boundary_rationale. If none exists, a fixed COMPOSED sentence is used and flagged as composed in the
+derivation record.
+
+AMENDED 2026-09-23 (v10 hold round, OW-30): the corpus and the atlas source are rows_v10_final.jsonl, which
+changes only P10-016's hold fields; the atlas rows now follow the corpus hold.
+AMENDED 2026-09-23 (v9 fix round): the atlas rows are now built over the final corpus itself, so the equality
+check below compares the corpus with itself. What follows is the history before that.
+The corpus is pinned. The atlas rows were built over rows_v7_cwo24 (e24048cc). The finalize pass changed only
+review_status, so this tool re-checks, row by row, that every field the atlas generator reads is equal on the final
+corpus.
+
+Outputs (never overwritten; same bytes are left, different bytes refused):
+  Ezek/sidecar_src_ezek.jsonl                       the sidecar the close tool globs
+  deliverables/Ezek_sidecar_derivation.v1.jsonl     per row: which field and sentence fed why_frontier_review_needed
+
+usage: gen_sidecars.py [--check]
+"""
+import hashlib
+import importlib.util
+import json
+import sys
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding="utf-8")
+HERE = Path(__file__).resolve().parent
+EZ = HERE.parent
+CORPUS = EZ / "rows_v10_final.jsonl"  # v10 hold round 2026-09-23 (OW-30); was rows_v9_final.jsonl (a80b6e67)
+CORPUS_PIN = "106f355324fb867055e4f1ec25cc30ced8607b69a7ce0489b9d953e30e18608b"
+ATLAS_SRC = EZ / "rows_v10_final.jsonl"  # the atlas generator reads the final corpus (v10 hold round)
+ATLAS_SRC_PIN = "106f355324fb867055e4f1ec25cc30ced8607b69a7ce0489b9d953e30e18608b"
+ATLAS = HERE / "atlas_candidate_feed_rows.jsonl"
+DIMS = HERE / "Ezek_atlas_dimensions.v1.jsonl"
+OUT = EZ / "sidecar_src_ezek.jsonl"
+OUT_DER = HERE / "Ezek_sidecar_derivation.v1.jsonl"
+COPIED = ("concern_type", "why_low_confidence", "possible_downstream_risk", "suggested_reviewer", "proposed_atlas_action")
+REQUIRED = COPIED[:2] + ("why_frontier_review_needed",) + COPIED[2:]
+SOURCES = (("strongest_rejected_alternative", "Rival reading on record: "), ("boundary_rationale", "Boundary warrant on record: "))
+FALLBACK = ("COMPOSED: every sentence of this row's recorded rival reading and boundary warrant quotes witness text or "
+            "an internal code, so none can travel here; the reviewer reads the row itself.")
+
+_spec = importlib.util.spec_from_file_location("gen_atlas_rows", HERE / "gen_atlas_rows.py")
+_atlas = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_atlas)
+
+
+def sha(b):
+    return hashlib.sha256(b).hexdigest()
+
+
+def jsonl(p):
+    return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+
+
+def build():
+    for p, pin in ((CORPUS, CORPUS_PIN), (ATLAS_SRC, ATLAS_SRC_PIN)):
+        if sha(p.read_bytes()) != pin:
+            raise SystemExit("REFUSED: %s moved since it was pinned" % p.name)
+    rows, src = jsonl(CORPUS), {r["decision_id"]: r for r in jsonl(ATLAS_SRC)}
+    atlas = {a["chunk_decision_id"]: a for a in jsonl(ATLAS)}
+    dims = {d["chunk_decision_id"]: d for d in jsonl(DIMS)}
+    side, der = [], []
+    for r in rows:
+        if r["confidence"] not in _atlas.SELECT:
+            continue
+        cid = "M8-Ezek-%03d" % r["chunk_index_in_book"]
+        a, d = atlas[cid], dims[cid]
+        assert d["internal_decision_id"] == r["decision_id"] and a["span"] == r["span"] == d["span"], cid
+        assert {k: v for k, v in src[r["decision_id"]].items() if k != "review_status"} == \
+               {k: v for k, v in r.items() if k != "review_status"}, "%s differs from the atlas source beyond review_status" % cid
+        wlc = a["why_low_confidence"]
+        pick, where = None, None
+        for field, label in SOURCES:
+            kept, _, _ = _atlas.clean_sentences(r.get(field) or "", 99)
+            for i, s in enumerate(kept):
+                if s not in wlc:
+                    pick, where = label + s, {"field": field, "usable_sentence_index": i, "label": label.strip()}
+                    break
+            if pick:
+                break
+        tier = "TRANSCRIBED" if pick else "COMPOSED"
+        s = {"writer_decision_id": r["writer_decision_id"], "decision_id": r["decision_id"], "chunk_decision_id": cid,
+             "span": r["span"], "confidence": r["confidence"]}
+        for k in COPIED:
+            s[k] = a[k]
+        s["why_frontier_review_needed"] = pick or FALLBACK
+        side.append({k: s[k] for k in ("writer_decision_id", "decision_id", "chunk_decision_id", "span", "confidence") + REQUIRED})
+        der.append({"schema": "ezek_sidecar_derivation.v1", "writer_decision_id": r["writer_decision_id"], "chunk_decision_id": cid,
+                    "copied_from_atlas_row": list(COPIED), "why_frontier_review_needed_tier": tier,
+                    "why_frontier_review_needed_source": where})
+    # the Lamentations gate, verbatim in substance
+    low_ids = {r["writer_decision_id"] for r in rows if r["confidence"] in ("medium_low", "low")}
+    ids = [s["writer_decision_id"] for s in side]
+    assert len(ids) == len(set(ids)) and set(ids) == low_ids, "sidecar set is not exactly the low/medium_low rows"
+    assert all(s.get(k) for s in side for k in REQUIRED), "a required sidecar field is empty"
+    assert len({s["why_low_confidence"] for s in side}) == len(side), "why_low_confidence is not unique"
+    dump = lambda objs: ("".join(json.dumps(o, ensure_ascii=False) + "\n" for o in objs)).encode("utf-8")
+    return dump(side), dump(der), side, der
+
+
+def write_new(p, data):
+    if p.exists():
+        if p.read_bytes() != data:
+            raise SystemExit("REFUSED: %s exists with different bytes; never overwritten" % p.name)
+        return "same bytes, left"
+    p.write_bytes(data)
+    return "written"
+
+
+def main():
+    b_side, b_der, side, der = build()
+    if "--check" in sys.argv:
+        print("MATCH" if OUT.is_file() and OUT.read_bytes() == b_side and OUT_DER.is_file() and OUT_DER.read_bytes() == b_der
+              else "DIFFERS")
+        return
+    st = (write_new(OUT, b_side), write_new(OUT_DER, b_der))
+    tiers = {}
+    for d in der:
+        key = d["why_frontier_review_needed_tier"] + (":" + d["why_frontier_review_needed_source"]["field"]
+                                                        if d["why_frontier_review_needed_source"] else "")
+        tiers[key] = tiers.get(key, 0) + 1
+    print(json.dumps({"sidecar": OUT.name, "state": st[0], "sha256": sha(OUT.read_bytes()), "rows": len(side),
+                      "by_confidence": {c: sum(1 for s in side if s["confidence"] == c) for c in ("medium_low", "low")},
+                      "derivation": OUT_DER.name, "derivation_state": st[1], "derivation_sha256": sha(OUT_DER.read_bytes()),
+                      "why_frontier_review_needed_by_source": tiers, "corpus_sha256": CORPUS_PIN}, indent=1))
+
+
+if __name__ == "__main__":
+    main()

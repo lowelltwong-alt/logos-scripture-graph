@@ -1,0 +1,41 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_notification_tokens_are_final_context",
+ "book": "Ezek",
+ "found_at": "2026-09-23",
+ "found_by": "orchestrator (claude-opus-5-5), session 910cbe15, while landing the OW-26 lanes",
+ "ledger_entry": "E-54",
+ "severity": {
+  "counterfactual": "high - the OW-22 hard line is read against a sum that undercounts compacted executions",
+  "observed": "two merged-close rows recorded the wrong figure; amended before any decision used them"
+ },
+ "measured": {
+  "method": "the lane's own transcript usage fields, deduplicated by message id; content NOT read",
+  "ezek_merged_close_lane_b_a1#e1": {
+   "notification_subagent_tokens": 101506,
+   "last_request_context": 101293,
+   "requests": 41,
+   "spend_excl_cache_read": 576419,
+   "cache_read": 4184696
+  },
+  "ezek_merged_close_lane_a_a1#e1": {
+   "notification_subagent_tokens": 148182,
+   "last_request_context": 148182,
+   "requests": 38,
+   "spend_excl_cache_read": 855552,
+   "cache_read": 3331176,
+   "note": "API 429 interruption, resumed; notification tool_uses 8 of about 40"
+  }
+ },
+ "conclusion": "MEASURED on two lanes: the notification's subagent_tokens is the LAST request's context size, not spend.",
+ "consequence": "The OW-15 census LOWER_BOUND sums notification figures over every Ezekiel receipt. Rows for executions that compacted or resumed undercount; which earlier executions compacted is UNKNOWN; uncompacted rows are near right (INFERRED: last-request context is about everything that entered the context).",
+ "cure_applied": [
+  "m8_attempt_receipt_amendment.v1 rows for both merged lanes carry the MEASURED spend and usage breakdown"
+ ],
+ "owed": [
+  "measure spend from usage fields at landing, never from the notification figure",
+  "re-measure earlier executions from usage fields where transcripts survive; state the rest as a residual",
+  "measure a failed or interrupted execution from its output directory and usage fields, not its last text"
+ ],
+ "limits": "Two lanes measured. Harness semantics could differ across versions; earlier receipts are not re-measured here."
+}

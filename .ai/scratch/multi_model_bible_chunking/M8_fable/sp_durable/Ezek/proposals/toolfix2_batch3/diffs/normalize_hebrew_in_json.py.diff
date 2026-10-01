@@ -1,0 +1,48 @@
+--- SP/Ezek/tools/normalize_hebrew_in_json.py (installed f12c0ad6e2c6)
++++ proposals/toolfix2_batch3/staged/normalize_hebrew_in_json.py (c23e837638ed)
+@@ -3,7 +3,8 @@
+ 
+ Walks every string field of the given JSON file(s). Each maximal Hebrew run
+ (letters/points + internal spaces/maqaf) must be a byte-identical substring of
+-Ezek_oshb.txt. Runs that are only Unicode-canonically equivalent (NFD-equal) to
++Ezek_oshb.txt standing on word boundaries (no Hebrew letter or combining mark beside it; S1-07).
++A run cut inside a word is a defect: the normalizer never extends a run to a boundary. Runs that are only Unicode-canonically equivalent (NFD-equal) to
+ a source window are REPLACED with the source's exact bytes (content-preserving).
+ QERE TIER (Ezek): a run byte-present among the Qere readings of the OSHB K/Q
+ note layer (split per note by ezek_lib.kq_split, morpheme "/" removed) is
+@@ -34,6 +35,8 @@
+ RUN = re.compile(r"[֑-״]+(?:[ ־][֑-״]+)*")
+ POINTS = re.compile(r"[֑-ׇ]")
+ MIN_LEN = 2   # lesson f (Ps close): the standard re-splice cure runs MIN_LEN=2
++sys.path.insert(0, str(FREEZE))
++from ezek_lib import bounded_in  # noqa: E402   S1-07: presence is word-bounded at every tier
+ KQ = {"qere": "", "skel": ""}   # filled by build_index from the OSHB K/Q note layer
+ 
+ 
+@@ -63,7 +66,7 @@
+ 
+ 
+ def find_source_bytes(run: str, src: str, verses: list[str]) -> str | None:
+-    if run in src:
++    if bounded_in(run, src):
+         return run
+     target = nfd(run)
+     for text in verses:
+@@ -93,14 +96,14 @@
+         run = m.group(0)
+         if len(run.strip()) < MIN_LEN:
+             continue
+-        if run in src:
++        if bounded_in(run, src):
+             stats["ok"] += 1
+             continue
+-        if run in KQ["qere"]:
++        if bounded_in(run, KQ["qere"]):
+             stats["qere"] += 1
+             continue
+         if not POINTS.search(run):
+-            if POINTS.sub("", run) in skel_src or POINTS.sub("", nfd(run)) in KQ["skel"]:
++            if bounded_in(POINTS.sub("", run), skel_src, marks=False) or bounded_in(POINTS.sub("", nfd(run)), KQ["skel"], marks=False):
+                 stats["mention"] += 1
+                 continue
+             defects.append(run[:50])

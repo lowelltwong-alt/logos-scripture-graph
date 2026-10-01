@@ -1,0 +1,78 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_pin_guard_blind_to_launch_receipts",
+ "recorded_at": "2026-09-22T23:50:07.962223+00:00",
+ "recorded_by": "orchestrator (claude-opus-5-5), session 910cbe15",
+ "book": "Ezek",
+ "class": "a safety control that fails OPEN on a record shape its own author introduced without updating its readers",
+ "severity": "high on counterfactual blast radius, zero observed impact (MEASURED). Both running merged-close lanes pin 50 files each by digest; all 100 pins still match (scratch verify_brief_pins.py: ALL_PINS_INTACT). A write to the corpus or the M8 ledger during the lanes would have broken both blind lanes' binding to their launch bytes, and with at most 2,493,313 tokens of headroom under the 72M hard line a re-run of the pair might not have fitted, blocking the OW-26 close.",
+ "self_disclosed": true,
+ "found_by": "the orchestrator, when a CLEAR on ../ERROR_PATTERN_LEDGER.v1.md contradicted brief A, which names that ledger with its digest twice",
+ "what_the_guard_said": {
+  "in_flight": [],
+  "Ezek/rows_v8_final.jsonl": "CLEAR",
+  "../ERROR_PATTERN_LEDGER.v1.md": "CLEAR",
+  "Ezek/repair2/MERGED_CLOSE_BRIEF_A.md": "CLEAR"
+ },
+ "what_it_should_have_said": {
+  "in_flight": [
+   "ezek_merged_close_lane_a_a1#e1",
+   "ezek_merged_close_lane_b_a1#e1"
+  ],
+  "Ezek/rows_v8_final.jsonl": "PINNED",
+  "../ERROR_PATTERN_LEDGER.v1.md": "PINNED",
+  "Ezek/repair2/MERGED_CLOSE_BRIEF_A.md": "PINNED"
+ },
+ "root_cause": [
+  "the orchestrator recorded the two lanes ONLY as launch receipts (record_kind 'launch', outcome 'RUNNING') in Ezek/ezek_merged_close_attempt_receipts.jsonl, a shape new this session, and wrote no transcript-map entry",
+  "in_flight() treated every row of every *_attempt_receipts.jsonl as a landing, so each launch receipt landed its own execution before it had started; and it read launched executions only from transcript maps",
+  "own_briefs() read the brief field only from transcript maps, and the launch receipt's brief is spelled M8-relative (sp_durable/Ezek/...), which under_sp() did not strip",
+  "pins written SP\\..\\X (the M8 ledger) were keyed '../X' and matched only when the target was spelled the same way; an absolute target never matched",
+  "the orchestrator ran the guard and trusted CLEAR without checking that in_flight named the running lanes"
+ ],
+ "writes_made_while_blind": {
+  "files": [
+   "../CYCLE_STATE.md (append)",
+   "../CURRENT_STATE.v1.json",
+   "../RESUME_PROMPT_CURRENT.md",
+   "the prompt archive",
+   "campaign/grader_models.v1.json",
+   "campaign/gen_grader_models.py",
+   "Ezek/_close_book.py",
+   "Ezek/_test_close_book_gates.py"
+  ],
+  "pinned_by_a_running_lane": "none (MEASURED: no brief names them; every pinned digest intact)"
+ },
+ "cure": {
+  "tool": [
+   "in_flight(): a receipt row with record_kind 'launch' LAUNCHES its execution and never lands it; a non-launch row lands the execution named by execution_id OR amends_execution_id",
+   "own_briefs(): reads brief/brief_path/orders/orders_path off launch receipts as well as transcript maps",
+   "under_sp(): strips a sp_durable/ prefix; rel() gives '..' paths for a file outside SP; pinned keys are normpath'd"
+  ],
+  "guard_sha256_before": "7ef78640fb2d66c69c9730813390d76ebbb0ca5cc9d6b8ea53654f16f273c7cb",
+  "guard_sha256_after": "9a1641f6850800cbfca514388e2f198929abf79ef007fbc213c9d8ede7fa74e3",
+  "pre_fix_bytes_retained": "session scratchpad _inflight_pin_guard.pre_launchfix.7ef78640.py (not durable)",
+  "landing_shape_rule": "the completion row for a launch-receipt execution AMENDS it: amends_execution_id = the launch row's execution_id, attempt_id, record_kind 'completion', and NO execution_id key, so readers that count executions by execution_id still count one run"
+ },
+ "verification": {
+  "selftest": "GREEN, 21 vectors (4 new)",
+  "old_guard_on_new_fixture": "RED on exactly the 3 in-flight vectors (a file pinned by a launch-receipt brief; that brief; a file outside SP pinned as SP\\..\\X)",
+  "inertness_on_real_state": "Ezek: old in_flight 0, new 2, added only the two merged-close lanes, released none; Lam: 0 and 0",
+  "live": "Ezek/rows_v8_final.jsonl, ../ERROR_PATTERN_LEDGER.v1.md: PINNED by both lanes; MERGED_CLOSE_BRIEF_A.md: PINNED by lane A; the guard itself and the receipts file: CLEAR"
+ },
+ "sibling_readers_not_changed": {
+  "readers": [
+   "campaign/_orchestration_metrics.py",
+   "campaign/_capture_index.py",
+   "campaign/_transcript_coverage_census.py",
+   "campaign/_book_close_status_ow12.py",
+   "Ezek/repair2/census_ow15_v3.py"
+  ],
+  "status": "none reads record_kind; each will count a launch row as an attempt row. No gate depends on them before the lanes land. OWED: teach them the launch shape, or confirm the amendment rule keeps their counts right, before the next census or metrics run."
+ },
+ "dad_candidate": "major learning-loop candidate: a new record shape must ship with an update to every reader of that record family, and a guard's CLEAR is not trusted until its in_flight list names what is known to be running. Ledger entry and DAD intake are held until the lanes land, because both briefs pin the ledger (the fixed guard confirms PINNED).",
+ "limits": [
+  "a pin written as an ABSOLUTE path is still not recognised",
+  "an execution recorded by neither a transcript map nor a launch receipt is still invisible"
+ ]
+}

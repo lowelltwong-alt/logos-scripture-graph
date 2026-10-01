@@ -1,0 +1,133 @@
+{
+ "schema": "ezek_v1_unmet_gate_dispositions.v1",
+ "book": "Ezek",
+ "built_by": "repair2/fixround_v9/build_delta_docket_v9.py",
+ "builder_sha256": "4ef78e0593eab28cf0ce69d1f41d1627555f475bb6d9dc75541675597a5ac357",
+ "v1_final_checks": {
+  "A": {
+   "file": "merged_close/lane_a/final_check.json",
+   "sha256": "8a0381348b23c5e4f8ade050438507bbbac08f46f78623ce3962d2d21b603eb9"
+  },
+  "B": {
+   "file": "merged_close/lane_b/final_check.json",
+   "sha256": "8edeee6a70cf148a720e61982a8d0b68a21b311f04c1db83160f45d3c9c3f8d9"
+  }
+ },
+ "status": "CLAIMS for the delta lanes to judge; not judgements",
+ "types": {
+  "OWED_OW26": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it",
+  "DEFERRED_OW28_FABLE_END_REVIEW": "DEFERRED, NOT MET (OW-28): the gate needs a claude-fable-5-1 model; Fable reviews every book at the campaign's end",
+  "OWNER_ACT_OW11": "OWNER'S ACT (OW-11): the orchestrator does not place it",
+  "CURED_BY_DELTA_VERDICT": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+ },
+ "entries": {
+  "A:L22-24 postcheck verdict fit_to_assemble, no high/medium residual": {
+   "v1_evidence": "lane A postcheck verdict not_fit; residual {'high': 0, 'medium': 1, 'low': 3}",
+   "type": "CURED_BY_DELTA_VERDICT",
+   "cured_by": "assembly_verdict",
+   "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+  },
+  "A:L55-58 OW-6 final-check packet in SP/Ezek/final_check/": {
+   "v1_evidence": "No Ezekiel final_check/ exists (decision v2 section 2); this lane's final_check.json is a candidate in the lane directory; placing it is the owner's act (OW-11).",
+   "type": "OWNER_ACT_OW11",
+   "cured_by": null,
+   "state": "OWNER'S ACT (OW-11): the orchestrator does not place it"
+  },
+  "A:L60 final checker model == claude-fable-5-1": {
+   "v1_evidence": "Model claude-opus-5-5 under OW-25. The Lam assertion is not edited; the Ezekiel tool must read the fallback grader from campaign/grader_models.v1.json and assert the downgrade statement.",
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "cured_by": null,
+   "state": "DEFERRED, NOT MET (OW-28): the gate needs a claude-fable-5-1 model; Fable reviews every book at the campaign's end"
+  },
+  "A:L61-62 verdict fit_to_close, no high/medium residual": {
+   "v1_evidence": "lane A final verdict not_fit; residual {'high': 0, 'medium': 1, 'low': 9}",
+   "type": "CURED_BY_DELTA_VERDICT",
+   "cured_by": "verdict",
+   "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+  },
+  "A:L65-77 stage-1 transcript-audit packets and dispositions": {
+   "v1_evidence": "OWED, NOT MET (OW-26): no stage-1 transcript audit exists for Ezekiel; stage1_findings_disposition is [].",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  },
+  "A:L78-85 transcript_coverage stated, reconcile_verdict GREEN": {
+   "v1_evidence": "Integers and statement present; reconcile_verdict NOT_RUN.",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  },
+  "A:L86-99 stage-1 packet model and byte accounting": {
+   "v1_evidence": "No stage-1 packets (OW-26).",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  },
+  "A:L100-105 _final_check_reconcile.py returns 0": {
+   "v1_evidence": "Not run: no stage-1 packets to reconcile.",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  },
+  "B:L23 postcheck verdict fit_to_assemble": {
+   "v1_evidence": "not_fit (P06-015)",
+   "type": "CURED_BY_DELTA_VERDICT",
+   "cured_by": "assembly_verdict",
+   "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+  },
+  "B:L24 no medium/high postcheck residual": {
+   "v1_evidence": "1 medium",
+   "type": "CURED_BY_DELTA_VERDICT",
+   "cured_by": "assembly_verdict",
+   "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+  },
+  "B:L60 packet model claude-fable-5-1": {
+   "v1_evidence": "claude-opus-5-5 under OW-25",
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "cured_by": null,
+   "state": "DEFERRED, NOT MET (OW-28): the gate needs a claude-fable-5-1 model; Fable reviews every book at the campaign's end"
+  },
+  "B:L61 verdict fit_to_close": {
+   "v1_evidence": "not_fit",
+   "type": "CURED_BY_DELTA_VERDICT",
+   "cured_by": "verdict",
+   "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+  },
+  "B:L62 no medium/high residual": {
+   "v1_evidence": "1 medium",
+   "type": "CURED_BY_DELTA_VERDICT",
+   "cured_by": "verdict",
+   "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+  },
+  "B:L65-66 stage-1 transcript-audit packets exist": {
+   "v1_evidence": "OWED, NOT MET (OW-26)",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  },
+  "B:L72-77 stage1_findings_disposition complete": {
+   "v1_evidence": "vacuous: stage 1 never ran; recorded not met",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  },
+  "B:L84-85 reconcile_verdict GREEN": {
+   "v1_evidence": "NOT_RUN",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  },
+  "B:L87-99 stage-1 packets by claude-fable-5-1": {
+   "v1_evidence": "none (OW-26)",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  },
+  "B:L102-105 _final_check_reconcile GREEN": {
+   "v1_evidence": "not run",
+   "type": "OWED_OW26",
+   "cured_by": null,
+   "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+  }
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "schema": "m8_finding.v1",
+ "finding_id": "transcript_decay_mid_session",
+ "version": 2,
+ "supersedes": {
+  "file": "finding_transcript_decay.v1.json",
+  "sha256": "ab1647ed731ee0ff8fbffbbb2651d8ec3edb872d380dfc13928f0bed2e55e93c",
+  "why": "v1's digits were taken from the v1 manifest, which had swept orchestrator shell output in as transcripts and counted a zero-byte file as a present one. Its attempts_with_no_transcript_ever_written of 0 states the opposite of the fact this record exists to convey, and it was never corrected after the conflation discovery eight minutes later.",
+  "found_by": "the OW-6 stage-2 final checker (claude-fable-5-1), attempt lam_final_check_01_a1",
+  "v1_retained": "yes - not edited; a correction that erases what it corrects is not a record"
+ },
+ "book": "Lam",
+ "recorded_at": "2026-09-07T19:32:13.937906+00:00",
+ "severity": "medium",
+ "class": "evidence_retention",
+ "headline": "the reasoning record of this book is thin: most attempts left no transcript at all, transcripts that were written are deleted mid-session, and the surviving transcripts contain no chain of thought - every thinking block in them is empty",
+ "the_correction_that_matters": {
+  "v1_said": "attempts_with_no_transcript_ever_written: 0",
+  "the_fact": "35 of 41 attempts that produced this corpus left no surviving transcript",
+  "why_v1_got_it_wrong": "the v1 manifest resolved every mapped attempt to a file that existed, so none looked missing; 27 of those files were zero bytes and carried nothing"
+ },
+ "digits": {
+  "attempts_total": 41,
+  "attempts_with_a_surviving_transcript": 6,
+  "attempts_with_no_transcript": 35,
+  "mapped_attempts_with_a_zero_byte_file": 27,
+  "mapped_attempts_with_content": 3,
+  "unmapped_transcripts_with_content": 8,
+  "transcripts_permanently_lost": 1,
+  "bytes_audited_by_stage1": 9778043,
+  "durable_store_files": 13,
+  "durable_store_bytes": 12919019
+ },
+ "the_larger_finding_v1_did_not_know": {
+  "fact": "the surviving transcripts contain NO chain of thought: every thinking block is an empty string with a signature",
+  "source": "the OW-6 stage-2 final checker, which read them",
+  "consequence": "OW-6's 'even chain of thought' and OW-6c's re-check of 'all chain of thought' are not partially satisfiable - they are not satisfiable at all from transcripts. What the transcript audit actually reads is actions, tool arguments, tool results, file writes and narration. That is genuinely valuable: it found undisclosed law breaches nothing else could see. It is not reasoning, and must never be presented to the owner as such.",
+  "bearing_on_OW-6c": "this is now an owner question, escalated by the final checker, not a note"
+ },
+ "controls_in_force": [
+  "the mirror runs at every wave landing and before any final check is launched",
+  "audit slices resolve to the durable mirror first; a transcript held nowhere is REPORTED as lost",
+  "the durable store is swept so a held transcript missing from the manifest is still audited",
+  "_final_check_reconcile.py makes the coverage claim falsifiable; the close gate refuses on RED",
+  "the stage-2 checker must state transcript coverage and the gate asserts it did"
+ ],
+ "remaining_risk": "the mirror runs when the orchestrator runs it, so a transcript written and deleted between two runs is lost leaving only its manifest digest. The final checker ruled this residual window does NOT need an owner decision, because the dominant loss - transcripts the runtime never wrote - is not a cadence problem and no cadence recovers it.",
+ "authority": "orchestrator finding, corrected under the stage-2 checker's ruling; candidate-only, non-authorizing; no corpus row is affected"
+}

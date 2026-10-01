@@ -1,0 +1,214 @@
+{
+ "attempt_id": "ow2i2_Job_01_a1",
+ "role": "ow2_item2_auditor",
+ "book": "Job",
+ "rows": [
+  {
+   "row_id": "M8-Job-010",
+   "verdict": "clean",
+   "triggers": [
+    {
+     "tag": "punct:paragraph_layer",
+     "disposition": "not_a_defect",
+     "grounds": "The matched phrase names the MASORETIC paragraph division, not the WEB paragraph layer: pmarks_Job.json records marks Job.3.1 = PE, and a parashah mark FOLLOWS its verse, so 'the Masoretic paragraph break following 3:1' is byte-accurate; the row cites it in the prescribed form oshb:Job.3.1 (petuchah, single-witness) and repeats '(single-witness)' inside the rival sentence itself. That is tier-3 Writings corroboration, correctly typed (PE, never conflated with SAMEKH), and it is used ONLY to characterise the REJECTED rival. The ADOPTED seam rests on substrate bytes: the mouth-opening idiom collates BYTE at oshb:Job.3.1 and the vaya'an formula collates BYTE at oshb:Job.3.2 (collate.py). No WEB punctuation, paragraphing, poetry-line or capitalisation fact does driver or corroboration work anywhere in the row -- verse_map_web.json's para_before flag at Job.3.1 is never invoked -- and the prose/poetry register contrast drawn at 3:2|3:3 is the strategy's own datum (§1: prose seams at 3:1-2), not a translation-layout fact. Both edges are neighbour-coherent: the 2:13|3:1 seam is argued from the same temporal marker by the unit closing at 2:13, and the 3:2|3:3 seam from the jussive curse incipit by the unit opening at 3:3. The rival is §8's own region 2 and is written in the X-X single-verse form. All five curly-quoted WEB runs in the row are verbatim."
+    }
+   ],
+   "findings": []
+  },
+  {
+   "row_id": "M8-Job-017",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "excl:no_digit",
+     "disposition": "not_a_defect",
+     "grounds": "The matched token is the adverb 'only' in 'bridges the two verses in translation only' -- a DISCLAIMER stripping evidential weight from the WEB's trailing 'saying,', not an only/sole/unique/first-class count claim; there is no count object to name and no sweep digit is owed. The row's stated near-edge driver is substrate, not translation: the interrogative-he construction collates BYTE at oshb:Job.4.17, and the closing clause of oshb:Job.4.16 collates BYTE at oshb:Job.4.16 and carries a verb of hearing, not of speaking, so it is correctly excluded from the verse-initial vayomer frame family (strategy §2a, sweep 9). The far edge rests on the imperative topic-turn at 5:1 and is argued compatibly by the unit opening there. Every curly-quoted WEB run in the row is verbatim (check_web_quotes.py over the batch: 25 quotes, 0 flags, 0 neighbour-only warns)."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "mechanical",
+     "claim": "boundary_rationale carries an unclosed parenthesis, so the row's driver sentence never closes its citation parenthetical.",
+     "grounds": "Character count over the shipped field: 4 '(' against 3 ')'. The three closers belong to '(oshb:Job.4.16)', '(web:Job.4.21)' and '(qra na)'; the opener introduced before 'web:Job.4.17; Hebrew ...' is never closed, so the near-edge driver, the 4:16 observation and the translation disclaimer all read as one unterminated aside. No claim inside it is byte-false: both Hebrew runs collate BYTE at their cited refs and both WEB runs are verbatim, so this is mechanical only.",
+     "span_change": false,
+     "proposed_change": "Field repair only: close the parenthetical after 'bridges the two verses in translation only' (insert ')' before that sentence's period). Span, refs and confidence unchanged."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-023",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "lowband:low",
+     "disposition": "not_a_defect",
+     "grounds": "The low band is honest and its stated reason survives re-derivation. Both EDGES stand on tier-1 signals in their own bytes and are argued compatibly by the adjacent units: the near edge on the third-person gnomic turn at oshb:Job.6.14 (collates BYTE; the friend-word carries a 3ms suffix and the verb is 3ms imperfect, and the unit closing at 6:13 names the same seam), the far edge on the imperative opening oshb:Job.6.24 (collates BYTE in the unit beginning there, which argues it as its own near edge). The band is driven by a disclosed INTERNAL rival at 6:20|6:21, and that rival's digit-bearing claim is TRUE on re-derivation: oshb:Job.6.14 through oshb:Job.6.20 carry no second-person form at all, 6:21 supplies the unit's first 2mp verbs, and a 2mp verb or 2mp suffix then stands in every one of the nine verses 6:21, 6:22, 6:23, 6:24, 6:25, 6:26, 6:27, 6:28, 6:29, with oshb:Job.6.30 reverting to 1cs -- so 'runs unbroken through 6:29 (nine verses)' is exact. Span is 10 verses, inside §6's ~4-12 vv guide, crossing no speech boundary. The confidence is not over-stated (no byte-defective warrant is masked) and not materially under-stated (a comparably warranted internal seam is genuinely unresolved). The cross-unit reference is verse-anchored (2:6|2:7), so no register arm attaches."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "kq-undisclosed-in-quoted-span",
+     "claim": "The row quotes the whole of oshb:Job.6.21 across the verse's ketiv/qere adjacency with no K/Q disclosure, then glosses the quoted string as 'all second-person plural'.",
+     "grounds": "pmarks_Job.json kq registers 1 note at Job.6.21 (book total 53 notes / 49 verses, flagged HIGH), and the staged OSHB extract carries ketiv and qere ADJACENT inside the verse: the spliced pair is לא ל֑וֹ (ketiv unpointed, qere pointed), standing between the 2mp perfect and the 2mp imperfect. The row's quoted run reproduces the entire verse and therefore CROSSES that adjacency -- the canonical disclosure trigger (TOOLKIT wording, re-asserted at strategy §4). The quote is not byte-false (collate.py returns tier byte at oshb:Job.6.21), which is why the omission matters: a doubled reading is presented silently as continuous verse text, and the appended 'all second-person plural' gloss covers a string two of whose words -- the ketiv/qere pair -- are not second-person at all. The verse's three finite verbs ARE 2mp, so the person analysis holds; the defect is the missing K/Q disclosure and the over-wide gloss extent. Not load-bearing: the row's edges rest on 6:14 and 6:24, not on 6:21, and the 6:20|6:21 rival is disclosed either way.",
+     "span_change": false,
+     "proposed_change": "Field repair only: inside the oshb:Job.6.21 parenthetical, disclose that the quoted span crosses the verse's ketiv/qere adjacency (WLC single-witness; ketiv and qere adjacent in the extract) and narrow the person gloss to the verse's three finite verbs. Span, edges and the low band unchanged."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-028",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "'Merging Job.7.17-21 into the row above it' is a positional row reference: §10's register purge bars process language in row prose and requires cross-row references to be verse-anchored. TEST 2: the reference carries no byte claim about the neighbouring unit, and its substance is verse-anchored elsewhere in the same sentence (Job.7.11, with web:Job.7.11 in boundary_evidence_refs), so the register arm alone is cosmetic and scores low. The argumentative ground that sentence DOES carry is defective on separate grounds and is recorded as its own finding."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "strongest_rejected_alternative names a neighbouring unit by position ('the row above it') instead of by verse.",
+     "grounds": "Shipped field text: 'Merging Job.7.17-21 into the row above it would run the Job.7.11 resolve's aftermath and the closing interrogative movement together past a comfortable strophe length.' The referenced material is Job.7.11-Job.7.16; Job.7.11 is already anchored in the same sentence and web:Job.7.11 already stands in boundary_evidence_refs, so the repair loses no evidence.",
+     "span_change": false,
+     "proposed_change": "Field repair only: replace 'the row above it' with the verse anchor 'the unit running Job.7.11-Job.7.16'."
+    },
+    {
+     "severity": "medium",
+     "class": "rival-rejected-on-non-evidence-ground",
+     "claim": "The rejected alternative is rejected solely on a strophe-length ground that is off-band against the book's own guide and is ruled non-evidence by the book's own granularity policy.",
+     "grounds": "Arithmetic: the merge the row rejects is Job.7.11-Job.7.21 = 11 verses (6 + 5), INSIDE strategy §6's stated '~4-12 vv guide' for a strophe-level row, so 'past a comfortable strophe length' is false against the book's own band. §6 further rules row comparability a 'convergence constraint, not evidence', so length cannot carry a rival's rejection at all. The sound ground was already in hand and is stated in the row's own boundary_rationale: the verse-initial topic-turn interrogative opening oshb:Job.7.17 (collates BYTE at its cited ref), a tier-1 class in §6's list, which the preceding unit independently names as the edge it stops before. The seam therefore stands; what fails is the rival's stated rejection ground.",
+     "span_change": false,
+     "proposed_change": "Field repair only: re-ground the rejection on the tier-1 topic-turn interrogative opening Job.7.17 (oshb:Job.7.17 is already in the refs) and delete the strophe-length assertion. No span change."
+    },
+    {
+     "severity": "medium",
+     "class": "byte-false-content-label",
+     "claim": "literature_type_guess describes material that stands nowhere in the row's span.",
+     "grounds": "The shipped label is 'divine arbitration impossibility: no umpire between Job and God'. A web-phrase sweep for 'umpire' over WEB Job returns 1 verse book-wide: Job.9.33 -- outside this span, outside chapter 7 and outside this speech (the arbitration material is web:Job.9.32-Job.9.33, inside Job's reply to Bildad). WEB Job.7.17-Job.7.21, which the row itself quotes verbatim, runs the what-is-man interrogative, the every-morning visitation and testing, the how-long plea, the watcher-of-men mark-and-burden accusation, and the closing pardon question: an address to God about divine scrutiny and pardon, with no arbiter, umpire or mediator in it. The label is byte-false for the span. It bears on neither edge, and the row's mark citations are sound -- pmarks_Job.json gives paseq 1 at Job.7.20 and both PE and paseq 1 at Job.7.21, cited from the inventory with no intra-verse position claim and correctly labelled single-witness and corroborating rather than driving.",
+     "span_change": false,
+     "proposed_change": "Field repair only: replace literature_type_guess with a label drawn from the span, e.g. 'closing plea: divine scrutiny of man and the unanswered request for pardon'. No span, ref or confidence change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-030",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "Both flagged occurrences are positional row references barred by §10: 'the topic-turn interrogative about the papyrus that opens the next row' (boundary_rationale) and 'Folding this appeal into the doctrine row above it' (strongest_rejected_alternative). TEST 2 re-derivation of the claim they carry: the far-edge signal is REAL -- oshb:Job.8.11 opens with the interrogative-he construction, which collates BYTE at that ref, and is a §6 tier-1 topic-turn class -- and the near-edge material is Job.8.1-Job.8.7, so both are true claims phrased in workflow register, scoring low. Aggravating detail carried into the finding: the far-edge reference is not verse-anchored at all, and Job.8.11 appears in no form in this row's boundary_evidence_refs."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "Both cross-unit references are positional rather than verse-anchored, and the verse carrying the far-edge warrant is absent from boundary_evidence_refs.",
+     "grounds": "boundary_rationale rests this three-verse row's far edge on 'the topic-turn interrogative about the papyrus that opens the next row' -- a positional reference with no verse anchor -- while boundary_evidence_refs lists only oshb:Job.8.8, web:Job.8.8, web:Job.8.9 and web:Job.8.10, so Job.8.11 is unreferenced. The claim itself is true (interrogative-he opens oshb:Job.8.11, byte tier) and the near-edge imperative opening oshb:Job.8.8 also collates BYTE at its cited ref, so this is a register and ref-completeness shortfall, not an evidence defect. The row's own shortness disclosure -- 3 verses, under §6's ~4-12 guide, held by two tier-1 signals rather than by verse count -- is sound and is not itself a defect.",
+     "span_change": false,
+     "proposed_change": "Field repair only: verse-anchor both references ('the interrogative-he opening Job.8.11'; 'the unit running Job.8.1-Job.8.7') and add web:Job.8.11 and oshb:Job.8.11 to boundary_evidence_refs. No span or confidence change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-031",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "'the direct second-person promise that follows one verse later, at 8:21 (inside the next row)' carries a positional row reference in its parenthetical, barred by §10. TEST 2: the claim it carries is verse-anchored and TRUE -- oshb:Job.8.21's two suffixed nouns are 2ms and the spliced pair collates BYTE at that ref, and web:Job.8.21 already stands in boundary_evidence_refs -- so the reference is cosmetically in workflow register while its substance is verifiable and correctly anchored: low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "boundary_rationale tags an already verse-anchored claim with a positional row reference.",
+     "grounds": "Shipped text: 'a different pivot from the direct second-person promise that follows one verse later, at 8:21 (inside the next row)'. The verse anchor 8:21 is present and correct, so deleting the parenthetical loses nothing.",
+     "span_change": false,
+     "proposed_change": "Field repair only: delete '(inside the next row)', keeping 'at 8:21'."
+    },
+    {
+     "severity": "low",
+     "class": "calibration",
+     "claim": "Confidence high over-states a far edge the row's own prose hedges and that cuts inside one of the book's three adjacent verse-initial-hen pairs.",
+     "grounds": "Re-swept independently over verse_map_oshb.json at skeleton tier with the object named (verse-INITIAL hen, one token per verse): 30 verses book-wide, with exactly 3 adjacent-verse pairs -- Job.8.19-Job.8.20, Job.9.11-Job.9.12, Job.12.14-Job.12.15 -- reproducing strategy §2e-b exactly. This row's far edge falls inside the first pair: oshb:Job.8.19 and oshb:Job.8.20 both open with the presentative, so the strongest formal signal at the 8:19|8:20 seam sits on the FAR side of the cut and the row must argue around it from a subject shift. The row itself concedes the point, recording that its third-person/second-person contrast 'is not perfectly morphological on either side, and is disclosed as such': 8:18 closes on a 2ms suffix (byte tier at oshb:Job.8.18) and 8:20 stays third person (its two finite verbs are 3ms, byte tier at oshb:Job.8.20). The same seam is carried at confidence medium by the unit opening at 8:20. A hedged far edge inside an ambient-signal adjacency does not support the top band. The near edge (interrogative-he at oshb:Job.8.11, byte tier) is sound and the subject-shift reading is a legitimate §6 participant-shift ground, so this is a band question only, not a respan.",
+     "span_change": false,
+     "proposed_change": "Field repair only: confidence high -> medium, and optionally name the 8:19-8:20 adjacency with its digit (verse-initial hen, skeleton tier, sweep: 30 verses book-wide, 3 adjacent pairs), since the ambient frequency tempers the rival rather than the row. No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-032",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:cross_part_or_part_range",
+     "disposition": "confirmed_defect",
+     "grounds": "'repeats byte-for-byte the same formula that opened Job's reply at web:Job.6.1, the start of this part' anchors a textual claim to a WRITER-PART boundary -- workflow structure, invisible in the text and barred from row prose by §10 (E-06 register / E-18 corpus-order bleed). TEST 2 re-derivation: the byte claim itself is TRUE -- oshb:Job.9.1 and oshb:Job.6.1 are byte-identical full verses (וַיַּ֥עַן אִיּ֗וֹב וַיֹּאמַֽר) -- but the part boundary is the ONLY reason 6:1 rather than any other member was selected as the comparand, which is exactly how a workflow fact becomes an evidential one. True claim in workflow register: low, with the comparand-selection defect recorded separately."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06/E-18",
+     "claim": "boundary_rationale identifies a comparand verse by its writer-part position ('the start of this part').",
+     "grounds": "The phrase describes the corpus's working partition, not the text. The seam it supports (8:22|9:1) is already fully carried by the tier-1 speaker-change formula at oshb:Job.9.1 plus the petuchah at oshb:Job.8.22, which pmarks_Job.json confirms (marks Job.8.22 = PE, the mark following its verse) and which the row correctly labels single-witness and tier-3-corroborating rather than driving. Removing the part reference costs the row nothing.",
+     "span_change": false,
+     "proposed_change": "Field repair only: delete ', the start of this part'."
+    },
+    {
+     "severity": "low",
+     "class": "E-05",
+     "claim": "A generic nine-member formula is presented as a byte-for-byte tie to one named verse, with no sweep digit.",
+     "grounds": "Re-swept over verse_map_oshb.json for full-verse pointed strings identical to oshb:Job.9.1: 9 members book-wide -- Job.3.2, Job.6.1, Job.9.1, Job.12.1, Job.16.1, Job.19.1, Job.21.1, Job.23.1, Job.26.1 -- reproducing strategy §2e-b's member list, which rules this string a 'generic reply formula, never a distinctive tie between any two members' (OL-c04/OL-c13). The row's statement is byte-true but carries no digit and names a single comparand, so it reads as a distinctive repetition; the identical string also stands at Job.3.2, inside this corpus's own earlier double-frame row. Secondary: the byte-identity claim is anchored in prose to web:Job.6.1, a WEB-space ref, for an original-language claim (§3 reserves oshb: for MT-space cites), though oshb:Job.6.1 does stand in boundary_evidence_refs and chapter 6 is identity in web_mt_offset_map.json, so there is no arithmetic consequence. Not load-bearing: the seam rests on the formula's presence at 9:1, not on any tie to 6:1.",
+     "span_change": false,
+     "proposed_change": "Field repair only: cite the object with its digit (the pointed full-verse reply formula, sweep: 9 verses book-wide, byte tier) and drop the single-comparand tie, or keep the comparand while disclosing that the string is generic across nine members; write the prose anchor as oshb:Job.6.1."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-034",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "lowband:medium_low",
+     "disposition": "not_a_defect",
+     "grounds": "The band is honest and every element of its stated reason survives re-derivation. The disclosed rival at 9:10|9:11 is real and is cited WITH its digit, object and tier: re-swept independently, verse-initial hen at skeleton tier stands in 30 verses book-wide with exactly 3 adjacent-verse pairs (Job.8.19-Job.8.20, Job.9.11-Job.9.12, Job.12.14-Job.12.15), so 'sweep: 30 verse-initial tokens ... only 3 adjacent-verse pairs, this one among them' is exact and its exclusivity word carries its digit. The participle catalogue is byte-exact: the three article-plus-participle forms collate BYTE at 9:5, 9:6 and 9:7 respectively, and the anarthrous form the row assigns to 9:10 collates BYTE there while collating only at SKELETON tier against 9:9 -- so the 'closes the catalogue at 9:10' claim distinguishes the two occurrences instead of blending them. The twin presentative runs at 9:11 and 9:12 and the Rahab close at 9:13 all collate BYTE at their cited verses, and Rahab here is the sea-monster noun of the hazard catalog (9:13), not a verbal use. Adversarial K/Q check: pmarks_Job.json registers a K/Q note at Job.9.13, but the extract's ketiv/qere adjacency stands earlier in that verse than the row's quoted run, which begins after it, so the span does not cross the adjacency and no disclosure was owed. The row also discloses that its continuity argument straddles its own near seam at 9:4|9:5 rather than resolving it. Span is 9 verses, inside §6's ~4-12 guide, crossing no speech boundary and no whole-chapter cap. Neither over-stated nor under-stated."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "wrong-space-cite",
+     "claim": "Nine pointed Hebrew runs are anchored to bare (WEB-space) refs, and boundary_evidence_refs carries no oshb: ref at all although the row's whole case is Hebrew morphology.",
+     "grounds": "Strategy §3 and job_lib fix the convention: row spans and bare/web: refs are WEB numbering, oshb: and pmarks are MT. The row attaches pointed MT bytes to bare refs seven times in boundary_rationale (Job.9.5, Job.9.6, Job.9.7, Job.9.10, Job.9.11, Job.9.12, Job.9.13) and twice more in strongest_rejected_alternative (Job.9.11, Job.9.12), while boundary_evidence_refs holds only three WEB ranges (web:Job.9.4-Job.9.4, web:Job.9.5-Job.9.13, web:Job.9.14-Job.9.14). The consequence is confined to the label: web_mt_offset_map.json makes chapter 9 identity, the offset zone being WEB 41 only, so every cited number resolves to the same MT verse and each run collates BYTE there. The defect is the space label plus the missing MT anchors for a rationale built entirely on original-language forms.",
+     "span_change": false,
+     "proposed_change": "Field repair only: rewrite the nine bare refs attached to Hebrew runs as oshb:Job.9.5, oshb:Job.9.6, oshb:Job.9.7, oshb:Job.9.10, oshb:Job.9.11, oshb:Job.9.12, oshb:Job.9.13 and add those refs to boundary_evidence_refs. No span, seam or confidence change."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 8,
+  "clean": 1,
+  "defect_rows": 7,
+  "findings": {
+   "low": 8,
+   "medium": 3,
+   "high": 0
+  },
+  "span_changes_proposed": 0,
+  "triggers": {
+   "total": 8,
+   "confirmed_defect": 4,
+   "not_a_defect": 4
+  }
+ }
+}

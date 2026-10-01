@@ -1,0 +1,2317 @@
+{
+ "schema": "m8_orchestration_metrics.v1",
+ "generated_at": "2026-09-22T03:07:59.916127+00:00",
+ "generator": "sp_durable/campaign/_orchestration_metrics.py",
+ "ordered_by": "owner directive OW-14 (2026-09-11), ERROR_PATTERN_LEDGER.v1.md",
+ "limits": [
+  "model is the model ORDERED at launch; the runtime exposes no effective-model record",
+  "tokens are runtime-reported subagent tokens from receipts; orchestrator context is not counted",
+  "quality findings (lapses, checker findings, refusal reasons) are in orchestration_learning_log.v1.jsonl, not here",
+  "books whose executions predate per-attempt receipts are absent or partial"
+ ],
+ "sources": [
+  {
+   "path": "sp_durable/Ezek/author/ezek_author_attempt_receipts.jsonl",
+   "sha256": "181934cefd453eed1ebb7f973050ef1347b256493cb11a23058f13ca385af760",
+   "receipts": 12
+  },
+  {
+   "path": "sp_durable/Ezek/author/ezek_author_wave_attempt_receipts.jsonl",
+   "sha256": "431bc2d52e9512732372fcff38b2cf4c1b2c090d57edb04d383c37f78fe616d7",
+   "receipts": 8
+  },
+  {
+   "path": "sp_durable/Ezek/author/ezek_remediation_attempt_receipts.jsonl",
+   "sha256": "5d527cde23d71b0c9e2418de469594a7659a79da450b24e6e8a325e4e3b3602f",
+   "receipts": 1
+  },
+  {
+   "path": "sp_durable/Ezek/author/final/ezek_final_attempt_receipts.jsonl",
+   "sha256": "3da57f296940aa3bfb230647db8416ddd699b6f43b2eeecd7cc85e5ff01109e5",
+   "receipts": 38
+  },
+  {
+   "path": "sp_durable/Ezek/author/repair2_step2/ezek_repair2_step2_attempt_receipts.jsonl",
+   "sha256": "575967fc7b50e4c8c1827ccdc3e9eb4b5d5fb8416cb9b42549098fbc3c9ca367",
+   "receipts": 3
+  },
+  {
+   "path": "sp_durable/Ezek/author/repair2_step3/ezek_repair2_step3_attempt_receipts.jsonl",
+   "sha256": "e70cfc7f1f22f2255f5a99db8c772d7d645b0cf3ac379efd8793d4f3fad6d146",
+   "receipts": 3
+  },
+  {
+   "path": "sp_durable/Ezek/author/repair2_step4c/ezek_repair2_step4c_attempt_receipts.jsonl",
+   "sha256": "4c2c719fc10ba024e96324e614f299e458e77a15aa9a28702aae61da39848cd9",
+   "receipts": 3
+  },
+  {
+   "path": "sp_durable/Ezek/author/repair2_step5/ezek_repair2_step5_attempt_receipts.jsonl",
+   "sha256": "12ef633073f03eeaa73a6353c33fbf0186be5b27006b6620932cd80d3c01f288",
+   "receipts": 6
+  },
+  {
+   "path": "sp_durable/Ezek/author/repair2_step6/ezek_repair2_step6_attempt_receipts.jsonl",
+   "sha256": "b4272747f603d2b259ca1c460bb165bb1c5edafbc9ef1ec7b4ab28efebc005f5",
+   "receipts": 6
+  },
+  {
+   "path": "sp_durable/Ezek/author/repair2_step7/ezek_repair2_step7_attempt_receipts.jsonl",
+   "sha256": "821fd962e354e6626a36223d01474f9522cc68f8fd0aedafb577df422afca1b6",
+   "receipts": 6
+  },
+  {
+   "path": "sp_durable/Ezek/author/second_review/ezek_second_review_attempt_receipts.jsonl",
+   "sha256": "88ceb9d612a1e8132be360b309a68c793ca73864f5b7fd272fca008a5c895189",
+   "receipts": 2
+  },
+  {
+   "path": "sp_durable/Ezek/author/strategy_v2/ezek_strategy_v2_attempt_receipts.jsonl",
+   "sha256": "a690e2b07039e0969552a98ed4b27d6613431d7e9a10bf3659a464ab65621432",
+   "receipts": 4
+  },
+  {
+   "path": "sp_durable/Ezek/ezek_close_audit_attempt_receipts.jsonl",
+   "sha256": "5e2e8e51cf74779ead04f873d0ddc60ff5eda9647931f209931a2add8f33b073",
+   "receipts": 5
+  },
+  {
+   "path": "sp_durable/Ezek/ezek_phase0_attempt_receipts.jsonl",
+   "sha256": "d72b6877a53754bf19e15eeb38fc354e1d06b456fb090d1220171ce1efbb579f",
+   "receipts": 12
+  },
+  {
+   "path": "sp_durable/Ezek/ezek_rulings_attempt_receipts.jsonl",
+   "sha256": "0e156c9891f1dd45df674ba76f1f4e745edcc92b5ff5ae973d3573297d298e4c",
+   "receipts": 26
+  },
+  {
+   "path": "sp_durable/Ezek/fixup1/ezek_author_fixup_attempt_receipts.jsonl",
+   "sha256": "179d1be638330f5e9dd91e7f803a1dd79c67225ddb1eaee19fce2f6005a84fc4",
+   "receipts": 11
+  },
+  {
+   "path": "sp_durable/Ezek/fixup2/ezek_author_fixup_attempt_receipts.jsonl",
+   "sha256": "cd1966e6ea2f7410681034be8771e31081c2bdb0f24efbb37a5c9bf46660b44b",
+   "receipts": 9
+  },
+  {
+   "path": "sp_durable/Ezek/fixup3/ezek_author_fixup_attempt_receipts.jsonl",
+   "sha256": "6e492311921ac4b30e756cfb30d9f2bebe3348be8f64b08e19dcafec316afd12",
+   "receipts": 9
+  },
+  {
+   "path": "sp_durable/Ezek/reviews/ezek_boss_attempt_receipts.jsonl",
+   "sha256": "045020bf8541811b465f749a120b760358e036d561d4a45392a75720d0b78701",
+   "receipts": 2
+  },
+  {
+   "path": "sp_durable/Ezek/reviews/ezek_peers_attempt_receipts.jsonl",
+   "sha256": "c353e7bc8ce797d67710b71ce8b57163bba3c282867416a1a985fe1627d618b7",
+   "receipts": 11
+  },
+  {
+   "path": "sp_durable/Ezek/reviews/ezek_primaries_attempt_receipts.jsonl",
+   "sha256": "a3a46dca60f4f2c263aba6ceee0ff37ce2deae9d711ddf22ad835588a2422e53",
+   "receipts": 52
+  },
+  {
+   "path": "sp_durable/Ezek/reviews/ezek_rulings_attempt_receipts.jsonl",
+   "sha256": "9a86bacf638bb0fac1be11e39d6abbbbaf108d2519bd1c2a480874fa678e0a9d",
+   "receipts": 9
+  },
+  {
+   "path": "sp_durable/Ezek/reviews/spot/ezek_spot_attempt_receipts.jsonl",
+   "sha256": "38abda57c330fea7ae03f620026ddcaedb3f8c634d676ba548984799ed871120",
+   "receipts": 6
+  },
+  {
+   "path": "sp_durable/Ezek/writer/ezek_writer_attempt_receipts.jsonl",
+   "sha256": "d2a45aec007c4861c54353e995df71668973fec4a78b4cc01ce53aa2a7351058",
+   "receipts": 11
+  },
+  {
+   "path": "sp_durable/Jer/author/jer_author_attempt_receipts.jsonl",
+   "sha256": "ccd582906974e45d615ca4a6be8037186034221c731d33f750f5fbfca4661c11",
+   "receipts": 23
+  },
+  {
+   "path": "sp_durable/Jer/cwo/jer_cwo_attempt_receipts.jsonl",
+   "sha256": "af865ddeb5f5192934bf309d31a799b0cfc0934a495936271cce4e8ac2d70759",
+   "receipts": 23
+  },
+  {
+   "path": "sp_durable/Jer/postcheck/jer_finalize_attempt_receipts.jsonl",
+   "sha256": "5ee8c20bee9482b1dabe8f2f8f0f0c6e3419ccd5248490422fb9d71be0f0c993",
+   "receipts": 5
+  },
+  {
+   "path": "sp_durable/Jer/spot/jer_fix_attempt_receipts.jsonl",
+   "sha256": "f86619059b8466ee5a769e298edd95703a3164092047bc6f0d4338af1eb18646",
+   "receipts": 3
+  },
+  {
+   "path": "sp_durable/Jer/spot/jer_micro_attempt_receipts.jsonl",
+   "sha256": "57db715693259f41b64f53bbbb46447f90aab1c1754b7a1c3746d69896ec0b68",
+   "receipts": 13
+  },
+  {
+   "path": "sp_durable/Jer/spot/jer_spot_attempt_receipts.jsonl",
+   "sha256": "d57c3b58dd56fa2cb3bd750e2a21dbc0a422cdaada38973a01a94229ecb83a78",
+   "receipts": 7
+  },
+  {
+   "path": "sp_durable/Lam/author/lam_author_attempt_receipts.jsonl",
+   "sha256": "9af8a50c78d99e732021d2d72b8b8504de8ca1128cef4a9a55b39c330078fc07",
+   "receipts": 4
+  },
+  {
+   "path": "sp_durable/Lam/cwo/lam_cwo_attempt_receipts.jsonl",
+   "sha256": "38f5598b0b862318c7bdb24d424cc7e46f52176e83918dc5ce594eb7c52490b2",
+   "receipts": 7
+  },
+  {
+   "path": "sp_durable/Lam/final_check/lam_final_check_attempt_receipts.jsonl",
+   "sha256": "3db2b9a33668f0cc1842d99035ce11a32a7c6f9470da7edb56186768d6944622",
+   "receipts": 12
+  },
+  {
+   "path": "sp_durable/Lam/postcheck/lam_postcheck_attempt_receipts.jsonl",
+   "sha256": "ff95f6d3a65e1802c7f0b4babfb32bbd4af69b1f0f82479647aec449c3f2e30e",
+   "receipts": 2
+  },
+  {
+   "path": "sp_durable/Lam/postcheck/lam_sidecar_attempt_receipts.jsonl",
+   "sha256": "d44125b60dd6c656d996f0ac9c569a594fa9bd5e6f5524ba89ab398d0e186fa7",
+   "receipts": 3
+  },
+  {
+   "path": "sp_durable/Lam/reviews/lam_boss_attempt_receipts.jsonl",
+   "sha256": "c292aff59fc956058cd4159b67613f6856a74fe90619cd886613cd566cf160e8",
+   "receipts": 3
+  },
+  {
+   "path": "sp_durable/Lam/reviews/lam_peer_attempt_receipts.jsonl",
+   "sha256": "8a0287caa2db309b5a5572b955e0bcdf28c203894ff859a2147c89667a3f54ad",
+   "receipts": 4
+  },
+  {
+   "path": "sp_durable/Lam/reviews/lam_pr_attempt_receipts.jsonl",
+   "sha256": "ce5e83f808ad783f17c9ba19c3de4441456588d80d8dbd0d663316326cb3bfb3",
+   "receipts": 8
+  },
+  {
+   "path": "sp_durable/Lam/spot/lam_fix_attempt_receipts.jsonl",
+   "sha256": "2ee95784212c489c4950b35ef682645f56117f638a16f929897298ddfd46f63c",
+   "receipts": 8
+  },
+  {
+   "path": "sp_durable/Lam/spot/lam_micro_attempt_receipts.jsonl",
+   "sha256": "a68beebb0765012b8cf711efde4b18674c50c334f8081b222a0d058b07345eac",
+   "receipts": 2
+  },
+  {
+   "path": "sp_durable/Lam/spot/lam_spot_attempt_receipts.jsonl",
+   "sha256": "67232996b57ad2455aee6a651d5906a94d0b582878ffc513737cbc78ee5b9f8b",
+   "receipts": 5
+  },
+  {
+   "path": "sp_durable/Lam/writer/lam_writer_attempt_receipts.jsonl",
+   "sha256": "9df9495deca8fa741d4c1db0ea2d8d9a49c5acf566e5b14546afaee9acbe73c3",
+   "receipts": 3
+  },
+  {
+   "path": "sp_durable/OW2_audit/ow2adj_attempt_receipts.jsonl",
+   "sha256": "8de94e04824c1227637f21f66c3ae7e90597026aaaa01cf6ac05fba770c330b3",
+   "receipts": 20
+  },
+  {
+   "path": "sp_durable/OW2_audit/ow2adj_re_attempt_receipts.jsonl",
+   "sha256": "69d95e090762125a4a0d6130a2ea14064774c29c13ad5b609a1cd8873b1f45e7",
+   "receipts": 3
+  },
+  {
+   "path": "sp_durable/OW2_audit/ow2i2_attempt_receipts.jsonl",
+   "sha256": "be6ba60c1aff1a61e1a10eb5ce418c07825db2cc0640df31c57b7e6d5de11a19",
+   "receipts": 29
+  },
+  {
+   "path": "sp_durable/OW2_audit/ow2i2adj_attempt_receipts.jsonl",
+   "sha256": "da5cd0df4b56e47f594f27892a706731a80645b6439c89c417d56fd99faa9315",
+   "receipts": 16
+  },
+  {
+   "path": "sp_durable/OW2_audit/ow2lf_attempt_receipts.jsonl",
+   "sha256": "5159496371cc404a36a031b5fabf165401f02a0dcf00818ace8370fa97d65bf0",
+   "receipts": 20
+  },
+  {
+   "path": "sp_durable/OW2_audit/ow2p38_attempt_receipts.jsonl",
+   "sha256": "40675e0630f0496814d53b0e527b0ea6e823b84c7a202b31e9c932cdd0a6b344",
+   "receipts": 5
+  },
+  {
+   "path": "sp_durable/REPAIR/Eccl/repair_attempt_receipts.jsonl",
+   "sha256": "a9710070abc0c2862141953ac874112bc7beeed00122bb35fe237f8dd1ed0a56",
+   "receipts": 1
+  },
+  {
+   "path": "sp_durable/REPAIR/Eccl/semcheck_attempt_receipts.jsonl",
+   "sha256": "f16c24f624a176ee83143af0d69a3ebee1c822820a973be227fd435c1f9c15bf",
+   "receipts": 1
+  },
+  {
+   "path": "sp_durable/REPAIR/Job/repair_attempt_receipts.jsonl",
+   "sha256": "1f462f90d18a241f53157d9db9c71732887460034d175de3f5aa07f74110b70a",
+   "receipts": 2
+  },
+  {
+   "path": "sp_durable/REPAIR/Ps/repair_attempt_receipts.jsonl",
+   "sha256": "2bc28be71e210f024ff52c4c20b0460cdbb93872ef150efecaf0375dfe9c15e4",
+   "receipts": 4
+  }
+ ],
+ "receipts": 491,
+ "by_model_ordered": {
+  "UNKNOWN - not recorded at launch and not recoverable": {
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  "claude-fable-5": {
+   "executions": 39,
+   "outcomes": {
+    "UNRECORDED": 39
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 8472885,
+   "tokens_mean": 217253,
+   "tokens_max": 295078,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  "claude-fable-5-1": {
+   "executions": 58,
+   "outcomes": {
+    "COMPLETED": 16,
+    "FAILED": 3,
+    "FAILED AT LAUNCH": 5,
+    "IN FLIGHT at the time of writing": 1,
+    "LANDED": 21,
+    "LANDED_WITH_FORM_DEFECTS": 2,
+    "STOPPED BY THE ORCHESTRATOR before any deliverable was written": 4,
+    "STOPPED_AT_FINAL_MESSAGE": 1,
+    "STOPPED_BY_ORCHESTRATOR": 1,
+    "UNRECORDED": 4
+   },
+   "landed": 23,
+   "refused_no_deliverable": 0,
+   "stopped": 6,
+   "with_form_defects": 2,
+   "tokens_total": 12571239,
+   "tokens_mean": 405524,
+   "tokens_max": 563321,
+   "tool_uses_total": 1253,
+   "tool_uses_mean": 43.2
+  },
+  "claude-haiku-4-5": {
+   "executions": 5,
+   "outcomes": {
+    "UNRECORDED": 5
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 256121,
+   "tokens_mean": 85374,
+   "tokens_max": 95043,
+   "tool_uses_total": 61,
+   "tool_uses_mean": 20.3
+  },
+  "claude-opus-5": {
+   "executions": 186,
+   "outcomes": {
+    "COMPLETED": 33,
+    "FAILED": 8,
+    "LANDED": 65,
+    "LANDED_WITH_FORM_DEFECTS": 3,
+    "UNRECORDED": 77
+   },
+   "landed": 68,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 2,
+   "tokens_total": 51747907,
+   "tokens_mean": 302619,
+   "tokens_max": 817960,
+   "tool_uses_total": 6723,
+   "tool_uses_mean": 60.6
+  },
+  "claude-opus-5 (session default)": {
+   "executions": 10,
+   "outcomes": {
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-71 record": 2,
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-75 record": 2,
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-76/E13-78 record": 2,
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-82/E13-83/E13-86 record": 1,
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-88 record": 1,
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-91 record": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 3476769,
+   "tokens_mean": 347677,
+   "tokens_max": 414422,
+   "tool_uses_total": 710,
+   "tool_uses_mean": 71
+  },
+  "claude-sonnet-5": {
+   "executions": 154,
+   "outcomes": {
+    "LANDED": 51,
+    "LANDED_WITH_FORM_DEFECTS": 1,
+    "REFUSED_NO_DELIVERABLE": 4,
+    "UNRECORDED": 98
+   },
+   "landed": 52,
+   "refused_no_deliverable": 4,
+   "stopped": 0,
+   "with_form_defects": 1,
+   "tokens_total": 38477790,
+   "tokens_mean": 267207,
+   "tokens_max": 507538,
+   "tool_uses_total": 4813,
+   "tool_uses_mean": 53.5
+  },
+  "deterministic (orchestrator tool _micro_key_unify.py, span-to-MT crosswalk build; claude-fable-5 orchestrator)": {
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": 0,
+   "tokens_max": 0,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  "deterministic (orchestrator tool _micro_key_unify.py; claude-fable-5 orchestrator)": {
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": 0,
+   "tokens_max": 0,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  "deterministic tool (_cwo_key_unify.py, orchestrator claude-fable-5)": {
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": 0,
+   "tokens_max": 0,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  "unrecorded": {
+   "executions": 35,
+   "outcomes": {
+    "FAILED_BY_RUNTIME_WATCHDOG": 4,
+    "UNRECORDED": 31
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 2583560,
+   "tokens_mean": 516712,
+   "tokens_max": 847447,
+   "tool_uses_total": 196,
+   "tool_uses_mean": 39.2
+  }
+ },
+ "by_book_lane_model": [
+  {
+   "book": "Eccl",
+   "lane": "ow2_backlog_repair",
+   "model": "claude-opus-5",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 204666,
+   "tokens_mean": 204666,
+   "tokens_max": 204666,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Eccl",
+   "lane": "ow2_backlog_repair",
+   "model": "claude-sonnet-5",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 173795,
+   "tokens_mean": 173795,
+   "tokens_max": 173795,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Eccl",
+   "lane": "unrecorded",
+   "model": "claude-fable-5",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 234063,
+   "tokens_mean": 234063,
+   "tokens_max": 234063,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Eccl",
+   "lane": "unrecorded",
+   "model": "claude-opus-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 953374,
+   "tokens_mean": 238344,
+   "tokens_max": 250374,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "close_gate_audit_a",
+   "model": "claude-fable-5-1",
+   "executions": 2,
+   "outcomes": {
+    "FAILED AT LAUNCH": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "close_gate_audit_b",
+   "model": "claude-fable-5-1",
+   "executions": 2,
+   "outcomes": {
+    "FAILED AT LAUNCH": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "diagnostic",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "FAILED AT LAUNCH": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_author_fixup",
+   "model": "claude-opus-5",
+   "executions": 2,
+   "outcomes": {
+    "LANDED": 2
+   },
+   "landed": 2,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 633486,
+   "tokens_mean": 316743,
+   "tokens_max": 318739,
+   "tool_uses_total": 38,
+   "tool_uses_mean": 19
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_author_fixup",
+   "model": "claude-sonnet-5",
+   "executions": 27,
+   "outcomes": {
+    "LANDED": 25,
+    "REFUSED_NO_DELIVERABLE": 2
+   },
+   "landed": 25,
+   "refused_no_deliverable": 2,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 6907459,
+   "tokens_mean": 255832,
+   "tokens_max": 405186,
+   "tool_uses_total": 1389,
+   "tool_uses_mean": 51.4
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_author_wave",
+   "model": "claude-opus-5 (session default)",
+   "executions": 6,
+   "outcomes": {
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-71 record": 2,
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-75 record": 2,
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-76/E13-78 record": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 2020709,
+   "tokens_mean": 336785,
+   "tokens_max": 386948,
+   "tool_uses_total": 369,
+   "tool_uses_mean": 61.5
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_author_wave",
+   "model": "claude-sonnet-5",
+   "executions": 12,
+   "outcomes": {
+    "LANDED": 11,
+    "REFUSED_NO_DELIVERABLE": 1
+   },
+   "landed": 11,
+   "refused_no_deliverable": 1,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 4025310,
+   "tokens_mean": 335442,
+   "tokens_max": 445708,
+   "tool_uses_total": 761,
+   "tool_uses_mean": 63.4
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_author_wave_remediation",
+   "model": "claude-opus-5 (session default)",
+   "executions": 1,
+   "outcomes": {
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-82/E13-83/E13-86 record": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 298238,
+   "tokens_mean": 298238,
+   "tokens_max": 298238,
+   "tool_uses_total": 57,
+   "tool_uses_mean": 57
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_boss",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_controlling_agent_rulings",
+   "model": "claude-fable-5-1",
+   "executions": 2,
+   "outcomes": {
+    "COMPLETED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 859059,
+   "tokens_mean": 429530,
+   "tokens_max": 492236,
+   "tool_uses_total": 63,
+   "tool_uses_mean": 31.5
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_final_remediation",
+   "model": "claude-fable-5-1",
+   "executions": 8,
+   "outcomes": {
+    "COMPLETED": 6,
+    "FAILED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 2677624,
+   "tokens_mean": 446271,
+   "tokens_max": 481658,
+   "tool_uses_total": 283,
+   "tool_uses_mean": 47.2
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_final_remediation",
+   "model": "claude-opus-5",
+   "executions": 20,
+   "outcomes": {
+    "COMPLETED": 12,
+    "FAILED": 8
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 5794355,
+   "tokens_mean": 482863,
+   "tokens_max": 556050,
+   "tool_uses_total": 1094,
+   "tool_uses_mean": 91.2
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_ow6b_b_second_review",
+   "model": "claude-fable-5-1",
+   "executions": 2,
+   "outcomes": {
+    "COMPLETED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 859036,
+   "tokens_mean": 429518,
+   "tokens_max": 439350,
+   "tool_uses_total": 104,
+   "tool_uses_mean": 52
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_p6_inventory",
+   "model": "claude-opus-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 245535,
+   "tokens_mean": 245535,
+   "tokens_max": 245535,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_peers",
+   "model": "claude-opus-5",
+   "executions": 11,
+   "outcomes": {
+    "LANDED": 11
+   },
+   "landed": 11,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 3668692,
+   "tokens_mean": 333517,
+   "tokens_max": 411366,
+   "tool_uses_total": 607,
+   "tool_uses_mean": 55.2
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase0_repair",
+   "model": "claude-opus-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": 0,
+   "tokens_max": 0,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase0_repair_recheck",
+   "model": "claude-opus-5",
+   "executions": 3,
+   "outcomes": {
+    "LANDED": 3
+   },
+   "landed": 3,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 364301,
+   "tokens_mean": 121434,
+   "tokens_max": 128940,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase0_staging",
+   "model": "claude-opus-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase0_staging",
+   "model": "unrecorded",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase0_toolkit",
+   "model": "claude-opus-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase0_toolkit",
+   "model": "unrecorded",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase1_controlling_rulings",
+   "model": "claude-fable-5-1",
+   "executions": 11,
+   "outcomes": {
+    "LANDED": 9,
+    "LANDED_WITH_FORM_DEFECTS": 1,
+    "STOPPED_BY_ORCHESTRATOR": 1
+   },
+   "landed": 10,
+   "refused_no_deliverable": 0,
+   "stopped": 1,
+   "with_form_defects": 1,
+   "tokens_total": 3488471,
+   "tokens_mean": 348847,
+   "tokens_max": 492830,
+   "tool_uses_total": 352,
+   "tool_uses_mean": 35.2
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase1_strategy",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 292314,
+   "tokens_mean": 292314,
+   "tokens_max": 292314,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase1_toolkit_install_review",
+   "model": "claude-opus-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED_WITH_FORM_DEFECTS": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 1,
+   "tokens_total": 544605,
+   "tokens_mean": 544605,
+   "tokens_max": 544605,
+   "tool_uses_total": 72,
+   "tool_uses_mean": 72
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase1_toolkit_r4ii_review",
+   "model": "claude-sonnet-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 297302,
+   "tokens_mean": 297302,
+   "tokens_max": 297302,
+   "tool_uses_total": 37,
+   "tool_uses_mean": 37
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase1_toolkit_repair_review",
+   "model": "claude-sonnet-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 269401,
+   "tokens_mean": 269401,
+   "tokens_max": 269401,
+   "tool_uses_total": 38,
+   "tool_uses_mean": 38
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase1_toolkit_review",
+   "model": "claude-sonnet-5",
+   "executions": 2,
+   "outcomes": {
+    "LANDED_WITH_FORM_DEFECTS": 1,
+    "REFUSED_NO_DELIVERABLE": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 1,
+   "stopped": 0,
+   "with_form_defects": 1,
+   "tokens_total": 383366,
+   "tokens_mean": 191683,
+   "tokens_max": 284643,
+   "tool_uses_total": 47,
+   "tool_uses_mean": 23.5
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase1_toolkit_supplementary_review",
+   "model": "claude-sonnet-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 383564,
+   "tokens_mean": 383564,
+   "tokens_max": 383564,
+   "tool_uses_total": 50,
+   "tool_uses_mean": 50
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_phase1_toolkit_tf3_review",
+   "model": "claude-sonnet-5",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 365844,
+   "tokens_mean": 365844,
+   "tokens_max": 365844,
+   "tool_uses_total": 41,
+   "tool_uses_mean": 41
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_post_cwo24_distinct_review",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "LANDED_WITH_FORM_DEFECTS": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 1,
+   "tokens_total": 295447,
+   "tokens_mean": 295447,
+   "tokens_max": 295447,
+   "tool_uses_total": 57,
+   "tool_uses_mean": 57
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_post_cwo24_distinct_review",
+   "model": "unrecorded",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_post_wave_distinct_review",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "STOPPED_AT_FINAL_MESSAGE": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 1,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_post_wave_distinct_review",
+   "model": "claude-opus-5",
+   "executions": 3,
+   "outcomes": {
+    "LANDED": 2,
+    "LANDED_WITH_FORM_DEFECTS": 1
+   },
+   "landed": 3,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 1,
+   "tokens_total": 2163531,
+   "tokens_mean": 721177,
+   "tokens_max": 774493,
+   "tool_uses_total": 299,
+   "tool_uses_mean": 99.7
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_post_wave_distinct_review",
+   "model": "unrecorded",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 646412,
+   "tokens_mean": 646412,
+   "tokens_max": 646412,
+   "tool_uses_total": 0,
+   "tool_uses_mean": 0
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_primaries",
+   "model": "claude-opus-5",
+   "executions": 44,
+   "outcomes": {
+    "LANDED": 43,
+    "LANDED_WITH_FORM_DEFECTS": 1
+   },
+   "landed": 44,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 10732428,
+   "tokens_mean": 243919,
+   "tokens_max": 299191,
+   "tool_uses_total": 1847,
+   "tool_uses_mean": 42.0
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_primaries",
+   "model": "unrecorded",
+   "executions": 4,
+   "outcomes": {
+    "FAILED_BY_RUNTIME_WATCHDOG": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step2_adjudication",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 563321,
+   "tokens_mean": 563321,
+   "tokens_max": 563321,
+   "tool_uses_total": 60,
+   "tool_uses_mean": 60
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step2_grounds",
+   "model": "claude-opus-5",
+   "executions": 2,
+   "outcomes": {
+    "COMPLETED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 638639,
+   "tokens_mean": 319320,
+   "tokens_max": 345317,
+   "tool_uses_total": 121,
+   "tool_uses_mean": 60.5
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step3_adjudication",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "LANDED": 1
+   },
+   "landed": 1,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 443997,
+   "tokens_mean": 443997,
+   "tokens_max": 443997,
+   "tool_uses_total": 41,
+   "tool_uses_mean": 41
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step3_measured_false",
+   "model": "claude-opus-5",
+   "executions": 2,
+   "outcomes": {
+    "COMPLETED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1071170,
+   "tokens_mean": 535585,
+   "tokens_max": 547300,
+   "tool_uses_total": 227,
+   "tool_uses_mean": 113.5
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step4c_vocabulary",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "COMPLETED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 345521,
+   "tokens_mean": 345521,
+   "tokens_max": 345521,
+   "tool_uses_total": 53,
+   "tool_uses_mean": 53
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step4c_vocabulary",
+   "model": "claude-opus-5",
+   "executions": 2,
+   "outcomes": {
+    "COMPLETED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 833589,
+   "tokens_mean": 416794,
+   "tokens_max": 422418,
+   "tool_uses_total": 119,
+   "tool_uses_mean": 59.5
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step5_register_prose",
+   "model": "claude-fable-5-1",
+   "executions": 2,
+   "outcomes": {
+    "COMPLETED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 940325,
+   "tokens_mean": 470162,
+   "tokens_max": 512557,
+   "tool_uses_total": 103,
+   "tool_uses_mean": 51.5
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step5_register_prose",
+   "model": "claude-opus-5",
+   "executions": 4,
+   "outcomes": {
+    "COMPLETED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1615985,
+   "tokens_mean": 403996,
+   "tokens_max": 421514,
+   "tool_uses_total": 308,
+   "tool_uses_mean": 77
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step6_transport_and_routed",
+   "model": "claude-fable-5-1",
+   "executions": 2,
+   "outcomes": {
+    "COMPLETED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 997999,
+   "tokens_mean": 499000,
+   "tokens_max": 551458,
+   "tool_uses_total": 104,
+   "tool_uses_mean": 52
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step6_transport_and_routed",
+   "model": "claude-opus-5",
+   "executions": 4,
+   "outcomes": {
+    "COMPLETED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1625382,
+   "tokens_mean": 406346,
+   "tokens_max": 424242,
+   "tool_uses_total": 285,
+   "tool_uses_mean": 71.2
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_repair2_step7_spot_reread",
+   "model": "claude-opus-5",
+   "executions": 6,
+   "outcomes": {
+    "COMPLETED": 6
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 4728868,
+   "tokens_mean": 788145,
+   "tokens_max": 817960,
+   "tool_uses_total": 815,
+   "tool_uses_mean": 135.8
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_rulings",
+   "model": "claude-fable-5-1",
+   "executions": 4,
+   "outcomes": {
+    "LANDED": 4
+   },
+   "landed": 4,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 502514,
+   "tokens_mean": 502514,
+   "tokens_max": 502514,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_spot_wave",
+   "model": "claude-opus-5 (session default)",
+   "executions": 3,
+   "outcomes": {
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-88 record": 1,
+    "COMPLETED (runtime status completed); its output was landed and applied as the queue entries E13-91 record": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1157822,
+   "tokens_mean": 385941,
+   "tokens_max": 414422,
+   "tool_uses_total": 284,
+   "tool_uses_mean": 94.7
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_strategy_v2",
+   "model": "claude-fable-5-1",
+   "executions": 2,
+   "outcomes": {
+    "COMPLETED": 1,
+    "FAILED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 305611,
+   "tokens_mean": 305611,
+   "tokens_max": 305611,
+   "tool_uses_total": 33,
+   "tool_uses_mean": 33
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_strategy_v2",
+   "model": "claude-opus-5",
+   "executions": 1,
+   "outcomes": {
+    "COMPLETED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 365630,
+   "tokens_mean": 365630,
+   "tokens_max": 365630,
+   "tool_uses_total": 60,
+   "tool_uses_mean": 60
+  },
+  {
+   "book": "Ezek",
+   "lane": "ezek_writer_wave",
+   "model": "claude-sonnet-5",
+   "executions": 11,
+   "outcomes": {
+    "LANDED": 11
+   },
+   "landed": 11,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 3216677,
+   "tokens_mean": 292425,
+   "tokens_max": 335558,
+   "tool_uses_total": 477,
+   "tool_uses_mean": 59.6
+  },
+  {
+   "book": "Ezek",
+   "lane": "unrecorded",
+   "model": "unrecorded",
+   "executions": 27,
+   "outcomes": {
+    "UNRECORDED": 27
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1937148,
+   "tokens_mean": 484287,
+   "tokens_max": 847447,
+   "tool_uses_total": 196,
+   "tool_uses_mean": 49
+  },
+  {
+   "book": "Isa",
+   "lane": "unrecorded",
+   "model": "claude-fable-5",
+   "executions": 3,
+   "outcomes": {
+    "UNRECORDED": 3
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 744561,
+   "tokens_mean": 248187,
+   "tokens_max": 295078,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_author_wave",
+   "model": "claude-sonnet-5",
+   "executions": 23,
+   "outcomes": {
+    "UNRECORDED": 23
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 7116558,
+   "tokens_mean": 309416,
+   "tokens_max": 414464,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_cwo_wave",
+   "model": "claude-sonnet-5",
+   "executions": 22,
+   "outcomes": {
+    "UNRECORDED": 22
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 4409097,
+   "tokens_mean": 209957,
+   "tokens_max": 311667,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_cwo_wave",
+   "model": "deterministic tool (_cwo_key_unify.py, orchestrator claude-fable-5)",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": 0,
+   "tokens_max": 0,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_finalize_sidecars",
+   "model": "claude-haiku-4-5",
+   "executions": 3,
+   "outcomes": {
+    "UNRECORDED": 3
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 256121,
+   "tokens_mean": 85374,
+   "tokens_max": 95043,
+   "tool_uses_total": 61,
+   "tool_uses_mean": 20.3
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_fix_round",
+   "model": "claude-sonnet-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 413032,
+   "tokens_mean": 206516,
+   "tokens_max": 251282,
+   "tool_uses_total": 81,
+   "tool_uses_mean": 40.5
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_fix_round",
+   "model": "deterministic (orchestrator tool _micro_key_unify.py, span-to-MT crosswalk build; claude-fable-5 orchestrator)",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": 0,
+   "tokens_max": 0,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_micro_round",
+   "model": "claude-sonnet-5",
+   "executions": 12,
+   "outcomes": {
+    "UNRECORDED": 12
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 2678168,
+   "tokens_mean": 223181,
+   "tokens_max": 263490,
+   "tool_uses_total": 523,
+   "tool_uses_mean": 43.6
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_micro_round",
+   "model": "deterministic (orchestrator tool _micro_key_unify.py; claude-fable-5 orchestrator)",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": 0,
+   "tokens_max": 0,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_postcheck",
+   "model": "claude-opus-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 534743,
+   "tokens_mean": 267372,
+   "tokens_max": 322280,
+   "tool_uses_total": 141,
+   "tool_uses_mean": 70.5
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_spot_wave",
+   "model": "claude-opus-5",
+   "executions": 5,
+   "outcomes": {
+    "UNRECORDED": 5
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1414172,
+   "tokens_mean": 282834,
+   "tokens_max": 350972,
+   "tool_uses_total": 299,
+   "tool_uses_mean": 59.8
+  },
+  {
+   "book": "Jer",
+   "lane": "jer_spot_wave",
+   "model": "claude-sonnet-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 544402,
+   "tokens_mean": 272201,
+   "tokens_max": 324396,
+   "tool_uses_total": 98,
+   "tool_uses_mean": 49
+  },
+  {
+   "book": "Job",
+   "lane": "ow2_backlog_repair",
+   "model": "claude-sonnet-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 310324,
+   "tokens_mean": 155162,
+   "tokens_max": 155868,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Job",
+   "lane": "unrecorded",
+   "model": "claude-fable-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 464139,
+   "tokens_mean": 232070,
+   "tokens_max": 247606,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Job",
+   "lane": "unrecorded",
+   "model": "claude-opus-5",
+   "executions": 7,
+   "outcomes": {
+    "UNRECORDED": 7
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1515435,
+   "tokens_mean": 216491,
+   "tokens_max": 263886,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_author_wave",
+   "model": "claude-sonnet-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1170922,
+   "tokens_mean": 292730,
+   "tokens_max": 386471,
+   "tool_uses_total": 274,
+   "tool_uses_mean": 68.5
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_boss_round",
+   "model": "claude-fable-5-1",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_boss_round",
+   "model": "claude-opus-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 355085,
+   "tokens_mean": 177542,
+   "tokens_max": 251753,
+   "tool_uses_total": 45,
+   "tool_uses_mean": 22.5
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_cwo_correction",
+   "model": "UNKNOWN - not recorded at launch and not recoverable",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_cwo_correction",
+   "model": "claude-sonnet-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 414763,
+   "tokens_mean": 207382,
+   "tokens_max": 252951,
+   "tool_uses_total": 71,
+   "tool_uses_mean": 35.5
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_cwo_wave",
+   "model": "claude-sonnet-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1832694,
+   "tokens_mean": 458174,
+   "tokens_max": 507538,
+   "tool_uses_total": 426,
+   "tool_uses_mean": 106.5
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_e05_class_sweep",
+   "model": "claude-sonnet-5",
+   "executions": 3,
+   "outcomes": {
+    "UNRECORDED": 3
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_fcfix_round",
+   "model": "claude-sonnet-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 977456,
+   "tokens_mean": 244364,
+   "tokens_max": 271049,
+   "tool_uses_total": 129,
+   "tool_uses_mean": 32.2
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_final_check_stage1",
+   "model": "claude-fable-5-1",
+   "executions": 8,
+   "outcomes": {
+    "LANDED": 4,
+    "STOPPED BY THE ORCHESTRATOR before any deliverable was written": 4
+   },
+   "landed": 4,
+   "refused_no_deliverable": 0,
+   "stopped": 4,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_final_check_stage2",
+   "model": "claude-fable-5-1",
+   "executions": 4,
+   "outcomes": {
+    "IN FLIGHT at the time of writing": 1,
+    "UNRECORDED": 3
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_finalize_sidecars",
+   "model": "claude-haiku-4-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_finalize_sidecars",
+   "model": "claude-sonnet-5",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_fix_round",
+   "model": "claude-sonnet-5",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_micro_round",
+   "model": "claude-sonnet-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_peer_round",
+   "model": "claude-opus-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 772607,
+   "tokens_mean": 193152,
+   "tokens_max": 206440,
+   "tool_uses_total": 148,
+   "tool_uses_mean": 37
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_postcheck",
+   "model": "claude-opus-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_primaries",
+   "model": "claude-opus-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 901833,
+   "tokens_mean": 225458,
+   "tokens_max": 246680,
+   "tool_uses_total": 198,
+   "tool_uses_mean": 49.5
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_primaries",
+   "model": "claude-sonnet-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 786002,
+   "tokens_mean": 196500,
+   "tokens_max": 230773,
+   "tool_uses_total": 186,
+   "tool_uses_mean": 46.5
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_spot_wave",
+   "model": "claude-opus-5",
+   "executions": 3,
+   "outcomes": {
+    "UNRECORDED": 3
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_spot_wave",
+   "model": "claude-sonnet-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 0,
+   "tokens_mean": null,
+   "tokens_max": null,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Lam",
+   "lane": "lam_writer_wave",
+   "model": "claude-sonnet-5",
+   "executions": 3,
+   "outcomes": {
+    "UNRECORDED": 3
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1104077,
+   "tokens_mean": 368026,
+   "tokens_max": 432560,
+   "tool_uses_total": 185,
+   "tool_uses_mean": 61.7
+  },
+  {
+   "book": "OW2_audit",
+   "lane": "unrecorded",
+   "model": "claude-fable-5",
+   "executions": 20,
+   "outcomes": {
+    "UNRECORDED": 20
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 4105833,
+   "tokens_mean": 205292,
+   "tokens_max": 242842,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "OW2_audit",
+   "lane": "unrecorded",
+   "model": "claude-opus-5",
+   "executions": 20,
+   "outcomes": {
+    "UNRECORDED": 20
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 4793777,
+   "tokens_mean": 239689,
+   "tokens_max": 293866,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Prov",
+   "lane": "unrecorded",
+   "model": "claude-fable-5",
+   "executions": 8,
+   "outcomes": {
+    "UNRECORDED": 8
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 1767082,
+   "tokens_mean": 220885,
+   "tokens_max": 242647,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Prov",
+   "lane": "unrecorded",
+   "model": "claude-opus-5",
+   "executions": 12,
+   "outcomes": {
+    "UNRECORDED": 12
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 2767461,
+   "tokens_mean": 230622,
+   "tokens_max": 259287,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ps",
+   "lane": "ow2_backlog_repair",
+   "model": "claude-sonnet-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 697577,
+   "tokens_mean": 174394,
+   "tokens_max": 231342,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ps",
+   "lane": "unrecorded",
+   "model": "claude-fable-5",
+   "executions": 4,
+   "outcomes": {
+    "UNRECORDED": 4
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 937698,
+   "tokens_mean": 234424,
+   "tokens_max": 275534,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Ps",
+   "lane": "unrecorded",
+   "model": "claude-opus-5",
+   "executions": 9,
+   "outcomes": {
+    "UNRECORDED": 9
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 2032341,
+   "tokens_mean": 225816,
+   "tokens_max": 246092,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Song",
+   "lane": "unrecorded",
+   "model": "claude-fable-5",
+   "executions": 1,
+   "outcomes": {
+    "UNRECORDED": 1
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 219509,
+   "tokens_mean": 219509,
+   "tokens_max": 219509,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  },
+  {
+   "book": "Song",
+   "lane": "unrecorded",
+   "model": "claude-opus-5",
+   "executions": 2,
+   "outcomes": {
+    "UNRECORDED": 2
+   },
+   "landed": 0,
+   "refused_no_deliverable": 0,
+   "stopped": 0,
+   "with_form_defects": 0,
+   "tokens_total": 476217,
+   "tokens_mean": 238108,
+   "tokens_max": 262401,
+   "tool_uses_total": 0,
+   "tool_uses_mean": null
+  }
+ ]
+}

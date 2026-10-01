@@ -1,0 +1,495 @@
+{
+ "attempt_id": "ezek_fixround_v9_delta_a_a1",
+ "execution_id": "ezek_fixround_v9_delta_a_a1#e1",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "book": "Ezek",
+ "corpus": "rows_v9_final.jsonl",
+ "corpus_sha256": "a80b6e6712aa43bf3d8652255b4655a934af08a9cd3e036f9b320a37bbd1098c",
+ "base_corpus_sha256": "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7",
+ "manifest_sha256": "91736024a4ac2ee44d37077a136355554f0bc27bdf012198f6c684adc3f5853c",
+ "read_order": [
+  "task2:P03-001",
+  "task2:P06-015",
+  "task2:P10-016",
+  "task1",
+  "task3",
+  "task4",
+  "task5:item_22",
+  "task5:item_23",
+  "task6"
+ ],
+ "spot_checks": [
+  "A1",
+  "B3",
+  "B8"
+ ],
+ "lineage": {
+  "confined_to_manifest": true,
+  "rows_changed": [
+   "P03-001",
+   "P06-015",
+   "P10-016"
+  ],
+  "unchanged_rows_byte_identical": 135,
+  "build_check": "build_rows_v9.py --check: \"rows_v9_final.jsonl\": \"MATCH\", \"rows_v9_final.manifest.json\": \"MATCH\"",
+  "evidence": "MEASURED (OUT/t1_lineage.py): both files 138 LF-terminated lines; 135 unchanged lines byte-identical; no unlisted difference; decision_id and chunk_index aligned; each changed row differs only in its manifest field with key order kept and before/after sha verified; changed lines equal the v8 line re-dumped with only that value replaced; P03-001 and P10-016 values equal the author proposal; P06-015 equals the signals report's live list minus the four removed."
+ },
+ "changed_rows": {
+  "P03-001": {
+   "fields": {
+    "boundary_rationale": "Appended sentence equals the manifest text; every fact in it is true on pmarks and the witness (MEASURED); it states a ground and so cures F-414 (A0). Wording lows: R2."
+   },
+   "new_defects": [
+    "R2"
+   ]
+  },
+  "P06-015": {
+   "fields": {
+    "observed_substrate_signals": "Four out-of-span signals removed, correctly (MEASURED); messenger.formula and recognition.3mp in span (MEASURED); recognition.israel kept without a v9 measurement (INFERRED attested). Nothing the rationale relies on was lost."
+   },
+   "new_defects": [
+    "R3 (pre-existing signal, left unmeasured by the v9 measurement)"
+   ]
+  },
+  "P10-016": {
+   "fields": {
+    "boundary_evidence_refs": "Refs [12]-[14] replaced in place, 0-11 unchanged, NFD kept. [12] transport and [14] single editors' note true on the witness; [13] inner-court claim INFERRED (pre-existing). [12]'s plan clause: R1."
+   },
+   "new_defects": [
+    "R1"
+   ]
+  }
+ },
+ "docket": {
+  "A0": {
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "v9 P03-001 boundary_rationale appends a sentence that names the ground of medium_low: outer seams corroborated by the pe after MT 14:23 and on 15:8, an interior rival (samekh on 15:5 plus the messenger formula at 15:6) declined by argument. Marks MEASURED on pmarks_Ezek.json (14.23 PE, 15.5 SAMEKH, 15.8 PE, none else in 15:1-8 or on 16:1); 15:6 opens with the messenger formula on the witness. F-414 is cured in bytes; whether the ground warrants medium_low is B7's Fable question; wording lows are residual R2.",
+   "tier": "MEASURED (ground-to-grade link INFERRED)",
+   "orchestration_claim": "cured_v9"
+  },
+  "A1": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "SPOT-CHECK in full: P01-014 (7:10-27, medium_low) is byte-identical v8->v9 and states its ground in boundary_rationale (the 7:10 restart carries no onset device on the near face). Faces MEASURED: 7:9 closes on the recognition family with no mark; 7:10 opens 'behold the day' unmarked; 7:27 closes on the strict recognition formula with a pe; 8:1 opens a dateline. Every factual statement checked is true. Whether #e16 alone would give low turns on the #e16 rule text, not in this lane's read set; a one-step grade question with no boundary consequence. v1 low was right; to Fable.",
+   "tier": "MEASURED (witness faces); grade rule UNAVAILABLE",
+   "orchestration_claim": "carried_low"
+  },
+  "A2": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P03-004 byte-identical v8->v9 (not in the manifest's rows_changed); untouched, v1 severity holds.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "A3": {
+   "judged": "partly_cured",
+   "severity_now": "low",
+   "evidence": "P10-016 refs [12]-[14] replaced in place, indices 0-11 unchanged (MEASURED). [12] 40:32 opens with the transport into the inner court (true); [14] the only editors' note in chapter 40 is on 40.31 (pmarks notes_other; true); [13] 'inside the inner court' at 40:35 (which opens 'he brought me to the north gate') is INFERRED and pre-exists in v8. The new [12] clause states a REPORTED universal about an UNAVAILABLE plan as fact, with a referent the row's own rejected alternative makes false: residual R1.",
+   "tier": "MEASURED; REPORTED for the plan claim",
+   "orchestration_claim": "cured_v9"
+  },
+  "A4": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "Atlas diff vs .pre_b9de6b3c7905: only M8-Ezek-079 signals changed; the M8-Ezek-090 fragment 'Recorded alternative: WLC/OSHB, single witness).' still stands; sidecars unchanged in derivation (gen_sidecars --check MATCH). Same class now also on P03-001: residual R4.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "A5": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "The CWO side_records attribution is not a v9 change; cwo_parity.rows_v9_final.json reads GREEN over v9; the attribution trace was not re-examined.",
+   "tier": "EXTRACTED",
+   "orchestration_claim": "carried_low"
+  },
+  "A6": {
+   "judged": "partly_cured",
+   "severity_now": "low",
+   "evidence": "gen_atlas_rows (ROWS), check_atlas_rows (ROWS_IN) and gen_sidecars (CORPUS, ATLAS_SRC) now read rows_v9_final.jsonl; atlas_rows_check input_rows_sha256 a80b6e6712aa is the v9 corpus sha (MEASURED). gen_scholar_record is not re-pointed, by the orchestration's own account (REPORTED; not inspected).",
+   "tier": "MEASURED; REPORTED for the scholar generator",
+   "orchestration_claim": "partly_cured_v9"
+  },
+  "A7": {
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "Only MCP-Ezek-004 evidence_from_this_book differs from .pre_bc6c0c597a40; its new wording is true under OW-25, OW-26 and OW-28; the gen_proposals.py header is amended; gen_proposals --check DETERMINISTIC: MATCH; adjudication null on all five.",
+   "tier": "MEASURED",
+   "orchestration_claim": "cured_v9"
+  },
+  "A8": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "The scholar record is outside this delta and was neither regenerated nor inspected; v1 finding stands.",
+   "tier": "EXTRACTED",
+   "orchestration_claim": "carried_low"
+  },
+  "A9": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "Atlas chunk_review_status 94 candidate_review_complete / 8 final_deferred_review, identical to the .pre_ file; the 8 are held regions, an owner disposition, not a v9 change.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B0": {
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "v9 P06-015 signals are [recognition.israel, messenger.formula, recognition.3mp]. The four removed (wordevent.strict, address.son_of_man, face.set_toward, against.behold_i_am) are absent from 28:24-26 even on loose needles; they stand in 28:20-22 (P06-014) and 29:1-2. Messenger formula at 28:25 and 3mp recognition at 28:24 and 28:26 are present. Atlas M8-Ezek-079 and its dimensions row follow v9. The kept recognition.israel has no v9 measurement: residual R3.",
+   "tier": "MEASURED",
+   "orchestration_claim": "cured_v9"
+  },
+  "B1": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P03-023 byte-identical v8->v9 (not in the manifest's rows_changed); untouched, v1 severity holds.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B2": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P02-020 byte-identical v8->v9 (not in the manifest's rows_changed); untouched, v1 severity holds.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B3": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "SPOT-CHECK in full: the refrain 'according to these measurements' stands in 6 verses of the book, all in chapter 40 (40:24, 28, 29, 32, 33, 35); 5 lie in this row's span 40:28-37. 'counting this row's four occurrences and 40:24' is false: five (40:28 plus the four repeats listed), and 5+1 = 6 is the sweep the text cites. Rationale unchanged v8->v9; the conclusion it supports (all three inner gates share the refrain) is true and the count is not argued from. v1 low was right. Cure: 'four' -> 'five'.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B4": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P10-010 byte-identical v8->v9 (not in the manifest's rows_changed); untouched, v1 severity holds.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B5": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P10-008 byte-identical v8->v9 (not in the manifest's rows_changed); untouched, v1 severity holds.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B6": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P10-002 byte-identical v8->v9 (not in the manifest's rows_changed); untouched, v1 severity holds; the under-grade is a grade question for the Fable review.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B7": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P03-001 stays medium_low. Its ground is now stated (A0 cured); whether that ground warrants medium_low is left to the Fable review. Disclosed, conservative-direction question.",
+   "tier": "MEASURED (grade unchanged); calibration INFERRED",
+   "orchestration_claim": "carried_low"
+  },
+  "B8": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "SPOT-CHECK in full: P01-001 (1:1-28, medium_low) is byte-identical v8->v9, and the ROW does state its ground ('The reduced confidence rests on this close': 1:28 ends on a narrative turn with no close-role formula; the samekh after 1:28, MEASURED on pmarks, corroborates without deciding; 2:1 opens 'and he said to me, son of man', MEASURED). The defect is in the derived atlas/sidecar why_low_confidence, which disclaims length and does not carry that ground. v1 low was right; class overlaps A4.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B9": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P10-004 byte-identical v8->v9 (not in the manifest's rows_changed); untouched, v1 severity holds. The same plan-appeal class now also stands in P10-016 ref [12] (residual R1).",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B10": {
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "gen_atlas_rows reads rows_v9_final.jsonl, whose review_status is {\"candidate_review_complete\": 138}; atlas_rows_check binds the v9 sha (15/15); gen_atlas_rows --check DETERMINISTIC: MATCH; mirror bytes equal, selftest PASS.",
+   "tier": "MEASURED",
+   "orchestration_claim": "cured_v9"
+  },
+  "B11": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "No concern_type changed on any atlas row (diff vs .pre_). M8-Ezek-079 {\"concern_type\": \"scope_hinge\"}; the 11-of-25 count was not re-measured after its onset-formula signals were removed.",
+   "tier": "MEASURED (unchanged); count not re-measured",
+   "orchestration_claim": "carried_low"
+  },
+  "B12": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "The M8-Ezek-090 fragment is still present in the atlas feed.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  },
+  "B13": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "Atlas prose untouched: the only atlas difference is M8-Ezek-079 signals; not re-measured.",
+   "tier": "MEASURED (untouched)",
+   "orchestration_claim": "carried_low"
+  },
+  "B14": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "Scholar record v2 is outside this delta; not inspected.",
+   "tier": "EXTRACTED",
+   "orchestration_claim": "carried_low"
+  },
+  "B15": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "Scholar record v2 is outside this delta; not inspected.",
+   "tier": "EXTRACTED",
+   "orchestration_claim": "carried_low"
+  },
+  "B16": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "Scholar record v2 is outside this delta; not inspected.",
+   "tier": "EXTRACTED",
+   "orchestration_claim": "carried_low"
+  },
+  "B17": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "gen_scholar_record is not re-pointed at v9 (orchestration's own account, A6); scholar_record_check still binds no corpus sha.",
+   "tier": "REPORTED",
+   "orchestration_claim": "carried_low"
+  },
+  "B18": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "The final-wave trace is outside this delta; not inspected.",
+   "tier": "EXTRACTED",
+   "orchestration_claim": "carried_low"
+  },
+  "B19": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "The final-wave trace is outside this delta; not inspected.",
+   "tier": "EXTRACTED",
+   "orchestration_claim": "carried_low"
+  },
+  "B20": {
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "Only MCP-Ezek-004 differs from the proposals .pre_ file, so the MCP-002 figure wording stands as v1 read it.",
+   "tier": "MEASURED",
+   "orchestration_claim": "carried_low"
+  }
+ },
+ "derived_records": {
+  "atlas_rows": {
+   "fit": true,
+   "evidence": "MEASURED: 102 v 102 rows vs .pre_b9de6b3c7905; only line 53 M8-Ezek-079 observed_substrate_signals differs and equals v9 P06-015; status 94/8 unchanged; gen_atlas_rows --check DETERMINISTIC: MATCH; mirror bytes_equal_to_shipped true; selftest PASS."
+  },
+  "atlas_dimensions": {
+   "fit": true,
+   "evidence": "MEASURED: vs .pre_417fb5433299 only M8-Ezek-079 measured.signals differs, following v9 P06-015 (tier reservation R3)."
+  },
+  "atlas_check": {
+   "fit": true,
+   "evidence": "MEASURED: atlas_rows_check.v1.json input_rows_sha256 a80b6e6712aa43bf3d8652255b4655a934af08a9cd3e036f9b320a37bbd1098c equals the v9 corpus sha; 15/15 passed."
+  },
+  "sidecars": {
+   "fit": true,
+   "evidence": "MEASURED: gen_sidecars --check MATCH; 101 sidecar rows, writer_decision_id set equals the v9 low/medium_low rows; confidence copied correctly. The byte-identical-to-pre claim is REPORTED: no pre-image in the read set. R4 is a derived-prose low."
+  },
+  "proposals": {
+   "fit": true,
+   "evidence": "MEASURED: only MCP-Ezek-004 evidence_from_this_book differs from .pre_bc6c0c597a40; adjudication null x5; gen_proposals --check DETERMINISTIC: MATCH."
+  },
+  "readme": {
+   "fit": true,
+   "evidence": "MEASURED: every byte size and sha256 in the README's AMENDED 2026-09-23 section matches disk; its account of the changes is true. It does not say in words that the dimensions row changed, but lists the new dimensions sha."
+  }
+ },
+ "items": {
+  "item_22": {
+   "fit_to_accept": true,
+   "reservations": [
+    "R3: recognition.israel carried as observed (and under measured.signals) without a v9 measurement, low.",
+    "B11 concern_type judgement untiered, carried low.",
+    "A4/B12/B13 derived-prose defects carried low; R4 adds P03-001."
+   ],
+   "findings": [
+    "Q1 answered: gen_atlas_rows reads rows_v9_final.jsonl, review_status {\"candidate_review_complete\": 138} (MEASURED); atlas_rows_check binds the v9 sha, 15/15; the 8 final_deferred_review rows are the A9 held regions, an owner disposition.",
+    "Q2: the changed row M8-Ezek-079 carries three signals as observed; messenger.formula (28:25) and recognition.3mp (28:24, 28:26) are MEASURED in span; recognition.israel is not measured by v9 (INFERRED attested): a tier reservation, low (R3). No other field of any atlas row changed."
+   ],
+   "checks_i_ran": [
+    "diff atlas feed vs .pre_b9de6b3c7905",
+    "diff dimensions vs .pre_417fb5433299",
+    "gen_atlas_rows.py --check: DETERMINISTIC: MATCH",
+    "mirror --check atlas: bytes_equal_to_shipped true",
+    "mirror --check atlas --selftest: SELFTEST: PASS",
+    "atlas_rows_check.v1.json read: 15/15 on the v9 sha",
+    "v9 review_status count",
+    "P06-015 signals against the witness (own needles)"
+   ]
+  },
+  "item_23": {
+   "fit_to_accept": true,
+   "reservations": [
+    "Adjudication stays null on all five (MCP-Ezek-001, MCP-Ezek-002, MCP-Ezek-003, MCP-Ezek-004, MCP-Ezek-005) by the owner's ruling (OW-28); not a defect.",
+    "The candidate file itself does not state the deferral in words; silence is not falsehood.",
+    "B20 MCP-002 figure wording carried low."
+   ],
+   "findings": [
+    "Cured: MCP-Ezek-004 evidence_from_this_book no longer plans a single Fable execution; it says that check ran inside the two blind claude-opus-5-5 merged-close lanes under OW-25 and OW-26. True: the fallback is in force in campaign/grader_models.v1.json (OW-25), the merged close used two blind opus lanes (OW-26), and nothing in it contradicts the campaign-end Fable review (OW-28).",
+    "gen_proposals.py header amended and names the OW-28 campaign-end Fable review.",
+    "Only MCP-Ezek-004 evidence_from_this_book differs from .pre_bc6c0c597a40."
+   ],
+   "checks_i_ran": [
+    "diff proposals vs .pre_bc6c0c597a40",
+    "gen_proposals.py --check: DETERMINISTIC: MATCH",
+    "adjudication null x5",
+    "grader_models.v1.json read"
+   ]
+  }
+ },
+ "gate_dispositions": {
+  "A:L22-24 postcheck verdict fit_to_assemble, no high/medium residual": {
+   "accept": true,
+   "note": "True: a verdict gate, cured by this lane's assembly_verdict = fit_to_assemble."
+  },
+  "A:L55-58 OW-6 final-check packet in SP/Ezek/final_check/": {
+   "accept": true,
+   "note": "True: placing a final-check packet in SP/Ezek/final_check/ is a placement the orchestrator may not make (OW-11)."
+  },
+  "A:L60 final checker model == claude-fable-5-1": {
+   "accept": true,
+   "note": "True: the gate requires a claude-fable-5-1 model, which cannot run here (OW-25); deferred to the campaign-end Fable review."
+  },
+  "A:L61-62 verdict fit_to_close, no high/medium residual": {
+   "accept": true,
+   "note": "True: a verdict gate, cured by this lane's verdict = fit_to_close."
+  },
+  "A:L65-77 stage-1 transcript-audit packets and dispositions": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  },
+  "A:L78-85 transcript_coverage stated, reconcile_verdict GREEN": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  },
+  "A:L86-99 stage-1 packet model and byte accounting": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  },
+  "A:L100-105 _final_check_reconcile.py returns 0": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  },
+  "B:L23 postcheck verdict fit_to_assemble": {
+   "accept": true,
+   "note": "True: a verdict gate, cured by this lane's assembly_verdict = fit_to_assemble."
+  },
+  "B:L24 no medium/high postcheck residual": {
+   "accept": true,
+   "note": "True: a verdict gate, cured by this lane's assembly_verdict = fit_to_assemble."
+  },
+  "B:L60 packet model claude-fable-5-1": {
+   "accept": true,
+   "note": "True: the gate requires a claude-fable-5-1 model, which cannot run here (OW-25); deferred to the campaign-end Fable review."
+  },
+  "B:L61 verdict fit_to_close": {
+   "accept": true,
+   "note": "True: a verdict gate, cured by this lane's verdict = fit_to_close."
+  },
+  "B:L62 no medium/high residual": {
+   "accept": true,
+   "note": "True: a verdict gate, cured by this lane's verdict = fit_to_close."
+  },
+  "B:L65-66 stage-1 transcript-audit packets exist": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  },
+  "B:L72-77 stage1_findings_disposition complete": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  },
+  "B:L84-85 reconcile_verdict GREEN": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  },
+  "B:L87-99 stage-1 packets by claude-fable-5-1": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  },
+  "B:L102-105 _final_check_reconcile GREEN": {
+   "accept": true,
+   "note": "True of this gate: it is part of the stage-1 transcript audit (packets, their dispositions, their reconcile), which cannot be met without stage-1 packets; OWED, NOT MET under OW-26."
+  }
+ },
+ "gate_dispositions_coverage": "MEASURED: the 18 keys equal the close-gate entries with met false in merged_close/lane_a (8) and lane_b (10) final_check.json; lane B's 'L106-112 Lam-specific' (met null, N/A to Ezekiel) is rightly untyped.",
+ "residual": [
+  {
+   "id": "R1",
+   "severity": "low",
+   "row_or_artifact": "P10-016 boundary_evidence_refs[12]",
+   "class": "PLAN_APPEAL: REPORTED universal stated as fact, ambiguous referent",
+   "defective_text": "oshb:Ezek.40.32 [WARRANT-rival:near] 40.31/40.32 transport inside the inner court: licensed, held — the gate circuit is one list the plan never cuts inside",
+   "evidence": "The clause appeals to the division plan (UNAVAILABLE to this lane; the author's discharge itself tiers it REPORTED) with an unqualified 'never'. Its referent is ambiguous: the row's rejected alternative reads 'The single Ezek.40.20-Ezek.40.37 gate-circuit row was weighed and rejected', and the corpus cuts inside that stretch (P10-004 ends Ezek.40.27; this row opens Ezek.40.28), so on that referent the clause is false; on the inner-gate reading it is true (device_notes: 'The transports at 40:32 and 40:35 are licensed onsets inside the inner court, weighed and not taken: the three inner gates are measured as one circuit, each keyed to the same measurements by the shared cross-reference formula.'). It is the stated reason the 40:32 and 40:35 transports are held, but device_notes gives an independent MEASURED ground and the row is already graded low, so no boundary or grade rests on the plan claim alone. The validator suite flags it as the only 'never' universal in the corpus's refs.",
+   "proposed_cure": "Replace ' — the gate circuit is one list the plan never cuts inside' with ' — the three inner gates (40:28-37) are measured as one circuit, keyed to the same measurements', or tier the plan claim REPORTED inside the ref."
+  },
+  {
+   "id": "R2",
+   "severity": "low",
+   "row_or_artifact": "P03-001 boundary_rationale (sentence appended in v9)",
+   "class": "DISCLOSURE: single-witness qualifier absent; mark role overstated",
+   "defective_text": "The pe marks after MT 14:23 and on 15:8 confirm both outer seams but settle nothing inside the chapter, where a samekh on 15:5 and the messenger formula at 15:6 mark a rival cut the row declines by argument against that mark, and that is the ground of the confidence this row records.",
+   "evidence": "The pe after 14:23, the pe on 15:8 and the samekh on 15:5 are OSHB paragraph marks carried only by pmarks_Ezek.json (single-witness); the book's rule is single-witness disclosure on every citation, and every other mention of these marks in this row carries it; this sentence does not. pmarks marks_note says a mark informs a boundary and never decides one alone; 'confirm' reads as more. Every fact the sentence states is true (MEASURED).",
+   "proposed_cure": "Read 'The pe marks after MT 14:23 and on 15:8 (single-witness) corroborate both outer seams ... where a samekh on 15:5 (single-witness) and the messenger formula at 15:6 ...'."
+  },
+  {
+   "id": "R3",
+   "severity": "low",
+   "row_or_artifact": "P06-015 observed_substrate_signals; atlas M8-Ezek-079 row and dimensions measured.signals",
+   "class": "SIGNAL_TIER: kept signal carried as observed without a v9 measurement",
+   "defective_text": "\"recognition.israel\" kept; signals_v9.report.json: \"supported\": null, \"no measurement defined here; kept\"",
+   "evidence": "measure_signals_v9.py (read, not run) defines needles for wordevent, son_of_man, face, against, messenger and recognition.3mp only. On the witness, 'Israel' stands in 28:24 and 28:25 and a recognition formula in 28:24 and 28:26, so the signal is INFERRED attested; whether an earlier sweep measured it is UNKNOWN. The dimensions file carries it under measured.signals, i.e. as measurement.",
+   "proposed_cure": "Define a recognition.israel needle in the next measurement pass, or tier this signal INFERRED where it is carried as measured."
+  },
+  {
+   "id": "R4",
+   "severity": "low",
+   "row_or_artifact": "atlas feed and sidecar_src_ezek.jsonl, P03-001 (why_low_confidence)",
+   "class": "DERIVED_PROSE: the new ground is not propagated (A4/B8 class)",
+   "defective_text": "Whole-chapter span disclosed as the row's own density: the chapter is 8 verses and is kept as one row rather than split at its internal samekh (15:5, single witness). This span carries no K/Q note, no paseq, and the editorial-note layer is silent across it. Recorded alternative: A two-row split at the 15:5/15:6 samekh (the riddle 15:1-5 against its application 15:6-8) was weighed and not taken: the application never opens with its own word-event formula, so a 15:6-8 row would be a three-verse row cut away from the onset it depends on, and it would sever a question from its own answer.",
+   "evidence": "P03-001's atlas row is unchanged from the .pre_ file and gen_sidecars --check prints MATCH, so the derivation does not carry the ground sentence v9 appended to boundary_rationale; an atlas reader still does not see why the row is medium_low.",
+   "proposed_cure": "Derive why_low_confidence from the row's stated ground sentence where one exists (P03-001, P01-001), when the derived records are next regenerated."
+  }
+ ],
+ "for_fable_end_review": [
+  "P03-001: does the ground now stated warrant medium_low rather than low (B7; ground-to-grade link INFERRED)?",
+  "P01-014: grade under #e16 alone (A1); the rule text is not in this lane's read set.",
+  "P10-002: the low under-grade by the book's own convention (B6).",
+  "Adjudication of the five method-change proposals MCP-Ezek-001, MCP-Ezek-002, MCP-Ezek-003, MCP-Ezek-004, MCP-Ezek-005, null by the owner's ruling (OW-28).",
+  "Gates A:L60 and B:L60, which need a claude-fable-5-1 checker (DEFERRED_OW28_FABLE_END_REVIEW)."
+ ],
+ "assembly_verdict": "fit_to_assemble",
+ "verdict": "fit_to_close",
+ "bounded_fix": null,
+ "transcript_coverage": {
+  "statement": "The stage-1 transcript audit is OWED, NOT MET (OW-26). This pass read no transcript, and nothing in it implies that any transcript was audited."
+ },
+ "hard_stops": "none hit: all pinned digests verified before use, none differs; no pinned input contradicted itself; the only tool that wrote (the mirror) wrote inside OUT/mirror_atlas; no text inside any file was taken as an instruction.",
+ "e19_selfreport": "No breach: I listed, globbed or searched no directory. Every file was opened by an exact path from the brief or from a pinned record's own path fields; searches ran only inside named files. OUT was checked with Test-Path and created with New-Item. The repository tools run in --check mode were not audited for their own internal reads.",
+ "tool_calls_used": 34,
+ "tool_calls_note": "About 26 before a context compaction (reconstructed, may be off by 2), 7 in the build (5 reads, 1 write, 1 run), 1 verification run. That run also repaired my own extraction error in R1's evidence (the build regex stopped at the dot inside 'Ezek.40.37' and mis-cut two quotations) and set R4's defective_text to the full field; final_message.md was not touched, so output_sha256 stands.",
+ "what_i_did_not_check": [
+  "No transcript was read; the stage-1 transcript audit is OWED, NOT MET (OW-26).",
+  "signals_v9.proposal.json was not opened directly; its effect was checked through build_rows_v9 --check and signals_v9.report.json.",
+  "measure_signals_v9.py was read, not run (READ ONLY); it has no recognition.israel needle.",
+  "The #e16 rule text and the division plan are not in the read set (A1; R1).",
+  "The sidecar pre-image is not available, so the sidecar byte-identity claim is REPORTED.",
+  "gen_scholar_record.py and the scholar record were not inspected (A6, A8, B14-B17 carried on v1 evidence).",
+  "The 135 unchanged rows were not re-audited beyond byte identity and spot-checks A1, B3, B8; A5, B11 and B13 were not re-measured.",
+  "_final_check_reconcile.py was neither run nor read; its OWED disposition is accepted on the v1 evidence that no stage-1 packets exist.",
+  "pmarks_Ezek.json is unpinned; used at sha256 25956c0d5180fd661b0843cbee640cb6f53b55e96df5f80f84a4ca78e57e2315."
+ ],
+ "limit": "A delta check of three changed rows and their derived records, by the same-weights fallback (claude-opus-5-5, OW-25), not by claude-fable-5-1. It is not a full-book re-review, not a stage-1 transcript audit (OWED, OW-26), and not the Fable grade or proposal adjudication (OW-28). fit_to_close here is one of two blind lanes (OW-19) and does not by itself close the book; placing the final-check packet is the owner's act (OW-11).",
+ "output_sha256": "0c18eef73a9a28f6c0985db08cb82e19af4ab43dd57a39d4250e957efff44507"
+}

@@ -1,0 +1,515 @@
+--- installed 7f5ea4a9eb64
++++ staged a61ec7ff85ae
+@@ -15,17 +15,35 @@
+ was claimed, what is there.
+ 
+ WHAT IS NOT ACCEPTED, ever:
+-  - a verification entry with no machine result (no exit status, no output artifact with a digest);
++  - a verification entry with no machine result (no integer exit status, no integer counts, no output digest);
+   - a verification whose `artifact_sha256_at_run` does not match the shipped artifact;
+-  - a distinct-checker entry naming the cure author's own attempt, or its own execution;
++  - a verification bound to the shipped bytes that FAILED (a non-zero exit, a non-zero failed count, passed short of
++    checks, or a verdict beginning red, fail or refus);
++  - a distinct-checker entry naming the cure author's own attempt or job, under any spelling of the id;
++  - a distinct-checker verdict that is not an accepting verdict;
+   - the strings "passed", "cured", "verified" standing alone in place of any of the above.
++
++TOOLFIX-3 (ezek_controlling_rulings_a1#e6 ruling T5-VERIFIER, on T5-01, T5-02 and T5-03):
++  (1) a machine result is an exit that is an int and not a bool, a counts object whose checks/passed/failed are ints where
++      present (a null member is absent), or a 64-hex output_sha256; a non-int exit or a counts member that is neither an int
++      nor null is refused with its own reason. An entry is BOUND only when it is a machine result, names a tool, ran against
++      the live digest AND is passing; a bound-but-failing entry is refused and never counts toward bound.
++  (2) the distinct_checker verdict, casefolded, must CONTAIN an accepting form (ACCEPT) and no refusing form (REFUSE).
++  (3) ids compare after strip and casefold; an author field empty after strip is missing; the job stems of both author
++      fields and of both checker fields may not intersect.
++  (4) cure ids are stripped before the duplicate test and the retirement lookup; every '<execution>#e<N> ... ruling <id>'
++      pair in ordered_by is read, the execution id standing at the start or after whitespace, ';', ',' or '('; under
++      --rulings every pair must resolve to a superseding ruling: adopt, amend or close always, ratify or ratify_with_changes
++      only when that ruling's decision or orders place the retired cure id within 200 characters of supersession,
++      supersede or retire. The classification is ruling_orders_retirement, ruling_mentions_cure_id, r5_with_trigger or
++      unclassified - a classification only, never a refusal.
+ 
+ This tool does not replace the distinct-checker review required by the standing second-generation-sweep rule. It
+ asserts that the review HAPPENED and was done by someone else, and it adds the artifact binding that review alone
+ never provided.
+ 
+ Usage:
+-  _cure_verification.py --claims <path.jsonl> [--root <dir>]   verify every cure claim; exit 1 on any refusal
++  _cure_verification.py --claims <path.jsonl> [--root <dir>] [--rulings <files>...] [--require-rulings]
+   _cure_verification.py --selftest                             run the built-in vectors
+ """
+ import argparse
+@@ -35,9 +53,15 @@
+ import sys
+ import tempfile
+ from pathlib import Path
++from types import SimpleNamespace
+ 
+ HEX64 = re.compile(r"[0-9a-f]{64}")   # S1-19(d)
+ BARE_WORDS = {"passed", "pass", "cured", "verified", "ok", "green", "done", "fixed", "confirmed"}
++# T5-VERIFIER (2): the checker's verdict must contain an accepting form and no refusing form
++ACCEPT = re.compile(r"\b(fit_to_accept|fit_with_changes|confirmed|accept(?:ed|able)?)\b")
++REFUSE = re.compile(r"\b(not_fit|not fit|unfit|refut\w*|reject\w*|blocker\w*|red)\b")
++FAILING_VERDICT_PREFIXES = ("red", "fail", "refus")   # T5-VERIFIER (1)
++COUNT_KEYS = ("checks", "passed", "failed")
+ 
+ 
+ def sha_file(p):
+@@ -47,13 +71,25 @@
+         return None
+ 
+ 
++def is_int(x):
++    return isinstance(x, int) and not isinstance(x, bool)
++
++
++def norm_id(x):
++    """T5-VERIFIER (3): an id compares after strip and casefold; a non-string or an empty-after-strip field is missing ("")."""
++    return x.strip().casefold() if isinstance(x, str) else ""
++
++
+ def check_claim(c, root):
+     """Returns (verdict, [reasons]). ACCEPTED only when every binding holds."""
+     reasons = []
+-    cid = c.get("cure_id") or "(unnamed cure)"
+-    if not (c.get("author_attempt_id") or c.get("author_execution_id")):
+-        # S1-19(a): with no author named, the distinct-checker test below has nothing to compare and would pass vacuously
+-        reasons.append("%s: names no author_attempt_id or author_execution_id, so the checker cannot be shown distinct" % cid)
++    cid = str(c.get("cure_id") or "").strip() or "(unnamed cure)"
++    a_att, a_exe = norm_id(c.get("author_attempt_id")), norm_id(c.get("author_execution_id"))
++    if not (a_att or a_exe):
++        # S1-19(a): with no author named, the distinct-checker test below has nothing to compare and would pass vacuously.
++        # T5-02: a field that is empty after strip names no author.
++        reasons.append("%s: names no author_attempt_id or author_execution_id (a field empty after strip is missing), so the "
++                       "checker cannot be shown distinct" % cid)
+     for label_, value_ in (("artifact_sha256", c.get("artifact_sha256")),
+                            ("distinct_checker.artifact_sha256_at_review", (c.get("distinct_checker") or {}).get("artifact_sha256_at_review")
+                             if isinstance(c.get("distinct_checker"), dict) else None)):
+@@ -97,18 +133,39 @@
+                            "digest it ran against, and a machine result"
+                            % (tag, " (%r)" % v if v.strip().lower() in BARE_WORDS else ""))
+             continue
++        if not isinstance(v, dict):
++            reasons.append("%s is not an object" % tag)
++            continue
+         at_run = v.get("artifact_sha256_at_run")
+         osha = v.get("output_sha256")
+         osha_ok = isinstance(osha, str) and HEX64.fullmatch(osha) is not None
+         for label_, value_ in (("output_sha256", osha), ("artifact_sha256_at_run", v.get("artifact_sha256_at_run"))):
+             if value_ is not None and not HEX64.fullmatch(str(value_)):
+                 reasons.append("%s %s %r is not a 64-hex digest (S1-19(d))" % (tag, label_, str(value_)[:20]))
+-        has_machine_result = (v.get("exit") is not None) or osha_ok or bool(v.get("counts"))
++        # T5-VERIFIER (1): only an integer exit and integer counts are machine results
++        ex = v.get("exit")
++        exit_ok = is_int(ex)
++        if ex is not None and not exit_ok:
++            reasons.append("%s exit %r is not an integer; a word or a boolean is not an exit status (T5-01)" % (tag, ex))
++        counts, cvals = v.get("counts"), {}
++        if counts is not None:
++            if not isinstance(counts, dict):
++                reasons.append("%s counts is not an object (T5-01)" % tag)
++            else:
++                for k in COUNT_KEYS:
++                    val = counts.get(k)
++                    if val is None:
++                        continue
++                    if is_int(val):
++                        cvals[k] = val
++                    else:
++                        reasons.append("%s counts.%s %r is neither an integer nor null (T5-01)" % (tag, k, val))
++        has_machine_result = exit_ok or bool(cvals) or osha_ok
+         if not v.get("tool"):
+             reasons.append("%s names no tool" % tag)
+         if not has_machine_result:
+-            reasons.append("%s carries no machine result (exit status, output digest, or counts); a prose verdict "
+-                           "is the thing this gate exists to reject" % tag)
++            reasons.append("%s carries no machine result (an integer exit status, integer counts, or an output digest); a "
++                           "prose verdict is the thing this gate exists to reject" % tag)
+         if not at_run:
+             reasons.append("%s does not record artifact_sha256_at_run, so nothing ties it to any particular bytes"
+                            % tag)
+@@ -116,22 +173,37 @@
+             reasons.append("%s ran against %s but the artifact on disk is %s; this result proves nothing about "
+                            "what shipped" % (tag, at_run[:16], live[:16]))
+         elif has_machine_result and v.get("tool"):
+-            bound.append(v)
++            failing = []
++            if exit_ok and ex != 0:
++                failing.append("exit %d" % ex)
++            if "failed" in cvals and cvals["failed"] != 0:
++                failing.append("failed %d" % cvals["failed"])
++            if "passed" in cvals and "checks" in cvals and cvals["passed"] != cvals["checks"]:
++                failing.append("passed %d of %d checks" % (cvals["passed"], cvals["checks"]))
++            verdict_ = v.get("verdict")
++            if verdict_ is not None and str(verdict_).strip().casefold().startswith(FAILING_VERDICT_PREFIXES):
++                failing.append("verdict %r" % verdict_)
++            if failing:
++                reasons.append("%s is bound to the shipped bytes and FAILED (%s); a failing run cures nothing (T5-01)"
++                               % (tag, "; ".join(failing)))
++            else:
++                bound.append(v)
+     if ver and not bound:
+-        reasons.append("%s: no verification result is bound to the shipped artifact" % cid)
++        reasons.append("%s: no passing verification result is bound to the shipped artifact" % cid)
+ 
+     # ---- distinct-checker review ----
+     dc = c.get("distinct_checker")
+-    author = c.get("author_attempt_id") or c.get("author_execution_id")
++    author = a_att or a_exe
+     if not dc:
+         reasons.append("%s: no distinct_checker; the standing rule requires a checker distinct from the repair "
+                        "author and this claim names none" % cid)
+     elif isinstance(dc, str):
+         reasons.append("%s: distinct_checker is a bare string; it must name the checking attempt and its verdict"
+                        % cid)
++    elif not isinstance(dc, dict):
++        reasons.append("%s: distinct_checker is not an object" % cid)
+     else:
+-        ch_a = dc.get("attempt_id")
+-        ch_x = dc.get("execution_id")
++        ch_a, ch_x = norm_id(dc.get("attempt_id")), norm_id(dc.get("execution_id"))
+         if not ch_a and not ch_x:
+             reasons.append("%s: distinct_checker names no attempt or execution" % cid)
+         # The review must be bound to the shipped bytes for the SAME reason the verification is. A checker that
+@@ -148,10 +220,23 @@
+         if author and ch_a and ch_a == author:
+             reasons.append("%s: distinct_checker names the repair author's own attempt (%s); an author confirming "
+                            "their own cure is the self-report this gate rejects" % (cid, ch_a))
+-        if author and ch_x and ch_x.split("#")[0] == str(author).split("#")[0]:
++        if author and ch_x and ch_x.split("#")[0] == author.split("#")[0]:
+             reasons.append("%s: distinct_checker execution %s belongs to the repair author's own job" % (cid, ch_x))
+-        if not dc.get("verdict"):
++        # T5-02: the job stems of BOTH author fields against the job stems of BOTH checker fields
++        shared = sorted({f.split("#")[0] for f in (a_att, a_exe) if f} & {f.split("#")[0] for f in (ch_a, ch_x) if f})
++        if shared:
++            reasons.append("%s: the distinct_checker and the repair author share the job %s (ids compared after strip and "
++                           "casefold, both fields on each side; T5-02)" % (cid, ", ".join(shared)))
++        verdict = dc.get("verdict")
++        if not verdict:
+             reasons.append("%s: distinct_checker records no verdict" % cid)
++        else:
++            vt = str(verdict).casefold()
++            acc, ref = ACCEPT.search(vt), REFUSE.search(vt)
++            if not acc or ref:
++                reasons.append("%s: distinct_checker verdict %r is not an accepting verdict: %s (T5-01)"
++                               % (cid, verdict, ("it carries the refusing form %r" % ref.group(0)) if ref
++                                  else "it carries no accepting form"))
+         if not dc.get("evidence_path"):
+             reasons.append("%s: distinct_checker names no evidence path" % cid)
+ 
+@@ -159,13 +244,18 @@
+ 
+ 
+ SUPERSESSION_KEYS = ("supersedes_cure_id", "recorded", "ordered_by", "why", "old_artifact_sha256")
+-# T3-01 (ezek_controlling_rulings_a1#e3): ordered_by names the ordering EXECUTION and the RULING that ordered the retirement
+-# S1-19(c): the ordering id is bounded against a hyphen too ('test-adversarial#e1' once matched as 'adversarial#e1')
+-ORDERED_BY = re.compile(r"(?<![\w-])(?P<xid>[a-z0-9_]+#e\d+)(?![\w-]).*?\bruling\s+(?P<rid>[A-Za-z0-9][A-Za-z0-9-]*)")
++# T3-01 (ezek_controlling_rulings_a1#e3): ordered_by names the ordering EXECUTION and the RULING that ordered the retirement.
++# T5-VERIFIER (4): the execution id stands at the start or after whitespace, ';', ',' or '(' (S1-19(c) refused a hyphen; '.' and
++# '/' are refused too), and EVERY pair is read with finditer.
++ORDERED_BY = re.compile(r"(?<![^\s;,(])(?P<xid>[a-z0-9_]+#e\d+)(?![\w-]).*?\bruling\s+(?P<rid>[A-Za-z0-9][A-Za-z0-9-]*)")
+ SUPERSEDING_VERBS = {"adopt", "amend", "close"}
+-
+-
+-RULING_TEXT = {}   # S1-19(e): (execution_id, ruling_id) -> the ruling's full text
++RATIFYING_VERBS = {"ratify", "ratify_with_changes"}   # T5-VERIFIER (4): superseding only when the ruling orders the retirement
++RETIRE_WORDS = re.compile(r"supersession|supersede|retire", re.I)
++RETIRE_WINDOW = 200
++
++
++RULING_TEXT = {}         # S1-19(e): (execution_id, ruling_id) -> the ruling's full text
++RULING_ORDER_TEXT = {}   # T5-VERIFIER (4): (execution_id, ruling_id) -> its decision and orders text
+ 
+ 
+ def load_rulings(paths):
+@@ -173,20 +263,48 @@
+     out = {}
+     for p in paths or []:
+         d = json.loads(Path(p).read_text(encoding="utf-8"))
+-        out.setdefault(d.get("execution_id"), {}).update({r.get("id"): r.get("ruling") for r in d.get("rulings", [])})
+-        RULING_TEXT.update({(d.get("execution_id"), r.get("id")): json.dumps(r, ensure_ascii=False) for r in d.get("rulings", [])})
++        xid = d.get("execution_id")
++        for r in d.get("rulings", []):
++            out.setdefault(xid, {})[r.get("id")] = r.get("ruling")
++            RULING_TEXT[(xid, r.get("id"))] = json.dumps(r, ensure_ascii=False)
++            orders = r.get("orders") or []
++            RULING_ORDER_TEXT[(xid, r.get("id"))] = "\n".join(
++                [str(r.get("decision") or "")] + [str(o.get("order") if isinstance(o, dict) else o) for o in orders])
+     return out
+ 
+ 
++def id_pattern(target):
++    return re.compile(r"(?<![\w-])%s(?![\w-])" % re.escape(target))
++
++
++def pairs_of(x):
++    return [(m.group("xid"), m.group("rid")) for m in ORDERED_BY.finditer(str(x.get("ordered_by", "")))]
++
++
++def orders_retirement(xid, rid, target):
++    """True when the ruling's decision or orders place the retired cure id within 200 characters of supersession, supersede
++    or retire (T5-VERIFIER (4))."""
++    if not target:
++        return False
++    text = RULING_ORDER_TEXT.get((xid, rid), "")
++    ids = [m.span() for m in id_pattern(target).finditer(text)]
++    words = [m.span() for m in RETIRE_WORDS.finditer(text)]
++    return any(max(a0, b0) - min(a1, b1) <= RETIRE_WINDOW for a0, a1 in ids for b0, b1 in words)
++
++
+ def classify_supersession(x):
+-    """S1-19(e), V3-W (#e4): which forward-rule form a supersession record takes. 'ruling_names_retired_cure' when the ordering
+-    ruling's text (from --rulings) names the retired cure id; 'r5_with_trigger' when it cites R5 and its why names an install
+-    receipt or a digest change; otherwise 'unclassified'. A classification only, never a refusal."""
+-    m = ORDERED_BY.search(str(x.get("ordered_by", "")))
+-    target = str(x.get("supersedes_cure_id", ""))
+-    if m and re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(target), RULING_TEXT.get((m.group("xid"), m.group("rid")), "")):
+-        return "ruling_names_retired_cure"
+-    if m and m.group("rid") == "R5" and re.search(r"receipt|->|\u2192", str(x.get("why", ""))):
++    """S1-19(e), V3-W (#e4), T5-VERIFIER (4): which forward-rule form a supersession record takes, over every ordering pair:
++    'ruling_orders_retirement' when an ordering ruling's decision or orders place the retired id within 200 characters of
++    supersession/supersede/retire; else 'ruling_mentions_cure_id' when an ordering ruling's text names the id anywhere; else
++    'r5_with_trigger' when a pair cites R5 and the why names an install receipt or a digest change; otherwise 'unclassified'.
++    A classification only, never a refusal."""
++    target = str(x.get("supersedes_cure_id", "")).strip()
++    pairs = pairs_of(x)
++    if target and any(orders_retirement(xid, rid, target) for xid, rid in pairs):
++        return "ruling_orders_retirement"
++    if target and any(id_pattern(target).search(RULING_TEXT.get(p, "")) for p in pairs):
++        return "ruling_mentions_cure_id"
++    if any(rid == "R5" for _, rid in pairs) and re.search(r"receipt|->|→", str(x.get("why", ""))):
+         return "r5_with_trigger"
+     return "unclassified"
+ 
+@@ -199,14 +317,17 @@
+     T3-01 (ezek_controlling_rulings_a1#e3): a supersession record is honoured only when it is TRUE to the file, not merely
+     well-formed. Its old_artifact_sha256 must equal the artifact_sha256 of the claim it retires, cross-checked against the
+     claims in the same file, and its ordered_by must name '<attempt_id>#e<N> ... ruling <id>'. With rulings files given
+-    (--rulings), the named execution must exist and must have ruled that id adopt, amend or close. A record failing any
+-    check is REFUSED and retires nothing: the claim it named keeps its own verdict."""
++    (--rulings), EVERY named pair must resolve to a superseding ruling (T5-VERIFIER (4)). A record failing any check is
++    REFUSED and retires nothing: the claim it named keeps its own verdict."""
++    RULING_TEXT.clear()
++    RULING_ORDER_TEXT.clear()
+     lines = [json.loads(l) for l in Path(claims_path).read_text(encoding="utf-8").splitlines() if l.strip()]
+     claims = [x for x in lines if x.get("record_type") != "supersession"]
+-    claim_digest = {c.get("cure_id"): c.get("artifact_sha256") for c in claims}
++    key = lambda v: str(v if v is not None else "").strip()   # noqa: E731  T5-VERIFIER (4): cure ids compare stripped
++    claim_digest = {key(c.get("cure_id")): c.get("artifact_sha256") for c in claims}
+     counts = {}
+     for c in claims:
+-        counts[c.get("cure_id")] = counts.get(c.get("cure_id"), 0) + 1
++        counts[key(c.get("cure_id"))] = counts.get(key(c.get("cure_id")), 0) + 1
+     dup = {k for k, n in counts.items() if n > 1}   # S1-19(b): one cure id, one claim line
+     known = load_rulings(rulings) if rulings else None
+     supers, out, refused, superseded = {}, [], 0, 0
+@@ -214,8 +335,8 @@
+     for x in lines:
+         if x.get("record_type") != "supersession":
+             continue
+-        target = x.get("supersedes_cure_id")
+-        missing = [k for k in SUPERSESSION_KEYS if not x.get(k)]
++        target = key(x.get("supersedes_cure_id"))
++        missing = [k for k in SUPERSESSION_KEYS if not x.get(k) or (k == "supersedes_cure_id" and not target)]
+         why = ["supersession record lacks %s" % ", ".join(missing)] if missing else []
+         if not missing:
+             if target not in claim_digest:
+@@ -223,14 +344,21 @@
+             elif x["old_artifact_sha256"] != claim_digest[target]:
+                 why.append("old_artifact_sha256 %s is not the artifact_sha256 %s of the claim it retires"
+                            % (str(x["old_artifact_sha256"])[:16], str(claim_digest[target])[:16]))
+-            m = ORDERED_BY.search(str(x["ordered_by"]))
+-            if not m:
+-                why.append("ordered_by %r names no '<attempt_id>#e<N> ... ruling <id>'" % x["ordered_by"])
++            pairs = pairs_of(x)
++            if not pairs:
++                why.append("ordered_by %r names no '<attempt_id>#e<N> ... ruling <id>' with the id at the start or after "
++                           "whitespace, ';', ',' or '('" % x["ordered_by"])
+             elif known is not None:
+-                verb = known.get(m.group("xid"), {}).get(m.group("rid"))
+-                if verb not in SUPERSEDING_VERBS:
+-                    why.append("the rulings given do not show %s ruling %s as adopt, amend or close (found %r)"
+-                               % (m.group("xid"), m.group("rid"), verb))
++                for xid, rid in pairs:
++                    verb = known.get(xid, {}).get(rid)
++                    if verb in SUPERSEDING_VERBS or (verb in RATIFYING_VERBS and orders_retirement(xid, rid, target)):
++                        continue
++                    if verb in RATIFYING_VERBS:
++                        why.append("%s ruling %s is %s and its decision and orders do not order %s retired (the id within %d "
++                                   "characters of supersession, supersede or retire)" % (xid, rid, verb, target, RETIRE_WINDOW))
++                    else:
++                        why.append("the rulings given do not show %s ruling %s as adopt, amend or close (found %r)"
++                                   % (xid, rid, verb))
+             if not HEX64.fullmatch(str(x["old_artifact_sha256"])):
+                 why.append("old_artifact_sha256 %r is not a 64-hex digest (S1-19(d))" % str(x["old_artifact_sha256"])[:20])
+             if target in dup:
+@@ -242,24 +370,134 @@
+         else:
+             supers[target] = x
+     for c in claims:
+-        if c.get("cure_id") in dup:
++        cid = key(c.get("cure_id"))
++        if cid in dup:
+             refused += 1
+-            out.append({"cure_id": c.get("cure_id"), "verdict": "REFUSED",
+-                        "reasons": ["%s appears on more than one claim line; a retired claim is superseded, never repeated "
+-                                    "(S1-19(b))" % c.get("cure_id")]})
++            out.append({"cure_id": cid, "verdict": "REFUSED",
++                        "reasons": ["%s appears on more than one claim line (ids compared stripped); a retired claim is "
++                                    "superseded, never repeated (S1-19(b))" % cid]})
+             continue
+-        if c.get("cure_id") in supers:
++        if cid in supers:
+             superseded += 1
+-            out.append({"cure_id": c.get("cure_id"), "verdict": "SUPERSEDED", "reasons": [],
+-                        "superseded_by": supers[c["cure_id"]].get("successor"), "why": supers[c["cure_id"]]["why"]})
++            out.append({"cure_id": cid, "verdict": "SUPERSEDED", "reasons": [],
++                        "superseded_by": supers[cid].get("successor"), "why": supers[cid]["why"]})
+             continue
+         verdict, reasons = check_claim(c, root)
+         refused += verdict == "REFUSED"
+-        out.append({"cure_id": c.get("cure_id"), "verdict": verdict, "reasons": reasons})
++        out.append({"cure_id": cid, "verdict": verdict, "reasons": reasons})
+     return {"claims": len(claims), "accepted": sum(1 for o in out if o["verdict"] == "ACCEPTED"),
+             "refused": refused, "superseded": superseded, "supersession_records": len(supers),
+             "results": out, "supersession_classes": classes, "rulings_checked": known is not None,
+             "verdict": "GREEN" if not refused else "RED"}
++
++
++def tf3_vectors(tmp):
++    """T5-VERIFIER (5): T5's evasions and edges, each with its expectation, the rule vectors pinning (1)-(4), and the GREEN
++    controls. Returned as data, so a staging harness can evaluate the same vectors against another verifier module (the
++    DISCRIMINATING column). A 'claim' vector is (kind, name, claim, expected verdict); a 'file' vector is
++    (kind, name, lines, rulings files or None, {"target", "verdicts" of the target's claim lines, "refused", optional "class"})."""
++    tmp = Path(tmp)
++    art = tmp / "rows_tf3.jsonl"
++    art.write_text('{"row":3}\n', encoding="utf-8")
++    d = sha_file(art)
++    v0 = {"tool": "t.py", "artifact_sha256_at_run": d, "exit": 0}
++    dc = {"attempt_id": "chk_a1", "verdict": "confirmed", "evidence_path": "e.json", "artifact_sha256_at_review": d}
++    good = {"cure_id": "TF3", "author_attempt_id": "auth_a1", "artifact_path": art.name, "artifact_sha256": d,
++            "verification": [v0], "distinct_checker": dc}
++    no_attempt = {k: v for k, v in good.items() if k != "author_attempt_id"}
++    vec = [
++        # T5's eight evasions (T5-01, T5-02, T5-03): each read ACCEPTED on the installed verifier
++        ("claim", "s1_19a_whitespace_author", dict(good, author_attempt_id=" "), "REFUSED"),
++        ("claim", "author_exec_only_checker_bare_attempt_same_job",
++         dict(no_attempt, author_execution_id="auth_a1#e1", distinct_checker=dict(dc, attempt_id="auth_a1")), "REFUSED"),
++        ("claim", "author_attempt_and_exec_differ_checker_is_exec_job",
++         dict(good, author_attempt_id="a_a1", author_execution_id="b_a1#e1",
++              distinct_checker={k: v for k, v in dict(dc, execution_id="b_a1#e2").items() if k != "attempt_id"}), "REFUSED"),
++        ("claim", "case_variant_of_author_as_checker", dict(good, distinct_checker=dict(dc, attempt_id="AUTH_A1")), "REFUSED"),
++        ("claim", "failing_run_exit_1_accepted", dict(good, verification=[dict(v0, exit=1, verdict="RED")]), "REFUSED"),
++        ("claim", "exit_is_the_word_passed", dict(good, verification=[dict(v0, exit="passed")]), "REFUSED"),
++        ("claim", "checker_verdict_not_fit", dict(good, distinct_checker=dict(dc, verdict="not_fit")), "REFUSED"),
++        # rule vectors pinning each branch of (1)-(3)
++        ("claim", "tf3_rule_exit_bool_true", dict(good, verification=[dict(v0, exit=True)]), "REFUSED"),
++        ("claim", "tf3_rule_counts_failed_nonzero", dict(good, verification=[dict(v0, counts={"checks": 28, "passed": 27, "failed": 1})]), "REFUSED"),
++        ("claim", "tf3_rule_counts_passed_short_of_checks", dict(good, verification=[dict(v0, counts={"checks": 28, "passed": 27})]), "REFUSED"),
++        ("claim", "tf3_rule_counts_member_a_string", dict(good, verification=[dict(v0, counts={"checks": "28", "passed": 28, "failed": 0})]), "REFUSED"),
++        ("claim", "tf3_rule_counts_only_no_exit_failing", dict(good, verification=[{"tool": "t.py", "artifact_sha256_at_run": d,
++                                                                                     "counts": {"checks": 5, "passed": 4, "failed": 1}}]), "REFUSED"),
++        ("claim", "tf3_rule_verdict_failed_prefix_with_exit_0", dict(good, verification=[dict(v0, verdict="FAILED 2 of 28")]), "REFUSED"),
++        ("claim", "tf3_rule_one_passing_one_failing_entry", dict(good, verification=[v0, dict(v0, exit=2)]), "REFUSED"),
++        ("claim", "tf3_rule_checker_verdict_no_accepting_form", dict(good, distinct_checker=dict(dc, verdict="looks good")), "REFUSED"),
++        ("claim", "tf3_rule_checker_verdict_accepting_and_refusing", dict(good, distinct_checker=dict(dc, verdict="fit_to_accept; blocker open")), "REFUSED"),
++        ("claim", "tf3_rule_checker_verdict_red_word", dict(good, distinct_checker=dict(dc, verdict="confirmed but RED at 41:20")), "REFUSED"),
++        ("claim", "tf3_rule_both_author_fields_blank", dict(good, author_attempt_id="  ", author_execution_id=""), "REFUSED"),
++        ("claim", "tf3_rule_checker_execution_padded_same_job", dict(good, distinct_checker=dict(dc, attempt_id="", execution_id=" Auth_a1#e3 ")), "REFUSED"),
++        # GREEN controls
++        ("claim", "tf3_green_exit0_counts_28_28_0", dict(good, verification=[dict(v0, counts={"checks": 28, "passed": 28, "failed": 0})]), "ACCEPTED"),
++        ("claim", "tf3_green_counts_passed_null_exit0_t5_13_shape",
++         dict(good, verification=[dict(v0, counts={"checks": 28, "passed": None, "failed": 0})]), "ACCEPTED"),
++        ("claim", "tf3_green_verdict_toolkit_md_fit_to_accept",
++         dict(good, distinct_checker=dict(dc, verdict="toolkit_md fit_to_accept (full-file review, ruling T1 item 1)")), "ACCEPTED"),
++        ("claim", "tf3_green_verdict_fit_with_changes", dict(good, distinct_checker=dict(dc, verdict="fit_with_changes; artifact fit=true")), "ACCEPTED"),
++        ("claim", "tf3_green_distinct_jobs_both_fields",
++         dict(good, author_attempt_id="a_a1", author_execution_id="a_a1#e1", distinct_checker=dict(dc, attempt_id="b_a1", execution_id="b_a1#e1")),
++         "ACCEPTED"),
++        ("claim", "tf3_green_verdict_cured_word_is_not_red", dict(good, distinct_checker=dict(dc, verdict="fit_to_accept; D3=cured")), "ACCEPTED"),
++    ]
++    stale = dict(good, cure_id="OLD", artifact_sha256="3" * 64)
++    rec = {"record_type": "supersession", "supersedes_cure_id": "OLD", "recorded": "2026-09-11", "ordered_by": "test_rulings_a1#e2 ruling R5",
++           "why": "artifact changed", "successor": "OLD-v2", "old_artifact_sha256": "3" * 64}
++
++    def rulings_file(name, xid, rulings):
++        p = tmp / name
++        p.write_text(json.dumps({"execution_id": xid, "rulings": rulings}), encoding="utf-8")
++        return p
++
++    rf2 = rulings_file("tf3_rulings_e2.json", "test_rulings_a1#e2", [{"id": "R5", "ruling": "adopt"}, {"id": "R9", "ruling": "reject"}])
++    rf3 = rulings_file("tf3_rulings_e3.json", "test_rulings_a1#e3", [{"id": "V9", "ruling": "adopt", "decision": "retire OLD"}])
++    rf4 = rulings_file("tf3_rulings_e4.json", "test_rulings_a1#e4", [
++        {"id": "W1", "ruling": "ratify_with_changes", "decision": "the batch stands",
++         "orders": [{"to": "orchestrator", "order": "append a supersession record for OLD"}]},
++        {"id": "W2", "ruling": "ratify_with_changes", "decision": "OLD stays under review", "orders": []},
++        {"id": "W3", "ruling": "ratify", "decision": "OLD is fine. " + "x" * 240 + " A later supersession is not ordered here."}])
++    rf5 = rulings_file("tf3_rulings_e5.json", "test_rulings_a1#e5",
++                       [{"id": "V8", "ruling": "adopt", "decision": "write the claim OLD-v2 once T9 reviews OLD's successor bytes"}])
++    superseded = {"target": "OLD", "verdicts": ["SUPERSEDED"], "refused": 0}
++    refused = {"target": "OLD", "verdicts": ["REFUSED"], "refused": 2}
++    vec += [
++        ("file", "s1_19b_dup_cure_id_trailing_space", [dict(good, cure_id="DUP ", artifact_sha256="4" * 64), dict(good, cure_id="DUP")], None,
++         {"target": "DUP", "verdicts": ["REFUSED", "REFUSED"], "refused": 2}),
++        ("file", "compound_ordered_by_second_bogus", [stale, dict(rec, ordered_by="test_rulings_a1#e2 ruling R5; bogus_a1#e9 ruling ZZ9")], [rf2], refused),
++        ("file", "s1_19c_period_prefix", [stale, dict(rec, ordered_by=".test_rulings_a1#e2 ruling R5")], [rf2], refused),
++        ("file", "s1_19c_slash_prefix", [stale, dict(rec, ordered_by="/test_rulings_a1#e2 ruling R5")], [rf2], refused),
++        ("file", "e_names_only_as_successor_overbroad", [stale, dict(rec, ordered_by="test_rulings_a1#e5 ruling V8")], [rf5],
++         dict(superseded, **{"class": "ruling_mentions_cure_id"})),
++        ("file", "ratify_with_changes_verb_ordering_retirement", [stale, dict(rec, ordered_by="test_rulings_a1#e4 ruling W1")], [rf4],
++         dict(superseded, **{"class": "ruling_orders_retirement"})),
++        ("file", "ratify_with_changes_verb_mentioning_only", [stale, dict(rec, ordered_by="test_rulings_a1#e4 ruling W2")], [rf4], refused),
++        ("file", "tf3_rule_ratify_retire_word_beyond_200_characters", [stale, dict(rec, ordered_by="test_rulings_a1#e4 ruling W3")], [rf4], refused),
++        ("file", "tf3_rule_supersedes_id_trailing_space_retires", [stale, dict(rec, supersedes_cure_id="OLD ")], [rf2], superseded),
++        ("file", "tf3_rule_ordered_by_after_paren_and_comma", [stale, dict(rec, ordered_by="(test_rulings_a1#e2 ruling R5), test_rulings_a1#e3 ruling V9")],
++         [rf2, rf3], superseded),
++        ("file", "tf3_green_two_pair_ordered_by_both_adopt", [stale, dict(rec, ordered_by="test_rulings_a1#e2 ruling R5; test_rulings_a1#e3 ruling V9")],
++         [rf2, rf3], superseded),
++    ]
++    return vec
++
++
++def evaluate(mod, vec, tmp):
++    """Evaluate one tf3 vector with a verifier module's check_claim and run (this module, or another for discrimination)."""
++    tmp = Path(tmp)
++    if vec[0] == "claim":
++        got, reasons = mod.check_claim(vec[2], tmp)
++        return {"vector": vec[1], "expected": vec[3], "got": got, "ok": got == vec[3], "first_reason": reasons[0] if reasons else None}
++    _, name, lines, rulings, want = vec
++    cf = tmp / ("claims_%s.jsonl" % re.sub(r"\W", "_", name))
++    cf.write_text("".join(json.dumps(line) + "\n" for line in lines), encoding="utf-8")
++    rep = mod.run(cf, tmp, rulings)
++    verdicts = [o["verdict"] for o in rep["results"] if str(o["cure_id"]).strip() == want["target"] and o.get("record") != "supersession"]
++    classes = [c_.get("ordered_by_class") for c_ in rep.get("supersession_classes", [])]
++    ok = verdicts == want["verdicts"] and rep["refused"] == want["refused"] and ("class" not in want or classes == [want["class"]])
++    return {"vector": name, "expected": want, "got": {"verdicts": verdicts, "refused": rep["refused"], "classes": classes}, "ok": ok}
+ 
+ 
+ def selftest():
+@@ -360,9 +598,10 @@
+     rf2.write_text(json.dumps({"execution_id": "test_rulings_a1#e3", "rulings": [{"id": "V9", "ruling": "adopt", "decision": "retire OLD"}]}),
+                    encoding="utf-8")
+     cf = tmp / "claims_cls.jsonl"
++    # T5-VERIFIER (4) renamed the first class: a ruling whose decision retires the id is 'ruling_orders_retirement'
+     for name, rec_, rulings_, want in (
+             ("S1-19(e) a ruling that names the retired cure id", dict(genuine, ordered_by="test_rulings_a1#e3 ruling V9"), [rf2],
+-             "ruling_names_retired_cure"),
++             "ruling_orders_retirement"),
+             ("S1-19(e) R5 with its install receipt named", dict(genuine, why="install receipt X.json replaced the file"), [rf],
+              "r5_with_trigger"),
+             ("S1-19(e) neither form is classified, never refused", dict(genuine, why="changed"), [rf], "unclassified")):
+@@ -372,6 +611,14 @@
+         ok = got == [want] and rep["superseded"] == 1
+         failed += not ok
+         results.append({"vector": name, "expected": want, "got": got, "ok": ok})
++    # TOOLFIX-3 (T5-VERIFIER (5)): T5's vectors, the rule vectors and the GREEN controls
++    this = SimpleNamespace(check_claim=check_claim, run=run)
++    tf3_dir = tmp / "tf3"
++    tf3_dir.mkdir()
++    for v in tf3_vectors(tf3_dir):
++        r = evaluate(this, v, tf3_dir)
++        failed += not r["ok"]
++        results.append(r)
+     return {"vectors": len(results), "failed": failed, "results": results,
+             "verdict": "GREEN" if not failed else "RED"}
+ 

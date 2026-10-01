@@ -1,0 +1,354 @@
+#!/usr/bin/env python3
+"""Build and check the OW-7 capture index: one row per EXECUTION, three layers kept separate, lineage, retries and
+re-launches linked, blindness preserved.
+
+WHAT THIS IS NOT: it is not a place to put an attempt's reasoning. The index carries IDENTITY, LAYER AVAILABILITY
+and PATHS. It never carries layer content. That is deliberate twice over - it keeps the index small enough to read,
+and it means handing someone the index does not hand them another lane's conclusions.
+
+TWO IDENTIFIERS, BECAUSE THERE ARE TWO THINGS (OW-10). This file used to have one, and that single `attempt_id` was
+asked to be both the stable job and the physical run, which put OW-7 and E-14 in direct contradiction:
+
+  attempt_id    THE STABLE LOGICAL JOB. E-14 keys the resume ladder off it: when a deliverable is ABSENT the job is
+                re-launched as a FRESH agent under the SAME attempt_id, appending to the same deliverable. This is
+                what makes the ladder idempotent, and it never changes.
+  execution_id  ONE PHYSICAL RUN of that job, `<attempt_id>#e<N>`. OW-7 requires every attempt of every role to be
+                recorded and never overwritten; a re-launch is a different run by a different agent with its own
+                actions, and it gets its own row.
+
+  previous_execution_id links run N to run N-1 of the same job. `retry_of` is a DIFFERENT relation and is left
+  alone: it points at another JOB this one corrects. Re-running a job is not the same as correcting one.
+
+WHY THIS MATTERED. Under the old single-identifier build, `if aid in seen: continue` kept the FIRST receipt line
+per attempt_id and silently dropped the rest. The four Lamentations transcript auditors each ran twice - a wave-1
+execution the orchestrator stopped before any deliverable was written, then a wave-2 execution that did the whole
+audit. The index kept the stopped runs and dropped the ones that did the work. Nothing was lost in the receipts;
+the loss was in the index built from them, which is exactly where a reviewer would look.
+
+HISTORICAL IDS ARE NEVER RENAMED. `execution_id` is additive. Every historical attempt_id stays verbatim in its own
+field, ordinals are derived deterministically from receipt order so a rebuild is stable, and no completed work is
+duplicated or re-run. A receipt that names its own execution_id keeps that ordinal, and a derived one never takes
+it. Amending rows (a completion, amendment or recovery note naming an execution) are folded into that execution by
+campaign/_receipt_fold.py and are never runs of their own (2026-09-24).
+
+THE THREE LAYERS ARE NEVER MERGED. Each is its own key with its own provenance:
+  layer_a_runtime_actions - the runtime's own record. NOT self-authored, so it is the only layer that can catch an
+                            agent concealing something.
+  layer_b_exposed_thinking - thinking summaries the runtime surfaced. Sporadic, summary-level, never full.
+  layer_c_evidence_note   - written by the agent. Self-reported, and labelled as such in every row.
+A layer that does not exist is UNAVAILABLE with a reason. Never blank, never inferred, never filled from another
+layer, because an absent layer is itself a finding. Layers attach to the EXECUTION that produced them, not to the
+job: run 1 and run 2 of one job have different actions and different notes, and merging them would invent a chain
+of thought that no agent ever had.
+
+BLINDNESS: --for-blind-lane refuses to emit anything. The index is readable by the orchestrator and by post-review
+lanes (final checkers, transcript auditors, the end-of-campaign re-check). It is not a permitted read for a lane
+still under a blindness constraint, and this flag exists so that rule is enforced by the tool rather than by whoever
+remembers it.
+
+Usage:
+  _capture_index.py --book Lam [--write]     rebuild the index rows for a book from its receipts and manifests
+  _capture_index.py --check                  verify the whole index against the contract; exit 1 on any violation
+  _capture_index.py --for-blind-lane <role>  always refuses, and says why
+"""
+import collections
+import hashlib
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+from _receipt_fold import fold, read_receipts  # noqa: E402
+
+SP = HERE.parent
+INDEX = HERE / "capture_index.v1.jsonl"
+BLIND_ROLES = {"primary_lf", "primary_ol", "peer", "writer", "spot", "postcheck"}
+POST_REVIEW_ROLES = {"final_checker", "transcript_auditor", "end_of_campaign_recheck", "orchestrator"}
+UNAVAIL = "UNAVAILABLE"
+
+
+def sha(p):
+    try:
+        return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+    except Exception:
+        return None
+
+
+def role_of(lane, attempt_id):
+    l = (lane or "").lower() + " " + (attempt_id or "").lower()
+    for key, role in (("writer", "writer"), ("_pr_lf", "primary_lf"), ("_pr_ol", "primary_ol"),
+                      ("primaries", "primary"), ("peer", "peer"), ("boss", "boss"), ("author", "author"),
+                      ("cwo", "order_execution"), ("spot", "spot"), ("micro", "cure_author"),
+                      ("fcfix", "fix_author"), ("fix", "fix_author"), ("sidecar", "sidecar"),
+                      ("postcheck", "postcheck"), ("tscript", "transcript_auditor"),
+                      ("final_check", "final_checker"), ("hardness", "controlling_agent"),
+                      ("phase0", "phase0_staging"), ("stage", "phase0_staging")):
+        if key in l:
+            return role
+    return "unknown"
+
+
+def explicit_ordinal(attempt_id, receipt):
+    """The ordinal a receipt's own execution_id names (`<attempt_id>#e<N>`), or None when it names none."""
+    x = receipt.get("execution_id") or ""
+    tail = x[len(attempt_id) + 2:] if x.startswith(attempt_id + "#e") else ""
+    return int(tail) if tail.isdigit() and int(tail) > 0 else None
+
+
+def execution_identity(attempt_id, ordinal, receipt, explicit=False):
+    """Deterministic, additive, and never a rename. The ordinal is the identity because it is stable under rebuild;
+    the receipt's own `wave` is carried alongside as the evidence for what that run was, not as the key. A receipt
+    that names its own execution_id is taken at its word (2026-09-24): receipt files are read in path order, which
+    is not launch order, so deriving would give 8 Ezekiel runs each other's ordinals."""
+    return {
+        "execution_id": "%s#e%d" % (attempt_id, ordinal),
+        "execution_of": attempt_id,
+        "execution_ordinal": ordinal,
+        "previous_execution_id": ("%s#e%d" % (attempt_id, ordinal - 1)) if ordinal > 1 else None,
+        "execution_id_source": ("the receipt's own execution_id" if explicit else
+                                "derived from receipt order within the book; this receipt carries no explicit "
+                                "execution field, so ordinal N is the Nth recorded run of this job"),
+        "wave_recorded_by_the_receipt": receipt.get("wave"),
+        "identity_note": ("attempt_id is the STABLE LOGICAL JOB and is never renamed - E-14 re-launches a fresh "
+                          "agent under it and appends to the same deliverable. execution_id is ONE PHYSICAL RUN "
+                          "of that job; OW-7 gives every run its own record and never overwrites an earlier one."),
+    }
+
+
+def resolve_layer_a(man, aid, ordinal, total_runs):
+    """Map a manifest entry to ONE RUN, from evidence, never by assumption.
+
+    The manifests predate execution identity and improvised their own run marker: for the four Lamentations
+    transcript auditors they carry both `<aid>` and `<aid>_wave1`. That improvisation is honoured rather than
+    overridden - `<aid>_wave1` IS run 1, and the unsuffixed entry is then the remaining run. Where the evidence
+    does not single out one run, layer A is UNAVAILABLE with the ambiguity named. It is never given to a run on
+    the grounds that the run happened to be first."""
+    suffixed = {}
+    for k in man:
+        if k.startswith(aid + "_wave"):
+            tail = k[len(aid) + 5:]
+            if tail.isdigit():
+                suffixed[int(tail)] = k
+    if ordinal in suffixed:
+        return man[suffixed[ordinal]], None
+    plain = man.get(aid)
+    if not plain:
+        return {}, None
+    unclaimed = [o for o in range(1, total_runs + 1) if o not in suffixed]
+    if len(unclaimed) == 1 and unclaimed[0] == ordinal:
+        return plain, None
+    if ordinal in unclaimed:
+        return {}, ("the manifest maps one unsuffixed transcript to this job but %d of its runs are unsuffixed "
+                    "(%s); no evidence singles out which run it belongs to, so it is not attributed to any of "
+                    "them" % (len(unclaimed), ", ".join("#e%d" % o for o in unclaimed)))
+    return {}, ("run #e%d is claimed by manifest entry %s, so the unsuffixed entry belongs to a different run"
+                % (ordinal, suffixed.get(ordinal, "(none)")))
+
+
+def build(book, write):
+    bdir = SP / book
+    rows = []
+    runs = collections.Counter()
+    # identity + ordered model come from the receipts; actual model and layer A come from a manifest
+    man = {}
+    for mp in sorted(bdir.glob("transcript_manifest.v*.json")):
+        try:
+            m = json.loads(mp.read_text(encoding="utf-8-sig"))
+        except Exception:
+            continue
+        for e in m.get("mapped_transcripts", []):
+            man[e["attempt_id"]] = dict(e, _manifest=mp.name)
+
+    # One row per EXECUTION: amending rows (completion, amendment, recovery note) are folded into the execution they
+    # name by the shared fold and never become runs of their own (2026-09-24; before this a completion row was
+    # counted as run N+1 of its job)
+    executions, _ = fold(read_receipts(sorted(bdir.rglob("*_attempt_receipts.jsonl"))))
+    executions = [r for r in executions if r.get("attempt_id")]
+    total_runs = collections.Counter(r["attempt_id"] for r in executions)
+    claimed = collections.defaultdict(set)
+    for r in executions:
+        n = explicit_ordinal(r["attempt_id"], r)
+        if n:
+            claimed[r["attempt_id"]].add(n)
+
+    for r in executions:
+        rp = Path(r["_file"])
+        aid = r["attempt_id"]
+        own = explicit_ordinal(aid, r)
+        ordinal = own
+        if ordinal is None:
+            # a derived ordinal never takes one a receipt names for itself
+            runs[aid] += 1
+            while runs[aid] in claimed[aid]:
+                runs[aid] += 1
+            ordinal = runs[aid]
+        ident = execution_identity(aid, ordinal, r, explicit=own is not None)
+
+
+        # A manifest maps a transcript to an ATTEMPT, not to a run. The resolver attaches it to one run only
+        # where evidence identifies that run; otherwise layer A stays UNAVAILABLE with the ambiguity named,
+        # because attributing one run's actions to another is precisely what the three-layer rule forbids.
+        m, ambiguity = resolve_layer_a(man, aid, ordinal, total_runs[aid])
+        tr = m.get("transcript")
+        has_a = bool(tr) and (m.get("bytes") or 0) > 0
+        # An execution_id contains "#", which is legal in a filename but awkward in a URL and in a shell, so
+        # the note is stored with it percent-encoded. Both spellings are accepted on read: the encoded one is
+        # canonical, the raw one is tolerated, and a pre-OW-10 note keyed by bare attempt_id is accepted only
+        # for run 1 - never for a later run, which would attribute one run's note to another.
+        notes_dir = bdir / "evidence_notes"
+        cands = [notes_dir / ("%s.json" % ident["execution_id"].replace("#", "%23")),
+                 notes_dir / ("%s.json" % ident["execution_id"])]
+        if ordinal == 1:
+            cands.append(notes_dir / ("%s.json" % aid))
+        note = next((c for c in cands if c.is_file()), cands[0])
+
+        rows.append({
+            "schema": "m8_capture_index_row.v2",
+            "book": book, "task": r.get("lane"), "role": role_of(r.get("lane"), aid),
+            "attempt_id": aid,
+            **ident,
+            "agent_id": m.get("agent_id") or r.get("agent_id") or UNAVAIL,
+            "parent_agent_id": r.get("parent_agent_id") or "orchestrator",
+            "parent_note": "the orchestrator launched this attempt directly; a nested subagent would name its "
+                           "spawning agent here and its records would remain the CHILD's",
+            "model_ordered": r.get("model") or UNAVAIL,
+            "model_actual": m.get("model_actual") or (m.get("model") if m.get("model") and has_a else UNAVAIL),
+            "model_actual_note": "read from a runtime record where one exists; never inferred from what a lane "
+                                 "usually runs",
+            "retry_of": r.get("corrects") if (r.get("corrects") or "").startswith(aid.split("_a")[0]) else None,
+            "retry_of_note": "retry_of points at another JOB this one corrects. Re-running the SAME job is "
+                             "previous_execution_id, not retry_of; the two relations are never conflated.",
+            "outcome_recorded_by_the_receipt": r.get("outcome"),
+            "amending_rows_applied": r["_amended_by"],
+            "layer_a_runtime_actions": ({"path": tr, "bytes": m.get("bytes"), "sha256": m.get("sha256"),
+                                         "source": m.get("_manifest")} if has_a else
+                                        {"state": UNAVAIL,
+                                         "reason": ambiguity or
+                                         ("the runtime wrote no transcript for this attempt, or wrote one "
+                                          "and deleted it before it could be mirrored")}),
+            "layer_b_exposed_thinking": {"state": UNAVAIL,
+                                         "reason": "the runtime exposes thinking only sporadically and at "
+                                                   "summary level; none is retained for this attempt"},
+            "layer_c_evidence_note": ({"path": str(note.relative_to(SP)).replace("\\", "/"),
+                                       "sha256": sha(note), "self_authored": True} if note.is_file() else
+                                      {"state": UNAVAIL, "self_authored": True,
+                                       "reason": "attempt predates OW-7; the evidence note binds from the first "
+                                                 "brief of the book after Lamentations and is not retroactive"}),
+            "layers_are_separate": "A is the runtime's record, B is what the runtime surfaced of the agent's "
+                                   "thinking, C is the agent's own note. They are never merged, C is never "
+                                   "presented as chain of thought, and all three attach to this EXECUTION.",
+            "receipt": str(rp.relative_to(SP)).replace("\\", "/"),
+            "indexed_at": datetime.now(timezone.utc).isoformat()})
+
+    if write:
+        keep = []
+        if INDEX.is_file():
+            keep = [l for l in INDEX.read_text(encoding="utf-8").splitlines()
+                    if l.strip() and json.loads(l).get("book") != book]
+        INDEX.write_text("".join(l + "\n" for l in keep)
+                         + "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows),
+                         encoding="utf-8", newline="\n")
+    return rows
+
+
+def check():
+    problems = []
+    if not INDEX.is_file():
+        return ["index does not exist"], []
+    rows = [json.loads(l) for l in INDEX.read_text(encoding="utf-8").splitlines() if l.strip()]
+    execs, jobs = {}, collections.defaultdict(list)
+    for r in rows:
+        x = r.get("execution_id")
+        a = r.get("attempt_id")
+        if not x:
+            problems.append(f"{a}: row carries no execution_id; every physical run needs its own identity")
+            continue
+        if x in execs:
+            problems.append(f"{x}: execution id appears twice; every run is exactly one row")
+        execs[x] = r
+        jobs[a].append(r)
+        for k in ("book", "task", "role", "attempt_id", "execution_id", "execution_of", "execution_ordinal",
+                  "agent_id", "parent_agent_id", "model_ordered", "model_actual"):
+            if r.get(k) in (None, ""):
+                problems.append(f"{x}: identity field {k} missing")
+        if r.get("execution_of") != a:
+            problems.append(f"{x}: execution_of does not name its own attempt_id - the stable job link is broken")
+        for layer in ("layer_a_runtime_actions", "layer_b_exposed_thinking", "layer_c_evidence_note"):
+            v = r.get(layer)
+            if not isinstance(v, dict):
+                problems.append(f"{x}: {layer} is not its own object - layers are never merged")
+            elif "state" in v and v["state"] == UNAVAIL and not v.get("reason"):
+                problems.append(f"{x}: {layer} is UNAVAILABLE without a reason")
+            elif "state" not in v and not (v.get("path") or v.get("sha256")):
+                problems.append(f"{x}: {layer} claims content but names no path")
+        if r.get("layer_c_evidence_note", {}).get("self_authored") is not True:
+            problems.append(f"{x}: layer C must be marked self_authored, whatever its state")
+
+    # the execution chain of every job must be contiguous 1..N and correctly back-linked
+    for a, rs in jobs.items():
+        rs = sorted(rs, key=lambda r: r.get("execution_ordinal") or 0)
+        ords = [r.get("execution_ordinal") for r in rs]
+        if ords != list(range(1, len(rs) + 1)):
+            problems.append(f"{a}: execution ordinals {ords} are not contiguous from 1; a run was dropped or "
+                            f"double-counted")
+        for r in rs:
+            want = ("%s#e%d" % (a, r["execution_ordinal"] - 1)) if r.get("execution_ordinal", 0) > 1 else None
+            if r.get("previous_execution_id") != want:
+                problems.append(f"{r.get('execution_id')}: previous_execution_id is "
+                                f"{r.get('previous_execution_id')!r}, expected {want!r}")
+
+    for r in rows:
+        ro = r.get("retry_of")
+        if ro and ro.split(" ")[0] not in jobs:
+            problems.append(f"{r.get('execution_id')}: retry_of names {ro} which is not in the index")
+    return problems, rows
+
+
+def _layers_present(rows):
+    return {k: sum(1 for r in rows if "state" not in r.get(k, {"state": 1}))
+            for k in ("layer_a_runtime_actions", "layer_b_exposed_thinking", "layer_c_evidence_note")}
+
+
+def main():
+    a = sys.argv[1:]
+    sys.stdout.reconfigure(encoding="utf-8")
+
+    if "--for-blind-lane" in a:
+        role = a[a.index("--for-blind-lane") + 1] if len(a) > a.index("--for-blind-lane") + 1 else "(unnamed)"
+        print(json.dumps({
+            "status": "REFUSED", "role": role,
+            "why": "OW-7: collecting records does not authorize sharing them. A lane still under a blindness "
+                   "constraint may not be given the index, another lane's records, or any conclusion drawn from "
+                   "them, before its own independent review has landed.",
+            "note": "the index holds pointers, not content - and a pointer to a rival lane's conclusion is exactly "
+                    "what blindness exists to prevent, so 'it holds no content' is not a reason to hand it over",
+            "permitted_readers": sorted(POST_REVIEW_ROLES),
+            "blind_roles": sorted(BLIND_ROLES)}, indent=1))
+        return 1
+
+    if "--check" in a:
+        problems, rows = check()
+        multi = {r["attempt_id"]: r["execution_ordinal"] for r in rows if r.get("execution_ordinal", 1) > 1}
+        print(json.dumps({"index": str(INDEX), "rows": len(rows),
+                          "distinct_jobs": len({r.get("attempt_id") for r in rows}),
+                          "jobs_with_more_than_one_execution": multi,
+                          "layers_present": _layers_present(rows),
+                          "problems": problems, "verdict": "GREEN" if not problems else "RED"},
+                         ensure_ascii=False, indent=1))
+        return 1 if problems else 0
+
+    book = a[a.index("--book") + 1] if "--book" in a else "Lam"
+    rows = build(book, "--write" in a)
+    multi = {r["attempt_id"]: r["execution_ordinal"] for r in rows if r.get("execution_ordinal", 1) > 1}
+    print(json.dumps({"book": book, "executions_indexed": len(rows),
+                      "distinct_jobs": len({r["attempt_id"] for r in rows}),
+                      "jobs_with_more_than_one_execution": multi,
+                      "layers_present": _layers_present(rows),
+                      "written": "--write" in a, "index": str(INDEX)}, ensure_ascii=False, indent=1))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

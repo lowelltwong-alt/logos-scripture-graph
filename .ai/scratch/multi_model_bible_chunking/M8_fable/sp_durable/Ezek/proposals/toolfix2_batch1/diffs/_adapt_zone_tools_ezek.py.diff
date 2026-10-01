@@ -1,0 +1,211 @@
+--- SP/Ezek/tools/_adapt_zone_tools_ezek.py (installed 9f0174f30b97)
++++ proposals/toolfix2_batch1/staged/_adapt_zone_tools_ezek.py (efbbb3ba8d55)
+@@ -340,7 +340,8 @@
+     none -> false, a mix -> ambiguous (flagged); a claim naming no number is
+     satisfied only when the row's span covers a site. A negation earlier in the
+     same comma-delimited clause makes it an absence claim; adjacent negators cancel.
+- 1. Any petuchah/setumah claim naming a verse must match the marks inventory
++ 1. Any petuchah/setumah claim naming a verse IN ITS OWN CLAUSE (C:V, C.V, 'MT C:V'
++    or a dotted ref; S1-22) must match the marks inventory
+     under the CORRECT mark type - PE and SAMEKH are never conflated (owner
+     addendum). NON-IDENTITY BOOK: a cited verse number near a claim is
+     checked under BOTH readings (direct MT and WEB-crosswalk-mapped MT) -
+@@ -352,13 +353,17 @@
+     disclosed in the row's prose whether or not the prose engages the mark
+     layer - tier-3 weak corroboration still requires disclosure when present
+     (r3 contract: "all interior+edge marks vs pmarks").
+- 3. ABSENCE ARM, SPAN-SCOPED: "no petuchah/setumah" claims are checked
+-    against the marks inventory WITHIN the span-relevant (MT-mapped) set.
++ 3. ABSENCE ARM: a "no petuchah/setumah" claim is checked against the verse,
++    range or chapter its own clause names (S1-22); one naming none is checked
++    WITHIN the span-relevant (MT-mapped) set.
+  4. ketiv/qere prose claims naming a verse must match the kq inventory
+     (134 notes / 99 verses, MT-keyed; dual-reading like rule 1; ONE verse sits
+     INSIDE the zone - MT 21:28 = WEB 21:23; 23 verses carry more than one note).
+     A claim that speaks of an editorial note may instead rest on a verse whose
+-    OSHB note names ketib/qere (the notes_other layer).
++    OSHB note names ketib/qere (the notes_other layer). The claim binds to the
++    numbers in its own clause (S1-22). A NEGATED K/Q claim is an absence claim,
++    checked against the verses its clause names or the span's kq keys
++    (false_kq_absence_claim).
+  5. PASEQ-POSITION arm (WARN only): pmarks paseq is COUNT-ONLY (136 segs /
+     121 verses; no offsets); intra-verse position claims are unsourceable.
+ Known limitation (Ezra finding, unchanged): the prose-window heuristic is
+@@ -487,6 +492,41 @@
+             items += _range_items(text, m.start(), m.end())
+     return items
+ '''
++
++CS_REF_HEBREW_ARM = r"""            # REF HEBREW arm (Ezek; S1-06, ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (b)) [CWO-EZ-16]: every Hebrew
++            # run inside a ref entry binds to that entry's OWN (first) ref - every verse of its range - with walk()'s functions:
++            # collate_hebrew (byte tier if pointed, any tier if unpointed), the verse's Qere from the raw note bytes, and a
++            # ketiv/qere keyword in the run's own sentence within 160 characters.
++            ref_runs_ = [r_ for r_ in HEB_RUN.findall(tail) if len(re.sub(r"[^א-ת]", "", r_)) >= 3]
++            if ref_runs_:
++                if oshb_texts is None:
++                    oshb_texts = json.loads((TOOLS / "verse_map_oshb.json").read_text(encoding="utf-8"))
++                keys_, (c_, v_) = [], (ch, v)
++                while (c_, v_) <= end_pair and c_ in space:
++                    mk_ = web_to_mt(c_, v_) if kind == "web" else (c_, v_)
++                    if mk_:
++                        keys_.append(f"Ezek.{mk_[0]}.{mk_[1]}")
++                    c_, v_ = (c_, v_ + 1) if v_ < space[c_] else (c_ + 1, 1)
++                texts_ = " | ".join(oshb_texts.get(k_, {}).get("text", "") for k_ in keys_)
++                qere_ = " | ".join(kq_split_bytes(n_, oshb_texts.get(k_, {}).get("text", ""))[1].replace("/", "")
++                                   for k_ in keys_ for n_ in kq.get(k_, []))
++                for r_ in ref_runs_:
++                    pointed_ = bool(POINTED.search(r_))
++                    t_ = collate_hebrew(r_, texts_)
++                    if (t_ == "byte") if pointed_ else t_ != "none":
++                        continue
++                    tq_ = collate_hebrew(r_, qere_) if qere_.strip(" |") else "none"
++                    if (tq_ == "byte") if pointed_ else tq_ != "none":
++                        p_ = tail.find(r_)
++                        s_lo_, s_hi_ = sentence_bounds(tail, p_, p_ + len(r_))
++                        if KQ_WORD.search(tail[max(s_lo_, p_ - 160):min(s_hi_, p_ + len(r_) + 160)]):
++                            continue
++                        problems.append(f"{did}: Hebrew {r_[:25]!r}… in ref entry {ref!r} matches the Qere of its own ref "
++                                        f"but its sentence carries no ketiv/qere disclosure [CWO-EZ-16]")
++                        continue
++                    problems.append(f"{did}: Hebrew {r_[:25]!r}… in ref entry {ref!r} does not collate against its own ref "
++                                    f"(tier {t_}, qere tier {tq_}, {'pointed' if pointed_ else 'unpointed'}) [CWO-EZ-16]")
++"""
+ 
+ CS_CAL_ONSET = r"""        # CALENDAR-DATE arm, onset (Ezek; strategy section 10, ruling G12(d)): MT 45:20, 45:21 and 45:25 carry a
+         # month+day date with no year word and no formula, so no row opens there. A row MAY open at 45:18 on the
+@@ -592,10 +632,115 @@
+     kq_line_ezek = r'''            if (re.search(r"\b(?:ketiv|qere|K/Q)\b", tail, re.I) and not kq.get(key)
+                     and not (key in kq_note_keys and NOTE_WORD.search(tail))):
+ '''
+-    t = sub_exact(t, kq_line, CS_PUNCTA_ARM + CS_CAL_REF_ARM + kq_line_ezek, 1, "cs puncta arm + calendar ref arm + kq editorial-note tier")
++    t = sub_exact(t, kq_line, CS_PUNCTA_ARM + CS_CAL_REF_ARM + CS_REF_HEBREW_ARM + kq_line_ezek, 1, "cs puncta arm + calendar ref arm + kq editorial-note tier")
+     small = '    small_letter_keys = {k: v for k, v in pm.get("other_segs", {}).items()}\n'
+     t = sub_exact(t, small, small + KQ_NOTE_KEYS_LINE, 1, "cs kq_note_keys")
+     return "citation_sweep.py", join_doc(head, t, CS_DOC), t
++
++
++CHAPTER_NAMED_RE = r"""CHAPTER_NAMED = re.compile(r"\bch(?:apter|\.)?\s+(\d{1,2})\b", re.I)   # S1-22: 'chapter 10', 'ch 46'
++"""
++
++CM_RULE1_OLD = """                lo = max(0, m.start() - 120)
++                ctx = text[lo:m.start() + 120]
++                cands = list(VERSE_NEAR.finditer(ctx))
++                if not cands:
++                    continue
++                rel = m.start() - lo
++                cands.sort(key=lambda vm: abs(vm.start() - rel))
++                if any(want_type in marks.get(f"Jer.{rc}.{rv}", [])
++                       for vm in cands
++                       for rc, rv in readings(int(vm.group(1)), int(vm.group(2)))):
++                    continue
++                if ABSENCE.search(ctx):
++                    continue
++                vm = cands[0]
++                c, v = int(vm.group(1)), int(vm.group(2))
++"""
++CM_RULE1_NEW = """                # S1-22 (ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (b)): the claim binds to the verse numbers written in
++                # its OWN clause - C:V, C.V, 'MT C:V' or a dotted ref alike - plus a parenthetical opening directly after it; a
++                # claim naming no number in its clause is left to rule 2 (symmetry)
++                c_lo_, c_hi_ = clause_bounds(text, m.start(), m.end(), NUM_CLAUSE_END)
++                named_ = [p for pairs in puncta_claim_numbers(text, m.start(), m.end()) for p in pairs]
++                if not named_:
++                    continue
++                if any(want_type in marks.get(f"Jer.{rc}.{rv}", [])
++                       for c0, v0 in named_
++                       for rc, rv in readings(c0, v0)):
++                    continue
++                if ABSENCE.search(text[c_lo_:c_hi_]):
++                    continue
++                c, v = named_[0]
++"""
++CM_RULE3_OLD = """            for am in ABSENCE.finditer(text):
++                have = relevant(span_pairs(row), marks)
++                if have:
++                    flags.append({"decision_id": did, "rule": "false_mark_absence_claim",
++                                  "claim_context": text[max(0, am.start() - 60):am.start() + 80],
++                                  "span_relevant_marks_mt_keys": have})
++                    break
++"""
++CM_RULE3_NEW = """            # S1-22 (#e4 ruling TOOLFIX-2 (b)): an absence phrase is scoped to the verse, range or chapter its own clause
++            # names; an absence phrase naming none keeps the span-scoped check
++            for am in ABSENCE.finditer(text):
++                named_ = [p for pairs in puncta_claim_numbers(text, am.start(), am.end()) for p in pairs]
++                c_lo_, c_hi_ = clause_bounds(text, am.start(), am.end(), NUM_CLAUSE_END)
++                for chm_ in CHAPTER_NAMED.finditer(text, c_lo_, c_hi_):
++                    ch_ = int(chm_.group(1))
++                    named_ += [(ch_, vv_) for vv_ in range(1, MT_LAST_VERSE.get(ch_, 0) + 1)]
++                if named_:
++                    scope_ = "named"
++                    have = {f"Jer.{rc}.{rv}": marks[f"Jer.{rc}.{rv}"] for c0, v0 in named_ for rc, rv in readings(c0, v0)
++                            if marks.get(f"Jer.{rc}.{rv}")}
++                else:
++                    scope_ = "span"
++                    have = relevant(span_pairs(row), marks)
++                if have:
++                    flags.append({"decision_id": did, "rule": "false_mark_absence_claim", "scope": scope_,
++                                  "claim_context": text[max(0, am.start() - 60):am.start() + 80],
++                                  "span_relevant_marks_mt_keys": have})
++                    break
++"""
++CM_RULE4_OLD = """            for m in KQ.finditer(text):
++                lo = max(0, m.start() - 120)
++                ctx = text[lo:m.start() + 120]
++                cands = list(VERSE_NEAR.finditer(ctx))
++                if not cands:
++                    continue
++                rel = m.start() - lo
++                cands.sort(key=lambda vm: abs(vm.start() - rel))
++                if any(kq.get(f"Jer.{rc}.{rv}") or (f"Jer.{rc}.{rv}" in kq_note_keys and NOTE_WORD.search(ctx))
++                       for vm in cands
++                       for rc, rv in readings(int(vm.group(1)), int(vm.group(2)))):
++                    continue
++                vm = cands[0]
++                c, v = int(vm.group(1)), int(vm.group(2))
++"""
++CM_RULE4_NEW = """            # S1-22 (#e4 ruling TOOLFIX-2 (b)): a K/Q claim binds to the verse numbers in its OWN clause (C:V, C.V, 'MT C:V'
++            # or dotted); a NEGATED K/Q token is an absence claim, checked against the verses its clause names or, naming
++            # none, the span's kq keys (rule false_kq_absence_claim)
++            for m in KQ.finditer(text):
++                lo = max(0, m.start() - 120)
++                ctx = text[lo:m.start() + 120]
++                named_ = [p for pairs in puncta_claim_numbers(text, m.start(), m.end()) for p in pairs]
++                if puncta_negated(text, m.start(), m.end()):
++                    if named_:
++                        keys_ = {f"Jer.{rc}.{rv}" for c0, v0 in named_ for rc, rv in readings(c0, v0)}
++                    else:
++                        keys_ = {f"Jer.{mt_[0]}.{mt_[1]}" for c0, v0 in span_pairs(row) for mt_ in [web_to_mt(c0, v0)] if mt_}
++                    present_ = sorted(k_ for k_ in keys_ if kq.get(k_))
++                    if present_:
++                        flags.append({"decision_id": did, "rule": "false_kq_absence_claim", "scope": "named" if named_ else "span",
++                                      "kq_mt_keys": present_, "claim_context": text[max(0, m.start() - 60):m.start() + 80]})
++                    continue
++                if not named_:
++                    continue
++                if any(kq.get(f"Jer.{rc}.{rv}") or (f"Jer.{rc}.{rv}" in kq_note_keys and NOTE_WORD.search(ctx))
++                       for c0, v0 in named_
++                       for rc, rv in readings(c0, v0)):
++                    continue
++                c, v = named_[0]
++"""
+ 
+ 
+ def stage_check_marks():
+@@ -604,7 +749,7 @@
+     t = sub_exact(t, "from jer_lib import (", "from ezek_lib import (", 1, "cm import")
+     anchor = r'''                          r"\bnun\s+ze[i']?ira\b|\bze[i']?ira\b|\bminuscule\b", re.I)
+ '''
+-    t = sub_exact(t, anchor, anchor + PUNCTA_RE + "PUNCTA_SITES = {(41, 20), (46, 22)}   # MT; asserted by ezek_lib's selftest\n",
++    t = sub_exact(t, anchor, anchor + PUNCTA_RE + "PUNCTA_SITES = {(41, 20), (46, 22)}   # MT; asserted by ezek_lib's selftest\n" + CHAPTER_NAMED_RE,
+                   1, "cm puncta constants")
+     t = sub_ws(t, '"note": ("WLC Jer carries NO large-letter segs; its only " "special letter is the small nun at MT 39:13"),',
+                '"note": "WLC Ezek carries NO special-letter seg of any class",', 1, "cm large-letter note")
+@@ -622,6 +767,9 @@
+                   1, "cm kq editorial-note tier")
+     rule1 = "            # Rule 1: petuchah/setumah claims bind to the NEAREST windowed ref\n"
+     t = sub_exact(t, rule1, CM_PUNCTA_ARM + rule1, 1, "cm puncta arm")
++    t = sub_exact(t, CM_RULE1_OLD, CM_RULE1_NEW, 1, "cm S1-22 rule 1 own-clause binding")
++    t = sub_exact(t, CM_RULE3_OLD, CM_RULE3_NEW, 1, "cm S1-22 rule 3 scoped absence")
++    t = sub_exact(t, CM_RULE4_OLD, CM_RULE4_NEW, 1, "cm S1-22 rule 4 own-clause binding and negated K/Q")
+     return "check_marks.py", join_doc(head, t, CM_DOC), t
+ 
+ 

@@ -1,0 +1,15 @@
+--- SP/Ezek/tools/check_register.py (installed 8357cf404835)
++++ proposals/toolfix2_batch1/staged/check_register.py (eeffb186fc2d)
+@@ -57,6 +57,12 @@
+     "strategy_citation": re.compile(
+         r"§\s*\d|\bbook_strategy\b|\bstrategy file\b|\bper the strategy\b|"
+         r"\bgate ruling\b|\bowner gate\b", re.I),
++    # S1-05 (ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (b)): the ruling's phrasings, verbatim [CWO-EZ-14]
++    "author_wave_register_s1_05": re.compile(
++        r"\boriginally drafted\b|\bformer (?:span|row)\b|\bprior \w+(?: \w+)? reading\b|\bcorrection to an earlier\b|"
++        r"\b(?:preceding|next|following) row\b|\brow (?:before|after)\b|\b(?:one|middle|last) of \w+ rows\b|"
++        r"\bstrategy['’]s\b|\bthe (?:ruling|order)['’]s\b|\bposture\b|\bofficially inventoried\b|"
++        r"\b(?:ends|opens|closes|begins) the part\b|\bthe part['’]s\b", re.I),
+     "staged_file_stem": re.compile(
+         r"\bverse_map\w*\b|\bpmarks\w*\b|\bdevice_inventory\b|\boffset_map\b|"
+         r"\bconsonantal_index\b|\bTOOLKIT\b|\bezek_lib\b", re.I),

@@ -1,0 +1,82 @@
+{
+ "attempt_id": "ezek_writer_p02_a1",
+ "execution_id": "ezek_writer_p02_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\WRITER_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\writer_parts.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\verse_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_denominator_reconciliation.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_p0_retained_lows.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "20 chunk rows written to the assigned deliverable path, tiling Ezek.8.1-Ezek.14.23 exactly (150 verses; 10 rows for P3 the temple vision, 10 rows for the P4 opening through 14:23)",
+    "why": "tile the assigned WEB range into formula-bounded literary-unit rows per the book strategy, stopping at the internal parent seam named in the assignment"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "the 150 assigned verses are covered exactly once each, no gap, no overlap",
+   "how": "self-written tiling script comparing the concatenated row verse-lists against a deterministic Ezek.8.1-Ezek.14.23 range",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no row straddles the internal parent seam at Ezek.11.25/Ezek.12.1",
+   "how": "self-written script checking no single row's verse list contains both a chapter-11 and a chapter-12 ref",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every row carries exactly the 22 named fields, unit_type from the closed 12-value vocabulary, confidence from the 4-value vocabulary, non_authorizing true, review_status pending",
+   "how": "self-written schema-assertion script over the in-memory records and again over a re-parse of the written private copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every quoted Hebrew run is a live substring of the verse-text file, spliced by dict lookup, never hand-typed or unicode-escaped; every K/Q citation is separated into ketiv/qere by an NFD-based splitter re-derived fresh from the ketiv/qere inventory with separators stripped",
+   "how": "self-written splicer tested against 8 K/Q sites (8:6, 9:4, 9:5x2, 9:11, 12:14, 14:4, 14:14, 14:20) and manually cross-checked against the running ketiv spelling visible in the verse text before use; re-run at self-check time",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no fabrication-class term (selah, large/small letter, reversed or suspended nun, Aramaic) appears anywhere in the row set",
+   "how": "self-written substring sweep over the full serialized record set (one earlier draft sentence that named these terms only to assert their absence was removed rather than kept, since the sweep cannot itself distinguish an absence-disclosure from a claim, and the safer bar is zero mentions)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no staged-file name or stem appears in any of the 22 fields",
+   "how": "self-written substring sweep for TOOLKIT.md, book_strategy_Ezek, pmarks_Ezek.json, Ezek_oshb.txt, Ezek_web_clean.txt, ezek_device_inventory.json, verse_inventory.json, writer_parts.json, WRITER_BRIEF",
+   "result": "confirmed"
+  },
+  {
+   "claim": "the written deliverable is valid JSONL with 20 lines, each with the 22 fields, ascending decision_id/writer_decision_id/chunk_index_in_book",
+   "how": "re-parsed a private copy of the deliverable (written alongside it, in private scratch) line by line with json.loads and an id-ascending assertion",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "whether Ezek.10.9-10.17 (the wheel description) is its own row or texture inside a larger chapter-10 unit",
+   "why_it_matters": "no formula, transport verb, or parashah mark of any kind marks this span on either side; the row is held at low confidence because the book's own formula inventory cannot settle the question, only content can, and content is a softer form of evidence than the rest of this part rests on"
+  },
+  {
+   "what": "the book strategy's own device matrix lists Ezek.11.1-11.13 under both the vision_report and the judgment_oracle unit-type entries without reconciling the two",
+   "why_it_matters": "this is a genuine tension in the source strategy document, not a judgment call resolved here; row 8 is filed as vision_report (by its transport-and-return frame) with the alternative disclosed in device_notes rather than silently picking one"
+  },
+  {
+   "what": "three recognition-formula-shaped clauses in this part (Ezek.13.9's אדני יהוה form; Ezek.13.21 and Ezek.13.23's 2fp וידעתן form) match neither the strict 28-verse recognition family nor the 21-verse 2mp family named in the staged inventories",
+   "why_it_matters": "these are disclosed as observed, uncounted variants rather than claimed members of either counted sweep, per the never-blend rule; a future inventory pass may want to name them as a third, distinct recognition-formula class"
+  },
+  {
+   "what": "whether the samekh following Ezek.8.14 (which sits inside row 3 rather than at its close) should instead be read as evidence for a shorter 8:14-15 row",
+   "why_it_matters": "held at medium_low confidence and named as the row's own strongest rejected alternative; the mark is real and disclosed, and a peer reviewer weighing the close side independently may reasonably prefer the shorter row"
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the writer's own OW-8 final message."
+}

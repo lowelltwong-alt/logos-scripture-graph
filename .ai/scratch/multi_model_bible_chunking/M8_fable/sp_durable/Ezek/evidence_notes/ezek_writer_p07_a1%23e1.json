@@ -1,0 +1,82 @@
+{
+ "attempt_id": "ezek_writer_p07_a1",
+ "execution_id": "ezek_writer_p07_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\WRITER_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\writer_parts.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\verse_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_denominator_reconciliation.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_p0_retained_lows.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "wrote 8 chunk rows (P07-001..P07-008) covering Ezek.29.1-Ezek.32.32, 97 verses, to draft_p07.jsonl",
+    "why": "tiles the assigned WEB range exactly per the writer brief, respecting all six hard dateline seams (29:1, 29:17, 30:20, 31:1, 32:1, 32:17) and the strategy's §5/§6/§7 rulings on this part"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "the 8 rows tile Ezek.29.1-Ezek.32.32 exactly, no gap, no overlap, matching verse_inventory.json's per-chapter counts (29:21, 30:26, 31:18, 32:32 = 97)",
+   "how": "private self-written script build_and_check.py (the shared Jer/Isa validator toolchain is not staged for Ezekiel), tiling walk against CHAPTER_COUNTS taken from verse_inventory.json",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every Hebrew string spliced into the rows (16 onset/close full-verse citations) is a byte-identical substring of Ezek_oshb.txt, pulled programmatically, never hand-typed",
+   "how": "same script, dict lookup by ref against the file's own parsed content plus a post-hoc string-equality check between spliced text and source verse",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 22 schema fields present on every row; unit_type in the 12-value closed vocabulary; confidence in high/medium/medium_low/low; non_authorizing true; review_status 'pending'",
+   "how": "same script, schema loop over the field list and the two closed enums",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every K/Q verse (6), paseq verse (4), parashah mark (18 occurrences over 18 verses), and OSHB editorial note (3 verses) inside Ezek.29.1-32.32 is disclosed somewhere in the output",
+   "how": "same script, substring search of the full serialized output against four master lists taken from pmarks_Ezek.json",
+   "result": "confirmed"
+  },
+  {
+   "claim": "none of the six hard-seam datelines (29:1, 29:17, 30:20, 31:1, 32:1, 32:17) falls inside a row - each is a row's first verse",
+   "how": "same script, set-membership check of the six datelines against every row's span-start ref",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no fabrication-class term (selah, large/small letter, reversed/suspended nun, Aramaic) appears anywhere in the output",
+   "how": "same script, case-insensitive substring sweep over the full serialized row content",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no ch 20/21 numbering-zone reference appears in this part's output (correctly out of scope for p07)",
+   "how": "same script, regex check for Ezek.20./Ezek.21. inside boundary_evidence_refs",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Ezek.30.1-Ezek.30.19 is held as one 19-verse row rather than split at any of its four internal messenger-formula paragraphs (30:2, 30:6, 30:10, 30:13)",
+   "why_it_matters": "the span exceeds the strategy's 14-16 measured-block ceiling; none of the four messenger-formula recurrences meets the governing addressee-change-or-preceding-refrain test for a licensed internal cut, so the single-row reading is a genuine judgment call inside a strategy-flagged region (chs 25-32), not a mechanical result, and a peer reviewer may reasonably propose a different internal seam"
+  },
+  {
+   "what": "Ezek.31.1-Ezek.31.18 (the cedar allegory) is typed oracle_against_nation rather than parable_allegory",
+   "why_it_matters": "the strategy itself leaves this open ('unit type 5 or 7'); the messenger-formula verdict structure argues one way and the extended rhetorical-comparison figure argues the other, so the row's unit_type reflects a disclosed choice, not a settled fact"
+  },
+  {
+   "what": "Ezek.32.17-Ezek.32.32 is typed oracle_against_nation with a disclosed lament_qinah alternative",
+   "why_it_matters": "the launch brief itself flags this as an expected-low-confidence call; the unit switches from the qinah noun (32:2, 32:16) to a wail-verb (32:18) and never re-applies the qinah label, the strongest textual argument for the choice made, but the two halves share the same dateline month, the same addressee, and a matching doubled-utterance close, so a reviewer could reasonably argue genre continuity instead"
+  },
+  {
+   "what": "Ezek.29.6 and Ezek.29.16 are treated as non-strict, wide-family recognition-type closes rather than members of the officially-inventoried 28-verse strict list",
+   "why_it_matters": "this rests on my own byte inspection of the adjacency pattern (an inserted noun phrase at 29:6, an inserted divine-name element at 29:16), not on an enumerated 'wide family' verse list for Ezekiel (the strategy states a 64-verse book-wide total for that family but does not list its members), so the specific classification of these two verses is my own derivation and is checkable against a fuller sweep"
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the writer's own OW-8 final message."
+}

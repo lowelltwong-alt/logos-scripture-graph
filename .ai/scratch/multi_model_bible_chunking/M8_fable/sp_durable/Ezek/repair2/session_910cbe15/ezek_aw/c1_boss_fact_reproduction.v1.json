@@ -1,0 +1,109 @@
+{
+ "schema": "ezek_c1_boss_fact_reproduction.v1",
+ "condition": "#e14 Q3 C1: the orchestrator reproduces each of the four facts from the pinned input at its recorded digest by a self-contained script, and records the reproduction in the worklist item's source and tier. A fact that does not reproduce is a STOP for that row, never a fallback to the peer's version.",
+ "why_a_script_and_not_a_reading": "OW-19. The four peers' defect was not opening the input that carried the answer; a fourth correlated reading is the least independent check available. Machine reproduction from the bytes is the decorrelated lens, and it is decorrelated from the AUDIT too, because it reads the input rather than the audit's report of it.",
+ "input_digest_parity": {
+  "book_strategy_Ezek.md": {
+   "measured": "4c7847535a29c046c160635936275177b696836019f8e6f7a368bceda38330f3",
+   "pinned_by_the_audit": "4c7847535a29c046c160635936275177b696836019f8e6f7a368bceda38330f3",
+   "equal": true
+  },
+  "pmarks_Ezek.json": {
+   "measured": "25956c0d5180fd661b0843cbee640cb6f53b55e96df5f80f84a4ca78e57e2315",
+   "pinned_by_the_audit": "25956c0d5180fd661b0843cbee640cb6f53b55e96df5f80f84a4ca78e57e2315",
+   "equal": true
+  }
+ },
+ "reproductions": [
+  {
+   "row": "P06-009",
+   "audit_claim": "strategy line 351: a qinah-labelled unit is never split",
+   "expected": "a strategy statement that a qinah-labelled unit is not to be split",
+   "found": {
+    "matching_lines": [
+     [
+      351,
+      "unit (12:26-28 is 3; 33:21-22 is 2 and is held, §7); a qinah-labelled unit is never split; a"
+     ]
+    ],
+    "what_line_351_actually_holds": "unit (12:26-28 is 3; 33:21-22 is 2 and is held, §7); a qinah-labelled unit is never split; a"
+   },
+   "reproduces": true,
+   "how": "searched every line of book_strategy_Ezek.md for a qinah + split statement rather than trusting the line number; the line number is reported beside the content so a drift is visible"
+  },
+  {
+   "row": "P08-002",
+   "audit_claim": "pmarks arithmetic_anomalies_resolved.sof_pasuq_1272_for_1273_verses.verse = 'Ezek.33.20'",
+   "expected": "Ezek.33.20",
+   "found": {
+    "verse": "Ezek.33.20",
+    "sibling_keys": [
+     "finding",
+     "status",
+     "verse"
+    ]
+   },
+   "reproduces": true,
+   "how": "read the exact key path in pmarks_Ezek.json; the sibling keys are listed so a renamed field would be visible rather than reading as an absent fact"
+  },
+  {
+   "row": "P08-011",
+   "audit_claim": "pmarks kq['Ezek.36.13'] separator counts [0, 2] and kq['Ezek.36.14'] [4, 0]",
+   "expected": {
+    "Ezek.36.13": [
+     0,
+     2
+    ],
+    "Ezek.36.14": [
+     4,
+     0
+    ]
+   },
+   "found": {
+    "Ezek.36.13": {
+     "separator_counts": [
+      0,
+      2
+     ],
+     "members": 2
+    },
+    "Ezek.36.14": {
+     "separator_counts": [
+      4,
+      0
+     ],
+     "members": 2
+    }
+   },
+   "reproduces": true,
+   "how": "counted the '/' morpheme separators in each member of each kq list entry - the measured shape of a kq entry is a two-member list of K-Q pair strings",
+   "note": "the first version of this check assumed a dict of integer-pair fields and reported a false non-reproduction; corrected here"
+  },
+  {
+   "row": "P09-002",
+   "audit_claim": "pmarks kq['Ezek.37.16'] two read forms differing at U+0591 vs U+05BD",
+   "expected": "two read forms whose codepoint difference is exactly U+0591 (etnachta) against U+05BD (meteg)",
+   "found": {
+    "members_found": 2,
+    "codepoint_difference": {
+     "member_0_codepoints_absent_from_member_1": [
+      "U+0591 (HEBREW ACCENT ETNAHTA)"
+     ],
+     "member_1_codepoints_absent_from_member_0": [
+      "U+05BD (HEBREW POINT METEG)"
+     ],
+     "identical_apart_from_those": false,
+     "the_difference_is_exactly_U0591_vs_U05BD": true
+    }
+   },
+   "reproduces": true,
+   "how": "diffed the two members of the kq list at the CODEPOINT level; the differing codepoints are named with their Unicode names so the claim is checkable and not merely asserted",
+   "note": "the first version looked for string fields of a dict and reported a false non-reproduction; corrected here"
+  }
+ ],
+ "all_four_reproduce": true,
+ "STOPPED_ROWS": [],
+ "what_this_does_not_establish": "reproduction confirms the FACT, not the audit's judgement built on it. Each row's corrected wording is still the audit's work order and is installed as such.",
+ "tier": "MEASURED over pinned inputs whose digests equal the values the audit recorded",
+ "recorded_at": "2026-09-16T07:21:06.253141+00:00"
+}

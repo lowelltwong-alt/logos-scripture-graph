@@ -1,0 +1,79 @@
+{
+ "schema": "jer_cwo_correction_order.v1",
+ "agent": "cwo02",
+ "attempt_id": "jer_cwo_02_c1",
+ "corrects_attempt": "jer_cwo_02_a1",
+ "output_file": "cwo/cwo_02.jsonl",
+ "mode": "REWRITE ONE EXISTING LINE IN PLACE (the P03-001 line of cwo/cwo_02.jsonl); every other line byte-identical",
+ "row_ids": [
+  "P03-001"
+ ],
+ "orders": {
+  "P03-001": {
+   "row_id": "P03-001",
+   "op": "replace",
+   "current_row": {
+    "decision_id": "P03-001",
+    "book": "Jer",
+    "model_id": "M8_fable",
+    "chunk_index_in_book": 43,
+    "span": "Jer.7.1-Jer.7.15",
+    "boundary_rationale": "The row opens at the frame header, הַדָּבָר֙ אֲשֶׁ֣ר הָיָ֣ה אֶֽל יִרְמְיָ֔הוּ (oshb:Jer.7.1, byte tier) — ‘hadavar asher hayah el-Yirmeyahu,’ ‘the word that came to Jeremiah’ — the prose-sermon superscription shape that opens this collection. The command to stand at the gate and proclaim (web:Jer.7.2) introduces quoted content that itself opens with the title-stack formula כֹּֽה אָמַ֞ר יְהוָ֤ה צְבָאוֹת֙ אֱלֹהֵ֣י יִשְׂרָאֵ֔ל (oshb:Jer.7.3, byte tier) at 7.3, argues from covenant obedience through the Decalogue-echoing charges of 7.9, “Will you steal, murder, commit adultery, swear falsely, burn incense to Baal” (web:Jer.7.9), and turns on the Shiloh precedent at 7.12, אֶל מְקוֹמִי֙ אֲשֶׁ֣ר בְּשִׁיל֔וֹ (oshb:Jer.7.12, byte tier) — the name spelling itself, one of three the book attests across five sites (sweep: 3 spellings, 5 verses), the opening preposition merely prefixing it here; the very next verse already prefixes a second spelling of the same name, וְלַ֨מָּק֔וֹם אֲשֶׁר נָתַ֥תִּי לָכֶ֖ם וְלַאֲבֽוֹתֵיכֶ֑ם כַּאֲשֶׁ֥ר עָשִׂ֖יתִי לְשִׁלֽוֹ (oshb:Jer.7.14, byte tier) -- 'ka'asher asiti leshilo,' 'as I did to Shiloh' -- לְשִׁלֽוֹ lacking the vav-yod that בְּשִׁיל֔וֹ carries two verses earlier. Yahweh remains the speaker and the people, through Jeremiah, the addressee from 7.3 through the closing threat, “I will cast you out of my sight, as I have cast out all your brothers” (web:Jer.7.15). The row ends there because 7.16 turns the address to the prophet himself in direct second-person prohibition, a discourse-frame imperative that opens a fresh unit.",
+    "boundary_evidence_refs": [
+     "oshb:Jer.7.1",
+     "web:Jer.7.2",
+     "oshb:Jer.7.3",
+     "web:Jer.7.9",
+     "oshb:Jer.7.12",
+     "web:Jer.7.15",
+     "web:Jer.7.16",
+     "oshb:Jer.6.30 (petuchah, single-witness)",
+     "oshb:Jer.7.2 (setumah, single-witness)",
+     "oshb:Jer.7.11 (setumah, single-witness)",
+     "oshb:Jer.7.15 (setumah, single-witness)"
+    ],
+    "strongest_rejected_alternative": "The header and gate-command (7.1-2) could stand as a short unit apart from the quoted sermon beginning at 7.3, but the command's ‘say’ introduces that content directly, so the two are read as one frame-plus-speech unit.",
+    "literature_type_guess": "deuteronomic prose sermon (temple-gate proclamation)",
+    "confidence": "high",
+    "strong_or_hebrew_tags_used": false,
+    "wj_or_red_letter_considered": "not applicable in the OT substrate",
+    "frontier_flag_considered": false,
+    "non_authorizing": true,
+    "review_status": "draft",
+    "parent_collection": "M2 Jer.7.1-Jer.10.25",
+    "unit_type": "prose_sermon",
+    "writer_part": "p03",
+    "writer_decision_id": "P03-001",
+    "writer_attempt_id": "jer_w_p03_a1",
+    "observed_substrate_signals": [
+     "superscription.hadavar_asher_hayah_header",
+     "speech_formula.koh_amar_yhwh",
+     "divine_title.yhwh_tsevaot_elohei_yisrael",
+     "narrative_frame.messenger_commission_imperative"
+    ],
+    "device_notes": "WEB formats the span without poetry lines, consistent with the prose-sermon reading. A petuchah stands at oshb:Jer.6.30, immediately before the header; setumot fall at oshb:Jer.7.2, oshb:Jer.7.11, and oshb:Jer.7.15, the row's own closing verse — single-witness, WLC. Two paseq segs stand in this span, at oshb:Jer.7.9 and oshb:Jer.7.14, resting on one witness and a bare tally; the place of either within the verse is unstated."
+   },
+   "items": [
+    {
+     "cwo": "CWO-1",
+     "arm": "exact",
+     "evidence": {
+      "gram": "speech formula koh amar yhwh divine title",
+      "rows_sharing_post_wave": 10,
+      "rows_sharing_pre_wave": 9,
+      "cause": "attempt 1 split the blended key speech_formula.koh_amar_yhwh_tsevaot_elohei_yisrael into speech_formula.koh_amar_yhwh followed by divine_title.yhwh_tsevaot_elohei_yisrael; nine rows_v2 rows already carry that adjacent key sequence, so the split created a tenth and a NEW gate-10 7-gram (second-generation defect, E-17 class) covering this row and P02-012"
+     },
+     "instruction": "Keep both facts (the koh-amar formula and the full divine-title stack) but do NOT produce the adjacent key sequence speech_formula.koh_amar_yhwh -> divine_title.* in observed_substrate_signals: place the divine_title key BEFORE the speech_formula key (the order attempt 1 used on P03-003), or separate them with another key already on the row; change nothing else in the row; verify with ngram7.py --gate 10 --full-ids over the pooled corpus (rows_v2.jsonl with your 8 rows replaced) that the gram 'speech formula koh amar yhwh divine title' no longer lists P03-001 or P02-012 and that no NEW offending gram appears."
+    }
+   ],
+   "cwo_texts": {
+    "CWO-1": {
+     "summary": "book-wide variation-order pass over the mandated disclosure boilerplate (the 23 ngram7 grams >=10 rows; 4+ distinct formulations per disclosure class, pooled pre-check) - assign at author wave; verify by ngram7 re-run over the revised corpus",
+     "verbatim": "book-wide variation-order pass over the mandated disclosure boilerplate (the 23 ngram7 grams >=10 rows; 4+ distinct formulations per disclosure class, pooled pre-check) - assign at author wave; verify by ngram7 re-run over the revised corpus",
+     "source_row": null,
+     "peer_file": null
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,183 @@
+{
+ "attempt_id": "ow2lf_b04_a1",
+ "role": "ow2_lf_auditor",
+ "rows": [
+  {
+   "row_id": "P03-002",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "gloss_splice_extent_mismatch",
+     "claim": "At the row's own close the Hebrew splice is the whole of oshb:Isa.9.11 (= web:Isa.9.12) but the curly-quoted WEB gloss renders only its final refrain clause, so gloss extent is a proper subset of splice extent.",
+     "grounds": "The boundary_rationale splices the full closing verse (byte tier at oshb:Isa.9.11 = web:Isa.9.12, collate: byte) whose head reads אֲרָ֣ם מִקֶּ֗דֶם וּפְלִשְׁתִּים֙ מֵֽאָח֔וֹר וַיֹּאכְל֥וּ אֶת יִשְׂרָאֵ֖ל בְּכָל פֶּ֑ה before the refrain clause; the attached gloss is only “For all this, his anger is not turned away, but his hand is stretched out still.”, which renders the refrain clause alone — web:Isa.9.12 (= oshb:Isa.9.11) also carries “The Syrians in front, and the Philistines behind; and they will devour Israel with open mouth.” for the spliced head, and that half is left unglossed. The same row's other splice pair keeps parity (full oshb:Isa.9.7 = web:Isa.9.8 against the full WEB verse), and the sibling refrain-close row splices the refrain clause alone against the same gloss, so this is an in-part inconsistency rather than house style.",
+     "proposed_change": "Field repair only: either cut the Hebrew splice back to the refrain clause alone (matching the gloss), or extend the gloss to the whole of web:Isa.9.12 (= oshb:Isa.9.11); no span change."
+    },
+    {
+     "severity": "low",
+     "class": "oss_taxonomy_authority_conflict",
+     "claim": "The row carries the observed_substrate_signals key parashah.setumah_front_seam, which this audit's brief lists as barred while the owner-ruled book strategy expressly ratifies parashah.* as a sanctioned oss key — an authority conflict this auditor records rather than adjudicates.",
+     "grounds": "The mark itself is sound: pmarks_Isa.json carries SAMEKH at MT Isa.9.6 (= web:Isa.9.7), the verse immediately preceding the span, correctly typed setumah, single-witness disclosed, and named non-driving. The conflict is governance, not bytes: the owner-ruled strategy's oss field contract (owner-ratified R3) enumerates 'parashah.*' among the sanctioned dotted keys, while the audit brief's method arm 6 states 'parashah.* barred'. Four rows in this slice carry parashah.* keys (P03-002, P03-005, P03-006, P03-007) and three others disclose marks in prose without such a key (P03-010, P03-011, P03-013), so whichever reading governs, part of the slice is out of step.",
+     "proposed_change": null
+    }
+   ]
+  },
+  {
+   "row_id": "P03-005",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "addressee_vs_target_byte_false",
+     "claim": "The front-seam warrant describes the preceding stanzas as spoken to 'the nation addressed', but no second-person verb or suffix stands anywhere in oshb:Isa.9.7-Isa.9.20 (= web:Isa.9.8-Isa.9.21); the nation there is a third-person target.",
+     "grounds": "Byte review of every verse of the preceding refrain-poem run: oshb:Isa.9.9 (= web:Isa.9.10) carries only third-person and first-person-plural forms, לְבֵנִ֥ים נָפָ֖לוּ וְגָזִ֣ית נִבְנֶ֑ה שִׁקְמִ֣ים גֻּדָּ֔עוּ; oshb:Isa.9.12 (= web:Isa.9.13) opens וְהָעָ֥ם לֹא שָׁ֖ב עַד (third person); oshb:Isa.9.20 (= web:Isa.9.21) opens מְנַשֶּׁ֣ה אֶת אֶפְרַ֗יִם וְאֶפְרַ֨יִם֙ (third person). The row shipped immediately before this one in the same stretch makes exactly this distinction load-bearing for its own seam, stating that no second-person verb or suffix appears from oshb:Isa.9.7 (= web:Isa.9.8) through oshb:Isa.9.11 (= web:Isa.9.12) and that the shift is 'of the oracle's target rather than of addressee' — a claim this audit re-verified true at byte tier. Two shipped neighbours therefore use 'addressee' incompatibly. The seam itself is unaffected: the ruled hoy woe-onset at oshb:Isa.10.1 carries it alone.",
+     "proposed_change": "Field repair only: re-cut 'the nation addressed in the preceding stanzas' to 'the nation targeted in the preceding stanzas' (or equivalent third-person wording); no span change."
+    },
+    {
+     "severity": "low",
+     "class": "scoped_sweep_digit_unnamed",
+     "claim": "The rejected_alternative cites '(sweep: 3 verses)' for the refrain while the same row's device_notes cites '(sweep: 5 verses)' for the same object, and the 3 is a span-scoped subset whose restriction is not named at the digit.",
+     "grounds": "Re-swept from source bytes: the refrain clause spliced from oshb:Isa.10.4 stands byte-identical at exactly 5 MT verses — Isa.5.25, Isa.9.11 (= web:Isa.9.12), Isa.9.16 (= web:Isa.9.17), Isa.9.20 (= web:Isa.9.21), Isa.10.4 — confirming the device_notes digit of 5. The '(sweep: 3 verses)' figure is arithmetically right for the restricted object it names ('the three prior stanzas' closing bytes' = MT 9:11, 9:16, 9:20) but the sanctioned '(sweep: N verses)' shorthand elsewhere in the corpus carries book-wide counts, so an unqualified 3 beside a 5 for one object invites the wrong count-object reading.",
+     "proposed_change": "Field repair only: mark the restricted digit as scoped, e.g. '(sweep: 3 of 5 verses, this poem's prior stanza-closes)'; no span change."
+    }
+   ]
+  },
+  {
+   "row_id": "P03-006",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "quote_gloss_parity_disjoint",
+     "claim": "The device_notes pairs the spliced quotation formula at oshb:Isa.10.8 with a curly-quoted WEB run that is disjoint from it — the gloss renders the clause that follows the formula, not the formula.",
+     "grounds": "The splice is כִּ֖י יֹאמַ֑ר (oshb:Isa.10.8, collate: byte), and the run set beside it is “Aren’t all of my princes kings?” (web:Isa.10.8). web:Isa.10.8 opens “For he says,” and only then carries that boast clause — so the spliced two tokens are rendered by “For he says,” while the quoted English is the clause the formula introduces. Unlike the corpus's ordinary onset-splice-plus-fuller-gloss pattern, gloss and splice here do not overlap at all, so the pairing reads as though the Hebrew formula means the boast.",
+     "proposed_change": "Field repair only: re-cut the gloss to “For he says,” (web:Isa.10.8), or extend the splice to the boast clause it introduces; no span change."
+    },
+    {
+     "severity": "low",
+     "class": "register_workflow_language",
+     "claim": "The K/Q disclosure closes with authoring-practice language rather than text-facing prose.",
+     "grounds": "device_notes: 'it was checked before slicing near that verse and is disclosed here without a content claim resting on either reading, matching the practice already followed elsewhere.' The trailing clause describes the corpus's own authoring practice across rows, which is administrative register under the campaign's register-purge rule; the K/Q fact itself is sound (pmarks_Isa.json carries a ketiv/qere note at MT Isa.10.6, single-witness, and the doubled staged pair collates at byte tier at oshb:Isa.10.6).",
+     "proposed_change": "Field repair only: delete 'matching the practice already followed elsewhere'; no span change."
+    }
+   ]
+  },
+  {
+   "row_id": "P03-007",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "translation_derived_clause_label",
+     "claim": "The rejected_alternative frames the rival as 'the two therefore-clauses at web:Isa.10.12 and web:Isa.10.16', but only oshb:Isa.10.16 opens with a therefore-particle; the label at web:Isa.10.12 comes from the WEB rendering, and it contradicts the row's own boundary_rationale.",
+     "grounds": "oshb:Isa.10.12 opens וְהָיָ֗ה כִּֽי יְבַצַּ֤ע (collate: byte) and the therefore-particle is absent from that verse at skeleton tier (re-swept over the verse's own consonantal skeleton: no match); oshb:Isa.10.16 opens לָ֠כֵן (collate: byte), the genuine therefore-particle. web:Isa.10.12 renders its onset “Therefore it will happen that when the Lord has performed his whole work on Mount Zion and on Jerusalem,” which is the only source for the label. The row's own boundary_rationale types the same verse correctly as 'A temporal-response formula', so the two fields disagree, and the rival that is actually rejected is stated over a clause type the bytes do not carry.",
+     "proposed_change": "Field repair only: restate the rival as the temporal-response formula at web:Isa.10.12 against the therefore-clause at web:Isa.10.16; no span change."
+    },
+    {
+     "severity": "low",
+     "class": "register_workflow_language",
+     "claim": "The K/Q disclosure closes with authoring-practice language rather than text-facing prose.",
+     "grounds": "device_notes: 'it was checked before slicing near that verse and is disclosed here for consistency with the practice already followed elsewhere, without a content claim resting on either reading.' The 'practice already followed elsewhere' clause is a cross-row workflow reference, administrative register under the register-purge rule. The underlying disclosures are sound: pmarks_Isa.json carries a ketiv/qere note at MT Isa.10.13, SAMEKH at MT Isa.10.11 (the preceding unit's close) and PE at MT Isa.10.19 (this unit's close), all correctly typed and single-witness disclosed.",
+     "proposed_change": "Field repair only: delete 'for consistency with the practice already followed elsewhere'; no span change."
+    }
+   ]
+  },
+  {
+   "row_id": "P03-010",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "rear_seam_unwarranted",
+     "claim": "The rear seam web:Isa.10.34|web:Isa.11.1 is not argued: the row's prose closes descriptively and the only rear-edge corroboration it names is a tier-3 parashah mark, with no tier-1 signal cited on either side and no ref for the following onset.",
+     "grounds": "boundary_rationale ends 'the unit closes with the felled forest, “He will cut down the thickets of the forest with iron, and Lebanon will fall by the Mighty One.” (web:Isa.10.34)' — a description, not a seam warrant — and strongest_rejected_alternative addresses only the internal candidate at web:Isa.10.33. device_notes adds only 'another closes it at oshb:Isa.10.34; both tier-3, single-witness'. boundary_evidence_refs carries no entry beyond web:Isa.10.34, so the following unit's tier-1 onset is never reached: oshb:Isa.11.1 opens וְיָצָ֥א חֹ֖טֶר מִגֵּ֣זַע יִשָׁ֑י (collate: byte), a fresh grammatical subject entering after the felling scene. Every other row in this stretch names the following onset at its rear edge; this one leaves a tier-3 mark as the sole rear-edge support.",
+     "proposed_change": "Field repair only: add the fresh-subject onset at web:Isa.11.1 as the rear-seam discriminator in boundary_rationale and add web:Isa.11.1 to boundary_evidence_refs; no span change."
+    },
+    {
+     "severity": "low",
+     "class": "interior_mark_seam_convergence_undisclosed",
+     "claim": "The interior setumah the row discloses at oshb:Isa.10.32 falls exactly at the internal-seam candidate the row separately discloses at web:Isa.10.33, and the convergence — the strongest form of the rival split — is never named.",
+     "grounds": "pmarks_Isa.json carries SAMEKH at MT Isa.10.32, i.e. the paragraph break falls after that verse, at the 10:32|10:33 join; the row's own disclosed internal-seam candidate is the presentative opening oshb:Isa.10.33, הִנֵּ֤ה הָאָדוֹן֙ (collate: byte). device_notes reports the mark ('A setumah mark falls inside this unit at oshb:Isa.10.32') and the seam candidate ('The behold-formula at web:Isa.10.33 is a real internal-seam candidate') in separate sentences without noting that they name the same join. The mark stays tier-3 and non-driving, so the unit may still be held across it, but the rival's corroboration is undisclosed.",
+     "proposed_change": "Field repair only: state in device_notes that the interior setumah stands at the same join as the presentative candidate and is tier-3 corroboration for the rival split, held across; no span change."
+    },
+    {
+     "severity": "low",
+     "class": "oss_signal_class_misassignment",
+     "claim": "observed_substrate_signals keys the presentative onset as divine_title.hinneh_intervention_formula, filing a presentative/oracle-frame signal under the divine-title class.",
+     "grounds": "The keyed signal is the presentative הִנֵּ֤ה הָאָדוֹן֙ (oshb:Isa.10.33, collate: byte); the divine-title stack in that verse is a separate object, already keyed as divine_title.adon_tsevaot_definite_construct. The dotted taxonomy names the signal class consulted, and a hinneh intervention formula belongs to the oracle_frame.* class the corpus uses elsewhere for presentative onsets. This is a key-class assignment issue only; the substrate facts behind both keys check out (the definite-article stack is byte-unique to oshb:Isa.10.33 and reaches exactly 5 verses at skeleton tier — MT Isa.1.24, Isa.3.1, Isa.10.16, Isa.10.33, Isa.19.4 — as the row states).",
+     "proposed_change": "Field repair only: re-key as oracle_frame.hinneh_intervention_formula; no span change."
+    }
+   ]
+  },
+  {
+   "row_id": "P03-011",
+   "verdict": "clean",
+   "findings": []
+  },
+  {
+   "row_id": "P03-013",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "tier4_chapter_rear_seam",
+     "claim": "The rear seam web:Isa.11.16|web:Isa.12.1 is located in the row's own prose by the chapter division — 'at the chapter's own close' — which is tier-4 metadata, and no tier-1 discriminator against web:Isa.12.1 is named or mirrored.",
+     "grounds": "boundary_rationale: 'The unit closes on the second-exodus echo, “There will be a highway...” (web:Isa.11.16), at the chapter's own close.' Chapter and verse numbers are ruled tier-4 and never boundary evidence in this campaign, as driver or corroboration. The row's only other rear-edge support is its own onset/close inclusio, which argues internal cohesion rather than a seam. The available tier-1 discriminator is never reached: oshb:Isa.12.1 opens וְאָֽמַרְתָּ֙ בַּיּ֣וֹם הַה֔וּא (collate: byte), a fresh second-person speech formula rendered “In that day you will say,” (web:Isa.12.1) — a frame the preceding verse does not carry — and web:Isa.12.1 appears nowhere in boundary_evidence_refs. The seam drawn is not itself wrong (it coincides with the ruled parent-frame architecture), but within this row a tier-4 fact is the rear edge's stated ground.",
+     "proposed_change": "Field repair only: replace 'at the chapter's own close' with the second-person speech-formula onset at web:Isa.12.1 and add web:Isa.12.1 to boundary_evidence_refs; no span change."
+    },
+    {
+     "severity": "medium",
+     "class": "untiered_recurrence_digit",
+     "claim": "The 2-verse digit for the survive-verb carries no tier, and the two forms it counts are not byte-identical — at byte tier each stands at 1 verse; the 2 obtains only at accent-stripped / word-bound skeleton tier.",
+     "grounds": "device_notes splices שְׁאָ֣ר עַמּ֑וֹ אֲשֶׁ֣ר יִשָּׁאֵר֩ (oshb:Isa.11.11, collate: byte) and לִשְׁאָ֣ר עַמּ֔וֹ אֲשֶׁ֥ר יִשָּׁאֵ֖ר (oshb:Isa.11.16, collate: byte), labels both 'byte tier', then states 'that verb form reaching exactly 2 verses book-wide (sweep: 2 verses)' with no tier. Re-swept from source bytes: the onset form יִשָּׁאֵר֩ stands at 1 verse book-wide at byte tier (MT Isa.11.11) and the closing form יִשָּׁאֵ֖ר at 1 verse (MT Isa.11.16); the two are not byte-equal. At accent-stripped tier, and at word-bound consonantal-skeleton tier, the form reaches exactly 2 verses (MT Isa.11.11, Isa.11.16), so the digit is arithmetically right at a tier the row never names. The fuller construction the row calls the echo is also not contiguous at either site — the four-token run spliced from oshb:Isa.11.16 reaches 1 verse at skeleton tier, the onset separating noun from verb by intervening tokens. The row's other recurrence claim in the same field names its tiers precisely ('identical to that verse at accent-stripped and skeleton tier, not at byte'), so the discipline is inconsistent within one row.",
+     "proposed_change": "Field repair only: label the digit's tier, e.g. 'reaching exactly 2 verses book-wide at accent-stripped and word-bound skeleton tier (sweep: 2 verses), the two forms differing in the accents'; no span change."
+    }
+   ]
+  },
+  {
+   "row_id": "P04-002",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "copied_block_positional_falsehood",
+     "claim": "device_notes states that the near-time predication at oshb:Isa.13.22 'closes the following unit's last line', but web:Isa.13.22 is this row's own closing verse; the sentence sits inside a 1,009-character block copied byte-identically from the preceding row's device_notes, where it was true.",
+     "grounds": "The row's span is Isa.13.17-Isa.13.22, so oshb:Isa.13.22 = web:Isa.13.22 is its own last verse, and the spliced run וְקָר֤וֹב לָבוֹא֙ (oshb:Isa.13.22, collate: byte) stands in this unit, not a following one. Diffing the two device_notes fields embedded in the slice returns a single shared block of 1,009 characters — 82% of this row's 1,227-character device_notes — running from 'A two-site shatter-root catchword straddles the seam between Isa.13.16 and Isa.13.17' through 'does not outweigh', i.e. the whole two-device disclosure was carried over unchanged from the row whose span ends at Isa.13.16. The devices themselves re-verify: the shatter root meets at skeleton tier at exactly 2 verses (MT Isa.13.16, Isa.13.18) and the near-time predication opens at כִּ֥י קָר֖וֹב (oshb:Isa.13.6, collate: byte).",
+     "proposed_change": "Field repair only: re-cut the copied sentence to 'closes this unit's last line'; no span change."
+    },
+    {
+     "severity": "medium",
+     "class": "addressee_label_no_second_person",
+     "claim": "The rear-seam warrant says a causal clause 'turns the addressee to Jacob at web:Isa.14.1', but oshb:Isa.14.1 carries no second-person form — Jacob is the object-marked participant of a third-person verb.",
+     "grounds": "oshb:Isa.14.1 opens כִּי֩ יְרַחֵ֨ם יְהוָ֜ה אֶֽת יַעֲקֹ֗ב (collate: byte), where Jacob stands as the object-marked participant of a third-person verb; web:Isa.14.1 renders it “For Yahweh will have compassion on Jacob, and will yet choose Israel, and set them in their own land.”, with no second person anywhere in the verse. The signal that actually stands at the seam is a participant shift, which is ruled tier-1 where explicit in the bytes, so the seam holds; the label misstates its class. The row shipped after this one names the same fact as a shift that 'brings a fresh addressee in as the object of both verbs', so the loose use of 'addressee' for a third-person participant recurs across the seam pair.",
+     "proposed_change": "Field repair only: re-cut to 'turns the participant to Jacob' (or 'brings Jacob and Israel in as the objects of the causal clause'); no span change."
+    },
+    {
+     "severity": "low",
+     "class": "dangling_kq_cross_reference",
+     "claim": "device_notes states 'Isa.13.16 is also a ketiv/qere verse, disclosed separately from this catchword', but that verse lies outside this row's span and no separate K/Q disclosure stands anywhere in this row.",
+     "grounds": "The span is Isa.13.17-Isa.13.22; pmarks_Isa.json carries the ketiv/qere note at MT Isa.13.16, i.e. at the front-seam verse-minus-one, and carries no K/Q note at any verse inside Isa.13.17-Isa.13.22 (nor any petuchah/setumah in or at the edges of the span, so the row's silence on marks is correct). The 'disclosed separately' clause points at a disclosure carried by the preceding row, not by this one — the same copied block noted above.",
+     "proposed_change": "Field repair only: either drop the clause or state the K/Q at MT Isa.13.16 as a front-seam-adjacent single-witness disclosure in this row's own prose; no span change."
+    },
+    {
+     "severity": "low",
+     "class": "count_object_unnamed_short_token",
+     "claim": "The 8-verse near-time-predication digit names its tier but not its count object; the figure is a contiguous skeleton substring count, and the word-bound count of the same token is 4 — which excludes this row's own closing form.",
+     "grounds": "Re-swept from source bytes at skeleton tier: the near-time token reaches 8 verses as a contiguous consonantal substring (MT Isa.13.6, Isa.13.22, Isa.33.13, Isa.50.8, Isa.51.5, Isa.55.6, Isa.56.1, Isa.57.19), reproducing the row's digit, but only 4 verses word-bound (MT Isa.13.6, Isa.50.8, Isa.51.5, Isa.55.6) — the word-bound set excluding oshb:Isa.13.22's own prefixed form וְקָר֤וֹב לָבוֹא֙. The row states '(sweep: 8 verses book-wide)' at skeleton tier without naming substring against word-bound, the distinction the campaign's short-token hazard rule requires and which sibling rows in this stretch state explicitly for the Jesse and banner tokens.",
+     "proposed_change": "Field repair only: name the count object, e.g. '(sweep: 8 verses book-wide as a contiguous skeleton substring; 4 word-bound, the prefixed form here outside that set)'; no span change."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 8,
+  "clean": 1,
+  "defect_rows": 7,
+  "findings": {
+   "low": 9,
+   "medium": 8,
+   "high": 0
+  },
+  "span_changes_proposed": 0
+ }
+}
