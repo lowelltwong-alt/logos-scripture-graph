@@ -3218,3 +3218,115 @@ was installed.
 **Cure.** Lane briefs already forbid writes outside OUT and heredoc-borne escapes; both recurred. So each FIXUP-2
 brief restates both rules as numbered hard stops, and the lander checks OUT for stray siblings. Orders that forbid other
 changes must name every required companion edit (the ref beside a quote). The tool-fix installs carry their own tests.
+
+## E-72 (2026-10-01) - DANIEL WRITER AND FIXUP-2 RESIDUE: A LAUNCH RECEIPT WITH TYPED-IN VALUES, TWO LANES PROBED AFTER A FAILED HEREDOC, TWO UNPINNED TOOL-DATA READS, A GATE ONLY THE WHOLE BOOK CAN TRIP, AND ONE SWEEP LABEL WRONG
+
+Drafted from a fresh read of the durable rows on 2026-10-01 (E-59), not from a summary. Sources are named per item.
+
+**What happened.**
+- **Launch receipt slip (orchestrator).** The FIXUP-2 W4 launch row carried a placeholder agent id and a launched_at
+  nobody observed. EXTRACTED from `sp_durable/Dan/review/dan_review_attempt_receipts.jsonl` row 29
+  (`record_kind: launch_correction`, corrects `dan_fixup2_W4_a1#e1`): the true id is EXTRACTED from the launch result;
+  the true launched_at is UNAVAILABLE, with a MEASURED bracket 14:35:34Z to 14:37:32Z. Corrected by amendment (E-44),
+  never by editing the first row.
+- **Heredoc failure, then `ls` (E-19).** Two writer lanes each ran one `ls` on a single exact path in their own OUT
+  after a heredoc write failed. REPORTED by the lanes and recorded in `sp_durable/Dan/dan_writer_attempt_receipts.jsonl`
+  rows 30 (W3, `work\gen_rows.py`) and 34 (W5, `work\gen_w5.py`). No wildcard, no listing, nothing outside OUT.
+  Blindness not affected (orchestrator assessment in the same rows). An existence check is still what E-19 forbids.
+- **Unpinned tool-data reads.** W2 opened `SP\Dan\tools\verse_map_web.json` by exact path and DISCLOSED it as a
+  deviation (row 32). W6 listed `SP/Dan/tools/verse_map_oshb.json` among its sources and did NOT disclose it; the
+  orchestrator MEASURED that `BRIEF_W6_e3.md` names that file 0 times (row 36). Neither is a listing or another lane's
+  output. The gap is that one lane disclosed and one did not.
+- **A gate that only the whole book can trip.** Each lane's rows passed; the combined book was HARD RED on ngram7
+  alone. MEASURED on a scratch copy and recorded in `sp_durable/Dan/writer/dan_writer_install_receipts.jsonl` row 1:
+  the 7-gram "month or day word not a date" in 10 rows at gate 10. No single lane could have seen it, because the
+  gate counts repeats across all rows and a lane holds only its own.
+- **One sweep label wrong.** The CWO-DAN-03 sweep proposed `plain` for "John chapter 5 verses 28" in
+  `W6-013.device_notes`; E2 disposed it `other_book`. EXTRACTED from
+  `sp_durable/Dan/review/fx2_close/triage_fx2_close.v1.json` (`CWO-DAN-03.W6-013_relabel`): tool counts plain 62 /
+  other_book 2, corrected to plain 61 / other_book 3, over 124 hits, zone hits 0, 124 of 124 dispositioned.
+
+**Why.**
+- The launch recorder took free-text arguments and validated neither (cause as recorded in row 29).
+- INFERRED: a lane whose heredoc write fails reaches for the nearest check that the file exists. The brief forbade
+  listings but gave no allowed next step after a failed write.
+- INFERRED: the pinned Daniel tools load the two verse_map files, so a lane following a tool reaches them, while the
+  brief's pinned list names only the tools. The brief did not say whether tool data files count as pinned.
+- The ngram7 gate is a book-level statistic by design. Running it per lane gives a false GREEN for this class.
+- INFERRED: the sweep's other-book test did not match a book name written out before "chapter N verses". The tool was
+  NOT changed; the disposition step (`tf/cwo03_dispose.py`, zone precedence) carried the correction.
+
+**Cure.**
+- DONE (as recorded in row 29, REPORTED there, not re-run for this entry): `record_fx2_launch.py` refuses an id that
+  is not agent-shaped and a launched_at outside a window before now. A sibling audit of both Daniel receipt files
+  found no other such row (REPORTED in `sp_durable/Dan/freeze/CYCLE_STATE.md`).
+- DONE: ngram7 is GREEN on the FIXUP-2 applied rows (rows 75, gate 10; REPORTED by the W2 lane's comparison and
+  required by gate `s2_conditions`). The book-wide suite at combine is the control that caught it and stays mandatory.
+- OWED, to be written into the S2 and primary briefs before launch: (1) "write scripts with the Write tool; if a write
+  fails, write again; never test whether a path exists"; (2) "the data files a pinned tool loads are tool-internal:
+  do not open them yourself, and if you do, disclose it as a deviation"; (3) the phrase list the book-wide ngram7 gate
+  has already tripped, so a lane can avoid a repeat it cannot measure alone.
+- OWED, NOT done: a fixture and fix for the sweep's other-book test (a spelled-out book name before
+  "chapter N verses"). Until then every CWO-03 `plain` proposal that contains a book name is read by hand.
+
+## E-73 (2026-10-01) - A REF SWITCH IN THE CAMPAIGN WORKTREE REWROTE EVERY TRACKED FILE WITH LF, SO 481 RECORDED DIGESTS OVER 107 FILES NO LONGER MATCH THE BYTES ON DISK
+
+Orchestrator mistake. Found on 2026-10-01 while choosing pinned inputs for the Daniel S2 brief: every evidence path
+in the tool-fix receipts failed its recorded digest. Every figure below was MEASURED in this session unless marked.
+
+**What happened.**
+- On 2026-10-01 the orchestrator ran two checkouts in the M8 worktree while preparing the public pull request.
+  EXTRACTED from the reflog: `14:58:54 -0400 checkout: moving from scratch/t423-m8-fable to origin/main`, then
+  `14:59:13 -0400 checkout: moving from c6982050... to scratch/t423-m8-fable`. Why the round trip was run is
+  UNAVAILABLE (not re-derived from the transcript for this entry).
+- `main` at c6982050 held none of the campaign tree: 4,939 tracked files under `M8_fable`, and the same 4,939 differ
+  between c6982050 and the branch. So git removed all of them and wrote all of them back. Their mtimes read 18:59Z.
+- The repository attribute is `text=auto eol=lf`. `git ls-files --eol` now reads `i/lf w/lf` on 4,911 files (28 are
+  `i/none w/none`). Files that had CRLF in the working tree came back with LF.
+- 481 recorded (path, sha256) pairs over 107 files match the CRLF form of the current bytes and not the bytes
+  themselves: Ezek 411 pairs / 59 files, Dan 43 / 30, Lam 11 / 6, `receipts` 10 / 10, campaign 3 / 1, Jer 3 / 1.
+  For these the match is the proof that the content is byte-identical apart from the removed CR.
+- In Daniel the affected records are rows 12, 13, 19, 22, 23, 24, 31 and 34 of
+  `sp_durable/Dan/review/dan_review_attempt_receipts.jsonl` (28 pairs, 27 files: the S1-02, S1-07 and S1-08 tool-fix
+  evidence, the E2 evidence, the FIXUP-2 close evidence, three landed change files, the routed-items file), plus
+  digests the E1 and E2 rulings, the E2 queue, the S1 deliverable and the writer install receipts carry for the same
+  files.
+- NOT affected: `writer/draft_rows_combined.jsonl`, `fixup/draft_rows_fixup1_applied.jsonl` and
+  `fixup/draft_rows_fixup2_applied.jsonl` still match their manifests byte for byte. The Daniel tools cited by the
+  tool-fix receipts match, except TOOLKIT.md, which a later receipt amended. No lane was in flight.
+- 606 further pairs match no form of the current bytes. That class is expected to hold digests of files amended
+  later. On a sample of 102 (the latest record per path): 25 match a `.pre_` copy, 17 are a prefix of an append-only
+  file, 60 were not explained. One of the 60 was checked by hand (`Ezek/verse_inventory.json`: the briefs pin two
+  digests, 15 and 12 times, so it is an older version). Whether any of the rest was a mixed-ending file whose exact
+  bytes are now lost is UNAVAILABLE.
+
+**Why.**
+- A digest taken on working-tree bytes is only durable if git reproduces those bytes. For a CRLF file under
+  `eol=lf` it never does: the blob is LF, a clone gets LF, and the working tree keeps CRLF only until git next
+  writes the file. The receipts were already wrong for any clone before the checkout; the checkout made it true
+  locally too.
+- The CRLF came from scratch scripts: `Path.write_text` without `newline="\n"`, and shell redirection on Windows.
+  Installers then copied byte for byte (EXTRACTED: scratch `tf/install_fx2_close.py` lines 125 and 149 to 151), and
+  lanes' own deliverables were landed the same way.
+- No control looked at line endings, and nothing said the worktree must not change refs. E-67 named the neighbouring
+  hazard (tests on a scratch copy), not this one.
+
+**Cure.**
+- DONE: `sp_durable/campaign/_eol_digest_audit.py` (sha256 9b5803c2f818...), with `--selftest`, `--check`, `--tree`
+  and `--recorded`. The self-test builds a throwaway repository with the same attribute, commits one LF and one CRLF
+  file, switches refs and back, and requires that the LF file is unchanged and the CRLF file is not. PASS.
+- DONE: `sp_durable/campaign/eol_digest_corrections.v1.jsonl`, 481 rows (sha256 94e02afafac2...): for each pair the
+  recorded digest, the LF digest that git reproduces, and where it was recorded. No evidence file was edited and no
+  receipt row was rewritten (E-44). The Daniel review receipts get one amending row that points here.
+- DONE: `--tree` reads LF_CLEAN (0 files with CRLF in the campaign tree). With no CRLF file present, a ref switch
+  cannot change bytes; the self-test shows the LF case.
+- RULE: no ref switch in the campaign worktree (checkout, switch, stash, reset --hard). Build other commits with a
+  temporary index or a separate worktree.
+- RULE: a digest is recorded only on LF bytes. Installers and landers write with `newline="\n"` or as bytes, and
+  run `--check` on every target before recording. A lane deliverable that arrives with CRLF is landed in LF form
+  with both digests recorded. Lane briefs say: write output files with LF line endings.
+- RULE: every checkpoint runs `--tree` before `git add` and stops on CRLF_PRESENT.
+- Rejected: converting the 107 files back to CRLF. It would satisfy the receipts on this machine only and would
+  break again at the next ref switch.
+- OWED: the unexplained part of the no-match class for the closed books; the DAD learning-loop record; the owner's
+  answer on a global prevention control.
