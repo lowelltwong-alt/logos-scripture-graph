@@ -1,0 +1,53 @@
+```json
+{"attempt_id":"dan_fixup4_W1_a1","execution_id":"dan_fixup4_W1_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\FIXUP4_BRIEF_W1.md sha256 c863180d4c30d5a25498d11fd5493f1b03d9c90522179f971be981fcf3645f20 (matches the launch digest; read whole)",
+  "SP\\Dan\\fixup\\draft_rows_fixup3_applied.jsonl sha256 a98e2883aa876d24e4d4b963ca3ceba3d4894338d1569a115199d46e6f8b2b66 (MATCH)",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E4.v1.json sha256 ff21977a7c635f5104c810053f773a5f7c74a03a548bdd39f16d1f04f7adc6e1 (MATCH; digest taken, content not otherwise consulted: the three records were taken from the brief's quotation)",
+  "SP\\Dan\\Dan_oshb.txt sha256 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0 (MATCH; read by script at Dan.1.10, Dan.1.11, Dan.1.16)",
+  "SP\\Dan\\Dan_web_clean.txt sha256 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa (MATCH; read by script at 1:10, 1:11, 1:16; a format probe also printed lines 0-3 of the file, i.e. the chapter header and the opening of 1:1)",
+  "SP\\Dan\\tools\\run_validator_suite.py sha256 5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f (MATCH; lines 41-127 read for usage; RUN on private copies)",
+  "SP\\Dan\\tools\\check_placeholders.py sha256 0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb (MATCH; RUN on private copy)",
+  "SP\\Dan\\tools\\ngram7.py sha256 cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d (MATCH; RUN on private copy)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md sha256 a78e50d7b8b9aec94955eb74f401b41322790666ef497b5780b16d11e5142216 (MATCH; lines 807-874 only; OW-11 and OW-11-h confirmed as stated in the launch message)"
+ ],
+ "outcome":{
+  "records_applied":3,
+  "speaker_finding":"The prince of the eunuchs voices the fear in 1:10. WEB 1:10 opens 'The prince of the eunuchs said to Daniel' and the first-person fear of the king follows inside his speech; OSHB/WLC Dan.1.10 opens with the same speech introduction naming the same officer before the first-person fear clause. The steward is a different figure, first named in 1:11 (WEB and OSHB/WLC Dan.1.11) as the one that officer appointed over the four. The bytes support the ruled 'after' of record 1.",
+  "new_field_sha256":{
+   "W1-002.boundary_rationale":"31e338bf406af50e07f4b7806ae54ed59ef8a078754036b39d2d766b860b21d9",
+   "W1-010.strongest_rejected_alternative":"4bc9349de53aae6d34d30fcef9df0786274bbc0003a47753262e53ef4b83d153"}
+ },
+ "contradicted":[],
+ "unapplied":[],
+ "verification":[
+  {"claim":"All eight pinned inputs and the brief match their digests; no CR byte in any","how":"work\\probe.py (sha256 of each exact path)","result":"confirmed"},
+  {"claim":"Each 'before' occurs exactly once in its field when its record is applied","how":"work\\build.py asserts count==1 per record during replay","result":"confirmed"},
+  {"claim":"Both new field values equal the ruled sha256 (gate F3)","how":"work\\build.py: field_sha_match_ruled true","result":"confirmed"},
+  {"claim":"Exactly two rows differ (W1-002, W1-010), one field each; every other field and row byte-identical, same key order, 75 lines before and after","how":"work\\build.py line-by-line compare plus re-serialization with only the one field swapped (serializer json.dumps ensure_ascii=False round-trips all 75 pinned rows byte for byte)","result":"confirmed"},
+  {"claim":"Counts of '(MEASURED' and '(EXTRACTED' unchanged in both rows; the word Fable in no string; LF only, no CR in either deliverable","how":"work\\build.py","result":"confirmed"},
+  {"claim":"Replaying the three records from the written changes file on the pinned rows gives the rows file byte for byte","how":"work\\build.py --deliver: replay_from_changes_equals_rows_file True; applied copy True","result":"confirmed"},
+  {"claim":"Suite hard status stays GREEN on the applied rows","how":"run_validator_suite.py on work\\rows_base.jsonl and work\\rows_applied.jsonl: hard_status GREEN both, dead_members [] both","result":"confirmed"},
+  {"claim":"No member gains a hit or a flag on the applied rows","how":"per member, base -> applied: citation_sweep GREEN -> GREEN; hebrew_normalize_dryrun ok=374 fixed=0 defects=0 -> same; web_quotes GREEN (0 flags) -> FLAGS (1 flag); refs_mirror FLAGS -> FLAGS (identical report); mark_symmetry GREEN -> GREEN; universals FLAGS 67 -> 67; language_zones GREEN -> GREEN; ngram7 GREEN -> GREEN (0 offending); cap_sweep GREEN -> GREEN; register FLAGS 70 -> 70; role_tokens GREEN -> GREEN; placeholders GREEN -> GREEN. triage_flags 137 -> 138. Full reports of every member except web_quotes are identical.","result":"refuted"},
+  {"claim":"check_placeholders.py and ngram7.py on work\\rows_applied.jsonl","how":"direct RUN: check_placeholders rows 75, strings_scanned 2218, hit_count 0, status GREEN; ngram7 rows 75, gate 10, offending_7grams [], status GREEN","result":"confirmed"}
+ ],
+ "unresolved_uncertainty":[
+  {"what":"ONE NEW TRIAGE FLAG, caused by the ruled 'after' of record 1 itself. Exact text: member web_quotes, path \"[1].boundary_rationale\", quote \"of the prince of the eunuchs\", words 6, ref \"span+refs\", issue \"a6_web_wording_without_the_convention (5+ consecutive WEB words are a quotation regardless of delimiter and owe curly double quotes plus an in-field web: ref - #e12 ruling A6)\". Baseline web_quotes had 0 flags.",
+   "why_it_matters":"The brief says no member may gain a flag, and also fixes the 'after' string and its field sha256 exactly, so the author cannot reword it without breaking gate F3. I applied the three records as ruled (the brief's apply-nothing condition is only for bytes that fail to support the 'after', and they support it) and recorded the flag in changes.suite.new_triage_flags rather than suppressing it. The lander or the controlling agent must decide: accept the flag as a triage item (the phrase is the officer's title, coinciding with WEB wording), or re-rule the 'after'. Hard status is unaffected (web_quotes is a triage member)."},
+  {"what":"speaker_finding is my reading of the four witness verses; the mechanical part is only that WEB 1:10 begins with 'The prince of the eunuchs said to Daniel', contains 'fear', and does not contain 'steward', and that WEB 1:11 contains 'steward whom the prince of the eunuchs had appointed'. The Hebrew was read, not machine-parsed.",
+   "why_it_matters":"The Hebrew side of the finding is tier INFERRED from the EXTRACTED bytes carried in record 1's witness array."}
+ ],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+ "rows_sha256":"1c781f676a2694efcd40a4174c8521f2ee2845b77863fbefc1e5f4fbee93e83a",
+ "changes_sha256":"19ee67dd9b037e482cb7dd6ffe60da036034f9097eba23d29aa2ae587c4d4d0e",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}
+```
+
+Deliverables (both LF, written only under OUT):
+- `C:\Users\lowel\AppData\Local\Temp\claude\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\af84b702-d913-4495-8e57-252cf7894c63\scratchpad\dan_fx4\W1\fixup4_W1_rows.jsonl`
+- `C:\Users\lowel\AppData\Local\Temp\claude\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\af84b702-d913-4495-8e57-252cf7894c63\scratchpad\dan_fx4\W1\fixup4_W1_changes.json`
+
+Notes outside the JSON schema:
+- The suite was run twice on each private copy (a dry run, then the deliver run), with identical results; scripts are `probe.py`, `probe2.py` and `build.py` in `OUT\work\`. Seven tool calls in total.
+- The suite summaries in the changes file are compact JSON strings per member (status plus counts), not bare status words.
+- No git, no receipt, no registry access, no write under the worktree.

@@ -1,0 +1,46 @@
+```json
+{"attempt_id":"dan_fixup3_W2_a1","execution_id":"dan_fixup3_W2_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\FIXUP3_BRIEF_W2.md sha256 263d3bffba0f9dd8673187cf620cdb85eda766a9d902296b8da0461ec37c5b79 (matches the launch digest; read whole)",
+  "SP\\Dan\\fixup\\draft_rows_fixup2_applied.jsonl sha256 d731d8559d100caace5152abb799b7af6a43d2f598eb6f8fb6bca49b78b893e5 (row W2-007 read in full)",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json sha256 680b621d178e1f1c173204d504131c7c80f0de6a78bfe93dd52a10a060c318c0 (digest only; rule taken from the brief)",
+  "SP\\Dan\\book_strategy_Dan.md sha256 158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da (section 8, lines 378-401)",
+  "SP\\Dan\\tools\\TOOLKIT.md sha256 b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5 (suite contract lines 234-246)",
+  "SP\\Dan\\Dan_oshb.txt sha256 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0",
+  "SP\\Dan\\Dan_web_clean.txt sha256 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa",
+  "SP\\Dan\\pmarks_Dan.json sha256 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b",
+  "SP\\Dan\\dan_device_inventory.json sha256 466d7e6e91a6af396fe9d5e38e1e54fc10272be79229d398283af92168552964",
+  "SP\\Dan\\dan_language_zones.json sha256 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b",
+  "SP\\Dan\\web_mt_offset_map.json sha256 833d2ce37d015eccaaaac856d52c1931b9fd26bccb343064013fefc1da603da5",
+  "SP\\Dan\\tools\\run_validator_suite.py sha256 5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f (RUN on private copies only)",
+  "SP\\Dan\\tools\\check_placeholders.py sha256 0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb (RUN)",
+  "SP\\Dan\\tools\\ngram7.py sha256 cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d (RUN)",
+  "SP\\..\\ERROR_PATTERN_LEDGER.v1.md sha256 a78e50d7b8b9aec94955eb74f401b41322790666ef497b5780b16d11e5142216 (lines 807-874 only; OW-11 answers and authorization_ref confirmed as quoted)"
+ ],
+ "outcome":{"insertions":11,"replacements":0,"by_tier":{"EXTRACTED":2,"MEASURED":0,"INFERRED":9,"REPORTED":0,"ASSUMED":0,"UNAVAILABLE":0},
+  "per_field":{"boundary_rationale":7,"device_notes":3,"strongest_rejected_alternative":1},
+  "blocked":[],
+  "deliverables":["C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_fx3\\W2\\fixup3_W2_rows.jsonl","C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_fx3\\W2\\fixup3_W2_changes.json"]},
+ "contradicted":[],
+ "contradicted_note":"None. No claim in the three fields of W2-007 is contradicted by the pinned bytes.",
+ "verification":[
+  {"claim":"All 14 pinned inputs match their digests; the rows file has no CR byte","how":"work\\s1_inputs.py (sha256 of each exact path)","result":"confirmed"},
+  {"claim":"A PE follows 3:30 (EXTRACTED, OSHB mark layer)","how":"pmarks_Dan.json marks[\"Dan.3.30\"] = [\"PE\"]; marks_note says a mark is recorded on the verse it follows","result":"confirmed"},
+  {"claim":"Language A (EXTRACTED, language-zone layer)","how":"dan_language_zones.json verse_language[\"Dan.3.30\"] = \"A\"; runs[1] is A from Dan.2.4 w5 to Dan.7.28 w16","result":"confirmed"},
+  {"claim":"The other nine sentences or clauses are conclusions, structural readings or weighings, so INFERRED","how":"Supporting bytes read, tier not raised: Dan_oshb.txt Dan.3.30 opens with the Aramaic 'then' and device inventory formulae/then_aram/verses_mt lists Dan.3.30, but 'weak' appears there only as a hypothesis to test (how_these_are_used/8); WEB 3:29 closes the quoted speech and 3:30 is narration; web_mt_offset_map.json zone_pairs[0] pairs web:Dan.4.1 with oshb:Dan.3.31; WEB 2:49 has the appointment over the province","result":"confirmed"},
+  {"claim":"Lander tests 1 to 4 pass","how":"work\\s5_build.py: strip of G equals the pinned field and every insertion matches G = True; records 11 = insertions 11; replay gives the rows file = True; each field has a tier word = True; no 'Fable' = True; untouched fields and key order identical = True; 1 of 76 lines differs","result":"confirmed"},
+  {"claim":"Suite: no member gains a hit or flag","how":"run_validator_suite.py on work\\rows_base.jsonl and work\\rows_applied.jsonl: both hard_status GREEN, triage_flags 137 and 137; per member before = after: citation_sweep GREEN, hebrew_normalize_dryrun ok=374 fixed=0 defects=0, web_quotes GREEN, refs_mirror FLAGS, mark_symmetry GREEN, universals FLAGS, language_zones GREEN, ngram7 GREEN, cap_sweep GREEN, register FLAGS, role_tokens GREEN, placeholders GREEN. Leaf-by-leaf diff (work\\s8_final.py) ignoring the input file name finds one difference: mark_symmetry rows_citing_marks 18 -&gt; 19","result":"confirmed"},
+  {"claim":"check_placeholders.py and ngram7.py on rows_applied.jsonl","how":"direct runs","result":"confirmed (hit_count 0, status GREEN; ngram7 status GREEN)"},
+  {"claim":"Both deliverables are LF with no CR byte","how":"written as bytes with an assert on the CR byte","result":"confirmed"}
+ ],
+ "unresolved_uncertainty":[
+  {"what":"mark_symmetry's counter rows_citing_marks moved from 18 to 19 while its status stayed GREEN with no new flag. The base row already names the PE, so the only new text that can account for it is the annotation ' (EXTRACTED, OSHB mark layer)'; I did not open the member's source to confirm.","why_it_matters":"It is a counter change lying inside an annotation, reported and not suppressed. changes.json records it only as a count of 1 difference for that member, not the 18 -&gt; 19 detail."},
+  {"what":"Two mixed sentences were given the lower tier INFERRED: 'its opener then (then_aram) is weak' and the sentence with the `web:Dan.4.1`=`oshb:Dan.3.31` dual and 'encyclical prescript addressed to the peoples'.","why_it_matters":"The witness facts inside them are in the pinned bytes, but the rule allows one annotation per clause and each clause ends in a weighing or a genre reading. The controlling agent may prefer EXTRACTED for the fact parts."},
+  {"what":"The first sentence of strongest_rejected_alternative ('Fold 3:30 back into 3:28-30 with the blessing and decree.') carries no annotation.","why_it_matters":"I read it as the statement of the rival, neither a witness fact nor a conclusion; the field's next sentence carries the INFERRED. If the reviewer counts it as a claim, it needs one more INFERRED."},
+  {"what":"The 7-gram check ran against the pinned rows only.","why_it_matters":"The other FIXUP-3 authors work blind, so a repeated run such as 'Language A (EXTRACTED, language-zone layer)' across parts can only be judged after landing."}
+ ],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named. Disclosures: one search-tool call and one shell grep each targeted a single pinned file by its exact path (book_strategy_Dan.md for headings, TOOLKIT.md for the suite contract), and I read back one truncated-output file of my own command at the exact path the harness printed. All scripts live in OUT\\work; nothing was written outside OUT; no git, no receipt, no registry, no --write.",
+ "rows_sha256":"b925ef6ea9da8c2eee19f5f0bbea97a3e3f44866832c1447fc767063a1c55e2c",
+ "changes_sha256":"90a5d9c6b63fa7ec0cb8ab02d983a125cb368a6b7cf399ee78d6e49e4efd836d",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}
+```

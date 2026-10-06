@@ -1,0 +1,46 @@
+{"attempt_id":"dan_fixup5_W1_a1","execution_id":"dan_fixup5_W1_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\FIXUP5_BRIEF_W1.md sha256 7ee31d4a5c2a3264fc3023c7d6390cdb3366e7b48711df1523c9e3ecae9bd26c (matches the launch message; read whole)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup4_applied.jsonl sha256 37c321a5de036bae5b72b757f603197436606db33d50dc46cd18ab00abe81d14 (MATCH)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E5.v1.json sha256 a447f1412ca0e56d7ab55b31ed5c1edd3ce34898b4904a462d5b9b03e702f97d (MATCH; ruling F9-W1-002-A6 only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt sha256 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0 (MATCH; Dan.1.10 by script)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt sha256 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa (MATCH; 1:10 by script)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\run_validator_suite.py sha256 5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f (MATCH; RUN only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\check_placeholders.py sha256 0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb (MATCH; RUN only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\ngram7.py sha256 cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d (MATCH; RUN only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md sha256 a78e50d7b8b9aec94955eb74f401b41322790666ef497b5780b16d11e5142216 (MATCH; lines 807-874 only)"
+ ],
+ "outcome":{
+  "records_applied":1,
+  "speaker_finding":"In 1:10 the fear is voiced by the officer WEB calls the prince of the eunuchs. WEB 1:10 opens with that officer as the subject of 'said to Daniel' and his speech begins “I fear my lord the king” (WEB). OSHB/WLC Dan.1.10 opens with the verb of saying, then the two-word title (chief + the-eunuchs), then 'to Daniel', then the first-person 'I fear'. The steward is not named in the verse. The bytes support the ruled 'after'.",
+  "new_field_sha256":{"W1-002.boundary_rationale":"c13552205c0cc2f66122ed3800d395d4272c5daa2439ed22d6de60bc53994eae"},
+  "applied_file_sha256":"2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca"
+ },
+ "contradicted":[],
+ "unapplied":[],
+ "verification":[
+  {"claim":"All eight pinned inputs and the brief match their digests","how":"work\\step1.py (hashlib.sha256 on each exact path); Get-FileHash on the brief","result":"confirmed"},
+  {"claim":"OW-11 authority and OW-11-h are in the ledger as quoted","how":"Read of ERROR_PATTERN_LEDGER.v1.md lines 807-874","result":"confirmed"},
+  {"claim":"The prince of the eunuchs voices the fear in 1:10","how":"work\\build.py: the WEB line '[v] 10' under '===== DAN 1 =====' starts 'The prince of the eunuchs said to Daniel, “I fear my lord the king'; the first six words of the OSHB line 'Dan.1.10', stripped to consonants, are verb of saying, chief, the-eunuchs, to-Daniel, fear, I. Both verse texts are in the record's witness.","result":"confirmed"},
+  {"claim":"The 'before' occurs exactly once in the field (and once in the whole file)","how":"work\\build.py str.count / bytes.count","result":"confirmed"},
+  {"claim":"New field sha256 equals the ruled c13552…4eae","how":"work\\build.py","result":"confirmed"},
+  {"claim":"Applied file sha256 equals the ruled 2bee59…8aca, and equals the pinned bytes with the 'before' replaced once","how":"work\\build.py on work\\rows_applied.jsonl","result":"confirmed"},
+  {"claim":"Exactly one row (W1-002) and one field (boundary_rationale) differ; key order is the same; no CR byte","how":"work\\build.py line-by-line and key-by-key comparison","result":"confirmed"},
+  {"claim":"Tier counts in the row are unchanged: (MEASURED 1/1, (EXTRACTED 2/2, (INFERRED 4/4. The matches of G in the field are the same two ' (INFERRED)' before and after, shifted only by the length change.","how":"work\\build.py","result":"confirmed"},
+  {"claim":"'Fable', 'the steward's fear' and 'the fear of the prince of the eunuchs' occur in no string of any row; no Hebrew added; no curly quotes added","how":"work\\build.py walk over all 75 rows: 0, 0, 0; Hebrew characters added 0; curly quotes in the field 0 before and 0 after","result":"confirmed"},
+  {"claim":"The apostrophe in the 'after' is U+0027","how":"work\\build.py assert on ord()","result":"confirmed"},
+  {"claim":"Suite stays hard GREEN; triage 138 -> 137; web_quotes 1 flag -> 0; no member gains a hit or flag","how":"run_validator_suite.py on work\\rows_base.jsonl and work\\rows_applied.jsonl; work\\finalize.py diffed every list length and scalar of the two reports. Per member, base -> applied: citation_sweep GREEN -> GREEN; hebrew_normalize_dryrun 'ok=374 fixed=0 defects=0' -> same; web_quotes FLAGS -> GREEN; refs_mirror FLAGS -> FLAGS; mark_symmetry GREEN -> GREEN; universals FLAGS -> FLAGS; language_zones GREEN -> GREEN; ngram7 GREEN -> GREEN; cap_sweep GREEN -> GREEN; register FLAGS -> FLAGS; role_tokens GREEN -> GREEN; placeholders GREEN -> GREEN. dead_members [] in both. The only differences besides the file name are in web_quotes and the triage total. The base flag was path '[1].boundary_rationale', quote 'of the prince of the eunuchs', 6 words, issue a6_web_wording_without_the_convention.","result":"confirmed"},
+  {"claim":"check_placeholders on the applied copy is GREEN","how":"check_placeholders.py work\\rows_applied.jsonl: rows 75, strings_scanned 2218, hit_count 0, status GREEN","result":"confirmed"},
+  {"claim":"ngram7 on the applied copy is GREEN","how":"ngram7.py work\\rows_applied.jsonl: rows 75, gate 10, offending_7grams [], worst reuse 7 rows, status GREEN","result":"confirmed"},
+  {"claim":"The rows deliverable is the replay of the one record","how":"work\\build.py writes fixup5_W1_rows.jsonl from the same replayed object that goes into rows_applied.jsonl; json.dumps(ensure_ascii=False) reproduces the pinned line byte for byte","result":"confirmed"}
+ ],
+ "unresolved_uncertainty":[
+  {"what":"I ran each of the three tools once with --help to learn its arguments. ngram7.py took that as a zero-row run and printed GREEN; the suite and check_placeholders printed usage errors. No report file was written by those calls as far as their output shows.","why_it_matters":"These are three runs beyond the ones the brief lists; they did not touch the worktree as far as I observed, but I did not verify that by listing (E-19)."},
+  {"what":"The suite wrote its two reports beside my private copies in work\\ (rows_base.jsonl.validator_report.json and rows_applied.jsonl.validator_report.json), and I saved its stdout as suite_base.out and suite_applied.out.","why_it_matters":"The lander should expect these extra files in OUT\\work; none is a deliverable."},
+  {"what":"The per-member 'no gain' check compares list lengths and short scalars of the two reports, not the full text of every flag.","why_it_matters":"A flag replaced by a different flag of the same member with the count unchanged would not show; the single-field, six-word change makes this unlikely but it was not proven flag by flag."},
+  {"what":"The OSHB speaker check is a consonant comparison of the verse's first six words by script, plus my own reading of the verse.","why_it_matters":"It is one same-family reading (OW-25 fallback), not independent proof."}
+ ],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+ "rows_sha256":"4b6ea25115d1ad22c5214d5e0073dda7a17513ff4f1ab4d00876133d63b385d5",
+ "changes_sha256":"10cdda5cb66db70866b0b0a2d94f68f963d7a29fafb16e153d23852b8d542a41",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}

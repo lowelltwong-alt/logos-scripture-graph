@@ -1,0 +1,1116 @@
+{
+ "attempt_id": "dan_fixup3_W1_a1",
+ "execution_id": "dan_fixup3_W1_a1#e1",
+ "rows_file_sha256": "d731d8559d100caace5152abb799b7af6a43d2f598eb6f8fb6bca49b78b893e5",
+ "changes": [
+  {
+   "row": "W1-001",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "(third year of Jehoiakim).",
+   "after": "(third year of Jehoiakim) (EXTRACTED, device inventory).",
+   "tier": "EXTRACTED",
+   "layer_file": "dan_device_inventory.json",
+   "locator": "datelines.entries[mt=Dan.1.1] (year_form, numeral, regnal_term, reign_named, web_text)",
+   "scan": null
+  },
+  {
+   "row": "W1-001",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "a new actor-subject.",
+   "after": "a new actor-subject (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-001",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "not an onset.",
+   "after": "not an onset (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-001",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "1:4 is a ketiv/qere site (textual variant, disclosed);",
+   "after": "1:4 is a ketiv/qere site (textual variant, disclosed) (EXTRACTED, OSHB mark layer);",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "kq.Dan.1.4",
+   "scan": null
+  },
+  {
+   "row": "W1-001",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "not a vision.",
+   "after": "not a vision (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-002",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "and an outcome.",
+   "after": "and an outcome (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-002",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "1:14 and 1:15;",
+   "after": "1:14 and 1:15 (EXTRACTED, WEB);",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 1:12, 1:14, 1:15 (each verse line holds 'ten days')",
+   "scan": null
+  },
+  {
+   "row": "W1-002",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "Unmarked stretch,",
+   "after": "Unmarked stretch (MEASURED, OSHB mark layer),",
+   "tier": "MEASURED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-002",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "rest on the text alone.",
+   "after": "rest on the text alone (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-002",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "open the next unit;",
+   "after": "open the next unit (EXTRACTED, device inventory);",
+   "tier": "EXTRACTED",
+   "layer_file": "dan_device_inventory.json",
+   "locator": "formulae.vayehi_heb.verses_mt contains Dan.1.16",
+   "scan": null
+  },
+  {
+   "row": "W1-002",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "are texture (D6).",
+   "after": "are texture (D6) (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-003",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "visions and dreams;",
+   "after": "visions and dreams (EXTRACTED, WEB);",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 1:17",
+   "scan": null
+  },
+  {
+   "row": "W1-003",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "the examination result.",
+   "after": "the examination result (EXTRACTED, WEB).",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 1:18-1:20",
+   "scan": null
+  },
+  {
+   "row": "W1-003",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "regnal terminus of 1:21.",
+   "after": "regnal terminus of 1:21 (EXTRACTED, device inventory).",
+   "tier": "EXTRACTED",
+   "layer_file": "dan_device_inventory.json",
+   "locator": "year_word_but_not_a_dateline.notes.Dan.1.21 (reason_class regnal_terminus)",
+   "scan": null
+  },
+  {
+   "row": "W1-003",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "not a vision report.",
+   "after": "not a vision report (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-003",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "a PE follows it,",
+   "after": "a PE follows it (EXTRACTED, OSHB mark layer),",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "marks.Dan.1.21 = [PE]",
+   "scan": null
+  },
+  {
+   "row": "W1-003",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "summary row (D7).",
+   "after": "summary row (D7) (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-004",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "reign of Cyrus.",
+   "after": "reign of Cyrus (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-004",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "1:21/2:1.",
+   "after": "1:21/2:1 (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-004",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N2",
+   "before": "is left for Fable (device item 1)",
+   "after": "is left for the end review (device item 1)",
+   "tier": null,
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-004",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "(device item 1);",
+   "after": "(device item 1) (EXTRACTED, device inventory);",
+   "tier": "EXTRACTED",
+   "layer_file": "dan_device_inventory.json",
+   "locator": "year_word_but_not_a_dateline.notes.Dan.1.21 (regnal_terminus, 'until the first year of Cyrus'); for_fable_end_review[0] (item 'MT 1:21 regnal terminus')",
+   "scan": null
+  },
+  {
+   "row": "W1-004",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "onset marker.",
+   "after": "onset marker (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-004",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "summary_notice row.",
+   "after": "summary_notice row (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "opening reply.",
+   "after": "opening reply (EXTRACTED, device inventory and WEB).",
+   "tier": "EXTRACTED",
+   "layer_file": "dan_device_inventory.json; Dan_web_clean.txt",
+   "locator": "datelines.entries[mt=Dan.2.1]; Dan 2:1-2:4",
+   "scan": null
+  },
+  {
+   "row": "W1-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "2:4b (Aramaic);",
+   "after": "2:4b (Aramaic) (EXTRACTED, language-zone layer);",
+   "tier": "EXTRACTED",
+   "layer_file": "dan_language_zones.json",
+   "locator": "mixed_verses[ref=Dan.2.4] (sequence HHHHAAAAAAAA, switch_before_word [5])",
+   "scan": null
+  },
+  {
+   "row": "W1-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "answer to that reply.",
+   "after": "answer to that reply (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-005",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "(O king, live forever).",
+   "after": "(O king, live forever) (EXTRACTED, OSHB/WLC and language-zone layer).",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_oshb.txt; dan_language_zones.json",
+   "locator": "Dan.2.4 words 5-7; mixed_verses[ref=Dan.2.4] and runs[1] (A from Dan.2.4 w5)",
+   "scan": null
+  },
+  {
+   "row": "W1-005",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "ketiv/qere site (textual variant, disclosed);",
+   "after": "ketiv/qere site (textual variant, disclosed) (EXTRACTED, OSHB mark layer);",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "kq.Dan.2.4",
+   "scan": null
+  },
+  {
+   "row": "W1-005",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "(region a).",
+   "after": "(region a) (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-005",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "threat that follows.",
+   "after": "threat that follows (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-006",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "form one exchange;",
+   "after": "form one exchange (INFERRED);",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-006",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "his companions.",
+   "after": "his companions (EXTRACTED, WEB).",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 2:12-2:13",
+   "scan": null
+  },
+  {
+   "row": "W1-006",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "A PE follows 2:13.",
+   "after": "A PE follows 2:13 (EXTRACTED, OSHB mark layer).",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "marks.Dan.2.13 = [PE]",
+   "scan": null
+  },
+  {
+   "row": "W1-006",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "not argued from them).",
+   "after": "not argued from them) (MEASURED, OSHB mark layer).",
+   "tier": "MEASURED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-006",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "single witness.",
+   "after": "single witness (EXTRACTED, OSHB mark layer).",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "notes_other.Dan.2.9",
+   "scan": null
+  },
+  {
+   "row": "W1-006",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "Aramaic section.",
+   "after": "Aramaic section (MEASURED, language-zone layer).",
+   "tier": "MEASURED",
+   "layer_file": "dan_language_zones.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-006",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "failed exchange.",
+   "after": "failed exchange (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-007",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "asks for time.",
+   "after": "asks for time (EXTRACTED, WEB).",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 2:14-2:16",
+   "scan": null
+  },
+  {
+   "row": "W1-007",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "PE after 2:16.",
+   "after": "PE after 2:16 (EXTRACTED, OSHB mark layer).",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "marks.Dan.2.16 = [PE]",
+   "scan": null
+  },
+  {
+   "row": "W1-007",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "The span is Aramaic.",
+   "after": "The span is Aramaic (MEASURED, language-zone layer).",
+   "tier": "MEASURED",
+   "layer_file": "dan_language_zones.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-007",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "onset by itself.",
+   "after": "onset by itself (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-007",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "a seam there.",
+   "after": "a seam there (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-008",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "he blesses God.",
+   "after": "he blesses God (EXTRACTED, WEB).",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 2:17-2:19",
+   "scan": null
+  },
+  {
+   "row": "W1-008",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "separate speech act.",
+   "after": "separate speech act (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-008",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "Aramaic narrative.",
+   "after": "Aramaic narrative (MEASURED, language-zone layer).",
+   "tier": "MEASURED",
+   "layer_file": "dan_language_zones.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-008",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "in one clause;",
+   "after": "in one clause (EXTRACTED, WEB);",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 2:19",
+   "scan": null
+  },
+  {
+   "row": "W1-008",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "2:31-35.",
+   "after": "2:31-35 (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-008",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "praise form.",
+   "after": "praise form (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-009",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "matter known.",
+   "after": "matter known (EXTRACTED, WEB).",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 2:20-2:23",
+   "scan": null
+  },
+  {
+   "row": "W1-009",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "closed speech act.",
+   "after": "closed speech act (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-009",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N2",
+   "before": "is left for Fable: rival edges",
+   "after": "is left for the end review: rival edges",
+   "tier": null,
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-009",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "An Aramaic hymn;",
+   "after": "An Aramaic hymn (MEASURED, language-zone layer);",
+   "tier": "MEASURED",
+   "layer_file": "dan_language_zones.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-009",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "ketiv/qere site (textual variant, disclosed).",
+   "after": "ketiv/qere site (textual variant, disclosed) (EXTRACTED, OSHB mark layer).",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "kq.Dan.2.22",
+   "scan": null
+  },
+  {
+   "row": "W1-009",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "2:24/2:25.",
+   "after": "2:24/2:25 (REPORTED).",
+   "tier": "REPORTED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-009",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "SAMEKH after 2:24;",
+   "after": "SAMEKH after 2:24 (EXTRACTED, OSHB mark layer);",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "marks.Dan.2.24 = [SAMEKH]",
+   "scan": null
+  },
+  {
+   "row": "W1-009",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "2:23 (D1).",
+   "after": "2:23 (D1) (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-010",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "reveals secrets;",
+   "after": "reveals secrets (EXTRACTED, WEB);",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 2:24-2:28",
+   "scan": null
+  },
+  {
+   "row": "W1-010",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "report begins.",
+   "after": "report begins (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-010",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "Aramaic dialogue;",
+   "after": "Aramaic dialogue (MEASURED, language-zone layer);",
+   "tier": "MEASURED",
+   "layer_file": "dan_language_zones.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-010",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "ketiv/qere site (textual variant, disclosed).",
+   "after": "ketiv/qere site (textual variant, disclosed) (EXTRACTED, OSHB mark layer).",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "kq.Dan.2.26",
+   "scan": null
+  },
+  {
+   "row": "W1-010",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "held as interior.",
+   "after": "held as interior (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-010",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N2",
+   "before": "a weak edge, for Fable.",
+   "after": "a weak edge, for the end review.",
+   "tier": null,
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-010",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "following the SAMEKH,",
+   "after": "following the SAMEKH (EXTRACTED, OSHB mark layer),",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "marks.Dan.2.24 = [SAMEKH]",
+   "scan": null
+  },
+  {
+   "row": "W1-010",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "2:25 continues.",
+   "after": "2:25 continues (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-011",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "to a mountain.",
+   "after": "to a mountain (EXTRACTED, WEB).",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 2:31-2:35",
+   "scan": null
+  },
+  {
+   "row": "W1-011",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "(guard d).",
+   "after": "(guard d) (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-011",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "Aramaic report.",
+   "after": "Aramaic report (MEASURED, language-zone layer).",
+   "tier": "MEASURED",
+   "layer_file": "dan_language_zones.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-011",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "open a unit.",
+   "after": "open a unit (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-011",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "ketiv/qere site (textual variant, disclosed).",
+   "after": "ketiv/qere site (textual variant, disclosed) (EXTRACTED, OSHB mark layer).",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "kq.Dan.2.33",
+   "scan": null
+  },
+  {
+   "row": "W1-011",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "(region b).",
+   "after": "(region b) (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-012",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "by design.",
+   "after": "by design (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-012",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "2:45 closes it.",
+   "after": "2:45 closes it (EXTRACTED, OSHB mark layer).",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "marks.Dan.2.45 = [PE]",
+   "scan": null
+  },
+  {
+   "row": "W1-012",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "is in Aramaic.",
+   "after": "is in Aramaic (MEASURED, language-zone layer).",
+   "tier": "MEASURED",
+   "layer_file": "dan_language_zones.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-012",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "(textual variants, disclosed).",
+   "after": "(textual variants, disclosed) (MEASURED, OSHB mark layer).",
+   "tier": "MEASURED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-012",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "single witness;",
+   "after": "single witness (EXTRACTED, OSHB mark layer);",
+   "tier": "EXTRACTED",
+   "layer_file": "pmarks_Dan.json",
+   "locator": "notes_other.Dan.2.37, notes_other.Dan.2.38, notes_other.Dan.2.39, notes_other.Dan.2.41",
+   "scan": null
+  },
+  {
+   "row": "W1-012",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "same speech.",
+   "after": "same speech (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-013",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "gate.",
+   "after": "gate (EXTRACTED, WEB).",
+   "tier": "EXTRACTED",
+   "layer_file": "Dan_web_clean.txt",
+   "locator": "Dan 2:46-2:49",
+   "scan": null
+  },
+  {
+   "row": "W1-013",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "golden image.",
+   "after": "golden image (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-013",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "narrative close.",
+   "after": "narrative close (MEASURED, language-zone layer).",
+   "tier": "MEASURED",
+   "layer_file": "dan_language_zones.json",
+   "locator": null,
+   "scan": {
+    "script": "work\\scan_w1_measured.py",
+    "code": "\"\"\"FIXUP-3 W1 scan for the MEASURED annotations (dan_fixup3_W1_a1#e1).\n\nNo arguments. Reads two pinned files by exact absolute path and prints a deterministic result:\n  pmarks_Dan.json          keys 'marks' and 'kq' (every ref is MT; chapters 1-2 lie outside the numbering zones)\n  dan_language_zones.json  key 'verse_language'\n\"\"\"\nimport hashlib\nimport json\n\nSP = \"C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable\"\nPMARKS = SP + \"/Dan/pmarks_Dan.json\"\nZONES = SP + \"/Dan/dan_language_zones.json\"\n\n\ndef load(path):\n    data = open(path, \"rb\").read()\n    print(\"sha256\", path.rsplit(\"/\", 1)[1], hashlib.sha256(data).hexdigest())\n    return json.loads(data.decode(\"utf-8\"))\n\n\ndef refs(chapter, first, last):\n    return [\"Dan.%d.%d\" % (chapter, v) for v in range(first, last + 1)]\n\n\npm = load(PMARKS)\nlz = load(ZONES)\nmarks = pm[\"marks\"]\nkq = pm[\"kq\"]\nlang = lz[\"verse_language\"]\n\n# A. W1-002 'Unmarked stretch': a mark is recorded on the verse it FOLLOWS, so the opening seam 1:7/1:8 is\n#    carried by 1:7 and the closing seam 1:16/1:17 by 1:16.\nspan = refs(1, 7, 16)\nprint(\"A marks on 1:7-1:16:\", json.dumps({r: marks[r] for r in span if r in marks}), \"verses scanned\", len(span))\n\n# B. ketiv/qere sites inside a row span (keys of 'kq').\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-012 2:36-2:45\", 2, 36, 45)):\n    span = refs(ch, a, b)\n    print(\"B kq sites in\", label + \":\", json.dumps([r for r in span if r in kq]), \"verses scanned\", len(span))\n\n# C. language of every verse of a row span ('verse_language': H, A or mixed).\nfor label, ch, a, b in ((\"W1-006 2:5-2:13\", 2, 5, 13), (\"W1-007 2:14-2:16\", 2, 14, 16),\n                        (\"W1-008 2:17-2:19\", 2, 17, 19), (\"W1-009 2:20-2:23\", 2, 20, 23),\n                        (\"W1-010 2:24-2:30\", 2, 24, 30), (\"W1-011 2:31-2:35\", 2, 31, 35),\n                        (\"W1-012 2:36-2:45\", 2, 36, 45), (\"W1-013 2:46-2:49\", 2, 46, 49)):\n    span = refs(ch, a, b)\n    missing = [r for r in span if r not in lang]\n    tally = {}\n    for r in span:\n        if r in lang:\n            tally[lang[r]] = tally.get(lang[r], 0) + 1\n    print(\"C language in\", label + \":\", json.dumps(tally, sort_keys=True), \"verses scanned\", len(span),\n          \"missing\", json.dumps(missing))\n",
+    "output": "sha256 pmarks_Dan.json 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b\nsha256 dan_language_zones.json 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b\nA marks on 1:7-1:16: {} verses scanned 10\nB kq sites in W1-006 2:5-2:13: [\"Dan.2.5\", \"Dan.2.9\", \"Dan.2.10\"] verses scanned 9\nB kq sites in W1-012 2:36-2:45: [\"Dan.2.38\", \"Dan.2.39\", \"Dan.2.40\", \"Dan.2.41\", \"Dan.2.42\", \"Dan.2.43\"] verses scanned 10\nC language in W1-006 2:5-2:13: {\"A\": 9} verses scanned 9 missing []\nC language in W1-007 2:14-2:16: {\"A\": 3} verses scanned 3 missing []\nC language in W1-008 2:17-2:19: {\"A\": 3} verses scanned 3 missing []\nC language in W1-009 2:20-2:23: {\"A\": 4} verses scanned 4 missing []\nC language in W1-010 2:24-2:30: {\"A\": 7} verses scanned 7 missing []\nC language in W1-011 2:31-2:35: {\"A\": 5} verses scanned 5 missing []\nC language in W1-012 2:36-2:45: {\"A\": 10} verses scanned 10 missing []\nC language in W1-013 2:46-2:49: {\"A\": 4} verses scanned 4 missing []\n"
+   }
+  },
+  {
+   "row": "W1-013",
+   "field": "device_notes",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "doxology row.",
+   "after": "doxology row (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  },
+  {
+   "row": "W1-013",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "order": "S2-N1",
+   "before": "as 1:21 does.",
+   "after": "as 1:21 does (INFERRED).",
+   "tier": "INFERRED",
+   "layer_file": null,
+   "locator": null,
+   "scan": null
+  }
+ ],
+ "blocked": [],
+ "contradicted": [
+  {
+   "row": "W1-002",
+   "field": "boundary_rationale",
+   "claim": "the steward's fear",
+   "bytes": "Dan_web_clean.txt 1:10 'The prince of the eunuchs said to Daniel, “I fear my lord the king' and 1:11 'the steward whom the prince of the eunuchs had appointed'; Dan_oshb.txt Dan.1.10 names the speaker of the fear as the prince of the eunuchs (word 2-3 of the verse) and Dan.1.11 names the steward as a second official whom that prince appointed. The fear is spoken by the prince of the eunuchs, not by the steward. The sentence holding the claim (the first sentence of the field) is left as it stands with no annotation.",
+   "file": "Dan_web_clean.txt; Dan_oshb.txt"
+  }
+ ],
+ "suite": {
+  "base": {
+   "citation_sweep": "GREEN",
+   "hebrew_normalize_dryrun": "ok=374 fixed=0 defects=0",
+   "web_quotes": "GREEN flag_count=0",
+   "refs_mirror": "FLAGS",
+   "mark_symmetry": "GREEN flag_count=0",
+   "universals": "FLAGS flag_count=67",
+   "language_zones": "GREEN flag_count=0",
+   "ngram7": "GREEN",
+   "cap_sweep": "GREEN",
+   "register": "FLAGS flag_count=70",
+   "role_tokens": "GREEN flag_count=0",
+   "placeholders": "GREEN",
+   "summary": "{\"dead_members\": [], \"hard_status\": \"GREEN\", \"nfd_hard_e01\": false, \"triage_flags\": 137}"
+  },
+  "applied": {
+   "citation_sweep": "GREEN",
+   "hebrew_normalize_dryrun": "ok=374 fixed=0 defects=0",
+   "web_quotes": "GREEN flag_count=0",
+   "refs_mirror": "FLAGS",
+   "mark_symmetry": "GREEN flag_count=0",
+   "universals": "FLAGS flag_count=67",
+   "language_zones": "GREEN flag_count=0",
+   "ngram7": "GREEN",
+   "cap_sweep": "GREEN",
+   "register": "FLAGS flag_count=70",
+   "role_tokens": "GREEN flag_count=0",
+   "placeholders": "GREEN",
+   "summary": "{\"dead_members\": [], \"hard_status\": \"GREEN\", \"nfd_hard_e01\": false, \"triage_flags\": 137}"
+  },
+  "hits_on_my_rows_before_after": {
+   "citation_sweep": [
+    0,
+    0
+   ],
+   "hebrew_normalize_dryrun": [
+    0,
+    0
+   ],
+   "web_quotes": [
+    0,
+    0
+   ],
+   "refs_mirror": [
+    46,
+    46
+   ],
+   "mark_symmetry": [
+    0,
+    0
+   ],
+   "universals": [
+    0,
+    0
+   ],
+   "language_zones": [
+    0,
+    0
+   ],
+   "ngram7": [
+    0,
+    0
+   ],
+   "cap_sweep": [
+    0,
+    0
+   ],
+   "register": [
+    0,
+    0
+   ],
+   "role_tokens": [
+    0,
+    0
+   ],
+   "placeholders": [
+    0,
+    0
+   ]
+  }
+ },
+ "untouched_fields_identical": true
+}
