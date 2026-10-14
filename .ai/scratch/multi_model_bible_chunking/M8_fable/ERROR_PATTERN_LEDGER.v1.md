@@ -3394,3 +3394,17 @@ Drafted from a fresh read of the orchestrator's close-phase notes and the close 
 - **(g) Disclosures the close carries.** The merged receipts record `model_actual` as REPORTED (the Agent call's `opus` alias and each lane's own files), never MEASURED. Gate tests are 143 of 144: one location-dependent case (refusal without --m8-root from outside a tree) fails, and both lanes' source reads agree it does not hold at the installed path. The completion receipt carries no E-23 sweep or B-8 lane digits (gate lines 54-55); Ezekiel's tool did not either - a standing gap. The receipt cites OW-9, not OW-29/OW-33; the gate file has no OW-33 addendum. Both lanes marked items 4, 16, 18, 19, addendum OW-20 and item 15's spend met without evidence; Daniel's measured spend against its ceiling is not verified here. The scholar record's licence wording is carried from Ezekiel and awaits confirmation. The JSONL ledger stops at E-43/OW-24; the MD is the live carrier.
 
 - **Lesson for the method record.** A copy-based reproduction of a checker that calls a generator by installed path is not a reproduction; the reviewer must be given the installed path or told the arm will SKIP.
+
+## OWNER DIRECTIVE OW-35 (2026-10-14) - GREEK SUBSTRATE: WHAT MAY BE COMMITTED TO THE PUBLIC REPOSITORY
+
+**The owner's words (TRANSCRIBED).**
+
+> Owner answer in chat, 2026-10-14 (AskUserQuestion, verbatim label selected):
+> Q: The Greek source files are verified and their licences are recorded. Which parts of greek_substrate/ may be committed to the public logos-scripture-graph repo? 1 Corinthians work can go ahead locally whichever you pick.  A: "Commit A+B+tools (Recommended)"
+> Option text offered: "Commit the Byzantine RP text (public domain), the SBLGNT text (CC BY 4.0, with its LICENSE and attribution; already in the repo as a zip), the tools, the derived crosswalk (flags only) and the fixtures. Keep the SBLGNT apparatus and the Swete files (CC BY-SA) local."
+
+**What it decides.** These may be committed: set A `byzantine_rp_PRIMARY/` (the Unlicense), set B `sblgnt_SECONDARY/` (CC BY 4.0, with its `LICENSE` file and the attribution kept), `tools/`, `derived/` and `fixture/`, together with the folder's README, staging receipt and staging scripts, which carry provenance. These stay local and uncommitted: set B2 `sblgnt_apparatus/`, and set C `swete_lxx_REFERENCE_ONLY/`, whose owner terms of 2026-09-29 stand. This supersedes, for these paths only, the standing rule never to commit `greek_substrate/`. The same rule stays in force for B2, C and any `__pycache__`.
+
+**Basis (record).** `sp_durable/campaign/greek_substrate_licensing_provenance.v1.json` sha256 555634cef2bda4ac33c0684dd69413fe884b6e9753d9a31e41c7483be1f1e467. It was drafted from a fresh read of the receipt, the three licence files and the tracked SBLGNT `source_manifest.yaml` (`redistribution_allowed: true`). The staged files were re-verified on 2026-10-14: stray_sweep, the greek_lib selftest and `_stage_and_verify` were all GREEN, and every blob in A, B and B2 matched its pin.
+
+**Limits.** This grants no download, licence reinterpretation or publication of Swete wording. It also grants no change to canonical Scripture or to reading preference. Publication still goes through the standing PR workflow.
