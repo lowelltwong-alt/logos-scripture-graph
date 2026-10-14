@@ -1,0 +1,62 @@
+{
+ "NQ-1": {
+  "answer": "Six pairs: (062,063), (062,065), (062,066), (063,065), (063,066), (074,075). I read all six rows. None is an inconsistency that would mislead a reader: 062 and 074 are narrated sightings against speeches (a real difference of kind), and 063's medium against 065/066's medium_low follows from different stated grounds. They remain unruled by any ruling role.",
+  "evidence": "pair list by script from the dimensions file; rows at lines 62, 63, 65, 66, 74, 75 read against both witnesses",
+  "tier": "INFERRED",
+  "class": "disclosed_residual"
+ },
+ "NQ-2": {
+  "answer": "flags_by_row.json is not current: it was built from the fx5 suite report over rows_applied.jsonl (137 flags, 20 rows), while the final corpus's validator report shows 64 universal and 18 register flags. Nothing that ships relies on it: no pinned script, document or manifest names it and the close tool does not read it.",
+  "evidence": "the file's own header; rows_v1_final.jsonl.validator_report.json; name scan of pinned files; manifest v2. Files not pinned to me are unavailable.",
+  "tier": "MEASURED",
+  "class": "debt_after_close"
+ },
+ "NQ-3": {
+  "answer": "No pinned Daniel file supports the licence terms. Section 8 states them (WLC transcription public domain, OSHB morphology CC BY 4.0, WEB public domain), says a search of Daniel's files found none, and says they should be confirmed before publication. The check record says the wording is carried from the Ezekiel record.",
+  "evidence": "0 licence words in Dan_oshb.txt, Dan_web_clean.txt, pmarks_Dan.json, dan_device_inventory.json; gen_scholar_record.py text; scholar_record_check limit",
+  "tier": "REPORTED",
+  "class": "debt_after_close"
+ },
+ "NQ-4": {
+  "answer": "The amended method checker fixes its selftest and loosens nothing I could find: all six tampers are still caught. One tamper (drop obligation two) no longer exercises a dropped final obligation, a small gap.",
+  "evidence": "copy run with --selftest; reading of the checker",
+  "tier": "MEASURED",
+  "class": "disclosed_residual"
+ },
+ "NQ-5": {
+  "answer": "No adopted text rests on evidence that fails after the adjudicator's corrections. One dependency stands: Dan-P01 as adopted speaks of a 'flag key' that only rejected Dan-P07 defines, so v7 line 349 uses the term undefined.",
+  "evidence": "adjudication record against v7; tests EV1-EV3, AC1-AC4",
+  "tier": "MEASURED",
+  "class": "disclosed_residual"
+ },
+ "NQ-6": {
+  "answer": "At close the tool appends to low_confidence_register.jsonl, frontier_escalation_queue.jsonl, whole_bible_chunk_map.jsonl and, by --acf, atlas_candidate_feed.jsonl, and edits marathon_progress.yaml and model_manifest.yaml. The writer is the orchestrator (item 15: subagents never write in the worktree; OW-29), acting for Daniel only on the owner's go (carrier, OW-33), with --acf and --next-book the owner's choices. No row is held, so OW-30 is idle. The append of Daniel's proposals to the shared proposals log is owed at this close and is not done by the tool; whether it is done is unavailable to me.",
+  "evidence": "_close_book.py SHARED and close branch; gate items 15 and 23, addenda OW-29, OW-30; carrier book_close_shapes.Dan",
+  "tier": "EXTRACTED",
+  "class": "debt_after_close"
+ },
+ "NQ-7": {
+  "answer": "Both rows are faithful. W5-2 (9:4-14): seven Hebrew runs byte-exact, the WEB quote exact at 9:15, K/Q notes and verse count as stated. W2-8 (WEB 4:1-3 = MT 3:31-33): all four witness pairs map correctly, both WEB quotes exact; it quotes no Aramaic run.",
+  "evidence": "s08_rows.py with dan_lib numbering; rows at lines 57 and 21",
+  "tier": "MEASURED",
+  "class": "resolved"
+ },
+ "NQ-8": {
+  "answer": "Accurate in effect, incomplete in citation. Item 15 says the OW-9 hard stop applies at Daniel's close, so citing OW-9 is right; OW-29 removes only the routine stop and keeps stops for owner decisions, which the next book is. The receipt names neither OW-29 nor OW-33, and the gate file has no OW-26 or OW-33 addendum.",
+  "evidence": "_close_book.py lines 771-778; gate lines 368-395 and 614-620; receipt preview (OW-9: 1, OW-29: 0, OW-33: 0)",
+  "tier": "EXTRACTED",
+  "class": "disclosed_residual"
+ },
+ "NQ-9": {
+  "answer": "The expectation does not hold where the test points by default. The test's default --tool is the installed _close_book.py; run there with no arguments the tool does not refuse: it evaluates the real tree, prints its report and returns 0. It refuses only as a copy outside a tree. This is a test whose result depends on where the tool sits, not a tool defect; the test's own limit line half-discloses it. I read both files and ran neither that way.",
+  "evidence": "_test_close_book_gates.py lines 55, 539, 596-597; _close_book.py lines 12, 17, 623-628, 840-842",
+  "tier": "INFERRED",
+  "class": "debt_after_close"
+ },
+ "NQ-10": {
+  "answer": "No. The dry run shows 75 gates and 4 unmet: the landing manifest, the two landed lanes, --next-book and --acf. All four are the lane pair or the owner's choices.",
+  "evidence": "work\\dry\\gates.json from _close_book.py --m8-root --dry-report",
+  "tier": "MEASURED",
+  "class": "resolved"
+ }
+}

@@ -1,0 +1,257 @@
+{
+ "attempt_id": "dan_close_tool_a1",
+ "execution_id": "dan_close_tool_a1#e1",
+ "template": "sp_durable/Ezek/_close_book.py and sp_durable/Ezek/fable_end_review/gen_fable_end_packet.py",
+ "gates_ported_unchanged_in_substance": [
+  "corpus pinned",
+  "chunk_index 1..N",
+  "tiling contiguous (WEB order, via the book library)",
+  "each parent collection one contiguous run",
+  "sidecar set == low/medium_low rows",
+  "sidecar fields present",
+  "why_low_confidence not boilerplate",
+  "gen_sidecars.py --check MATCH",
+  "suite GREEN over this corpus",
+  "normalize dry-run clean",
+  "CWO parity GREEN for THIS corpus",
+  "grader carrier generator --check MATCH",
+  "carrier shape (directive OW-26, transcript_audit OWED, NOT MET, weakness statement)",
+  "per lane: six durable outputs match the landing manifest; completion receipt COMPLETED on the carrier's model; final check names the carrier's model; transcript audit recorded OWED, NOT run; items 20-23; every named question answered; e19 self-report",
+  "two distinct blind lanes",
+  "fable end packet reproduces; over this corpus with rows == low/medium_low",
+  "targets absent (chunks, receipt, retention manifest); no shared file holds a row of this book; marathon_progress and model_manifest anchors",
+  "--acf chosen; the chosen atlas-feed option, the low-confidence register rows and the escalation-queue rows meet the coverage rule",
+  "receipt carries the carrier's downgrade statement; receipt carries the OW-26 weakness statement"
+ ],
+ "gates_changed": [
+  {
+   "gate": "hold gate",
+   "change": "Ezekiel allowed its ruled held rows; Daniel's gate is that every row is candidate_review_complete with null hold fields and that no hold field is absent",
+   "why": "no hold exists in Daniel (brief)"
+  },
+  {
+   "gate": "parents",
+   "change": "also requires the run order PA..PJ",
+   "why": "brief's verified fact"
+  },
+  {
+   "gate": "sidecar source",
+   "change": "one named file sidecar_src_dan.jsonl instead of a glob of sidecar files",
+   "why": "exact-path law; no directory scan"
+  },
+  {
+   "gate": "retention",
+   "change": "built from the pinned landed-outputs manifest (141 outputs, each re-hashed and byte-counted) plus the three attempt-receipt files it names, instead of a recursive walk of the review directory",
+   "why": "brief; no directory scan. Narrower scope than Ezekiel's: stated in the receipt"
+  },
+  {
+   "gate": "attempt-receipt files",
+   "change": "retained with the bytes they have at close; a digest that moved since the landed manifest is disclosed in the report and the receipt, not gated; they must be present, whole lines, LF-only",
+   "why": "MEASURED in the first dry run: sp_durable/Dan/review/dan_review_attempt_receipts.jsonl no longer has the digest manifest v2 records. A receipts file is append-only and keeps growing. See unresolved uncertainty"
+  },
+  {
+   "gate": "carrier pinned",
+   "change": "no byte pin; instead the generator's --check, four measured constants, the downgrade statement's digest and the Daniel weakness statement's digest; the carrier's digest is recorded in the receipt",
+   "why": "adding book_close_shapes.Dan changes the carrier's bytes, so a pin taken today would be wrong at close"
+  },
+  {
+   "gate": "lane postcheck and final check",
+   "change": "the single pair must return fit_to_assemble and fit_to_close over this corpus with no high or medium residual; an unmet close-gate-assessment entry must be typed DEFERRED_OW28_FABLE_END_REVIEW or OWED_TRANSCRIPT_AUDIT, both types must be present, and neither may be marked met",
+   "why": "Ezekiel carried conditional verdicts into a docket and delta lanes; Daniel has neither, so nothing can be docketed away. DEFERRED is never MET (OW-28)"
+  },
+  {
+   "gate": "item 22 feed",
+   "change": "Ezekiel pinned the feed's digest in the tool; here each lane's item_22 must name feed_sha256 equal to the feed on disk, and the feed's rows must name only chunks of this book",
+   "why": "the feed is a D2 output whose digest this builder cannot pin"
+  },
+  {
+   "gate": "progress edit",
+   "change": "current_book takes --next-book, a required owner choice; Ezekiel's tool hard-coded Dan",
+   "why": "OW-11 names no book after Daniel; the dry preview shows a marked placeholder when it is not given"
+  },
+  {
+   "gate": "evidence pins",
+   "change": "suite report and parity record are also byte-pinned, and _cwo_parity_dan.py --check is run",
+   "why": "the brief pins both; the parity tool's --check recomputes in a temporary directory and writes nothing in the tree"
+  }
+ ],
+ "gates_dropped": [
+  {
+   "gate": "v8 -> v9 -> v10 lineage hops, ruling pin, typed-dispositions file, docket gates, delta-lane gates, held-row and dropped-row gates of the OW-30 ruling, 'packet carries THIS delta landing'",
+   "why": "their subjects do not exist in Daniel: one final corpus, no hold, no ruling, no delta round"
+  },
+  {
+   "gate": "FEED_PIN",
+   "why": "replaced by the lane binding above"
+  },
+  {
+   "gate": "--landing test hook",
+   "why": "the mirror holds its own landing manifest; --fixture-landed is the only test hook and --close refuses it"
+  }
+ ],
+ "gates_added": [
+  "dan_lib pinned",
+  "corpus is LF-only (E-73)",
+  "corpus has 75 rows, every one of book Dan",
+  "writer_decision_id unique and present",
+  "language layer: each row's language is what dan_lib.language_of gives over its span (A 44, H 30, mixed 1)",
+  "numbering zone as measured: chapters 3-6, 66 WEB verses whose MT reference differs",
+  "lineage: manifest pinned; names this corpus and its source; source pinned; presence-aware diff is exactly the manifest's three status fields per row; basis names the pinned boss audit records",
+  "boss audit e1 and e2 pinned; e2 answers exactly B8 and B14; B1..B17 all MET (REPORTED)",
+  "Hebrew/Aramaic quote bytes and tier labels GREEN; WEB quote fidelity GREEN; language zones GREEN (each a named gate; Ezekiel recorded the first two in the receipt only)",
+  "grader carrier states the measured fallback (OW-25)",
+  "both lanes answered the same named questions",
+  "scholar record installed; its check says PASS (VERDICT, FAILED, checks, counts); the check is bound to the record, generator and checker bytes",
+  "routed items pinned; packet carries the 46 routed items; packet carries the installed sidecars; packet records DEFERRED and no held row",
+  "landed-outputs manifest pinned",
+  "no close lock is held",
+  "each shared file is LF-only and ends with a newline",
+  "--next-book given and valid",
+  "every close write is LF-only",
+  "<group>: every gate of this group could be evaluated (an exception inside any gate group becomes an UNMET gate)"
+ ],
+ "constants": {
+  "MEASURED by work/pin_check.py against the brief's pins (work/pin_check.json)": [
+   "CORPUS_PIN",
+   "MANIFEST_PIN",
+   "SUITE_PIN",
+   "PARITY_PIN",
+   "LANDED_PIN",
+   "BOSS pins",
+   "ROUTED_PIN",
+   "DAN_LIB_PIN",
+   "BUILT_FROM_PIN"
+  ],
+  "MEASURED by work/probe2.py and work/probe3.py on the pinned files": [
+   "ROWS 75",
+   "VERSES 357",
+   "CHAPTERS 12",
+   "ZONE [3,4,5,6]",
+   "ZONE_MOVED 66",
+   "PARENTS PA..PJ",
+   "LANGUAGE_COUNTS",
+   "LOW_ROWS 49",
+   "LINEAGE_FIELDS",
+   "LANDED_OUTPUTS 141",
+   "LANDED_RECEIPT_FILES 3",
+   "ROUTED_ITEMS 46",
+   "CARRIER_FACTS",
+   "BOOKS_BEFORE 26",
+   "PROG_ANCHOR"
+  ],
+  "MEASURED by work/probe4.py on the installed scholar check": [
+   "the scholar check's key form"
+  ],
+  "ASSUMED, edit points": [
+   "LANES attempt ids dan_merged_close_lane_a_a1 / dan_merged_close_lane_b_a1",
+   "MERGED_RECEIPTS_REL sp_durable/Dan/dan_merged_close_attempt_receipts.jsonl",
+   "UNMET_TYPES vocabulary",
+   "the landing manifest's form (Ezekiel's)",
+   "item_22.feed_sha256 in each lane's items_20_23.json"
+  ]
+ },
+ "dry_run_on_the_real_tree": {
+  "gates_total": 75,
+  "gates_unmet": 13,
+  "unmet_and_what_each_waits_on": [
+   {
+    "gate": "carrier grants Daniel the OW-26 shape (book_close_shapes.Dan: shape, directive, transcript_audit, weakness_statement)",
+    "waits_on": "the orchestrator adds book_close_shapes.Dan to sp_durable/campaign/grader_models.v1.json through its generator (shape, directive OW-26, transcript_audit 'OWED, NOT MET', weakness_statement, weakness_statement_sha256)"
+   },
+   {
+    "gate": "carrier's Daniel weakness statement matches its recorded digest",
+    "waits_on": "the same carrier entry"
+   },
+   {
+    "gate": "landing manifest present (merged_close/landing_manifest.v1.json)",
+    "waits_on": "the two blind merged-close lanes being launched, landed, and recorded in sp_durable/Dan/merged_close/landing_manifest.v1.json"
+   },
+   {
+    "gate": "two distinct blind lanes, both landed and both read",
+    "waits_on": "the same landing; once it exists, 13 gates per lane and one cross-lane gate are evaluated as well (they are not listed today because there is no lane to read)"
+   },
+   {
+    "gate": "fable end packet and its generator installed",
+    "waits_on": "installing fable_end_review/gen_fable_end_packet.py and Dan_fable_end_packet.v1.json from this OUT into sp_durable/Dan/fable_end_review/ (the packet in OUT was built over the installed sidecars and checks MATCH)"
+   },
+   {
+    "gate": "fable end packet reproduces (--check MATCH)",
+    "waits_on": "installing fable_end_review/gen_fable_end_packet.py and Dan_fable_end_packet.v1.json from this OUT into sp_durable/Dan/fable_end_review/ (the packet in OUT was built over the installed sidecars and checks MATCH)"
+   },
+   {
+    "gate": "fable end packet over this corpus, rows == low/medium_low",
+    "waits_on": "installing fable_end_review/gen_fable_end_packet.py and Dan_fable_end_packet.v1.json from this OUT into sp_durable/Dan/fable_end_review/ (the packet in OUT was built over the installed sidecars and checks MATCH)"
+   },
+   {
+    "gate": "fable end packet carries the 46 routed items",
+    "waits_on": "installing fable_end_review/gen_fable_end_packet.py and Dan_fable_end_packet.v1.json from this OUT into sp_durable/Dan/fable_end_review/ (the packet in OUT was built over the installed sidecars and checks MATCH)"
+   },
+   {
+    "gate": "fable end packet carries the installed sidecars",
+    "waits_on": "installing fable_end_review/gen_fable_end_packet.py and Dan_fable_end_packet.v1.json from this OUT into sp_durable/Dan/fable_end_review/ (the packet in OUT was built over the installed sidecars and checks MATCH)"
+   },
+   {
+    "gate": "fable end packet records DEFERRED and no held row",
+    "waits_on": "installing fable_end_review/gen_fable_end_packet.py and Dan_fable_end_packet.v1.json from this OUT into sp_durable/Dan/fable_end_review/ (the packet in OUT was built over the installed sidecars and checks MATCH)"
+   },
+   {
+    "gate": "--next-book given and valid (the owner's choice; OW-11 names no book after Daniel)",
+    "waits_on": "the owner naming the book after Daniel; it was deliberately not passed in the dry run"
+   },
+   {
+    "gate": "--acf chosen (the owner's choice between lam_pattern and item22)",
+    "waits_on": "the owner choosing lam_pattern or item22; it was deliberately not passed in the dry run (both options measure as meeting the coverage rule)"
+   },
+   {
+    "gate": "receipt carries the OW-26 weakness statement",
+    "waits_on": "the same carrier entry"
+   }
+  ],
+  "tool_sha256": "6e5e0c215a9c91121ecee1b67b7dea419bc4a441fe59547abf30ec16b656b5ef",
+  "receipt_files_changed_since_the_manifest": [
+   {
+    "path": "sp_durable/Dan/review/dan_review_attempt_receipts.jsonl",
+    "sha256_in_landed_manifest": "b33767e375b293ea98124b5e3b9ee944ad3a48bcb97b0b18f46dae953a48054f",
+    "sha256_now": "e87a97ca11031539d5367e3fd1ff6ed3b10e5a2b083a02c3624b7f90606dbb3b",
+    "bytes_now": 573936
+   }
+  ],
+  "arguments": "--m8-root <M8> --dry-report <OUT>/dry_report (no --acf, no --next-book, no test hook)",
+  "runs": "three read-only dry runs touched the real tree: a first one whose report was superseded after two corrections it exposed (scholar check key form; receipt-file digest), the one kept in dry_report/, and one into work/dry_second to prove byte identity (same sha256)"
+ },
+ "gate_tests": {
+  "tests_total": 141,
+  "passed": 141,
+  "failed": [],
+  "gates_in_clean_run": 101,
+  "clean_gates_with_no_planted_defect": [],
+  "not_run": [
+   "--close in any form: this builder never runs the close mode, not even on a mirror",
+   "commit(): the lock, the under-lock recheck, the atomic replace and the rollback are untested by this builder; the opt-in --with-close-machinery cases exist for the orchestrator and were NOT RUN",
+   "the tool's default root (installed at <M8>/sp_durable/Dan): only --m8-root was exercised",
+   "--with-close-machinery cases"
+  ]
+ },
+ "close_write_order": "as Ezekiel's tool wrote: chunks, retention manifest, the appends (register, queue, atlas feed, chunk map), the receipt, marathon_progress, model_manifest. The brief lists the receipt third; Ezekiel's code writes it after the appends. All nine are committed all-or-nothing under one lock.",
+ "not_evaluated_by_the_tool": [
+  "item 5 appeals: no appeal file is read by this tool",
+  "items 13-14: capture index, cure verification and census are the orchestrator's close-packet duties",
+  "item 15 (OW-11): the authorization is the owner's; this tool only refuses to write unless every gate is MET",
+  "item 16: the book-close status update",
+  "item 17: model roles beyond the grader carrier",
+  "item 18: the orchestration playbook, learning log and metrics",
+  "item 19: quality over budget",
+  "item 21 and item 23 beyond each lane's items_20_23 verdict",
+  "the public README refresh and push"
+ ],
+ "limits": [
+  "The close mode was never run, in the tree or in a mirror. commit() (lock, under-lock recheck, atomic replace, rollback) is untested; opt-in test cases exist (--with-close-machinery) and were NOT RUN.",
+  "The lane gates were exercised only against fixtures of Ezekiel's form. A lane that writes another form is UNMET, not skipped.",
+  "A defect test passes when its expected gate is UNMET; a planted defect often makes other gates UNMET too (recorded per test as also_unmet).",
+  "The tool trusts the --check exit and last line of gen_sidecars.py, gen_grader_models.py, _cwo_parity_dan.py and the packet generator; it does not audit those tools. The scholar checker is not run: its record is read (REPORTED).",
+  "The boss audit and both lanes are REPORTED verdicts of one model family: one voice (OW-19).",
+  "Payload building after the gates is not inside guard(): a corpus row lacking a field the payload needs stops the tool with a traceback before anything is written.",
+  "The three dan_lib data files are not pinned by the tool; dan_lib itself is, and the tiling, zone and language gates would move if they changed.",
+  "Fixtures are forms, not evidence: nothing in gate_test_result.json says anything about Daniel's real lanes, carrier entry or feeds."
+ ]
+}

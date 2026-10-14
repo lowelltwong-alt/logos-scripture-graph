@@ -1,0 +1,460 @@
+{
+ "attempt_id": "dan_fixup6_W4_a1",
+ "execution_id": "dan_fixup6_W4_a1#e2",
+ "rows_file_sha256": "2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca",
+ "changes": [
+  {
+   "n": 1,
+   "row": "W4-001",
+   "field": "boundary_evidence_refs",
+   "entry_index": 0,
+   "before": " (dan_device_inventory.json datelines); visions_of_my_head_aram; then_aram at word 12 is texture (D4)",
+   "after": " (EXTRACTED, device inventory); visions_of_my_head_aram; then_aram is texture (D4) and stands at word 13 of 18 (MEASURED, OSHB/WLC and device inventory)",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F1",
+    "F2"
+   ],
+   "orders": [
+    "O4"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt line Dan.7.1: 18 space-delimited words, the then-word is word 13. SP\\Dan\\dan_device_inventory.json: formulae.then_aram.verses_mt lists Dan.7.1 (verse only, no word position); datelines lists Dan.7.1 as an Aramaic dateline, first year of Belshazzar.",
+   "scan": {
+    "script": "work\\scan_w4.py",
+    "code": "# Scan for the MEASURED annotations of FIXUP-6 part W4 (execution dan_fixup6_W4_a1#e2).\n# Reads only pinned inputs by exact path; prints to stdout; writes nothing.\nimport json, re, hashlib, unicodedata\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nP_OSHB = SP + r\"\\Dan\\Dan_oshb.txt\"\nP_WEB = SP + r\"\\Dan\\Dan_web_clean.txt\"\nP_INV = SP + r\"\\Dan\\dan_device_inventory.json\"\nfor p in (P_OSHB, P_WEB, P_INV):\n    print(\"sha256\", p.split(\"\\\\\")[-1], hashlib.sha256(open(p, \"rb\").read()).hexdigest())\nosh = dict(l.split(\"\\t\", 1) for l in open(P_OSHB, encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l)\ndef cons(s):\n    return \"\".join(c for c in s if unicodedata.category(c) not in (\"Mn\", \"Cf\"))\ninv = json.load(open(P_INV, encoding=\"utf-8\"))\nF = inv[\"formulae\"]\n# A. position of the then-word in oshb:Dan.7.1 (space-delimited words, one-based), by the inventory's own pattern\ntoks = osh[\"Dan.7.1\"].split(\" \")\npat = re.compile(F[\"then_aram\"][\"pattern\"])\nhits = [i + 1 for i, t in enumerate(toks) if pat.search(cons(t))]\nprint(\"A oshb:Dan.7.1 words\", len(toks), \"then_aram pattern hits at word\", hits, \"inventory lists Dan.7.1 under then_aram:\", \"Dan.7.1\" in F[\"then_aram\"][\"verses_mt\"])\n# B. inventory formula keys that list each verse of 8:2-8:9\nSEE = [\"i_saw_heb\", \"i_saw_in_the_vision_heb\", \"lifted_eyes_and_saw_heb\", \"behold_heb\", \"i_was_seeing_heb\"]\nfor n in range(2, 10):\n    v = \"Dan.8.%d\" % n\n    print(\"B inventory keys listing\", v, [k for k, e in F.items() if v in e.get(\"verses_mt\", [])])\nprint(\"B seeing/behold keys scanned\", SEE, \"all present in inventory:\", all(k in F for k in SEE))\n# C. witness words of 8:2-8:9 whose consonants hold a first-person seeing form or the behold particle\nsee_re = re.compile(r\"^(?:ו)?(?:ארא|אראה|ראיתי)\")\nfor n in range(2, 10):\n    v = \"Dan.8.%d\" % n\n    t = osh[v].split(\" \")\n    hit = [(i + 1, cons(x)) for i, x in enumerate(t) if see_re.search(cons(x)) or cons(x) in (\"והנה\", \"הנה\")]\n    print(\"C oshb:\" + v, \"words\", len(t), \"seeing/behold words\", hit)\nt6 = osh[\"Dan.8.6\"].split(\" \")\nprint(\"C oshb:Dan.8.6 word 6 consonants\", cons(t6[5]), \"word 7 consonants\", cons(t6[6]))\nt7 = osh[\"Dan.8.7\"].split(\" \")\nprint(\"C oshb:Dan.8.7 word 1 consonants\", cons(t7[0]), \"matches i_saw_heb pattern:\", bool(re.search(F[\"i_saw_heb\"][\"pattern\"], cons(osh[\"Dan.8.7\"]))))\n# D. WEB wording of 8:7 and 8:9 (second witness for the absence claim at 8:9)\nweb = open(P_WEB, encoding=\"utf-8\").read().split(\"\\n\")\nch = None; cur = None; W = {}\nfor l in web:\n    m = re.match(r\"=+ DAN (\\d+) =+\", l)\n    if m:\n        ch = int(m.group(1)); cur = None; continue\n    m = re.match(r\"\\[v\\] (\\d+) (.*)\", l)\n    if m:\n        cur = \"%d.%s\" % (ch, m.group(1)); W[cur] = m.group(2); continue\n    if cur and l.strip() and l.strip() != \"\\u00b6\":\n        W[cur] += \" \" + l.strip()\nfor v in (\"8.7\", \"8.9\"):\n    print(\"D web:Dan.\" + v, \"seeing/behold words\", re.findall(r\"\\b(?:saw|see|seen|seeing|behold|looked|watched|considered|considering)\\b\", W[v], flags=re.I))\n",
+    "output": "sha256 Dan_oshb.txt 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0\nsha256 Dan_web_clean.txt 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa\nsha256 dan_device_inventory.json 466d7e6e91a6af396fe9d5e38e1e54fc10272be79229d398283af92168552964\nA oshb:Dan.7.1 words 18 then_aram pattern hits at word [13] inventory lists Dan.7.1 under then_aram: True\nB inventory keys listing Dan.8.2 ['i_saw_heb', 'i_saw_in_the_vision_heb', 'vision_noun_hazon_heb', 'vayehi_heb']\nB inventory keys listing Dan.8.3 ['i_saw_heb', 'lifted_eyes_and_saw_heb', 'behold_heb']\nB inventory keys listing Dan.8.4 ['i_saw_heb']\nB inventory keys listing Dan.8.5 ['behold_heb']\nB inventory keys listing Dan.8.6 ['i_saw_heb']\nB inventory keys listing Dan.8.7 []\nB inventory keys listing Dan.8.8 []\nB inventory keys listing Dan.8.9 []\nB seeing/behold keys scanned ['i_saw_heb', 'i_saw_in_the_vision_heb', 'lifted_eyes_and_saw_heb', 'behold_heb', 'i_was_seeing_heb'] all present in inventory: True\nC oshb:Dan.8.2 words 17 seeing/behold words [(1, 'ואראה'), (11, 'ואראה')]\nC oshb:Dan.8.3 words 20 seeing/behold words [(3, 'ואראה'), (4, 'והנה')]\nC oshb:Dan.8.4 words 18 seeing/behold words [(1, 'ראיתי')]\nC oshb:Dan.8.5 words 21 seeing/behold words [(4, 'והנה')]\nC oshb:Dan.8.6 words 14 seeing/behold words [(7, 'ראיתי')]\nC oshb:Dan.8.7 words 27 seeing/behold words [(1, 'וראיתיו')]\nC oshb:Dan.8.8 words 16 seeing/behold words []\nC oshb:Dan.8.9 words 15 seeing/behold words []\nC oshb:Dan.8.6 word 6 consonants אשר word 7 consonants ראיתי\nC oshb:Dan.8.7 word 1 consonants וראיתיו matches i_saw_heb pattern: False\nD web:Dan.8.7 seeing/behold words ['saw']\nD web:Dan.8.9 seeing/behold words []\n"
+   }
+  },
+  {
+   "n": 2,
+   "row": "W4-002",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "introduction from its judgment.",
+   "after": "introduction from its judgment (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F3"
+   ],
+   "orders": [
+    "O5"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.7.8 words 24-25 and Dan.7.11 words 6-10 share the speaking stem and the great-things adjective of the horn; that 7:11 resumes 7:8 and that a 7:9 cut would split them is a reading of those bytes, hence INFERRED.",
+   "scan": null
+  },
+  {
+   "n": 3,
+   "row": "W4-003",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "oshb:Dan.7.14 ends on the everlasting-dominion clause שָׁלְטָנֵ֞הּ שָׁלְטָ֤ן עָלַם֙ (everlasting_dominion_aram, with to_all_peoples_nations_tongues_aram), close-side evidence under D1, and PE stands after 7:14 (the OSHB mark layer, single witness).",
+   "after": "oshb:Dan.7.14 carries the everlasting-dominion clause שָׁלְטָנֵ֞הּ שָׁלְטָ֤ן עָלַם֙ (everlasting_dominion_aram, with to_all_peoples_nations_tongues_aram), and the verse closes on וּמַלְכוּתֵ֖הּ דִּי לָ֥א תִתְחַבַּֽל (OSHB/WLC), his kingdom as one not to be destroyed (EXTRACTED, OSHB/WLC and device inventory); this is close-side evidence under D1 (INFERRED), and PE stands after 7:14, a single witness (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F4"
+   ],
+   "orders": [
+    "O4"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.7.14: 21 words; the everlasting-dominion words are words 12-14 and the verse ends on words 18-21 (sliced into the row). SP\\Dan\\dan_device_inventory.json lists Dan.7.14 under everlasting_dominion_aram and to_all_peoples_nations_tongues_aram. SP\\Dan\\pmarks_Dan.json marks Dan.7.14 = PE. SP\\Dan\\Dan_web_clean.txt 7:14 ends on the kingdom that will not be destroyed.",
+   "scan": null
+  },
+  {
+   "n": 4,
+   "row": "W4-004",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "a two-verse request row would be an over-split; the reply frame at the end of 7:16 opens the answer inside this row.",
+   "after": "a two-verse request row would be an over-split (INFERRED); the reply frame stands at the end of 7:16 (EXTRACTED, OSHB/WLC), so the answer opens inside this row (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F5"
+   ],
+   "orders": [
+    "O5"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.7.16: 16 words; the reply frame (and he said to me, and the interpretation of the things he made known to me) is words 12-16, the end of the verse.",
+   "scan": null
+  },
+  {
+   "n": 5,
+   "row": "W4-006",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "oshb:Dan.7.27 ends מַלְכוּתֵהּ֙ מַלְכ֣וּת עָלַ֔ם (everlasting_kingdom_aram, most_high_aram), close-side evidence under D1.",
+   "after": "oshb:Dan.7.27 carries the everlasting-kingdom words מַלְכוּתֵהּ֙ מַלְכ֣וּת עָלַ֔ם (everlasting_kingdom_aram, most_high_aram) and closes on the clause after them, וְכֹל֙ שָׁלְטָ֣נַיָּ֔א לֵ֥הּ יִפְלְח֖וּן וְיִֽשְׁתַּמְּעֽוּן (OSHB/WLC), the dominions serving and obeying (EXTRACTED, device inventory and OSHB/WLC); the refrain with its closing clause is the close-side evidence under D1 (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F7"
+   ],
+   "orders": [
+    "O4"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.7.27: 20 words; the everlasting-kingdom words are words 13-15 and the verse ends on words 16-20 (sliced into the row). SP\\Dan\\dan_device_inventory.json lists Dan.7.27 under everlasting_kingdom_aram and most_high_aram. SP\\Dan\\Dan_web_clean.txt 7:27 ends on all dominions serving and obeying.",
+   "scan": null
+  },
+  {
+   "n": 6,
+   "row": "W4-007",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "and 7:28 changes speaker back to the seer and names the matter's close;",
+   "after": "and 7:28 carries i_daniel_aram after its closing formula for the matter (EXTRACTED, OSHB/WLC and device inventory); the change of speaker back to the seer is a reading of that first-person formula (INFERRED);",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F8"
+   ],
+   "orders": [
+    "O5"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.7.28: words 1-5 are the closing formula for the matter, words 6-7 the first-person Daniel formula. SP\\Dan\\dan_device_inventory.json lists Dan.7.28 under i_daniel_aram.",
+   "scan": null
+  },
+  {
+   "n": 7,
+   "row": "W4-008",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "8:9 continues from the four horns with no seeing or behold marker, while 8:5 carries behold_heb and the seer's own clause; a 12-verse report needs one internal cut and 8:4/8:5 is the only one with a device on its onset side.",
+   "after": "8:9 continues from the four horns without a seeing verb or a behold particle (MEASURED, OSHB/WLC and WEB), while 8:5 carries behold_heb after a first-person clause of the seer (EXTRACTED, device inventory and OSHB/WLC). Seeing and behold devices stand on both sides of the 8:4/8:5 cut: oshb:Dan.8.3 has lifted_eyes_and_saw_heb, i_saw_heb and behold_heb, 8.4 has i_saw_heb as its first word, 8.5 has behold_heb and 8.6 has i_saw_heb (EXTRACTED, device inventory and OSHB/WLC). A second rival is 8:1-8:2 / 8:3-8:12, parting the dateline and the Susa setting from the ram at the lifted-eyes formula of 8:3; it is not taken because it would leave 8:3-8:12 as one long row and part the setting from the scene it prepares (INFERRED). Under D5 seeing and behold forms step scenes inside one vision, so such a step does not by itself open a unit (INFERRED). A 12-verse report still needs one internal cut, and 8:4/8:5 is taken because the vision passes there from the ram to the goat, not because of a device (INFERRED).",
+   "ruling_id": "ROW-W4-008",
+   "findings": [
+    "F9",
+    "F10"
+   ],
+   "orders": [
+    "O1"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae verses_mt: Dan.8.3 under i_saw_heb, lifted_eyes_and_saw_heb, behold_heb; Dan.8.4 under i_saw_heb; Dan.8.5 under behold_heb; Dan.8.6 under i_saw_heb; Dan.8.7, 8.8, 8.9 under no formula. SP\\Dan\\Dan_oshb.txt: the seeing verb is word 1 of Dan.8.4; the behold particle is word 4 of Dan.8.5 after a three-word first-person clause; Dan.8.9 holds no seeing verb and no behold particle. SP\\Dan\\Dan_web_clean.txt 8:9 holds no seeing or behold word. Strategy D5 read in SP\\Dan\\book_strategy_Dan.md.",
+   "scan": {
+    "script": "work\\scan_w4.py",
+    "code": "# Scan for the MEASURED annotations of FIXUP-6 part W4 (execution dan_fixup6_W4_a1#e2).\n# Reads only pinned inputs by exact path; prints to stdout; writes nothing.\nimport json, re, hashlib, unicodedata\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nP_OSHB = SP + r\"\\Dan\\Dan_oshb.txt\"\nP_WEB = SP + r\"\\Dan\\Dan_web_clean.txt\"\nP_INV = SP + r\"\\Dan\\dan_device_inventory.json\"\nfor p in (P_OSHB, P_WEB, P_INV):\n    print(\"sha256\", p.split(\"\\\\\")[-1], hashlib.sha256(open(p, \"rb\").read()).hexdigest())\nosh = dict(l.split(\"\\t\", 1) for l in open(P_OSHB, encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l)\ndef cons(s):\n    return \"\".join(c for c in s if unicodedata.category(c) not in (\"Mn\", \"Cf\"))\ninv = json.load(open(P_INV, encoding=\"utf-8\"))\nF = inv[\"formulae\"]\n# A. position of the then-word in oshb:Dan.7.1 (space-delimited words, one-based), by the inventory's own pattern\ntoks = osh[\"Dan.7.1\"].split(\" \")\npat = re.compile(F[\"then_aram\"][\"pattern\"])\nhits = [i + 1 for i, t in enumerate(toks) if pat.search(cons(t))]\nprint(\"A oshb:Dan.7.1 words\", len(toks), \"then_aram pattern hits at word\", hits, \"inventory lists Dan.7.1 under then_aram:\", \"Dan.7.1\" in F[\"then_aram\"][\"verses_mt\"])\n# B. inventory formula keys that list each verse of 8:2-8:9\nSEE = [\"i_saw_heb\", \"i_saw_in_the_vision_heb\", \"lifted_eyes_and_saw_heb\", \"behold_heb\", \"i_was_seeing_heb\"]\nfor n in range(2, 10):\n    v = \"Dan.8.%d\" % n\n    print(\"B inventory keys listing\", v, [k for k, e in F.items() if v in e.get(\"verses_mt\", [])])\nprint(\"B seeing/behold keys scanned\", SEE, \"all present in inventory:\", all(k in F for k in SEE))\n# C. witness words of 8:2-8:9 whose consonants hold a first-person seeing form or the behold particle\nsee_re = re.compile(r\"^(?:ו)?(?:ארא|אראה|ראיתי)\")\nfor n in range(2, 10):\n    v = \"Dan.8.%d\" % n\n    t = osh[v].split(\" \")\n    hit = [(i + 1, cons(x)) for i, x in enumerate(t) if see_re.search(cons(x)) or cons(x) in (\"והנה\", \"הנה\")]\n    print(\"C oshb:\" + v, \"words\", len(t), \"seeing/behold words\", hit)\nt6 = osh[\"Dan.8.6\"].split(\" \")\nprint(\"C oshb:Dan.8.6 word 6 consonants\", cons(t6[5]), \"word 7 consonants\", cons(t6[6]))\nt7 = osh[\"Dan.8.7\"].split(\" \")\nprint(\"C oshb:Dan.8.7 word 1 consonants\", cons(t7[0]), \"matches i_saw_heb pattern:\", bool(re.search(F[\"i_saw_heb\"][\"pattern\"], cons(osh[\"Dan.8.7\"]))))\n# D. WEB wording of 8:7 and 8:9 (second witness for the absence claim at 8:9)\nweb = open(P_WEB, encoding=\"utf-8\").read().split(\"\\n\")\nch = None; cur = None; W = {}\nfor l in web:\n    m = re.match(r\"=+ DAN (\\d+) =+\", l)\n    if m:\n        ch = int(m.group(1)); cur = None; continue\n    m = re.match(r\"\\[v\\] (\\d+) (.*)\", l)\n    if m:\n        cur = \"%d.%s\" % (ch, m.group(1)); W[cur] = m.group(2); continue\n    if cur and l.strip() and l.strip() != \"\\u00b6\":\n        W[cur] += \" \" + l.strip()\nfor v in (\"8.7\", \"8.9\"):\n    print(\"D web:Dan.\" + v, \"seeing/behold words\", re.findall(r\"\\b(?:saw|see|seen|seeing|behold|looked|watched|considered|considering)\\b\", W[v], flags=re.I))\n",
+    "output": "sha256 Dan_oshb.txt 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0\nsha256 Dan_web_clean.txt 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa\nsha256 dan_device_inventory.json 466d7e6e91a6af396fe9d5e38e1e54fc10272be79229d398283af92168552964\nA oshb:Dan.7.1 words 18 then_aram pattern hits at word [13] inventory lists Dan.7.1 under then_aram: True\nB inventory keys listing Dan.8.2 ['i_saw_heb', 'i_saw_in_the_vision_heb', 'vision_noun_hazon_heb', 'vayehi_heb']\nB inventory keys listing Dan.8.3 ['i_saw_heb', 'lifted_eyes_and_saw_heb', 'behold_heb']\nB inventory keys listing Dan.8.4 ['i_saw_heb']\nB inventory keys listing Dan.8.5 ['behold_heb']\nB inventory keys listing Dan.8.6 ['i_saw_heb']\nB inventory keys listing Dan.8.7 []\nB inventory keys listing Dan.8.8 []\nB inventory keys listing Dan.8.9 []\nB seeing/behold keys scanned ['i_saw_heb', 'i_saw_in_the_vision_heb', 'lifted_eyes_and_saw_heb', 'behold_heb', 'i_was_seeing_heb'] all present in inventory: True\nC oshb:Dan.8.2 words 17 seeing/behold words [(1, 'ואראה'), (11, 'ואראה')]\nC oshb:Dan.8.3 words 20 seeing/behold words [(3, 'ואראה'), (4, 'והנה')]\nC oshb:Dan.8.4 words 18 seeing/behold words [(1, 'ראיתי')]\nC oshb:Dan.8.5 words 21 seeing/behold words [(4, 'והנה')]\nC oshb:Dan.8.6 words 14 seeing/behold words [(7, 'ראיתי')]\nC oshb:Dan.8.7 words 27 seeing/behold words [(1, 'וראיתיו')]\nC oshb:Dan.8.8 words 16 seeing/behold words []\nC oshb:Dan.8.9 words 15 seeing/behold words []\nC oshb:Dan.8.6 word 6 consonants אשר word 7 consonants ראיתי\nC oshb:Dan.8.7 word 1 consonants וראיתיו matches i_saw_heb pattern: False\nD web:Dan.8.7 seeing/behold words ['saw']\nD web:Dan.8.9 seeing/behold words []\n"
+   }
+  },
+  {
+   "n": 8,
+   "row": "W4-009",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "8:6 has i_saw_heb; 8:9 opens the little horn from one of the four horns without a seeing marker.",
+   "after": "at oshb:Dan.8.6 the seeing verb stands in a relative clause, אֲשֶׁ֣ר רָאִ֔יתִי (OSHB/WLC), about the ram already seen, and is listed as i_saw_heb (EXTRACTED, OSHB/WLC and device inventory); oshb:Dan.8.7 opens on a suffixed first-person seeing verb, וּרְאִיתִ֞יו (OSHB/WLC), a form not listed as a seeing device (MEASURED, device inventory and OSHB/WLC); neither opens a unit (INFERRED); 8:9 opens the little horn from one of the four horns without a seeing or behold word (MEASURED, WEB and OSHB/WLC).",
+   "ruling_id": "CLASS-INVENTORY-ARTIFACTS",
+   "findings": [
+    "F11"
+   ],
+   "orders": [
+    "O6"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.8.6 words 6-7: relative particle plus the first-person seeing verb, after the ram with the two horns; Dan.8.7 word 1: conjunction, first-person seeing verb, third-person suffix. SP\\Dan\\dan_device_inventory.json: i_saw_heb lists Dan.8.6 and not Dan.8.7; no formula lists Dan.8.7 or Dan.8.9. SP\\Dan\\Dan_web_clean.txt 8:9: no seeing or behold word.",
+   "scan": {
+    "script": "work\\scan_w4.py",
+    "code": "# Scan for the MEASURED annotations of FIXUP-6 part W4 (execution dan_fixup6_W4_a1#e2).\n# Reads only pinned inputs by exact path; prints to stdout; writes nothing.\nimport json, re, hashlib, unicodedata\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nP_OSHB = SP + r\"\\Dan\\Dan_oshb.txt\"\nP_WEB = SP + r\"\\Dan\\Dan_web_clean.txt\"\nP_INV = SP + r\"\\Dan\\dan_device_inventory.json\"\nfor p in (P_OSHB, P_WEB, P_INV):\n    print(\"sha256\", p.split(\"\\\\\")[-1], hashlib.sha256(open(p, \"rb\").read()).hexdigest())\nosh = dict(l.split(\"\\t\", 1) for l in open(P_OSHB, encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l)\ndef cons(s):\n    return \"\".join(c for c in s if unicodedata.category(c) not in (\"Mn\", \"Cf\"))\ninv = json.load(open(P_INV, encoding=\"utf-8\"))\nF = inv[\"formulae\"]\n# A. position of the then-word in oshb:Dan.7.1 (space-delimited words, one-based), by the inventory's own pattern\ntoks = osh[\"Dan.7.1\"].split(\" \")\npat = re.compile(F[\"then_aram\"][\"pattern\"])\nhits = [i + 1 for i, t in enumerate(toks) if pat.search(cons(t))]\nprint(\"A oshb:Dan.7.1 words\", len(toks), \"then_aram pattern hits at word\", hits, \"inventory lists Dan.7.1 under then_aram:\", \"Dan.7.1\" in F[\"then_aram\"][\"verses_mt\"])\n# B. inventory formula keys that list each verse of 8:2-8:9\nSEE = [\"i_saw_heb\", \"i_saw_in_the_vision_heb\", \"lifted_eyes_and_saw_heb\", \"behold_heb\", \"i_was_seeing_heb\"]\nfor n in range(2, 10):\n    v = \"Dan.8.%d\" % n\n    print(\"B inventory keys listing\", v, [k for k, e in F.items() if v in e.get(\"verses_mt\", [])])\nprint(\"B seeing/behold keys scanned\", SEE, \"all present in inventory:\", all(k in F for k in SEE))\n# C. witness words of 8:2-8:9 whose consonants hold a first-person seeing form or the behold particle\nsee_re = re.compile(r\"^(?:ו)?(?:ארא|אראה|ראיתי)\")\nfor n in range(2, 10):\n    v = \"Dan.8.%d\" % n\n    t = osh[v].split(\" \")\n    hit = [(i + 1, cons(x)) for i, x in enumerate(t) if see_re.search(cons(x)) or cons(x) in (\"והנה\", \"הנה\")]\n    print(\"C oshb:\" + v, \"words\", len(t), \"seeing/behold words\", hit)\nt6 = osh[\"Dan.8.6\"].split(\" \")\nprint(\"C oshb:Dan.8.6 word 6 consonants\", cons(t6[5]), \"word 7 consonants\", cons(t6[6]))\nt7 = osh[\"Dan.8.7\"].split(\" \")\nprint(\"C oshb:Dan.8.7 word 1 consonants\", cons(t7[0]), \"matches i_saw_heb pattern:\", bool(re.search(F[\"i_saw_heb\"][\"pattern\"], cons(osh[\"Dan.8.7\"]))))\n# D. WEB wording of 8:7 and 8:9 (second witness for the absence claim at 8:9)\nweb = open(P_WEB, encoding=\"utf-8\").read().split(\"\\n\")\nch = None; cur = None; W = {}\nfor l in web:\n    m = re.match(r\"=+ DAN (\\d+) =+\", l)\n    if m:\n        ch = int(m.group(1)); cur = None; continue\n    m = re.match(r\"\\[v\\] (\\d+) (.*)\", l)\n    if m:\n        cur = \"%d.%s\" % (ch, m.group(1)); W[cur] = m.group(2); continue\n    if cur and l.strip() and l.strip() != \"\\u00b6\":\n        W[cur] += \" \" + l.strip()\nfor v in (\"8.7\", \"8.9\"):\n    print(\"D web:Dan.\" + v, \"seeing/behold words\", re.findall(r\"\\b(?:saw|see|seen|seeing|behold|looked|watched|considered|considering)\\b\", W[v], flags=re.I))\n",
+    "output": "sha256 Dan_oshb.txt 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0\nsha256 Dan_web_clean.txt 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa\nsha256 dan_device_inventory.json 466d7e6e91a6af396fe9d5e38e1e54fc10272be79229d398283af92168552964\nA oshb:Dan.7.1 words 18 then_aram pattern hits at word [13] inventory lists Dan.7.1 under then_aram: True\nB inventory keys listing Dan.8.2 ['i_saw_heb', 'i_saw_in_the_vision_heb', 'vision_noun_hazon_heb', 'vayehi_heb']\nB inventory keys listing Dan.8.3 ['i_saw_heb', 'lifted_eyes_and_saw_heb', 'behold_heb']\nB inventory keys listing Dan.8.4 ['i_saw_heb']\nB inventory keys listing Dan.8.5 ['behold_heb']\nB inventory keys listing Dan.8.6 ['i_saw_heb']\nB inventory keys listing Dan.8.7 []\nB inventory keys listing Dan.8.8 []\nB inventory keys listing Dan.8.9 []\nB seeing/behold keys scanned ['i_saw_heb', 'i_saw_in_the_vision_heb', 'lifted_eyes_and_saw_heb', 'behold_heb', 'i_was_seeing_heb'] all present in inventory: True\nC oshb:Dan.8.2 words 17 seeing/behold words [(1, 'ואראה'), (11, 'ואראה')]\nC oshb:Dan.8.3 words 20 seeing/behold words [(3, 'ואראה'), (4, 'והנה')]\nC oshb:Dan.8.4 words 18 seeing/behold words [(1, 'ראיתי')]\nC oshb:Dan.8.5 words 21 seeing/behold words [(4, 'והנה')]\nC oshb:Dan.8.6 words 14 seeing/behold words [(7, 'ראיתי')]\nC oshb:Dan.8.7 words 27 seeing/behold words [(1, 'וראיתיו')]\nC oshb:Dan.8.8 words 16 seeing/behold words []\nC oshb:Dan.8.9 words 15 seeing/behold words []\nC oshb:Dan.8.6 word 6 consonants אשר word 7 consonants ראיתי\nC oshb:Dan.8.7 word 1 consonants וראיתיו matches i_saw_heb pattern: False\nD web:Dan.8.7 seeing/behold words ['saw']\nD web:Dan.8.9 seeing/behold words []\n"
+   }
+  },
+  {
+   "n": 9,
+   "row": "W4-011",
+   "field": "unit_type",
+   "entry_index": null,
+   "before": "interpretation",
+   "after": "narrative",
+   "ruling_id": "ROW-W4-011",
+   "findings": [
+    "F12"
+   ],
+   "orders": [
+    "O2"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt and SP\\Dan\\Dan_web_clean.txt 8:15-8:18: a figure appears, a voice commissions Gabriel, he approaches, the seer falls, sleeps, is touched and set upright; the interpreting speech opens at 8:19. SP\\Dan\\book_strategy_Dan.md section 6: narrative covers first person framing in the visions.",
+   "scan": null
+  },
+  {
+   "n": 10,
+   "row": "W4-011",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "unit_type interpretation is given to the turn into the interpretation (guard (d) names 8:15), though 8:15-8:18 is largely narrative of the seer's experience (INFERRED); disclosed as a deviation.",
+   "after": "8:15-8:18 is first-person narrative framing: a figure appears, a voice commissions Gabriel, and the seer falls, sleeps and is set upright (EXTRACTED, OSHB/WLC and WEB); an interpretive clause stands in the address of 8:17, and the interpreting speech itself opens at 8:19 in the next unit (INFERRED).",
+   "ruling_id": "ROW-W4-011",
+   "findings": [
+    "F13"
+   ],
+   "orders": [
+    "O3"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt and SP\\Dan\\Dan_web_clean.txt 8:15-8:19 as in record 9; Dan.8.17 words 11-17 hold the address and the end-time clause; Dan.8.19 opens on the announcement.",
+   "scan": null
+  },
+  {
+   "n": 11,
+   "row": "W4-011",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "the Aramaic figure of 7:13 (spliced above) (EXTRACTED",
+   "after": "the Aramaic figure of 7:13 (EXTRACTED",
+   "ruling_id": "ROW-W4-011",
+   "findings": [
+    "F13"
+   ],
+   "orders": [
+    "O3"
+   ],
+   "bytes_read": "The device_notes field of the pinned row holds no splice of 7:13 and neither does any field above it in the row. SP\\Dan\\Dan_oshb.txt Dan.7.13 words 9-10 and Dan.8.17 words 12-13 differ in wording; SP\\Dan\\dan_language_zones.json verse_language Dan.7.13 = A, Dan.8.17 = H.",
+   "scan": null
+  }
+ ],
+ "dispositions": [
+  {
+   "item": "F1",
+   "disposition": "applied",
+   "records": [
+    1
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.7.1: 18 words, the then-word is word 13",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "Finding borne out by the bytes; position corrected to word 13 of 18 with its scan."
+  },
+  {
+   "item": "F2",
+   "disposition": "applied",
+   "records": [
+    1
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.7.1: 18 words, the then-word is word 13",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "Same defect seen by the second lens; same record."
+  },
+  {
+   "item": "F3",
+   "disposition": "applied",
+   "records": [
+    2
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.7.8 words 24-25, Dan.7.11 words 6-10",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "Tier word added to the untiered weighing; no other character changed."
+  },
+  {
+   "item": "F4",
+   "disposition": "applied",
+   "records": [
+    3
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.7.14: dominion words are 12-14 of 21; the verse ends on words 18-21",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "False position claim (ends on) corrected; the true last words are sliced in."
+  },
+  {
+   "item": "F5",
+   "disposition": "applied",
+   "records": [
+    4
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.7.16 words 12-16 of 16",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "Tier words added to the three clauses of the sentence."
+  },
+  {
+   "item": "F6",
+   "disposition": "no_row_change_by_ruling",
+   "records": [],
+   "bytes_read": "Dan_oshb.txt Dan.7.19: the splice is words 1-3 of 24; Dan_web_clean.txt 7:19: the quoted gloss also renders words 4-6",
+   "ruling_id": "CLASS-EXTENT",
+   "note": "The extent difference between splice and gloss is confirmed and changes no row under the ruling, which names W4-005. The second part of the finding (two untiered claims in strongest_rejected_alternative) needs a field the map does not open; see blocked."
+  },
+  {
+   "item": "F7",
+   "disposition": "applied",
+   "records": [
+    5
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.7.27: kingdom words are 13-15 of 20; the verse ends on words 16-20",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "False position claim corrected in boundary_rationale. The untiered absence claim sits in strongest_rejected_alternative, which the map does not open; see blocked."
+  },
+  {
+   "item": "F8",
+   "disposition": "applied",
+   "records": [
+    6
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.7.28 words 1-7; dan_device_inventory.json i_daniel_aram lists Dan.7.28",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "The speaker change is restated as a reading of the first-person formula and tiered."
+  },
+  {
+   "item": "F9",
+   "disposition": "applied",
+   "records": [
+    7
+   ],
+   "bytes_read": "dan_device_inventory.json: seeing or behold formulae list Dan.8.3, 8.4, 8.5 and 8.6",
+   "ruling_id": "ROW-W4-008",
+   "note": "The only-one claim is refuted by the inventory and removed."
+  },
+  {
+   "item": "F10",
+   "disposition": "applied",
+   "records": [
+    7
+   ],
+   "bytes_read": "dan_device_inventory.json: seeing or behold formulae list Dan.8.3, 8.4, 8.5 and 8.6",
+   "ruling_id": "ROW-W4-008",
+   "note": "Same defect seen by the second lens; same record."
+  },
+  {
+   "item": "F11",
+   "disposition": "applied",
+   "records": [
+    8
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.8.6 words 6-7 and Dan.8.7 word 1; dan_device_inventory.json i_saw_heb lists Dan.8.6, not Dan.8.7",
+   "ruling_id": "CLASS-INVENTORY-ARTIFACTS",
+   "note": ""
+  },
+  {
+   "item": "F12",
+   "disposition": "applied",
+   "records": [
+    9
+   ],
+   "bytes_read": "Dan_oshb.txt and Dan_web_clean.txt 8:15-8:18; book_strategy_Dan.md section 6",
+   "ruling_id": "ROW-W4-011",
+   "note": "unit_type set to narrative, the exact value ordered."
+  },
+  {
+   "item": "F13",
+   "disposition": "applied",
+   "records": [
+    10,
+    11
+   ],
+   "bytes_read": "W4-011 device_notes of the pinned row; Dan_oshb.txt Dan.7.13 and Dan.8.17",
+   "ruling_id": "ROW-W4-011",
+   "note": "Deviation sentence replaced; the pointer to a splice that the row does not hold is removed. Gloss extents in boundary_rationale at 8:16, 8:18 and 8:19 fall under CLASS-EXTENT and are left unchanged."
+  },
+  {
+   "item": "O1",
+   "disposition": "applied",
+   "records": [
+    7
+   ],
+   "bytes_read": "",
+   "ruling_id": "ROW-W4-008",
+   "note": "Only-one claim removed; inventory positions at oshb:Dan.8.3, 8.4, 8.5 and 8.6 stated; the 8:2/8:3 rival named; D5 reason given."
+  },
+  {
+   "item": "O2",
+   "disposition": "applied",
+   "records": [
+    9
+   ],
+   "bytes_read": "",
+   "ruling_id": "ROW-W4-011",
+   "note": "interpretation -> narrative."
+  },
+  {
+   "item": "O3",
+   "disposition": "choice",
+   "records": [
+    10,
+    11
+   ],
+   "bytes_read": "",
+   "ruling_id": "ROW-W4-011",
+   "note": "Branch taken: remove (spliced above), record 11; no replacement statement was written because the row holds no splice of 7:13. Record 10 removes the deviation sentence."
+  },
+  {
+   "item": "O4",
+   "disposition": "applied",
+   "records": [
+    1,
+    3,
+    5
+   ],
+   "bytes_read": "",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "W4-001 word position and file stem; W4-003 and W4-006 position claims. W4-005 changes no row under CLASS-EXTENT."
+  },
+  {
+   "item": "O5",
+   "disposition": "applied",
+   "records": [
+    2,
+    4,
+    6
+   ],
+   "bytes_read": "",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "W4-002, W4-004, W4-007. The untiered claims in strongest_rejected_alternative of W4-005 and W4-006 are in fields the map does not open; see blocked."
+  },
+  {
+   "item": "O6",
+   "disposition": "applied",
+   "records": [
+    8
+   ],
+   "bytes_read": "",
+   "ruling_id": "CLASS-INVENTORY-ARTIFACTS",
+   "note": ""
+  }
+ ],
+ "blocked": [
+  {
+   "row": "W4-005",
+   "field": "strongest_rejected_alternative",
+   "why": "The finding on this row also reports two claims with no tier word in this field (that 7:22 closes on the kingdom refrain and that 7:23 changes speaker). The map opens only boundary_rationale on W4-005, so the field is left unchanged.",
+   "evidence": "Pinned row W4-005, strongest_rejected_alternative: the sentence beginning 'It is within the 2-9 range' carries no tier word. Docket low file, W4-005, OL claim."
+  },
+  {
+   "row": "W4-006",
+   "field": "strongest_rejected_alternative",
+   "why": "The finding on this row also reports an untiered absence claim in this field (no refrain or speaker change at 7:25/7:26). The map opens only boundary_rationale on W4-006, so the field is left unchanged.",
+   "evidence": "Pinned row W4-006, strongest_rejected_alternative: 'no refrain or speaker change stands at 7:25/7:26' carries no tier word. Docket low file, W4-006, OL claim."
+  },
+  {
+   "row": "W4-008",
+   "field": "strongest_rejected_alternative",
+   "why": "New flag key (refs_mirror far_side_citations_detail, citation Dan.8.6, raw 8.6). Order O1 requires the row to state the device the inventory holds at oshb:Dan.8.6, a verse outside the span 8:1-8:4, so the far-side citation cannot be removed. The member is not counted in triage_flags.",
+   "evidence": "work\\cmp_out.json key 1; applied report refs_mirror."
+  },
+  {
+   "row": "W4-009",
+   "field": "boundary_rationale",
+   "why": "New flag key (refs_mirror worklist_citations, citation Dan.8.6, raw oshb:Dan.8.6). It replaces the base key for the same verse with raw 8:6: the added Aramaic-script slice must stand beside a full oshb reference or the citation member turns RED (measured in one trial run: 'does not collate against any nearby cited ref'). Same citation, new spelling of the reference.",
+   "evidence": "work\\cmp_out.json key 2; base report holds the same citation with raw 8:6."
+  },
+  {
+   "row": "W4-001",
+   "field": "boundary_evidence_refs",
+   "why": "New flag key only by its context text (universals, claim 'first', same path [42].boundary_evidence_refs[0]). The flagged words 'first year of Belshazzar' are unchanged; the context window now holds the corrected text after them. The base key for the same claim and path is gone.",
+   "evidence": "work\\cmp_out.json key 3."
+  },
+  {
+   "row": "W4-006",
+   "field": "boundary_rationale",
+   "why": "New flag key only by its context text (universals, claim 'first', same path [47].boundary_rationale). The flagged sentence (the measured stem count) is unchanged; the member reports one context window per claim and path, and the window moved with the length of the corrected sentence before it. The base key for the same claim and path is gone.",
+   "evidence": "work\\cmp_out.json key 4."
+  }
+ ],
+ "suite": {
+  "command": "python -B C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\run_validator_suite.py work\\rows_base.jsonl ; python -B C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\run_validator_suite.py work\\rows_applied.jsonl (PYTHONDONTWRITEBYTECODE=1, PYTHONUTF8=1, PYTHONIOENCODING=utf-8)",
+  "base": {
+   "hard_status": "GREEN",
+   "triage_flags": 137
+  },
+  "applied": {
+   "hard_status": "GREEN",
+   "triage_flags": 134,
+   "dead_members": []
+  },
+  "new_flag_keys": [
+   "refs_mirror/far_side_citations_detail::{\"citation\": \"Dan.8.6\", \"class\": \"FAR_SIDE\", \"decision_id\": \"W4-008\", \"field\": \"strongest_rejected_alternative\", \"file\": \"ROWS\", \"kind\": \"single\", \"raw\": \"8.6\", \"repeats_in_row\": 0, \"role_token\": \"UNASSIGNED - the author assigns exactly one ROLE_VOCABULARY token; the member judges mirroring, never weight (DEF-A4-ARGUED clause 5/6)\", \"source\": \"dotted_continuation\", \"verse_count\": 1, \"verses_web\": [\"Dan.8.6\"]}",
+   "refs_mirror/worklist_citations::{\"citation\": \"Dan.8.6\", \"class\": \"IN_SPAN\", \"decision_id\": \"W4-009\", \"field\": \"boundary_rationale\", \"file\": \"ROWS\", \"kind\": \"single\", \"raw\": \"oshb:Dan.8.6\", \"repeats_in_row\": 0, \"role_token\": \"UNASSIGNED - the author assigns exactly one ROLE_VOCABULARY token; the member judges mirroring, never weight (DEF-A4-ARGUED clause 5/6)\", \"source\": \"osis_token\", \"verse_count\": 1, \"verses_web\": [\"Dan.8.6\"]}",
+   "universals/flags::{\"claim\": \"first\", \"context\": \"oshb:Dan.7.1 [WARRANT-onset:near] Aramaic dateline, first year of Belshazzar (EXTRACTED, device inventory); visions_of_my_head_aram;\", \"file\": \"ROWS\", \"path\": \"[42].boundary_evidence_refs[0]\"}",
+   "universals/flags::{\"claim\": \"first\", \"context\": \"unt over OSHB/WLC 7:13-7:28, the three stems sliced by script from the consonants of the oshb:Dan.7.18 words (OSHB/WLC): kingdom-stem m-l-k-\", \"file\": \"ROWS\", \"path\": \"[47].boundary_rationale\"}"
+  ]
+ }
+}

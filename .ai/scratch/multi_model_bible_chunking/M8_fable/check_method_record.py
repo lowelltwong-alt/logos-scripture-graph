@@ -160,18 +160,44 @@ def report(doc):
     return out, failed
 
 
+# AMENDED 2026-10-13 (v7, Daniel close). Three of the six tampers named v6's own strings ("(§12, new in v6)",
+# obligation 13 by its title, "§16 gains obligations 12 and 13"), so on v7 they did not bite and the selftest reported
+# MISSED. They are now written against the version under test. Nothing in evaluate() changed. The tool as it stood is
+# kept beside this one as check_method_record.py.pre_<sha12>.
+def _unmark_first_section(t, ver):
+    """Strip this version's markers from the lowest-numbered section that carries one."""
+    for num, body in sorted(sections(t).items()):
+        if num and any(int(a or b) == ver for a, b in MARKER_RE.findall(body)):
+            new = re.sub(r"(?i)new in v%d\b" % ver, "new", body)
+            new = re.sub(r"\(v%d([,)])" % ver, r"(this version\1", new)
+            return t.replace(body, new, 1)
+    return t
+
+
+def _drop_obligation_two(t, ver):
+    """Remove obligation 2, which breaks the list's contiguity whatever its length."""
+    body = sections(t).get(16, "")
+    new = re.sub(r"(?ms)^2\. \*\*.*?(?=^3\. \*\*)", "", body, count=1)
+    return t.replace(body, new, 1) if body else t
+
+
+def _misname_table_section(t, ver):
+    """Point the newest change table's first named section at a section that does not exist."""
+    head = re.search(r"(?m)^### v%d → v%d\b.*$" % (ver - 1, ver), t)
+    if not head:
+        return t
+    return t[:head.end()] + re.sub(r"§\d+", "§27", t[head.end():], count=1)
+
+
 TAMPERS = [
-    ("marker_table_bidirectional",
-     lambda t: t.replace("(§12, new in v6)", "(§12)").replace("(§10, new in v6)", "(§10)")),
+    ("marker_table_bidirectional", _unmark_first_section),
     ("superseded_digest_true",
-     lambda t: re.sub(r"(sha256\s*\n?`)([0-9a-f])", lambda m: m.group(1) + ("b" if m.group(2) == "a" else "a"), t,
-                      count=1)),
-    ("obligations_contiguous_and_complete",
-     lambda t: re.sub(r"(?m)^13\. \*\*Keep the generator.*?(?=\n\n)", "", t, count=1, flags=re.S)),
-    ("lens_floor_intact", lambda t: t.replace(BAN, "review is a matter of taste")),
-    ("change_table_names_real_sections",
-     lambda t: t.replace("**§16 gains obligations 12 and 13.**", "**§27 gains obligations 12 and 13.**")),
-    ("no_placeholders", lambda t: t.replace("## 14. Anti-patterns", "TODO: finish this\n\n## 14. Anti-patterns")),
+     lambda t, ver: re.sub(r"(sha256\s*\n?`)([0-9a-f])", lambda m: m.group(1) + ("b" if m.group(2) == "a" else "a"),
+                           t, count=1)),
+    ("obligations_contiguous_and_complete", _drop_obligation_two),
+    ("lens_floor_intact", lambda t, ver: t.replace(BAN, "review is a matter of taste")),
+    ("change_table_names_real_sections", _misname_table_section),
+    ("no_placeholders", lambda t, ver: t.replace("## 14. Anti-patterns", "TODO: finish this\n\n## 14. Anti-patterns")),
 ]
 
 
@@ -182,7 +208,9 @@ def selftest(doc):
                                             "" if ok else "  FAILED=%s" % failed))
     text = doc.read_text(encoding="utf-8")
     tmp = Path(tempfile.mkdtemp(prefix="methodcheck_"))
-    for want, fn in TAMPERS:
+    for want, fn0 in TAMPERS:
+        def fn(t, _f=fn0):
+            return _f(t, clean["version"])
         t = fn(text)
         if t == text:
             print("  %-40s TAMPER DID NOT APPLY" % want)
@@ -210,7 +238,7 @@ def main():
     out, failed = report(doc)
     m = re.search(r"\.v(\d+)\.md$", doc.name)
     rec = doc.parent / ("method_record_check.v%s.json" % (m.group(1) if m else "adhoc"))
-    rec.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    rec.write_bytes((json.dumps(out, indent=1, ensure_ascii=False) + "\n").encode("utf-8"))  # LF bytes (E-73)
     print(json.dumps({k: out[k] for k in ("doc", "doc_sha256", "bytes", "checks_passed", "checks_run", "FAILED",
                                           "VERDICT")}, indent=1))
     for k, v in out["checks"].items():

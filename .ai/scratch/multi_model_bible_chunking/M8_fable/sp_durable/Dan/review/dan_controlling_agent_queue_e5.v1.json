@@ -1,0 +1,70 @@
+{
+ "schema": "m8_controlling_queue.v1",
+ "book": "Dan",
+ "for_execution": "dan_controlling_rulings_a5#e1",
+ "status": "PROPOSALS by the orchestrator (claude-opus-5-5, OW-25); the controlling execution rules on each id",
+ "prior_rulings": [
+  {
+   "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E1.v1.json",
+   "sha256": "541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30"
+  },
+  {
+   "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E2.v1.json",
+   "sha256": "43ae72e748fe1e55be3103e826194672a3b317300ff413d690682697b121f940"
+  },
+  {
+   "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E3.v1.json",
+   "sha256": "680b621d178e1f1c173204d504131c7c80f0de6a78bfe93dd52a10a060c318c0"
+  },
+  {
+   "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E4.v1.json",
+   "sha256": "ff21977a7c635f5104c810053f773a5f7c74a03a548bdd39f16d1f04f7adc6e1"
+  }
+ ],
+ "rows_under_review": {
+  "path": "sp_durable/Dan/fixup/draft_rows_fixup4_applied.jsonl",
+  "sha256": "37c321a5de036bae5b72b757f603197436606db33d50dc46cd18ab00abe81d14",
+  "stage": "FIXUP-4 applied (one replacement and two tier insertions in W1); not reviewed by any lane"
+ },
+ "measured_context": {
+  "evidence": {
+   "f_measure.json": {
+    "path": "sp_durable/Dan/review/e5_evidence/f_measure.json",
+    "sha256": "2d554c2d22099f26d87c7e044074055301d21c89a345f3a9b17dac247d5317f1"
+   },
+   "triage_delta_fx4.json": {
+    "path": "sp_durable/Dan/review/e5_evidence/triage_delta_fx4.json",
+    "sha256": "e0d028efb49ad693a8c2b1c54c2175378265290201f2c8e16322f6a2089d565c"
+   },
+   "cwo_applied_fx4.json": {
+    "path": "sp_durable/Dan/review/e5_evidence/cwo_applied_fx4.json",
+    "sha256": "cc3bca18fd1f0b5602b5155e520649493193b2ae08c8931953a8c82a5251c1a4"
+   },
+   "cwo03_dispositions_fx4.json": {
+    "path": "sp_durable/Dan/review/e5_evidence/cwo03_dispositions_fx4.json",
+    "sha256": "0889ee1cfa2398a18e9521fa2273768d2cd40dd83551474b6b5b94af8fefff2e"
+   },
+   "suite_report_post_fx4.json": {
+    "path": "sp_durable/Dan/review/e5_evidence/suite_report_post_fx4.json",
+    "sha256": "dc8988f284ca8eb991441d212441e3c1f39c794fc7486a349b48c5cc18f74105"
+   }
+  }
+ },
+ "items": [
+  {
+   "id": "F9-W1-002-A6",
+   "proposal": "E4 condition F9 is NOT met (MEASURED by scratch apply_measure_fx4.py, e5_evidence/f_measure.json key F9 and e5_evidence/triage_delta_fx4.json): the FIXUP-4 applied rows carry 138 triage flags against 137 before. The one new flag is in member web_quotes (0 flags before), row W1-002 (span Dan.1.8-Dan.1.16), field boundary_rationale: quote 'of the prince of the eunuchs', words 6, issue 'a6_web_wording_without_the_convention (5+ consecutive WEB words are a quotation regardless of delimiter and owe curly double quotes plus an in-field web: ref - #e12 ruling A6)'. The flagged words lie inside the 'after' of the replacement E4 itself ordered ('the steward's fear -> the fear of the prince of the eunuchs'), which the FIXUP-4 author applied exactly as ruled; the author REPORTS the same flag. EXTRACTED by the orchestrator from the pinned WEB file: verse 1:9 ends 'in the sight of the prince of the eunuchs', so the six flagged words are six consecutive WEB words of a verse inside the row's span; the officer's WEB designation 'the prince of the eunuchs' is by itself five words, the tool's threshold. EXTRACTED from the pinned tool check_web_quotes.py (lines 75-113 and 285-331): it applies '#e12 ruling A6', under which five or more consecutive WEB words are a quotation whatever the delimiter and owe curly double quotes plus an in-field web: reference. E4 condition F9 orders that a new flag touching these words returns to you; E4 did not test its ordered 'after' against the suite. Proposal A (no row change): rule a disposition for this one flag in words, saying whether a five-word officer designation used to NAME the officer, not to cite the verse, is a quotation under A6; if it is not, name the disposition class and say that F9 is satisfied by your ruling on this flag. Proposal B: order FIXUP-5 for W1 only, one lane, one replacement record in W1-002.boundary_rationale that puts the WEB words under the convention the tool accepts (you give the exact 'before -> after' span after reading the tool's convention and testing your 'after'). Proposal C: FIXUP-5 with an 'after' that names the officer without five consecutive WEB words and without adding a reading the bytes do not carry. Under B or C the tier annotations FIXUP-4 added stay as they are. Say which. Whatever you order, first apply it to a private copy of the rows and run the suite on that copy; give the result in your ruling's evidence.",
+   "proposed_route": "close, or fixup5:W1"
+  },
+  {
+   "id": "F1-F8-F10-MEASURED",
+   "proposal": "E4 conditions F1 to F8 and F10 are met on the FIXUP-4 applied rows (MEASURED by scratch apply_measure_fx4.py, e5_evidence/f_measure.json; F10 EXTRACTED from the landed change log): F1 base and form, 75 rows, same ids and key order, zero CR bytes; F2 exactly the two ruled values differ; F3 both fields equal the ruled text and digests, grammar matches rise by one in each (1 to 2, 2 to 3), 'the steward's fear' in no string; F4 the 44 pairs each hold a tier word, no row without one, no 'Fable'; F5 '(MEASURED' and '(EXTRACTED' counts unchanged in every row, both insertions exactly ' (INFERRED)', the replacement record names both files and the four verses; F6 suite hard GREEN, dead members [], seven-word member GREEN, tiling 357 of 357 and 75 decisions; F7 CWO-DAN-01, -02 and -04 zero hits, CWO-DAN-03 zero zone hits and 124 bare references with the same (row, field, match) set as on the FIXUP-3 file; F8 3 records replay to the applied file byte for byte; F10 nothing contradicted, unapplied or blocked. The speaker finding in the replacement record is REPORTED by the author. Not measured by any of these: whether a tier word is TRUE of its claim. Proposal: accept F1-F8 and F10 as met for this file; if you order FIXUP-5, the orchestrator re-measures F1-F10 on the new applied file (base the FIXUP-4 applied file, F2 and F3 restated by you for the one record) and installs by receipt.",
+   "proposed_route": "close"
+  },
+  {
+   "id": "GATE-E5",
+   "proposal": "Proposal: fixup5_may_launch and fixup5_parts as your ruling on F9-W1-002-A6 opens them; primaries_conditions restated in full, each checkable by the orchestrator with a script (the E4 conditions stay BINDING unless you amend one by id; F11's list of what each primary brief must carry stays as E4 wrote it, with the applied file being the one your ruling leaves standing); primaries_may_launch true on this ruling only if you choose Proposal A and say in words that F9 is satisfied by your disposition of the listed flag. Add a condition that any future ordered 'after' is suite-tested before its fix-up launches. No further S-review is proposed in either case.",
+   "proposed_route": "gate"
+  }
+ ]
+}

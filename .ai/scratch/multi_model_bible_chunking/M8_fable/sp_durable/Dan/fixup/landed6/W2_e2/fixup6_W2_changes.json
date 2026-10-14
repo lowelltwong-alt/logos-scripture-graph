@@ -1,0 +1,1124 @@
+{
+ "attempt_id": "dan_fixup6_W2_a1",
+ "execution_id": "dan_fixup6_W2_a1#e2",
+ "rows_file_sha256": "2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca",
+ "changes": [
+  {
+   "n": 1,
+   "row": "W2-001",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "the music list of 3:5 recurring in the execution clause.",
+   "after": "the music list of 3:5 recurring in the execution clause: the WEB names the same six instruments in both verses, while the Aramaic names six at 3:5 and five at 3:7 (MEASURED, OSHB/WLC and WEB).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F2"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.5 words 5-10 and Dan.3.7 words 11-15; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 5 and 7",
+   "scan": {
+    "script": "work\\scan_a.py",
+    "code": "# scan A: the instrument lists of Dan 3:5 and 3:7 in both witnesses\nimport re\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\no = {}\nfor l in open(SP + r\"\\Dan\\Dan_oshb.txt\", \"rb\").read().decode(\"utf-8\").split(\"\\n\"):\n    if \"\\t\" in l:\n        k, t = l.split(\"\\t\", 1); o[k] = t.split(\" \")\ndef sk(w): return \"\".join(c for c in w if \"\\u05d0\" <= c <= \"\\u05ea\")\na = [sk(w) for w in o[\"Dan.3.5\"][4:10]]; b = [sk(w) for w in o[\"Dan.3.7\"][10:15]]\nprint(\"oshb 3:5 words 5-10:\", len(a), a)\nprint(\"oshb 3:7 words 11-15:\", len(b), b)\nprint(\"oshb 3:5 word 11:\", sk(o[\"Dan.3.5\"][10]), \"| oshb 3:7 word 16:\", sk(o[\"Dan.3.7\"][15]))\nprint(\"3:5 names by position absent from 3:7:\", [(i + 1, x) for i, x in enumerate(a) if x not in b])\nw = {}; ch = None; cur = None\nfor l in open(SP + r\"\\Dan\\Dan_web_clean.txt\", \"rb\").read().decode(\"utf-8\").split(\"\\n\"):\n    m = re.match(r\"===== DAN (\\d+) =====\", l)\n    if m: ch = int(m.group(1)); continue\n    m = re.match(r\"\\[v\\] (\\d+) (.*)\", l)\n    if m: cur = (ch, int(m.group(1))); w[cur] = m.group(2); continue\n    if cur and l.strip() and l.strip() != \"\\u00b6\": w[cur] += \" \" + l.strip()\nfor v in (5, 7):\n    m = re.search(r\"sound of the (.*?), and all kinds of music\", w[(3, v)])\n    print(\"web 3:%d list:\" % v, m.group(1).split(\", \"))\n",
+    "output": "oshb 3:5 words 5-10: 6 ['קרנא', 'משרוקיתא', 'קיתרוס', 'סבכא', 'פסנתרין', 'סומפניה']\r\noshb 3:7 words 11-15: 5 ['קרנא', 'משרוקיתא', 'קיתרס', 'שבכא', 'פסנטרין']\r\noshb 3:5 word 11: וכל | oshb 3:7 word 16: וכל\r\n3:5 names by position absent from 3:7: [(3, 'קיתרוס'), (4, 'סבכא'), (5, 'פסנתרין'), (6, 'סומפניה')]\r\nweb 3:5 list: ['horn', 'flute', 'zither', 'lyre', 'harp', 'pipe']\r\nweb 3:7 list: ['horn', 'flute', 'zither', 'lyre', 'harp', 'pipe']\r\n"
+   }
+  },
+  {
+   "n": 2,
+   "row": "W2-001",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "formula at 3:4.",
+   "after": "formula at 3:4 (EXTRACTED, device inventory).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F1"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/to_all_peoples_nations_tongues_aram/verses_mt holds Dan.3.4",
+   "scan": null
+  },
+  {
+   "n": 3,
+   "row": "W2-001",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "so a cut at 3:4 would part command from compliance and leave 3:1-3 as a three-verse setting.",
+   "after": "so a cut at 3:4 would part command from compliance (INFERRED). It would also leave 3:1-3 as a setting of three verses (MEASURED, WEB).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F1"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 1-7",
+   "scan": {
+    "script": "work\\scan_d.py",
+    "code": "# scan D: verse counts of the spans named in chapter 3, on the WEB face\nimport re\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nvs = set(); ch = None\nfor l in open(SP + r\"\\Dan\\Dan_web_clean.txt\", \"rb\").read().decode(\"utf-8\").split(\"\\n\"):\n    m = re.match(r\"===== DAN (\\d+) =====\", l)\n    if m: ch = int(m.group(1)); continue\n    m = re.match(r\"\\[v\\] (\\d+) \", l)\n    if m: vs.add((ch, int(m.group(1))))\nfor a, b in ((1, 3), (8, 18), (19, 27), (24, 25), (26, 27)):\n    print(\"web 3:%d-3:%d verses:\" % (a, b), sum(1 for v in range(a, b + 1) if (3, v) in vs))\n",
+    "output": "web 3:1-3:3 verses: 3\r\nweb 3:8-3:18 verses: 11\r\nweb 3:19-3:27 verses: 9\r\nweb 3:24-3:25 verses: 2\r\nweb 3:26-3:27 verses: 2\r\n"
+   }
+  },
+  {
+   "n": 4,
+   "row": "W2-002",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "and a SAMEKH (single-witness) follows 3:12.",
+   "after": "and a SAMEKH (single-witness) follows 3:12 (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F4"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.12 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "scan": null
+  },
+  {
+   "n": 5,
+   "row": "W2-002",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "opening with the weak connective then (then_aram); the change of speaker from accusers to king supports the edge from that side.",
+   "after": "opening with then (then_aram), a weak connective (EXTRACTED, device inventory). The turn from the accusers' speech to the report of the king's command supports the edge from that side (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F4"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.13; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.13 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verse 13 (the king commands that the three be brought; he does not speak to the accusers)",
+   "scan": null
+  },
+  {
+   "n": 6,
+   "row": "W2-002",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": " (11 verses). Declined: the span exceeds 9 verses, and the SAMEKH (single-witness) after 3:12 coincides with a change of speaker from the accusers to the king; the accusation is a complete speech act of its own.",
+   "after": ", a span of 11 verses (MEASURED, WEB). Declined: that is above the nine-verse ceiling for a unit here, and the accusation is a complete speech act of its own (INFERRED). A SAMEKH (single-witness) follows 3:12, where the accusation ends (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F4"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 8-18; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.12 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "scan": {
+    "script": "work\\scan_d.py",
+    "code": "# scan D: verse counts of the spans named in chapter 3, on the WEB face\nimport re\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nvs = set(); ch = None\nfor l in open(SP + r\"\\Dan\\Dan_web_clean.txt\", \"rb\").read().decode(\"utf-8\").split(\"\\n\"):\n    m = re.match(r\"===== DAN (\\d+) =====\", l)\n    if m: ch = int(m.group(1)); continue\n    m = re.match(r\"\\[v\\] (\\d+) \", l)\n    if m: vs.add((ch, int(m.group(1))))\nfor a, b in ((1, 3), (8, 18), (19, 27), (24, 25), (26, 27)):\n    print(\"web 3:%d-3:%d verses:\" % (a, b), sum(1 for v in range(a, b + 1) if (3, v) in vs))\n",
+    "output": "web 3:1-3:3 verses: 3\r\nweb 3:8-3:18 verses: 11\r\nweb 3:19-3:27 verses: 9\r\nweb 3:24-3:25 verses: 2\r\nweb 3:26-3:27 verses: 2\r\n"
+   }
+  },
+  {
+   "n": 7,
+   "row": "W2-002",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "speech is one-sided; unit type dialogue is used for the address to the king, which the king answers at 3:14.",
+   "after": "speech is one-sided, one party addressing the king (INFERRED). The king responds by the summons of 3:13, and his words at 3:14 are spoken to the three (EXTRACTED, WEB). Unit type dialogue is kept for that address and the summons that answers it; whether the type fits is left to the end review (REPORTED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F3"
+   ],
+   "orders": [
+    "O7"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verse 13 (\"commanded that Shadrach, Meshach, and Abednego be brought\") and verse 14 (\"Nebuchadnezzar answered them\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.14 words 1-4 (the king answers and says to them)",
+   "scan": null
+  },
+  {
+   "n": 8,
+   "row": "W2-003",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "follows 3:12 and the accusation closes.",
+   "after": "follows 3:12 and the accusation closes (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F5",
+    "F6"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.12 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "scan": null
+  },
+  {
+   "n": 9,
+   "row": "W2-003",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "is weak, and the speaker change carries the onset.",
+   "after": "is weak, and the move from accusation to the king's summons carries the onset (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F5",
+    "F6"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.13; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 12-14 (3:13 is narration of the king's command, his speech begins at 3:14)",
+   "scan": null
+  },
+  {
+   "n": 10,
+   "row": "W2-003",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "a SAMEKH (single-witness) follows 3:18.",
+   "after": "a SAMEKH (single-witness) follows 3:18 (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F5",
+    "F6"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.18 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "scan": null
+  },
+  {
+   "n": 11,
+   "row": "W2-004",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "and a SAMEKH (single-witness) follows it.",
+   "after": "and a SAMEKH (single-witness) follows it (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F7",
+    "F8"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.18 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "scan": null
+  },
+  {
+   "n": 12,
+   "row": "W2-004",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "(then_aram) is weak. Close",
+   "after": "(then_aram) is weak, and it stands at both 3:19 and 3:24 (EXTRACTED, device inventory). Close",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F7",
+    "F8"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.19 and Dan.3.24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.19 word 1 and Dan.3.24 word 1",
+   "scan": null
+  },
+  {
+   "n": 13,
+   "row": "W2-004",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "and a PE (single-witness) follows 3:23.",
+   "after": "and a PE (single-witness) follows 3:23 (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F7",
+    "F8"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse)",
+   "scan": null
+  },
+  {
+   "n": 14,
+   "row": "W2-004",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "a new beat of perception inside one furnace scene.",
+   "after": "a new beat of perception inside one furnace scene (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F7",
+    "F8"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 23-24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.24 word 1",
+   "scan": null
+  },
+  {
+   "n": 15,
+   "row": "W2-004",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "as one furnace scene (9 verses), reading the PE after 3:23 as a pause inside the scene.",
+   "after": "as one furnace scene of 9 verses, reading the PE after 3:23 as a pause inside the scene (MEASURED, WEB).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F7",
+    "F8"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 19-27",
+   "scan": {
+    "script": "work\\scan_d.py",
+    "code": "# scan D: verse counts of the spans named in chapter 3, on the WEB face\nimport re\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nvs = set(); ch = None\nfor l in open(SP + r\"\\Dan\\Dan_web_clean.txt\", \"rb\").read().decode(\"utf-8\").split(\"\\n\"):\n    m = re.match(r\"===== DAN (\\d+) =====\", l)\n    if m: ch = int(m.group(1)); continue\n    m = re.match(r\"\\[v\\] (\\d+) \", l)\n    if m: vs.add((ch, int(m.group(1))))\nfor a, b in ((1, 3), (8, 18), (19, 27), (24, 25), (26, 27)):\n    print(\"web 3:%d-3:%d verses:\" % (a, b), sum(1 for v in range(a, b + 1) if (3, v) in vs))\n",
+    "output": "web 3:1-3:3 verses: 3\r\nweb 3:8-3:18 verses: 11\r\nweb 3:19-3:27 verses: 9\r\nweb 3:24-3:25 verses: 2\r\nweb 3:26-3:27 verses: 2\r\n"
+   }
+  },
+  {
+   "n": 16,
+   "row": "W2-004",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "so this alternative stays live for the end review.",
+   "after": "so this alternative stays live for the end review (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F7",
+    "F8"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.24",
+   "scan": null
+  },
+  {
+   "n": 17,
+   "row": "W2-004",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "the Greek tradition places its additional prayer and hymn after 3:23; that insertion point plays",
+   "after": "the Greek tradition is reported to place its additional prayer and hymn after 3:23 (REPORTED); this unit selects no tradition, and that insertion point plays",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F8"
+   ],
+   "orders": [
+    "O7"
+   ],
+   "bytes_read": "No pinned input of this part holds a Greek text of Daniel; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 23-24 and C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.23-Dan.3.24 hold no such addition, so the placement is carried as reported and no more",
+   "scan": null
+  },
+  {
+   "n": 18,
+   "row": "W2-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "a PE (single-witness) follows 3:23.",
+   "after": "a PE (single-witness) follows 3:23, the verse of the fall into the furnace (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F9",
+    "F10"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verse 23",
+   "scan": null
+  },
+  {
+   "n": 19,
+   "row": "W2-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "so the onset leans on the PE and the change of focus.",
+   "after": "so the onset leans on the PE and the change of focus (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F9",
+    "F10"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.24",
+   "scan": null
+  },
+  {
+   "n": 20,
+   "row": "W2-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "its answered-and-said opener is weak by itself.",
+   "after": "its answered-and-said opener is weak by itself (EXTRACTED, device inventory).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F9",
+    "F10"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/blessed_aram/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/answered_and_said_aram_strict/verses_mt holds Dan.3.28",
+   "scan": null
+  },
+  {
+   "n": 21,
+   "row": "W2-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "and the call to come out; it is weighed",
+   "after": "and the call to come out (EXTRACTED, OSHB mark layer); it is weighed",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F9",
+    "F10"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.25 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "scan": null
+  },
+  {
+   "n": 22,
+   "row": "W2-005",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "giving two rows of two verses.",
+   "after": "giving two rows of two verses each, 3:24-25 and 3:26-27 (MEASURED, WEB).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F9",
+    "F10"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 24-27",
+   "scan": {
+    "script": "work\\scan_d.py",
+    "code": "# scan D: verse counts of the spans named in chapter 3, on the WEB face\nimport re\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nvs = set(); ch = None\nfor l in open(SP + r\"\\Dan\\Dan_web_clean.txt\", \"rb\").read().decode(\"utf-8\").split(\"\\n\"):\n    m = re.match(r\"===== DAN (\\d+) =====\", l)\n    if m: ch = int(m.group(1)); continue\n    m = re.match(r\"\\[v\\] (\\d+) \", l)\n    if m: vs.add((ch, int(m.group(1))))\nfor a, b in ((1, 3), (8, 18), (19, 27), (24, 25), (26, 27)):\n    print(\"web 3:%d-3:%d verses:\" % (a, b), sum(1 for v in range(a, b + 1) if (3, v) in vs))\n",
+    "output": "web 3:1-3:3 verses: 3\r\nweb 3:8-3:18 verses: 11\r\nweb 3:19-3:27 verses: 9\r\nweb 3:24-3:25 verses: 2\r\nweb 3:26-3:27 verses: 2\r\n"
+   }
+  },
+  {
+   "n": 23,
+   "row": "W2-005",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "a SAMEKH does not decide a seam on its own.",
+   "after": "a SAMEKH does not decide a seam on its own (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F9",
+    "F10"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.26; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.26 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.25 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "scan": null
+  },
+  {
+   "n": 24,
+   "row": "W2-006",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "opening with the blessing formula (blessed_aram); the answered-and-said opener is weak by itself, and the change of voice carries the onset.",
+   "after": "opening with the blessing formula (blessed_aram), listed at 3:28 (EXTRACTED, device inventory). The answered-and-said opener is weak by itself, and the change of voice carries the onset (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F11",
+    "F12"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/blessed_aram/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/answered_and_said_aram_strict/verses_mt holds Dan.3.28",
+   "scan": null
+  },
+  {
+   "n": 25,
+   "row": "W2-006",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "(decree_aram), and its grounding clause.",
+   "after": "(decree_aram), and its grounding clause (EXTRACTED, device inventory).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F11",
+    "F12"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/decree_aram/verses_mt holds Dan.3.29",
+   "scan": null
+  },
+  {
+   "n": 26,
+   "row": "W2-006",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "and a PE (single-witness) follows 3:30.",
+   "after": "and a PE (single-witness) follows 3:30 (EXTRACTED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F11",
+    "F12"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.30 = [\"PE\"] (MT face; the mark follows that verse)",
+   "scan": null
+  },
+  {
+   "n": 27,
+   "row": "W2-006",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "stands on its own as a summary.",
+   "after": "stands on its own as a summary (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F11",
+    "F12"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 28-30 (3:30 is narration after the speech)",
+   "scan": null
+  },
+  {
+   "n": 28,
+   "row": "W2-008",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "the king to the peoples, nations and languages, with the greeting",
+   "after": "the king to the peoples of the nations and tongues, with the greeting",
+   "ruling_id": "CLASS-A6-FIELDS",
+   "findings": [
+    "F13",
+    "F14"
+   ],
+   "orders": [
+    "O9",
+    "O7"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 1 (\"to all the peoples, nations, and languages\")",
+   "scan": null
+  },
+  {
+   "n": 29,
+   "row": "W2-008",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "(peace_be_multiplied_aram); behind",
+   "after": "(peace_be_multiplied_aram) (EXTRACTED, device inventory); behind",
+   "ruling_id": "CLASS-A6-FIELDS",
+   "findings": [
+    "F13",
+    "F14"
+   ],
+   "orders": [
+    "O9",
+    "O8"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/peace_be_multiplied_aram/verses_mt holds Dan.3.31; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/to_all_peoples_nations_tongues_aram/verses_mt holds Dan.3.31",
+   "scan": null
+  },
+  {
+   "n": 30,
+   "row": "W2-008",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "close-side evidence for the prescript. Across the edge,",
+   "after": "close-side evidence for the prescript. Between the two, `web:Dan.4.2`=`oshb:Dan.3.32` gives the king's purpose in writing, to tell of the signs and wonders worked for him, and so looks forward to the account that follows (INFERRED). Across the edge,",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F13"
+   ],
+   "orders": [
+    "O7"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 2; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.32; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/most_high_aram/verses_mt holds Dan.3.32",
+   "scan": null
+  },
+  {
+   "n": 31,
+   "row": "W2-011",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "reply; the openers then (then_aram) and answered-and-said are weak, and the change of speaker from the king to Daniel carries the onset.",
+   "after": "reply, and the connective then (then_aram) stands at its head, a weak opener (EXTRACTED, OSHB/WLC and device inventory). With it the voice changes from the king's first person at `web:Dan.4.18`=`oshb:Dan.4.15` to third-person narration at `web:Dan.4.19`=`oshb:Dan.4.16`, a change of texture, and the two together carry the onset (INFERRED).",
+   "ruling_id": "SEAM-W2-011-012",
+   "findings": [
+    "F16"
+   ],
+   "orders": [
+    "O1"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.16 word 1 (the then-connective) and Dan.4.15 words 3-6 (first-person seeing verb with the king named); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.4.16; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 18-19",
+   "scan": null
+  },
+  {
+   "n": 32,
+   "row": "W2-011",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "the alternative is live and goes to the end review.",
+   "after": "the alternative is live and goes to the end review. A second rival moves the seam one verse earlier, giving `web:Dan.4.19`-`web:Dan.4.22`=`oshb:Dan.4.16`-`oshb:Dan.4.19` and `web:Dan.4.23`-`web:Dan.4.27`=`oshb:Dan.4.20`-`oshb:Dan.4.24`, on the ground that `web:Dan.4.23`=`oshb:Dan.4.20` opens with a dependent recital clause whose main clause comes at `web:Dan.4.24`=`oshb:Dan.4.21` (INFERRED). Declined: the interpretation formula stands at `web:Dan.4.24`=`oshb:Dan.4.21`, and no listed device stands at `web:Dan.4.22`=`oshb:Dan.4.19` or at `web:Dan.4.23`=`oshb:Dan.4.20`, the verses on either side of that seam (MEASURED, device inventory).",
+   "ruling_id": "SEAM-W2-011-012",
+   "findings": [
+    "F15"
+   ],
+   "orders": [
+    "O2"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.20 words 1-3 and Dan.4.21 words 1-3; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 23-24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json every verses_mt list",
+   "scan": {
+    "script": "work\\scan_b.py",
+    "code": "# scan B: which device-inventory lists hold the verses beside the rival seam (MT face)\nimport json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nd = json.loads(open(SP + r\"\\Dan\\dan_device_inventory.json\", \"rb\").read().decode(\"utf-8\"))\nhits = {}; nlists = [0]\ndef walk(x, path):\n    if isinstance(x, dict):\n        for k, v in x.items(): walk(v, path + [k])\n    elif isinstance(x, list):\n        if path and path[-1].startswith(\"verses_mt\"): nlists[0] += 1\n        for i in x:\n            if isinstance(i, str) and i in (\"Dan.4.19\", \"Dan.4.20\", \"Dan.4.21\"):\n                hits.setdefault(i, []).append(\"/\".join(path))\n            elif isinstance(i, (dict, list)): walk(i, path + [\"[]\"])\n    elif isinstance(x, str) and x in (\"Dan.4.19\", \"Dan.4.20\", \"Dan.4.21\"):\n        hits.setdefault(x, []).append(\"/\".join(path))\nwalk(d, [])\nprint(\"verses_mt lists walked:\", nlists[0])\nfor v in (\"Dan.4.19\", \"Dan.4.20\", \"Dan.4.21\"): print(v, \"->\", hits.get(v, []))\n",
+    "output": "verses_mt lists walked: 78\r\nDan.4.19 -> []\r\nDan.4.20 -> []\r\nDan.4.21 -> ['formulae/this_is_the_interpretation_aram/verses_mt', 'formulae/most_high_aram/verses_mt']\r\n"
+   }
+  },
+  {
+   "n": 33,
+   "row": "W2-012",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "a weak connective inside the same speech.",
+   "after": "a weak connective inside the same speech. A nearer rival sets the seam one verse earlier, between `web:Dan.4.19`-`web:Dan.4.22`=`oshb:Dan.4.16`-`oshb:Dan.4.19` and `web:Dan.4.23`-`web:Dan.4.27`=`oshb:Dan.4.20`-`oshb:Dan.4.24`, so that this unit would begin with the recital of the decree (INFERRED). The formula of interpretation heads `web:Dan.4.24`=`oshb:Dan.4.21`, and the dependent opening of `web:Dan.4.23`=`oshb:Dan.4.20` returns in the same word at the head of `web:Dan.4.26`=`oshb:Dan.4.23`, inside this unit (EXTRACTED, OSHB/WLC). Declined from the onset side: the formula marks the turn from recital to meaning, and a construction that recurs inside the unit does not by itself open one (INFERRED).",
+   "ruling_id": "SEAM-W2-011-012",
+   "findings": [
+    "F17"
+   ],
+   "orders": [
+    "O3"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.21 words 1-3 (the formula), Dan.4.20 word 1 and Dan.4.23 word 1 (the same word, compared by script: equal); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 23, 24 and 26",
+   "scan": null
+  },
+  {
+   "n": 34,
+   "row": "W2-012",
+   "field": "strong_or_hebrew_tags_used",
+   "entry_index": 0,
+   "before": "Aramaic; this is the interpretation, O king; the verse",
+   "after": "Aramaic; the meaning is this, O king (INFERRED); the verse",
+   "ruling_id": "SEAM-W2-011-012",
+   "findings": [
+    "F18"
+   ],
+   "orders": [
+    "O4"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 24 (\"This is the interpretation, O king\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.21 words 1-3",
+   "scan": null
+  },
+  {
+   "n": 35,
+   "row": "W2-012",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "Paseq (single-witness, counted, not weighed) at `web:Dan.4.25`=`oshb:Dan.4.22`.",
+   "after": "Paseq (single-witness, counted, not weighed) at `web:Dan.4.25`=`oshb:Dan.4.22`. The mark layer also holds four editorial notes of two kinds at `web:Dan.4.25`=`oshb:Dan.4.22`: two mark an anomalous form and two record a ketiv/qere reading kept with the Leningrad codex against the printed edition; they are disclosed as reading-form notes and bear on no seam (MEASURED, OSHB mark layer).",
+   "ruling_id": "SEAM-W2-011-012",
+   "findings": [
+    "F18"
+   ],
+   "orders": [
+    "O3"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key notes_other/Dan.4.22 (four entries, two texts)",
+   "scan": {
+    "script": "work\\scan_g.py",
+    "code": "# scan G: the editorial notes the mark layer holds at MT Dan 4:22\nimport json, collections\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nd = json.loads(open(SP + r\"\\Dan\\pmarks_Dan.json\", \"rb\").read().decode(\"utf-8\"))\nn = d[\"notes_other\"][\"Dan.4.22\"]\nprint(\"entries:\", len(n))\nc = collections.Counter(json.dumps(x, ensure_ascii=False, sort_keys=True) for x in n)\nfor k, v in c.items(): print(v, \"x\", k)\nprint(\"kq at Dan.4.22:\", json.dumps(d.get(\"kq\", {}).get(\"Dan.4.22\") if isinstance(d.get(\"kq\"), dict) else (\"Dan.4.22\" in d.get(\"kq\", [])), ensure_ascii=False))\nprint(\"marks at Dan.4.22:\", d[\"marks\"].get(\"Dan.4.22\"))\n",
+    "output": "entries: 4\r\n2 x {\"attrs\": \"n=\\\"n\\\"\", \"text\": \"Marks an anomalous form.\", \"type\": \"(untyped)\"}\r\n2 x {\"attrs\": \"n=\\\"q\\\"\", \"text\": \"We have abandoned or added a ketib/qere relative to BHS. In doing this we agree with L against BHS.\", \"type\": \"(untyped)\"}\r\nkq at Dan.4.22: null\r\nmarks at Dan.4.22: None\r\n"
+   }
+  },
+  {
+   "n": 36,
+   "row": "W2-013",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "Declined because a PE (single-witness) stands after `web:Dan.4.28`=`oshb:Dan.4.25` and the notice summarises in advance rather than narrates; because the PE is the chief evidence, the alternative stays live.",
+   "after": "Declined: a PE (single-witness) stands after `web:Dan.4.28`=`oshb:Dan.4.25` (EXTRACTED, OSHB mark layer). The notice summarises and does not narrate, and a closing notice may stand as a unit of one verse; it is not merged forward into the onset of the next unit (INFERRED). A second rival joins the notice backward to the speech before it, `web:Dan.4.24`-`web:Dan.4.28`=`oshb:Dan.4.21`-`oshb:Dan.4.25`, on the ground that no paragraph mark (single-witness) stands between the PE after 3:30 and the PE after `web:Dan.4.28`=`oshb:Dan.4.25` (MEASURED, OSHB mark layer). Declined: the notice is in the narrator's voice and the verses before it are speech, and the silence of one witness does not join units (INFERRED).",
+   "ruling_id": "SEAM-W2-013-014",
+   "findings": [
+    "F20"
+   ],
+   "orders": [
+    "O5"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.4.25 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.30 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 27-28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.25",
+   "scan": {
+    "script": "work\\scan_c.py",
+    "code": "# scan C: paragraph marks from the one after MT Dan 3:30 to the one after MT Dan 4:25\nimport json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\norder = [l.split(\"\\t\", 1)[0] for l in open(SP + r\"\\Dan\\Dan_oshb.txt\", \"rb\").read().decode(\"utf-8\").split(\"\\n\") if \"\\t\" in l]\nmarks = json.loads(open(SP + r\"\\Dan\\pmarks_Dan.json\", \"rb\").read().decode(\"utf-8\"))[\"marks\"]\ni, j = order.index(\"Dan.3.30\"), order.index(\"Dan.4.25\")\nprint(\"mark after Dan.3.30:\", marks.get(\"Dan.3.30\"), \"| mark after Dan.4.25:\", marks.get(\"Dan.4.25\"))\nprint(\"verses strictly between:\", j - i - 1)\nprint(\"marks on verses strictly between:\", [(v, marks[v]) for v in order[i + 1:j] if v in marks])\n",
+    "output": "mark after Dan.3.30: ['PE'] | mark after Dan.4.25: ['PE']\r\nverses strictly between: 27\r\nmarks on verses strictly between: []\r\n"
+   }
+  },
+  {
+   "n": 37,
+   "row": "W2-014",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "The twelve-months phrase is texture, so the onset rests on the PE and the change from summary to scene.",
+   "after": "The verb of `web:Dan.4.29`=`oshb:Dan.4.26` leaves its subject unexpressed and takes it from the verse before, where the king is named (INFERRED). The twelve-months phrase is texture, and the onset rests on that time phrase together with the PE that stands before it (INFERRED).",
+   "ruling_id": "SEAM-W2-013-014",
+   "findings": [
+    "F21"
+   ],
+   "orders": [
+    "O6"
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.26 (11 words, none of them a name or a noun for the king) and Dan.4.25 words 4-5 (the king named); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 28-29; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.4.25 = [\"PE\"] (MT face; the mark follows that verse)",
+   "scan": null
+  }
+ ],
+ "dispositions": [
+  {
+   "item": "F1",
+   "disposition": "applied",
+   "records": [
+    2,
+    3
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 1-7; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/to_all_peoples_nations_tongues_aram/verses_mt holds Dan.3.4",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F2",
+   "disposition": "applied",
+   "records": [
+    1
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.5 words 5-10 and Dan.3.7 words 11-15; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 5 and 7",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F3",
+   "disposition": "applied",
+   "records": [
+    7
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verse 13 (\"commanded that Shadrach, Meshach, and Abednego be brought\") and verse 14 (\"Nebuchadnezzar answered them\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.14 words 1-4 (the king answers and says to them)",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F4",
+   "disposition": "applied",
+   "records": [
+    4,
+    5,
+    6
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 8-18; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.12 = [\"SAMEKH\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.13; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.13 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verse 13 (the king commands that the three be brought; he does not speak to the accusers); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.12 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F5",
+   "disposition": "applied",
+   "records": [
+    8,
+    9,
+    10
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.13; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 12-14 (3:13 is narration of the king's command, his speech begins at 3:14); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.12 = [\"SAMEKH\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.18 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The bytes bear the finding out; see bytes_read of the records named. The two findings on this row are met by the same records."
+  },
+  {
+   "item": "F6",
+   "disposition": "applied",
+   "records": [
+    8,
+    9,
+    10
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.13; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 12-14 (3:13 is narration of the king's command, his speech begins at 3:14); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.12 = [\"SAMEKH\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.18 = [\"SAMEKH\"] (MT face; the mark follows that verse)",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F7",
+   "disposition": "applied",
+   "records": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 19-27; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 23-24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.24 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.19 and Dan.3.24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.19 word 1 and Dan.3.24 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.18 = [\"SAMEKH\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.24",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "The bytes bear the finding out; see bytes_read of the records named. The two findings on this row are met by the same records."
+  },
+  {
+   "item": "F8",
+   "disposition": "applied",
+   "records": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 19-27; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 23-24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.24 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.19 and Dan.3.24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.19 word 1 and Dan.3.24 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.18 = [\"SAMEKH\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.24; No pinned input of this part holds a Greek text of Daniel; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_c",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F9",
+   "disposition": "applied",
+   "records": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 24-27; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/blessed_aram/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/answered_and_said_aram_strict/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.26; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.26 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.25 = [\"SAMEKH\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verse 23; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "The bytes bear the finding out; see bytes_read of the records named. The two findings on this row are met by the same records."
+  },
+  {
+   "item": "F10",
+   "disposition": "applied",
+   "records": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 24-27; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/blessed_aram/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/answered_and_said_aram_strict/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.3.26; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.26 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.25 = [\"SAMEKH\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verse 23; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.23 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "The bytes bear the finding out; see bytes_read of the records named. The extent part of the finding (the WEB quotation at 3:25 begins with a word that renders the participle before the two-word splice) changes no row by ruling CLASS-EXTENT and is left for the end review."
+  },
+  {
+   "item": "F11",
+   "disposition": "applied",
+   "records": [
+    24,
+    25,
+    26,
+    27
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 28-30 (3:30 is narration after the speech); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/blessed_aram/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/answered_and_said_aram_strict/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/decree_aram/verses_mt holds Dan.3.29; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.30 = [\"PE\"] (MT face; the mark follows that verse)",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "The bytes bear the finding out; see bytes_read of the records named. The two findings on this row are met by the same records."
+  },
+  {
+   "item": "F12",
+   "disposition": "applied",
+   "records": [
+    24,
+    25,
+    26,
+    27
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 28-30 (3:30 is narration after the speech); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/blessed_aram/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/answered_and_said_aram_strict/verses_mt holds Dan.3.28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/decree_aram/verses_mt holds Dan.3.29; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.30 = [\"PE\"] (MT face; the mark follows that verse)",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F13",
+   "disposition": "applied",
+   "records": [
+    28,
+    29,
+    30
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 1 (\"to all the peoples, nations, and languages\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 2; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.32; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/most_high_aram/verses_mt holds Dan.3.32; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/peace_be_multiplied_aram/verses_mt holds Dan.3.31; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/to_all_peoples_nations_tongues_aram/verses_mt holds Dan.3.31",
+   "ruling_id": "CLASS-A6-FIELDS",
+   "note": "The bytes bear the finding out; see bytes_read of the records named. The rival the finding names belongs in strongest_rejected_alternative of W2-008, a field the map does not open: see blocked."
+  },
+  {
+   "item": "F14",
+   "disposition": "applied",
+   "records": [
+    28,
+    29
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 1 (\"to all the peoples, nations, and languages\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/peace_be_multiplied_aram/verses_mt holds Dan.3.31; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/to_all_peoples_nations_tongues_aram/verses_mt holds Dan.3.31",
+   "ruling_id": "CLASS-A6-FIELDS",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F15",
+   "disposition": "no_row_change_by_ruling",
+   "records": [],
+   "bytes_read": "rulings file, ruling SEAM-W2-011-012, read in full",
+   "ruling_id": "SEAM-W2-011-012",
+   "note": "The ruling keeps the seam between web:Dan.4.23=oshb:Dan.4.20 and web:Dan.4.24=oshb:Dan.4.21 (ratify with changes); no span moves. The words it orders instead stand in records [31, 32]."
+  },
+  {
+   "item": "F16",
+   "disposition": "applied",
+   "records": [
+    31
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.16 word 1 (the then-connective) and Dan.4.15 words 3-6 (first-person seeing verb with the king named); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.4.16; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 18-19",
+   "ruling_id": "SEAM-W2-011-012",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F17",
+   "disposition": "no_row_change_by_ruling",
+   "records": [],
+   "bytes_read": "rulings file, ruling SEAM-W2-011-012, read in full",
+   "ruling_id": "SEAM-W2-011-012",
+   "note": "Same ruling: the row keeps its onset at web:Dan.4.24=oshb:Dan.4.21. The rival and the notes it orders stand in records [33, 35]."
+  },
+  {
+   "item": "F18",
+   "disposition": "applied",
+   "records": [
+    34,
+    35
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 24 (\"This is the interpretation, O king\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.21 words 1-3; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key notes_other/Dan.4.22 (four entries, two texts)",
+   "ruling_id": "SEAM-W2-011-012",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F19",
+   "disposition": "no_row_change_by_ruling",
+   "records": [],
+   "bytes_read": "rulings file, ruling SEAM-W2-013-014, read in full",
+   "ruling_id": "SEAM-W2-013-014",
+   "note": "The ruling keeps the one-verse notice and both of its edges; no span moves. The backward rival it orders stands in record [36]."
+  },
+  {
+   "item": "F20",
+   "disposition": "applied",
+   "records": [
+    36
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.4.25 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.30 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 27-28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.25",
+   "ruling_id": "SEAM-W2-013-014",
+   "note": "The bytes bear the finding out; see bytes_read of the records named."
+  },
+  {
+   "item": "F21",
+   "disposition": "no_row_change_by_ruling",
+   "records": [],
+   "bytes_read": "rulings file, ruling SEAM-W2-013-014, read in full",
+   "ruling_id": "SEAM-W2-013-014",
+   "note": "Same ruling: the row keeps its onset at web:Dan.4.29=oshb:Dan.4.26. The subject fact it orders stands in record [37]."
+  },
+  {
+   "item": "O1",
+   "disposition": "applied",
+   "records": [
+    31
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.16 word 1 (the then-connective) and Dan.4.15 words 3-6 (first-person seeing verb with the king named); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/then_aram/verses_mt holds Dan.4.16; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 18-19",
+   "ruling_id": "SEAM-W2-011-012",
+   "note": "Applied as ordered."
+  },
+  {
+   "item": "O2",
+   "disposition": "applied",
+   "records": [
+    32
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.20 words 1-3 and Dan.4.21 words 1-3; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 23-24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json every verses_mt list",
+   "ruling_id": "SEAM-W2-011-012",
+   "note": "Applied as ordered."
+  },
+  {
+   "item": "O3",
+   "disposition": "applied",
+   "records": [
+    33,
+    35
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.21 words 1-3 (the formula), Dan.4.20 word 1 and Dan.4.23 word 1 (the same word, compared by script: equal); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 23, 24 and 26; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key notes_other/Dan.4.22 (four entries, two texts)",
+   "ruling_id": "SEAM-W2-011-012",
+   "note": "The two notes the ruling names are two kinds of note, each entered twice in the mark layer (four entries); the row says so."
+  },
+  {
+   "item": "O4",
+   "disposition": "choice",
+   "records": [
+    34
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 24 (\"This is the interpretation, O king\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.21 words 1-3",
+   "ruling_id": "SEAM-W2-011-012",
+   "note": "Branch taken: reword. The gloss now reads in words of which fewer than five run together in the WEB verse; no quotation was added."
+  },
+  {
+   "item": "O5",
+   "disposition": "applied",
+   "records": [
+    36
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.4.25 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.30 = [\"PE\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 27-28; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.25",
+   "ruling_id": "SEAM-W2-013-014",
+   "note": "Applied as ordered."
+  },
+  {
+   "item": "O6",
+   "disposition": "applied",
+   "records": [
+    37
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.4.26 (11 words, none of them a name or a noun for the king) and Dan.4.25 words 4-5 (the king named); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verses 28-29; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.4.25 = [\"PE\"] (MT face; the mark follows that verse)",
+   "ruling_id": "SEAM-W2-013-014",
+   "note": "Applied as ordered."
+  },
+  {
+   "item": "O7",
+   "disposition": "applied",
+   "records": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    30
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.5 words 5-10 and Dan.3.7 words 11-15; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 5 and 7; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verse 13 (\"commanded that Shadrach, Meshach, and Abednego be brought\") and verse 14 (\"Nebuchadnezzar answered them\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.14 words 1-4 (the king answers and says to them); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 1-7; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 19-27; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 23-24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.24 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 24-27; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 28-30 (3:30 is narration after the speech); C:\\wt\\logos-t423-m8",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "Applied to every low finding F1 to F14. The addition to strongest_rejected_alternative of W2-008 is blocked: the map does not open that field."
+  },
+  {
+   "item": "O8",
+   "disposition": "applied",
+   "records": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    29
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.5 words 5-10 and Dan.3.7 words 11-15; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 5 and 7; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 1-7; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 19-27; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 23-24; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt Dan.3.24 word 1; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 24-27; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 28-30 (3:30 is narration after the speech); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 3 verses 8-18; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json key marks/Dan.3.12 = [\"SAMEKH\"] (MT face; the mark follows that verse); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inven",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "MEASURED stands only where a scan is in the record; every other added tier word is EXTRACTED with its layer, INFERRED or REPORTED."
+  },
+  {
+   "item": "O9",
+   "disposition": "choice",
+   "records": [
+    28,
+    29
+   ],
+   "bytes_read": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 1 (\"to all the peoples, nations, and languages\"); C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/peace_be_multiplied_aram/verses_mt holds Dan.3.31; C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json key formulae/to_all_peoples_nations_tongues_aram/verses_mt holds Dan.3.31",
+   "ruling_id": "CLASS-A6-FIELDS",
+   "note": "Branch taken: reword. The addressee phrase is paraphrased; no quotation was added."
+  }
+ ],
+ "blocked": [
+  {
+   "row": "W2-008",
+   "field": "strongest_rejected_alternative",
+   "why": "Finding F13 and order O7 call for the backward rival to be weighed in the rejected-alternative field with the middle verse as evidence; the map opens only boundary_rationale on this row, so the field is left unchanged.",
+   "evidence": "The field already names the backward rival and declines it by the parent seam alone. C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt chapter 4 verse 2 states the king's purpose and points forward; that fact now stands in boundary_rationale (record 30) and is not in the rejected-alternative field."
+  }
+ ],
+ "suite": {
+  "command": "python -B C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\run_validator_suite.py C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_fx6\\W2_e2\\work\\rows_applied.jsonl",
+  "base": {
+   "hard_status": "GREEN",
+   "triage_flags": 137
+  },
+  "applied": {
+   "hard_status": "GREEN",
+   "triage_flags": 137,
+   "dead_members": []
+  },
+  "new_flag_keys": []
+ }
+}

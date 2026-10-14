@@ -1,0 +1,58 @@
+```json
+{"attempt_id":"dan_fixup3_W4_a1","execution_id":"dan_fixup3_W4_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\FIXUP3_BRIEF_W4.md sha256 f74a898eb711721e8b121dfefc96fb6b2440b37ea6d8ee90e911ed97597f4b5b (matches the launch digest; read whole)",
+  "SP\\Dan\\fixup\\draft_rows_fixup2_applied.jsonl sha256 d731d8559d100caace5152abb799b7af6a43d2f598eb6f8fb6bca49b78b893e5 (row W4-011 read in full; other rows only copied as bytes)",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json sha256 680b621d178e1f1c173204d504131c7c80f0de6a78bfe93dd52a10a060c318c0 (digest only; the rule was taken from the brief)",
+  "SP\\Dan\\book_strategy_Dan.md sha256 158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da (heading lines by a single-file search, then section 8, lines 378-401)",
+  "SP\\Dan\\tools\\TOOLKIT.md sha256 b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5 (single-file search for the three tool names)",
+  "SP\\Dan\\Dan_oshb.txt sha256 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0 (lines Dan.7.13 and Dan.8.13-8.19, plus the first three lines for format)",
+  "SP\\Dan\\Dan_web_clean.txt sha256 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa (chapter 8, verse lines 13-20)",
+  "SP\\Dan\\pmarks_Dan.json sha256 7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b (marks, paseq, kq, notes_other)",
+  "SP\\Dan\\dan_device_inventory.json sha256 466d7e6e91a6af396fe9d5e38e1e54fc10272be79229d398283af92168552964 (formulae/*/verses_mt)",
+  "SP\\Dan\\dan_language_zones.json sha256 903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b (runs, verse_language)",
+  "SP\\Dan\\web_mt_offset_map.json sha256 833d2ce37d015eccaaaac856d52c1931b9fd26bccb343064013fefc1da603da5 (key shape only; no claim rests on it)",
+  "SP\\Dan\\tools\\run_validator_suite.py sha256 5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f (single-file search for its usage; RUN on both private copies)",
+  "SP\\Dan\\tools\\check_placeholders.py sha256 0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb (RUN on work\\rows_applied.jsonl)",
+  "SP\\Dan\\tools\\ngram7.py sha256 cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d (RUN on work\\rows_applied.jsonl)",
+  "SP\\..\\ERROR_PATTERN_LEDGER.v1.md sha256 a78e50d7b8b9aec94955eb74f401b41322790666ef497b5780b16d11e5142216 (lines 807-874 only; the OW-11 answers and authorization_ref match the launch message)"
+ ],
+ "outcome":{"insertions":18,"replacements":0,"by_tier":{"EXTRACTED":7,"MEASURED":2,"INFERRED":9,"REPORTED":0,"ASSUMED":0,"UNAVAILABLE":0},
+  "per_field":{"W4-011.boundary_rationale":12,"W4-011.strongest_rejected_alternative":3,"W4-011.device_notes":3},
+  "blocked":[]},
+ "contradicted":[],
+ "contradicted_note":"None. No claim in the three fields was found contradicted by the pinned bytes.",
+ "verification":[
+  {"claim":"All 14 pinned inputs match the brief's digests","how":"work\\step1.py, sha256 of each file","result":"confirmed"},
+  {"claim":"oshb:Dan.8.15 opens with the quoted words and has the behold word and the appearance noun","how":"Dan_oshb.txt line Dan.8.15; dan_device_inventory.json formulae/behold_heb and formulae/vision_noun_mareh_heb verses_mt both list Dan.8.15","result":"confirmed"},
+  {"claim":"the seer seeks understanding (8:15)","how":"Dan_web_clean.txt '[v] 15': 'I sought to understand it'","result":"confirmed"},
+  {"claim":"No mark at the 8:14/8:15 seam","how":"work\\scan_w4_011_marks_kq.py on pmarks_Dan.json: the only chapter 8 marks key is Dan.8.27 (PE); Dan.8.14 has none; none on 8.15-8.18","result":"confirmed"},
+  {"claim":"8:16 Hebrew run and WEB quotation","how":"Dan_oshb.txt line Dan.8.16; Dan_web_clean.txt '[v] 16'","result":"confirmed"},
+  {"claim":"8:17 has the address and the time-of-the-end phrase (son_of_man_heb, time_of_the_end_heb)","how":"Dan_oshb.txt line Dan.8.17; device inventory formulae/son_of_man_heb and formulae/time_of_the_end_heb verses_mt list Dan.8.17","result":"confirmed"},
+  {"claim":"8:18 ends with the quoted Hebrew; WEB 'set me upright'","how":"Dan_oshb.txt line Dan.8.18 (last words); Dan_web_clean.txt '[v] 18'","result":"confirmed"},
+  {"claim":"8:19 opens with the quoted Hebrew; WEB 'Behold, I will make you know'","how":"Dan_oshb.txt line Dan.8.19 (first words); Dan_web_clean.txt '[v] 19'","result":"confirmed"},
+  {"claim":"The Hebrew address of 8:17 differs in wording from the Aramaic figure of 7:13","how":"Dan_oshb.txt lines Dan.8.17 and Dan.7.13; dan_language_zones.json verse_language Dan.8.17 = H, Dan.7.13 = A","result":"confirmed"},
+  {"claim":"No K/Q note in 8:15-8:18","how":"same scan: the only chapter 8 kq key is Dan.8.11; no kq and no notes_other key in 8.15-8.18","result":"confirmed"},
+  {"claim":"Lander tests 1-4 pass","how":"work\\build.py: stripping G from each field gives the pinned field; every insertion matches G in full; 18 records = 18 insertions; replay of the records gives the rows file byte for byte; each field holds a tier word; no string holds 'Fable'","result":"confirmed"},
+  {"claim":"All other fields of W4-011 and all 74 other rows are byte-identical","how":"work\\build.py: per-field JSON comparison and line-by-line byte comparison; the pinned row line is reproduced exactly by the dump style used (ensure_ascii=False, separators ', ' and ': ')","result":"confirmed"},
+  {"claim":"The suite gains no hit or flag","how":"run_validator_suite.py on work\\rows_base.jsonl and work\\rows_applied.jsonl: hard_status GREEN and triage_flags 137 on both. Per member, base = applied: citation_sweep GREEN; hebrew_normalize_dryrun ok=374 fixed=0 defects=0; web_quotes GREEN; refs_mirror FLAGS; mark_symmetry GREEN; universals FLAGS (67); language_zones GREEN; ngram7 GREEN; cap_sweep GREEN; register FLAGS (70); role_tokens GREEN; placeholders GREEN","result":"confirmed"},
+  {"claim":"check_placeholders.py and ngram7.py are green on the applied copy","how":"check_placeholders.py: rows 75, strings_scanned 2218, hit_count 0, status GREEN. ngram7.py: rows 75, gate 10, offending_7grams [], status GREEN","result":"confirmed"},
+  {"claim":"Both deliverables are LF with no CR byte","how":"written as bytes; asserted in work\\build.py and work\\finalize.py","result":"confirmed"}
+ ],
+ "unresolved_uncertainty":[
+  {"what":"Four pre-existing triage flags on W4-011 (universals flags 63 and 64, register flags 62 and 63) now show annotation text in their context excerpts. The flag counts are unchanged; no flag is new and none lies wholly inside an annotation. The changes file therefore records member_report_identical_base_vs_applied = false for universals and register, and also for citation_sweep, where the only difference is the rows_file name.","why_it_matters":"A reader of that field could take 'false' for a regression; it is a shifted excerpt window or a file name, not a new flag."},
+  {"what":"'Gabriel comes near (8:17)' in strongest_rejected_alternative is tiered INFERRED, not EXTRACTED. WEB 8:17 reads 'he came near where I stood'; that 'he' is Gabriel is read from 8:16.","why_it_matters":"The controlling agent may consider (EXTRACTED, WEB) admissible; I kept the lower tier under the never-raise rule."},
+  {"what":"'the seer seeks understanding' is tiered (EXTRACTED, WEB) on the WEB wording 'I sought to understand it'; the row's words are a paraphrase, not a quotation.","why_it_matters":"If EXTRACTED is reserved for verbatim wording, this one annotation should be INFERRED."},
+  {"what":"'medium (region h)', 'The close is medium_low' and '8:18/8:19 remains medium_low' each carry (INFERRED) as weighings; 'disclosed as a deviation' and 'no link between them is claimed' carry none, as statements about the record and not about the text.","why_it_matters":"Coverage judgement under clause (c); the controlling agent may draw the line elsewhere."},
+  {"what":"ngram7 was run only against the pinned rows with my one row revised. The other FIXUP-3 authors work blind, so a repeat created jointly by annotations in several parts (for example 'No mark at this seam (MEASURED, OSHB mark layer)') cannot be seen from here.","why_it_matters":"The gate reported is 10 rows, so the risk looks small, but only the orchestrator's merged run can measure it."}
+ ],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named. Three content searches were each run on one exact file path (the strategy's headings, TOOLKIT.md, run_validator_suite.py), with no glob or path filter. One oversized tool output was re-read from the harness's own persisted-output file, which is the output of my own probe script.",
+ "ran":["work\\step1.py (digests, row dump)","work\\probe.py and work\\probe2.py (verse lines and layer keys)","work\\scan_w4_011_marks_kq.py (the MEASURED scan; run twice by build.py, identical output)","work\\build.py (replay, lander tests, suite on both copies, check_placeholders, ngram7)","work\\finalize.py (changes file; run twice, the second run after correcting the per-member comparison, and the second run's file is the deliverable)","work\\diffrep.py (report differences; run twice)"],
+ "deliverables":[
+  "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_fx3\\W4\\fixup3_W4_rows.jsonl",
+  "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_fx3\\W4\\fixup3_W4_changes.json"
+ ],
+ "rows_sha256":"e78f4e1da4f62a5cb14bc0ea8f049eb6b630fc11e342192a8f8d2f0e6794d13b",
+ "changes_sha256":"34c42433d1fe99a1d50e64ec1f781e959e6f9883bd8646e111408325721c2d81",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}
+```

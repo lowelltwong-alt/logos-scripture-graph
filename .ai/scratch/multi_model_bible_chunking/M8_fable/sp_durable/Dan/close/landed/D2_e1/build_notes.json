@@ -1,0 +1,199 @@
+{
+ "schema": "dan_close_build_notes.v1",
+ "attempt_id": "dan_close_atlas_a1",
+ "execution_id": "dan_close_atlas_a1#e1",
+ "model": "claude-opus-5-5 (recorded grader_fallback, OW-25)",
+ "ported_from": {
+  "what": "form only, from the earlier book's three tools and README: the 16-field feed row, the separate measured / dependency / judged blocks, the sentence filter for transcribed prose, the independent checker with tamper self-test, the sidecar generator that imports the atlas generator, the --check conventions",
+  "not_carried": "no finding, sentence, id, count or rating of any other book (E-65)"
+ },
+ "changed_for_daniel": [
+  {
+   "what": "selection is by recorded confidence only; no hold logic",
+   "why": "no Daniel row is held; every feed row mirrors a null hold state and accepted_candidate"
+  },
+  {
+   "what": "--dan-root and --out-root on every tool, defaults relative to the script",
+   "why": "the brief's path rule; this run writes only in OUT and the orchestrator re-runs with defaults after install"
+  },
+  {
+   "what": "packets are read from the pinned manifest of landed outputs by file-name pattern, each verified against the manifest digest",
+   "why": "E-19: no directory scan; final messages are never opened"
+  },
+  {
+   "what": "two-numbering conversion (four zones) held as a constant checked against the device inventory's numbering sentence; the checker re-derives by positional alignment",
+   "why": "Daniel's rows are on the English numbering and the device and mark layers on the Hebrew numbering; the offset map file was not pinned"
+  },
+  {
+   "what": "language-change and chapter-divergent-numbering facts enter concern_type, dependency and the judged rule",
+   "why": "Daniel is bilingual and has two verses whose chapter differs between the witnesses"
+  },
+  {
+   "what": "open_question and linkage records added to the dimensions file, with blast-radius classes and divergence statements by stated rule",
+   "why": "item 22 requires a class for every open question and a statement for every linked pair treated differently"
+  },
+  {
+   "what": "answerable-from-the-witnesses is three-valued with an explicit left_out",
+   "why": "the brief: a rating that cannot be derived from a packet is left out and said to be left out"
+  },
+  {
+   "what": "a routed item whose id names no unit is never filed narrower than one_book",
+   "why": "the first run filed process-named routed items as one unit or several; item 22 fails a convention question filed as one unit"
+  }
+ ],
+ "measured_counts": {
+  "final_rows": 75,
+  "feed_rows": 49,
+  "feed_rows_by_confidence": {
+   "low": 2,
+   "medium_low": 47
+  },
+  "units_contested_between_blind_lanes": 20,
+  "open_questions": 348,
+  "open_questions_by_kind": {
+   "routed_end_review_item": 46,
+   "unresolved_in_packet": 217,
+   "unresolved_in_ruling": 85
+  },
+  "open_questions_by_blast_radius": {
+   "one_unit": 27,
+   "several_units": 26,
+   "one_book": 235,
+   "campaign_wide": 60
+  },
+  "linkages": 260,
+  "linkages_treated_differently": 231,
+  "statements": {
+   "possible_inconsistency_unruled/a source that names both units uses a wo": 6,
+   "real_distinction/different_recorded_kind": 33,
+   "real_distinction/no_packet_alleges_inconsistency": 36,
+   "real_distinction/standing_after_controlling_ruling": 156,
+   "same_treatment/recorded confidence and unit_type are eq": 29
+  },
+  "hardness": {
+   "high": 13,
+   "medium": 49,
+   "low": 13
+  },
+  "why_low_confidence": {
+   "sentences_kept": 138,
+   "filtered": 39,
+   "capped": 148,
+   "short": 50,
+   "fallback": 0
+  }
+ },
+ "measured_by": "gen_atlas_rows.py (header record of Dan_atlas_dimensions.v1.jsonl); re-measured in part by check_atlas_rows.py",
+ "more_measured": {
+  "answerable_from_the_witnesses": {
+   "a_witness_limit_is_stated": 2,
+   "seam_evidence_present_in_the_witness_layers": 43,
+   "left_out": 30
+  },
+  "onset_evidence_on_both_faces": {
+   "True": 43,
+   "False": 31,
+   "None": 1
+  },
+  "severities_landed_book_totals": {
+   "high": 2,
+   "medium": 21,
+   "low": 110
+  },
+  "sidecar_rows": 49,
+  "check_overall": "PASS",
+  "checks": 23,
+  "tampers_all_caught": true
+ },
+ "possible_inconsistencies_for_end_review": [
+  {
+   "pair": [
+    "W6-002",
+    "W6-003"
+   ],
+   "spans": [
+    "Dan.10.4-Dan.10.9",
+    "Dan.10.10-Dan.10.14"
+   ],
+   "differs_in": [
+    "confidence",
+    "unit_type"
+   ]
+  },
+  {
+   "pair": [
+    "W6-002",
+    "W6-005"
+   ],
+   "spans": [
+    "Dan.10.4-Dan.10.9",
+    "Dan.10.20-Dan.11.1"
+   ],
+   "differs_in": [
+    "unit_type"
+   ]
+  },
+  {
+   "pair": [
+    "W6-002",
+    "W6-006"
+   ],
+   "spans": [
+    "Dan.10.4-Dan.10.9",
+    "Dan.11.2-Dan.11.6"
+   ],
+   "differs_in": [
+    "unit_type"
+   ]
+  },
+  {
+   "pair": [
+    "W6-003",
+    "W6-005"
+   ],
+   "spans": [
+    "Dan.10.10-Dan.10.14",
+    "Dan.10.20-Dan.11.1"
+   ],
+   "differs_in": [
+    "confidence"
+   ]
+  },
+  {
+   "pair": [
+    "W6-003",
+    "W6-006"
+   ],
+   "spans": [
+    "Dan.10.10-Dan.10.14",
+    "Dan.11.2-Dan.11.6"
+   ],
+   "differs_in": [
+    "confidence"
+   ]
+  },
+  {
+   "pair": [
+    "W6-014",
+    "W6-015"
+   ],
+   "spans": [
+    "Dan.12.5-Dan.12.8",
+    "Dan.12.9-Dan.12.13"
+   ],
+   "differs_in": [
+    "unit_type"
+   ]
+  }
+ ],
+ "limits": [
+  "The shared atlas feed was not pinned and was not read; its field names and vocabulary are constants taken from the earlier tool's form (INFERRED to match the live feed, not MEASURED).",
+  "Blast-radius classes, divergence statements and hardness are JUDGED_BY_RULE over word matches; no one re-read the passages.",
+  "Unresolved entries in packets and rulings are recorded as raised; their later disposition is not derived.",
+  "Linkages are harvested by unit id only; chapter:verse cross-references are not harvested.",
+  "Severity counts do not deduplicate one finding repeated by a later round.",
+  "Sentences are split at full stops and semicolons; some transcribed sentences begin mid-clause, and row-internal labels such as region letters can travel.",
+  "The checker shares no code with the generator but has the same author and model family (OW-19): not independent review.",
+  "No row was changed and no boundary judged."
+ ]
+}

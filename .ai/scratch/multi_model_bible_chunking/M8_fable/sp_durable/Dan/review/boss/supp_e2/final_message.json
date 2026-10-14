@@ -1,0 +1,47 @@
+{"attempt_id":"dan_boss_audit_a1","execution_id":"dan_boss_audit_a1#e2",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\BOSS_AUDIT_BRIEF_e2.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md (lines 807-874 only; whole file hashed)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\campaign\\REVIEWER_CONTINUATION_CONTRACT.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\campaign\\grader_models.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup10_applied.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E1.v1.json (corpus_wide_orders)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E2.v1.json (corpus_wide_orders; rulings naming CWO-DAN-02)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E5.v1.json (corpus_wide_orders; passages naming CWO-DAN-02; H7)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E9.v1.json (B8 wording only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E12.v1.json (gate.boss_conditions_amended)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\landed10\\W11_e1\\fixup10_W11_changes.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\boss\\dan_lane_identities.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\boss\\dan_boss_audit.v1.json (conditions B8 and B14 only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\run_validator_suite.py (read, never run)"
+ ],
+ "outcome":{"changed":[
+  {"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_close\\dan_boss_audit_a1\\out_e2\\dan_boss_audit_b8_b14.json","why":"the one ordered deliverable: verdicts, tiers and evidence for B8 and B14"},
+  {"what":"out_e2\\work\\progress.json, unit_B8.json, unit_B14.json and the scripts audit_e2.py, final_e2.py, explore1.py, explore2.py, summ.py","why":"continuation record written after each unit, plus the scripts that produced every figure; nothing was written under the worktree"}
+ ]},
+ "deliverables":[{"name":"dan_boss_audit_b8_b14.json","sha256":"d186bac7af0e1f8763ee307c54955575cdde96625698f182290c30545472672c","bytes":16032}],
+ "conditions":[{"id":"B8","verdict":"MET"},{"id":"B14","verdict":"MET"}],
+ "verification":[
+  {"claim":"The brief matches its pinned digest 8376bc80...95e6 and all 13 pinned inputs match theirs.","how":"Get-FileHash on the brief; hashlib.sha256 in work\\audit_e2.py on each input as read","result":"confirmed"},
+  {"claim":"The owner's exception (OW-11, OW-11-h) stands in the ledger as the launch message says.","how":"read ledger lines 807-874","result":"confirmed"},
+  {"claim":"CWO-DAN-02 stands as E1 wrote it: E2 says 'Unchanged from E1', E5's corpus_wide_orders is empty and its H7 says 'unamended'.","how":"EXTRACTED from E1 corpus_wide_orders[1], E2 corpus_wide_orders[1], E2 rulings[6] and [10], E5 gate.primaries_conditions[6], E9 gate.boss_conditions[7]","result":"confirmed"},
+  {"claim":"CWO-DAN-02 returns zero hits on the applied file.","how":"MEASURED by work\\audit_e2.py b8: regex source taken from E1's predicate string, re.IGNORECASE, over the six fields the ruling names: 75 rows, 1152 strings, 0 hits","result":"confirmed"},
+  {"claim":"The regex is live, and no field outside the ruling's lists hits.","how":"MEASURED: same regex over every field: 2219 strings, 75 hits, all in decision_id, which the ruling excludes by name","result":"confirmed"},
+  {"claim":"A suite member implements CWO-DAN-02.","how":"read run_validator_suite.py whole; 'CWO' occurs only on line 31, for CWO-DAN-01","result":"refuted"},
+  {"claim":"B14 clause a: every ordered part the W11 author did not apply is refuted by bytes in the change log.","how":"EXTRACTED: not_applied [] and blocked [], one change record (W4-004 boundary_evidence_refs entry 1), so the clause holds vacuously","result":"confirmed"},
+  {"claim":"B14 clause b: the W11 author's agent_id equals none of any W9 or W10 author, review or controlling-rulings launch.","how":"MEASURED by work\\audit_e2.py b14 on the TRANSCRIBED identities file: afe0ed496ca86aac3 against 71 launches (3 + 54 + 14), 0 collisions; against all 122 other launches, 0 collisions; 123 launches hold 123 distinct ids","result":"confirmed"}
+ ],
+ "unresolved_uncertainty":[
+  {"what":"B8's composite MET is tier INFERRED. Only the CWO-DAN-02 leg is MEASURED here; CWO-DAN-01, -03 and -04 are REPORTED by e1, which measured them through suite members and 'as E3 words it', not through E1's regexes.","why_it_matters":"Three of the four legs still rest on e1's account alone."},
+  {"what":"The id arm of the predicate matches only a one-digit part with a three-digit serial; it cannot match W10-001 or W1-10. A looser probe over the same fields also returned 0 hits (MEASURED).","why_it_matters":"It changes nothing on this file, but the predicate is narrower than Daniel's id shapes."},
+  {"what":"Zero hits means zero matches of this regex. E2 rulings[6] puts a named strategy guard with stated substance outside it.","why_it_matters":"The sweep does not show that no row points outside itself in other wording."},
+  {"what":"E5 holds no text 'whole-word' or 'whole word' (MEASURED, 0 occurrences).","why_it_matters":"The brief's 'whole-word test' in E5 was not found under that name; nothing in E5 amends CWO-DAN-02."},
+  {"what":"B14's MET is tier INFERRED. The identities file is a TRANSCRIBED extract of orchestrator-written launch rows; the receipt files are forbidden to this execution, and no run record independent of the orchestrator exists.","why_it_matters":"The comparison is exact, but neither the transcription nor the receipts were verified. I judged it sufficient because a shared run would show as a repeated agent_id, the record shows none, nothing pinned contradicts it, and no stronger record exists."},
+  {"what":"Which lanes count as review lanes is my classification by lane name.","why_it_matters":"The all-other-launches comparison makes the result independent of it."},
+  {"what":"One agent_id is a hand-shaped label, 'bg-opus-fx2-W4' (dan_fixup2_W4_a1#e1).","why_it_matters":"It is not the W11 id and collides with nothing, but it is weaker identity evidence than a generated id."},
+  {"what":"The identities file ends at the boss audit's e1 launch.","why_it_matters":"A later launch would not appear in the comparison."},
+  {"what":"That E12 ordered exactly one part is taken from gate B3's wording and the single change record; E12's rulings were not opened.","why_it_matters":"Clause a's vacuous MET assumes there was no second order."},
+  {"what":"Every lane of this book, this one included, ran on claude-opus-5-5 (OW-19, OW-25).","why_it_matters":"Agreement with e1 or the lander is one voice."}
+ ],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named. Not continued from an interruption: progress.json was written fresh after B8 and again after B14. Also read back two of my own oversized tool-output files at the exact paths the harness printed. 12 tool calls.",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}

@@ -3218,3 +3218,179 @@ was installed.
 **Cure.** Lane briefs already forbid writes outside OUT and heredoc-borne escapes; both recurred. So each FIXUP-2
 brief restates both rules as numbered hard stops, and the lander checks OUT for stray siblings. Orders that forbid other
 changes must name every required companion edit (the ref beside a quote). The tool-fix installs carry their own tests.
+
+## E-72 (2026-10-01) - DANIEL WRITER AND FIXUP-2 RESIDUE: A LAUNCH RECEIPT WITH TYPED-IN VALUES, TWO LANES PROBED AFTER A FAILED HEREDOC, TWO UNPINNED TOOL-DATA READS, A GATE ONLY THE WHOLE BOOK CAN TRIP, AND ONE SWEEP LABEL WRONG
+
+Drafted from a fresh read of the durable rows on 2026-10-01 (E-59), not from a summary. Sources are named per item.
+
+**What happened.**
+- **Launch receipt slip (orchestrator).** The FIXUP-2 W4 launch row carried a placeholder agent id and a launched_at
+  nobody observed. EXTRACTED from `sp_durable/Dan/review/dan_review_attempt_receipts.jsonl` row 29
+  (`record_kind: launch_correction`, corrects `dan_fixup2_W4_a1#e1`): the true id is EXTRACTED from the launch result;
+  the true launched_at is UNAVAILABLE, with a MEASURED bracket 14:35:34Z to 14:37:32Z. Corrected by amendment (E-44),
+  never by editing the first row.
+- **Heredoc failure, then `ls` (E-19).** Two writer lanes each ran one `ls` on a single exact path in their own OUT
+  after a heredoc write failed. REPORTED by the lanes and recorded in `sp_durable/Dan/dan_writer_attempt_receipts.jsonl`
+  rows 30 (W3, `work\gen_rows.py`) and 34 (W5, `work\gen_w5.py`). No wildcard, no listing, nothing outside OUT.
+  Blindness not affected (orchestrator assessment in the same rows). An existence check is still what E-19 forbids.
+- **Unpinned tool-data reads.** W2 opened `SP\Dan\tools\verse_map_web.json` by exact path and DISCLOSED it as a
+  deviation (row 32). W6 listed `SP/Dan/tools/verse_map_oshb.json` among its sources and did NOT disclose it; the
+  orchestrator MEASURED that `BRIEF_W6_e3.md` names that file 0 times (row 36). Neither is a listing or another lane's
+  output. The gap is that one lane disclosed and one did not.
+- **A gate that only the whole book can trip.** Each lane's rows passed; the combined book was HARD RED on ngram7
+  alone. MEASURED on a scratch copy and recorded in `sp_durable/Dan/writer/dan_writer_install_receipts.jsonl` row 1:
+  the 7-gram "month or day word not a date" in 10 rows at gate 10. No single lane could have seen it, because the
+  gate counts repeats across all rows and a lane holds only its own.
+- **One sweep label wrong.** The CWO-DAN-03 sweep proposed `plain` for "John chapter 5 verses 28" in
+  `W6-013.device_notes`; E2 disposed it `other_book`. EXTRACTED from
+  `sp_durable/Dan/review/fx2_close/triage_fx2_close.v1.json` (`CWO-DAN-03.W6-013_relabel`): tool counts plain 62 /
+  other_book 2, corrected to plain 61 / other_book 3, over 124 hits, zone hits 0, 124 of 124 dispositioned.
+
+**Why.**
+- The launch recorder took free-text arguments and validated neither (cause as recorded in row 29).
+- INFERRED: a lane whose heredoc write fails reaches for the nearest check that the file exists. The brief forbade
+  listings but gave no allowed next step after a failed write.
+- INFERRED: the pinned Daniel tools load the two verse_map files, so a lane following a tool reaches them, while the
+  brief's pinned list names only the tools. The brief did not say whether tool data files count as pinned.
+- The ngram7 gate is a book-level statistic by design. Running it per lane gives a false GREEN for this class.
+- INFERRED: the sweep's other-book test did not match a book name written out before "chapter N verses". The tool was
+  NOT changed; the disposition step (`tf/cwo03_dispose.py`, zone precedence) carried the correction.
+
+**Cure.**
+- DONE (as recorded in row 29, REPORTED there, not re-run for this entry): `record_fx2_launch.py` refuses an id that
+  is not agent-shaped and a launched_at outside a window before now. A sibling audit of both Daniel receipt files
+  found no other such row (REPORTED in `sp_durable/Dan/freeze/CYCLE_STATE.md`).
+- DONE: ngram7 is GREEN on the FIXUP-2 applied rows (rows 75, gate 10; REPORTED by the W2 lane's comparison and
+  required by gate `s2_conditions`). The book-wide suite at combine is the control that caught it and stays mandatory.
+- OWED, to be written into the S2 and primary briefs before launch: (1) "write scripts with the Write tool; if a write
+  fails, write again; never test whether a path exists"; (2) "the data files a pinned tool loads are tool-internal:
+  do not open them yourself, and if you do, disclose it as a deviation"; (3) the phrase list the book-wide ngram7 gate
+  has already tripped, so a lane can avoid a repeat it cannot measure alone.
+- OWED, NOT done: a fixture and fix for the sweep's other-book test (a spelled-out book name before
+  "chapter N verses"). Until then every CWO-03 `plain` proposal that contains a book name is read by hand.
+
+## E-73 (2026-10-01) - A REF SWITCH IN THE CAMPAIGN WORKTREE REWROTE EVERY TRACKED FILE WITH LF, SO 481 RECORDED DIGESTS OVER 107 FILES NO LONGER MATCH THE BYTES ON DISK
+
+Orchestrator mistake. Found on 2026-10-01 while choosing pinned inputs for the Daniel S2 brief: every evidence path
+in the tool-fix receipts failed its recorded digest. Every figure below was MEASURED in this session unless marked.
+
+**What happened.**
+- On 2026-10-01 the orchestrator ran two checkouts in the M8 worktree while preparing the public pull request.
+  EXTRACTED from the reflog: `14:58:54 -0400 checkout: moving from scratch/t423-m8-fable to origin/main`, then
+  `14:59:13 -0400 checkout: moving from c6982050... to scratch/t423-m8-fable`. Why the round trip was run is
+  UNAVAILABLE (not re-derived from the transcript for this entry).
+- `main` at c6982050 held none of the campaign tree: 4,939 tracked files under `M8_fable`, and the same 4,939 differ
+  between c6982050 and the branch. So git removed all of them and wrote all of them back. Their mtimes read 18:59Z.
+- The repository attribute is `text=auto eol=lf`. `git ls-files --eol` now reads `i/lf w/lf` on 4,911 files (28 are
+  `i/none w/none`). Files that had CRLF in the working tree came back with LF.
+- 481 recorded (path, sha256) pairs over 107 files match the CRLF form of the current bytes and not the bytes
+  themselves: Ezek 411 pairs / 59 files, Dan 43 / 30, Lam 11 / 6, `receipts` 10 / 10, campaign 3 / 1, Jer 3 / 1.
+  For these the match is the proof that the content is byte-identical apart from the removed CR.
+- In Daniel the affected records are rows 12, 13, 19, 22, 23, 24, 31 and 34 of
+  `sp_durable/Dan/review/dan_review_attempt_receipts.jsonl` (28 pairs, 27 files: the S1-02, S1-07 and S1-08 tool-fix
+  evidence, the E2 evidence, the FIXUP-2 close evidence, three landed change files, the routed-items file), plus
+  digests the E1 and E2 rulings, the E2 queue, the S1 deliverable and the writer install receipts carry for the same
+  files.
+- NOT affected: `writer/draft_rows_combined.jsonl`, `fixup/draft_rows_fixup1_applied.jsonl` and
+  `fixup/draft_rows_fixup2_applied.jsonl` still match their manifests byte for byte. The Daniel tools cited by the
+  tool-fix receipts match, except TOOLKIT.md, which a later receipt amended. No lane was in flight.
+- 606 further pairs match no form of the current bytes. That class is expected to hold digests of files amended
+  later. On a sample of 102 (the latest record per path): 25 match a `.pre_` copy, 17 are a prefix of an append-only
+  file, 60 were not explained. One of the 60 was checked by hand (`Ezek/verse_inventory.json`: the briefs pin two
+  digests, 15 and 12 times, so it is an older version). Whether any of the rest was a mixed-ending file whose exact
+  bytes are now lost is UNAVAILABLE.
+
+**Why.**
+- A digest taken on working-tree bytes is only durable if git reproduces those bytes. For a CRLF file under
+  `eol=lf` it never does: the blob is LF, a clone gets LF, and the working tree keeps CRLF only until git next
+  writes the file. The receipts were already wrong for any clone before the checkout; the checkout made it true
+  locally too.
+- The CRLF came from scratch scripts: `Path.write_text` without `newline="\n"`, and shell redirection on Windows.
+  Installers then copied byte for byte (EXTRACTED: scratch `tf/install_fx2_close.py` lines 125 and 149 to 151), and
+  lanes' own deliverables were landed the same way.
+- No control looked at line endings, and nothing said the worktree must not change refs. E-67 named the neighbouring
+  hazard (tests on a scratch copy), not this one.
+
+**Cure.**
+- DONE: `sp_durable/campaign/_eol_digest_audit.py` (sha256 9b5803c2f818...), with `--selftest`, `--check`, `--tree`
+  and `--recorded`. The self-test builds a throwaway repository with the same attribute, commits one LF and one CRLF
+  file, switches refs and back, and requires that the LF file is unchanged and the CRLF file is not. PASS.
+- DONE: `sp_durable/campaign/eol_digest_corrections.v1.jsonl`, 481 rows (sha256 94e02afafac2...): for each pair the
+  recorded digest, the LF digest that git reproduces, and where it was recorded. No evidence file was edited and no
+  receipt row was rewritten (E-44). The Daniel review receipts get one amending row that points here.
+- DONE: `--tree` reads LF_CLEAN (0 files with CRLF in the campaign tree). With no CRLF file present, a ref switch
+  cannot change bytes; the self-test shows the LF case.
+- RULE: no ref switch in the campaign worktree (checkout, switch, stash, reset --hard). Build other commits with a
+  temporary index or a separate worktree.
+- RULE: a digest is recorded only on LF bytes. Installers and landers write with `newline="\n"` or as bytes, and
+  run `--check` on every target before recording. A lane deliverable that arrives with CRLF is landed in LF form
+  with both digests recorded. Lane briefs say: write output files with LF line endings.
+- RULE: every checkpoint runs `--tree` before `git add` and stops on CRLF_PRESENT.
+- Rejected: converting the 107 files back to CRLF. It would satisfy the receipts on this machine only and would
+  break again at the next ref switch.
+- OWED: the unexplained part of the no-match class for the closed books; the DAD learning-loop record; the owner's
+  answer on a global prevention control.
+
+## OWNER DIRECTIVE OW-33 (2026-10-13) - DANIEL'S CLOSE SHAPE: THE MERGED-VERDICT CLOSE, GRANTED FOR DANIEL ONLY
+
+**The directive (TRANSCRIBED, owner in chat, 2026-10-13T00:12:24Z, cut by script from the session transcript; the message's four line breaks are written here as spaces, nothing else is changed):** "for Daniel only, I approve the merged-verdict shape as the required per-book decision. Keep two independent blind lanes, each returning the postcheck, final check and grades for items 20–23 in one pass. Record that these verdicts share a reader within each lane. Preserve every acceptance criterion. The transcript audit remains OWED / NOT MET; any status or gate requiring that audit remains blocked. Report substantive findings or disagreement before adding further review. Do not repeat completed work unnecessarily. Use compact, hash-bound handoffs and save completed review batches so quota interruptions don’t require restarting. Reuse evidence only where its artifact hashes and review scope still match. Use the most efficient available model that meets the required reviewer qualifications. Don’t silently override an Opus requirement, switch providers, or use a higher-priced speed tier. This approves Daniel’s review shape only. It does not authorize a reserved close action, waive remaining gates, or establish the choice for later books."
+
+**What it grants.** OW-26 was Ezekiel only and said later books are a per-book decision. This is that decision for Daniel: one pair of blind lanes, each returning in one pass the postcheck (`fit_to_assemble`), the OW-6 final check (`fit_to_close`, bound to the corpus sha256) and the grades for close-gate items 20-23. The grader carrier records it as `book_close_shapes.Dan` with `directive: OW-26` (the shape's name) and `granted_by: OW-33` (this entry).
+
+**The weakness, recorded as the owner ordered.** In Daniel's close the three verdicts share one reader within each lane: a reader that misses something misses it in the postcheck, the final check and the item grades alike. The two-lane floor (OW-19) is met by two blind non-author lanes, but both run on the one fallback model family (OW-25), so their agreement is one family's voice, and the three verdicts in a lane are not three lenses. The completion receipt must say so beside the OW-25 `grader_fallback` statement.
+
+**What it does NOT change.** Every acceptance criterion stands. The transcript audit stays OWED, NOT MET, and any status or gate that requires it stays blocked. The close action is reserved: the orchestrator brings the dry report and an exact-byte close recommendation to the owner and does not run the close on this directive. No later book is granted this shape. Substantive findings or disagreement between the lanes are reported to the owner before any further review is added. The model rule is unchanged (OW-25): no silent override, no provider switch, no higher-priced speed tier.
+
+**Tier.** The directive paragraph is TRANSCRIBED. The other three paragraphs are the orchestrator's reading of it (INFERRED where they go beyond the owner's words) and bind nothing the owner did not say.
+
+## OWNER DIRECTIVE OW-34 (2026-10-14) - DANIEL CLOSED ON THE REVIEWED BYTES; 1 CORINTHIANS NEXT; DANIEL'S PROPOSALS IN THE SHARED LOG
+
+**The owner's words (TRANSCRIBED).** First, the answers to four questions put in chat:
+
+> Owner answers in chat, 2026-10-14 (AskUserQuestion, verbatim labels selected):
+> Q: May I run --close on the reviewed bytes?  A: "Yes, run the close (Recommended)"
+> Q: Which atlas rows should the close append to the shared feed (--acf)?  A: "item22 (Recommended)"
+> Q: Which book comes after Daniel (--next-book)?  A: "1Cor"
+> Q: Append Daniel's six adjudicated method proposals to the shared method_change_proposals.v1.jsonl?  A: "Append them now"
+> Option text offered for the proposal answer: "I append Daniel's six adjudicated rows to the shared log after the close, as a separate recorded act."
+
+Then, in the owner's next message:
+
+> Owner message in chat, 2026-10-14, after the AskUserQuestion answers (verbatim):
+> Append all eight Daniel proposals to the shared method_change_proposals.v1.jsonl: six adopted and two rejected, preserving IDs, adjudications, reasons and method-version links. Perform and verify this as a separate recorded act, avoiding duplicates, before the final durability checkpoint. Track Ezekiel's missing entries as an explicit follow-up.
+>
+> Use --acf item22 and --next-book 1Cor.
+>
+> I authorize --close on the reviewed Daniel bytes after the final checks pass, followed by the durability checkpoint, README refresh, push, PR and squash-merge through the established M8 sandbox publication workflow. Preserve the recorded outstanding transcript audit and deferred Fable review.
+>
+> Save these choices and the latest resume prompt durably, then stop at the book boundary. The next session should resolve the Greek source's licensing and provenance and proceed with 1 Corinthians. Preserve my hardest-first order: 1 Corinthians, John, Romans, Revelation, Hebrews, Matthew.
+
+**What was done under it (MEASURED).** A dry run with `--acf item22 --next-book 1Cor` showed 101 gates, 0 unmet. The reviewed bytes were re-hashed and matched (close tool 48f2337e..., rows_v1_final 783a0e9a..., merged landing manifest b24f6b5c..., merged receipts 6d2ec1d4..., item-22 feed 96ddcca4...). `--close --acf item22 --next-book 1Cor`: CLOSED, 75 chunks, receipt `receipts/Dan_completion.json` sha256 8151f9a9ec35c3fcd28274982f8ba6a117725f1d01f95fa693312b94c165565f, progress Dan complete -> 1Cor (27/66). Then, as a separate recorded act, Daniel's eight adjudicated proposals (Dan-P01..P06 ADOPT, landed in v7; Dan-P07, Dan-P08 REJECT) were appended byte-exact to `method_change_proposals.v1.jsonl` (before 1e1d494b..., after e729cd97..., 9 rows, no duplicate id); the act record is `sp_durable/Dan/close/method_proposals_shared_append.v1.json` (0cb7f179...).
+
+**Preserved, as ordered.** The stage-1 transcript audit stays OWED, NOT MET (102 attempts, 0 retained transcripts). The campaign-end Fable review stays DEFERRED (OW-28); DEFERRED is never MET. OW-33's merged-verdict shape is not carried to any later book.
+
+**Follow-up, explicit.** Ezekiel's adjudicated proposals are also absent from the shared log: its close left only `sp_durable/Ezek/deliverables/method_change_proposals.Ezek.candidate.jsonl`. Not done here; owed as its own act.
+
+**Next session (the owner's order).** Resolve the Greek source's licensing and provenance (`greek_substrate/`, Byzantine RP primary and SBLGNT secondary per OW-31; never committed until resolved), then proceed with 1 Corinthians. The hardest-first order stands: 1 Corinthians, John, Romans, Revelation, Hebrews, Matthew (OW-32's queue continues after them). Every download still needs a per-file yes.
+
+**Tier.** The owner's words are TRANSCRIBED from the chat; the act figures are MEASURED; nothing else here binds beyond the owner's words.
+
+## E-74 (2026-10-14) - DANIEL CLOSE PHASE: A THIRD SUITE-ROUTE SLIP, A CRLF DIGEST NEAR-MISS, A MANIFEST PATH DEFECT, AND THE DISCLOSURES THE CLOSE CARRIES
+
+Drafted from a fresh read of the orchestrator's close-phase notes and the close outputs (E-59), not from a summary.
+
+- **(a) E-67/E-70 recurrence, third (orchestrator_defect, low).** `Dan/tools/run_validator_suite.py` was run directly on `Dan/rows_v1_final.jsonl` (twice), so the report was written beside the corpus with CRLF bytes. MEASURED: no tool file changed; the report was converted to LF (dc9e5d1b...). It is a close artifact in Ezekiel's form and stays; the slip is the route. Control already standing: suite runs go through the scratch runner only.
+
+- **(b) E-73 near-miss (orchestrator_defect, medium by counterfactual).** The first CWO parity record took its suite-report digest on CRLF bytes. It was never recorded; regenerated on LF (9a626802...). Root cause: `grep -c $'\r'` in Git Bash printed 0 on a CRLF file. Cure: `_cwo_parity_dan.py` refuses a CR byte in corpus or report; only `_eol_digest_audit.py --check` counts as an EOL test. Sibling audit: any other place a grep CR count was trusted (owed).
+
+- **(c) Rule slips (low).** One `sed -i` with a pattern on a scratch script, and one heredoc that carried escape sequences into `gen_method_v7.py` (syntax error, caught at once, fixed with Edit). Recurrences of standing rules.
+
+- **(d) Landed-outputs manifest v1 path defect (medium).** Four entries carried an absolute scratch path behind `sp_durable/`; pathlib's join to an absolute path let the re-hash pass. Amended as `dan_landed_outputs_manifest.v2.json` (5fadae2c...), v1 untouched (E-44).
+
+- **(e) Method checker (fix, not loosening).** `check_method_record.py` held three v6-literal tampers that missed on v7; made version-generic (prior kept `.pre_62f449667549`); its record is now LF. A reviewer's copy run gave 12 of 13 because the generator check runs only at the installed path; at the installed path `gen_method_v7.py --check` prints MATCH and the shipped record is 13 of 13 (MEASURED 2026-10-14).
+
+- **(f) Merged-close lanes stopped on the session usage limit** right after verifying their digests, with no review unit done (REPORTED). Each was continued by message: one execution identity, two physical segments; first-segment usage UNAVAILABLE. Recorded in each landing as an interruption note.
+
+- **(g) Disclosures the close carries.** The merged receipts record `model_actual` as REPORTED (the Agent call's `opus` alias and each lane's own files), never MEASURED. Gate tests are 143 of 144: one location-dependent case (refusal without --m8-root from outside a tree) fails, and both lanes' source reads agree it does not hold at the installed path. The completion receipt carries no E-23 sweep or B-8 lane digits (gate lines 54-55); Ezekiel's tool did not either - a standing gap. The receipt cites OW-9, not OW-29/OW-33; the gate file has no OW-33 addendum. Both lanes marked items 4, 16, 18, 19, addendum OW-20 and item 15's spend met without evidence; Daniel's measured spend against its ceiling is not verified here. The scholar record's licence wording is carried from Ezekiel and awaits confirmation. The JSONL ledger stops at E-43/OW-24; the MD is the live carrier.
+
+- **Lesson for the method record.** A copy-based reproduction of a checker that calls a generator by installed path is not a reproduction; the reviewer must be given the installed path or told the arm will SKIP.

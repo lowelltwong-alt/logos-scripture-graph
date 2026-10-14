@@ -1,0 +1,44 @@
+{"attempt_id":"dan_rr9_TB_a1","execution_id":"dan_rr9_TB_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\RR9_BRIEF_TB.md (sha256 75d7bf56...e9a727, matched before reading)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md (lines 807-874 only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\campaign\\REVIEWER_CONTINUATION_CONTRACT.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\campaign\\grader_models.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\rr9\\fixup9_changes_for_review.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\rr9\\rr9_form_check.py (hashed and run, not read)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup9_applied.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup8_applied.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E11.v1.json (rulings RR8-TB-EXTRA-W3-010 and RR8-LOW-EXTRAS, gate)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json (TIER-ONLY RULE, grammar G, clause d)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt (Dan.4.31, 6.11, 6.12, 7.14)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt (6:10, 6:11, 7:14, 7:15)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\book_strategy_Dan.md (hashed only; no fact needed it)"
+ ],
+ "outcome":{"changed":[
+  {"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_rr9\\out_TB_e1\\dan_rr9_TB.json","why":"The deliverable: 2 items (1 support, 1 low challenge), 0 extra findings, the three E11 checks. LF only, 13174 bytes."},
+  {"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_rr9\\out_TB_e1\\work\\progress.json","why":"Early-write record, written after each item; final state has both items, next_cursor null, status ready_for_final_check, accepted false. Scripts s1.py, s2.py and s3.py sit in the same work directory."}
+ ]},
+ "verification":[
+  {"claim":"All 14 pinned inputs match the brief's digests.","how":"work\\s1.py, sha256 of each file's bytes","result":"confirmed"},
+  {"claim":"FIXUP-9 changed exactly 2 places in 2 rows, and span, confidence and unit_type are equal in all 75 rows.","how":"work\\s3.py field-by-field diff of the FIXUP-8 and FIXUP-9 rows: differing fields are W3-010 strongest_rejected_alternative and W4-004 boundary_evidence_refs only","result":"confirmed"},
+  {"claim":"Check 1, after_text_equal: both records hold the E11 after text exactly once and the before text nowhere.","how":"work\\s3.py: after count 1, before count 0 in field and row, and the FIXUP-8 value with the one replacement equals the FIXUP-9 value, for both records","result":"confirmed"},
+  {"claim":"Check 2: the first sentence of W3-010 no longer puts the reason under the mark layer's EXTRACTED.","how":"work\\s3.py: tier words of the first sentence in order are INFERRED then EXTRACTED, both match grammar G; pmarks marks['Dan.6.11'] = ['SAMEKH'], witness 'WLC (OSHB) - single witness; disclose on every citation', the string 'sequel' occurs 0 times in pmarks","result":"confirmed"},
+  {"claim":"oshb Dan.7.14 has 21 words; the inventory lists everlasting_dominion_aram at Dan.7.14; PE follows the verse.","how":"work\\s3.py: whitespace split gives 21; inventory verses_mt [Dan.4.31, Dan.7.14]; pmarks marks['Dan.7.14'] = ['PE']","result":"confirmed"},
+  {"claim":"Check 3: the W4-004 entry puts everlasting_dominion_aram at words 12 to 14.","how":"work\\s3.py: the inventory pattern שלטן\\s+עלם over the mark-stripped words of Dan.7.14 gives one match, words 13 to 14; word 12 (שלטנה) is outside the pattern. Words 12 to 14 are the dominion clause, not the device.","result":"refuted"},
+  {"claim":"The deliverable passes the pinned form check.","how":"python -B ...\\rr9_form_check.py ...\\dan_rr9_TB.json TB dan_rr9_TB_a1#e1; last output: {\"form_problems\": [], \"tally\": {\"supports\": 1, \"challenges\": 1, \"by_severity\": {\"high\": 0, \"medium\": 0, \"low\": 1}}}","result":"confirmed"}
+ ],
+ "challenges":[
+  {"record":"W10#2","severity":"low","claim":"W4-004 boundary_evidence_refs entry 1 says everlasting_dominion_aram stands at words 12 to 14 of 21. The count, the listing and the PE are true, but the device words stand at 13 to 14; 12 to 14 is the clause that carries the device. asks_row_change is true and check 3 is answered agrees=false. The fault is in the after text E11 ordered, not in how the author applied it. Correction offered: 'everlasting_dominion_aram at words 13 to 14 of 21, inside the dominion clause at words 12 to 14, in the closing verse of the vision report'. No boundary argument rests on the one word."}
+ ],
+ "unresolved_uncertainty":[
+  {"what":"Whether 'at words 12 to 14' states the extent of the device or locates the clause that carries it. I graded low on the second reading, because the range contains the match and is the clause's range in the row's own rationale and in E11's evidence.","why_it_matters":"On the first reading the scale gives medium, and the boolean of check 3 turns on the same point; the controlling agent may grade it otherwise."},
+  {"what":"Word counts follow the pinned OSHB file's tokenisation, where a maqqef join is already a space.","why_it_matters":"'12 to 14 of 21' and my '13 to 14' are true of this file's words only."},
+  {"what":"That the discovery in oshb Dan.6.12 is the direct sequel of the prayer, and that Dan.7.14 closes the vision report, are readings. I tested only that the bytes do not refute them and that the first is now tiered INFERRED.","why_it_matters":"The live rival onset at oshb Dan.6.12 stays with the end review, as E11 says."},
+  {"what":"Both lanes ran on one model family, under the recorded OW-25 fallback.","why_it_matters":"Agreement between lanes is not independent confirmation."},
+  {"what":"This is execution e1 from a fresh start; I did not open progress.json as a continuation.","why_it_matters":"No earlier partial work was resumed or relied on."}
+ ],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+ "deliverable_sha256":"85fefaea7b37ef95ba3d00d0ea63b74a00c607ade269f0f69fb63df878584f76",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}

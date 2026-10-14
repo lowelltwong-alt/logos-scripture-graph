@@ -1,0 +1,46 @@
+{"attempt_id":"dan_rr10_TB_a1","execution_id":"dan_rr10_TB_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\RR10_BRIEF_TB.md (sha256 0d9c2181...5429, equal to the launch digest; read whole)",
+  "SP\\campaign\\REVIEWER_CONTINUATION_CONTRACT.v1.md (read whole)",
+  "SP\\..\\ERROR_PATTERN_LEDGER.v1.md (lines 807-874 only; digest taken over the whole file by script)",
+  "SP\\Dan\\review\\rr10\\fixup10_changes_for_review.json (read in full)",
+  "SP\\Dan\\fixup\\draft_rows_fixup10_applied.jsonl (row W4-004 in full; all 75 rows parsed for the field diff)",
+  "SP\\Dan\\fixup\\draft_rows_fixup9_applied.jsonl (W4-004 boundary_evidence_refs; all 75 rows parsed for the field diff)",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E12.v1.json (rulings[0] RR9-TB-W4-004: decision, reason, evidence, orders)",
+  "SP\\Dan\\Dan_oshb.txt (Dan.7.13-7.15 displayed; all verses scanned by script for the pattern)",
+  "SP\\Dan\\pmarks_Dan.json (marks at Dan.7.13, 7.14, 7.15; witness line)",
+  "SP\\Dan\\dan_device_inventory.json (formulae.everlasting_dominion_aram)",
+  "SP\\campaign\\grader_models.v1.json (top-level key names only)",
+  "SP\\Dan\\review\\rr10\\rr10_form_check.py (run, not opened)",
+  "Digest-checked but content not opened: SP\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json, SP\\Dan\\book_strategy_Dan.md, SP\\Dan\\Dan_web_clean.txt",
+  "My own tool-output spill file b4cokec8e.txt under the session's tool-results directory (the output of my script s2.py, which exceeded the display limit)"
+ ],
+ "outcome":{"changed":[
+  {"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_rr10\\out_TB_e1\\dan_rr10_TB.json","why":"The deliverable: one item (W11#1, support, MEASURED, asks_row_change false), no extra findings, all three checks answered true, four unresolved uncertainties."},
+  {"what":"...\\out_TB_e1\\work\\progress.json","why":"Early-write record of item W11#1 and the next cursor, written before the checks and the deliverable. This run was not a continuation; no earlier progress file was opened."},
+  {"what":"...\\out_TB_e1\\work\\s1.py, s2.py, s3.py, s4.py","why":"Private read-only scripts: digests, slicing, the measurements (s3.py) and the deliverable generator (s4.py). Nothing was written under the worktree; no git, no receipt, no registry."}
+ ]},
+ "verification":[
+  {"claim":"All 14 pinned inputs equal the brief's digests.","how":"python -B work\\s1.py, sha256 over the bytes of each","result":"confirmed"},
+  {"claim":"oshb Dan.7.14 has 21 words.","how":"python -B work\\s3.py: 'A1 Dan.7.14 lines=1 words=21 maqaf=0 other_chars=[]'","result":"confirmed"},
+  {"claim":"The inventory pattern of everlasting_dominion_aram matches exactly words 13 to 14 of that verse, marks stripped.","how":"s3.py: 'A4 matches_in_Dan.7.14=1 [(13, 14, 'שלטן עלם', 'שָׁלְטָ֤ן עָלַם֙', True)]'; 'A5 word12 ... cons=שלטנה ; word12 fully inside a match=False'","result":"confirmed"},
+  {"claim":"The inventory lists Dan.7.14 for the key, and the pattern matches in no other verse than the two it lists.","how":"s3.py: A3 count=2 verses_mt=['Dan.4.31', 'Dan.7.14']; A6 pattern hits ['Dan.4.31', 'Dan.7.14'] of 357 verses","result":"confirmed"},
+  {"claim":"after_text_equal: entry 1 holds the E12 after text exactly once and the before text is nowhere.","how":"s3.py: B2 AFTER per entry [0, 1, 0, 0, 0, 0], BEFORE per entry [0, 0, 0, 0, 0, 0]; B3 whole applied file AFTER=1 BEFORE=0; B5 field diff against FIXUP-9 = ['W4-004 boundary_evidence_refs[1]']","result":"confirmed"},
+  {"claim":"span, confidence and unit_type of W4-004 did not change.","how":"s3.py B5: the only differing field across the 75 rows is boundary_evidence_refs[1]; B1 span=Dan.7.15-Dan.7.18 confidence=medium unit_type=interpretation","result":"confirmed"},
+  {"claim":"The entry agrees with boundary_rationale and the mark layer at Dan.7.14.","how":"s3.py: B8/B9 the rationale puts the dominion clause at words 12 to 14 of 21 (unchanged from FIXUP-9), which contains 13 to 14; B10 its quote of words 18 to 21 equals OSHB and ends the verse; C2 marks Dan.7.14 = ['PE'], no key for Dan.7.13 or Dan.7.15; C1 single witness","result":"confirmed"},
+  {"claim":"The changed entry carries no tier word; its only categorical words ('single', 'never') stand in the unchanged mark clause.","how":"s3.py: B7 tier words in entry1: [] ; categorical words: ['single', 'never']","result":"confirmed"},
+  {"claim":"The facts ruling RR9-TB-W4-004 cites equal my own measurements.","how":"E12 rulings[0] evidence read against s3.py lines A1-A6 and C2","result":"confirmed"},
+  {"claim":"The deliverable passes the pinned form check.","how":"python -B SP\\Dan\\review\\rr10\\rr10_form_check.py <deliverable> TB dan_rr10_TB_a1#e1; last output: {\"form_problems\": [], \"tally\": {\"supports\": 1, \"challenges\": 0, \"by_severity\": {\"high\": 0, \"medium\": 0, \"low\": 0}}}","result":"confirmed"}
+ ],
+ "challenges":[],
+ "unresolved_uncertainty":[
+  {"what":"The entry's unchanged words 'in the closing verse of the vision report' are a reading in a field that takes no tier word. The bytes are consistent with it (PE after Dan.7.14; Dan.7.15 opens the seer's reaction) but do not decide it. FIXUP-10 did not change these words and E12 left them to the end review.","why_it_matters":"It is the basis the entry gives for the far side of the onset; a script cannot settle it."},
+  {"what":"The unchanged boundary_rationale says the key 'is listed' at the dominion clause of words 12 to 14, while the pattern match is words 13 to 14. I read 'where' as the clause containing the key's words, which the bytes support; a stricter reader could take it as the key's extent. E12 ordered these words to stay. I did not raise it as an extra finding.","why_it_matters":"Read strictly, it would repeat in the rationale the one-word imprecision E12 corrected in the entry."},
+  {"what":"The inventory pattern is not anchored to word boundaries; I counted the match by the words it overlaps and confirmed it begins and ends on word boundaries.","why_it_matters":"For another pattern the two counts could differ; here they are the same."},
+  {"what":"I checked the digests of the E3 rulings, the book strategy and the WEB text but did not open their content: the changed entry has no tier word and no WEB quotation, and I checked no fact against the strategy.","why_it_matters":"The brief assigns reading E3's TIER-ONLY RULE; my statement that the entry carries no tier word rests on a seven-word tier list I supplied, not on E3's grammar."},
+  {"what":"Every lane and the ruling ran on one model family, a recorded downgrade and not an equivalence.","why_it_matters":"Agreement between lanes is not independent confirmation; my support rests on the script output only."},
+  {"what":"Two early script outputs exceeded the display limit and were spilled by the harness to its tool-results directory; I read one spill file (my own s2.py output) by its exact path. About 9 tool calls in all, within budget.","why_it_matters":"That path is not named in the brief, though it holds only my own output of pinned inputs."}
+ ],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+ "deliverable_sha256":"785339ecbfc5d050d6a3801d7f2511d75dd0d73ed7af19e88a820f6e1c0578ce",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}

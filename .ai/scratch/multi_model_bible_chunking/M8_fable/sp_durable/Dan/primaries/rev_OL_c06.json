@@ -1,0 +1,290 @@
+{
+ "attempt_id": "dan_pr_OL_c06_a1",
+ "execution_id": "dan_pr_OL_c06_a1#e1",
+ "book": "Dan",
+ "role": "primary_OL",
+ "cluster": "c06",
+ "model_ordered": "claude-opus-5-5 (grader_fallback, OW-25)",
+ "rows_file": {
+  "path": "Dan/fixup/draft_rows_fixup5_applied.jsonl",
+  "sha256": "2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca"
+ },
+ "artifacts_reviewed": [
+  {
+   "path": "SP\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl",
+   "artifact_sha256_at_review": "2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca"
+  },
+  {
+   "path": "SP\\Dan\\review_clusters.json",
+   "artifact_sha256_at_review": "2f8b57ff5e62f46c96e81c22b7a0cc9df069093129862fc2e6ea257da15d9ec3"
+  },
+  {
+   "path": "SP\\Dan\\flags_by_row.json",
+   "artifact_sha256_at_review": "f53c0fe88ae136548c98ce8a8c16f0a048abcd3968bc9e654b7eb57e347e4ce7"
+  },
+  {
+   "path": "SP\\Dan\\pmarks_Dan.json",
+   "artifact_sha256_at_review": "7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b"
+  },
+  {
+   "path": "SP\\Dan\\dan_device_inventory.json",
+   "artifact_sha256_at_review": "466d7e6e91a6af396fe9d5e38e1e54fc10272be79229d398283af92168552964"
+  },
+  {
+   "path": "SP\\Dan\\dan_language_zones.json",
+   "artifact_sha256_at_review": "903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b"
+  },
+  {
+   "path": "SP\\Dan\\web_mt_offset_map.json",
+   "artifact_sha256_at_review": "833d2ce37d015eccaaaac856d52c1931b9fd26bccb343064013fefc1da603da5"
+  },
+  {
+   "path": "SP\\Dan\\Dan_oshb.txt",
+   "artifact_sha256_at_review": "8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0"
+  },
+  {
+   "path": "SP\\Dan\\Dan_web_clean.txt",
+   "artifact_sha256_at_review": "532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa"
+  },
+  {
+   "path": "SP\\Dan\\review\\h_evidence_fx5\\suite_report_post_fx5.json",
+   "artifact_sha256_at_review": "80cdd32cf374b35582a552b16eafa8999de557bfe0a61d53a8761d9d135b8f2f"
+  },
+  {
+   "path": "SP\\Dan\\book_strategy_Dan.md",
+   "artifact_sha256_at_review": "158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da"
+  },
+  {
+   "path": "SP\\Dan\\verse_inventory.json",
+   "artifact_sha256_at_review": "de3dcac0f4649981a1c4c342add61c65fa7fb8b537261078695e30007924658b"
+  },
+  {
+   "path": "SP\\Dan\\tools\\TOOLKIT.md",
+   "artifact_sha256_at_review": "b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5"
+  }
+ ],
+ "rows_reviewed": [
+  "W3-008",
+  "W3-009",
+  "W3-010",
+  "W3-011",
+  "W3-012",
+  "W3-013",
+  "W3-014"
+ ],
+ "items": [
+  {
+   "row_id": "W3-008",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The boundary_rationale states the petuchah after 5:30 as 'single-witness' with no tier word and no layer named; the fact itself is true (mark layer: PE recorded on MT 5:30). Everything else the row asserts about the Masoretic layer collates: the Aramaic splice is an exact substring at the head of oshb:Dan.6.1 (= web:Dan.5.31), no paragraph mark follows MT 6:1, 6:2, 6:3 or 6:4, and the span holds no paseq and no ketiv/qere entry.",
+   "tier": "MEASURED",
+   "decision": "reword boundary_rationale",
+   "both_sides": "Onset: the far side (MT 5:30) carries PE in the single-witness mark layer and the near side (MT 6:1 = WEB 5:31) is the succession notice; the seam is marked. Close: no mark after MT 6:4 (= WEB 6:3) on the near side or before MT 6:5 (= WEB 6:4) on the far side; the then-connective opens BOTH MT 6:4 and MT 6:5 (and MT 6:6, 6:7), so it cannot tell the two sides apart, which agrees with the row resting the close on content. No cut proposed.",
+   "suggested_fix": {
+    "fact": "the petuchah after MT 5:30 is a fact extracted from the single-witness WLC mark layer; give it that tier and name that layer in the rationale, as the row's other fields already do for the absence of a mark",
+    "verse": "oshb:Dan.5.30 (far side of web:Dan.5.31 = oshb:Dan.6.1)"
+   },
+   "evidence": [
+    "FINDING 1 (gravest, low): boundary_rationale 'the PE after 5:30 (single-witness)' has no tier word and no layer; mark layer marks['Dan.5.30']=['PE'] holds the fact.",
+    "FINDING 2 (note, not a defect by itself): the device inventory lists then_aram at MT 6:4 as well as MT 6:5; oshb:Dan.6.4 opens אֱדַ֨יִן֙ . The row names the connective only at the far side of its close; it is equally present on the row's own last verse.",
+    "SUPPORT: splice in device_notes is an exact substring of oshb:Dan.6.1 and starts the verse (programmatic check).",
+    "SUPPORT: 'carries no mark after it (MEASURED over the OSHB mark layer)' is true: marks has no key Dan.6.1 (nor 6.2, 6.3, 6.4). The flag on this sentence is answered: the range claim holds.",
+    "SUPPORT: note layer at Dan.6.1 holds two untyped notes (n=n anomalous form; n=q a ketiv/qere abandoned or added against BHS); the K/Q list has no entry at Dan.6.1; the row's disclosure matches both.",
+    "SUPPORT: K/Q at MT 5:30 lies outside the span (far side) and the row does not quote it.",
+    "Language: every verse of MT 6:1-6:29 is A in the language-zone layer, matching the row's language field. Zone refs: every structured ref in the row is written dual (web = oshb)."
+   ]
+  },
+  {
+   "row_id": "W3-009",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The boundary_rationale rests both seams on formula facts (the then-connective at web:Dan.6.4 = oshb:Dan.6.5 and the because-of-this connective at web:Dan.6.9 = oshb:Dan.6.10) without a tier word or a named layer; both facts are true in the device inventory and on the bytes. The row's mark claims are true in both directions: setumah after MT 6:6 only, one paseq at MT 6:8, no ketiv/qere in MT 6:5-6:10.",
+   "tier": "MEASURED",
+   "decision": "reword boundary_rationale",
+   "both_sides": "Onset: no mark after MT 6:4 or at MT 6:5; then-connective on both sides (MT 6:4 and 6:5), agent changes at MT 6:5. Close: no mark after MT 6:10; the far side MT 6:11 opens with Daniel's name and a temporal clause, not the then-connective. The one mark in the span (setumah after MT 6:6) is interior and disclosed, and a setumah is the lighter of the two marks. No cut proposed.",
+   "suggested_fix": {
+    "fact": "the two connectives at the seams are formula hits extracted from the device inventory; give them that tier and layer where the rationale leans on them",
+    "verse": "web:Dan.6.4 = oshb:Dan.6.5 and web:Dan.6.9 = oshb:Dan.6.10"
+   },
+   "evidence": [
+    "FINDING 1 (gravest, low): boundary_rationale names then_aram and because_of_this_aram with no tier and no layer. Device inventory: then_aram verses include Dan.6.5; because_of_this_aram verses include Dan.6.10 (its only hit in the chapter).",
+    "SUPPORT: splice in device_notes is an exact substring of oshb:Dan.6.5 and starts the verse.",
+    "SUPPORT: marks['Dan.6.6']=['SAMEKH']; no other mark in MT 6:5-6:10. paseq list holds Dan.6.8 once. No kq key in Dan.6.5-6.10. The row claims exactly these.",
+    "SUPPORT: o_king_live_forever_aram is in the inventory at Dan.6.7 (= web:Dan.6.6), as the row says, tier EXTRACTED true.",
+    "SUPPORT: the rejected cut at the setumah is described on the correct verses (plan MT 6:5-6:6, petition MT 6:7-6:10).",
+    "Language: every verse of MT 6:1-6:29 is A in the language-zone layer, matching the row's language field. Zone refs: every structured ref in the row is written dual (web = oshb)."
+   ]
+  },
+  {
+   "row_id": "W3-010",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The row presents a 'blessed' formula in the prayer verse web:Dan.6.10 = oshb:Dan.6.11 (tag list, substrate signal, and device_notes with the tier EXTRACTED from the device inventory). On the bytes the matched word is the participle of kneeling, in the phrase 'kneeling on his knees'; the device inventory itself labels this hit as 'he knelt', not 'bless'. The layer does not hold a blessing here, and the row does not disclose the homograph.",
+   "tier": "MEASURED",
+   "decision": "reword device_notes",
+   "both_sides": "The finding does not move a seam. Onset: no mark after MT 6:10; MT 6:11 opens with a temporal clause and no then-connective (true on the bytes, as the row says). Close: MT 6:16 and MT 6:17 both open with the then-connective and no mark stands between them; the close rests on content, as graded. The setumah after MT 6:11 is interior and disclosed. No cut proposed.",
+   "suggested_fix": {
+    "fact": "the inventory hit at this verse is a homograph: the word means kneeling (WEB 'he kneeled on his knees'), not blessing, and the inventory says so; the row should either drop the tag and signal or state the homograph beside them",
+    "verse": "web:Dan.6.10 = oshb:Dan.6.11"
+   },
+   "evidence": [
+    "FINDING 1 (gravest, medium): oshb:Dan.6.11 reads בָּרֵ֣ךְ עַל בִּרְכ֗וֹהִי ; the device inventory's blessed_aram entry carries a homograph note saying that MT 6:11 matches on the verb 'he knelt' ('kneeling on his knees'), not 'bless', and that the hit is kept and labelled (note paraphrased, its Aramaic not reproduced). web:Dan.6.10 has 'he kneeled on his knees three times a day'. The row carries blessed_aram in strong_or_hebrew_tags_used, 'blessed_aram in the prayer verse' in observed_substrate_signals, and '(EXTRACTED, device inventory)' in device_notes with no homograph disclosure.",
+    "FINDING 2 (low): device_notes last sentence (the king labours until sunset and fails) carries no verse reference and no tier; the labour is in web:Dan.6.14 = oshb:Dan.6.15, the failure is a reading.",
+    "SUPPORT: splice in device_notes is an exact substring of oshb:Dan.6.11 and starts the verse.",
+    "SUPPORT: marks['Dan.6.11']=['SAMEKH'], the only mark in MT 6:11-6:16; paseq list holds Dan.6.11 once; kq holds Dan.6.14 once and no other verse of the span. The row claims exactly these.",
+    "SUPPORT: answered_and_said is in the inventory at Dan.6.13 (strict) and Dan.6.14 (loose), inside the accusation.",
+    "Language: every verse of MT 6:1-6:29 is A in the language-zone layer, matching the row's language field. Zone refs: every structured ref in the row is written dual (web = oshb)."
+   ]
+  },
+  {
+   "row_id": "W3-011",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The strongest_rejected_alternative gives a count ('nine verses') with no tier; the count is true (web:Dan.6.16-6.24 = oshb:Dan.6.17-6.25). The row's Masoretic claims all hold: no mark on either seam, one ketiv/qere verse in the span (MT 6:17), disclosed and outside the quoted splice, and no paseq.",
+   "tier": "MEASURED",
+   "decision": "reword strongest_rejected_alternative",
+   "both_sides": "Onset: no mark after MT 6:16; both MT 6:16 and MT 6:17 open with the then-connective; the turn is from the accusers' speech to the king's command. Close: no mark after MT 6:19; MT 6:19 ends on the sleepless night and MT 6:20 opens with the then-connective plus the dawn expression. The time shift is on the bytes of both sides. No cut proposed.",
+   "suggested_fix": {
+    "fact": "the rival unit runs nine verses, a count that can be measured on the verse list; give it its tier",
+    "verse": "web:Dan.6.16 = oshb:Dan.6.17 through web:Dan.6.24 = oshb:Dan.6.25"
+   },
+   "evidence": [
+    "FINDING 1 (gravest, low): 'nine verses' in strongest_rejected_alternative has no tier word; WEB 6:16..6:24 is nine verses.",
+    "SUPPORT: 'no mark on either seam (MEASURED over the OSHB mark layer)' is true: marks has no key Dan.6.16, 6.17, 6.18 or 6.19. The flag on this sentence is answered: the range claim holds.",
+    "SUPPORT: splice in device_notes is an exact substring of oshb:Dan.6.17 and starts the verse; the ketiv/qere site of that verse (kq key Dan.6.17, one entry, a pronoun in the king's speech) lies after the splice and is disclosed.",
+    "SUPPORT: kq has no key Dan.6.18 or Dan.6.19; paseq list has none in MT 6:17-6:19.",
+    "SUPPORT: answered_and_said strict hit at Dan.6.17 in the inventory. The 'wish' reading of the king's words is tiered INFERRED, which is not too strong (WEB has 'he will deliver you').",
+    "Language: every verse of MT 6:1-6:29 is A in the language-zone layer, matching the row's language field. Zone refs: every structured ref in the row is written dual (web = oshb)."
+   ]
+  },
+  {
+   "row_id": "W3-012",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The boundary_rationale leans on the then-connective at web:Dan.6.19 = oshb:Dan.6.20 without a tier or a layer; the fact is true (inventory hit and bytes). All other original-language claims hold: the splice is exact, the two ketiv/qere verses of the span (MT 6:21 and MT 6:23) are both disclosed and no other exists, and the span has no mark and no paseq.",
+   "tier": "MEASURED",
+   "decision": "reword boundary_rationale",
+   "both_sides": "Onset: no mark after MT 6:19; MT 6:20 opens with the then-connective and the dawn expression, against the night of MT 6:19. Close: no mark after MT 6:25; MT 6:25 is narrated command and execution, MT 6:26 opens with the then-connective and the king writing to all peoples. Neither seam has Masoretic support; both rest on content, as graded. No cut proposed.",
+   "suggested_fix": {
+    "fact": "the connective at the onset is a formula hit extracted from the device inventory; give it that tier and layer",
+    "verse": "web:Dan.6.19 = oshb:Dan.6.20"
+   },
+   "evidence": [
+    "FINDING 1 (gravest, low): boundary_rationale '(then_aram, weak alone)' has no tier and no layer; device inventory then_aram verses include Dan.6.20.",
+    "SUPPORT: splice in device_notes is an exact substring of oshb:Dan.6.20 and starts the verse; that verse has no ketiv/qere entry.",
+    "SUPPORT: kq keys in MT 6:20-6:25 are exactly Dan.6.21 and Dan.6.23, one entry each; both are in the refs. No marks key and no paseq in MT 6:20-6:25.",
+    "SUPPORT: living_god_aram at Dan.6.21 and o_king_live_forever_aram at Dan.6.22 are in the inventory; EXTRACTED is true.",
+    "SUPPORT (flag on 'all'): oshb:Dan.6.26 addresses the letter to all peoples, nations and tongues (to_all_peoples_nations_tongues_aram hit at Dan.6.26); the universal is the text's own.",
+    "Language: every verse of MT 6:1-6:29 is A in the language-zone layer, matching the row's language field. Zone refs: every structured ref in the row is written dual (web = oshb)."
+   ]
+  },
+  {
+   "row_id": "W3-013",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The strongest_rejected_alternative states a reading about voice (the notice is the narrator's, not the king's) and a rule about closing notices with no tier, and device_notes gives the paseq count with no tier. The facts are sound: MT 6:27 has two paseq, MT 6:26 and 6:27 each have one ketiv/qere entry and MT 6:28 has none, and the four formulae sit where the row puts them.",
+   "tier": "MEASURED",
+   "decision": "reword strongest_rejected_alternative",
+   "both_sides": "Onset: no mark after MT 6:25; MT 6:26 opens with the then-connective, the king writing, the address to all peoples and the greeting, all on the near side. Close: no mark after MT 6:28; MT 6:28 is still doxology in participles about God, and MT 6:29 turns to Daniel in the third person. Formula evidence on both seams, no Masoretic mark on either. No cut proposed.",
+   "suggested_fix": {
+    "fact": "the change of voice between the letter and the notice is a reading of the text and should be tiered as one; the paseq count is extracted from the single-witness mark layer",
+    "verse": "web:Dan.6.28 = oshb:Dan.6.29 (voice); web:Dan.6.26 = oshb:Dan.6.27 (paseq)"
+   },
+   "evidence": [
+    "FINDING 1 (gravest, low): strongest_rejected_alternative has no tier word on its reading of voice or on the rule it cites.",
+    "FINDING 2 (low): device_notes 'Paseq x2 in that verse disclosed as a count' has no tier or layer; paseq list holds Dan.6.27 twice, so the count is true.",
+    "SUPPORT: splice in device_notes is an exact substring of oshb:Dan.6.26 and starts the verse; the ketiv/qere site of that verse (kq key Dan.6.26, one entry, the word for the dwellers) lies after the splice and is disclosed.",
+    "SUPPORT: kq keys in MT 6:26-6:28 are exactly Dan.6.26 and Dan.6.27; no marks key in MT 6:26-6:28.",
+    "SUPPORT: inventory hits: to_all_peoples_nations_tongues_aram and peace_be_multiplied_aram at Dan.6.26; decree_aram and living_god_aram at Dan.6.27. EXTRACTED is true for each.",
+    "Language: every verse of MT 6:1-6:29 is A in the language-zone layer, matching the row's language field. Zone refs: every structured ref in the row is written dual (web = oshb)."
+   ]
+  },
+  {
+   "row_id": "W3-014",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The strongest_rejected_alternative gives a count ('two reigns') with no tier, and device_notes names the ketiv/qere layer with no tier word. The facts hold: the verse names the reign of Darius and the reign of Cyrus, the petuchah follows MT 6:29, the ketiv/qere of the verse is on its last word and outside the splice, and MT 7:1 is a regnal dateline in the inventory. The close and its high confidence are supported.",
+   "tier": "MEASURED",
+   "decision": "reword strongest_rejected_alternative",
+   "both_sides": "Onset: no mark between MT 6:28 and MT 6:29; the near side turns from participles about God to a third-person statement about Daniel. Close: PE after MT 6:29 on the near side (single witness, the heavier of the two marks) and a regnal dateline opening MT 7:1 on the far side. Two independent kinds of evidence, one on each side. Confidence stands. No cut proposed.",
+   "suggested_fix": {
+    "fact": "the verse names two reigns, a count that can be read off the verse; give it its tier, and give the ketiv/qere disclosure the tier of the layer it names",
+    "verse": "web:Dan.6.28 = oshb:Dan.6.29"
+   },
+   "evidence": [
+    "FINDING 1 (gravest, low): 'across two reigns' has no tier; oshb:Dan.6.29 reads בְּמַלְכ֣וּת דָּרְיָ֑וֶשׁ וּבְמַלְכ֖וּת כּ֥וֹרֶשׁ (two reign phrases; the count is true).",
+    "FINDING 2 (low): device_notes says the verse carries a ketiv/qere reading in the K/Q layer, with the layer but no tier word.",
+    "SUPPORT: marks['Dan.6.29']=['PE']; EXTRACTED from the single-witness mark layer is true.",
+    "SUPPORT: kq key Dan.6.29 has one entry, on the gentilic that ends the verse; the splice is the first three words, an exact substring of oshb:Dan.6.29.",
+    "SUPPORT: device inventory datelines include Dan.7.1, reign Belshazzar; oshb:Dan.7.1 opens בִּשְׁנַ֣ת חֲדָ֗ה לְבֵלְאשַׁצַּר֙ . 7:1 is outside both numbering zones, so its bare coordinate is not a finding.",
+    "Language: every verse of MT 6:1-6:29 is A in the language-zone layer, matching the row's language field. Zone refs: every structured ref in the row is written dual (web = oshb)."
+   ]
+  }
+ ],
+ "triage_answers": [
+  {
+   "id": "TRIAGE-DAN-01",
+   "in_my_cluster": true,
+   "rows": [
+    "W3-008",
+    "W3-009",
+    "W3-011",
+    "W3-012",
+    "W3-013",
+    "W3-014"
+   ],
+   "decision": "Yes for each listed row, in the listed field. W3-008 boundary_rationale: the petuchah after 5:30, a mark-layer fact, with no tier and no layer. W3-009 boundary_rationale: the then-connective at MT 6:5 and the because-of-this connective at MT 6:10, inventory facts, untiered. W3-011 strongest_rejected_alternative: the count 'nine verses', untiered (true). W3-012 boundary_rationale: the then-connective at MT 6:20, untiered. W3-013 strongest_rejected_alternative: the reading that the notice is the narrator's voice and the rule cited for it, untiered. W3-014 strongest_rejected_alternative: the count 'two reigns', untiered (true); device_notes: the ketiv/qere statement names its layer without a tier word. In every case the underlying fact is true on the layer; the gap is the missing tier, low severity.",
+   "evidence": [
+    "one item per row above",
+    "mark layer keys Dan.5.30, Dan.6.6, Dan.6.11, Dan.6.29; paseq Dan.6.8, Dan.6.11, Dan.6.27 x2; kq Dan.6.14, 6.17, 6.21, 6.23, 6.26, 6.27, 6.29",
+    "device inventory then_aram, because_of_this_aram verse lists"
+   ]
+  },
+  {
+   "id": "TRIAGE-DAN-02",
+   "in_my_cluster": false
+  },
+  {
+   "id": "TRIAGE-DAN-03",
+   "in_my_cluster": false
+  },
+  {
+   "id": "TRIAGE-DAN-04",
+   "in_my_cluster": false
+  },
+  {
+   "id": "TRIAGE-DAN-05",
+   "in_my_cluster": false
+  }
+ ],
+ "summary": {
+  "supports": 0,
+  "challenges": 7,
+  "by_severity": {
+   "high": 0,
+   "medium": 1,
+   "low": 6
+  }
+ },
+ "unresolved_uncertainty": [
+  {
+   "what": "The rows cite ruled decisions by letter-number labels (weak connectives, close-side doxology, closing notices kept apart). I did not open the strategy to test that each label says what the row uses it for; the strategy, the suite report, the verse inventory and the toolkit note were hashed at their pinned digests and not read.",
+   "why_it_matters": "A label used for a rule it does not state would be a defect this lane has not tested."
+  },
+  {
+   "what": "Paseq is count-only in the mark layer; I confirmed counts per verse, not positions.",
+   "why_it_matters": "No row in this cluster makes a position claim, so nothing rests on it, but the limit is the layer's."
+  },
+  {
+   "what": "The note at MT 6:1 (a ketiv/qere abandoned or added against BHS) is untyped and not tied to a word in the layer; I cannot say from the pinned inputs whether the noted word lies inside the row's splice.",
+   "why_it_matters": "If it does, the W3-008 splice binds to a variant site; the row already discloses the note at verse level."
+  },
+  {
+   "what": "Whether a missing tier word on a true fact should count as a challenge or as a note is a grading choice; I graded each low and said the fact is true.",
+   "why_it_matters": "Six of the seven challenges are of this kind; only W3-010 concerns a fact the layer does not hold."
+  }
+ ],
+ "e19_selfreport": "I ran no listing and no glob, no existence check and no recursive search; every file was opened by its exact path from the brief or the launch message.",
+ "limit": "one lens on one cluster; candidate-only, non-authorizing research review"
+}

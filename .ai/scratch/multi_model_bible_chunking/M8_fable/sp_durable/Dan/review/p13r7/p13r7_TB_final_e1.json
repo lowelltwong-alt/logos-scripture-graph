@@ -1,0 +1,43 @@
+```json
+{"attempt_id":"dan_p13r7_TB_a1","execution_id":"dan_p13r7_TB_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\P13R7_BRIEF_TB.md (whole; sha256 matched)",
+  "SP\\campaign\\REVIEWER_CONTINUATION_CONTRACT.v1.md (whole; sha256 matched)",
+  "SP\\..\\ERROR_PATTERN_LEDGER.v1.md (lines 807-874 only; file sha256 matched)",
+  "SP\\Dan\\review\\p13r7\\fixup7_changes_for_review.json (whole)",
+  "SP\\Dan\\fixup\\draft_rows_fixup7_applied.jsonl (the eight named rows in full; a scripted pass over all 75 rows for sentences pairing 'weak' with EXTRACTED or MEASURED)",
+  "SP\\Dan\\fixup\\draft_rows_fixup6_applied.jsonl (scripted comparison with the FIXUP-7 rows)",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E8.v1.json (the six rulings named by the records)",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json (passages naming the TIER-ONLY RULE)",
+  "SP\\Dan\\book_strategy_Dan.md (lines 107-112)",
+  "SP\\Dan\\Dan_oshb.txt (Dan 2:26, 2:27, 3:13, 3:19, 3:24, 3:28, 3:31, 4:16, 4:26, 7:25, 7:26, 10:13)",
+  "SP\\Dan\\Dan_web_clean.txt (the WEB counterparts, with continuation lines)",
+  "SP\\Dan\\pmarks_Dan.json (marks)",
+  "SP\\Dan\\dan_device_inventory.json (formulae, year, month/day, dateline and pattern sections)",
+  "SP\\Dan\\dan_language_zones.json (verse_language for the twelve verses)",
+  "SP\\Dan\\web_mt_offset_map.json (rule and zones)",
+  "SP\\campaign\\grader_models.v1.json (digest check only; contents not consulted)"],
+ "outcome":{"changed":[
+  {"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_p13r7\\out_TB_e1\\dan_p13r7_TB.json","why":"the lane deliverable: nine items, one per record, in the extract's order; 9 support, 0 challenge; no extra findings; tier_weak_opener answered for W8#1 to W8#4; LF only"},
+  {"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_p13r7\\out_TB_e1\\work\\progress.json and work\\s1.py to s6.py, s5.out","why":"continuation record (status ready_for_final_check, accepted false, no next cursor) and the read-only scripts behind the findings"}]},
+ "verification":[
+  {"claim":"The brief, the continuation contract and all 14 other pinned inputs carry the digests in the brief's table","how":"Get-FileHash on the brief and the contract; work\\s1.py on the rest","result":"confirmed"},
+  {"claim":"W8#1 to W8#4: the listing is true to the inventory under EXTRACTED and the weakness stands under INFERRED only","how":"then_aram verses_mt holds Dan.3.13, 3.19, 3.24 and 4.16; the inventory's pattern matches at offset 0 of each verse in OSHB; both answered-and-said lists hold Dan.3.28 and OSHB 3:28 opens with the formula; the four applied sentences read in place","result":"confirmed"},
+  {"claim":"W8#5: the verse holds three coordinate terms","how":"OSHB 3:31 skeleton words 4-6 after the preposition; WEB 4:1 continuation line 'to all the peoples, nations, and languages'; the inventory's three-term formula lists Dan.3.31","result":"confirmed"},
+  {"claim":"W8#6: the twelve-months verse is not a dateline, and a PE stands before it","how":"inventory datelines and calendar-date lists lack Dan.4.26; its month word is held among the non-date month or day words; pmarks marks Dan.4.25 = PE","result":"confirmed"},
+  {"claim":"W8#7: the substring reading lists 10:13 through the chief-princes adjective, the anchored reading does not list it, and the verse's time word is the day word","how":"inventory lists, the note and token for Dan.10.13, and the inventory's own Hebrew year patterns run on OSHB 10:13 (one substring hit inside that adjective, no anchored hit)","result":"confirmed"},
+  {"claim":"W8#8: the MEASURED tier is true, and word 4 of 7:25 is of another root","how":"the record's scan code re-executed gives its recorded output byte for byte; my own wider check on OSHB and WEB 7:25-7:26, continuation lines included, finds 0 hits; word 4 has the consonants yod-mem-lamed-lamed","result":"confirmed"},
+  {"claim":"W8#9: 2:26 is in the strict and loose classes, 2:27 in the loose class only","how":"inventory strict and loose lists; the inventory's two patterns run on OSHB 2:26 and 2:27","result":"confirmed"},
+  {"claim":"FIXUP-7 changed exactly the nine named fields","how":"work\\s5.py field comparison of the FIXUP-6 and FIXUP-7 rows; each before text has count 1 and replaces to the applied field","result":"confirmed"}],
+ "challenges":[],
+ "unresolved_uncertainty":[
+  {"what":"W8#8: the pinned OSHB text has no lemma or morphology layer, so 'verb of speaking' and 'of another root' rest on the word's consonants and on WEB 'speak'","why_it_matters":"the EXTRACTED tier is true for the word and its place; calling it a verb of speaking is a reading of those bytes"},
+  {"what":"W8#6: the phrase reads 'at the end of twelve months'; 'duration' is the inventory's class for it, though strictly it marks the point where a duration ends","why_it_matters":"wording only; the sentence is INFERRED and makes no dateline claim"},
+  {"what":"W2-003 and W3-002 (strongest_rejected_alternative) still place a weakness inside an EXTRACTED annotation; E8 carries both to the end review, so I entered no extra finding","why_it_matters":"the fault class FIXUP-7 cured in four rows still stands in two rows, by ruling"},
+  {"what":"I did not locate the E3 TIER-ONLY RULE text or its regex G; tiers were tested as E8 states the rule and as the brief defines them","why_it_matters":"the truth of each annotation was tested, not its formal grammar"},
+  {"what":"progress.json was written once, after the batched checks for all nine records, not after each item as the brief asks","why_it_matters":"there was no per-item resume point during the run; this was a fresh run, not a continuation"},
+  {"what":"The run used about 22 tool calls against a budget of roughly 25; two of them were failed script runs corrected and re-run","why_it_matters":"budget accounting"}],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+ "deliverable_sha256":"1e8d8062a558ac14c25e68baf469579fb87c48cd280043461229b455df70d270",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}
+```

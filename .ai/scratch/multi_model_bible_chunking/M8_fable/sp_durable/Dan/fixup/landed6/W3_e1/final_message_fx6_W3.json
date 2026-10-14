@@ -1,0 +1,127 @@
+{
+ "attempt_id": "dan_fixup6_W3_a1",
+ "execution_id": "dan_fixup6_W3_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\FIXUP6_BRIEF_W3.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\ERROR_PATTERN_LEDGER.v1.md (lines 807-874)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E6.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\e6_evidence\\primaries_docket_medium_high.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\e6_evidence\\primaries_docket_low.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\book_strategy_Dan.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_language_zones.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\web_mt_offset_map.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\run_validator_suite.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\check_web_quotes.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "W3-006 confidence medium to medium_low and W3-014 confidence high to medium; the closing grade word of each rationale now agrees",
+    "why": "orders O2, O3, O5, O6: each row shares an unmarked edge that the neighbouring row grades lower; in W3-006 the formula stands one verse inside the unit and in W3-014 the onset has no mark"
+   },
+   {
+    "what": "W3-005 rationale and rejected alternative now name the then-connective heading oshb:Dan.5.24, the resumption at oshb:Dan.5.25 and the rival cut after oshb:Dan.5.23",
+    "why": "order O1; all three facts were found on the pinned bytes"
+   },
+   {
+    "what": "W3-010 tag entry, signal entry and device note now state that the form at web:Dan.6.10 = oshb:Dan.6.11 is the kneeling verb, a labelled homograph, not a blessing device",
+    "why": "order O4; the homograph note in the device layer says so"
+   },
+   {
+    "what": "W3-001 signal no longer names the chapter line; W3-004 gains the further rival close after 5:17; W3-008 treats the missing mark as a disclosed silence and not a reason",
+    "why": "order O7 (low findings F1, F4, F10)"
+   },
+   {
+    "what": "tier annotations in the fixed grammar added or corrected on W3-003, -005, -007, -008, -009, -011, -012, -013, -014; presence facts split from readings",
+    "why": "order O8 and findings F2, F3, F5, F8, F9, F11, F12, F15, F16, F17, F19"
+   }
+  ]
+ },
+ "counts": {
+  "records": 25,
+  "rows_changed": 13,
+  "applied": 27,
+  "not_applied": 0,
+  "no_row_change_by_ruling": 0,
+  "blocked": 2
+ },
+ "verification": [
+  {
+   "claim": "the brief and all 16 pinned inputs match their digests",
+   "how": "sha256 by script work\\s1_inputs.py",
+   "result": "all match"
+  },
+  {
+   "claim": "replaying the change records over the pinned rows reproduces the rows file byte for byte; each before text occurs once in the base field and once at apply time",
+   "how": "work\\build.py builds the rows file from the records and checks the counts",
+   "result": "pass, 25 records"
+  },
+  {
+   "claim": "only fields the map opens differ; list lengths, key order, spans and ids are kept; LF only; the three listed strings are absent; every row holds a tier word",
+   "how": "work\\build.py lander tests",
+   "result": "all True"
+  },
+  {
+   "claim": "every tier word in every after text sits inside one annotation of the fixed grammar, directly before punctuation or at field end",
+   "how": "regex check in work\\build.py",
+   "result": "pass"
+  },
+  {
+   "claim": "no new run of five consecutive WEB words was added unquoted",
+   "how": "own window check of every after text against the whole WEB file, plus the web_quotes member of the suite",
+   "result": "no hits; member GREEN"
+  },
+  {
+   "claim": "the suite is hard GREEN on the applied copy with no dead member and no more triage flags than the base",
+   "how": "python -B run_validator_suite.py on work\\rows_base.jsonl and work\\rows_applied.jsonl",
+   "result": "base GREEN 137; applied GREEN 136; dead members []; new flag keys []"
+  },
+  {
+   "claim": "every MEASURED annotation I added rests on a scan carried in its record",
+   "how": "work\\scan_w3.py source and exact output embedded in the records",
+   "result": "7 records carry the scan"
+  },
+  {
+   "claim": "dispositions cover F1-F19 and O1-O8 once each and every record is cited by at least one",
+   "how": "work\\build.py",
+   "result": "pass"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "W3-001 boundary_rationale still calls the unit before the seam a decree; that field is not open on this row",
+   "why_it_matters": "finding F1 is met only in the signal entry; the rationale phrase needs a ruling or a wider map"
+  },
+  {
+   "what": "W3-010: the order says remove the form from any list, the map forbids removing a list entry; the tag and signal entries were reworded into the homograph statement",
+   "why_it_matters": "the tag list entry is now a sentence, not a bare tag; a lander wanting a bare tag list must rule"
+  },
+  {
+   "what": "W3-004: which of the two rejected rivals is the stronger is left open in the row",
+   "why_it_matters": "the field is named for the strongest alternative; no ruling ranks them"
+  },
+  {
+   "what": "W3-008: the reviewer's clause that the appointments depend on the succession verse for their king was not written, because WEB 6:1 names Darius itself",
+   "why_it_matters": "finding F10 is applied in substance but not in the reviewer's words"
+  },
+  {
+   "what": "the mark_symmetry member counts 23 rows citing marks against 21 on the base (it stays GREEN); the cause was not traced row by row",
+   "why_it_matters": "a count moved although no new flag key appeared"
+  },
+  {
+   "what": "readings and weighings carry INFERRED on my own judgement; this lane is one voice and has not been cross-read",
+   "why_it_matters": "a second blind lane is still owed before these rows are relied on"
+  }
+ ],
+ "e19_selfreport": "ran no listing, no glob, no recursive search; read only the exact paths named",
+ "rows_sha256": "4a9ca0d3bc9966036bbb2acf82e60705be19de185dce898ca4f52af812443cb9",
+ "changes_sha256": "7a64ec2f9dd337d5dfb1992e6e16212b921246cb75727cf9b145ce69a9451ae8",
+ "limit": "accountable work summary; not chain of thought and not independent proof"
+}

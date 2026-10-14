@@ -1,0 +1,770 @@
+{
+ "schema": "m8_receipt_extract.v1",
+ "book": "Dan",
+ "built_by": "orchestrator, scratch make_s2_receipt_extract.py",
+ "purpose": "gate s2_conditions 1: the S2 brief cites each tool-fix receipt. A lane may not open *_attempt_receipts.jsonl, so the rows are copied here verbatim.",
+ "source": {
+  "path": "sp_durable/Dan/review/dan_review_attempt_receipts.jsonl",
+  "sha256": "f22e612a344a1accb3d03eeb29045b819a436c4d0eb534eab65f95a1c0566ca5",
+  "rows_in_source": 35
+ },
+ "rows": [
+  {
+   "row_number": 12,
+   "record_kind": "tool_fix_install",
+   "row_sha256": "f08c3db4c07dade66d6d9133cdfaea098876984b0e1c0112ff362fed361f29c3",
+   "row": {
+    "schema": "m8_attempt_receipt.v1",
+    "record_kind": "tool_fix_install",
+    "book": "Dan",
+    "parent_agent_id": "orchestrator",
+    "ordered_by": "dan_controlling_rulings_a1#e3",
+    "rulings_file": {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E1.v1.json",
+     "sha256": "541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30"
+    },
+    "rows_tested": {
+     "path": "sp_durable/Dan/writer/draft_rows_combined.jsonl",
+     "sha256": "693e468fd4b166ea4ff57bf5729ff7f952c218727e6ceed61ba77df1b9ef8830",
+     "note": "tests ran on a scratch copy (E-67); the suite writes its report beside its input"
+    },
+    "recorded_at": "2026-09-30T13:36:26Z",
+    "tool_fix_id": "S1-02",
+    "outcome": "INSTALLED - new HARD suite member placeholders (check_placeholders.py, CWO-DAN-01 predicate, every string at any depth, all fields); RED added to hard_red; ERROR already HARD (D1). check_brief_vs_suite.py gained its duty entry (sibling path: the new member was otherwise UNMAPPED, a failure).",
+    "tools": {
+     "check_placeholders.py": {
+      "path": "sp_durable/Dan/tools/check_placeholders.py",
+      "after_sha256": "0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb",
+      "before": "absent (new file)"
+     },
+     "run_validator_suite.py": {
+      "path": "sp_durable/Dan/tools/run_validator_suite.py",
+      "after_sha256": "5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f",
+      "before_sha12": "f5d1fc5a526c",
+      "pre_copy": "sp_durable/Dan/tools/run_validator_suite.py.pre_f5d1fc5a526c"
+     },
+     "TOOLKIT.md": {
+      "path": "sp_durable/Dan/tools/TOOLKIT.md",
+      "after_sha256": "ca3d60616a07a2ba6027bb9dcd3d4aad715d7a975e62935df951079fe94a08d2",
+      "before_sha12": "c05b81466651",
+      "pre_copy": "sp_durable/Dan/tools/TOOLKIT.md.pre_c05b81466651"
+     },
+     "check_brief_vs_suite.py": {
+      "path": "sp_durable/Dan/tools/check_brief_vs_suite.py",
+      "after_sha256": "0a3920e123aa80077bcff501fbce0f9e1628737b17e7eafeb2d164e6b8c0a87c",
+      "before_sha12": "2a37dd83f84e",
+      "pre_copy": "sp_durable/Dan/tools/check_brief_vs_suite.py.pre_2a37dd83f84e"
+     }
+    },
+    "tests": {
+     "selftest": {
+      "selftest": "PASS",
+      "must_fail": 5,
+      "must_pass": 4,
+      "misbehaving": [],
+      "w6_matches": [
+       "%s",
+       "%s"
+      ]
+     },
+     "baseline_on_rows": {
+      "rows": 75,
+      "strings_scanned": 2218,
+      "hit_count": 2,
+      "hits_by_row": {
+       "W6-001": 2
+      },
+      "status": "RED"
+     },
+     "other_74_rows": "0 hits (MEASURED: hits_by_row names only W6-001)",
+     "suite_on_rows": {
+      "hard_status": "RED",
+      "dead_members": [],
+      "per_check": {
+       "citation_sweep": "GREEN",
+       "hebrew_normalize_dryrun": "ok=364 fixed=0 defects=0",
+       "web_quotes": "FLAGS",
+       "refs_mirror": "FLAGS",
+       "mark_symmetry": "GREEN",
+       "universals": "FLAGS",
+       "language_zones": "GREEN",
+       "ngram7": "GREEN",
+       "cap_sweep": "GREEN",
+       "register": "FLAGS",
+       "role_tokens": "GREEN",
+       "placeholders": "RED"
+      }
+     },
+     "brief_vs_suite_selftest": "PASS",
+     "toolkit_selfcheck": "full 234/234, artifacts-only 159/159 GREEN"
+    },
+    "effect": "the placeholder class is now HARD; the suite is RED on W6-001 until FIXUP-1 cures it",
+    "evidence": {
+     "selftest_placeholders.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/selftest_placeholders.out",
+      "sha256": "4a1ec153630d7a3f7769dd00480da13744f5b96567df5990c99f112c144d19b6"
+     },
+     "placeholders_rows.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/placeholders_rows.out",
+      "sha256": "1e5b6e9f4d4df469e0212f5265de05523743896b60b7480e26d7ad19e15963d4"
+     },
+     "suite_summary.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/suite_summary.out",
+      "sha256": "feb031dd7531f1ada71d26d3362639e8483c59037c4b63483a7932d9b9f952b1"
+     },
+     "selftest_brief_vs_suite.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/selftest_brief_vs_suite.out",
+      "sha256": "815d7e2794bc1c8a8c8dd197d64aabcac42d56310d0baae634b7d686122b9dda"
+     },
+     "toolkit_selfcheck_full.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/toolkit_selfcheck_full.out",
+      "sha256": "70f1ca4dc023199c2f6af70c8cf92ebdfce5d4108075ffe2b5fa8d5658785feb"
+     },
+     "toolkit_selfcheck_artifacts.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/toolkit_selfcheck_artifacts.out",
+      "sha256": "ca08a404725c5634b7992dfc8ea7f45db123281dc26b9f8437d57d30c47ee69c"
+     }
+    }
+   }
+  },
+  {
+   "row_number": 13,
+   "record_kind": "tool_fix_install",
+   "row_sha256": "2d9faa08cec8400b9640b711c33676ca7262f04d4f489bc6e2bf79257fb48615",
+   "row": {
+    "schema": "m8_attempt_receipt.v1",
+    "record_kind": "tool_fix_install",
+    "book": "Dan",
+    "parent_agent_id": "orchestrator",
+    "ordered_by": "dan_controlling_rulings_a1#e3",
+    "rulings_file": {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E1.v1.json",
+     "sha256": "541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30"
+    },
+    "rows_tested": {
+     "path": "sp_durable/Dan/writer/draft_rows_combined.jsonl",
+     "sha256": "693e468fd4b166ea4ff57bf5729ff7f952c218727e6ceed61ba77df1b9ef8830",
+     "note": "tests ran on a scratch copy (E-67); the suite writes its report beside its input"
+    },
+    "recorded_at": "2026-09-30T13:36:26Z",
+    "tool_fix_id": "S1-07",
+    "outcome": "INSTALLED - NARROWING of the HARD member ngram7: the 72 exact device-class keys of dan_device_inventory.json (read at run time) are removed as whole identifiers and replaced by a segment break; the narrowing sentence is recorded in TOOLKIT.md and in ngram7's docstring.",
+    "tools": {
+     "ngram7.py": {
+      "path": "sp_durable/Dan/tools/ngram7.py",
+      "after_sha256": "cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d",
+      "before_sha12": "5faf1c2aa3b6",
+      "pre_copy": "sp_durable/Dan/tools/ngram7.py.pre_5faf1c2aa3b6"
+     },
+     "TOOLKIT.md": {
+      "path": "sp_durable/Dan/tools/TOOLKIT.md",
+      "after_sha256": "ca3d60616a07a2ba6027bb9dcd3d4aad715d7a975e62935df951079fe94a08d2",
+      "before_sha12": "c05b81466651",
+      "pre_copy": "sp_durable/Dan/tools/TOOLKIT.md.pre_c05b81466651"
+     }
+    },
+    "tests": {
+     "F1": {
+      "pre_strip_status": "RED",
+      "pre_strip_offenders": [
+       [
+        "month or day word not a date",
+        10
+       ]
+      ],
+      "status": "GREEN",
+      "device_keys_stripped": 72,
+      "offenders": [],
+      "pass": true
+     },
+     "F2": {
+      "grams_stripped": 10819,
+      "grams_unstripped": 13068,
+      "grams_lost": 2249,
+      "violations": [],
+      "non_overlapping_rowset_diffs": [],
+      "per_row_union_equals_tool": true,
+      "pass": true
+     },
+     "F3": {
+      "spaced_status": "RED",
+      "rc": 1,
+      "spaced_offenders": [
+       "case the month or day word not",
+       "the month or day word not a",
+       "month or day word not a date",
+       "or day word not a date appears",
+       "day word not a date appears in",
+       "word not a date appears in note"
+      ],
+      "control_key_status": "GREEN",
+      "pass": true
+     },
+     "ALL_PASS": true
+    },
+    "reported_limits": [
+     "F2's per-row gram builder re-implements ngram7's loop; it is tied to the tool by the check that its union equals the tool's own --dump-grams output in both modes",
+     "the two 7-row early-warning clusters (paseq, K/Q) stay below gate 10 and are not raised"
+    ],
+    "evidence": {
+     "fixtures_s1_07.py": {
+      "path": "sp_durable/Dan/review/tool_fixes/fixtures_s1_07.py",
+      "sha256": "4d3a157690156968ae25e456e616aa49eb03ffc6eafd50648505787e30cc9bbd"
+     },
+     "fixtures_s1_07.result.json": {
+      "path": "sp_durable/Dan/review/tool_fixes/fixtures_s1_07.result.json",
+      "sha256": "d63ae6fae2378d24292cbfa7bd6d147411545990e12dc050bd438f5cc44a4a44"
+     },
+     "syn_spaced.jsonl": {
+      "path": "sp_durable/Dan/review/tool_fixes/syn_spaced.jsonl",
+      "sha256": "36d9e226615b9be7d2b52acdc823358282c2cd7ebb40100e4689f14e340ff4f0"
+     },
+     "syn_key.jsonl": {
+      "path": "sp_durable/Dan/review/tool_fixes/syn_key.jsonl",
+      "sha256": "24e389c305b5594a1b44eb15cb6381fa9b72cbfe501ed06078ec9a890d92defa"
+     },
+     "suite_summary.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/suite_summary.out",
+      "sha256": "feb031dd7531f1ada71d26d3362639e8483c59037c4b63483a7932d9b9f952b1"
+     }
+    }
+   }
+  },
+  {
+   "row_number": 23,
+   "record_kind": "tool_fix_install",
+   "row_sha256": "bc884b90c75b3b7407b22132a5c615c5e8dce4fbb0432c76b934c4d4efca129a",
+   "row": {
+    "schema": "m8_attempt_receipt.v1",
+    "record_kind": "tool_fix_install",
+    "book": "Dan",
+    "parent_agent_id": "orchestrator",
+    "ordered_by": "dan_controlling_rulings_a1#e3",
+    "rulings_file": {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E1.v1.json",
+     "sha256": "541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30"
+    },
+    "rows_tested": {
+     "path": "sp_durable/Dan/fixup/draft_rows_fixup1_applied.jsonl",
+     "sha256": "2b92198c74bfbd327afa0c0e611dc9c700c097454a0e8ab23663d046e63470df",
+     "note": "tests ran on scratch copies (E-67) via run_suite_scratch.py"
+    },
+    "tool_fix_id": "S1-08+U-QUOTE-LABEL",
+    "outcome": "INSTALLED - FLAG/WARN tier only, no HARD member changed. (a) check_universals skips the top-level parent_collection key. (b) citation_sweep K/Q prose_dual warn fires only when the quoted run collates (to skeleton tier) with a Ketiv or Qere form of the bound verse (UNANCHORED fails safe). (c) check_marks paseq_position_warn scans one string per line and drops a match crossing strings; new FLAG paseq_false_presence checks 'paseq (at|in) C:V' against the pmarks paseq list under both readings, negated claims exempt. U-QUOTE-LABEL: check_web_quotes a6 arm skips a top-level parent_collection label whose run is byte-present in the span+refs WEB text; otherwise it still flags. TOOLKIT.md records all four.",
+    "tools": {
+     "check_universals.py": {
+      "path": "sp_durable/Dan/tools/check_universals.py",
+      "before_sha12": "65575ff27259",
+      "after_sha256": "78c3dda37e7f93eba18ebc66251408dabd12c9918e4a565484786d94d6278ab7",
+      "pre_copy": "sp_durable/Dan/tools/check_universals.py.pre_65575ff27259"
+     },
+     "citation_sweep.py": {
+      "path": "sp_durable/Dan/tools/citation_sweep.py",
+      "before_sha12": "d5bd9b33a9c0",
+      "after_sha256": "546d22079f5b2997f9963d553e7cbf284ef32e850907b1ddd5158240a55d91d2",
+      "pre_copy": "sp_durable/Dan/tools/citation_sweep.py.pre_d5bd9b33a9c0"
+     },
+     "check_marks.py": {
+      "path": "sp_durable/Dan/tools/check_marks.py",
+      "before_sha12": "df1818f72467",
+      "after_sha256": "6e2256defab1f098ab2428cc36dc229a3612be2f6889f18ffd8a6b54bcbcc3d5",
+      "pre_copy": "sp_durable/Dan/tools/check_marks.py.pre_df1818f72467"
+     },
+     "check_web_quotes.py": {
+      "path": "sp_durable/Dan/tools/check_web_quotes.py",
+      "before_sha12": "fadb6cff6647",
+      "after_sha256": "f266e32162cf40e2fbca51d7cc565fd39dbfb00080813da70130a226c27c70eb",
+      "pre_copy": "sp_durable/Dan/tools/check_web_quotes.py.pre_fadb6cff6647"
+     },
+     "TOOLKIT.md": {
+      "path": "sp_durable/Dan/tools/TOOLKIT.md",
+      "before_sha12": "ca3d60616a07",
+      "after_sha256": "b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5",
+      "pre_copy": "sp_durable/Dan/tools/TOOLKIT.md.pre_ca3d60616a07"
+     }
+    },
+    "tests": {
+     "fixtures": {
+      "a_no_top_level_parent_collection_flags": true,
+      "a_synthetic_device_notes_still_flags": true,
+      "b_W5_005_no_longer_warns": true,
+      "b_synthetic_ketiv_quote_warns": true,
+      "b_citation_status_unchanged_class": "GREEN",
+      "c_W4_008_W6_014_no_warn": true,
+      "c_synthetic_position_claim_warns": true,
+      "c_synthetic_paseq_1_1_flagged": true,
+      "c_no_real_row_false_presence": true,
+      "u_parent_collection_label_not_flagged": true,
+      "u_info_synthetic_label_flags": [],
+      "ALL_PASS": true
+     },
+     "suite_on_rows": {
+      "hard_status": "GREEN",
+      "triage_flags": 138,
+      "dead_members": []
+     },
+     "member_deltas": {
+      "universals_flags": "83 -> 68",
+      "web_quotes_flags": "2 -> 1",
+      "paseq_position_warns": "2 -> 0",
+      "kq_prose_dual_warns": "1 -> 0",
+      "triage_flags": "154 -> 138"
+     },
+     "dan_lib_selftest": "48/48 GREEN",
+     "toolkit_selfcheck": "234/234 GREEN",
+     "brief_vs_suite_selftest": "PASS"
+    },
+    "reported_limits": [
+     "a first draft of paseq_false_presence flagged W4-013's absence statement 'no paseq at 8:27'; the negation guard was added before install and fixture c_no_real_row_false_presence covers it",
+     "the U-QUOTE-LABEL byte-presence fallback was exercised only on a byte-present label; a non-byte-present label that a6 still matches was not constructed (UNVERIFIED)",
+     "check_brief_vs_suite maps by member, so the new paseq_false_presence rule sits under mark_symmetry's duty, whose phrases do not name paseq presence; a future author brief should carry it"
+    ],
+    "evidence": {
+     "fixtures_s1_08.py": {
+      "path": "sp_durable/Dan/review/tool_fixes/s108_fixtures_s1_08.py",
+      "sha256": "74c7a432910c3e79b879c495b5abcde2c11cef7768403abeddaba2ce8247e6ef"
+     },
+     "fixtures_s1_08.result.json": {
+      "path": "sp_durable/Dan/review/tool_fixes/s108_fixtures_s1_08.result.json",
+      "sha256": "186d3d4558f36f6aa85ebc069d365946f1accc7410e0b361c322a236f2b0ce00"
+     },
+     "suite_summary.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/s108_suite_summary.out",
+      "sha256": "442347a8b401ee56a9114e78ab21878d69cda3fb3077c9b9c25f35392c8c5688"
+     },
+     "selftest_dan_lib.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/s108_selftest_dan_lib.out",
+      "sha256": "843291208493159704956dade93f14f5b581c726413af52ddd818e23797571d8"
+     },
+     "toolkit_selfcheck_full.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/s108_toolkit_selfcheck_full.out",
+      "sha256": "70f1ca4dc023199c2f6af70c8cf92ebdfce5d4108075ffe2b5fa8d5658785feb"
+     },
+     "selftest_brief_vs_suite.out": {
+      "path": "sp_durable/Dan/review/tool_fixes/s108_selftest_brief_vs_suite.out",
+      "sha256": "815d7e2794bc1c8a8c8dd197d64aabcac42d56310d0baae634b7d686122b9dda"
+     }
+    },
+    "recorded_at": "2026-09-30T14:10:42Z"
+   }
+  },
+  {
+   "row_number": 24,
+   "record_kind": "evidence_install",
+   "row_sha256": "a8ad4b2f4f0948b45a32fa06bf73819e78a0ceab44709b763dcc7909af5f2560",
+   "row": {
+    "schema": "m8_attempt_receipt.v1",
+    "record_kind": "evidence_install",
+    "book": "Dan",
+    "parent_agent_id": "orchestrator",
+    "for_execution": "dan_controlling_rulings_a2",
+    "purpose": "orchestrator evidence the controlling agent rules on (E2): CWO-03 dispositions and coverage on the FIXUP-1 applied rows, the suite report after the S1-08 install, and the flag triage table",
+    "rows_file": {
+     "path": "sp_durable/Dan/fixup/draft_rows_fixup1_applied.jsonl",
+     "sha256": "2b92198c74bfbd327afa0c0e611dc9c700c097454a0e8ab23663d046e63470df"
+    },
+    "evidence": {
+     "cwo03_dispositions_v2.json": {
+      "path": "sp_durable/Dan/review/e2_evidence/cwo03_dispositions_v2.json",
+      "sha256": "6e6a0e9a86b5ea0e51cc03baa5f127f38229e9764103512ffdf1335430685c83",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\tf\\applied\\cwo03_dispositions_v2.json"
+     },
+     "cwo_coverage_applied_v2.json": {
+      "path": "sp_durable/Dan/review/e2_evidence/cwo_coverage_applied_v2.json",
+      "sha256": "faeb6fc55e23ad7bbb267f778abe46fda862b627cb60716dacdbd4d854258088",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\tf\\applied\\cwo_applied_v2.json"
+     },
+     "suite_report_post_s108.json": {
+      "path": "sp_durable/Dan/review/e2_evidence/suite_report_post_s108.json",
+      "sha256": "1788f34cc014b4d0149a837f0fb4642dd6ff682b70e6f35d8b21e27f614f7cf7",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\suite_runs\\post_s108\\draft_rows_fixup1_applied.jsonl.validator_report.json"
+     },
+     "triage_s108.json": {
+      "path": "sp_durable/Dan/review/e2_evidence/triage_s108.json",
+      "sha256": "aba07b67b370ef3a063abe4a489b572926707c189d22b80630af81ac06c6bf73",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\tf\\triage\\triage_s108.json"
+     }
+    },
+    "method": "byte-identical copy by scratch build_ctl_e2_dan.py; pin guard CLEAR",
+    "recorded_at": "2026-09-30T14:18:14Z"
+   }
+  },
+  {
+   "row_number": 34,
+   "record_kind": "evidence_install",
+   "row_sha256": "f917ec1511e19057686a511d320862251b027df795b7d4e006708205c28f1efd",
+   "row": {
+    "schema": "m8_attempt_receipt.v1",
+    "record_kind": "evidence_install",
+    "book": "Dan",
+    "parent_agent_id": "orchestrator",
+    "for_execution": "dan_fixup2 close (orders of dan_controlling_rulings_a2#e1)",
+    "purpose": "FIXUP-2 close record: suite and CWO on the FIXUP-2 applied rows, triage delta and dispositions, CWO-DAN-03 re-run with the W6-013 relabel, TRIAGE-CLASSES and REGISTER-ID statements, S1-09 routing",
+    "rows_file": {
+     "path": "sp_durable/Dan/fixup/draft_rows_fixup2_applied.jsonl",
+     "sha256": "d731d8559d100caace5152abb799b7af6a43d2f598eb6f8fb6bca49b78b893e5"
+    },
+    "evidence": {
+     "triage_fx2_close.v1.json": {
+      "path": "sp_durable/Dan/review/fx2_close/triage_fx2_close.v1.json",
+      "sha256": "eda9d2bc94936396166e0a3b3d6defa346efd74a4ce4780391067e963f6b3592",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\tf\\fx2_close\\triage_fx2_close.v1.json"
+     },
+     "suite_report_post_fx2.json": {
+      "path": "sp_durable/Dan/review/fx2_close/suite_report_post_fx2.json",
+      "sha256": "1c68b071365b8a40016dab5769f7ac4dbec6b1368d3882275fdbcc9b13117a68",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\tf\\applied2\\rows_applied.jsonl.validator_report.json"
+     },
+     "cwo_applied_fx2.json": {
+      "path": "sp_durable/Dan/review/fx2_close/cwo_applied_fx2.json",
+      "sha256": "62ddf5788ed25299bf8b2024e44aad296986946ce387541cd9950c4efefb6395",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\tf\\applied2\\cwo_applied.json"
+     },
+     "cwo03_dispositions_fx2.json": {
+      "path": "sp_durable/Dan/review/fx2_close/cwo03_dispositions_fx2.json",
+      "sha256": "bbd6a1baec02f58c8154c7942c633d6854faae13e5c4b2cd9dac268c5e3cb645",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\tf\\applied2\\cwo03_dispositions_fx2.json"
+     },
+     "triage_delta_fx2.json": {
+      "path": "sp_durable/Dan/review/fx2_close/triage_delta_fx2.json",
+      "sha256": "2d02e7332f6c47b3e4f0f578ce071f7676779034ed679b8747588b77d303416f",
+      "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\tf\\applied2\\triage_delta_fx2.json"
+     },
+     "routed_items.v1.jsonl": {
+      "path": "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+      "sha256": "dc4a97c6e6442515b742386ae55ffd410fc78d8b7672d61a89b3a400a5ec8032"
+     }
+    },
+    "method": "scratch tf/install_fx2_close.py; byte-identical copies; pin guard CLEAR; never overwrite",
+    "recorded_at": "2026-09-30T19:18:14Z"
+   }
+  },
+  {
+   "row_number": 35,
+   "record_kind": "digest_correction",
+   "row_sha256": "b7de0a7024eb043c83fc60ed7734f1585b7695d0432d9e2d4d07006ca5ce1e60",
+   "row": {
+    "schema": "m8_attempt_receipt.v1",
+    "record_kind": "digest_correction",
+    "book": "Dan",
+    "parent_agent_id": "orchestrator",
+    "corrects_rows": [
+     12,
+     13,
+     19,
+     22,
+     23,
+     24,
+     31,
+     34
+    ],
+    "what": "The sha256 values these rows record for 27 evidence files were taken on CRLF bytes. The files now hold LF bytes, which is what git stores and what a clone receives. Content is otherwise byte-identical: the sha256 of the CRLF form of the current bytes equals each recorded value (MEASURED per pair).",
+    "cause": "orchestrator ref switch in the campaign worktree on 2026-10-01 (reflog 14:58:54 and 14:59:13 -0400) under the repository attribute text=auto eol=lf; ledger E-73",
+    "pairs_corrected_in_this_file": 28,
+    "files_corrected_in_this_file": 27,
+    "corrections": {
+     "path": "sp_durable/campaign/eol_digest_corrections.v1.jsonl",
+     "sha256": "94e02afafac2b1f90bdc28ed566c7eb7fa422a675e95a474c24c4d125d772264",
+     "rows": 481,
+     "files": 107
+    },
+    "tool": {
+     "path": "sp_durable/campaign/_eol_digest_audit.py",
+     "sha256": "9b5803c2f81877e727a207eac9172cdaf968162c9d2a81b4bb9dc95290e2f3fe"
+    },
+    "not_changed": "no evidence file was edited and no earlier receipt row was rewritten (E-44)",
+    "still_matching": "writer/draft_rows_combined.jsonl, fixup/draft_rows_fixup1_applied.jsonl and fixup/draft_rows_fixup2_applied.jsonl match their manifests byte for byte (MEASURED)",
+    "method": "sp_durable/campaign/_eol_digest_audit.py --recorded --emit; scratch make_eol_corr_row.py; scratch tf/append_review_row.py",
+    "recorded_at": "2026-10-01T21:53:20Z"
+   }
+  }
+ ],
+ "orchestrator_measured": {
+  "tier": "MEASURED on the bytes on disk when this extract was built; a claim for S2 to test",
+  "tool_digest_status": [
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/tools/check_placeholders.py",
+    "after_sha256": "0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb",
+    "disk_sha256": "0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb",
+    "status": "match"
+   },
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/tools/run_validator_suite.py",
+    "after_sha256": "5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f",
+    "disk_sha256": "5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f",
+    "status": "match"
+   },
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/tools/TOOLKIT.md",
+    "after_sha256": "ca3d60616a07a2ba6027bb9dcd3d4aad715d7a975e62935df951079fe94a08d2",
+    "disk_sha256": "b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5",
+    "status": "superseded_by_row_23"
+   },
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/tools/check_brief_vs_suite.py",
+    "after_sha256": "0a3920e123aa80077bcff501fbce0f9e1628737b17e7eafeb2d164e6b8c0a87c",
+    "disk_sha256": "0a3920e123aa80077bcff501fbce0f9e1628737b17e7eafeb2d164e6b8c0a87c",
+    "status": "match"
+   },
+   {
+    "receipt_row": 13,
+    "path": "sp_durable/Dan/tools/ngram7.py",
+    "after_sha256": "cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d",
+    "disk_sha256": "cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d",
+    "status": "match"
+   },
+   {
+    "receipt_row": 13,
+    "path": "sp_durable/Dan/tools/TOOLKIT.md",
+    "after_sha256": "ca3d60616a07a2ba6027bb9dcd3d4aad715d7a975e62935df951079fe94a08d2",
+    "disk_sha256": "b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5",
+    "status": "superseded_by_row_23"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/tools/check_universals.py",
+    "after_sha256": "78c3dda37e7f93eba18ebc66251408dabd12c9918e4a565484786d94d6278ab7",
+    "disk_sha256": "78c3dda37e7f93eba18ebc66251408dabd12c9918e4a565484786d94d6278ab7",
+    "status": "match"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/tools/citation_sweep.py",
+    "after_sha256": "546d22079f5b2997f9963d553e7cbf284ef32e850907b1ddd5158240a55d91d2",
+    "disk_sha256": "546d22079f5b2997f9963d553e7cbf284ef32e850907b1ddd5158240a55d91d2",
+    "status": "match"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/tools/check_marks.py",
+    "after_sha256": "6e2256defab1f098ab2428cc36dc229a3612be2f6889f18ffd8a6b54bcbcc3d5",
+    "disk_sha256": "6e2256defab1f098ab2428cc36dc229a3612be2f6889f18ffd8a6b54bcbcc3d5",
+    "status": "match"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/tools/check_web_quotes.py",
+    "after_sha256": "f266e32162cf40e2fbca51d7cc565fd39dbfb00080813da70130a226c27c70eb",
+    "disk_sha256": "f266e32162cf40e2fbca51d7cc565fd39dbfb00080813da70130a226c27c70eb",
+    "status": "match"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/tools/TOOLKIT.md",
+    "after_sha256": "b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5",
+    "disk_sha256": "b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5",
+    "status": "match"
+   }
+  ],
+  "evidence_digest_status": [
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/review/tool_fixes/selftest_placeholders.out",
+    "recorded_sha256": "4a1ec153630d7a3f7769dd00480da13744f5b96567df5990c99f112c144d19b6",
+    "disk_sha256": "283daee79ef06cced0f1875a7b3c2eb9bbdbda49f03d54d2a39a2cd315f18dc4",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/review/tool_fixes/placeholders_rows.out",
+    "recorded_sha256": "1e5b6e9f4d4df469e0212f5265de05523743896b60b7480e26d7ad19e15963d4",
+    "disk_sha256": "616a1aecde2db1db6692ce5d8bc77d83845ea138168902850199f8ca45958716",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/review/tool_fixes/suite_summary.out",
+    "recorded_sha256": "feb031dd7531f1ada71d26d3362639e8483c59037c4b63483a7932d9b9f952b1",
+    "disk_sha256": "f8bf2ec01f9c3fe15352f5a28249b128971fe3ca41159009e6014e70b4f7d3dd",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/review/tool_fixes/selftest_brief_vs_suite.out",
+    "recorded_sha256": "815d7e2794bc1c8a8c8dd197d64aabcac42d56310d0baae634b7d686122b9dda",
+    "disk_sha256": "cc357a5a9b2a47d1c781a41dfcd0fcac0596359a6ca9b6fd8ee2f62904bafe34",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/review/tool_fixes/toolkit_selfcheck_full.out",
+    "recorded_sha256": "70f1ca4dc023199c2f6af70c8cf92ebdfce5d4108075ffe2b5fa8d5658785feb",
+    "disk_sha256": "3d8ffb54416767a30310a6d0648b249030613a3dfe97c9d0adcdcaa699304cd4",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 12,
+    "path": "sp_durable/Dan/review/tool_fixes/toolkit_selfcheck_artifacts.out",
+    "recorded_sha256": "ca08a404725c5634b7992dfc8ea7f45db123281dc26b9f8437d57d30c47ee69c",
+    "disk_sha256": "13d1579a67bb7171fbe8b229fec3b21cad15d129760698fcefed5df14cb58fb0",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 13,
+    "path": "sp_durable/Dan/review/tool_fixes/fixtures_s1_07.py",
+    "recorded_sha256": "4d3a157690156968ae25e456e616aa49eb03ffc6eafd50648505787e30cc9bbd",
+    "disk_sha256": "4d3a157690156968ae25e456e616aa49eb03ffc6eafd50648505787e30cc9bbd",
+    "status": "match"
+   },
+   {
+    "receipt_row": 13,
+    "path": "sp_durable/Dan/review/tool_fixes/fixtures_s1_07.result.json",
+    "recorded_sha256": "d63ae6fae2378d24292cbfa7bd6d147411545990e12dc050bd438f5cc44a4a44",
+    "disk_sha256": "8cd5cafbac56c01a5e9ba65c9b0e4092000ab7c95559ec5159b2d88a2fe1ed8a",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 13,
+    "path": "sp_durable/Dan/review/tool_fixes/syn_spaced.jsonl",
+    "recorded_sha256": "36d9e226615b9be7d2b52acdc823358282c2cd7ebb40100e4689f14e340ff4f0",
+    "disk_sha256": "3dac382e6712f39bf6981b505b21cbac12bf855eae4f4619e5c5c2acea119f23",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 13,
+    "path": "sp_durable/Dan/review/tool_fixes/syn_key.jsonl",
+    "recorded_sha256": "24e389c305b5594a1b44eb15cb6381fa9b72cbfe501ed06078ec9a890d92defa",
+    "disk_sha256": "0b71d6dae899519156daf960e254e1e681536f3f8f1c0bc0a21dcea5827c26b3",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 13,
+    "path": "sp_durable/Dan/review/tool_fixes/suite_summary.out",
+    "recorded_sha256": "feb031dd7531f1ada71d26d3362639e8483c59037c4b63483a7932d9b9f952b1",
+    "disk_sha256": "f8bf2ec01f9c3fe15352f5a28249b128971fe3ca41159009e6014e70b4f7d3dd",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/review/tool_fixes/s108_fixtures_s1_08.py",
+    "recorded_sha256": "74c7a432910c3e79b879c495b5abcde2c11cef7768403abeddaba2ce8247e6ef",
+    "disk_sha256": "84f9371b802ea69f32a8b80816e872ef5da5974ce20d065878c2c7010db65a8f",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/review/tool_fixes/s108_fixtures_s1_08.result.json",
+    "recorded_sha256": "186d3d4558f36f6aa85ebc069d365946f1accc7410e0b361c322a236f2b0ce00",
+    "disk_sha256": "ef171f75f3497c37db1cf359ea9a512d19c3a8ed9da7979e1119db4548c3b2ee",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/review/tool_fixes/s108_suite_summary.out",
+    "recorded_sha256": "442347a8b401ee56a9114e78ab21878d69cda3fb3077c9b9c25f35392c8c5688",
+    "disk_sha256": "442347a8b401ee56a9114e78ab21878d69cda3fb3077c9b9c25f35392c8c5688",
+    "status": "match"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/review/tool_fixes/s108_selftest_dan_lib.out",
+    "recorded_sha256": "843291208493159704956dade93f14f5b581c726413af52ddd818e23797571d8",
+    "disk_sha256": "635ae8b66f8745e87c1a2f314612d8d74881b62a6503a83f36169bb8b57b7379",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/review/tool_fixes/s108_toolkit_selfcheck_full.out",
+    "recorded_sha256": "70f1ca4dc023199c2f6af70c8cf92ebdfce5d4108075ffe2b5fa8d5658785feb",
+    "disk_sha256": "3d8ffb54416767a30310a6d0648b249030613a3dfe97c9d0adcdcaa699304cd4",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 23,
+    "path": "sp_durable/Dan/review/tool_fixes/s108_selftest_brief_vs_suite.out",
+    "recorded_sha256": "815d7e2794bc1c8a8c8dd197d64aabcac42d56310d0baae634b7d686122b9dda",
+    "disk_sha256": "cc357a5a9b2a47d1c781a41dfcd0fcac0596359a6ca9b6fd8ee2f62904bafe34",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 24,
+    "path": "sp_durable/Dan/fixup/draft_rows_fixup1_applied.jsonl",
+    "recorded_sha256": "2b92198c74bfbd327afa0c0e611dc9c700c097454a0e8ab23663d046e63470df",
+    "disk_sha256": "2b92198c74bfbd327afa0c0e611dc9c700c097454a0e8ab23663d046e63470df",
+    "status": "match"
+   },
+   {
+    "receipt_row": 24,
+    "path": "sp_durable/Dan/review/e2_evidence/cwo03_dispositions_v2.json",
+    "recorded_sha256": "6e6a0e9a86b5ea0e51cc03baa5f127f38229e9764103512ffdf1335430685c83",
+    "disk_sha256": "1ae43949d0692e0d876452fbf4e68ef27444e02b936fc6934c3a6da008be702e",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 24,
+    "path": "sp_durable/Dan/review/e2_evidence/cwo_coverage_applied_v2.json",
+    "recorded_sha256": "faeb6fc55e23ad7bbb267f778abe46fda862b627cb60716dacdbd4d854258088",
+    "disk_sha256": "140c2a563e5a22cc862971323abdbf039d5cf756b632f123390224826fcd0d6e",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 24,
+    "path": "sp_durable/Dan/review/e2_evidence/suite_report_post_s108.json",
+    "recorded_sha256": "1788f34cc014b4d0149a837f0fb4642dd6ff682b70e6f35d8b21e27f614f7cf7",
+    "disk_sha256": "76f3ad384d69291f186afd89bf84b636bb3c56032beeeece18814735b8168f11",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 24,
+    "path": "sp_durable/Dan/review/e2_evidence/triage_s108.json",
+    "recorded_sha256": "aba07b67b370ef3a063abe4a489b572926707c189d22b80630af81ac06c6bf73",
+    "disk_sha256": "0cee55c4ceae72cfa966800c8c96cf3821f2e787a6eb390b9d63baa63323f25e",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 34,
+    "path": "sp_durable/Dan/fixup/draft_rows_fixup2_applied.jsonl",
+    "recorded_sha256": "d731d8559d100caace5152abb799b7af6a43d2f598eb6f8fb6bca49b78b893e5",
+    "disk_sha256": "d731d8559d100caace5152abb799b7af6a43d2f598eb6f8fb6bca49b78b893e5",
+    "status": "match"
+   },
+   {
+    "receipt_row": 34,
+    "path": "sp_durable/Dan/review/fx2_close/triage_fx2_close.v1.json",
+    "recorded_sha256": "eda9d2bc94936396166e0a3b3d6defa346efd74a4ce4780391067e963f6b3592",
+    "disk_sha256": "39f3ba10f2984b7fbeaf63f702cf91079e123c7acfbb21f0d9d52ddf9e87f03c",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 34,
+    "path": "sp_durable/Dan/review/fx2_close/suite_report_post_fx2.json",
+    "recorded_sha256": "1c68b071365b8a40016dab5769f7ac4dbec6b1368d3882275fdbcc9b13117a68",
+    "disk_sha256": "788e6e12530e52e3d3373ba4aced950311283203f0b0b49a78ba4da732768375",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 34,
+    "path": "sp_durable/Dan/review/fx2_close/cwo_applied_fx2.json",
+    "recorded_sha256": "62ddf5788ed25299bf8b2024e44aad296986946ce387541cd9950c4efefb6395",
+    "disk_sha256": "b564dae7ee7dfb3244f0bcb545e9533f4537b2bf33a8a1ad0ca30a4c34327e86",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 34,
+    "path": "sp_durable/Dan/review/fx2_close/cwo03_dispositions_fx2.json",
+    "recorded_sha256": "bbd6a1baec02f58c8154c7942c633d6854faae13e5c4b2cd9dac268c5e3cb645",
+    "disk_sha256": "59d06e1d6d6d6c8261b9ba72808f8cf79b574bea120827c49c0655e7332cdf05",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 34,
+    "path": "sp_durable/Dan/review/fx2_close/triage_delta_fx2.json",
+    "recorded_sha256": "2d02e7332f6c47b3e4f0f578ce071f7676779034ed679b8747588b77d303416f",
+    "disk_sha256": "1bba83236db375c0f9693eac14dc8c2fdba5ab00d6752672c9d1d6abcbc9b070",
+    "status": "match_crlf_form_E73"
+   },
+   {
+    "receipt_row": 34,
+    "path": "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+    "recorded_sha256": "dc4a97c6e6442515b742386ae55ffd410fc78d8b7672d61a89b3a400a5ec8032",
+    "disk_sha256": "b69e20a173c706f67625cd13f85168c6a96dcefb0530267241e2c134a14068e3",
+    "status": "match_crlf_form_E73"
+   }
+  ],
+  "note": "match_crlf_form_E73: the recorded sha256 equals the sha256 of the CRLF form of the bytes on disk (ledger E-73; sp_durable/campaign/eol_digest_corrections.v1.jsonl). superseded_by_row_N: a later tool_fix_install row of the same receipts file records the digest now on disk."
+ }
+}

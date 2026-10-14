@@ -1,0 +1,55 @@
+{"attempt_id":"dan_p13_TB_a1","execution_id":"dan_p13_TB_a1#e1",
+"sources":[
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\P13_BRIEF_TB.md",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\p13\\fixup6_changes_for_review.json",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup6_applied.jsonl",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\web_mt_offset_map.json",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json (digest and shape only)",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E6.v1.json (digest and shape only)",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E7.v1.json (digest and shape only)",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\book_strategy_Dan.md (digest check only)",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\campaign\\grader_models.v1.json (digest check only; content not read)",
+"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md (digest check; lines 807-874 read)",
+"my own work files under C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_p13\\out_TB_e1\\work\\ (lib.py, s1.py, s3.py to s8.py and their outputs, build.py)"
+],
+"outcome":{"changed":[
+{"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_p13\\out_TB_e1\\dan_p13_TB.json","why":"The lane deliverable: 148 items in extract order (142 support, 6 challenge, all low), one extra finding, the answer to question_W1_010, LF line endings."},
+{"what":"work\\batch_W1.json to work\\batch_W7.json in the same OUT directory","why":"Per-part saves of the reviewed records, as the coordinator ordered after the interruption."}
+]},
+"verification":[
+{"claim":"The brief and all pinned inputs match their pinned digests.","how":"python -B work\\s1.py, sha256 of each file opened by exact path","result":"confirmed"},
+{"claim":"The rows file read has sha256 4b0489010c772555bd483d464cce3beade1aa9454469c9503c9d256080b07ad5.","how":"python -B work\\build.py, hashlib.sha256 of the file bytes","result":"confirmed"},
+{"claim":"Every one of the 148 records has its after text standing in the applied row field and its before text in the base row field.","how":"python -B work\\s6.py -&gt; '0 mismatches: []'","result":"confirmed"},
+{"claim":"Every recorded scan holds code and output, and re-running the code gives the recorded output.","how":"python -B work\\s6.py, line-normalised comparison, no SCAN DIFF printed","result":"confirmed"},
+{"claim":"Every web=oshb verse pairing and range in the 61 changed rows, including W2-011, W2-012, W2-013, W4-008 and W4-009, follows the numbering offsets.","how":"python -B work\\s8.py -&gt; 'pairs and ranges checked 204 bad []'","result":"confirmed"},
+{"claim":"Every new Hebrew and WEB quotation is an exact slice of its verse, and the verse-end claims at 7:14, 7:27 and 11:35 hold.","how":"assertions in python -B work\\build.py against Dan_oshb.txt and Dan_web_clean.txt (the script would abort on any failure)","result":"confirmed"},
+{"claim":"Each of the nine sentences of W7#27 to W7#35 is true to the bytes.","how":"python -B work\\s8.py and build.py word-position, mark and inventory lookups","result":"confirmed"},
+{"claim":"W7#32's wording 'no form of the saying or answering verbs' is exact.","how":"Dan_oshb.txt Dan.7.25 word 4 and Dan_web_clean.txt Dan.7.25 'He will speak words'","result":"refuted"},
+{"claim":"The inventory holds the weakness of 'then' and 'answered and said' as an extracted fact (W2#5, W2#12, W2#20).","how":"dan_device_inventory.json how_these_are_used[8], which begins 'HYPOTHESIS to test'","result":"refuted"},
+{"claim":"The inventory no longer lists 10:13 under the year word (W6#4, 'once listed').","how":"dan_device_inventory.json year_word_but_not_a_dateline.verses_mt holds Dan.10.13, labelled substring_artifact; only anchored_reading omits it","result":"refuted"},
+{"claim":"The deliverable has 148 items in extract order, a summary that matches the items, and no model name.","how":"assertions in python -B work\\build.py","result":"confirmed"}
+],
+"challenges":[
+{"record":"W2#5","severity":"low","claim":"The then_aram listing at 3:13 is truly EXTRACTED, but the same tier word also covers 'a weak connective', which the inventory holds only as a hypothesis to test; it should read INFERRED for the weakness."},
+{"record":"W2#12","severity":"low","claim":"Same pattern: the listing at 3:19 and 3:24 is EXTRACTED, 'is weak' is not."},
+{"record":"W2#20","severity":"low","claim":"Same pattern at 3:28: the strict-list entry is EXTRACTED, 'weak by itself' is a judgment that the twin sentence in W2#24 marks INFERRED."},
+{"record":"W2#28","severity":"low","claim":"'The peoples of the nations and tongues' makes one noun govern the other two; OSHB 3:31 and WEB 4:1 both give three coordinate terms."},
+{"record":"W6#4","severity":"low","claim":"'Once listed' is imprecise: the inventory still lists 10:13 under the substring reading, labelled an artifact, and omits it only from the word-anchored reading. The rest of the sentence is true."},
+{"record":"W7#32","severity":"low","claim":"True for the roots of 'say' and 'answer' and for kingdom words, but 7:25 word 4 is another speaking verb (WEB 'He will speak words'), so the wording is wider than what was measured. No boundary argument moves."}
+],
+"unresolved_uncertainty":[
+{"what":"This run was interrupted once by a usage limit and resumed under the same attempt and execution ids, OUT directory and deliverable path.","why_it_matters":"Continuity rests on this lane's own work files, re-opened by exact path; all byte checks were re-run after the resume."},
+{"what":"The 'language-zone layer' named in W1#7, W1#8, W1#14 and W4#11 points to a file that was not among this lane's pinned inputs; the Aramaic status was confirmed from the inventory's language_switches and the mark file's Aramaic-morphology list.","why_it_matters":"EXTRACTED is confirmed for the fact, not for the bytes of the file the tier word names."},
+{"what":"The E3, E6 and E7 ruling files were digest-checked and their shape was read, but their text was not read; the brief's own tier tests were applied directly.","why_it_matters":"Any nuance of those rulings beyond what the brief states did not enter this review."},
+{"what":"In the unchanged parts of the W7#1 to W7#26 entries, only the statements the entry itself makes (marks, paseq counts, K/Q counts, datelines) were checked by script; the changed text there is a layer name only.","why_it_matters":"Those 26 supports say the renamed layer is the right pinned file, not that every word of the entry was re-proved."},
+{"what":"Records that add only INFERRED, or change only a grade or type word, hold no claim testable against bytes and are supported on consistency with the cited bytes. W2#17 cites a Greek tradition for which this lane has no pinned witness.","why_it_matters":"Whether those readings and grades are the right judgments is outside what bytes can settle here."},
+{"what":"Independent lookups were added to each scan re-run, but they read the same four witness files as the scans.","why_it_matters":"Agreement shows reproducibility on the pinned bytes, not that the witnesses are right."}
+],
+"e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+"deliverable_sha256":"702863ac77e034bf01799d54d019911a11cf73bf68004f747e6084162584daed",
+"limit":"accountable work summary; not chain of thought and not independent proof"}

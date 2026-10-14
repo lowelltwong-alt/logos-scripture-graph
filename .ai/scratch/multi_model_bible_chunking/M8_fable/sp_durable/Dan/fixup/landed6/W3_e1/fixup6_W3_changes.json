@@ -1,0 +1,820 @@
+{
+ "attempt_id": "dan_fixup6_W3_a1",
+ "execution_id": "dan_fixup6_W3_a1#e1",
+ "rows_file_sha256": "2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca",
+ "changes": [
+  {
+   "n": 1,
+   "row": "W3-001",
+   "field": "observed_substrate_signals",
+   "entry_index": 0,
+   "before": "new chapter and new king at 5:1 (WEB text)",
+   "after": "the new king named ahead of the verb at oshb:Dan.5.1, where the verse before the seam, web:Dan.4.37 = oshb:Dan.4.34, is first-person praise (EXTRACTED, OSHB/WLC and WEB)",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F1"
+   ],
+   "orders": [
+    "O7"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.5.1 words 1-3 are the king's name, the title and then the verb (subject before verb); Dan.4.34 word 2 is the first-person pronoun followed by three participles of praise; SP\\Dan\\Dan_web_clean.txt 4:37 begins Now I, Nebuchadnezzar, praise. The chapter line is no longer named as a signal.",
+   "scan": null
+  },
+  {
+   "n": 2,
+   "row": "W3-003",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "The in_the_days_of_aram phrase at 5:11 recalls the earlier reign as Daniel's credential (EXTRACTED device inventory).",
+   "after": "The in_the_days_of_aram phrase stands at 5:11 (EXTRACTED, device inventory). That it recalls the earlier reign as Daniel's credential is a reading (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F2",
+    "F3"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.in_the_days_of_aram.verses_mt holds Dan.5.11 (its only hit in chapters 5-6); the layer holds the presence of the phrase and nothing about a credential.",
+   "scan": null
+  },
+  {
+   "n": 3,
+   "row": "W3-004",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "without a new speaker (INFERRED).",
+   "after": "without a new speaker (INFERRED). A further rival closes after 5:17, so that Daniel's refusal stands with the offer it answers and the recital opens at the direct address to the king that comes next (INFERRED). The answered_and_said frame stands at 5:17 (EXTRACTED, device inventory). A PE follows 5:16 and no mark follows 5:17, in a layer of one witness (MEASURED, OSHB mark layer). On those grounds the further rival is declined, and which of the two rivals is the stronger is left open (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F4"
+   ],
+   "orders": [
+    "O7"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.answered_and_said_aram_strict.verses_mt and _loose.verses_mt both hold Dan.5.17; SP\\Dan\\Dan_oshb.txt Dan.5.17 words 2-4 are the answering frame and Dan.5.18 word 1 is the second-person pronoun before the title; SP\\Dan\\pmarks_Dan.json marks: Dan.5.16 PE, Dan.5.17 none.",
+   "scan": {
+    "script": "work\\scan_w3.py",
+    "code": "import json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\npm = json.load(open(SP + r\"\\Dan\\pmarks_Dan.json\", encoding=\"utf-8\"))\noshb = [l.split(\"\\t\", 1)[0] for l in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l]\ndef rng(c, a, b):\n    return [k for k in oshb if k.startswith(\"Dan.%d.\" % c) and a <= int(k.split(\".\")[2]) <= b]\n# S1 marks (OSHB mark layer, MT numbering; a mark is recorded on the verse it follows)\nfor v in (\"Dan.5.16\", \"Dan.5.17\", \"Dan.5.23\", \"Dan.5.24\", \"Dan.5.30\", \"Dan.6.1\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S1 mark after oshb:\" + v, pm[\"marks\"].get(v, \"none\"))\n# S2 verse counts (OSHB/WLC verse lines)\nprint(\"S2 oshb verse lines Dan.5.17-Dan.5.28:\", len(rng(5, 17, 28)))\nprint(\"S2 oshb verse lines Dan.6.17-Dan.6.25:\", len(rng(6, 17, 25)))\n# S3 ketiv/qere and paseq counts (OSHB mark layer)\nfor v in (\"Dan.5.29\", \"Dan.5.30\", \"Dan.6.27\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S3 oshb:\" + v, \"kq\", len(pm[\"kq\"].get(v, [])), \"paseq\", pm[\"paseq\"].count(v))\nprint(\"S3 kq sites in oshb Dan.5.29-Dan.5.30:\", sum(len(pm[\"kq\"].get(v, [])) for v in rng(5, 29, 30)))\n",
+    "output": "S1 mark after oshb:Dan.5.16 ['PE']\nS1 mark after oshb:Dan.5.17 none\nS1 mark after oshb:Dan.5.23 none\nS1 mark after oshb:Dan.5.24 none\nS1 mark after oshb:Dan.5.30 ['PE']\nS1 mark after oshb:Dan.6.1 none\nS1 mark after oshb:Dan.6.28 none\nS1 mark after oshb:Dan.6.29 ['PE']\nS2 oshb verse lines Dan.5.17-Dan.5.28: 12\nS2 oshb verse lines Dan.6.17-Dan.6.25: 9\nS3 oshb:Dan.5.29 kq 1 paseq 1\nS3 oshb:Dan.5.30 kq 1 paseq 0\nS3 oshb:Dan.6.27 kq 1 paseq 2\nS3 oshb:Dan.6.28 kq 0 paseq 0\nS3 oshb:Dan.6.29 kq 1 paseq 0\nS3 kq sites in oshb Dan.5.29-Dan.5.30: 2\n"
+   }
+  },
+  {
+   "n": 4,
+   "row": "W3-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "5:25 turns to reading the inscription. Daniel keeps",
+   "after": "5:25 turns to reading the inscription. The then-connective heads oshb:Dan.5.24 (EXTRACTED, device inventory and OSHB/WLC). It is weak under D4 (INFERRED). oshb:Dan.5.25 resumes the closing words of oshb:Dan.5.24 in another order (EXTRACTED, OSHB/WLC). Daniel keeps",
+   "ruling_id": "ROW-W3-005",
+   "findings": [
+    "F6"
+   ],
+   "orders": [
+    "O1"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.then_aram.verses_mt holds Dan.5.24; SP\\Dan\\Dan_oshb.txt Dan.5.24 has 10 words, word 1 is the then-connective, words 8-10 are and-the-writing / this / inscribed; Dan.5.25 words 1, 2 and 4 are and-this / the-writing / inscribed (the same three lexemes, reordered).",
+   "scan": null
+  },
+  {
+   "n": 5,
+   "row": "W3-005",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "One speech unit 5:17-5:28 (12 verses, a single speech act by Daniel): rejected because the recital and indictment (5:18-5:23) and the reading and gloss of the words (5:25-5:28) are distinct speech functions; the rival stays live.",
+   "after": "One speech unit 5:17-5:28, one speech act by Daniel: rejected because the recital and indictment (5:18-5:23) and the reading and gloss of the words (5:25-5:28) are distinct speech functions; the rival stays live (INFERRED). That rival runs 12 verses (MEASURED, OSHB/WLC). A second rival cuts after oshb:Dan.5.23, setting the then-connective at a unit head and keeping the resumed words together: declined because the connective is weak alone and oshb:Dan.5.24 names the consequence of the charge before it (INFERRED).",
+   "ruling_id": "ROW-W3-005",
+   "findings": [
+    "F5",
+    "F6"
+   ],
+   "orders": [
+    "O1"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt verse lines Dan.5.17 to Dan.5.28 number 12; Dan.5.24 word 1 is the then-connective and its words 8-10 return at the head of Dan.5.25; SP\\Dan\\pmarks_Dan.json marks: Dan.5.23 none, Dan.5.24 none.",
+   "scan": {
+    "script": "work\\scan_w3.py",
+    "code": "import json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\npm = json.load(open(SP + r\"\\Dan\\pmarks_Dan.json\", encoding=\"utf-8\"))\noshb = [l.split(\"\\t\", 1)[0] for l in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l]\ndef rng(c, a, b):\n    return [k for k in oshb if k.startswith(\"Dan.%d.\" % c) and a <= int(k.split(\".\")[2]) <= b]\n# S1 marks (OSHB mark layer, MT numbering; a mark is recorded on the verse it follows)\nfor v in (\"Dan.5.16\", \"Dan.5.17\", \"Dan.5.23\", \"Dan.5.24\", \"Dan.5.30\", \"Dan.6.1\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S1 mark after oshb:\" + v, pm[\"marks\"].get(v, \"none\"))\n# S2 verse counts (OSHB/WLC verse lines)\nprint(\"S2 oshb verse lines Dan.5.17-Dan.5.28:\", len(rng(5, 17, 28)))\nprint(\"S2 oshb verse lines Dan.6.17-Dan.6.25:\", len(rng(6, 17, 25)))\n# S3 ketiv/qere and paseq counts (OSHB mark layer)\nfor v in (\"Dan.5.29\", \"Dan.5.30\", \"Dan.6.27\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S3 oshb:\" + v, \"kq\", len(pm[\"kq\"].get(v, [])), \"paseq\", pm[\"paseq\"].count(v))\nprint(\"S3 kq sites in oshb Dan.5.29-Dan.5.30:\", sum(len(pm[\"kq\"].get(v, [])) for v in rng(5, 29, 30)))\n",
+    "output": "S1 mark after oshb:Dan.5.16 ['PE']\nS1 mark after oshb:Dan.5.17 none\nS1 mark after oshb:Dan.5.23 none\nS1 mark after oshb:Dan.5.24 none\nS1 mark after oshb:Dan.5.30 ['PE']\nS1 mark after oshb:Dan.6.1 none\nS1 mark after oshb:Dan.6.28 none\nS1 mark after oshb:Dan.6.29 ['PE']\nS2 oshb verse lines Dan.5.17-Dan.5.28: 12\nS2 oshb verse lines Dan.6.17-Dan.6.25: 9\nS3 oshb:Dan.5.29 kq 1 paseq 1\nS3 oshb:Dan.5.30 kq 1 paseq 0\nS3 oshb:Dan.6.27 kq 1 paseq 2\nS3 oshb:Dan.6.28 kq 0 paseq 0\nS3 oshb:Dan.6.29 kq 1 paseq 0\nS3 kq sites in oshb Dan.5.29-Dan.5.30: 2\n"
+   }
+  },
+  {
+   "n": 6,
+   "row": "W3-005",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "The most_high_aram recital at 5:18 and 5:21, with the recognition_most_high_rules_aram clause at 5:21, recalls the humbling of the father (EXTRACTED, device inventory). praise_aram at 5:23 inverts 5:4.",
+   "after": "The most_high_aram form stands at 5:18 and 5:21 and the recognition_most_high_rules_aram clause at 5:21 (EXTRACTED, device inventory). That these recall the humbling of the father is a reading (INFERRED). praise_aram stands at 5:23 and at 5:4 (EXTRACTED, device inventory). That the later praise inverts the earlier is a reading (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F5"
+   ],
+   "orders": [
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.most_high_aram.verses_mt holds Dan.5.18 and Dan.5.21; recognition_most_high_rules_aram holds Dan.5.21; praise_aram holds Dan.5.4 and Dan.5.23. The layer holds presence only.",
+   "scan": null
+  },
+  {
+   "n": 7,
+   "row": "W3-006",
+   "field": "confidence",
+   "entry_index": null,
+   "before": "medium",
+   "after": "medium_low",
+   "ruling_id": "ROW-W3-006",
+   "findings": [
+    "F7"
+   ],
+   "orders": [
+    "O2"
+   ],
+   "bytes_read": "SP\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl row W3-005 confidence is medium_low and its close is the edge this row opens on; SP\\Dan\\pmarks_Dan.json marks: Dan.5.24 none.",
+   "scan": null
+  },
+  {
+   "n": 8,
+   "row": "W3-006",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "Same speaker across the onset seam, so the onset rests on a genre shift; medium.",
+   "after": "The formula stands one verse inside the unit, at oshb:Dan.5.26 (EXTRACTED, device inventory). Same speaker across the onset seam, so the onset rests on a genre shift alone; medium-low (INFERRED).",
+   "ruling_id": "ROW-W3-006",
+   "findings": [
+    "F7"
+   ],
+   "orders": [
+    "O3"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.this_is_the_interpretation_aram.verses_mt holds Dan.5.26 and not Dan.5.25; the unit opens at 5:25.",
+   "scan": null
+  },
+  {
+   "n": 9,
+   "row": "W3-007",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "and the rival is live.",
+   "after": "and the rival is live (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F8",
+    "F9"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "The sentence is a weighing (reward and death notice as one arc); no pinned layer holds it, so it takes INFERRED. SP\\Dan\\Dan_oshb.txt Dan.5.29 and Dan.5.30 read for the reward and the death notice.",
+   "scan": null
+  },
+  {
+   "n": 10,
+   "row": "W3-007",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "Ketiv/qere at 5:29 and 5:30 disclosed in the refs.",
+   "after": "The span holds two ketiv/qere sites, one at 5:29 and one at 5:30, both disclosed in the refs (MEASURED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F8",
+    "F9"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json kq: Dan.5.29 one entry, Dan.5.30 one entry; two in the span.",
+   "scan": {
+    "script": "work\\scan_w3.py",
+    "code": "import json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\npm = json.load(open(SP + r\"\\Dan\\pmarks_Dan.json\", encoding=\"utf-8\"))\noshb = [l.split(\"\\t\", 1)[0] for l in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l]\ndef rng(c, a, b):\n    return [k for k in oshb if k.startswith(\"Dan.%d.\" % c) and a <= int(k.split(\".\")[2]) <= b]\n# S1 marks (OSHB mark layer, MT numbering; a mark is recorded on the verse it follows)\nfor v in (\"Dan.5.16\", \"Dan.5.17\", \"Dan.5.23\", \"Dan.5.24\", \"Dan.5.30\", \"Dan.6.1\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S1 mark after oshb:\" + v, pm[\"marks\"].get(v, \"none\"))\n# S2 verse counts (OSHB/WLC verse lines)\nprint(\"S2 oshb verse lines Dan.5.17-Dan.5.28:\", len(rng(5, 17, 28)))\nprint(\"S2 oshb verse lines Dan.6.17-Dan.6.25:\", len(rng(6, 17, 25)))\n# S3 ketiv/qere and paseq counts (OSHB mark layer)\nfor v in (\"Dan.5.29\", \"Dan.5.30\", \"Dan.6.27\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S3 oshb:\" + v, \"kq\", len(pm[\"kq\"].get(v, [])), \"paseq\", pm[\"paseq\"].count(v))\nprint(\"S3 kq sites in oshb Dan.5.29-Dan.5.30:\", sum(len(pm[\"kq\"].get(v, [])) for v in rng(5, 29, 30)))\n",
+    "output": "S1 mark after oshb:Dan.5.16 ['PE']\nS1 mark after oshb:Dan.5.17 none\nS1 mark after oshb:Dan.5.23 none\nS1 mark after oshb:Dan.5.24 none\nS1 mark after oshb:Dan.5.30 ['PE']\nS1 mark after oshb:Dan.6.1 none\nS1 mark after oshb:Dan.6.28 none\nS1 mark after oshb:Dan.6.29 ['PE']\nS2 oshb verse lines Dan.5.17-Dan.5.28: 12\nS2 oshb verse lines Dan.6.17-Dan.6.25: 9\nS3 oshb:Dan.5.29 kq 1 paseq 1\nS3 oshb:Dan.5.30 kq 1 paseq 0\nS3 oshb:Dan.6.27 kq 1 paseq 2\nS3 oshb:Dan.6.28 kq 0 paseq 0\nS3 oshb:Dan.6.29 kq 1 paseq 0\nS3 kq sites in oshb Dan.5.29-Dan.5.30: 2\n"
+   }
+  },
+  {
+   "n": 11,
+   "row": "W3-008",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "the PE after 5:30 (single-witness) and the succession notice",
+   "after": "the PE after 5:30, a mark of one witness (EXTRACTED, OSHB mark layer), and the succession notice",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F11"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json marks: Dan.5.30 PE; witness field says single witness.",
+   "scan": null
+  },
+  {
+   "n": 12,
+   "row": "W3-008",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "rejected because the verse is the setting for the appointments in web:Dan.6.1 = oshb:Dan.6.2 through web:Dan.6.3 = oshb:Dan.6.4 and carries no mark after it (MEASURED over the OSHB mark layer); the rival is live.",
+   "after": "rejected because the verse is the setting for the appointments in web:Dan.6.1 = oshb:Dan.6.2 through web:Dan.6.3 = oshb:Dan.6.4; the rival is live (INFERRED). The mark layer, one witness, has nothing after the verse (MEASURED, OSHB mark layer). That silence is disclosed and is no ground against the rival (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F10"
+   ],
+   "orders": [
+    "O7"
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json marks: Dan.6.1 none (the silence is real). The reviewer's further wording, that the appointments depend on the succession verse for their king, is not written: SP\\Dan\\Dan_web_clean.txt 6:1 itself names Darius, so the bytes do not bear that clause.",
+   "scan": {
+    "script": "work\\scan_w3.py",
+    "code": "import json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\npm = json.load(open(SP + r\"\\Dan\\pmarks_Dan.json\", encoding=\"utf-8\"))\noshb = [l.split(\"\\t\", 1)[0] for l in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l]\ndef rng(c, a, b):\n    return [k for k in oshb if k.startswith(\"Dan.%d.\" % c) and a <= int(k.split(\".\")[2]) <= b]\n# S1 marks (OSHB mark layer, MT numbering; a mark is recorded on the verse it follows)\nfor v in (\"Dan.5.16\", \"Dan.5.17\", \"Dan.5.23\", \"Dan.5.24\", \"Dan.5.30\", \"Dan.6.1\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S1 mark after oshb:\" + v, pm[\"marks\"].get(v, \"none\"))\n# S2 verse counts (OSHB/WLC verse lines)\nprint(\"S2 oshb verse lines Dan.5.17-Dan.5.28:\", len(rng(5, 17, 28)))\nprint(\"S2 oshb verse lines Dan.6.17-Dan.6.25:\", len(rng(6, 17, 25)))\n# S3 ketiv/qere and paseq counts (OSHB mark layer)\nfor v in (\"Dan.5.29\", \"Dan.5.30\", \"Dan.6.27\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S3 oshb:\" + v, \"kq\", len(pm[\"kq\"].get(v, [])), \"paseq\", pm[\"paseq\"].count(v))\nprint(\"S3 kq sites in oshb Dan.5.29-Dan.5.30:\", sum(len(pm[\"kq\"].get(v, [])) for v in rng(5, 29, 30)))\n",
+    "output": "S1 mark after oshb:Dan.5.16 ['PE']\nS1 mark after oshb:Dan.5.17 none\nS1 mark after oshb:Dan.5.23 none\nS1 mark after oshb:Dan.5.24 none\nS1 mark after oshb:Dan.5.30 ['PE']\nS1 mark after oshb:Dan.6.1 none\nS1 mark after oshb:Dan.6.28 none\nS1 mark after oshb:Dan.6.29 ['PE']\nS2 oshb verse lines Dan.5.17-Dan.5.28: 12\nS2 oshb verse lines Dan.6.17-Dan.6.25: 9\nS3 oshb:Dan.5.29 kq 1 paseq 1\nS3 oshb:Dan.5.30 kq 1 paseq 0\nS3 oshb:Dan.6.27 kq 1 paseq 2\nS3 oshb:Dan.6.28 kq 0 paseq 0\nS3 oshb:Dan.6.29 kq 1 paseq 0\nS3 kq sites in oshb Dan.5.29-Dan.5.30: 2\n"
+   }
+  },
+  {
+   "n": 13,
+   "row": "W3-009",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "seeking grounds against Daniel (then_aram, weak by itself; backed by the shift of agent).",
+   "after": "seeking grounds against Daniel and opens on then_aram (EXTRACTED, device inventory and OSHB/WLC); the connective is weak by itself and is backed by the shift of agent (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F12"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.then_aram.verses_mt holds Dan.6.5; SP\\Dan\\Dan_oshb.txt Dan.6.5 word 1 is the then-connective.",
+   "scan": null
+  },
+  {
+   "n": 14,
+   "row": "W3-009",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "has the king sign the interdict (because_of_this_aram, a weak connective, D4), and web:Dan.6.10 = oshb:Dan.6.11 opens on Daniel learning of the signed writing.",
+   "after": "has the king sign the interdict under because_of_this_aram (EXTRACTED, device inventory); that connective is weak under D4, and web:Dan.6.10 = oshb:Dan.6.11 opens on Daniel learning of the signed writing (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F12"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.because_of_this_aram.verses_mt holds Dan.6.10 (its only hit in chapters 5-6); SP\\Dan\\Dan_oshb.txt Dan.6.10 words 1-3 are the connective.",
+   "scan": null
+  },
+  {
+   "n": 15,
+   "row": "W3-010",
+   "field": "strong_or_hebrew_tags_used",
+   "entry_index": 0,
+   "before": "blessed_aram",
+   "after": "kneeling verb at web:Dan.6.10 = oshb:Dan.6.11, a homograph of the blessing form and not a blessing device (EXTRACTED, device inventory)",
+   "ruling_id": "ROW-W3-010",
+   "findings": [
+    "F13",
+    "F14"
+   ],
+   "orders": [
+    "O4"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.homograph_note: MT 6:11 matches on the verb he knelt, not bless; kept and labelled. SP\\Dan\\Dan_oshb.txt Dan.6.11 words 19-21 are the kneeling clause.",
+   "scan": null
+  },
+  {
+   "n": 16,
+   "row": "W3-010",
+   "field": "observed_substrate_signals",
+   "entry_index": 0,
+   "before": "blessed_aram in the prayer verse",
+   "after": "the prayer verse, web:Dan.6.10 = oshb:Dan.6.11, holds the verb for kneeling, a labelled homograph of the blessing form and not a blessing (EXTRACTED, device inventory)",
+   "ruling_id": "ROW-W3-010",
+   "findings": [
+    "F13",
+    "F14"
+   ],
+   "orders": [
+    "O4"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.homograph_note and web_for_zone_refs (Dan.6.11 = web:Dan.6.10); SP\\Dan\\Dan_web_clean.txt 6:10 renders the clause as kneeling.",
+   "scan": null
+  },
+  {
+   "n": 17,
+   "row": "W3-010",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "The blessed_aram form at web:Dan.6.10 = oshb:Dan.6.11 belongs to the account of the prayer (EXTRACTED, device inventory).",
+   "after": "The form at web:Dan.6.10 = oshb:Dan.6.11 that resembles the blessing form is the verb of kneeling, a labelled homograph and not a blessing device (EXTRACTED, device inventory).",
+   "ruling_id": "ROW-W3-010",
+   "findings": [
+    "F13",
+    "F14"
+   ],
+   "orders": [
+    "O4"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.verses_mt holds Dan.6.11 and its homograph_note says the match is the verb he knelt, not bless; SP\\Dan\\Dan_oshb.txt Dan.6.11 words 19-21; SP\\Dan\\Dan_web_clean.txt 6:10.",
+   "scan": null
+  },
+  {
+   "n": 18,
+   "row": "W3-011",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "One den episode from the casting through the punishment of the accusers (nine verses): rejected because the night/dawn shift divides casting from rescue; the rival stays live.",
+   "after": "One den episode from the casting through the punishment of the accusers: rejected because the night/dawn shift divides casting from rescue; the rival stays live (INFERRED). That rival runs nine verses (MEASURED, OSHB/WLC).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F15"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt verse lines Dan.6.17 to Dan.6.25 number 9.",
+   "scan": {
+    "script": "work\\scan_w3.py",
+    "code": "import json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\npm = json.load(open(SP + r\"\\Dan\\pmarks_Dan.json\", encoding=\"utf-8\"))\noshb = [l.split(\"\\t\", 1)[0] for l in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l]\ndef rng(c, a, b):\n    return [k for k in oshb if k.startswith(\"Dan.%d.\" % c) and a <= int(k.split(\".\")[2]) <= b]\n# S1 marks (OSHB mark layer, MT numbering; a mark is recorded on the verse it follows)\nfor v in (\"Dan.5.16\", \"Dan.5.17\", \"Dan.5.23\", \"Dan.5.24\", \"Dan.5.30\", \"Dan.6.1\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S1 mark after oshb:\" + v, pm[\"marks\"].get(v, \"none\"))\n# S2 verse counts (OSHB/WLC verse lines)\nprint(\"S2 oshb verse lines Dan.5.17-Dan.5.28:\", len(rng(5, 17, 28)))\nprint(\"S2 oshb verse lines Dan.6.17-Dan.6.25:\", len(rng(6, 17, 25)))\n# S3 ketiv/qere and paseq counts (OSHB mark layer)\nfor v in (\"Dan.5.29\", \"Dan.5.30\", \"Dan.6.27\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S3 oshb:\" + v, \"kq\", len(pm[\"kq\"].get(v, [])), \"paseq\", pm[\"paseq\"].count(v))\nprint(\"S3 kq sites in oshb Dan.5.29-Dan.5.30:\", sum(len(pm[\"kq\"].get(v, [])) for v in rng(5, 29, 30)))\n",
+    "output": "S1 mark after oshb:Dan.5.16 ['PE']\nS1 mark after oshb:Dan.5.17 none\nS1 mark after oshb:Dan.5.23 none\nS1 mark after oshb:Dan.5.24 none\nS1 mark after oshb:Dan.5.30 ['PE']\nS1 mark after oshb:Dan.6.1 none\nS1 mark after oshb:Dan.6.28 none\nS1 mark after oshb:Dan.6.29 ['PE']\nS2 oshb verse lines Dan.5.17-Dan.5.28: 12\nS2 oshb verse lines Dan.6.17-Dan.6.25: 9\nS3 oshb:Dan.5.29 kq 1 paseq 1\nS3 oshb:Dan.5.30 kq 1 paseq 0\nS3 oshb:Dan.6.27 kq 1 paseq 2\nS3 oshb:Dan.6.28 kq 0 paseq 0\nS3 oshb:Dan.6.29 kq 1 paseq 0\nS3 kq sites in oshb Dan.5.29-Dan.5.30: 2\n"
+   }
+  },
+  {
+   "n": 19,
+   "row": "W3-012",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "a new time frame (then_aram, weak alone).",
+   "after": "a new time frame headed by then_aram (EXTRACTED, device inventory and OSHB/WLC); that connective alone carries little weight (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F16"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.then_aram.verses_mt holds Dan.6.20; SP\\Dan\\Dan_oshb.txt Dan.6.20 word 1 is the then-connective.",
+   "scan": null
+  },
+  {
+   "n": 20,
+   "row": "W3-013",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "and D7 keeps closing notices apart.",
+   "after": "and D7 keeps closing notices apart (INFERRED).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F17"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "The change of voice between letter and notice is a reading of SP\\Dan\\Dan_oshb.txt Dan.6.28 (participles about God inside the letter) and Dan.6.29 (third-person statement about Daniel); no layer holds it, so INFERRED.",
+   "scan": null
+  },
+  {
+   "n": 21,
+   "row": "W3-013",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "Paseq x2 in that verse disclosed as a count.",
+   "after": "Paseq x2 in that verse, disclosed as a count (MEASURED, OSHB mark layer).",
+   "ruling_id": "CLASS-TIER-WORD",
+   "findings": [
+    "F17"
+   ],
+   "orders": [
+    "O7",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json paseq list holds Dan.6.27 twice.",
+   "scan": {
+    "script": "work\\scan_w3.py",
+    "code": "import json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\npm = json.load(open(SP + r\"\\Dan\\pmarks_Dan.json\", encoding=\"utf-8\"))\noshb = [l.split(\"\\t\", 1)[0] for l in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l]\ndef rng(c, a, b):\n    return [k for k in oshb if k.startswith(\"Dan.%d.\" % c) and a <= int(k.split(\".\")[2]) <= b]\n# S1 marks (OSHB mark layer, MT numbering; a mark is recorded on the verse it follows)\nfor v in (\"Dan.5.16\", \"Dan.5.17\", \"Dan.5.23\", \"Dan.5.24\", \"Dan.5.30\", \"Dan.6.1\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S1 mark after oshb:\" + v, pm[\"marks\"].get(v, \"none\"))\n# S2 verse counts (OSHB/WLC verse lines)\nprint(\"S2 oshb verse lines Dan.5.17-Dan.5.28:\", len(rng(5, 17, 28)))\nprint(\"S2 oshb verse lines Dan.6.17-Dan.6.25:\", len(rng(6, 17, 25)))\n# S3 ketiv/qere and paseq counts (OSHB mark layer)\nfor v in (\"Dan.5.29\", \"Dan.5.30\", \"Dan.6.27\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S3 oshb:\" + v, \"kq\", len(pm[\"kq\"].get(v, [])), \"paseq\", pm[\"paseq\"].count(v))\nprint(\"S3 kq sites in oshb Dan.5.29-Dan.5.30:\", sum(len(pm[\"kq\"].get(v, [])) for v in rng(5, 29, 30)))\n",
+    "output": "S1 mark after oshb:Dan.5.16 ['PE']\nS1 mark after oshb:Dan.5.17 none\nS1 mark after oshb:Dan.5.23 none\nS1 mark after oshb:Dan.5.24 none\nS1 mark after oshb:Dan.5.30 ['PE']\nS1 mark after oshb:Dan.6.1 none\nS1 mark after oshb:Dan.6.28 none\nS1 mark after oshb:Dan.6.29 ['PE']\nS2 oshb verse lines Dan.5.17-Dan.5.28: 12\nS2 oshb verse lines Dan.6.17-Dan.6.25: 9\nS3 oshb:Dan.5.29 kq 1 paseq 1\nS3 oshb:Dan.5.30 kq 1 paseq 0\nS3 oshb:Dan.6.27 kq 1 paseq 2\nS3 oshb:Dan.6.28 kq 0 paseq 0\nS3 oshb:Dan.6.29 kq 1 paseq 0\nS3 kq sites in oshb Dan.5.29-Dan.5.30: 2\n"
+   }
+  },
+  {
+   "n": 22,
+   "row": "W3-014",
+   "field": "confidence",
+   "entry_index": null,
+   "before": "high",
+   "after": "medium",
+   "ruling_id": "ROW-W3-014",
+   "findings": [
+    "F18"
+   ],
+   "orders": [
+    "O5"
+   ],
+   "bytes_read": "SP\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl row W3-013 boundary_rationale ends Formula on both seams; medium (the shared edge); SP\\Dan\\pmarks_Dan.json marks: Dan.6.28 none.",
+   "scan": null
+  },
+  {
+   "n": 23,
+   "row": "W3-014",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "Two independent device classes on the close; high.",
+   "after": "Two independent device classes stand on the close (INFERRED). No mark stands before the notice, where the doxology closes (MEASURED, OSHB mark layer). The onset edge therefore rests on the change of voice alone and holds the grade down; medium (INFERRED).",
+   "ruling_id": "ROW-W3-014",
+   "findings": [
+    "F18"
+   ],
+   "orders": [
+    "O6"
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json marks: Dan.6.28 none, Dan.6.29 PE; SP\\Dan\\dan_device_inventory.json datelines.verses_mt holds Dan.7.1.",
+   "scan": {
+    "script": "work\\scan_w3.py",
+    "code": "import json\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\npm = json.load(open(SP + r\"\\Dan\\pmarks_Dan.json\", encoding=\"utf-8\"))\noshb = [l.split(\"\\t\", 1)[0] for l in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\") if \"\\t\" in l]\ndef rng(c, a, b):\n    return [k for k in oshb if k.startswith(\"Dan.%d.\" % c) and a <= int(k.split(\".\")[2]) <= b]\n# S1 marks (OSHB mark layer, MT numbering; a mark is recorded on the verse it follows)\nfor v in (\"Dan.5.16\", \"Dan.5.17\", \"Dan.5.23\", \"Dan.5.24\", \"Dan.5.30\", \"Dan.6.1\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S1 mark after oshb:\" + v, pm[\"marks\"].get(v, \"none\"))\n# S2 verse counts (OSHB/WLC verse lines)\nprint(\"S2 oshb verse lines Dan.5.17-Dan.5.28:\", len(rng(5, 17, 28)))\nprint(\"S2 oshb verse lines Dan.6.17-Dan.6.25:\", len(rng(6, 17, 25)))\n# S3 ketiv/qere and paseq counts (OSHB mark layer)\nfor v in (\"Dan.5.29\", \"Dan.5.30\", \"Dan.6.27\", \"Dan.6.28\", \"Dan.6.29\"):\n    print(\"S3 oshb:\" + v, \"kq\", len(pm[\"kq\"].get(v, [])), \"paseq\", pm[\"paseq\"].count(v))\nprint(\"S3 kq sites in oshb Dan.5.29-Dan.5.30:\", sum(len(pm[\"kq\"].get(v, [])) for v in rng(5, 29, 30)))\n",
+    "output": "S1 mark after oshb:Dan.5.16 ['PE']\nS1 mark after oshb:Dan.5.17 none\nS1 mark after oshb:Dan.5.23 none\nS1 mark after oshb:Dan.5.24 none\nS1 mark after oshb:Dan.5.30 ['PE']\nS1 mark after oshb:Dan.6.1 none\nS1 mark after oshb:Dan.6.28 none\nS1 mark after oshb:Dan.6.29 ['PE']\nS2 oshb verse lines Dan.5.17-Dan.5.28: 12\nS2 oshb verse lines Dan.6.17-Dan.6.25: 9\nS3 oshb:Dan.5.29 kq 1 paseq 1\nS3 oshb:Dan.5.30 kq 1 paseq 0\nS3 oshb:Dan.6.27 kq 1 paseq 2\nS3 oshb:Dan.6.28 kq 0 paseq 0\nS3 oshb:Dan.6.29 kq 1 paseq 0\nS3 kq sites in oshb Dan.5.29-Dan.5.30: 2\n"
+   }
+  },
+  {
+   "n": 24,
+   "row": "W3-014",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "because the notice speaks in the narrator's voice about Daniel's prosperity across two reigns, not in the king's.",
+   "after": "because the notice speaks in the narrator's voice about Daniel's prosperity, not in the king's (INFERRED). The verse names two reigns, that of Darius and that of Cyrus (EXTRACTED, OSHB/WLC).",
+   "ruling_id": "ROW-W3-014",
+   "findings": [
+    "F19"
+   ],
+   "orders": [
+    "O6",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.6.29 words 4-5 are in-the-reign-of Darius and words 6-7 and-in-the-reign-of Cyrus; SP\\Dan\\Dan_web_clean.txt 6:28 names the same two.",
+   "scan": null
+  },
+  {
+   "n": 25,
+   "row": "W3-014",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "Ketiv/qere at this verse disclosed in the refs.",
+   "after": "One ketiv/qere site stands at this verse, on its closing word and outside the words quoted here; it is disclosed in the refs (EXTRACTED, OSHB mark layer and OSHB/WLC).",
+   "ruling_id": "ROW-W3-014",
+   "findings": [
+    "F19"
+   ],
+   "orders": [
+    "O6",
+    "O8"
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json kq: Dan.6.29 one entry, whose written form is word 8 (the last) of SP\\Dan\\Dan_oshb.txt Dan.6.29; the row quotes words 1-3.",
+   "scan": null
+  }
+ ],
+ "dispositions": [
+  {
+   "item": "F1",
+   "disposition": "applied",
+   "records": [
+    1
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.5.1 words 1-3 are the king's name, the title and then the verb (subject before verb); Dan.4.34 word 2 is the first-person pronoun followed by three participles of praise; SP\\Dan\\Dan_web_clean.txt 4:37 begins Now I, Nebuchadnezzar, praise. The chapter line is no longer named as a signal.",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The chapter line is no longer named as a signal and the verse before the seam is described as first-person praise. The phrase about the preceding decree stands in boundary_rationale, a field the map does not open on this row; see blocked."
+  },
+  {
+   "item": "F2",
+   "disposition": "applied",
+   "records": [
+    2
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.in_the_days_of_aram.verses_mt holds Dan.5.11 (its only hit in chapters 5-6); the layer holds the presence of the phrase and nothing about a credential.",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": ""
+  },
+  {
+   "item": "F3",
+   "disposition": "applied",
+   "records": [
+    2
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.in_the_days_of_aram.verses_mt holds Dan.5.11 (its only hit in chapters 5-6); the layer holds the presence of the phrase and nothing about a credential.",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": ""
+  },
+  {
+   "item": "F4",
+   "disposition": "applied",
+   "records": [
+    3
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.answered_and_said_aram_strict.verses_mt and _loose.verses_mt both hold Dan.5.17; SP\\Dan\\Dan_oshb.txt Dan.5.17 words 2-4 are the answering frame and Dan.5.18 word 1 is the second-person pronoun before the title; SP\\Dan\\pmarks_Dan.json marks: Dan.5.16 PE, Dan.5.17 none.",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The further rival is added beside the one already there; which is stronger is not ruled and is left open in the row."
+  },
+  {
+   "item": "F5",
+   "disposition": "applied",
+   "records": [
+    5,
+    6
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt verse lines Dan.5.17 to Dan.5.28 number 12; Dan.5.24 word 1 is the then-connective and its words 8-10 return at the head of Dan.5.25; SP\\Dan\\pmarks_Dan.json marks: Dan.5.23 none, Dan.5.24 none.; SP\\Dan\\dan_device_inventory.json formulae.most_high_aram.verses_mt holds Dan.5.18 and Dan.5.21; recognition_most_high_rules_aram holds Dan.5.21; praise_aram holds Dan.5.4 and Dan.5.23. The layer holds presence only.",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": "device_notes separates presence from reading; the count and the weighing of the rejected rival each carry a tier."
+  },
+  {
+   "item": "F6",
+   "disposition": "applied",
+   "records": [
+    4,
+    5
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt verse lines Dan.5.17 to Dan.5.28 number 12; Dan.5.24 word 1 is the then-connective and its words 8-10 return at the head of Dan.5.25; SP\\Dan\\pmarks_Dan.json marks: Dan.5.23 none, Dan.5.24 none.; SP\\Dan\\dan_device_inventory.json formulae.then_aram.verses_mt holds Dan.5.24; SP\\Dan\\Dan_oshb.txt Dan.5.24 has 10 words, word 1 is the then-connective, words 8-10 are and-the-writing / this / inscribed; Dan.5.25 words 1, 2 and 4 are and-this / the-writing / inscribed (the same three lexemes, reordered).",
+   "ruling_id": "ROW-W3-005",
+   "note": ""
+  },
+  {
+   "item": "F7",
+   "disposition": "applied",
+   "records": [
+    7,
+    8
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.this_is_the_interpretation_aram.verses_mt holds Dan.5.26 and not Dan.5.25; the unit opens at 5:25.; SP\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl row W3-005 confidence is medium_low and its close is the edge this row opens on; SP\\Dan\\pmarks_Dan.json marks: Dan.5.24 none.",
+   "ruling_id": "ROW-W3-006",
+   "note": ""
+  },
+  {
+   "item": "F8",
+   "disposition": "applied",
+   "records": [
+    9,
+    10
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json kq: Dan.5.29 one entry, Dan.5.30 one entry; two in the span.; The sentence is a weighing (reward and death notice as one arc); no pinned layer holds it, so it takes INFERRED. SP\\Dan\\Dan_oshb.txt Dan.5.29 and Dan.5.30 read for the reward and the death notice.",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": ""
+  },
+  {
+   "item": "F9",
+   "disposition": "applied",
+   "records": [
+    9,
+    10
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json kq: Dan.5.29 one entry, Dan.5.30 one entry; two in the span.; The sentence is a weighing (reward and death notice as one arc); no pinned layer holds it, so it takes INFERRED. SP\\Dan\\Dan_oshb.txt Dan.5.29 and Dan.5.30 read for the reward and the death notice.",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": ""
+  },
+  {
+   "item": "F10",
+   "disposition": "applied",
+   "records": [
+    12
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json marks: Dan.6.1 none (the silence is real). The reviewer's further wording, that the appointments depend on the succession verse for their king, is not written: SP\\Dan\\Dan_web_clean.txt 6:1 itself names Darius, so the bytes do not bear that clause.",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "The missing mark is now a disclosed single-witness silence and no longer a reason. The reviewer's clause that the appointments depend on the succession verse for their king is not written: WEB 6:1 names Darius itself."
+  },
+  {
+   "item": "F11",
+   "disposition": "applied",
+   "records": [
+    11
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json marks: Dan.5.30 PE; witness field says single witness.",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": ""
+  },
+  {
+   "item": "F12",
+   "disposition": "applied",
+   "records": [
+    13,
+    14
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.because_of_this_aram.verses_mt holds Dan.6.10 (its only hit in chapters 5-6); SP\\Dan\\Dan_oshb.txt Dan.6.10 words 1-3 are the connective.; SP\\Dan\\dan_device_inventory.json formulae.then_aram.verses_mt holds Dan.6.5; SP\\Dan\\Dan_oshb.txt Dan.6.5 word 1 is the then-connective.",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": ""
+  },
+  {
+   "item": "F13",
+   "disposition": "applied",
+   "records": [
+    15,
+    16,
+    17
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.homograph_note and web_for_zone_refs (Dan.6.11 = web:Dan.6.10); SP\\Dan\\Dan_web_clean.txt 6:10 renders the clause as kneeling.; SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.homograph_note: MT 6:11 matches on the verb he knelt, not bless; kept and labelled. SP\\Dan\\Dan_oshb.txt Dan.6.11 words 19-21 are the kneeling clause.; SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.verses_mt holds Dan.6.11 and its homograph_note says the match is the verb he knelt, not bless; SP\\Dan\\Dan_oshb.txt Dan.6.11 words 19-21; SP\\Dan\\Dan_web_clean.txt 6:10.",
+   "ruling_id": "ROW-W3-010",
+   "note": ""
+  },
+  {
+   "item": "F14",
+   "disposition": "applied",
+   "records": [
+    15,
+    16,
+    17
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.homograph_note and web_for_zone_refs (Dan.6.11 = web:Dan.6.10); SP\\Dan\\Dan_web_clean.txt 6:10 renders the clause as kneeling.; SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.homograph_note: MT 6:11 matches on the verb he knelt, not bless; kept and labelled. SP\\Dan\\Dan_oshb.txt Dan.6.11 words 19-21 are the kneeling clause.; SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.verses_mt holds Dan.6.11 and its homograph_note says the match is the verb he knelt, not bless; SP\\Dan\\Dan_oshb.txt Dan.6.11 words 19-21; SP\\Dan\\Dan_web_clean.txt 6:10.",
+   "ruling_id": "ROW-W3-010",
+   "note": ""
+  },
+  {
+   "item": "F15",
+   "disposition": "applied",
+   "records": [
+    18
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt verse lines Dan.6.17 to Dan.6.25 number 9.",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": ""
+  },
+  {
+   "item": "F16",
+   "disposition": "applied",
+   "records": [
+    19
+   ],
+   "bytes_read": "SP\\Dan\\dan_device_inventory.json formulae.then_aram.verses_mt holds Dan.6.20; SP\\Dan\\Dan_oshb.txt Dan.6.20 word 1 is the then-connective.",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": ""
+  },
+  {
+   "item": "F17",
+   "disposition": "applied",
+   "records": [
+    20,
+    21
+   ],
+   "bytes_read": "SP\\Dan\\pmarks_Dan.json paseq list holds Dan.6.27 twice.; The change of voice between letter and notice is a reading of SP\\Dan\\Dan_oshb.txt Dan.6.28 (participles about God inside the letter) and Dan.6.29 (third-person statement about Daniel); no layer holds it, so INFERRED.",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": ""
+  },
+  {
+   "item": "F18",
+   "disposition": "applied",
+   "records": [
+    22,
+    23
+   ],
+   "bytes_read": "SP\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl row W3-013 boundary_rationale ends Formula on both seams; medium (the shared edge); SP\\Dan\\pmarks_Dan.json marks: Dan.6.28 none.; SP\\Dan\\pmarks_Dan.json marks: Dan.6.28 none, Dan.6.29 PE; SP\\Dan\\dan_device_inventory.json datelines.verses_mt holds Dan.7.1.",
+   "ruling_id": "ROW-W3-014",
+   "note": ""
+  },
+  {
+   "item": "F19",
+   "disposition": "applied",
+   "records": [
+    24,
+    25
+   ],
+   "bytes_read": "SP\\Dan\\Dan_oshb.txt Dan.6.29 words 4-5 are in-the-reign-of Darius and words 6-7 and-in-the-reign-of Cyrus; SP\\Dan\\Dan_web_clean.txt 6:28 names the same two.; SP\\Dan\\pmarks_Dan.json kq: Dan.6.29 one entry, whose written form is word 8 (the last) of SP\\Dan\\Dan_oshb.txt Dan.6.29; the row quotes words 1-3.",
+   "ruling_id": "ROW-W3-014",
+   "note": ""
+  },
+  {
+   "item": "O1",
+   "disposition": "applied",
+   "records": [
+    4,
+    5
+   ],
+   "bytes_read": "see the records named",
+   "ruling_id": "ROW-W3-005",
+   "note": ""
+  },
+  {
+   "item": "O2",
+   "disposition": "applied",
+   "records": [
+    7
+   ],
+   "bytes_read": "see the records named",
+   "ruling_id": "ROW-W3-006",
+   "note": ""
+  },
+  {
+   "item": "O3",
+   "disposition": "applied",
+   "records": [
+    8
+   ],
+   "bytes_read": "see the records named",
+   "ruling_id": "ROW-W3-006",
+   "note": "The grade word is written medium-low, the spelling the neighbouring rationales already use for the value medium_low."
+  },
+  {
+   "item": "O4",
+   "disposition": "applied",
+   "records": [
+    15,
+    16,
+    17
+   ],
+   "bytes_read": "see the records named",
+   "ruling_id": "ROW-W3-010",
+   "note": "A list field keeps its length, so the tag entry and the signal entry are reworded into the homograph statement instead of being removed; see blocked."
+  },
+  {
+   "item": "O5",
+   "disposition": "applied",
+   "records": [
+    22
+   ],
+   "bytes_read": "see the records named",
+   "ruling_id": "ROW-W3-014",
+   "note": ""
+  },
+  {
+   "item": "O6",
+   "disposition": "applied",
+   "records": [
+    23,
+    24,
+    25
+   ],
+   "bytes_read": "see the records named",
+   "ruling_id": "ROW-W3-014",
+   "note": ""
+  },
+  {
+   "item": "O7",
+   "disposition": "applied",
+   "records": [
+    1,
+    2,
+    3,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    18,
+    19,
+    20,
+    21
+   ],
+   "bytes_read": "see the records named",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "note": "Every low finding on a W3 row in the coverage list was found on the pinned bytes before its field was changed."
+  },
+  {
+   "item": "O8",
+   "disposition": "applied",
+   "records": [
+    2,
+    6,
+    9,
+    10,
+    11,
+    13,
+    14,
+    18,
+    19,
+    20,
+    21,
+    24,
+    25
+   ],
+   "bytes_read": "see the records named",
+   "ruling_id": "CLASS-TIER-WORD",
+   "note": ""
+  }
+ ],
+ "blocked": [
+  {
+   "row": "W3-001",
+   "field": "boundary_rationale",
+   "why": "Finding F1 also says the row calls the unit before the seam a decree. That wording (the PE that closes the preceding decree) stands in boundary_rationale, which the change map does not open on W3-001, so it is left unchanged. The same sentence already says the far side is first-person praise, and the reworded signal entry now says so too.",
+   "evidence": "SP\\Dan\\Dan_web_clean.txt 4:37 begins Now I, Nebuchadnezzar, praise; SP\\Dan\\Dan_oshb.txt Dan.4.34 word 2 is the first-person pronoun."
+  },
+  {
+   "row": "W3-010",
+   "field": "strong_or_hebrew_tags_used",
+   "why": "Order O4 says to remove the form from any list that presents it as a device of the unit; the change map forbids removing a list entry. Entry 0 of the tag list and entry 0 of observed_substrate_signals are therefore reworded into the homograph statement, which no longer presents a blessing device. If the lander wants a bare tag list, the entry needs a ruling.",
+   "evidence": "SP\\Dan\\dan_device_inventory.json formulae.blessed_aram.homograph_note."
+  }
+ ],
+ "suite": {
+  "command": "python -B SP\\Dan\\tools\\run_validator_suite.py <copy of the rows file>  (PYTHONDONTWRITEBYTECODE=1 PYTHONUTF8=1 PYTHONIOENCODING=utf-8; copies work\\rows_base.jsonl and work\\rows_applied.jsonl)",
+  "base": {
+   "hard_status": "GREEN",
+   "triage_flags": 137
+  },
+  "applied": {
+   "hard_status": "GREEN",
+   "triage_flags": 136,
+   "dead_members": []
+  },
+  "new_flag_keys": []
+ }
+}

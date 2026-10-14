@@ -1,0 +1,256 @@
+{
+ "attempt_id": "dan_fixup6_W5_a1",
+ "execution_id": "dan_fixup6_W5_a1#e2",
+ "rows_file_sha256": "2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca",
+ "changes": [
+  {
+   "n": 1,
+   "row": "W5-001",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "Inside the span, 9:2 repeats the year formula, בִּשְׁנַ֤ת אַחַת֙ לְמָלְכ֔וֹ (OSHB/WLC), oshb:Dan.9.2; this resumptive dateline at 9:2 is texture and opens nothing [EXTRACTED OSHB/WLC].",
+   "after": "Inside the span, 9:2 repeats the year formula, בִּשְׁנַ֤ת אַחַת֙ לְמָלְכ֔וֹ (OSHB/WLC), oshb:Dan.9.2, and 9:2 is listed beside 9:1 among the dateline entries (EXTRACTED, OSHB/WLC and device inventory). That this second year formula resumes 9:1 and opens no unit is a reading (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F1",
+    "F2"
+   ],
+   "orders": [
+    "O2",
+    "O3"
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.9.2 words 1-3 hold the year formula (the same three words the row splices); dan_device_inventory.json datelines.verses_mt holds Dan.9.1 and Dan.9.2 (8 entries); neither file holds a statement that the formula is texture or opens nothing, so that part is a reading.",
+   "scan": null
+  },
+  {
+   "n": 2,
+   "row": "W5-001",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "Verses 9:1-9:3 are first-person narrative, with Daniel reading the books and turning to prayer [EXTRACTED OSHB/WLC].",
+   "after": "The pronoun of the first person with Daniel's name stands at words 4-5 of oshb:Dan.9.2, and that verse is listed for it (EXTRACTED, OSHB/WLC and device inventory). That 9:1-9:3 as a whole, the dateline verse 9:1 included, are first-person narrative, with Daniel reading the books and turning to prayer, is a reading (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F1"
+   ],
+   "orders": [
+    "O2",
+    "O3"
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.9.2 words 4-5 are the first-person pronoun and the name Daniel; Dan.9.1 (12 words: dateline, patronym, descent, relative clause on the kingship) was read word by word and holds no first-person pronoun; dan_device_inventory.json formulae.i_daniel_heb.verses_mt holds Dan.9.2. The genre word is not held by any pinned file.",
+   "scan": null
+  },
+  {
+   "n": 3,
+   "row": "W5-002",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "The span holds 11 verses: it is one uninterrupted speech act, the confession, with no internal formula, mark or dateline [EXTRACTED OSHB/WLC].",
+   "after": "The span holds 11 verses (MEASURED, OSHB/WLC). Inside it stand, as listed formulae, the address formula at oshb:Dan.9.4, the ascription of righteousness at oshb:Dan.9.7, and the divine name at oshb:Dan.9.4, 9.8, 9.10, 9.13 and 9.14 (EXTRACTED, device inventory). No section mark follows any verse from 9:4 to 9:13 in the mark layer, which is a single witness, and no dateline entry stands in 9:4-9:14 (MEASURED, OSHB mark layer and device inventory). That none of these formulae opens a unit, and that the prayer is one speech act of which this span is the confession, is a reading, and the length above nine verses rests on that reading (INFERRED).",
+   "ruling_id": "ROW-W5-002",
+   "findings": [
+    "F3",
+    "F4"
+   ],
+   "orders": [
+    "O1",
+    "O3"
+   ],
+   "bytes_read": "dan_device_inventory.json formulae: great_and_awesome_god_heb verses_mt Dan.9.4; to_you_lord_righteousness_heb Dan.9.7; yhwh_name_heb Dan.9.4, 9.8, 9.10, 9.13, 9.14; datelines.verses_mt holds no verse of 9:4-9:14. pmarks_Dan.json marks: no key from Dan.9.4 to Dan.9.13 (nor Dan.9.3, Dan.9.14); the only chapter 9 key is Dan.9.27. Dan_oshb.txt: 11 verse lines in 9:4-9:14; no year word in them; Dan_web_clean.txt: no 'year' or 'years' in 9:4-9:14. The base sentence's claim of no internal formula is refuted by the inventory; its mark and dateline parts hold.",
+   "scan": {
+    "script": "work\\scan_w5002.py",
+    "code": "import json, re, unicodedata\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nSPAN = [\"Dan.9.%d\" % v for v in range(4, 15)]\nINNER = [\"Dan.9.%d\" % v for v in range(4, 14)]  # verses a mark can follow and still stand inside the span\ninv = json.load(open(SP + r\"\\Dan\\dan_device_inventory.json\", encoding=\"utf-8\"))\nprint(\"device inventory, formulae with a verse in 9:4-9:14:\")\nfor k, d in inv[\"formulae\"].items():\n    hits = [v for v in d.get(\"verses_mt\", []) if v in SPAN]\n    if hits:\n        print(\"  %s: %s\" % (k, \", \".join(hits)))\ndl = [v for v in inv[\"datelines\"][\"verses_mt\"] if v in SPAN]\nprint(\"device inventory, dateline entries in 9:4-9:14: %d %s\" % (len(dl), dl))\nprint(\"device inventory, all dateline verses: %s\" % \", \".join(inv[\"datelines\"][\"verses_mt\"]))\npm = json.load(open(SP + r\"\\Dan\\pmarks_Dan.json\", encoding=\"utf-8\"))\nmk = {v: pm[\"marks\"][v] for v in pm[\"marks\"] if v in INNER}\nprint(\"mark layer, section marks after 9:4 to 9:13 (inside the span): %d %s\" % (len(mk), mk))\nprint(\"mark layer, section mark after 9:3: %s; after 9:14: %s\" % (pm[\"marks\"].get(\"Dan.9.3\"), pm[\"marks\"].get(\"Dan.9.14\")))\nprint(\"mark layer, chapter 9 verses carrying a section mark: %s\" % [v for v in pm[\"marks\"] if v.startswith(\"Dan.9.\")])\ndef skel(s):\n    return \"\".join(c for c in unicodedata.normalize(\"NFD\", s) if not (\"\\u0591\" <= c <= \"\\u05c7\"))\nosh = {}\nfor line in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\"):\n    if \"\\t\" in line:\n        r, t = line.split(\"\\t\", 1)\n        osh[r] = t\nyr = [v for v in SPAN if re.search(\"שנ(?:ה|ת|ים|ות)\", skel(osh[v]))]\nprint(\"OSHB/WLC, verses of 9:4-9:14 with a year word (inventory substring pattern): %d %s\" % (len(yr), yr))\nyh = [v for v in SPAN if \"יהוה\" in skel(osh[v])]\nprint(\"OSHB/WLC, verses of 9:4-9:14 holding the divine name: %s\" % \", \".join(yh))\nrg = [v for v in SPAN if re.search(r\"לך\\s+אדני\\s+הצדקה\", skel(osh[v]))]\nprint(\"OSHB/WLC, verses of 9:4-9:14 holding the righteousness ascription: %s\" % \", \".join(rg))\nweb = {}\nch = None; cur = None\nfor line in open(SP + r\"\\Dan\\Dan_web_clean.txt\", encoding=\"utf-8\").read().split(\"\\n\"):\n    m = re.match(r\"===== DAN (\\d+) =====\", line)\n    if m:\n        ch = int(m.group(1)); cur = None; continue\n    m = re.match(r\"\\[v\\] (\\d+) (.*)\", line)\n    if m:\n        cur = \"Dan.%d.%s\" % (ch, m.group(1)); web[cur] = m.group(2); continue\n    if cur and line.strip() and line.strip() != \"\\u00b6\":\n        web[cur] += \" \" + line.strip()\nwy = [v for v in SPAN if re.search(r\"(?i)\\byears?\\b\", web[v])]\nprint(\"WEB, verses of 9:4-9:14 with the word year or years: %d %s\" % (len(wy), wy))\nch9 = [r for r in osh if r.startswith(\"Dan.9.\")]\ninspan = [r for r in ch9 if 4 <= int(r.split(\".\")[2]) <= 14]\nprint(\"OSHB/WLC, verse lines of chapter 9: %d; of them in 9:4-9:14: %d\" % (len(ch9), len(inspan)))\n",
+    "output": "device inventory, formulae with a verse in 9:4-9:14:\n  great_and_awesome_god_heb: Dan.9.4\n  to_you_lord_righteousness_heb: Dan.9.7\n  yhwh_name_heb: Dan.9.4, Dan.9.8, Dan.9.10, Dan.9.13, Dan.9.14\ndevice inventory, dateline entries in 9:4-9:14: 0 []\ndevice inventory, all dateline verses: Dan.1.1, Dan.2.1, Dan.7.1, Dan.8.1, Dan.9.1, Dan.9.2, Dan.10.1, Dan.11.1\nmark layer, section marks after 9:4 to 9:13 (inside the span): 0 {}\nmark layer, section mark after 9:3: None; after 9:14: None\nmark layer, chapter 9 verses carrying a section mark: ['Dan.9.27']\nOSHB/WLC, verses of 9:4-9:14 with a year word (inventory substring pattern): 0 []\nOSHB/WLC, verses of 9:4-9:14 holding the divine name: Dan.9.4, Dan.9.8, Dan.9.10, Dan.9.13, Dan.9.14\nOSHB/WLC, verses of 9:4-9:14 holding the righteousness ascription: Dan.9.7\nWEB, verses of 9:4-9:14 with the word year or years: 0 []\nOSHB/WLC, verse lines of chapter 9: 27; of them in 9:4-9:14: 11\n"
+   }
+  },
+  {
+   "n": 4,
+   "row": "W5-002",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "Above 9 verses: the span is one speech act, the confession, with no internal signal that would open a new unit [INFERRED].",
+   "after": "Above 9 verses: the listed formulae inside the span, at 9:4, 9:7, 9:8, 9:10, 9:13 and 9:14, are read as texture of the prayer, which is one speech act with this span as its confession, and none of them is read as opening a new unit (INFERRED).",
+   "ruling_id": "ROW-W5-002",
+   "findings": [
+    "F3",
+    "F4"
+   ],
+   "orders": [
+    "O1"
+   ],
+   "bytes_read": "dan_device_inventory.json formulae hits inside 9:4-9:14 as in record 3 (9.4, 9.7, 9.8, 9.10, 9.13, 9.14); that none opens a unit is a reading and keeps INFERRED.",
+   "scan": null
+  },
+  {
+   "n": 5,
+   "row": "W5-004",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "Inside the span 9:22 opens his words, עִמִּ֑י וַיֹּאמַ֕ר דָּנִיֵּ֕אל עַתָּ֥ה (OSHB/WLC), oshb:Dan.9.22, “He instructed me and talked with me, and said” (web:Dan.9.22); the verb of saying is a weak connective and is not used as an onset here [EXTRACTED OSHB/WLC; WEB].",
+   "after": "Inside the span the words cited from 9:22, עִמִּ֑י וַיֹּאמַ֕ר דָּנִיֵּ֕אל עַתָּ֥ה (OSHB/WLC), oshb:Dan.9.22, are words 3-6 of its nine: word 3 carries the atnah and closes the narrated clause, word 4 is the verb of saying, and the address to Daniel begins at word 5 (EXTRACTED, OSHB/WLC). The WEB wording “He instructed me and talked with me, and said” (web:Dan.9.22) stands at the head of that verse and reaches the verb of saying (EXTRACTED, WEB). The messenger's words therefore begin inside the verse, and the verb of saying is read as a weak connective that is not used as an onset here (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F6",
+    "F7"
+   ],
+   "orders": [
+    "O2",
+    "O3"
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.9.22 has 9 words; the row's splice equals words 3-6; word 3 carries U+0591 (atnah); word 4 is the verb of saying; word 5 is the name Daniel. Dan_web_clean.txt Dan.9.22 begins 'He instructed me and talked with me, and said,' followed by the opening quotation mark and 'Daniel'. So the splice does not open the messenger's words (it starts one word before the verb of saying), as F7 says; that the verb opens no unit is a decision, as F6 says.",
+   "scan": null
+  },
+  {
+   "n": 6,
+   "row": "W5-004",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "The verb of saying at 9:22 is a weak connective and opens no unit here [EXTRACTED OSHB/WLC].",
+   "after": "The verb of saying is word 4 of oshb:Dan.9.22, after the two narrated verbs at words 1-2, and the verse is listed for it (EXTRACTED, OSHB/WLC and device inventory). That it is a weak connective and opens no unit here is a reading (INFERRED).",
+   "ruling_id": "CLASS-LOW-ONLY",
+   "findings": [
+    "F6"
+   ],
+   "orders": [
+    "O2",
+    "O3"
+   ],
+   "bytes_read": "Dan_oshb.txt Dan.9.22 words 1-2 are two narrated verbs, word 4 the verb of saying; dan_device_inventory.json formulae.and_he_said_heb.verses_mt holds Dan.9.22. No pinned file holds the statement that it opens no unit.",
+   "scan": null
+  }
+ ],
+ "dispositions": [
+  {
+   "item": "F1",
+   "disposition": "applied",
+   "records": [
+    1,
+    2
+   ],
+   "ruling_id": "CLASS-LOW-ONLY",
+   "bytes_read": "Dan_oshb.txt Dan.9.1 (12 words) holds no first-person pronoun; Dan.9.2 words 1-3 are the year formula and words 4-5 the first-person pronoun with the name Daniel; dan_device_inventory.json lists Dan.9.2 under its first-person formula and Dan.9.1 and Dan.9.2 under datelines.",
+   "note": "The first-person claim over 9:1-9:3 was annotated as extracted; it is now split into what the bytes hold at 9:2 and a reading over the three verses."
+  },
+  {
+   "item": "F2",
+   "disposition": "applied",
+   "records": [
+    1
+   ],
+   "ruling_id": "CLASS-LOW-ONLY",
+   "bytes_read": "dan_device_inventory.json datelines.verses_mt holds Dan.9.1 and Dan.9.2; Dan_oshb.txt Dan.9.2 words 1-3 repeat the year formula.",
+   "note": "That the 9:2 dateline is texture and opens nothing is now carried as a reading, with the dateline listing stated as extracted."
+  },
+  {
+   "item": "F3",
+   "disposition": "applied",
+   "records": [
+    3,
+    4
+   ],
+   "ruling_id": "ROW-W5-002",
+   "bytes_read": "dan_device_inventory.json formulae with verses in 9:4-9:14: great_and_awesome_god_heb Dan.9.4; to_you_lord_righteousness_heb Dan.9.7; yhwh_name_heb Dan.9.4, 9.8, 9.10, 9.13, 9.14 (scan in record 3).",
+   "note": "The claim of no internal formula is refuted by the bytes and is removed; the formulae are named and their non-opening status is carried as a reading."
+  },
+  {
+   "item": "F4",
+   "disposition": "applied",
+   "records": [
+    3,
+    4
+   ],
+   "ruling_id": "ROW-W5-002",
+   "bytes_read": "pmarks_Dan.json marks: none after Dan.9.4 to Dan.9.13, the only chapter 9 mark stands after Dan.9.27; dan_device_inventory.json datelines: none in 9:4-9:14 (scan in record 3).",
+   "note": "The mark and dateline parts of the absence claim hold and are now stated as measured with the single-witness disclosure; the one-speech-act claim and the length licence are carried as a reading. Span and grade stand as the ruling orders."
+  },
+  {
+   "item": "F5",
+   "disposition": "no_row_change_by_ruling",
+   "records": [],
+   "ruling_id": "CLASS-EXTENT",
+   "bytes_read": "rulings_E6 CLASS-EXTENT: a difference of extent between a Hebrew splice and the WEB quotation beside it changes no row; the finding on W5-003 is of that kind.",
+   "note": "No record."
+  },
+  {
+   "item": "F6",
+   "disposition": "applied",
+   "records": [
+    5,
+    6
+   ],
+   "ruling_id": "CLASS-LOW-ONLY",
+   "bytes_read": "Dan_oshb.txt Dan.9.22 has 9 words: words 1-2 narrated verbs, word 3 with the atnah, word 4 the verb of saying, word 5 the name Daniel; dan_device_inventory.json and_he_said_heb lists Dan.9.22.",
+   "note": "The weak-connective judgement was annotated as extracted; the position of the verb is now extracted and the judgement is a reading."
+  },
+  {
+   "item": "F7",
+   "disposition": "applied",
+   "records": [
+    5
+   ],
+   "ruling_id": "CLASS-LOW-ONLY",
+   "bytes_read": "Dan_oshb.txt Dan.9.22: the row's splice equals words 3-6 of 9 and begins at the last word of the narrated clause; Dan_web_clean.txt Dan.9.22 begins with the narrated clause and reaches the verb of saying before the address.",
+   "note": "The row said 9:22 opens his words; the verse opens with narration and the address begins at word 5. The false description of what the splice opens is corrected. The part of the finding that concerns only the differing extent of splice and quotation changes no row under CLASS-EXTENT."
+  },
+  {
+   "item": "F8",
+   "disposition": "no_row_change_by_ruling",
+   "records": [],
+   "ruling_id": "CLASS-EXTENT",
+   "bytes_read": "rulings_E6 CLASS-EXTENT: a difference of extent between a Hebrew splice and the WEB quotation beside it changes no row; the finding on W5-005 is of that kind.",
+   "note": "No record."
+  },
+  {
+   "item": "O1",
+   "disposition": "applied",
+   "records": [
+    3,
+    4
+   ],
+   "ruling_id": "ROW-W5-002",
+   "bytes_read": "As F3 and F4; scan work\\scan_w5002.py in record 3.",
+   "note": "The false absence claim is corrected in both fields that carried it; no span, grade or unit type changed."
+  },
+  {
+   "item": "O2",
+   "disposition": "applied",
+   "records": [
+    1,
+    2,
+    5,
+    6
+   ],
+   "ruling_id": "CLASS-LOW-ONLY",
+   "bytes_read": "As F1, F2, F6 and F7.",
+   "note": "W5-003 and W5-005 are on the class list only for extent findings, which change no row under CLASS-EXTENT."
+  },
+  {
+   "item": "O3",
+   "disposition": "applied",
+   "records": [
+    1,
+    2,
+    3,
+    5,
+    6
+   ],
+   "ruling_id": "CLASS-TIER-WORD",
+   "bytes_read": "Each named record replaces a sentence whose annotation named a higher tier than the bytes support; see the bytes_read of each record.",
+   "note": "Every added or changed sentence carries exactly one annotation in the ordered form; record 4 replaces a sentence that was already marked as a reading."
+  }
+ ],
+ "blocked": [],
+ "suite": {
+  "command": "python -B C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\tools\\run_validator_suite.py <private copy>  (run on work\\rows_base.jsonl and on work\\rows_applied.jsonl; PYTHONDONTWRITEBYTECODE=1, PYTHONUTF8=1, PYTHONIOENCODING=utf-8)",
+  "base": {
+   "hard_status": "GREEN",
+   "triage_flags": 137
+  },
+  "applied": {
+   "hard_status": "GREEN",
+   "triage_flags": 137,
+   "dead_members": []
+  },
+  "new_flag_keys": []
+ }
+}

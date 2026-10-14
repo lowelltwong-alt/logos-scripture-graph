@@ -82,6 +82,13 @@ def carrier_counts():
     return out
 
 
+
+def load_efficiency():
+    spec = importlib.util.spec_from_file_location("m8_execution_efficiency", M8 / "sp_durable/campaign/m8_execution_efficiency.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
 def main():
     args = sys.argv[1:]
     nxt = args[args.index("--next") + 1] if "--next" in args else ""
@@ -197,6 +204,7 @@ def main():
         "prompt_slot": {"path": "RESUME_PROMPT_CURRENT.md",
                         "archive": [{"path": p.relative_to(M8).as_posix(), "sha256": sha(p)} for p in archived]},
     }
+    index["execution_efficiency"] = load_efficiency().contract_binding(M8)
     if dry:
         print(json.dumps(index, ensure_ascii=False, indent=1)[:3000]); return 0
     tmp = OUT.with_suffix(".json.tmp")

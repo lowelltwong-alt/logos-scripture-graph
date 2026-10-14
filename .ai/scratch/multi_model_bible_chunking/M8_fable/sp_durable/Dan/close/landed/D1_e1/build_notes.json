@@ -1,0 +1,173 @@
+{
+ "schema": "dan_scholar_record_build_notes.v1",
+ "attempt_id": "dan_close_scholar_record_a1",
+ "execution_id": "dan_close_scholar_record_a1#e1",
+ "continuity": "This execution was interrupted and continued: two context compactions and one session usage limit. Each time the work resumed from work/progress.json and from the files in this OUT directory; the generator and checker were re-run in full after the last resumption, so every number below comes from that final run.",
+ "tier_statement": "Every count in this file under 'measured' was copied by work/mknotes.py from scholar_record_check.v1.json, which the checker MEASURED on the pinned and landed bytes. What the landed files say about Daniel is what their readers REPORTED; this build read no Hebrew or Aramaic for sense and judged no boundary.",
+ "ported_from_ezekiel": [
+  "The overall shape: a generator that is a pure function of digest-pinned inputs; a T() registry so every frame sentence is printed in the last section; a clean() substitution table printed in the document; a vocabulary blocklist over the body; a --check mode that compares bytes.",
+  "The licence and attribution wording for the two witnesses (Open Scriptures Hebrew Bible / Westminster Leningrad Codex, and the World English Bible), carried as the Ezekiel record words it, with the limit stated beside it.",
+  "The checker's named tests for packets, high-severity findings, cross-reading disagreements and byte-identical regeneration."
+ ],
+ "changed_for_daniel_and_why": [
+  {
+   "what": "--dan-root and --out-root arguments, defaulting to the parent of the script's own directory",
+   "why": "the brief's path rule: build in OUT now, install under Dan/scholar_record later, same bytes"
+  },
+  {
+   "what": "no directory scan, no glob, no existence test anywhere; the set of landed files is read from close/dan_landed_outputs_manifest.v1.json and each file is opened by its listed path and digest-checked",
+   "why": "E-19 and the exact-path law; Ezekiel's tools were templates for form only (E-65)"
+  },
+  {
+   "what": "every constant (unit count, chapter and verse counts, numbering offsets, pinned digests, the 46 open questions) re-derived from Daniel's bytes",
+   "why": "E-65: nothing from another book passes as Daniel's"
+  },
+  {
+   "what": "regeneration tested in memory (the checker imports the generator and calls build() twice) rather than by subprocess and temporary file",
+   "why": "no clock, no temporary path, no directory write outside OUT"
+  },
+  {
+   "what": "a three-way test of 'nothing asserted that is not in a packet': byte-identical regeneration; every quoted line equals the cleaned form of a string in a landed or pinned file; every other line before section 9 is an instance of a template printed in section 10",
+   "why": "the brief's fourth checker requirement, made mechanical"
+  },
+  {
+   "what": "an open-questions test: the 46 routed questions each rendered with 'Status: open.'",
+   "why": "the brief's fifth checker requirement"
+  },
+  {
+   "what": "two-language and two-numbering handling: every reference is in English numbering with the Hebrew numbering beside it where they differ",
+   "why": "Daniel is Hebrew and Aramaic and its versification differs in four stretches"
+  },
+  {
+   "what": "a larger substitution table than Ezekiel's",
+   "why": "Daniel's packets use more private vocabulary; measured leaks from the first two runs were closed by substitutions, never by loosening the blocklist"
+  }
+ ],
+ "measured": {
+  "document": {
+   "name": "DANIEL_SCHOLAR_RECORD.v1.md",
+   "sha256": "d45690bed1198f5459b38cbc7a9ec943c8136e1daad75161ea09fc23cb8961b0",
+   "bytes": 1037986,
+   "lines": 10360
+  },
+  "verdict": "PASS",
+  "checks_passed": 15,
+  "checks_total": 15,
+  "counts": {
+   "audit_findings": 13,
+   "first_reading_findings": 150,
+   "kind:audit": 1,
+   "kind:audit_supplement": 1,
+   "kind:change_log": 19,
+   "kind:closing_message": 20,
+   "kind:closing_statement": 39,
+   "kind:first_reading": 22,
+   "kind:outside_tree": 4,
+   "kind:reconciling": 6,
+   "kind:rereading": 10,
+   "kind:revised_entries": 19,
+   "manifest_outputs": 141,
+   "reconciling_findings": 75,
+   "rereading_extra_findings": 11,
+   "rereading_items": 376
+  },
+  "packet_classes": {
+   "audit": 1,
+   "audit_supplement": 1,
+   "change_log": 19,
+   "closing_message": 20,
+   "closing_statement": 39,
+   "first_reading": 22,
+   "outside_tree": 4,
+   "reconciling": 6,
+   "rereading": 10,
+   "revised_entries": 19
+  },
+  "packet_class_meaning": {
+   "first_reading": "opened; findings quoted",
+   "reconciling": "opened; quoted",
+   "rereading": "opened; quoted",
+   "audit": "opened; quoted",
+   "audit_supplement": "opened; quoted",
+   "change_log": "opened; quoted in section 4",
+   "closing_statement": "opened where it parses as JSON and quoted where it carries prose; hashed and named in provenance otherwise",
+   "revised_entries": "hashed and named in provenance only",
+   "closing_message": "NOT opened (final_message files are forbidden to this build); named in provenance from the manifest only",
+   "outside_tree": "NOT opened (paths outside the Daniel tree); named in provenance from the manifest only"
+  },
+  "units": {
+   "units": 75,
+   "dispute_entries": 64,
+   "quiet": 11
+  },
+  "disagreements": {
+   "first_reading_disagreements": 42,
+   "marked_in_document": 42,
+   "later_pair_disagreements": 6
+  },
+  "high_severity": {
+   "passages_with_a_high_finding": 1,
+   "passages": [
+    "Daniel 10:15–19"
+   ],
+   "missing": []
+  },
+  "open_questions": {
+   "expected": 46,
+   "in_routed_file": 46,
+   "in_document": 46,
+   "not_fully_rendered": [],
+   "key_rows_in_provenance": 46
+  },
+  "quoted_lines": {
+   "quoted_lines": 2920,
+   "distinct": 2662,
+   "untraced": 0,
+   "first_untraced": []
+  },
+  "frame_lines": {
+   "frame_lines": 2152,
+   "templates_printed": 90,
+   "off_template": 0,
+   "first_off": [],
+   "table_lines_in_body": 0
+  },
+  "substitutions": {
+   "substitution_rows": 179,
+   "substitutions_in_generator": 179,
+   "templates": 90
+  },
+  "vocabulary": {
+   "patterns": 21,
+   "hits": 0,
+   "body_chars": 962780
+  },
+  "informational": {
+   "hebrew_script_runs": {
+    "what": "distinct runs of Hebrew script (8 characters or more) inside quoted lines, tested as exact substrings of the Hebrew-Aramaic witness file",
+    "runs": 198,
+    "found_exactly": 197,
+    "not_found_exactly": 1,
+    "reading": "NOT a gate. A run not found exactly may be an elided, respaced or unpointed citation; this count does not say any quotation is wrong or right."
+   },
+   "entry_numbers_outside_the_final_set": 0
+  }
+ },
+ "limits": [
+  "LICENCE. Daniel's own files state no licence terms. The terms in section 8 are carried from the wording of the Ezekiel record for the same two witnesses and are marked so in the document. What Daniel's files do say (attribution markers such as OSHB/WLC and WEB, and the strategy's rule that quotations carry their attribution) is quoted beneath. Nobody in this build checked the upstream licences themselves.",
+  "ONE VOICE. Every reading, re-reading, adjudication and audit ran on one model family. Agreement between readings is one voice, not independent confirmation; the document says so in section 2.",
+  "THE AUDIT RETURNED. The audit's overall verdict is a return, with two conditions it could not test; a supplementary audit later met both at an inferred grade. The document states this plainly and does not soften it.",
+  "UNOPENED FILES. The closing-message files and the files outside the Daniel tree were never opened. They are represented in provenance by path and by the digest the manifest records, nothing more.",
+  "HASHED ONLY. Revised-entry files and closing statements that are not parseable JSON are named and digest-checked but no sentence is drawn from them.",
+  "NOT QUOTED. Some fields are not rendered: reconciling readers' answered flags, the adjudicator's order lists, the before and after texts of each change, and corpus-wide orders. The checker's 'every packet represented' test means named in provenance and, for opened classes, at least one line quoted; it does not mean every field of every packet is printed.",
+  "SUBSTITUTION TABLE. The table is measured against the blocklist, not proven complete. The blocklist covers the body before the provenance section only; sections 7 to 10 name files and patterns by design, and the licence quotations in section 8 are deliberately unsubstituted so that they stay verbatim.",
+  "RESIDUE. Left in the body because they are ordinary words or cannot be safely told from them: lower-case short codes (s4, s5, x1, w9, w16 and the like, 66 occurrences by work/leak.py), upper-case verdict words (FINDING, SUPPORT, CHECKED), and words such as bytes, run, script, record, pinned, scan, digest and model. A reader will meet them inside quotations. They were not added to the blocklist merely to be then removed, and the blocklist was not trimmed to pass.",
+  "SUBSTITUTION CAN BLUR. Mechanical replacement of identifiers (for example an entry number by its passage, or a rule code by 'a numbered rule') loses which rule or which note was meant. The original is recoverable from the provenance key tables, not from the sentence.",
+  "TRACE IS NOT TRUTH. The checker shows that each quoted sentence is in a landed file and each frame sentence is a printed template. It does not show that any sentence is true of Daniel.",
+  "HEBREW RUNS. The check of Hebrew-script runs against the witness file is informational, not a gate; see measured.informational for the one run not found exactly.",
+  "INSTALLED RE-RUN NOT DONE HERE. Both scripts were run with explicit --dan-root and --out-root and then with --check (IDENTICAL). The run with default arguments from Dan/scholar_record could not be made from OUT, because this build may not write in the tree. Neither script embeds a path, clock or random value in its output, so identical bytes are expected (INFERRED), not measured.",
+  "PROCESS SLIPS. Twice code with escapes was passed through a shell here-document against the brief's rule; both attempts failed before writing anything, and the work was redone with the file-editing tool. No deliverable was affected.",
+  "BUILDER, NOT REVIEWER. No entry was changed and no boundary judged."
+ ],
+ "e19_selfreport": "ran no listing, no glob, no recursive search; read only the exact paths named in the brief or in the pinned manifest"
+}

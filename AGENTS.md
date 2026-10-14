@@ -70,3 +70,13 @@ python scripts/agent/force_handoff.py --task-id <TASK_ID> --agent <AGENT_NAME> -
 python scripts/agent/force_handoff.py --task-id <TASK_ID> --agent <AGENT_NAME> --stage final
 python scripts/agent/validate_handoffs.py
 ```
+
+## M8 execution continuity (owner-directed 2026-10-06)
+
+For M8 orchestration only, read
+`.ai/scratch/multi_model_bible_chunking/M8_fable/OWNER_EXECUTION_EFFICIENCY_2026-10-06.md`
+at resume and before constructing new reviewer launches. Run its saved-state
+preflight; preserve in-flight pinned inputs and all existing scholarly gates.
+This scoped owner direction grants no global, registry, publication or close authority.
+Clean reviewers receive only the neutral, pinned reviewer continuation contract,
+not orchestration history or other lanes' answers.

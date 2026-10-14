@@ -1,0 +1,1586 @@
+{
+ "command": "python -B _test_close_book_gates.py --m8-root C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable --dest C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_close\\dan_close_tool_a1\\out_e1\\work\\mirrors_r3 --result C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_close\\dan_close_tool_a1\\out_e1\\gate_test_result.json",
+ "tool_sha256": "6e5e0c215a9c91121ecee1b67b7dea419bc4a441fe59547abf30ec16b656b5ef",
+ "generator_sha256": "dd88e22315f169d8039f4078ab13cfa121827bc04e5171656ecf7485e87aa968",
+ "tests_total": 141,
+ "passed": 141,
+ "failed": [],
+ "gates_in_clean_run": 101,
+ "clean_gates_with_no_planted_defect": [],
+ "clean_gates_note": "lane A and lane B gates are one gate run twice; a defect planted in either lane counts for both",
+ "planted_gates_not_in_clean_run": [],
+ "fixtures": [
+  "sp_durable/campaign/grader_models.v1.json (the real carrier plus a FIXTURE book_close_shapes.Dan)",
+  "sp_durable/campaign/gen_grader_models.py (FIXTURE: prints MATCH)",
+  "sp_durable/Dan/_cwo_parity_dan.py (FIXTURE: prints the MATCH line)",
+  "sp_durable/Dan/sidecar_src_dan.jsonl (FIXTURE rows over the corpus's low and medium_low rows)",
+  "sp_durable/Dan/deliverables/gen_sidecars.py (FIXTURE: prints MATCH)",
+  "sp_durable/Dan/deliverables/atlas_candidate_feed_rows.jsonl (FIXTURE)",
+  "sp_durable/Dan/scholar_record/ four files (FIXTURE)",
+  "sp_durable/Dan/merged_close/ lanes A and B and landing_manifest.v1.json (FIXTURE)",
+  "sp_durable/Dan/dan_merged_close_attempt_receipts.jsonl (FIXTURE)",
+  "sp_durable/Dan/close/FIXTURE_landed.json with three fixture outputs and three fixture receipt files, passed by --fixture-landed",
+  "the four shared feed files, each one FIXTURE row of Ezekiel's form",
+  "sp_durable/Dan/fable_end_review/Dan_fable_end_packet.v1.json (written in the mirror by the real generator over the fixture sidecars)"
+ ],
+ "real_copies": [
+  "sp_durable/Dan/rows_v1_final.jsonl",
+  "sp_durable/Dan/rows_v1_final.manifest.json",
+  "sp_durable/Dan/fixup/draft_rows_fixup10_applied.jsonl",
+  "sp_durable/Dan/rows_v1_final.jsonl.validator_report.json",
+  "sp_durable/Dan/cwo/cwo_parity.rows_v1_final.json",
+  "sp_durable/Dan/tools/dan_lib.py",
+  "sp_durable/Dan/verse_inventory.json",
+  "sp_durable/Dan/web_mt_verse_check.json",
+  "sp_durable/Dan/dan_language_zones.json",
+  "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+  "sp_durable/Dan/close/dan_landed_outputs_manifest.v2.json",
+  "sp_durable/Dan/review/boss/dan_boss_audit.v1.json",
+  "sp_durable/Dan/review/boss/supp_e2/dan_boss_audit_b8_b14.json",
+  "marathon_progress.yaml",
+  "model_manifest.yaml"
+ ],
+ "not_run": [
+  "--close in any form: this builder never runs the close mode, not even on a mirror",
+  "commit(): the lock, the under-lock recheck, the atomic replace and the rollback are untested by this builder; the opt-in --with-close-machinery cases exist for the orchestrator and were NOT RUN",
+  "the tool's default root (installed at <M8>/sp_durable/Dan): only --m8-root was exercised",
+  "--with-close-machinery cases"
+ ],
+ "limit": "A defect case passes when every expected gate is UNMET; other gates may be UNMET too (also_unmet). The tool was never run in close mode; refusal is shown by the unmet gate, which the close path refuses on.",
+ "tests": [
+  {
+   "name": "clean mirror: zero unmet gates (lam_pattern)",
+   "kind": "clean",
+   "pass": true,
+   "gates_total": 101,
+   "unmet": [],
+   "stderr": ""
+  },
+  {
+   "name": "clean mirror: zero unmet gates (item22)",
+   "kind": "clean",
+   "pass": true,
+   "unmet": [],
+   "stderr": ""
+  },
+  {
+   "name": "dry report: every gate listed MET, every preview written, second run byte-identical",
+   "kind": "dry",
+   "pass": true,
+   "files": 12,
+   "identical": 12
+  },
+  {
+   "name": "dry report: gates carry status and evidence; no CR in any preview",
+   "kind": "dry",
+   "pass": true,
+   "gates": 101
+  },
+  {
+   "name": "receipt preview: DEFERRED and OWED are recorded, never MET",
+   "kind": "dry",
+   "pass": true
+  },
+  {
+   "name": "chunks preview: 75 rows, decision ids M8-Dan-001..075",
+   "kind": "dry",
+   "pass": true
+  },
+  {
+   "name": "carrier previews: 27 books, Dan complete, current_book is the owner's choice",
+   "kind": "dry",
+   "pass": true
+  },
+  {
+   "name": "dry report changed nothing in the mirror",
+   "kind": "dry",
+   "pass": true,
+   "files": 52
+  },
+  {
+   "name": "--dry-report inside the tree is refused and writes nothing",
+   "kind": "refusal",
+   "pass": true,
+   "stderr": "REFUSED: --dry-report is inside the M8 tree"
+  },
+  {
+   "name": "run from outside a tree without --m8-root is refused",
+   "kind": "refusal",
+   "pass": true
+  },
+  {
+   "name": "corpus byte changed",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "corpus pinned"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "corpus CRLF line",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "corpus is LF-only (E-73)"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "corpus pinned",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "corpus row dropped",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "corpus has 75 rows, every one of book Dan"
+   ],
+   "unmet_count": 9,
+   "also_unmet": [
+    "corpus pinned",
+    "tiling contiguous over 357 WEB verses in 12 chapters",
+    "language layer: each row's `language` is what dan_lib.language_of gives over its span",
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "sidecar set == low/medium_low rows",
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet over this corpus, rows == low/medium_low",
+    "item-22 feed installed; its rows name only chunks of this book"
+   ]
+  },
+  {
+   "name": "corpus row of another book",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "corpus has 75 rows, every one of book Dan"
+   ],
+   "unmet_count": 4,
+   "also_unmet": [
+    "corpus pinned",
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "a row carries a hold",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "every row candidate_review_complete with null hold fields; no row carries a hold"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "corpus pinned",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "a row not review-complete",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "every row candidate_review_complete with null hold fields; no row carries a hold"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "corpus pinned",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "a hold field absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "every row candidate_review_complete with null hold fields; no row carries a hold"
+   ],
+   "unmet_count": 4,
+   "also_unmet": [
+    "corpus pinned",
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "chunk index broken",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "chunk_index 1..N"
+   ],
+   "unmet_count": 4,
+   "also_unmet": [
+    "corpus pinned",
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "writer id repeated",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "writer_decision_id unique and present"
+   ],
+   "unmet_count": 4,
+   "also_unmet": [
+    "corpus pinned",
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "tiling gap",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "tiling contiguous over 357 WEB verses in 12 chapters"
+   ],
+   "unmet_count": 5,
+   "also_unmet": [
+    "corpus pinned",
+    "language layer: each row's `language` is what dan_lib.language_of gives over its span",
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "language label wrong",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "language layer: each row's `language` is what dan_lib.language_of gives over its span"
+   ],
+   "unmet_count": 4,
+   "also_unmet": [
+    "corpus pinned",
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "parent run split",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "each parent collection one contiguous run, PA..PJ in order"
+   ],
+   "unmet_count": 4,
+   "also_unmet": [
+    "corpus pinned",
+    "the corpus differs from its source only where the manifest says (three status fields per row)",
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "numbering zone changed in dan_lib",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "dan_lib pinned",
+    "numbering zone as measured: chapters 3-6, 66 WEB verses whose MT reference differs"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "dan_lib byte changed",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "dan_lib pinned"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "dan_lib absent (unevaluable is UNMET)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "dan_lib: every gate of this group could be evaluated"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "corpus: every gate of this group could be evaluated"
+   ]
+  },
+  {
+   "name": "lineage manifest byte changed",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lineage manifest pinned"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lineage manifest row count",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lineage manifest names this corpus and its source"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "lineage manifest pinned"
+   ]
+  },
+  {
+   "name": "lineage source changed",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lineage source pinned",
+    "the corpus differs from its source only where the manifest says (three status fields per row)"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "manifest change list wrong",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "the corpus differs from its source only where the manifest says (three status fields per row)"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "lineage manifest pinned"
+   ]
+  },
+  {
+   "name": "manifest basis digest wrong",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lineage manifest's basis names the pinned boss audit records"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "lineage manifest pinned"
+   ]
+  },
+  {
+   "name": "lineage source absent (unevaluable is UNMET)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lineage: every gate of this group could be evaluated"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "boss e1 condition not met",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "boss audit e1 pinned",
+    "boss audit: conditions B1..B17 all MET across e1 and e2 (REPORTED)"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "boss e2 answers another condition",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "boss audit e2 pinned",
+    "boss audit e2 answers exactly B8 and B14"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "sidecar source absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "sidecar source present (sidecar_src_dan.jsonl)"
+   ],
+   "unmet_count": 9,
+   "also_unmet": [
+    "sidecar set == low/medium_low rows",
+    "sidecar fields present",
+    "why_low_confidence not boilerplate",
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet carries the installed sidecars",
+    "atlas feed option lam_pattern meets the coverage validator's per-book rule",
+    "low_confidence_register rows meet the coverage validator's per-book rule",
+    "frontier_escalation_queue rows meet the coverage validator's per-book rule"
+   ]
+  },
+  {
+   "name": "sidecar row missing",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "sidecar set == low/medium_low rows",
+    "atlas feed option lam_pattern meets the coverage validator's per-book rule",
+    "low_confidence_register rows meet the coverage validator's per-book rule",
+    "frontier_escalation_queue rows meet the coverage validator's per-book rule"
+   ],
+   "unmet_count": 6,
+   "also_unmet": [
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet carries the installed sidecars"
+   ]
+  },
+  {
+   "name": "sidecar row repeated",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "sidecar set == low/medium_low rows"
+   ],
+   "unmet_count": 4,
+   "also_unmet": [
+    "why_low_confidence not boilerplate",
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet carries the installed sidecars"
+   ]
+  },
+  {
+   "name": "sidecar field empty",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "sidecar fields present"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet carries the installed sidecars"
+   ]
+  },
+  {
+   "name": "sidecar boilerplate",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "why_low_confidence not boilerplate"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet carries the installed sidecars"
+   ]
+  },
+  {
+   "name": "gen_sidecars check MISMATCH",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "gen_sidecars.py --check MATCH"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "gen_sidecars absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "gen_sidecars.py --check MATCH"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "suite not GREEN",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "suite report pinned",
+    "suite GREEN over this corpus"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "suite over another file",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "suite GREEN over this corpus"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "suite report pinned"
+   ]
+  },
+  {
+   "name": "normalize fixed a string",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "normalize dry-run clean"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "suite report pinned"
+   ]
+  },
+  {
+   "name": "citation sweep degraded",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "Hebrew/Aramaic quote bytes and tier labels GREEN (citation sweep)"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "suite report pinned"
+   ]
+  },
+  {
+   "name": "WEB quote flagged",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "WEB quote fidelity GREEN"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "suite report pinned"
+   ]
+  },
+  {
+   "name": "language zones not GREEN",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "language zones GREEN"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "suite report pinned"
+   ]
+  },
+  {
+   "name": "parity not GREEN",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "CWO parity record pinned",
+    "CWO parity GREEN for THIS corpus"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "parity over another corpus",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "CWO parity GREEN for THIS corpus"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "CWO parity record pinned"
+   ]
+  },
+  {
+   "name": "parity tool DIFFERS",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "CWO parity record reproduces (_cwo_parity_dan.py --check MATCH, GREEN)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "suite report absent (unevaluable is UNMET)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "evidence: every gate of this group could be evaluated"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "carrier generator MISMATCH",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "grader carrier still transcribes the ledger (gen_grader_models.py --check MATCH)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "carrier fallback not in force",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "grader carrier states the measured fallback (OW-25)"
+   ],
+   "unmet_count": 5,
+   "also_unmet": [
+    "lane A: completion receipt COMPLETED on claude-fable-5-1",
+    "lane A: final check names the carrier's model",
+    "lane B: completion receipt COMPLETED on claude-fable-5-1",
+    "lane B: final check names the carrier's model"
+   ]
+  },
+  {
+   "name": "carrier downgrade statement edited",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "grader carrier states the measured fallback (OW-25)",
+    "receipt carries the carrier's downgrade statement"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "carrier has no Dan shape",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "carrier grants Daniel the OW-26 shape (book_close_shapes.Dan: shape, directive, transcript_audit, weakness_statement)",
+    "carrier's Daniel weakness statement matches its recorded digest",
+    "receipt carries the OW-26 weakness statement"
+   ],
+   "unmet_count": 3,
+   "also_unmet": []
+  },
+  {
+   "name": "carrier shape says the audit is MET",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "carrier grants Daniel the OW-26 shape (book_close_shapes.Dan: shape, directive, transcript_audit, weakness_statement)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "carrier shape directive wrong",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "carrier grants Daniel the OW-26 shape (book_close_shapes.Dan: shape, directive, transcript_audit, weakness_statement)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "carrier weakness digest wrong",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "carrier's Daniel weakness statement matches its recorded digest"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "carrier absent (unevaluable is UNMET)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "carrier: every gate of this group could be evaluated"
+   ],
+   "unmet_count": 7,
+   "also_unmet": [
+    "lane A: completion receipt COMPLETED on None",
+    "lane A: final check names the carrier's model",
+    "lane B: completion receipt COMPLETED on None",
+    "lane B: final check names the carrier's model",
+    "receipt carries the carrier's downgrade statement",
+    "receipt carries the OW-26 weakness statement"
+   ]
+  },
+  {
+   "name": "landing manifest absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "landing manifest present (merged_close/landing_manifest.v1.json)",
+    "two distinct blind lanes, both landed and both read"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A file changed after landing",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: six durable outputs match the landing manifest",
+    "two distinct blind lanes, both landed and both read"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "lane A: its verdict gates could be evaluated"
+   ]
+  },
+  {
+   "name": "lane B attempt id wrong",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: six durable outputs match the landing manifest"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B is lane A again (one lane landed twice)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: six durable outputs match the landing manifest"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A completion receipt FAILED",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: completion receipt COMPLETED on claude-opus-5-5"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B ran on another model",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: completion receipt COMPLETED on claude-opus-5-5"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "receipts file absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: completion receipt COMPLETED on claude-opus-5-5",
+    "lane B: completion receipt COMPLETED on claude-opus-5-5"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A postcheck not fit",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: postcheck fit_to_assemble, no high or medium residual"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B postcheck medium residual",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: postcheck fit_to_assemble, no high or medium residual"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A final check names Fable",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: final check names the carrier's model"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B final check not a fallback grader",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: final check names the carrier's model"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B final check conditional",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: OW-6 final check fit_to_close over THIS corpus, no high or medium residual"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A final check over another corpus",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: OW-6 final check fit_to_close over THIS corpus, no high or medium residual"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A final check high residual",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: OW-6 final check fit_to_close over THIS corpus, no high or medium residual"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A transcript audit claimed run",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: transcript audit recorded OWED, NOT run"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B transcript bytes audited",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: transcript audit recorded OWED, NOT run"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A untyped unmet assessment entry",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: close-gate assessment present; every unmet entry is typed deferred (OW-28) or owed (transcript audit)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B assessment absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: close-gate assessment present; every unmet entry is typed deferred (OW-28) or owed (transcript audit)",
+    "lane B: the deferred Fable review and the owed transcript audit are both recorded, and neither as met"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A records the deferred review as met (DEFERRED is never MET)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: the deferred Fable review and the owed transcript audit are both recorded, and neither as met"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B omits the owed transcript audit",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: the deferred Fable review and the owed transcript audit are both recorded, and neither as met"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B item 21 not accepted",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: items 20-23 fit_to_accept"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A item 22 judged other feed bytes",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: item 22 judged the feed bytes on disk"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane A named question unanswered",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane A: every named question answered"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lane B no e19 self-report",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "lane B: e19 self-report present"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "lanes answered different questions",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "both lanes answered the same named questions"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "scholar check record absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "scholar record installed (generator, checker, record, check record)"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "scholar record check says PASS",
+    "scholar record check is bound to the record's bytes"
+   ]
+  },
+  {
+   "name": "scholar check says FAIL",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "scholar record check says PASS"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "scholar sub-check not passed",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "scholar record check says PASS"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "scholar check lists a failure",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "scholar record check says PASS"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "scholar check counts disagree",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "scholar record check says PASS"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "scholar record edited after its check",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "scholar record check is bound to the record's bytes"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "scholar checker edited after its check",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "scholar record check is bound to the record's bytes"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "routed items changed",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "routed items pinned",
+    "fable end packet reproduces (--check MATCH)"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "packet absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "fable end packet and its generator installed"
+   ],
+   "unmet_count": 6,
+   "also_unmet": [
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet over this corpus, rows == low/medium_low",
+    "fable end packet carries the 46 routed items",
+    "fable end packet carries the installed sidecars",
+    "fable end packet records DEFERRED and no held row"
+   ]
+  },
+  {
+   "name": "packet row dropped",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet over this corpus, rows == low/medium_low"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "packet routed count wrong",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "fable end packet carries the 46 routed items"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "sidecars changed after the packet",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "fable end packet reproduces (--check MATCH)",
+    "fable end packet carries the installed sidecars"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "packet says MET",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "fable end packet records DEFERRED and no held row"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "packet names a held row",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "fable end packet records DEFERRED and no held row"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "fable end packet reproduces (--check MATCH)"
+   ]
+  },
+  {
+   "name": "landed manifest changed",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "landed-outputs manifest pinned",
+    "fable end packet reproduces (--check MATCH)"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "a landed output changed",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "every landed output is on disk with the manifest's digest and byte count"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "a landed output absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "every landed output is on disk with the manifest's digest and byte count"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "an attempt-receipt file grew since the manifest: retained as it is, disclosed, not a refusal",
+   "kind": "defect",
+   "pass": true,
+   "expect": [],
+   "unmet_count": 0,
+   "also_unmet": []
+  },
+  {
+   "name": "an attempt-receipt file absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "the three attempt-receipt files the landed manifest names are on disk, whole and LF-only"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "an attempt-receipt file with a CR byte",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "the three attempt-receipt files the landed manifest names are on disk, whole and LF-only"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "only two attempt-receipt files named",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "the three attempt-receipt files the landed manifest names are on disk, whole and LF-only"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "a landed path outside Daniel (E-65)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "every landed output is on disk with the manifest's digest and byte count"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "an output not LANDED",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "every landed output is on disk with the manifest's digest and byte count"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "the real landed manifest without its 141 outputs on disk",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "every landed output is on disk with the manifest's digest and byte count"
+   ],
+   "unmet_count": 2,
+   "also_unmet": [
+    "the three attempt-receipt files the landed manifest names are on disk, whole and LF-only"
+   ]
+  },
+  {
+   "name": "chunks already written",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "book_chunks/Dan/chunks.jsonl absent"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "receipt already written",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "receipts/Dan_completion.json absent"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "retention manifest already written",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "retention manifest absent"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "a close lock is held",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "no close lock is held"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "low_confidence_register.jsonl already holds a Dan row",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "low_confidence_register.jsonl holds no Dan row"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "frontier_escalation_queue.jsonl already holds a Dan row",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "frontier_escalation_queue.jsonl holds no Dan row"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "atlas_candidate_feed.jsonl already holds a Dan row",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "atlas_candidate_feed.jsonl holds no Dan row"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "whole_bible_chunk_map.jsonl already holds a Dan row",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "whole_bible_chunk_map.jsonl holds no Dan row"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "low_confidence_register.jsonl has a CRLF",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "low_confidence_register.jsonl is LF-only and ends with a newline"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "frontier_escalation_queue.jsonl has a CRLF",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "frontier_escalation_queue.jsonl is LF-only and ends with a newline"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "atlas_candidate_feed.jsonl lacks its final newline",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "atlas_candidate_feed.jsonl is LF-only and ends with a newline"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "whole_bible_chunk_map.jsonl lacks its final newline",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "whole_bible_chunk_map.jsonl is LF-only and ends with a newline"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "a shared file absent (unevaluable is UNMET)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "targets: every gate of this group could be evaluated"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "progress already counts 27",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "marathon_progress anchors"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "progress already lists Dan",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "marathon_progress anchors"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "progress file has CRLF",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "marathon_progress anchors",
+    "every close write is LF-only"
+   ],
+   "unmet_count": 2,
+   "also_unmet": []
+  },
+  {
+   "name": "model manifest names another current book",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "model_manifest anchors"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "model manifest already counts 27",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "model_manifest anchors"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "no --next-book",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "--next-book given and valid (the owner's choice; OW-11 names no book after Daniel)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "--next-book Dan",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "--next-book given and valid (the owner's choice; OW-11 names no book after Daniel)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "--next-book a closed book",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "--next-book given and valid (the owner's choice; OW-11 names no book after Daniel)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "--next-book not a book code",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "--next-book given and valid (the owner's choice; OW-11 names no book after Daniel)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "no --acf",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "--acf chosen (the owner's choice between lam_pattern and item22)"
+   ],
+   "unmet_count": 1,
+   "also_unmet": []
+  },
+  {
+   "name": "item-22 feed absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "item-22 feed installed; its rows name only chunks of this book"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "lane A: item 22 judged the feed bytes on disk",
+    "lane B: item 22 judged the feed bytes on disk"
+   ]
+  },
+  {
+   "name": "item-22 feed row of another book (E-65)",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "item-22 feed installed; its rows name only chunks of this book"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "lane A: item 22 judged the feed bytes on disk",
+    "lane B: item 22 judged the feed bytes on disk"
+   ]
+  },
+  {
+   "name": "item-22 feed misses a low row",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "atlas feed option item22 meets the coverage validator's per-book rule"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "lane A: item 22 judged the feed bytes on disk",
+    "lane B: item 22 judged the feed bytes on disk"
+   ]
+  },
+  {
+   "name": "item-22 feed stale span",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "atlas feed option item22 meets the coverage validator's per-book rule"
+   ],
+   "unmet_count": 3,
+   "also_unmet": [
+    "lane A: item 22 judged the feed bytes on disk",
+    "lane B: item 22 judged the feed bytes on disk"
+   ]
+  },
+  {
+   "name": "item-22 chosen but feed absent",
+   "kind": "defect",
+   "pass": true,
+   "expect": [
+    "atlas feed option item22 meets the coverage validator's per-book rule"
+   ],
+   "unmet_count": 4,
+   "also_unmet": [
+    "lane A: item 22 judged the feed bytes on disk",
+    "lane B: item 22 judged the feed bytes on disk",
+    "item-22 feed installed; its rows name only chunks of this book"
+   ]
+  },
+  {
+   "name": "coverage: exact set is clean",
+   "kind": "unit",
+   "pass": true,
+   "detail": {
+    "duplicates": 0,
+    "missing": 0,
+    "orphan": 0,
+    "stale": 0
+   }
+  },
+  {
+   "name": "coverage: duplicate counted",
+   "kind": "unit",
+   "pass": true,
+   "detail": {
+    "duplicates": 1,
+    "missing": 0,
+    "orphan": 0,
+    "stale": 0
+   }
+  },
+  {
+   "name": "coverage: missing row named",
+   "kind": "unit",
+   "pass": true,
+   "detail": {
+    "duplicates": 0,
+    "missing": 1,
+    "orphan": 0,
+    "stale": 0
+   }
+  },
+  {
+   "name": "coverage: orphan row named",
+   "kind": "unit",
+   "pass": true,
+   "detail": {
+    "duplicates": 0,
+    "missing": 0,
+    "orphan": 1,
+    "stale": 0
+   }
+  },
+  {
+   "name": "coverage: stale confidence named",
+   "kind": "unit",
+   "pass": true,
+   "detail": {
+    "duplicates": 0,
+    "missing": 0,
+    "orphan": 0,
+    "stale": 1
+   }
+  },
+  {
+   "name": "coverage: stale final state named",
+   "kind": "unit",
+   "pass": true,
+   "detail": {
+    "duplicates": 0,
+    "missing": 0,
+    "orphan": 0,
+    "stale": 1
+   }
+  }
+ ]
+}

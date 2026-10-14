@@ -1,0 +1,265 @@
+{
+ "attempt_id": "dan_boss_audit_a1",
+ "execution_id": "dan_boss_audit_a1#e2",
+ "supplements": "dan_boss_audit_a1#e1",
+ "model": "claude-opus-5-5",
+ "grader_fallback": "recorded fallback under OW-25 (SP\\campaign\\grader_models.v1.json: fallback_in_force true, declared_fallback_model claude-opus-5-5)",
+ "conditions": [
+  {
+   "id": "B8",
+   "verdict": "MET",
+   "tier": "INFERRED",
+   "tier_breakdown": {
+    "CWO-DAN-02": "MEASURED by this execution (work/audit_e2.py)",
+    "CWO-DAN-01, CWO-DAN-03, CWO-DAN-04": "REPORTED by execution e1 in its deliverable (which marks each MEASURED in its own run); not re-measured here",
+    "composite verdict": "INFERRED from the two"
+   },
+   "predicate_as_amended": "regex \\bW\\d-\\d{3}\\b|\\bstrategy'?s?\\s+(?:section|§)|§\\s?\\d+|\\bsection\\s+\\d+\\b|\\bsee\\s+(?:row|above|below)\\b (Python re, IGNORECASE)",
+   "fields_as_amended": "boundary_rationale, strongest_rejected_alternative, device_notes, observed_substrate_signals, literature_type_guess, boundary_evidence_refs (every string); excluded: decision_id, writer_decision_id, writer_part, writer_attempt_id, span, parent_collection, book, model_id",
+   "predicate_read_at": [
+    "SP\\Dan\\review\\dan_controlling_agent_rulings_E1.v1.json corpus_wide_orders[1] (id CWO-DAN-02), keys predicate and fields (EXTRACTED)",
+    "SP\\Dan\\review\\dan_controlling_agent_rulings_E2.v1.json corpus_wide_orders[1] (id 'CWO-DAN-01, CWO-DAN-02, CWO-DAN-04'): amendment begins 'Unchanged from E1' (EXTRACTED)",
+    "SP\\Dan\\review\\dan_controlling_agent_rulings_E2.v1.json rulings[6] W4-GUARD-D and rulings[10] REGISTER-ID name CWO-DAN-02 in a reason or decision; neither changes the regex or the field list (EXTRACTED)",
+    "SP\\Dan\\review\\dan_controlling_agent_rulings_E5.v1.json corpus_wide_orders is an empty list; gate.primaries_conditions[6] reads 'H7 (corpus-wide orders, unamended): ...' (EXTRACTED)",
+    "SP\\Dan\\review\\dan_controlling_agent_rulings_E9.v1.json gate.boss_conditions[7]: 'B8 corpus-wide orders as E5 left them: CWO-DAN-01, -02 and -04 zero hits; CWO-DAN-03 zero zone hits.' (EXTRACTED)"
+   ],
+   "amendment_finding": "No amendment of CWO-DAN-02 exists in E2 or E5. The predicate stands as E1 wrote it. The phrase 'whole-word' / 'whole word' occurs 0 times in E5 (MEASURED over the whole file's JSON text); the only word-boundary test bearing on CWO-DAN-02 is the regex's own \\b anchors.",
+   "rows_swept": 75,
+   "strings_swept": 1152,
+   "strings_swept_by_field": {
+    "boundary_rationale": 75,
+    "strongest_rejected_alternative": 75,
+    "device_notes": 75,
+    "observed_substrate_signals": 341,
+    "literature_type_guess": 75,
+    "boundary_evidence_refs": 511
+   },
+   "hits": [],
+   "whole_row_supplement": {
+    "what": "the same regex over every string at any depth of every field of every row, including the fields the ruling excludes",
+    "strings_swept": 2219,
+    "hit_count": 75,
+    "hits_by_field": {
+     "decision_id": 75
+    },
+    "hits_in_fields_neither_scoped_nor_excluded": [],
+    "reading": "all 75 hits are the rows' own decision_id values, a field the ruling excludes by name; they also show that the compiled regex is live (positive control)"
+   },
+   "off_predicate_probe": {
+    "regex": "\\bW\\d{1,2}-\\d{1,3}\\b",
+    "note": "NOT the ruling's predicate; a looser id shape (two-digit part, unpadded serial), scoped fields",
+    "hits": [],
+    "hit_count": 0
+   },
+   "suite_member": "None named. The suite runner's docstring ties only CWO-DAN-01 to a member (placeholders, line 31); the string 'CWO' occurs on no other line (MEASURED). The runner calls check_register.py as its 'register' member, but that file is not pinned to this execution, so whether its pattern equals the ruling's words cannot be read here; E2 rulings[10] says its decision_id_in_prose pattern is \\bP\\d{2}-\\d{3}\\b and cannot match Daniel's ids (REPORTED by E2). No suite member was run.",
+   "how": "Took the regex source from E1's predicate string by script (the text between 'regex ' and ' (Python re, IGNORECASE)'), compiled it with re.IGNORECASE, and ran finditer over every string at any depth of the six fields the ruling names, in all 75 rows of the pinned applied file. No row lacks any of the six fields. Then ran it over every field as a supplement.",
+   "evidence": [
+    "scoped sweep: 75 rows, 1152 strings, 0 hits (MEASURED)",
+    "whole-row sweep: 75 rows, 2219 strings, 75 hits, all in decision_id (MEASURED); 2219 equals the string count e1 gives for its CWO-DAN-01 sweep (REPORTED by e1)",
+    "looser id probe in the scoped fields, not the ruling's predicate: 0 hits (MEASURED)",
+    "e1 deliverable conditions[7]: CWO-DAN-01 0 hits over 2219 strings; CWO-DAN-03 language_zones flag_count 0; CWO-DAN-04 0 hits (REPORTED)",
+    "work/unit_B8.json sha256 4acbf0b9bcbb5c0accdea887ee9a7ce13a7cc0a6d207a0306cb77000a0056176"
+   ]
+  },
+  {
+   "id": "B14",
+   "verdict": "MET",
+   "tier": "INFERRED",
+   "tier_breakdown": {
+    "clause_a": "EXTRACTED from the change log; the log itself is the W11 author's account (REPORTED)",
+    "clause_b": "MEASURED comparison by script over a TRANSCRIBED extract of orchestrator-written launch rows",
+    "composite verdict": "INFERRED"
+   },
+   "condition_text": "B14 authorship and unapplied orders: for every ordered part the W11 author did not apply, the change log gives the bytes read that refute it; the W11 author wrote none of parts W9 and W10, no review packet and no ruling.",
+   "condition_read_at": "SP\\Dan\\review\\dan_controlling_agent_rulings_E12.v1.json gate.boss_conditions_amended[8]",
+   "clause_a": "MET, vacuously. The W11 change log has not_applied = [] and blocked = [] (EXTRACTED), so there is no ordered part the author did not apply and nothing that needed refuting bytes. It holds 1 change record (W11#1, ruling_id RR9-TB-W4-004, row W4-004, boundary_evidence_refs entry 1, kind exact), which is the one place B3 of the same gate names; its applied_copy_sha256 equals the pinned applied file's digest (MEASURED equal). The one applied record does carry a bytes_read field.",
+   "clause_b": "MET on the strongest record that exists. The W11 author attempt dan_fixup10_W11_a1 has 1 launch, agent_id afe0ed496ca86aac3. That id equals no agent_id of the 3 W9/W10 author launches, the 54 review-lane launches or the 14 controlling-rulings launches (71 launches, 71 distinct ids, 0 collisions), and no agent_id of any of the 122 other Daniel launches (0 collisions); all 123 ids in the file are distinct (MEASURED).",
+   "w11_agent_ids": [
+    "afe0ed496ca86aac3"
+   ],
+   "w11_launches": [
+    [
+     "dan_fixup10_W11_a1#e1",
+     "afe0ed496ca86aac3",
+     "fixup10_author",
+     "2026-10-12T15:40:40Z"
+    ]
+   ],
+   "compared_against_count": 71,
+   "compared_against_breakdown": {
+    "w9_w10_author": 3,
+    "review": 54,
+    "controlling_rulings": 14
+   },
+   "compared_against_every_other_launch_count": 122,
+   "collisions": [],
+   "collisions_every_other_launch": [],
+   "w9_w10_author_launches": [
+    [
+     "dan_fixup8_W9_a1#e1",
+     "a8969bb67d900dac5"
+    ],
+    [
+     "dan_fixup8_W9_a1#e2",
+     "ac6f3d4dfccfeb6d4"
+    ],
+    [
+     "dan_fixup9_W10_a1#e1",
+     "a627e0631a03acdc8"
+    ]
+   ],
+   "controlling_attempts_in_file": [
+    "dan_controlling_rulings_a1",
+    "dan_controlling_rulings_a10",
+    "dan_controlling_rulings_a11",
+    "dan_controlling_rulings_a12",
+    "dan_controlling_rulings_a2",
+    "dan_controlling_rulings_a3",
+    "dan_controlling_rulings_a4",
+    "dan_controlling_rulings_a5",
+    "dan_controlling_rulings_a6",
+    "dan_controlling_rulings_a7",
+    "dan_controlling_rulings_a8",
+    "dan_controlling_rulings_a9"
+   ],
+   "review_lanes_as_classified": [
+    "boss",
+    "p13:OS",
+    "p13:TB",
+    "p13r7:OS",
+    "p13r7:TB",
+    "peer:g01",
+    "peer:g02",
+    "peer:g03",
+    "peer:g04",
+    "peer:g05",
+    "peer:g06",
+    "phase0_strategy_check_c1",
+    "phase0_strategy_check_c2",
+    "phase0_toolkit_review_k1",
+    "phase0_toolkit_review_k2",
+    "primaries:LF:c01",
+    "primaries:LF:c02",
+    "primaries:LF:c03",
+    "primaries:LF:c04",
+    "primaries:LF:c05",
+    "primaries:LF:c06",
+    "primaries:LF:c07",
+    "primaries:LF:c08",
+    "primaries:LF:c09",
+    "primaries:LF:c10",
+    "primaries:LF:c11",
+    "primaries:OL:c01",
+    "primaries:OL:c02",
+    "primaries:OL:c03",
+    "primaries:OL:c04",
+    "primaries:OL:c05",
+    "primaries:OL:c06",
+    "primaries:OL:c07",
+    "primaries:OL:c08",
+    "primaries:OL:c09",
+    "primaries:OL:c10",
+    "primaries:OL:c11",
+    "review:S2",
+    "rr10:OS",
+    "rr10:TB",
+    "rr8:OS",
+    "rr8:TB",
+    "rr9:OS",
+    "rr9:TB",
+    "spot_review_S1"
+   ],
+   "identities_file_is": "A TRANSCRIBED extract. Its own tier field reads: 'TRANSCRIBED from the launch rows of the three receipt files by the orchestrator's script; the receipts themselves are REPORTED by the orchestrator at each launch'. It lists 123 launches from three receipt files that this execution may not open. No effective-run record independent of the orchestrator is available; this is the strongest record that exists.",
+   "why_it_suffices": "B14 is a condition about which run wrote what. The only way the W11 author could also have written W9, W10, a packet or a ruling is for one physical run to have served two attempts, and the launch record is where that would show: it would give two rows one agent_id. It gives 123 rows 123 ids. The record was written by the orchestrator at each launch, before the outcome of this audit was in question, and nothing in the pinned bytes contradicts it: the change log's attempt and execution ids match the single W11 launch row. A stronger record does not exist, so demanding one would make B14 unmeetable for every book. MET is therefore given at tier INFERRED, not MEASURED: the comparison is exact, but what it compares is the orchestrator's transcription of its own receipts, and this execution verified neither the transcription nor the receipts.",
+   "how": "Clause a: read not_applied, blocked and the non-text keys of each change record in the pinned change log by script. Clause b: by script, took every launch whose attempt_id equals the change log's attempt_id, classified every other launch by attempt_id and lane name, and tested agent_id equality against the three named classes and then against every other launch.",
+   "evidence": [
+    "change log: not_applied [] and blocked [] (EXTRACTED); changes 1; unresolved_uncertainty []",
+    "identities: 123 launches, 123 distinct agent_id values, none used twice (MEASURED on a TRANSCRIBED file)",
+    "W11: dan_fixup10_W11_a1#e1 = afe0ed496ca86aac3, lane fixup10_author, launched 2026-10-12T15:40:40Z (TRANSCRIBED)",
+    "W9/W10: dan_fixup8_W9_a1#e1 = a8969bb67d900dac5, dan_fixup8_W9_a1#e2 = ac6f3d4dfccfeb6d4, dan_fixup9_W10_a1#e1 = a627e0631a03acdc8 (TRANSCRIBED)",
+    "controlling attempts in the file: dan_controlling_rulings_a1 to a12, 14 launches (TRANSCRIBED)",
+    "work/unit_B14.json sha256 f729a0628db643729a4aaf4d936252b252c6c1c36e99754e764ea860aa2d575d"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "path": "SP\\Dan\\fixup\\draft_rows_fixup10_applied.jsonl",
+   "sha256": "ccf8040c65e92019d405ba79f9c837fa2c4594d82fc0245143b99e93770a88c6",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\review\\dan_controlling_agent_rulings_E1.v1.json",
+   "sha256": "541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\review\\dan_controlling_agent_rulings_E2.v1.json",
+   "sha256": "43ae72e748fe1e55be3103e826194672a3b317300ff413d690682697b121f940",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\review\\dan_controlling_agent_rulings_E5.v1.json",
+   "sha256": "a447f1412ca0e56d7ab55b31ed5c1edd3ce34898b4904a462d5b9b03e702f97d",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\review\\dan_controlling_agent_rulings_E9.v1.json",
+   "sha256": "73a482ab17232319f3c4384cd57d56f5207423953538f1b56db12947605f7e13",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\review\\dan_controlling_agent_rulings_E12.v1.json",
+   "sha256": "8bc16d34306a990deeb39637e6314b5465da6865dbd647fb4b456a905a2285e1",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\fixup\\landed10\\W11_e1\\fixup10_W11_changes.json",
+   "sha256": "e6e34f19d21306eaf3bc8e5cebf5c1a18104b14caa14c389dae7c1e34cd1119b",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\review\\boss\\dan_lane_identities.v1.json",
+   "sha256": "4d08522d7fdc38a5ac3a1ce11860840090054cb219ef8e9b5d55c30d406984fc",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\review\\boss\\dan_boss_audit.v1.json",
+   "sha256": "ea70f94e48aed5d24f0adb604c3215a8f6e95ccf940b59da89147de3636a13c3",
+   "match": true
+  },
+  {
+   "path": "SP\\Dan\\tools\\run_validator_suite.py",
+   "sha256": "5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f",
+   "match": true
+  },
+  {
+   "path": "SP\\campaign\\grader_models.v1.json",
+   "sha256": "cf88544383c707c6e2d87c75829740d696ede0e537403284da0ee84cc239526d",
+   "match": true
+  },
+  {
+   "path": "SP\\campaign\\REVIEWER_CONTINUATION_CONTRACT.v1.md",
+   "sha256": "4577a87363a9dc378bf07d0055b85eac70a3139f9cec97f7bfb22cbdb9ab9d66",
+   "match": true
+  },
+  {
+   "path": "SP\\..\\ERROR_PATTERN_LEDGER.v1.md",
+   "sha256": "a78e50d7b8b9aec94955eb74f401b41322790666ef497b5780b16d11e5142216",
+   "match": true
+  }
+ ],
+ "sources_note": "every digest was computed by work/audit_e2.py as the file was read and equals the brief's pinned value; the brief itself matched 8376bc80b338f37cd72bcd398f890f954f3647bae3bde4d08dfc4f39712195e6. Of the ledger, only lines 807-874 were read.",
+ "unresolved_uncertainty": [
+  "B8: three of its four legs (CWO-DAN-01, -03, -04) rest on execution e1's account, REPORTED to this execution. e1 measured CWO-DAN-01 and CWO-DAN-03 through suite members and CWO-DAN-04 'as E3 words it', not through E1's regexes; this execution was told not to re-audit them and did not.",
+  "B8: the ruling's id arm \\bW\\d-\\d{3}\\b matches only a one-digit part with a three-digit serial. It cannot match a two-digit part (W10-001) or an unpadded id (W1-10). A looser probe \\bW\\d{1,2}-\\d{1,3}\\b over the same fields also returns 0 hits (MEASURED), so the narrowness changes nothing on this file; it is a property of the predicate, not a finding against the rows.",
+  "B8: the predicate is a pattern test. E2 rulings[6] holds that a named strategy guard with its substance stated ('Guard (d)' in W4-004.boundary_rationale) is outside it. Zero hits therefore means zero matches of this regex, not that no row points outside itself in some other wording.",
+  "B8: E5 holds no text 'whole-word'; the brief's 'whole-word test' in E5 was not found under that name, and nothing in E5's corpus_wide_orders (an empty list) amends CWO-DAN-02.",
+  "B14 clause b: the identities file is the orchestrator's transcription of its own launch receipts; the receipt files are forbidden to this execution, so neither the transcription nor the receipts were verified. Distinct agent_id is taken to mean distinct run on the file's own how_to_read line (REPORTED).",
+  "B14 clause b: which lanes count as review lanes is this execution's classification by lane name (listed in review_lanes_as_classified). The comparison against all 122 other launches makes the result independent of that classification.",
+  "B14 clause b: one agent_id in the file is not of the usual shape, 'bg-opus-fx2-W4' (dan_fixup2_W4_a1#e1). It is not the W11 id and collides with nothing; it is noted because a hand-assigned label is weaker identity evidence than a generated id.",
+  "B14 clause b: the file ends at the boss audit's e1 launch; a launch made after it was written would not appear.",
+  "B14 clause a: that E12 ordered exactly one part is taken from gate B3's wording and the single change record; E12's rulings were not opened (only gate.boss_conditions_amended is pinned for reading).",
+  "Every lane of this book, this execution included, ran on one model family (OW-19, OW-25); agreement between this result and e1 or the lander is one voice."
+ ]
+}

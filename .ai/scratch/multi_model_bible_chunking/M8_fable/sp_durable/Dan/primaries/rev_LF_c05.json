@@ -1,0 +1,291 @@
+{
+ "attempt_id": "dan_pr_LF_c05_a1",
+ "execution_id": "dan_pr_LF_c05_a1#e2",
+ "book": "Dan",
+ "role": "primary_LF",
+ "cluster": "c05",
+ "model_ordered": "claude-opus-5-5 (grader_fallback, OW-25)",
+ "rows_file": {
+  "path": "Dan/fixup/draft_rows_fixup5_applied.jsonl",
+  "sha256": "2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca"
+ },
+ "artifacts_reviewed": [
+  {
+   "path": "SP\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl",
+   "artifact_sha256_at_review": "2bee5919f06c22aa61b8bedf2e66ba4b22218f4ec70e6f9b65b3049aaa0f8aca"
+  },
+  {
+   "path": "SP\\Dan\\review_clusters.json",
+   "artifact_sha256_at_review": "2f8b57ff5e62f46c96e81c22b7a0cc9df069093129862fc2e6ea257da15d9ec3"
+  },
+  {
+   "path": "SP\\Dan\\flags_by_row.json",
+   "artifact_sha256_at_review": "f53c0fe88ae136548c98ce8a8c16f0a048abcd3968bc9e654b7eb57e347e4ce7"
+  },
+  {
+   "path": "SP\\Dan\\review\\h_evidence_fx5\\suite_report_post_fx5.json",
+   "artifact_sha256_at_review": "80cdd32cf374b35582a552b16eafa8999de557bfe0a61d53a8761d9d135b8f2f"
+  },
+  {
+   "path": "SP\\Dan\\book_strategy_Dan.md",
+   "artifact_sha256_at_review": "158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da"
+  },
+  {
+   "path": "SP\\Dan\\pmarks_Dan.json",
+   "artifact_sha256_at_review": "7df2d3054a57ade7b3441883f5601a03e0baeea4ae22c076ed446f268bad7c9b"
+  },
+  {
+   "path": "SP\\Dan\\dan_device_inventory.json",
+   "artifact_sha256_at_review": "466d7e6e91a6af396fe9d5e38e1e54fc10272be79229d398283af92168552964"
+  },
+  {
+   "path": "SP\\Dan\\dan_language_zones.json",
+   "artifact_sha256_at_review": "903cf551acd9fc7a4e2a3721bb1431435eeb52141cb0429799f19ad566f70a6b"
+  },
+  {
+   "path": "SP\\Dan\\web_mt_offset_map.json",
+   "artifact_sha256_at_review": "833d2ce37d015eccaaaac856d52c1931b9fd26bccb343064013fefc1da603da5"
+  },
+  {
+   "path": "SP\\Dan\\Dan_oshb.txt",
+   "artifact_sha256_at_review": "8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0"
+  },
+  {
+   "path": "SP\\Dan\\Dan_web_clean.txt",
+   "artifact_sha256_at_review": "532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa"
+  },
+  {
+   "path": "SP\\Dan\\verse_inventory.json",
+   "artifact_sha256_at_review": "de3dcac0f4649981a1c4c342add61c65fa7fb8b537261078695e30007924658b"
+  },
+  {
+   "path": "SP\\Dan\\tools\\TOOLKIT.md",
+   "artifact_sha256_at_review": "b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5"
+  }
+ ],
+ "rows_reviewed": [
+  "W3-001",
+  "W3-002",
+  "W3-003",
+  "W3-004",
+  "W3-005",
+  "W3-006",
+  "W3-007"
+ ],
+ "items": [
+  {
+   "row_id": "W3-001",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "5:1-5:4 is one movement (feast, vessels, praise of the idols) and both its edges fall where the form says; but the row lists the chapter line among its onset signals, and it calls the unit before the seam a decree although the verse before the seam (web:Dan.4.37 = oshb:Dan.4.34) is first-person praise.",
+   "tier": "EXTRACTED",
+   "decision": "reword observed_substrate_signals",
+   "both_sides": "Onset 4:37/5:1: close side is the king's first-person praise at web:Dan.4.37 = oshb:Dan.4.34 with a PE after it (one witness); onset side is the subject-first royal clause at 5:1 (king named first, then the verb, then the feast), a new king and a new setting. Close 5:4/5:5: close side is the praise of the gods at 5:4 (praise_aram) completing the drinking; onset side is the time formula at 5:5 (at_that_moment_aram) with a new agent, the hand. No mark after 5:4. Both edges are two-sided in the text.",
+   "suggested_fix": {
+    "fact": "the onset signal at 5:1 is the subject-first royal clause that names the new king before the verb; a chapter line is not a signal and is removed from the signal list; the verse before the seam is first-person praise, not a decree",
+    "verse": "5:1 and web:Dan.4.37 = oshb:Dan.4.34"
+   },
+   "evidence": [
+    "FINDING 1 (gravest): observed_substrate_signals[0] reads 'new chapter and new king at 5:1 (WEB text)' and boundary_rationale opens 'the chapter opens on a new king'; the book's evidence rule is that chapter divisions never drive or corroborate a boundary.",
+    "FINDING 2: boundary_rationale says the PE 'closes the preceding decree (web:Dan.4.37 = oshb:Dan.4.34)' and in the same sentence that the far side is 'Nebuchadnezzar's first-person praise'; Dan_web_clean.txt 4:37 is praise in the first person, and the neighbouring row over 4:34-4:37 is typed doxology_or_prayer.",
+    "FINDING 3 (minor): '(EXTRACTED OSHB mark layer and WEB text)' stands beside 'the onset seam is two-sided'; the PE and the praise are in those layers, the two-sidedness is a weighing.",
+    "CHECKED pmarks_Dan.json (WLC/OSHB, single witness, MT face; identity with WEB in chapter 5): PE after Dan.4.34 (MT) present; no mark after 5:1, 5:2, 5:3 or 5:4; paseq list holds Dan.5.2; no K/Q entry and no note entry in 5:1-5:4. All the row's mark claims hold in both directions.",
+    "CHECKED dan_device_inventory.json (MT face): praise_aram lists Dan.5.4; at_that_moment_aram lists Dan.5.5; then_aram lists Dan.5.3 (interior, a weak connective).",
+    "CHECKED Dan_oshb.txt Dan.5.1: the row's three-word Aramaic quotation is an exact substring at the start of the verse (programmatic test).",
+    "FORM: unit_type narrative fits; the rival 5:1-5:9 is the strongest rival and is fairly rejected; confidence medium stands."
+   ]
+  },
+  {
+   "row_id": "W3-002",
+   "verdict": "support",
+   "claim": "5:5-5:9 is one scene: the hand writes (5:5), the king is shaken (5:6), he summons and offers the reward (5:7), the wise men fail (5:8), and the king is shaken again and more (5:9). The fear of 5:6 returns at 5:9 and frames the scene, which the row does not cite but which strengthens its close.",
+   "tier": "EXTRACTED",
+   "decision": "keep",
+   "both_sides": "Onset 5:4/5:5: see W3-001, two-sided. Close 5:9/5:10: close side, 5:9 repeats the changed face of 5:6 with the lords now perplexed, a rounded ending; onset side, 5:10 opens subject-first on a new character, the queen, who enters and speaks with the court greeting (o_king_live_forever_aram). No mark after 5:9. The SAMEKH after 5:7 stands inside the scene, between the summons and its failure.",
+   "evidence": [
+    "CHECKED pmarks_Dan.json (WLC/OSHB, single witness, MT face; identity with WEB in chapter 5): SAMEKH after Dan.5.7 present and named as SAMEKH; no mark after 5:5, 5:6, 5:8 or 5:9; K/Q entries Dan.5.5 x1, Dan.5.7 x2, Dan.5.8 x2 and none at 5:6 or 5:9; paseq at Dan.5.7; notes n=1 at Dan.5.6 and n=k at Dan.5.7. Every count in the row matches, and nothing in the span is undisclosed.",
+    "CHECKED dan_device_inventory.json (MT face): at_that_moment_aram Dan.5.5; then_aram Dan.5.6, Dan.5.8, Dan.5.9; answered_and_said strict and loose both list Dan.5.7.",
+    "CHECKED Dan_oshb.txt Dan.5.5: the two-word Aramaic quotation is an exact substring at the start of the verse. Dan.5.6 and Dan.5.9 both carry the face-changed clause (read in the Aramaic and in WEB 5:6, 5:9).",
+    "FORM: cutting at the SAMEKH would part the summons (5:7) from its outcome (5:8); the row rejects that rival for the right reason. Confidence medium is honest: the close has no mark but is two-sided in the text.",
+    "NOTE (not a defect of the seam): the row names the tag 'answered_and_said' without saying which of the inventory's two readings it means; here both readings hold 5:7, so nothing false is asserted."
+   ]
+  },
+  {
+   "row_id": "W3-003",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "5:10-5:12 is a coherent unit, the queen's speech from her entry to her closing request; but in device_notes the word EXTRACTED is set beside a reading (that the phrase at 5:11 recalls the earlier reign as Daniel's credential), and the inventory holds only the presence of the phrase at 5:11.",
+   "tier": "EXTRACTED",
+   "decision": "reword device_notes",
+   "both_sides": "Onset 5:9/5:10: close side is the frame of fear completed at 5:9; onset side is the queen's entry and greeting at 5:10. Close 5:12/5:13: close side, the speech ends on its request that Daniel be called, and a PE follows 5:12 (one witness); onset side, 5:13 opens with then_aram and Daniel brought in, and the king begins to speak. Both edges two-sided.",
+   "suggested_fix": {
+    "fact": "the inventory holds the presence of in_the_days_of_aram at 5:11 (that part is EXTRACTED); that the phrase serves as Daniel's credential is a reading and takes INFERRED",
+    "verse": "5:11"
+   },
+   "evidence": [
+    "FINDING 1 (gravest): device_notes 'The in_the_days_of_aram phrase at 5:11 recalls the earlier reign as Daniel's credential (EXTRACTED device inventory)'. dan_device_inventory.json (MT face) in_the_days_of_aram lists Dan.5.11 and holds no statement of function. A tier word covers only what the layer holds.",
+    "FINDING 2 (minor, disclosure): the inventory's loose reading of answered_and_said lists Dan.5.10 (the queen's speech frame) and the strict reading does not; the row is silent on it. It is a formula, not a mark, and it supports the row's onset.",
+    "FINDING 3 (minor): the last sentence of boundary_rationale ('Two independent signals on the close; the onset lacks a mark, so medium.') is a weighing with no tier word.",
+    "CHECKED pmarks_Dan.json (WLC/OSHB, single witness, MT face; identity with WEB in chapter 5): PE after Dan.5.12 present and named PE; no mark after 5:10 or 5:11; K/Q Dan.5.10 x1 and none at 5:11 or 5:12; paseq at Dan.5.12; no note entry in 5:10-5:12. All counts match.",
+    "CHECKED dan_device_inventory.json (MT face): o_king_live_forever_aram lists Dan.5.10.",
+    "CHECKED Dan_oshb.txt Dan.5.10: the two-word Aramaic quotation is an exact substring at the start of the verse.",
+    "FLAG ANSWERED: the word 'single' in strongest_rejected_alternative ('a single summons scene') describes the rival's shape; it is not a claim that only one thing exists. No defect.",
+    "FORM: unit_type dialogue is the nearest type in the closed list for a speech that answers the scene, though only one party speaks inside the row. The rival 5:10-5:16 is the strongest rival. Confidence medium stands."
+   ]
+  },
+  {
+   "row_id": "W3-004",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "5:13-5:16 is a coherent unit, the king's address to Daniel ending on the offer, and both edges are sound; but the rival the row weighs (an onset at 5:14) is not the strongest one. The stronger rival puts the close one verse later, after 5:17, so that the king's offer and Daniel's answer to it stand together and the recital opens at 5:18.",
+   "tier": "INFERRED",
+   "decision": "reword strongest_rejected_alternative",
+   "both_sides": "For the row's close at 5:16/5:17: the king's speech ends at 5:16, a PE follows (one witness), and 5:17 opens with a full speech frame (then_aram plus the strict answered-and-said frame) and a new speaker. For the rival close at 5:17/5:18: 5:17 answers 5:16 point for point (the gifts refused, the reading promised), so it completes the exchange; 5:18 opens with direct address to the king and begins the recital of his father's reign, a new speech function. Against the rival: no speaker change and no mark at 5:17/5:18, and 5:18 has no frame of its own. The row's cut is the better grounded; the rival is the one worth recording.",
+   "suggested_fix": {
+    "fact": "the strongest rival is a close after 5:17, joining Daniel's refusal of the gifts to the offer it answers and opening the recital at the direct address of 5:18; it is declined because the speaker changes at 5:17 with a full speech frame and a PE (one witness) follows 5:16, while 5:17/5:18 has neither",
+    "verse": "5:17 and 5:18"
+   },
+   "evidence": [
+    "FINDING 1 (gravest): strongest_rejected_alternative weighs 'Opening at 5:14', which no signal supports (5:14 continues the king's speech). The rival at 5:17/5:18 has text on its side: WEB 5:17 answers the offer of 5:16, and Dan_oshb.txt Dan.5.18 opens with the second-person pronoun and the vocative, without a narrative frame.",
+    "CHECKED pmarks_Dan.json (WLC/OSHB, single witness, MT face; identity with WEB in chapter 5): PE after Dan.5.12 and PE after Dan.5.16, both named PE; no mark after 5:13, 5:14 or 5:15; K/Q Dan.5.13 x1, Dan.5.14 x1, Dan.5.16 x4 and none at 5:15; two n=k notes at Dan.5.16; no paseq in 5:13-5:16. All counts match and nothing is undisclosed.",
+    "CHECKED dan_device_inventory.json (MT face): answered_and_said (strict and loose) and then_aram both list Dan.5.13.",
+    "CHECKED Dan_oshb.txt Dan.5.13: the three-word Aramaic quotation is an exact substring at the start of the verse.",
+    "FLAG ANSWERED: 'each mark is one witness' is true of both marks named (the mark layer is WLC only). No defect.",
+    "FORM: unit_type dialogue fits. Confidence medium stands: speaker change on both edges, each with one PE from one witness."
+   ]
+  },
+  {
+   "row_id": "W3-005",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "5:17-5:24 holds one movement (refusal, recital of the father's humbling, charge against the son, the hand sent) and medium_low is the honest grade for its close inside one speech; but device_notes sets EXTRACTED beside a reading (that the formulas recall the father's humbling), and strongest_rejected_alternative carries a count and a weighing with no tier word.",
+   "tier": "EXTRACTED",
+   "decision": "reword device_notes",
+   "both_sides": "Onset 5:16/5:17: two-sided, see W3-004. Close 5:24/5:25: close side, 5:24 opens with then_aram (weak alone) and its 'from before him' depends on the God named at the end of 5:23, so it leans back on the charge; onset side, 5:25 presents the writing and 5:26 carries the interpretation formula. But 5:24 ends on the writing being inscribed and 5:25 takes up those very words (read in Dan_oshb.txt Dan.5.24 and Dan.5.25), so the two verses are also chained forward. Same speaker, no mark. 5:24 is a hinge verse; an edge at 5:23/5:24 is a second live rival beside the whole-speech one.",
+   "suggested_fix": {
+    "fact": "the inventory holds the presence of most_high_aram at 5:18 and 5:21 and of the recognition refrain at 5:21 (EXTRACTED); that they recall the father's humbling, and that the praise of 5:23 inverts 5:4, are readings (INFERRED); the rejected rival's 12 verses is a count and its 'distinct speech functions' a weighing, each owing a tier; 5:24 is a hinge whose last clause is taken up by 5:25",
+    "verse": "5:18, 5:21, 5:23, 5:24"
+   },
+   "evidence": [
+    "FINDING 1 (gravest): device_notes '...recalls the humbling of the father (EXTRACTED, device inventory)'. dan_device_inventory.json (MT face) lists most_high_aram at Dan.5.18 and Dan.5.21 and recognition_most_high_rules_aram at Dan.5.21; it holds presence, not function. The next sentence, 'praise_aram at 5:23 inverts 5:4', is a reading with no tier word.",
+    "FINDING 2: strongest_rejected_alternative has no tier word at all (programmatic scan). It holds a count ('12 verses': 5:17 to 5:28 is 12 verses, true) and a weighing ('distinct speech functions').",
+    "FINDING 3 (form, for the end review): the hinge at 5:24 is not weighed from the onset side. then_aram at Dan.5.24 is in the inventory and inside the row, and the row does not name it. A rival edge at 5:23/5:24 would give 5:24-5:28 as the writing and its reading.",
+    "CHECKED pmarks_Dan.json (WLC/OSHB, single witness, MT face; identity with WEB in chapter 5): PE after Dan.5.16; no mark after any verse from 5:17 to 5:24; K/Q Dan.5.18 x2, Dan.5.19 x1, Dan.5.21 x3, Dan.5.22 x1, Dan.5.23 x3 and none at 5:17, 5:20 or 5:24; paseq at Dan.5.21 and Dan.5.23; notes n=1 at Dan.5.21 and Dan.5.24 and n=y at Dan.5.23. All counts match.",
+    "CHECKED dan_device_inventory.json (MT face): to_all_peoples_nations_tongues_aram Dan.5.19; praise_aram Dan.5.23 and Dan.5.4; answered_and_said strict Dan.5.17; then_aram Dan.5.17 and Dan.5.24.",
+    "CHECKED Dan_oshb.txt Dan.5.17: the three-word Aramaic quotation is an exact substring at the start of the verse.",
+    "FORM: the whole-speech rival 5:17-5:28 is the strongest rival and the row says it stays live; the interpretation formula at 5:26 is the internal signal that licenses a cut inside the speech. unit_type dialogue is acceptable for a speech of reply. Confidence medium_low stands."
+   ]
+  },
+  {
+   "row_id": "W3-006",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "5:25-5:28 is a coherent unit of the right type (the writing presented, then glossed word by word under the interpretation formula at 5:26), but its grade is rounded up: its onset edge at 5:24/5:25 is the same edge the neighbouring row grades medium_low, it has no mark, no change of speaker, and 5:25 takes up the closing words of 5:24.",
+   "tier": "INFERRED",
+   "decision": "confidence moves to medium_low",
+   "both_sides": "Onset 5:24/5:25: close side, 5:24 ends the charge by naming the hand and the writing; onset side, 5:25 opens with a conjunction and repeats the words for the writing being inscribed from the end of 5:24, then lists the words; the interpretation formula comes only at 5:26. One speaker throughout, no mark. The evidence for an onset at 5:25 is a change of speech function alone, and the catchword pulls the other way. Close 5:28/5:29: close side, the third gloss ends the speech; onset side, 5:29 opens with then_aram and narrated action by the king. That edge is two-sided, without a mark.",
+   "suggested_fix": {
+    "fact": "the onset at 5:25 rests on a shift of speech function only, inside one speech, with no mark, and 5:25 repeats the closing words of 5:24; a seam with evidence of that kind is graded medium_low, the grade the adjoining row already gives the same edge",
+    "verse": "5:24 and 5:25"
+   },
+   "evidence": [
+    "FINDING 1 (gravest): the row's own rationale says 'Same speaker across the onset seam, so the onset rests on a genre shift; medium', while the row over 5:17-5:24 says of the same edge 'a topic shift inside one speech with no mark; graded medium-low'. One edge carries two grades. The book's grading rule sends a seam with one-sided evidence to low or medium_low and forbids rounding up.",
+    "FINDING 2: Dan_oshb.txt Dan.5.24 ends with the clause on the writing inscribed and Dan.5.25 begins with the same three lexemes in a new order (read in both lines); WEB 5:24 'this writing was inscribed' (web:Dan.5.24) and WEB 5:25 open likewise. The row does not weigh this link, and its rejected rival (an onset at 5:26) is weaker than the rival that draws 5:24 forward.",
+    "FINDING 3 (minor): the final sentence of boundary_rationale is a weighing with no tier word.",
+    "CHECKED pmarks_Dan.json (WLC/OSHB, single witness, MT face; identity with WEB in chapter 5): no mark after 5:25, 5:26, 5:27 or 5:28; no K/Q entry, no paseq and no note entry in 5:25-5:28. The row claims none; nothing is undisclosed.",
+    "CHECKED dan_device_inventory.json (MT face): this_is_the_interpretation_aram lists Dan.5.26 (one of its three verses); then_aram lists Dan.5.29.",
+    "CHECKED Dan_oshb.txt Dan.5.25 and Dan.5.26: both three-word Aramaic quotations are exact substrings at the start of their verses.",
+    "FLAG ANSWERED: 'last gloss' at 5:28 is true: three glosses stand at 5:26, 5:27 and 5:28 and the speech ends there. No defect.",
+    "FORM: unit_type interpretation is right; the book's own vocabulary names 5:25-5:28 as an example of the type. The span stays."
+   ]
+  },
+  {
+   "row_id": "W3-007",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "5:29-5:30 is a sound closing unit (the promised reward given, then the king's death in that night) and its close is the parent seam, two-sided; but strongest_rejected_alternative and device_notes carry claims with no tier word.",
+   "tier": "MEASURED",
+   "decision": "reword strongest_rejected_alternative",
+   "both_sides": "Onset 5:28/5:29: close side, Daniel's speech ends with the third gloss; onset side, 5:29 opens with then_aram (weak alone) and returns to narrated action, the king's command. Two-sided, no mark. Close 5:30 / web:Dan.5.31 = oshb:Dan.6.1: close side, the in_that_night_aram formula (its only verse in the book) and the death that fulfils the reading, with a PE after 5:30 (one witness); onset side, the succession notice names a new king. The live rival at this edge, that the succession notice closes the tale as the fulfilment of 5:28, is a parent-level question the row cannot propose; the next row records it.",
+   "suggested_fix": {
+    "fact": "that the reward completes the arc the death notice seals is a reading and takes INFERRED; the K/Q presence at 5:29 and 5:30 is held by the K/Q layer of the single witness and takes EXTRACTED with that layer named",
+    "verse": "5:29 and 5:30"
+   },
+   "evidence": [
+    "FINDING 1 (gravest): strongest_rejected_alternative and device_notes hold no tier word (programmatic scan of the six tier words: zero in each). The first holds a weighing ('the reward completes the arc the death notice seals'); the second holds a witness reading and two K/Q presence claims that name their layer but not their tier.",
+    "FINDING 2 (minor): boundary_rationale tiers the PE only; 'backed by the shift from speech to narration' and 'The close is two-sided' are weighings with no tier word.",
+    "CHECKED pmarks_Dan.json (WLC/OSHB, single witness, MT face; identity with WEB in chapter 5): PE after Dan.5.30 present and named PE; no mark after 5:29; K/Q Dan.5.29 x1 and Dan.5.30 x1; paseq at Dan.5.29; no note entry at 5:29 or 5:30. All counts match.",
+    "CHECKED dan_device_inventory.json (MT face): in_that_night_aram count 1, Dan.5.30; then_aram Dan.5.29.",
+    "CHECKED Dan_oshb.txt Dan.5.30: the three-word Aramaic quotation is an exact substring at the start of the verse.",
+    "CHECKED numbering: both mentions of the succession notice carry the pair web:Dan.5.31 = oshb:Dan.6.1; no bare coordinate inside a zone stands in the row (programmatic scan).",
+    "FLAG ANSWERED: 'last gloss' at 5:28 is true (see W3-006). No defect.",
+    "FORM: unit_type narrative fits a two-verse resolution; a one-verse notice at 5:30 is the right rival to weigh and the row keeps it live. The reward of 5:29 answers the offers of 5:7 and 5:16, which binds it to the tale's end. Confidence medium stands."
+   ]
+  }
+ ],
+ "triage_answers": [
+  {
+   "id": "TRIAGE-DAN-01",
+   "in_my_cluster": true,
+   "rows": [
+    "W3-005",
+    "W3-007"
+   ],
+   "decision": "Yes for both rows. W3-005 strongest_rejected_alternative holds a count (the rival's 12 verses, true by arithmetic over 5:17-5:28) and a weighing (the two halves are distinct speech functions) with no tier word. W3-007 strongest_rejected_alternative holds a weighing (the reward completes the arc the death notice seals) with no tier word; W3-007 device_notes holds a witness reading at 5:30 and K/Q presence claims at 5:29 and 5:30 that name the layer but carry no tier word. The claims themselves are true where they are checkable: the K/Q layer holds one entry at Dan.5.29 and one at Dan.5.30.",
+   "evidence": [
+    "programmatic scan of the six tier words in each field of each cluster row: zero in W3-005.strongest_rejected_alternative, zero in W3-007.strongest_rejected_alternative, zero in W3-007.device_notes",
+    "pmarks_Dan.json kq: Dan.5.29 one entry, Dan.5.30 one entry",
+    "Dan_oshb.txt Dan.5.30: quotation is an exact substring"
+   ]
+  },
+  {
+   "id": "TRIAGE-DAN-02",
+   "in_my_cluster": false
+  },
+  {
+   "id": "TRIAGE-DAN-03",
+   "in_my_cluster": false
+  },
+  {
+   "id": "TRIAGE-DAN-04",
+   "in_my_cluster": false
+  },
+  {
+   "id": "TRIAGE-DAN-05",
+   "in_my_cluster": false
+  }
+ ],
+ "summary": {
+  "supports": 1,
+  "challenges": 6,
+  "by_severity": {
+   "high": 0,
+   "medium": 1,
+   "low": 5
+  }
+ },
+ "unresolved_uncertainty": [
+  {
+   "what": "Whether 5:24 belongs with the charge (as tiled) or with the writing it introduces. The verse leans both ways: its pronoun depends on 5:23 and its last clause is repeated at the head of 5:25.",
+   "why_it_matters": "It decides whether the edge between W3-005 and W3-006 sits at 5:24/5:25 or one verse earlier; I propose no cut, only that both rows grade the edge alike and name the hinge."
+  },
+  {
+   "what": "Several rows in the cluster cite a working-ruling label in parentheses inside their prose, and use the tag 'answered_and_said' without saying which of the inventory's two readings is meant.",
+   "why_it_matters": "If the register rule for row prose forbids ruling labels, these are register defects in W3-002, W3-007 and the next row; I could not settle that from my inputs and did not count them as challenges."
+  },
+  {
+   "what": "Two pinned inputs were hashed and matched but not opened for content: the suite report and the toolkit description. The verse inventory and the offset map were opened only for their keys, zone pairs and face.",
+   "why_it_matters": "My flag answers rest on the per-row flag file, not on the suite report itself."
+  },
+  {
+   "what": "The mark layer is one witness (WLC/OSHB). I tested presence and absence there only.",
+   "why_it_matters": "Absence of a mark at 5:4, 5:9, 5:24 and 5:28 is not counter-evidence to those edges."
+  },
+  {
+   "what": "All lanes run on one model family.",
+   "why_it_matters": "Agreement between this lane and the other is one family's voice, not independent confirmation."
+  }
+ ],
+ "e19_selfreport": "I ran no listing and no glob. I ran no existence check and no recursive search. Every file was opened by its exact path as named in the brief or the launch message; two tool-result spill files produced by my own commands were read by the exact paths the tool returned.",
+ "limit": "one lens on one cluster; candidate-only, non-authorizing research review"
+}
