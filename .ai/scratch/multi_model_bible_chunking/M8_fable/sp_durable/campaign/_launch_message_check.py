@@ -126,6 +126,9 @@ def main():
         return 2
     raw = Path(a.message).read_bytes()
     gaps = check(SP, a.book, raw.decode("utf-8"))
+    from m8_execution_efficiency import check_launch
+    gaps.extend(check_launch(SP.parent, raw.decode("utf-8"),
+                            [p for p, h in BRIEF.findall(raw.decode("utf-8"))]))
     print(json.dumps({"verdict": "MATCH" if not gaps else "REFUSED", "gaps": gaps, "book": a.book,
                       "message_sha256": hashlib.sha256(raw).hexdigest()}, ensure_ascii=False))
     return 0 if not gaps else 1

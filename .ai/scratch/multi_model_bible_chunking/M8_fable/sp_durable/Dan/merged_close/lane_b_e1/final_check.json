@@ -1,0 +1,428 @@
+{
+ "attempt_id": "dan_merged_close_lane_b_a1",
+ "execution_id": "dan_merged_close_lane_b_a1#e1",
+ "lane": "B",
+ "book": "Dan",
+ "corpus": "rows_v1_final.jsonl",
+ "corpus_sha256": "783a0e9ac2c8fe4c942b3b8f7dd65efaefdb28f6fcb55fdde42b500a5c395e09",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "audit_coverage": {
+  "what_i_read": [
+   "70 pinned inputs hashed before and after every tool run: 0 mismatches each time",
+   "governance: ledger lines 807-874, the grader carrier, CAMPAIGN_CLOSE_GATE.v1.md (items 1-25 and addenda), the landed-outputs manifest v2",
+   "evidence records by script: dry report (75 gates), parity, validator report, sidecars, flags_by_row, census output",
+   "16 rows in full with both witnesses (lines 75,74,71,70,69,66,65,63,62,57,53,42,31,21,19,9) and device_notes of line 64",
+   "items 23, 22, 21, 20 as described in items_20_23.json",
+   "_close_book.py (read; run only as --m8-root with --dry-report) and _test_close_book_gates.py (read only)"
+  ],
+  "what_i_did_not_check": [
+   "58 of 75 rows beyond what the tools test",
+   "any receipts file, any transcript, any other lane's output, any other book",
+   "the boss audit, the review rulings' reasoning beyond what the scholar record ranges quote, the capture index, spend",
+   "the scholar record outside six line ranges (about 250 of 10,361 lines)",
+   "method v1-v5 (copied, not read); v7 beyond the paragraphs marked new",
+   "the proposer brief word by word; the test file's behaviour (not run); the validator suite (not run)",
+   "the licence terms against the witnesses' own distributions",
+   "the dimensions' base manifest v1"
+  ]
+ },
+ "byte_verifications": [
+  {
+   "claim": "the corpus is the pinned corpus",
+   "tool": "sha256 by s01/s20",
+   "result": "783a0e9ac2c8fe4c942b3b8f7dd65efaefdb28f6fcb55fdde42b500a5c395e09 = pin"
+  },
+  {
+   "claim": "CWO parity reconciles to this corpus",
+   "tool": "_cwo_parity_dan.py --check",
+   "result": "MATCH, GREEN"
+  },
+  {
+   "claim": "the scholar record regenerates from its inputs",
+   "tool": "gen_scholar_record.py --check; check_scholar_record.py",
+   "result": "IDENTICAL (d45690be, 1,037,986 bytes); PASS 15/15"
+  },
+  {
+   "claim": "method v7 regenerates",
+   "tool": "gen_method_v7.py --check",
+   "result": "MATCH"
+  },
+  {
+   "claim": "atlas rows regenerate and pass",
+   "tool": "gen_atlas_rows.py --check; check_atlas_rows.py --out-root (plain, --selftest)",
+   "result": "MATCH; PASS 23 checks, 14 tampers, 0 uncaught"
+  },
+  {
+   "claim": "the adjudicated proposals say what the adjudication says",
+   "tool": "gen_proposals_adjudicated.py --check",
+   "result": "MATCH"
+  },
+  {
+   "claim": "sidecars, grader carrier and Fable end packet regenerate",
+   "tool": "gen_sidecars / gen_grader_models_v2 / gen_fable_end_packet --check",
+   "result": "MATCH each (packet: 49 rows, 46 routed)"
+  },
+  {
+   "claim": "every WEB quotation in the rows read is in its witness; every Hebrew/Aramaic run collates",
+   "tool": "s08_rows.py -> rows_checks.json",
+   "result": "all found within span +/-1 verse; all runs at byte tier"
+  },
+  {
+   "claim": "MT 11:27 has 15 words (row W6-9)",
+   "tool": "s10_nq.py via dan_lib",
+   "result": "15"
+  },
+  {
+   "claim": "WEB 10:19 carries the second half of the verse (item 20 high finding)",
+   "tool": "s10_nq.py via dan_lib",
+   "result": "present; row W6-4 now reads it from both witnesses"
+  },
+  {
+   "claim": "the atlas feed is the pinned feed",
+   "tool": "sha256",
+   "result": "96ddcca473a3c2a94121186ac105d9294910e024e5ff788bdd427e063a413f28"
+  },
+  {
+   "claim": "the close tool's dry run wrote only under my work\\dry and changed no pinned input",
+   "tool": "pin re-hash after the run",
+   "result": "0 of 70 changed"
+  }
+ ],
+ "residual": [
+  {
+   "row_id": "W6-15",
+   "e_class": "process wording inside a reading-unit row (campaign vocabulary; the class the boss audit and proposal Dan-P02 name)",
+   "severity": "low",
+   "origin": "writer or fixup round (not determinable from the row)",
+   "defective_text": "The question stays open for the end review.",
+   "byte_evidence": "rows_v1_final.jsonl line 75 field strongest_rejected_alternative contains the quoted sentence (read by script from the pinned corpus 783a0e9ac2c8)",
+   "proposed_cure": "drop the sentence or state the open question in the row's own terms; no boundary, label or confidence changes"
+  },
+  {
+   "row_id": "W6-9",
+   "e_class": "process wording inside a reading-unit row (campaign vocabulary; the class the boss audit and proposal Dan-P02 name)",
+   "severity": "low",
+   "origin": "writer or fixup round (not determinable from the row)",
+   "defective_text": "left for the end review",
+   "byte_evidence": "rows_v1_final.jsonl line 69 field device_notes contains the quoted sentence (read by script from the pinned corpus 783a0e9ac2c8)",
+   "proposed_cure": "drop the sentence or state the open question in the row's own terms; no boundary, label or confidence changes"
+  },
+  {
+   "row_id": "W6-5",
+   "e_class": "process wording inside a reading-unit row (campaign vocabulary; the class the boss audit and proposal Dan-P02 name)",
+   "severity": "low",
+   "origin": "writer or fixup round (not determinable from the row)",
+   "defective_text": "This edge is left open for the end review.",
+   "byte_evidence": "rows_v1_final.jsonl line 65 field device_notes or boundary_rationale contains the quoted sentence (read by script from the pinned corpus 783a0e9ac2c8)",
+   "proposed_cure": "drop the sentence or state the open question in the row's own terms; no boundary, label or confidence changes"
+  },
+  {
+   "row_id": "W2-8",
+   "e_class": "process wording inside a reading-unit row (campaign vocabulary; the class the boss audit and proposal Dan-P02 name)",
+   "severity": "low",
+   "origin": "writer or fixup round (not determinable from the row)",
+   "defective_text": "the question goes to the end review",
+   "byte_evidence": "rows_v1_final.jsonl line 21 field boundary_rationale contains the quoted sentence (read by script from the pinned corpus 783a0e9ac2c8)",
+   "proposed_cure": "drop the sentence or state the open question in the row's own terms; no boundary, label or confidence changes"
+  },
+  {
+   "row_id": "W2-8",
+   "e_class": "process wording inside a reading-unit row (campaign vocabulary; the class the boss audit and proposal Dan-P02 name)",
+   "severity": "low",
+   "origin": "writer or fixup round (not determinable from the row)",
+   "defective_text": "where the prescript belongs is passed to the end review",
+   "byte_evidence": "rows_v1_final.jsonl line 21 field strongest_rejected_alternative contains the quoted sentence (read by script from the pinned corpus 783a0e9ac2c8)",
+   "proposed_cure": "drop the sentence or state the open question in the row's own terms; no boundary, label or confidence changes"
+  },
+  {
+   "row_id": "W1-9",
+   "e_class": "process wording inside a reading-unit row (campaign vocabulary; the class the boss audit and proposal Dan-P02 name)",
+   "severity": "low",
+   "origin": "writer or fixup round (not determinable from the row)",
+   "defective_text": "is left for the end review: rival edges 2:23/2:24 and 2:24/2:25 (REPORTED)",
+   "byte_evidence": "rows_v1_final.jsonl line 9 field device_notes contains the quoted sentence (read by script from the pinned corpus 783a0e9ac2c8)",
+   "proposed_cure": "drop the sentence or state the open question in the row's own terms; no boundary, label or confidence changes"
+  },
+  {
+   "row_id": null,
+   "e_class": "count voiced as measured from a partial scan (OW-18)",
+   "severity": "low",
+   "origin": "adopted proposal text carried into method v7",
+   "defective_text": "BIBLE_CHUNKING_METHOD.v7.md line 278 'ten of eleven primary review packets searched'; line 349 'four rulings ordered a span that raised a flag'",
+   "byte_evidence": "both lines read from the pinned v7; the adjudicator's own evidence checks correct seven proposal claims and these two figures rest on a keyword scan",
+   "proposed_cure": "re-tier the two figures to REPORTED or re-measure them by a named script in v8"
+  },
+  {
+   "row_id": null,
+   "e_class": "provenance carried from another book (E-65-adjacent)",
+   "severity": "low",
+   "origin": "gen_scholar_record.py section 8",
+   "defective_text": "licence and attribution terms for OSHB/WLC and the WEB",
+   "byte_evidence": "0 licence words in Dan_oshb.txt, Dan_web_clean.txt, pmarks_Dan.json, dan_device_inventory.json (my scan); the check record says the terms are carried from the Ezekiel record's wording",
+   "proposed_cure": "confirm against the witnesses' own distributions before publication, as the record itself says"
+  },
+  {
+   "row_id": null,
+   "e_class": "stale triage file",
+   "severity": "low",
+   "origin": "repair round fx5",
+   "defective_text": "flags_by_row.json (137 flags over rows_applied.jsonl) beside a final corpus whose validator report shows 64 + 18",
+   "byte_evidence": "file header names suite_report_post_fx5.json; no pinned script, document or manifest names the file",
+   "proposed_cure": "regenerate over rows_v1_final.jsonl or mark superseded"
+  }
+ ],
+ "close_gate_assessment": [
+  {
+   "item": "1 retro LF-support audit",
+   "met": true,
+   "type": "campaign_level",
+   "evidence": "Campaign-level: the retro pass covers the 22 pre-Isaiah books; Daniel is not one. Its prospective clause (lines 54-55: each book-close receipt records E-23 sweep digits beside the B-8 lane digits) is NOT visibly met by the receipt preview: the strings 'E-23' and 'B-8' occur 0 times in Dan_completion.preview.json. Whether another field carries those digits is unavailable to me; see process_findings.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "2 standing re-scan queue",
+   "met": true,
+   "type": "campaign_level",
+   "evidence": "Campaign-level queue; nothing in it is a condition of Daniel's close in the text I read.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "3 deferred items",
+   "met": true,
+   "type": "campaign_level",
+   "evidence": "Campaign-level (Proverbs spot-wave, tool promotions).",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "4 OW-1 obligations",
+   "met": true,
+   "type": "not_due_before_close",
+   "evidence": "NOT A FINDING OF COMPLIANCE. Prospective receipt duties fall on the close act; the receipt preview does not show them by name (see item 1).",
+   "tier": "UNAVAILABLE"
+  },
+  {
+   "item": "5 OW-2 hard close gates",
+   "met": true,
+   "type": "book_level",
+   "evidence": "CWO parity MATCH/GREEN on corpus 783a0e9a; Hebrew quote bytes GREEN (0 degraded of 75 rows); WEB quote fidelity GREEN 0 flags; normalize 389 ok, 0 defects; language zones GREEN; review_status candidate_review_complete on 75 of 75; landed manifest outputs on disk per the dry gate. Appeals: the tool reads no appeal file and none was pinned to me. Second-generation role separation: not evidenced to me beyond the carrier.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "6 Revelation requirements",
+   "met": true,
+   "type": "not_this_book",
+   "evidence": "Binds Revelation, not Daniel.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "7 OW-2 retro semantic audit",
+   "met": true,
+   "type": "campaign_level",
+   "evidence": "One-time audit of other books.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "8 OW-3 QC follow-up",
+   "met": true,
+   "type": "campaign_level",
+   "evidence": "NOT A FINDING OF COMPLIANCE. Nothing owed by Daniel found in the text I read; no Daniel record for it was pinned.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "9 owner repair advance",
+   "met": true,
+   "type": "campaign_level",
+   "evidence": "NOT A FINDING OF COMPLIANCE. Nothing owed by Daniel found in the text I read.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "10 OW-6 final checker (Fable) and boss",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "The final checker is a Fable role. This check ran on claude-opus-5-5 as the declared fallback (OW-25) in the merged-verdict shape (carrier: OW-26, granted OW-33). The Fable review is deferred to the campaign's end (OW-28). Boss audit B1..B17 is carried as REPORTED by the receipt; I did not read it.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "11 OW-6b hard-book track",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Daniel is an owner-named HARD book; the track requires a controlling Fable execution and a second Fable review. Neither ran; deferred under OW-28. Fable end packet regenerates MATCH (49 rows, 46 routed items).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "12 end-of-campaign re-check",
+   "met": true,
+   "type": "campaign_level",
+   "evidence": "The item itself says it is the campaign's, not a book's.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "13 OW-7 per-attempt capture",
+   "met": false,
+   "type": "OWED_TRANSCRIPT_AUDIT",
+   "evidence": "Census: 102 Daniel attempts, 0 transcripts retained. Capture index and cure verification are the orchestrator's close-packet duties and were not pinned to me.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "14 OW-10 execution identity and census coverage",
+   "met": false,
+   "type": "OWED_TRANSCRIPT_AUDIT",
+   "evidence": "Census coverage of transcripts is 0 of 102; the stage-1 transcript audit has not run (reconcile NOT_RUN).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "15 OW-11 write authority, continuation, ceiling",
+   "met": true,
+   "type": "book_level",
+   "evidence": "This lane wrote only under its OUT and ran no git. The authorization (Ezekiel, then Daniel) is in ledger lines 807-874. Spend against the 25,000,000 Daniel ceiling is NOT evidenced: the receipt preview's usage_measured_subagent_tokens is empty, and I may not read receipts. Under OW-28 spend above a ceiling is reported, not blocking. The stop after Daniel is in the receipt text.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "16 OW-12 status update",
+   "met": true,
+   "type": "not_due_before_close",
+   "evidence": "NOT A FINDING OF COMPLIANCE. Due from the orchestrator at the close; the tool lists it as not evaluated; nothing was pinned to me. A close without it fails this item.",
+   "tier": "UNAVAILABLE"
+  },
+  {
+   "item": "17 OW-13 model roles",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Every role, Fable's included, ran on claude-opus-5-5 (OW-25, grader_models.v2 regenerates MATCH). The Fable roles are deferred, never met.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "18 OW-14 playbook",
+   "met": true,
+   "type": "not_due_before_close",
+   "evidence": "NOT A FINDING OF COMPLIANCE. Learning-log entries, metrics digest and playbook version are close-packet duties of the orchestrator; not pinned to me; the tool does not evaluate them.",
+   "tier": "UNAVAILABLE"
+  },
+  {
+   "item": "19 OW-16 quality over budget",
+   "met": true,
+   "type": "not_due_before_close",
+   "evidence": "NOT A FINDING OF COMPLIANCE. The one-line statement is owed in the close packet. I saw no quality gate narrowed for spend in what I read.",
+   "tier": "INFERRED"
+  },
+  {
+   "item": "20 scholar record",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Lane-gradeable part fit_to_accept with reservations (regenerates byte-identical, checker 15/15). The Fable-authored and pre-flight bullets are deferred (OW-28). Licence terms are stated but unverified.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "21 method record",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Lane-gradeable part fit_to_accept with reservations (gen_method_v7 --check MATCH; shipped check 13/13). Fable bullet deferred (OW-28).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "22 atlas rows",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Lane-gradeable part fit_to_accept with reservations (gen MATCH; checker PASS 23 checks, 14 tampers, 0 uncaught; feed sha 96ddcca4). Fable bullet deferred (OW-28). No row is held, so OW-30 has nothing to rule on.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "23 method-change proposals",
+   "met": true,
+   "type": "book_level",
+   "evidence": "8 proposed, 6 adopted, 2 rejected with reasons, 0 deferred; adjudicated file MATCH. The adjudicator ran on the fallback model (covered by item 17). The append of Daniel's proposals to the shared method_change_proposals.v1.jsonl (line 505) is not done by the close tool and its state is unavailable to me.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "24 OW-18 tiers",
+   "met": true,
+   "type": "book_level",
+   "evidence": "Rows carry tier labels and the quote-tier gate is GREEN; in the 16 rows read no judgement is carried as a measurement. Low residuals: two counts in method v7 voiced as measured from a partial scan; licence terms carried from another book's record (disclosed).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "25 OW-19 lens multiplicity",
+   "met": true,
+   "type": "book_level",
+   "evidence": "I graded blind and read nothing of the other lane. Whether two lanes landed is the close tool's gate (unmet in my dry run, as it must be before landing). Both lanes share one model family: one voice, as the carrier's weakness statement says.",
+   "tier": "INFERRED"
+  },
+  {
+   "item": "addendum OW-20",
+   "met": true,
+   "type": "ordering",
+   "evidence": "NOT A FINDING OF COMPLIANCE. Requires Ezekiel to pass its gate before Daniel's is evaluated. Ezekiel's close was not pinned to me (E-65: another book's record is not Daniel's).",
+   "tier": "UNAVAILABLE"
+  },
+  {
+   "item": "addenda OW-21, OW-22, OW-27",
+   "met": true,
+   "type": "not_this_book",
+   "evidence": "Ezekiel ceilings; they bind Ezekiel's close packet.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "addendum OW-28",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "The campaign-end Fable review of Daniel is deferred; the receipt preview records status 'DEFERRED (OW-28)'. Budgets are tracked and do not gate.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "addendum OW-29",
+   "met": true,
+   "type": "close_procedure",
+   "evidence": "My dry run of the tool shows 4 unmet gates, all of them the lane pair or the owner's two choices (NQ-10). --close is not mine to run. For Daniel the carrier reserves the close action to the owner (OW-33).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "addendum OW-30",
+   "met": true,
+   "type": "book_level",
+   "evidence": "No atlas row is held (holds: none, 75 of 75 null hold fields), so no precedent ruling is needed and no Fable call arises.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "stage-1 transcript audit",
+   "met": false,
+   "type": "OWED_TRANSCRIPT_AUDIT",
+   "evidence": "OWED, NOT MET. No stage-1 packet exists; 0 bytes audited.",
+   "tier": "MEASURED"
+  }
+ ],
+ "process_findings": [
+  "The receipt file sp_durable/Dan/review/dan_review_attempt_receipts.jsonl has changed since the landing manifest was built (dry report: receipt_files_changed_since_the_manifest). I did not open it.",
+  "The receipt the tool would write contains neither 'E-23' nor 'B-8' (0 occurrences each), though gate item 1 lines 54-55 ask each book-close receipt to record those digits. I cannot tell whether another field carries them.",
+  "The close gate file has no OW-26 and no OW-33 addendum. The merged-verdict shape and the owner's reservation of the close action live only in the grader carrier. The receipt cites OW-9 for the stop and names neither OW-29 nor OW-33.",
+  "The atlas dimensions header pins close/dan_landed_outputs_manifest.v1.json; my brief pins v2. I could not open v1.",
+  "The brief's recipe for running the method checker on a copy is incomplete: the copy fails 'generated_deterministically' (no output) even with the adjudication file copied beside it. I relied on gen_method_v7.py --check in place (MATCH) for that one check.",
+  "Items 16, 18, 19 and parts of 4, 13-15 are close-packet duties of the orchestrator. Nothing for them was pinned to me and the tool does not evaluate them. I recorded them by the brief's 'not yet due' rule; that is not evidence they are done.",
+  "_test_close_book_gates.py expects a REFUSED exit from the tool run with no arguments, but its default --tool is the installed tool, which at the installed path evaluates the real tree and exits 0 (NQ-9). Read only; not run.",
+  "Daniel's proposals are to be appended to the shared method_change_proposals.v1.jsonl at close (gate line 505). The close tool does not do it.",
+  "Deviation from my read order: I read the rows before finishing items 21 and 20. I was interrupted by context compaction three times and by a usage limit once, and resumed from my work files each time.",
+  "Every role in this close, mine included, runs on one model family. Agreement between the two lanes is one voice, not two."
+ ],
+ "stage1_findings_disposition": [],
+ "transcript_coverage": {
+  "attempts_total": 102,
+  "attempts_with_a_transcript": 0,
+  "attempts_with_no_transcript": 102,
+  "bytes_audited_by_stage1": 0,
+  "reconcile_verdict": "NOT_RUN",
+  "statement": "The stage-1 transcript audit is OWED, NOT MET. The census tool reports 102 Daniel attempts and 0 retained transcripts; no transcript byte was audited by anyone, and I read none.",
+  "source": "SP\\campaign\\_transcript_coverage_census.py per_book.Dan (attempts, transcript_retained), run by me; tier MEASURED by that tool"
+ },
+ "dry_report": {
+  "gates": 75,
+  "unmet": 4,
+  "unmet_names": [
+   "landing manifest present (merged_close/landing_manifest.v1.json)",
+   "two distinct blind lanes, both landed and both read",
+   "--next-book given and valid (the owner's choice; OW-11 names no book after Daniel)",
+   "--acf chosen (the owner's choice between lam_pattern and item22)"
+  ]
+ },
+ "verdict": "fit_to_close",
+ "statement": "Fit to close on the evidence I read, bound to corpus 783a0e9ac2c8fe4c942b3b8f7dd65efaefdb28f6fcb55fdde42b500a5c395e09, with the stage-1 transcript audit OWED, NOT MET and the campaign-end Fable review DEFERRED (OW-28). Nothing more is claimed: this is one fallback-model lane, 16 of 75 rows read in full, and the orchestrator's close-packet duties were not before me."
+}

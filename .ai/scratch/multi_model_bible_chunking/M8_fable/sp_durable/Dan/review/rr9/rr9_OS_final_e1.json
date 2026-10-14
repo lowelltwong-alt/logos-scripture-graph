@@ -1,0 +1,47 @@
+{"attempt_id":"dan_rr9_OS_a1","execution_id":"dan_rr9_OS_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\RR9_BRIEF_OS.md (sha256 570cb38f611359125c74953460328a7d959b6f09d264fec214dfc7d73a2d0131, matched; read whole)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md (lines 807-874 only)",
+  "SP\\campaign\\REVIEWER_CONTINUATION_CONTRACT.v1.md",
+  "SP\\Dan\\review\\rr9\\fixup9_changes_for_review.json",
+  "SP\\Dan\\fixup\\draft_rows_fixup9_applied.jsonl",
+  "SP\\Dan\\fixup\\draft_rows_fixup8_applied.jsonl",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E11.v1.json",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json",
+  "SP\\Dan\\book_strategy_Dan.md",
+  "SP\\Dan\\Dan_oshb.txt",
+  "SP\\Dan\\Dan_web_clean.txt",
+  "SP\\Dan\\pmarks_Dan.json",
+  "SP\\Dan\\dan_device_inventory.json",
+  "SP\\Dan\\review\\rr9\\rr9_form_check.py (run only)",
+  "SP\\campaign\\grader_models.v1.json"
+ ],
+ "outcome":{"changed":[
+  {"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_rr9\\out_OS_e1\\dan_rr9_OS.json",
+   "why":"The lane's deliverable: 2 items, both support, 0 challenges, 0 items asking a row change, 1 low extra finding, all three ordered checks answered true."},
+  {"what":"C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_rr9\\out_OS_e1\\work\\progress.json (plus private scratch s1.py, build.py, b_out.txt, c_out.txt, d_out.txt in the same work directory)",
+   "why":"Continuation record. It was written twice by one build script (cursor W10#2, then final) after both items had been analysed, not between the two analyses; its final state is ready_for_final_check, accepted false."}
+ ]},
+ "verification":[
+  {"claim":"All 14 pinned inputs match the brief's digests.","how":"python -B work\\s1.py, sha256 of each exact path","result":"confirmed"},
+  {"claim":"W10#1 before and after equal the one exact_spans object of the order to author_fixup:W10 in RR8-TB-EXTRA-W3-010, and the applied field holds the after text once and the before text nowhere.","how":"s1.py mode c: 'W10#1 after_count 1 before_count 0 base_before_count 1 base_after_count 0 replace_once_equal True'; E11 order read in full","result":"confirmed"},
+  {"claim":"W10#2 before, after and entry index 1 equal the one exact_spans object of the order to author_fixup:W10 in RR8-LOW-EXTRAS, and the applied entry holds the after text once and the before text nowhere.","how":"s1.py mode c: 'W10#2 after_count 1 before_count 0 base_before_count 1 base_after_count 0 replace_once_equal True'; no other entry holds either text","result":"confirmed"},
+  {"claim":"The diff between base and applied rows holds nothing beyond the two ordered places; span, confidence and unit_type are unchanged in every row.","how":"s1.py mode a (75 rows against 75, differing values only at W3-010 strongest_rejected_alternative and W4-004 boundary_evidence_refs entry 1, key order same) and mode c (changed raw line indexes [37, 45], CR 0, one final LF)","result":"confirmed"},
+  {"claim":"In the first sentence of W3-010 strongest_rejected_alternative both annotations match grammar G and each stands directly before the punctuation ending its clause; the reason stands under its own INFERRED and the mark-layer EXTRACTED covers only 'the mark is single-witness'.","how":"s1.py mode c: ' (INFERRED)' G-fullmatch True next char ';' and ' (EXTRACTED, OSHB mark layer)' G-fullmatch True next char '.'; field tier words 8 against 7 in the base; pmarks_Dan.json marks['Dan.6.11'] = ['SAMEKH'], witness 'single witness'","result":"confirmed"},
+  {"claim":"The W4-004 entry agrees with oshb Dan.7.14 and the inventory entry it names, and took no tier word.","how":"s1.py modes c and d: Dan.7.14 has 21 words, all Hebrew script; words 12 to 14 are the dominion clause; the inventory pattern for everlasting_dominion_aram hits words 13 to 14; the verse ends on words 18 to 21; inventory verses_mt lists Dan.4.31 and Dan.7.14; entry tier words [] before and after","result":"confirmed"},
+  {"claim":"Neither changed field holds a file stem of a pinned input, a model name, a row id or a ruling id.","how":"s1.py mode c forbidden-token scan","result":"confirmed"},
+  {"claim":"No changed field holds process talk.","how":"s1.py mode c forbidden-token scan: one hit, 'goes to the end review', in the last sentence of W3-010 strongest_rejected_alternative; that sentence is carried text FIXUP-9 did not change, recorded as a low extra finding","result":"refuted"},
+  {"claim":"The deliverable passes the pinned form check.","how":"python -B SP\\Dan\\review\\rr9\\rr9_form_check.py <deliverable> OS dan_rr9_OS_a1#e1, last output: {\"form_problems\": [], \"tally\": {\"supports\": 2, \"challenges\": 0, \"by_severity\": {\"high\": 0, \"medium\": 0, \"low\": 0}}}","result":"confirmed"}
+ ],
+ "challenges":[],
+ "unresolved_uncertainty":[
+  {"what":"The W4-004 entry places the device key 'at words 12 to 14', while the inventory's own pattern matches words 13 to 14 of oshb Dan.7.14; word 12 is the suffixed noun heading the clause. I read the range as the dominion clause that holds the device, as the row's rationale words it, and did not grade it.","why_it_matters":"A reader who takes the key for the pattern alone finds the range one word wide; no boundary and no word count changes."},
+  {"what":"The W3-010 span replaced ' and' by ';' as well as inserting the annotation, which is more than a pure insertion under rule (a) of the TIER-ONLY RULE; I took the E11 exact span as the controlling order.","why_it_matters":"If the end review reads rule (a) literally for later changes, this is an ordered exception and should be recorded as one."},
+  {"what":"Whether the accusers' discovery is the direct sequel of the prayer, and which onset (oshb Dan.6.11 or Dan.6.12) is right, is a reading. I checked only that it now stands under INFERRED and that the row keeps the rival live.","why_it_matters":"The seam is routed to the end review; this lane's support does not decide it."},
+  {"what":"One low extra finding on carried text: W3-010 strongest_rejected_alternative ends on 'goes to the end review', a process phrase FIXUP-9 did not change. No order asked.","why_it_matters":"It is low, so it does not fail the E11 gate, but it belongs to the class of carried wording already routed to the end review."},
+  {"what":"Both lanes and the rulings run on one model family, a recorded downgrade (OW-25).","why_it_matters":"Agreement between lanes is one voice; only the measured byte results count."},
+  {"what":"One oversized command output was auto-saved by the harness to a tool-results file outside OUT; I did not open it and reran the script into work\\b_out.txt instead.","why_it_matters":"The harness, not this lane, wrote one file outside the authorized OUT; nothing under the worktree was touched."}
+ ],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named. This is a first execution, not a continuation; progress.json was written, not read.",
+ "deliverable_sha256":"8cbe18b5c1b8fa5b5e397a47798db1cb3a81386ff47b7f24727a634b18b7a0c0",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}

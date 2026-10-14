@@ -1,0 +1,714 @@
+{
+ "schema": "m8_method_change_adjudication.v1",
+ "book": "Dan",
+ "proposals_sha256": "3e236361de698bc39268949b8bcaa8267cd2eafc3fbcfeb745949419863d8a9f",
+ "attempt_id": "dan_close_method_adjudicator_a1",
+ "execution_id": "dan_close_method_adjudicator_a1#e1",
+ "model": "claude-opus-5-5",
+ "grader_fallback": "This execution ran on claude-opus-5-5 in a role OW-13 assigned to claude-fable-5-1. I read SP\\campaign\\grader_models.v1.json: ow13_grader_model claude-fable-5-1, declared_fallback_model claude-opus-5-5, fallback_in_force true, effective_from 2026-09-22, directive OW-25, scope project-wide for every role OW-13 gave to claude-fable-5-1. It is a recorded downgrade and not an equivalence: by that carrier's own statement author and grader share one set of weights.",
+ "adjudications": [
+  {
+   "proposal_id": "Dan-P01",
+   "verdict": "ADOPT",
+   "rating": "NECESSARY",
+   "reasons": "The defect recurs across rulings and members, the cause is recorded in the rulings' own words, and the cure is mechanical. In Daniel it cost a whole round that existed to undo one ordered span (FIXUP-5), a second run of the FIXUP-8 author, and added spans in FIXUP-2. No shipped row is known to be wrong for this cause, which is the strongest reason against NECESSARY. I still rate it NECESSARY because the present design cannot find the defect until a round later, the fix-up author who does see it is barred from curing it, and the next books will use the same ruling shape. My count of four ordering rulings is from the five records I opened; it is not a census of all twelve rulings.",
+   "proposer_estimate": "NECESSARY",
+   "rating_differs_because": null,
+   "admissible": true,
+   "admissibility_reasons": "In scope: it changes how text enters a row, which is method and not only orchestration, and it follows the proposer brief's preference for a change that makes a defect impossible. It carries evidence from Daniel in seven references, five of which I opened.",
+   "evidence_checks": [
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E2.v1.json",
+     "sha256": "43ae72e748fe1e55be3103e826194672a3b317300ff413d690682697b121f940",
+     "looked_for": "unresolved_uncertainty[4] saying the W6-001 residue traces to the E1 order wording; ruling W6-001-WEBREF calling it a confirmed row defect",
+     "found": "unresolved_uncertainty[4].what reads 'The W6-001 residue traces to this controlling role's E1 order wording, which did not provide for the attribution ref.' Ruling W6-001-WEBREF decision opens 'Confirmed row defect (T-WEB-001, MEASURED).'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fixup/landed/W6_e1/fixup1_W6_changes.json",
+     "sha256": "a1b11d6acb17e1bae8c08d3f002ec92170dc706cc330335af2cd882b6cc9e3dd",
+     "looked_for": "suite.hits_on_my_rows_before_after showing web_quotes 0 to 1 after the ordered text",
+     "found": "suite.hits_on_my_rows_before_after.web_quotes.W6-001 reads '0 -> 1 (GAINED; triage, not hard)' and says clearing it 'would need an in-field web:Dan.10.2 ref, a change outside the order'. The cause recorded is the order's wording, as the proposal says.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fixup/landed2/W4_e1/fixup2_W4_changes.json",
+     "sha256": "61c9014d95c1c06ad35ec0a5c5338c03438d6c258937684858902f686ec9a7c7",
+     "looked_for": "a register hit on W4-003 going 0 to 1, attributed to the order's verbatim replacement text",
+     "found": "suite.hits_on_my_rows_before_after.register: W4-003 '0 -> 1'; detail 'GAINED: class artifact_referent ... from the order's verbatim replacement text ... CHECK no member may gain a flag = FAILED for register; not remediated because any other wording would depart from the verbatim order.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fixup/landed4/W1_e1/fixup4_W1_changes.json",
+     "sha256": "19ee67dd9b037e482cb7dd6ffe60da036034f9097eba23d29aa2ae587c4d4d0e",
+     "looked_for": "a top-level field new_triage_flags recording a five-WEB-word flag raised by 'of the prince of the eunuchs'",
+     "found": "No top-level key new_triage_flags exists (top-level keys: attempt_id, execution_id, rows_file_sha256, changes, unapplied, contradicted, new_field_sha256, suite, untouched_fields_identical). changes[0].after does contain 'the fear of the prince of the eunuchs'. The flag itself I confirmed from the E5 ruling, not from this file. The field path in the citation is wrong; the fact it stands for holds on the E5 record.",
+     "holds": false,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E5.v1.json",
+     "sha256": "a447f1412ca0e56d7ab55b31ed5c1edd3ce34898b4904a462d5b9b03e702f97d",
+     "looked_for": "ruling F9-W1-002-A6 saying condition F9 is not met and FIXUP-5 is one replacement record",
+     "found": "decision: 'E4 condition F9 is NOT met on the FIXUP-4 applied file and I do not dispose the flag in words; the flag is true under A6 as the tool applies it, and it is removed by a rewording. FIXUP-5, W1 only, one lane, one replacement record in W1-002.boundary_rationale: the fear of the prince of the eunuchs -> the fear of the eunuchs' prince'.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E10.v1.json",
+     "sha256": "ef7a3e0028eca463fbe011e5c166b6ea38d825ded7abd12fc1a832413db9b85d",
+     "looked_for": "ruling B8-ZONE-HIT reversing an E9-ordered value; gate superseding the first FIXUP-8 author run",
+     "found": "B8-ZONE-HIT ruling 'reverse': 'the E1 pattern finds 4.26 in the value E9 ordered for W2-013 ... The fault is in the E9 order, not in the author's work: the author applied the ordered after text exactly.' gate.w9_e1_disposition 'superseded_by_e2', gate.w9_e2_may_launch true.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/peer/peer_g02.json",
+     "sha256": "a345b58d5df36e3cecfedcff88b65318f967b5f177524fe4d1422b8373ad4a6b",
+     "looked_for": "an uncertainty entry that an ordered span itself holds five consecutive WEB words",
+     "found": "unresolved_uncertainty[0].why_it_matters: 'the ordered wording trips the rule it was written to satisfy. My scan is a reimplementation, not the campaign' tool. The peer says so; nobody measured it with the campaign tool in what I read.",
+     "holds": true,
+     "tier": "REPORTED"
+    },
+    {
+     "path": "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+     "sha256": "42efe601b731e212ba60bc9b19fd9b3199d86e8d5a152bb7571f8e956376b0d6",
+     "looked_for": "items 33 and 35 carrying the E4 and E5 chain",
+     "found": "line 33 id E4-C10-W1-002; line 35 id E5-F9-W1-002-A6, decision text equal to the E5 ruling's opening.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    }
+   ],
+   "method_record_check": "Read v6 section 9 whole. It has no paragraph on rulings, so the proposal's anchor 'after the paragraph on rulings' names text that is not there; the paragraph is simply new, at the end of section 9. v6 nowhere says who may write row text or how text ordered by a ruling is tested, so the substance is not already present. It contradicts nothing: it is section 7's working rule (a mandated mechanical re-check of the finished artefact before return, with the count reported) applied to one more author, and section 12's preference for a tool over a caution. It would have caught each case I checked one round earlier: in every one the suite or sweep that later raised the flag already existed when the span was ordered, and the fix-up author who saw the flag was forbidden to depart from the verbatim order. It is not fitted to one accident: four separate rulings (E1, E2 through the W4-003 order, E4, E9) ordered a span that raised a flag, on three different members (web_quotes, register, the reference-notation pattern) and the five-word rule. Blast radius campaign_wide is honest only for books that use a ruling role issuing exact spans; I say so in the text. Cost is understated in one respect: the ruling role must be given the suite and what it imports, which E1 unresolved_uncertainty[1] and [2] record it was not. Two corrections to the wording. First, the proposer's own objection is sound: a role that both judges and measures can reword to silence a true flag. I add that the dry run may be run for the ruling role by a tool, and that a span reworded because of a flag keeps the first wording and the flag in the ruling record. Second, the control was not run in Daniel, so the text says what was measured (the cost of its absence) and that the control itself is untried, as section 13 asks.",
+   "adopted_text": "**Text ordered by a ruling is row text, and is tested as row text before the ruling is issued (new in v7, M8, Daniel).** When a ruling role orders an exact replacement span, that role is writing the row. Before the ruling is issued, each ordered span is applied to a scratch copy of the current rows and the whole validator suite and every corpus-wide sweep are run on that copy. The ruling records, per span, which flags were gained and which were lost, by flag key. A span that gains a flag is reworded before issue, or the ruling disposes that flag by its key and gives the reason; where a span was reworded because of a flag, the ruling keeps the first wording and the flag beside the one it issues, so a later reader can see that a flag was weighed and not merely avoided. The tool that applies ordered spans refuses a span with no recorded dry run. The dry run may be run for the ruling role by a tool; the ruling role must in either case be given the suite and everything the suite imports as pinned inputs. Measured in Daniel: four rulings ordered a span that raised a flag the suite already knew how to raise, on three suite members and on the rule against unquoted runs of witness words; the fix-up author who saw the flag was bound to the order's exact words and could not cure it; one whole repair round existed to undo one ordered span, and one author execution was run twice. Daniel did not run this control. It measured the cost of lacking it, so the control is handed forward as untried: the first book to run it records how many spans it changed before issue.",
+   "adopted_text_differs_from_proposal": "Kept: the scratch-copy dry run, the per-span flag delta, reword or dispose by key, refusal by the apply tool. Added: the first wording and its flag are kept when a span is reworded; the dry run may be run by a tool for the ruling role; the suite and its imports are pinned to that role; the measured basis from Daniel; the statement that the control is untried. Dropped: nothing. The anchor is corrected from 'after the paragraph on rulings' to 'end of section 9'.",
+   "target_section": "section 9 (review design); NEW paragraph at the end of the section",
+   "defer_waits_on": null
+  },
+  {
+   "proposal_id": "Dan-P02",
+   "verdict": "ADOPT",
+   "rating": "NECESSARY",
+   "reasons": "The largest single cost I could confirm in Daniel's records belongs to this cause: one whole repair round in three lanes (FIXUP-3), a class ruling in the sixth, and carried old-form annotations at the close. The principle was already written and did not hold, which is the case for a check installed before the writers. Against: a presence check proves only that a tier word stands there, and it can teach writers to add a word to pass. I answer that in the text and keep truth of the tier with the reviewers. I rate it NECESSARY, the same as the proposer, for the reason that the rule's absence is measured in the rows (49 of 75, the ruling's count) and not only in rounds.",
+   "proposer_estimate": "NECESSARY",
+   "rating_differs_because": null,
+   "admissible": true,
+   "admissibility_reasons": "In scope: it changes the order of work in section 5 and names the tool that would hold it. It carries seven groups of evidence from Daniel; I opened nine of the cited artefacts.",
+   "evidence_checks": [
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E3.v1.json",
+     "sha256": "680b621d178e1f1c173204d504131c7c80f0de6a78bfe93dd52a10a060c318c0",
+     "looked_for": "ruling E3-N1-FIELDS with '49 of 75 rows' and the per-part split; S2-N1 ordering FIXUP-3; AFTER-FIXUP3 adding the regex; unresolved_uncertainty[1] and [3]",
+     "found": "E3-N1-FIELDS decision: '49 of 75 rows have at least one of the three prose fields with no tier word (W1 13, W2 14, W4 13, W3 8, W6 1, W5 0)'. S2-N1: 'FIXUP-3 is ordered for W1, W2 and W4, one author per part, three lanes'. AFTER-FIXUP3: 'added are the regex that defines an allowed insertion'. unresolved_uncertainty[1] records the clash between strategy item 7 and CWO-DAN-04; [3] reads '34 rows outside FIXUP-3 have at least one prose field with no tier word, and I did not read those fields.' The 49 is the ruling's own count; I did not recount it.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E4.v1.json",
+     "sha256": "ff21977a7c635f5104c810053f773a5f7c74a03a548bdd39f16d1f04f7adc6e1",
+     "looked_for": "unresolved_uncertainty[6]: no script proves a tier word true",
+     "found": "'No script in F1 to F11 proves that a tier word is true; and the 34 rows of E3-N1-FIELDS remain unverified at field level.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E6.v1.json",
+     "sha256": "d1626dea516a88039fbc6124934994f973b99c7d1e615b4ce435e31feb646759",
+     "looked_for": "ruling CLASS-TIER-WORD making a missing or false tier word a defect",
+     "found": "'A missing or false tier word is a defect under the E3 TIER-ONLY rule and is corrected in FIXUP-6 under the E3 grammar. It is low unless the mislabelled claim carries a boundary.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E8.v1.json",
+     "sha256": "2e1877aa81f32b6e35d0154b5e196cc33393fe24c18a0c850cb38570b851f42c",
+     "looked_for": "ruling OLD-FORM-UNCHANGED leaving old-form annotations in rows not reopened",
+     "found": "ruling 'close': 'The old-form annotations the lane lists (W2-011, W2-012, W2-013, W4-008, W6-003) stand in sentences FIXUP-6 did not change; E7 P9-CARRIED-ANNOTATION already ruled that such annotations are owed nothing before the peers and recorded them to the end review.' So the book did close a round with the annotation in two forms, by a deliberate ruling.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E7.v1.json",
+     "sha256": "0648ec2988fac5d25cb48026bf0ff4268674910c2c62dd684435b2bf8fbca9ef",
+     "looked_for": "ruling P9-CARRIED-ANNOTATION",
+     "found": "'an annotation that stands unchanged inside a record's before string is carried, not added or changed, and is not tested against the E3 grammar.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E1.v1.json",
+     "sha256": "541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30",
+     "looked_for": "S1-02 adding a HARD placeholders member after the writer wave; U-ZONEDUAL adopting a reference-notation sweep",
+     "found": "S1-02: 'TOOL FIX before FIXUP-1. Add a HARD member placeholders to run_validator_suite.py'; its evidence line says the suite had 'no placeholder member'. U-ZONEDUAL: 'A corpus-wide sweep (CWO-DAN-03) flags every verse-reference notation other than web:/oshb:/MT C:V/WEB C:V/bare C:V in any row, run on the FIXUP-1 output'.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E2.v1.json",
+     "sha256": "43ae72e748fe1e55be3103e826194672a3b317300ff413d690682697b121f940",
+     "looked_for": "ruling CWO03-ZONES with 16 zone hits rewritten in FIXUP-2",
+     "found": "'The 16 zone hits are confirmed and complete. FIXUP-2 W2 rewrites them as 9 exact spans in 7 ref entries of W2-009, W2-010, W2-013, W2-014 and W2-015.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/primaries/rev_OL_c06.json",
+     "sha256": "d3a0a7489264a42892803dd7568e5672f4c303dbdf5fd1c5b07166ba6e90b338",
+     "looked_for": "an uncertainty entry that the lane did not know whether a missing tier word is a challenge or a note",
+     "found": "unresolved_uncertainty[3]: 'Whether a missing tier word on a true fact should count as a challenge or as a note is a grading choice; I graded each low'; 'Six of the seven challenges are of this kind'.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/p13r7/p13r7_OS.json",
+     "sha256": "fe52a703167ff17f55d4fb595faf36cbcf905273161501708f3869f6ccb99d0c",
+     "looked_for": "an uncertainty entry that the tier of a negative clause was unsettled",
+     "found": "unresolved_uncertainty[0]: two annotations 'put a negative clause ... under EXTRACTED. E3 (d) names MEASURED for negative claims backed by a scan.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/boss/dan_boss_audit.v1.json",
+     "sha256": "ea70f94e48aed5d24f0adb604c3215a8f6e95ccf940b59da89147de3636a13c3",
+     "looked_for": "process wording such as 'end review' standing in 17 rows at the close",
+     "found": "The audit does call 'is left for the end review' process wording inside a row (rows[3] and rows[8] findings). My string search found 11 string values holding 'end review' in the whole file, some of them not row findings. I did not find the figure 17 and did not count rows. The class is real; the count is unconfirmed.",
+     "holds": false,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/book_strategy_Dan.md",
+     "sha256": "158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da",
+     "looked_for": "whether the strategy fixed the tier form before the writer wave",
+     "found": "Line 6 states the tier rule in prose ('Tiers follow OW-18: MEASURED names the script in this lane's OUT; EXTRACTED names the pinned file read'). The phrase 'tier word' occurs on no line. So the convention was stated before writing and was not given as a pattern or tied to a check. This is my own test, not a citation of the proposal's.",
+     "holds": true,
+     "tier": "MEASURED"
+    }
+   ],
+   "method_record_check": "Read v6 section 5, section 8, section 16 item 10 and section 18. Part of the proposal is already there. Section 5 says to enumerate and settle conventions, but its trigger is 'before a review wave' and its instrument is the reviewers' brief; it does not reach the writers and names no check. Section 8 already says to make the dual-reference rule 'a hard gate with a mechanical check' as a Phase-0 artefact, so the proposal's sentence on verse-reference notation repeats section 8; I keep it only as a cross-reference. Section 16 item 10 and section 18 already say to enforce the tier in a tool; neither says when. What is new, and what Daniel's evidence shows, is the timing and the test of 'settled': the strategy stated the tier rule in prose before the writers ran (book_strategy_Dan.md line 6), no suite member checked it, and the third ruling then found 49 of 75 rows with a prose field carrying no tier word and had to write the allowed form as a regex after the fact. A rule that was in force and did not hold is evidence for the tool, not for more prose. It contradicts section 12 if read without limit: 'a convention counts as settled only when a hard suite member enforces it' would turn every convention into a tool, and some cannot be checked by form (E4 unresolved_uncertainty[6]: no script proves a tier word true). I narrow it to conventions checkable by form and require the text to say what the check does not prove. One clause contradicts a standing Daniel ruling: 'never left standing in two forms' is the opposite of E7 P9-CARRIED-ANNOTATION and E8 OLD-FORM-UNCHANGED, which left old-form annotations in unchanged sentences and routed them to the end review. I do not overrule that ruling for Daniel; for later books I adopt the sweep as the default and require a recorded list of rows where it is not done, because two forms of one annotation in a closed book is what section 18 calls a record that keeps the shape of its neighbours while meaning something else. Also added from E3 unresolved_uncertainty[1]: two conventions (name the file beside the tier word; no file stems in prose) contradicted each other and met for the first time in the third ruling. Stated blast radius campaign_wide is honest for the tier layer, which every book carries. The cost is honest as far as I can test it: I did not open the E3 gate conditions' regex itself.",
+   "adopted_text": "**A convention is settled when it is written as a pattern and a check for it is installed before the WRITERS run, not only before the reviewers (new in v7, M8, Daniel).** This section's rule was in force for Daniel and did not hold for the tier layer: the book's strategy stated the tier rule in prose before any row was written, no validator member checked it, and the third ruling found 49 of 75 rows with at least one prose field carrying no tier word. A whole repair round followed, and the allowed annotation form was first written down as a pattern in that ruling, after the rows existed. So, for every convention that can be checked by its form:\n\n1. Before the writer brief is built, the strategy gives the convention as the pattern the tool uses, and a validator member that fails on a breach is installed and shown to fail (section 12).\n2. For the tier layer (section 18) the strategy fixes, before any row is written: which fields must carry a tier word; the one allowed annotation form; the tier of a negative claim, of a language-zone claim and of a mark-layer claim; and that a missing tier word in a required field is a defect and not a note. Daniel's reviewers and its ruling role each had to ask these questions of the finished rows.\n3. The same holds for placeholder strings, and for reference notation in a numbering zone (section 8 already requires that check in Phase 0; Daniel still rewrote 16 references after its writers ran).\n4. Check the conventions against each other before the writers run. In Daniel one rule asked for the file name beside the tier word and another barred file names in row prose; they met for the first time in the third ruling.\n5. A convention introduced or changed by ruling after the writers have run is applied to every row in one sweep. Where it is not, the close record lists by row id every row left in the earlier form. Daniel closed with one annotation standing in two forms, by a ruling that routed the older form to the end review; a later reader cannot tell the two forms apart without that list.\n\n**What the check does not prove.** A form check proves that a tier word stands where one is required. It does not prove that the word is the true tier; Daniel's ruling role recorded that no script it had proved that. The truth of a tier stays a reviewer's question, and the brief says so, so that a passing check is not read as a verified tier and a writer is not taught to add a word in order to pass.",
+   "adopted_text_differs_from_proposal": "Narrowed: 'a convention counts as settled only when a hard suite member enforces it' becomes a rule for conventions checkable by form, with a paragraph on what the check does not prove (the proposer's own objection). The reference-notation sentence is reduced to a cross-reference because section 8 already carries the rule. 'Never left standing in two forms' becomes 'one sweep, or a list by row id in the close record', because Daniel's rulings E7 and E8 chose otherwise and I do not overrule them. Added: point 4 (check conventions against each other), from E3 unresolved_uncertainty[1], which the proposal cites as evidence and does not turn into text. Added: the requirement that the new member be shown to fail, which is section 12's existing rule. Dropped: the proposed cross-reference from section 18 as separate text; one pointer in section 18 to this paragraph is enough.",
+   "target_section": "section 5 (settle conventions before mass review), new paragraphs at the end of the section; one pointer line from section 18 under 'Enforce it in a tool'",
+   "defer_waits_on": null
+  },
+  {
+   "proposal_id": "Dan-P03",
+   "verdict": "ADOPT",
+   "rating": "USEFUL",
+   "reasons": "A real and repeated cost, with a mechanical cure, and no evidence that it opened a round by itself; that is USEFUL, as the proposer says. I keep the rating below NECESSARY because the rows were in the end corrected under the existing process and because the one true run the tool missed was found by exactly the reading the proposal risks discouraging. The proposal's count of eleven packets is ten by my scan.",
+   "proposer_estimate": "USEFUL",
+   "rating_differs_because": null,
+   "admissible": true,
+   "admissibility_reasons": "In scope: it changes what a lane is told about a row rule and how a finding against that rule is filed. It gives text, names its section and carries evidence from Daniel in five groups; I opened artefacts from four of them.",
+   "evidence_checks": [
+    {
+     "path": "sp_durable/Dan/primaries/rev_LF_c08.json",
+     "sha256": "0db91a6f229f3e1ad2c4eafa111fe06418ec03de089f78b444269b6c6ef71932",
+     "looked_for": "an uncertainty entry that the lane could not tell how the tool scopes the five-word rule",
+     "found": "unresolved_uncertainty[2]: 'My five-word window found a WEB run in a W4-008 evidence reference that the suite's hard gate did not report; I did not open the suite's rule to see how its window is scoped.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/primaries/rev_OL_c02.json",
+     "sha256": "2952fed7e92f7e6f054728ff749c417b9d3c91ac1e9afdfa09466399e6ad2a54",
+     "looked_for": "the same, on punctuation",
+     "found": "unresolved_uncertainty[2].why_it_matters: 'The W1-012 gloss finding holds under a punctuation-blind reading of the five-word rule; the suite reads green.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/primaries/rev_LF_c11.json",
+     "sha256": "2846da7abe8bc3a167e8fd55bc9fd5173d7c3284bc4efd979f83229a3957a8a3",
+     "looked_for": "the proposal's count: all eleven named primary packets carry an uncertainty entry on how the tool counts a run",
+     "found": "My keyword scan of unresolved_uncertainty (consecutive, five-word, five word, n-gram, ngram, A6, unquoted) hit in ten of the eleven named packets and in none of the six entries of this one. The scan is by keyword, so an entry worded otherwise would be missed; I read two of the ten hits in words. The count 'eleven' is not confirmed; ten is, as keyword hits.",
+     "holds": false,
+     "tier": "MEASURED"
+    },
+    {
+     "path": "sp_durable/Dan/review/peer/peer_g01.json",
+     "sha256": "7fa1919618875712bc6a88c628ad993361b964ed90967f295a9e82613a00b339",
+     "looked_for": "a run that matches a verse outside the row's span",
+     "found": "unresolved_uncertainty[2]: 'five consecutive words of WEB 2:24 ... 2:24 lies outside the row's span and is not cited in that field, so by the comparison set E6 CLASS-A6-FIELDS describes it is not a violation'; 'If the five-word rule is read against the whole book and not the row's own span, ...'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E6.v1.json",
+     "sha256": "d1626dea516a88039fbc6124934994f973b99c7d1e615b4ce435e31feb646759",
+     "looked_for": "ruling CLASS-A6-FIELDS settling field scope at the sixth ruling",
+     "found": "'(i) Rule A6 reaches the tags of boundary_evidence_refs and the gloss text of tag lists: the rule is about content, and the tool lines apply it to each string value with the field's cited web references plus the row's own span as the comparison set; only the top-level parent_collection title is exempt.' It also settles that a hyphenated label is one token under the tool.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E9.v1.json",
+     "sha256": "73a482ab17232319f3c4384cd57d56f5207423953538f1b56db12947605f7e13",
+     "looked_for": "rulings PEER-W6-006 and PEER-W4-009: a peer found a true run after the suite had passed the row",
+     "found": "PEER-W6-006: 'Part 1 true on the bytes: refs entry 6 holds five consecutive words of WEB 11:6 unquoted, inside the row's span. One exact span. E6 CLASS-A6-FIELDS already reached this field, and the entry was left unchanged.' PEER-W4-009 is ratify_with_changes and its Part 2 concerns the words 'a holy one speaking'. So PEER-W6-006 was a true defect in the row, found by reading.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E1.v1.json",
+     "sha256": "541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30",
+     "looked_for": "ruling S1-07 narrowing the n-gram member",
+     "found": "'TOOL FIX before FIXUP-1, narrowing a HARD member, stated in words: ngram7.py removes, before tokenizing, each whole-identifier occurrence of an exact underscore-bearing device-class key of dan_device_inventory.json'. This is the seven-word repeat member, a different member from the five-word witness rule; it shows the same kind of late predicate change, not the same rule.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+     "sha256": "42efe601b731e212ba60bc9b19fd9b3199d86e8d5a152bb7571f8e956376b0d6",
+     "looked_for": "item 13 recording the controlling reading that punctuation does not break a run",
+     "found": "Line 13 is id E9-PEER-W4-009, ruling ratify_with_changes; my extract ended at 'the words a holy one speaking and stand in the', before any sentence on punctuation. I confirm the item and its subject, not the punctuation sentence.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/book_strategy_Dan.md",
+     "sha256": "158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da",
+     "looked_for": "whether the strategy states the predicate of the five-word rule",
+     "found": "No line of the strategy contains 'consecutive' and none contains 'A6' (0 lines each). The strategy as searched does not state the predicate under either word. My own test.",
+     "holds": true,
+     "tier": "MEASURED"
+    }
+   ],
+   "method_record_check": "Read v6 section 7 whole. It is about quotation: load both witnesses, never quote from memory, re-check the finished artefact. It has no sentence on runs of witness words that stand unquoted, so the proposal's 'the rule against unquoted runs' names a rule the method record does not yet state; the adopted text must introduce it. The substance (one predicate, given to lanes) is not present anywhere in v6; section 5 says conventions are settled in the brief but the M8 examples it lists do not include this one. It contradicts nothing. It would have caught the cost earlier: three rulings each settled one piece (E1 on what counts as a word of the other member, E6 on fields and comparison set and hyphens, E9 on punctuation), and ten primary packets by my keyword scan spent an uncertainty entry on the question. It is not fitted to one accident. One sentence of the proposal is wrong on Daniel's own evidence: 'files it as a tool finding against the predicate, not as a row finding'. E9 PEER-W6-006 ruled a run found by reading 'true on the bytes' and ordered a span; had it been filed only against the tool the row would have kept the defect. I change this to both. The proposer's own objection (lanes given the predicate stop looking where the tool is blind) is answered in the text and not waved away: the predicate tells a reader where the tool looks, and the brief says the reader's duty is the rule, not the predicate. The Greek objection is met by stating the predicate per witness in each book's strategy; Daniel tested Hebrew, Aramaic and an English witness only. Blast radius campaign_wide is honest: every book has the rule. Cost is honest; the fixture set is section 12's must-fail rule.",
+   "adopted_text": "**The rule against unquoted runs of witness words has one predicate, and lanes are given it (new in v7, M8, Daniel).** Words of a witness that stand in a row are quoted and cited. A run of consecutive witness words standing unquoted is a defect, and a tool checks for it. The strategy states the predicate that tool uses, per witness, before the writers run (section 5): the length of a run; how words are tokenised (case, punctuation, hyphen, apostrophe); which row fields are scanned, tag and gloss text included; and which witness verses a field is compared with (the row's own span and the verses the field cites, or the whole book). The statement is generated from the tool's own constants, and the tool carries a must-fail fixture for each clause (section 12). Measured in Daniel: three separate rulings each settled one clause after the rows existed, and ten of eleven primary review packets searched carry an uncertainty entry on how the tool counts a run.\n\n**The predicate tells a reader where the tool looks; it does not tell the reader to look only there.** A reviewer who finds, by reading, a run the tool did not report files it twice: as a row finding, ruled on the witness bytes, and as a tool finding against the predicate, which is corrected before the next round. In Daniel a peer reader found five consecutive witness words in an evidence entry after the suite had passed the row, and the ruling held the finding true on the bytes; filed against the tool alone, the row would have kept the defect. Daniel tested this with a Hebrew and Aramaic witness and an English one. The predicate for a Greek witness is untried and is stated in the strategy of the first book that has one.",
+   "adopted_text_differs_from_proposal": "Corrected: 'files it as a tool finding against the predicate, not as a row finding' becomes 'files it twice', on the evidence of E9 PEER-W6-006. Added: one sentence that states the rule itself, because section 7 of v6 does not; 'per witness' and the note that Greek is untried; generation of the statement from the tool's constants and the must-fail fixtures, which the proposal put under cost and not in the text; the sentence that the predicate does not limit where a reader looks. The count is given as ten of eleven by keyword scan, not eleven.",
+   "target_section": "section 7 (quotation discipline), two new paragraphs at the end of the section",
+   "defer_waits_on": null
+  },
+  {
+   "proposal_id": "Dan-P04",
+   "verdict": "ADOPT",
+   "rating": "USEFUL",
+   "reasons": "The class is the largest I met among late findings and it produced the last repair round by itself, which argues for more than USEFUL. I hold at USEFUL because no boundary moved for this cause in what I read (each ruling says only the description was wrong), because the reach is limited to books with such a layer, and because half of the cure (the hand control per pattern) is untried. The mechanical half is cheap and I would expect it to pay in the next book that states positions.",
+   "proposer_estimate": "USEFUL",
+   "rating_differs_because": null,
+   "admissible": true,
+   "admissibility_reasons": "In scope: it changes what a generated pattern layer must carry before writers use it and adds a validator check on a class of row sentence. It gives text, names its sections and carries evidence from Daniel in six groups; I opened artefacts from all six.",
+   "evidence_checks": [
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E6.v1.json",
+     "sha256": "d1626dea516a88039fbc6124934994f973b99c7d1e615b4ce435e31feb646759",
+     "looked_for": "rulings CLASS-INVENTORY-ARTIFACTS, ROW-W3-010 and ROW-W6-010",
+     "found": "CLASS-INVENTORY-ARTIFACTS: 'The device inventory stays pinned for Daniel. No row may present a token artifact as a device: each row that relies on one is reworded in FIXUP-6. Covered: the blessing homograph at web 6:10 = oshb 6:11 (row W3-010 ...); the year word at 10:13 held by the substring list only (W6-003); the suffixed seeing verb at 8:7 that the pattern misses'. ROW-W3-010: 'The row may not present the inventory hit at oshb:Dan.6.11 as a blessing'; its reason says 'The inventory itself labels the hit a homograph'. ROW-W6-010: 'The phrase is words 8-10 of 13 and the verse ends on the appointed-time word', measured by the ruling's own script.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E8.v1.json",
+     "sha256": "2e1877aa81f32b6e35d0154b5e196cc33393fe24c18a0c850cb38570b851f42c",
+     "looked_for": "rulings W6-003-ONCE-LISTED and W1-010-LOOSE-CLASS",
+     "found": "W1-010-LOOSE-CLASS: 'entry 2 of observed_substrate_signals lists 2:26 and 2:27 under one label, while the inventory holds 2:26 in the strict class and 2:27 in the loose class only.' W6-003-ONCE-LISTED: 'The substring reading still lists the verse and marks it an artifact; the anchored reading does not list it.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E9.v1.json",
+     "sha256": "73a482ab17232319f3c4384cd57d56f5207423953538f1b56db12947605f7e13",
+     "looked_for": "rulings PEER-W4-007 and PEER-W6-015 as false position claims",
+     "found": "PEER-W4-007: 'True on the bytes. 7:27 does not close on the kingdom clause: it is words 13 to 15 of 20 and the verse closes on words 16 to 20.' PEER-W6-015: 'three words that are words 1 to 3 of 8; the verse and the book end on words 7 and 8'; reason 'A false position claim, corrected like E6 RO...'. I opened two of the seven rulings named; the other five are not checked.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E12.v1.json",
+     "sha256": "8bc16d34306a990deeb39637e6314b5465da6865dbd647fb4b456a905a2285e1",
+     "looked_for": "ruling RR9-TB-W4-004 and the gate: one device-key extent is the whole of FIXUP-10",
+     "found": "'The entry gives the device key everlasting_dominion_aram a word range (12 to 14) one word wider than the match of the key's inventory pattern in oshb Dan.7.14 (13 to 14). One exact span is ordered under a new part W11 (FIXUP-10)'. gate: finding_disposition 'fixup10_ordered', fixup10_may_launch true, boss_may_launch false.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+     "sha256": "42efe601b731e212ba60bc9b19fd9b3199d86e8d5a152bb7571f8e956376b0d6",
+     "looked_for": "items 25 and 43",
+     "found": "Line 25 id E12-RR9-TB-W4-004; line 43 id E6-CLASS-INVENTORY-ARTIFACTS; each decision text equals the ruling's opening.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fixup/landed6/W6_e1/fixup6_W6_changes.json",
+     "sha256": "0b59af1e8242e1a0e91f273d4cdf12ba0db1010bb6c6d45bb4ef75113e6b3478",
+     "looked_for": "three blocked entries where the author could not correct an inventory artefact",
+     "found": "blocked has 3 entries. The first: row W6-010, field observed_substrate_signals, 'Order O11 (CLASS-INVENTORY-ARTIFACTS) reaches the entry year_word_but_not_a_dateline 11:29, but the change map opens only boundary_rationale for this row, so the field is left unchanged.' The stated block is the change map, not the pinning of the inventory as the proposal says; I read the first of three. The count holds; the cause given in the proposal does not hold for the entry I read.",
+     "holds": false,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/primaries/rev_LF_c07.json",
+     "sha256": "40684f4803647f65e8e7d94c261fd4bb1db98c94ca096460b5360358a862f7f7",
+     "looked_for": "an uncertainty on word 12 against word 13 at 7:1",
+     "found": "unresolved_uncertainty[0]: 'Whether the word position in the reference line of the row at 7:1-7:6 was counted on joined graphic words. The witness extract drops the joining stroke, so I could not see where one stands; on split tokens the connective is token 13.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/peer/peer_g05.json",
+     "sha256": "5a6b90f6883d0925e02aabb3befcb8bd739e83c5734543d9c9b48cb05130cd9b",
+     "looked_for": "the note that the witness extract does not show maqqef position",
+     "found": "unresolved_uncertainty[6]: 'Word positions are counted on the pinned OSHB extract split at spaces, where a maqqef-joined pair is two words. The rulings' figures match mine at 9:22 and 10:19.' 'A reader counting graphic words in a printed edition would get different numbers.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    }
+   ],
+   "method_record_check": "Read v6 sections 6, 12, 13 and 14. Section 12 already says to prefer a generator fix and to give a validator a negative control; it speaks of validators, not of a generated pattern layer that writers read as data, so the control per pattern is new. Section 14 already says a figure read is not a figure measured and that counts are to be carried by tool; a position stated by hand in a row is the same failure in a new place, and v6 does not name it. Section 13 lists as open (question 6) how device-class labels should be fixed; this proposal answers one part of it from a book that tested it. Nothing in v6 is contradicted. It would have caught the cost earlier: the inventory already labelled the 6:11 hit a homograph and held strict and loose classes apart, and the rows still used them as one, because (on the proposal's account, which I could not test from the brief files) the label did not reach the writer; and every false position I read (E6 ROW-W6-010, E9 PEER-W4-007, E9 PEER-W6-015, E12 RR9-TB-W4-004) is checkable by tokenising one witness line. The last of these was the whole content of a tenth repair round. It is not fitted to one accident: four rulings, three review stages. Three corrections. (a) The closed list 'formula, loose form, token artefact, homograph' is Daniel's list; another book's layer will have other classes, so the method fixes that the list is closed by the strategy and names Daniel's four as the example. (b) The convention for word positions is stated as the proposal has it, but as the convention of the pinned extract, with the sentence peer_g05 supplies: a reader of a printed edition counts differently, so a row that states a position names the convention. (c) The extent of a pattern's match is carried into the row from the layer by tool, not restated; this is what RR9-TB-W4-004 shows and the proposal leaves implicit. Blast radius: campaign_wide overstates; the layer rule reaches only books whose strategy builds a pattern layer, and the position check reaches any book whose rows state positions. I say so. The proposer's objection that a checker invites position sentences is fair and is answered by not requiring them. The control per pattern was not run in Daniel and is handed forward as untried. The proposal's target of two sections is reduced to one paragraph in section 12 with the word-count convention inside it; section 6 is about parent selection and is the wrong home.",
+   "adopted_text": "**A pattern layer is released to writers with its controls, its class labels and its extents, and a stated position is checked by the suite (new in v7, M8, Daniel).** Where a book's strategy builds a pattern layer (an inventory of devices or formulae found by pattern over a witness), the layer is a generated artefact that writers will read as fact, and it meets the standard of this section before the writer wave:\n\n1. For every pattern, one verse where it must hit and one where it must not, each checked by hand against the witness, recorded in the layer.\n2. For every hit, a class label from a list the strategy closes before the writers run. Daniel's list was: formula, loose form, token artefact, homograph. Writers and reviewers receive the labels, and a row may present a hit only as what its label says. Daniel's layer already called one hit a homograph and held a strict and a loose class apart; rows presented the homograph as the device and listed both classes under one label, and two rulings corrected them.\n3. For every hit, its extent as word positions on the pinned witness line. A row that gives the extent of a hit takes it from the layer by tool and does not restate it. Daniel's tenth and last repair round was one device key given a range one word wider than the pattern's match.\n4. Word positions use one convention, stated in the strategy: one-based, on the whitespace-separated tokens of the pinned witness line, a maqqef-joined group counted as the tokens that extract shows. A reader of a printed edition counts differently, so a row that states a position states it under this convention and the strategy says so once.\n5. A row sentence of the form 'words N to M of K' is checked by a suite member against the witness line. The member exists to check positions a row already needs; no row is asked to state a position in order to be checked.\n\nMeasured in Daniel: four rulings at three stages corrected a row that misstated where a phrase stands or what the layer lists, and in each one read the boundary stood and only the description was wrong. Daniel pinned its layer before these defects were known and kept it pinned, so within a book the controls come before the writer wave or not at all. Daniel did not run the control of point 1; it is handed forward as untried, and the first book to run it records how many patterns it changed. This paragraph reaches only a book whose strategy builds such a layer; points 4 and 5 reach any book whose rows state word positions.",
+   "adopted_text_differs_from_proposal": "Kept: positive and negative control per pattern, class labels given to writers and reviewers, extents as word positions, the one-based whitespace convention, the suite check on 'words N to M of K'. Changed: the class list is closed by each book's strategy and Daniel's four are the example, not the rule; the extent is carried from the layer by tool; the convention is tied to the pinned extract with the caution about printed editions; the reach is stated as limited to books with a pattern layer; point 1 is marked untried; the checker is not a reason to add position sentences. Target reduced from two sections to one: the convention sits inside the new section 12 paragraph, not in section 6.",
+   "target_section": "section 12 (scope discipline, negative controls), one new paragraph at the end of the section; one pointer line from section 13 question 6",
+   "defer_waits_on": null
+  },
+  {
+   "proposal_id": "Dan-P05",
+   "verdict": "ADOPT",
+   "rating": "USEFUL",
+   "reasons": "Two whole rounds, each an author and two lanes, were spent on one place each; that is measured by the boss lane. The parts I adopt are cheap and either measured or plainly marked untried. I rate it USEFUL with the proposer: nothing here would have changed a row's correctness, and the larger cure for the same rounds lies in Dan-P01 and Dan-P04.",
+   "proposer_estimate": "USEFUL",
+   "rating_differs_because": null,
+   "admissible": true,
+   "admissibility_reasons": "In scope: it changes what a fix-up author and a re-review lane are given and what the close records. It gives text, names its section and carries evidence from Daniel in four groups; I opened artefacts from all four. One clause (what opens a further round) is by the proposal's own cost line a judgement for the owner or Fable; I treat that clause apart.",
+   "evidence_checks": [
+    {
+     "path": "sp_durable/Dan/review/boss/dan_boss_audit.v1.json",
+     "sha256": "ea70f94e48aed5d24f0adb604c3215a8f6e95ccf940b59da89147de3636a13c3",
+     "looked_for": "condition B3: the last rows differ from the previous round in 1 place, from the one before in 2, from FIXUP-7 in 28",
+     "found": "conditions[2] id B3, verdict MET, tier MEASURED by the boss lane's script: 'against FIXUP-9: exactly one differing place, W4-004 boundary_evidence_refs entry 1'; 'against FIXUP-8: exactly two places, W3-010 strongest_rejected_alternative and W4-004 boundary_evidence_refs entry 1'; 'against FIXUP-7: 28 places in 21 rows'. Measured by that lane, read by me.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E11.v1.json",
+     "sha256": "54c547cdec3fe96e2a3ba000326c801e87dcd0c306bf21d3bd5cc6e141c71fc8",
+     "looked_for": "ruling RR8-TB-EXTRA-W3-010 and the gate",
+     "found": "'The finding is true on the bytes and is not left open. One tier insertion is ordered in W3-010 strongest_rejected_alternative under part W10 (FIXUP-9).' gate: extra_finding_disposition 'fixup9_ordered', fixup9_may_launch true. The ninth round was therefore opened by a missing tier word, not by a sentence false to the witness.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E12.v1.json",
+     "sha256": "8bc16d34306a990deeb39637e6314b5465da6865dbd647fb4b456a905a2285e1",
+     "looked_for": "ruling RR9-TB-W4-004 and the gate",
+     "found": "'Lane TB's finding holds on the bytes and is corrected now, not routed.' 'words 12 to 14 of 21' becomes 'words 13 to 14 of 21'. 'The fault is in the after text E11 worded, not in the W10 au[thor]'. gate: fixup10_may_launch true. The tenth round was therefore opened by a false position that a ruling's own ordered text introduced.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/p13/p13_OS.json",
+     "sha256": "0bf96b2b70912ef6f5ff83b625431699e4d57a4cd1f8853baeef5c80e5cea6ca",
+     "looked_for": "an uncertainty that the lane judged against the order text and was not given the finding",
+     "found": "unresolved_uncertainty[3]: 'The findings and reasons behind the orders were withheld from this lane.' 'Each change was judged against the order text only; a change can meet the order and still miss the finding that prompted it.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/rr8/rr8_OS.json",
+     "sha256": "f614aac0f0204d4e0b3642a4cc32e13a80b82f2f3a86f161ba418740d653555b",
+     "looked_for": "the same in the eighth re-review",
+     "found": "unresolved_uncertainty[3]: 'Whether the two medium findings are cured was judged against the order texts, not against the original finding texts, which this lane may not open.' The words 'may not open' show the withholding was a design choice of the brief, not an omission.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/peer/peer_g06.json",
+     "sha256": "eb8f790675daae23eb53f786588a46b4c3fb43c08a878cf7c52bb1f392c5f1ce",
+     "looked_for": "an uncertainty that the peer could not tell a standing finding from a ruled one",
+     "found": "unresolved_uncertainty[0] gives the lane's own convention for 'standing': 'a primary finding is standing when any part of it is neither applied in the current row nor closed by a ruling other than a content order'. The lane had to make its own definition. This supports 'no shared definition'; it does not say the peer could not read the change records. peer_g01 and peer_g05 I did not test on this point.",
+     "holds": false,
+     "tier": "EXTRACTED"
+    }
+   ],
+   "method_record_check": "Read v6 sections 9, 13 and 19. Section 9 has nothing on repair rounds. Section 13 question 10 asks what a second reading owes a first and leaves it open; the last sentence of the proposal (record rounds and changed places at the close) gives that question its first measured answer and is the cheapest part. Section 19 sets two blind lanes as the floor and says a lane that reads the shipped rows of another is an audit, not a lane. Tested against these, the four parts fare differently. (1) Rounds and changed places recorded at the close: new, contradicts nothing, measured in Daniel by the boss lane (1, 2 and 28 places). Adopt. (2) Re-review lanes given the whole changed field and the finding the order answers: two lanes in two different rounds recorded the same limit in their own words. But rr8_OS says the finding texts were ones it 'may not open', so Daniel withheld them on purpose, presumably to keep the lane blind to the first reader's judgement. Section 19's blindness is between lanes judging the same thing; the defect a repair was ordered to cure is the lane's question, not a rival answer. I adopt it with the limit that the lane is given the statement of the defect and not the finder's grade or the other lane's verdict. (3) The author re-reads the whole of every field it changes: the proposer marks its benefit INFERRED and untested, and so do I; I could not show from the bytes that either late finding stood beside a changed sentence. It costs one author little, it is section 7's rule (re-check the finished artefact) applied to a repair, and I adopt it marked untried. (4) What opens a further round. The proposal's rule is: a sentence false to the witness always opens one; anything else on text the round did not change is routed. On Daniel's two late rounds this rule would have routed the ninth (a missing tier word) and kept the tenth (a false position). But E6 CLASS-TIER-WORD rules a missing tier word a defect, section 18 says the same, and the proposer's own strongest objection is that routing a known defect to an end review run on a fallback model leaves a known error in closed rows. The proposal's cost line says the rule is 'a judgement the owner or Fable must set'. I agree, and so I do not adopt the content of the rule. I adopt only that the strategy states it before the first round, by whoever has that authority, so that the ruling role does not decide it finding by finding at the end. Would the proposal have prevented Daniel's cost? Partly. The tenth round's fault was in a ruling's ordered text, which Dan-P01 and Dan-P04 address at the cause; this proposal addresses the lanes around it. Blast radius campaign_wide is honest. Cost is honest.",
+   "adopted_text": "**Repair rounds: what the author re-reads, what the re-review lane is given, and what the close records (new in v7, M8, Daniel).** Daniel ran ten repair rounds. Its last two each had an author and two blind re-review lanes and changed one place each; the rows that closed differ from the rows three rounds earlier in 28 places in 21 rows (measured by the audit lane). Four rules follow, the first two measured and the last two untried.\n\n1. The close records, per round, the number of places changed and what opened the round. This is the first measured answer to what a second reading costs and finds (section 13).\n2. Before the first repair round the strategy states what opens a further round and what is carried to the end review instead. Who may set that rule is the owner's decision; the method record does not set its content. In Daniel it was unset, and the ruling role decided it finding by finding at the end: 'corrected now, not routed', twice. A rule set in advance may not route a sentence that is false to the witness, and a missing or false tier is a defect under section 18.\n3. A fix-up author re-reads against the witness the whole of every field it changes, not only the changed span, and records that it did (section 7: re-check the finished artefact). Untried in Daniel.\n4. A re-review lane is given the whole changed field and the statement of the defect the order answers, not the order text alone. It is not given the finder's grade or any other lane's verdict on the repair, so the lanes stay blind to each other (section 19). Two of Daniel's re-review lanes, in two rounds, recorded that they judged each change against the order's wording only and that a change can meet the order and still miss the finding. Untried in Daniel; the first book to run it records whether a lane so briefed finds what the order missed.",
+   "adopted_text_differs_from_proposal": "Dropped: the content of the rule on what opens a round ('a finding that a sentence is false to the witness bytes always does; any other finding on text that the round did not change is routed'). It is not the adjudicator's to set, and as written it would have routed the missing tier word that opened Daniel's ninth round, against E6 CLASS-TIER-WORD and section 18. Kept in its place: that the rule is stated before the first round, with two floors it may not go under. Narrowed: the re-review lane receives the statement of the defect, not the finder's grade or another lane's verdict. Added: what opened each round is recorded with the count; points 3 and 4 are marked untried; the measured figures.",
+   "target_section": "section 9 (review design), new paragraph at the end of the section, placed after the paragraph adopted from Dan-P01; one pointer line from section 13 question 10",
+   "defer_waits_on": null
+  },
+  {
+   "proposal_id": "Dan-P06",
+   "verdict": "ADOPT",
+   "rating": "USEFUL",
+   "reasons": "The most expensive single lane returned for a cause a mechanical check would have refused, and rulings were issued on claims the ruling role could not test. I hold at USEFUL with the proposer and not NECESSARY: the supplement cured the return, no row changed for this cause, and the central tier rule is already in section 18. The proposer's language census (Hebrew 30, Aramaic 44, mixed 1) I did not re-measure and do not rely on.",
+   "proposer_estimate": "USEFUL",
+   "rating_differs_because": null,
+   "admissible": true,
+   "admissibility_reasons": "In scope: it changes what a tier word may claim and what a lane judging a tiered claim must be given. It gives text, names its section and carries evidence from Daniel in four groups; I opened artefacts from all four. One cited path is wrong (see the third check).",
+   "evidence_checks": [
+    {
+     "path": "sp_durable/Dan/review/boss/dan_boss_audit.v1.json",
+     "sha256": "ea70f94e48aed5d24f0adb604c3215a8f6e95ccf940b59da89147de3636a13c3",
+     "looked_for": "verdict RETURN, 15 of 17 conditions met, B8 and B14 not testable, 75 rows confirmed; the reported_where_measured list",
+     "found": "overall: verdict RETURN, conditions_met 15, rows_confirm 75, rows_return 0; conditions list has 17 entries. conditions[7] B8 NOT_TESTABLE: 'the text of the fourth (CWO-DAN-02) stands in no file this audit may open'. conditions[13] B14 NOT_TESTABLE. reported_where_measured[0]: 'The gate evaluation's tier line claims MEASURED, while its conditions_pass values are copied from ... fixup10_measure.json, a file that is not among the pinned inputs; from the pinned bytes that is TRANSCRIBED or REPORTED, not MEASURED.' [1]: 'the lander did not measure them in any pinned byte, so the word is REPORTED.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E4.v1.json",
+     "sha256": "ff21977a7c635f5104c810053f773a5f7c74a03a548bdd39f16d1f04f7adc6e1",
+     "looked_for": "unresolved_uncertainty[1] and [5]",
+     "found": "[1]: 'C1 to C9 are REPORTED to me by the orchestrator's measurement file. I re-measured only row count, CR bytes, whole-row tier presence and the role name'. [5]: 'The mark layer, the device inventory and the language-zone file are not among my inputs, so ... every MEASURED language claim are unchecked by me.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/boss/supp_e2/dan_boss_audit_b8_b14.json",
+     "sha256": "d186bac7af0e1f8763ee307c54955575cdde96625698f182290c30545472672c",
+     "looked_for": "the supplement that cured the return, at the path the proposal cites (sp_durable/Dan/review/boss/dan_boss_audit_b8_b14.json)",
+     "found": "The cited path is not in the landed-outputs manifest. The file is at sp_durable/Dan/review/boss/supp_e2/dan_boss_audit_b8_b14.json: execution dan_boss_audit_a1#e2, 'supplements' dan_boss_audit_a1#e1, two conditions. The supplement exists; the citation's path is wrong. I did not read the two conditions' verdicts.",
+     "holds": false,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E5.v1.json",
+     "sha256": "a447f1412ca0e56d7ab55b31ed5c1edd3ce34898b4904a462d5b9b03e702f97d",
+     "looked_for": "unresolved_uncertainty[4]",
+     "found": "'F1 to F8 and F10 are REPORTED to me by the orchestrator's measurement file; I re-measured only the file digest, row count, CR bytes, the W1-002 field digest, whole-row tier presence and the suite summary.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E8.v1.json",
+     "sha256": "2e1877aa81f32b6e35d0154b5e196cc33393fe24c18a0c850cb38570b851f42c",
+     "looked_for": "ruling P13-LANE-LIMITS",
+     "found": "'(a) The four records the lanes could not test for want of the language-zone layer (W1#7, W1#8, W1#14, W4#11) hold on the layer: I read it.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E3.v1.json",
+     "sha256": "680b621d178e1f1c173204d504131c7c80f0de6a78bfe93dd52a10a060c318c0",
+     "looked_for": "unresolved_uncertainty[5]",
+     "found": "'I did not open the device inventory, language-zone or crosswalk files; they are not among my inputs.' 'If a file is not pinned for an author, that layer cannot be named and its claims fall to'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E1.v1.json",
+     "sha256": "541e3c1958d0bbf723d1537a0a00f62e16f207bf54d12ec11ae86f7d4bd9da30",
+     "looked_for": "unresolved_uncertainty[1] and [2]",
+     "found": "[1]: 'The ngram7 probe imported the pinned ngram7.py, which loads dan_lib.py (not a pinned input)'. [2]: 'check_web_quotes.py and check_register.py were not read (not pinned inputs).'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+     "sha256": "42efe601b731e212ba60bc9b19fd9b3199d86e8d5a152bb7571f8e956376b0d6",
+     "looked_for": "item 10",
+     "found": "Line 10 id E8-P13-LANE-LIMITS, decision equal to the ruling's opening.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    }
+   ],
+   "method_record_check": "Read v6 sections 9, 14, 16 item 10 and 18. Section 18 defines the tiers: MEASURED is what a script of this lane produced; EXTRACTED is what was read programmatically from a durable artefact at a named place; REPORTED is what another lane said. Section 14 says a figure read is not a figure measured. So the proposal's third sentence is already the rule in substance, and as worded it is slightly wrong against section 18: 'a value copied from a measurement file is REPORTED' collapses two claims. That the file says X is EXTRACTED when the file is pinned and the place named; that X is true is REPORTED, because another lane's run produced it. I adopt that sharper form, since the looser one would let a later reader think EXTRACTED from a measurement file is forbidden, or that REPORTED needs no file. What is new and what Daniel shows: (a) a gate condition must be testable from pinned bytes, and this is checked before launch. The audit lane returned on two of seventeen conditions for that cause alone, with 75 of 75 rows confirmed. (b) A lane that judges a tiered claim must hold the layer the tier names. Three rulings (E3, E4, E8) and two review lanes record ruling on, or passing over, MEASURED claims whose layer they did not have. Neither is in v6. Neither contradicts v6. Both would have prevented the cost; a brief-build check refuses the launch. Not fitted to one accident: five separate records at four stages. One narrowing: 'every lane that reviews that row' is wider than the evidence and than the budget allows (the proposer's own objection). A lane that does not judge a layer's claims need not hold the layer, provided it says so. I adopt: the layer is pinned to every lane whose brief asks it to judge that claim; any other lane records the claim as not tested by it, by tier and layer. That keeps the rule and bounds the context cost. The fourth evidence group (an unpinned library behind a pinned tool) supports a further sentence the proposal does not write: a pinned tool's imports are pinned with it. I add it; it is the same rule one step down, and Dan-P01 relies on it. Blast radius campaign_wide is honest. Cost honest; the check is in the brief builder.",
+   "adopted_text": "In section 18, after 'Enforce it in a tool':\n\n**A tiered claim is judged only by a lane that holds its layer, and a gate condition is testable before launch (new in v7, M8, Daniel).**\n\n1. A lane writes MEASURED only for a value its own run produced from pinned bytes. A value taken from another lane's measurement file is two claims: that the file says it, which is EXTRACTED when the file is pinned and the place is named; and that it is true, which is REPORTED. The lane writes both and names the file. In Daniel a gate evaluation and a landing summary wrote MEASURED over values copied from a file that was not a pinned input, and the audit lane corrected the word.\n2. A gate condition names, for its predicate and for each value it rests on, a pinned file and a place in it. The brief builder checks this before the lane launches; a condition whose predicate stands in no pinned byte is returned then. Daniel's audit lane confirmed 75 of 75 rows and still returned, because two of seventeen conditions could not be tested from the bytes it was given; a supplementary run cured it.\n3. Every layer that a row's tier word names (in Daniel: the mark layer, the language-zone layer, the device inventory, the numbering crosswalk) is a pinned input of every lane whose brief asks it to judge a claim on that layer, the ruling role included. A lane without the layer does not pass over the claim in silence: it records, by row and layer, that the claim was not tested by it. In Daniel the ruling role three times recorded ruling without the layer behind the MEASURED language claims, and two review lanes could not test four records for want of the language-zone layer.\n4. A pinned tool is pinned with everything it imports. In Daniel a pinned checker loaded an unpinned library.\n\nIn section 9, one line: a lane's brief lists the layers it holds, and its packet lists the tiered claims it could not test for want of one (section 18).",
+   "adopted_text_differs_from_proposal": "Corrected: 'a value copied from a measurement file is REPORTED' becomes the two-claim form (EXTRACTED as to what the pinned file says, REPORTED as to its truth), to agree with section 18's definition of EXTRACTED. Narrowed: the layer is pinned to every lane asked to judge a claim on it, not to every lane that reviews the row; other lanes record the claim as untested. Added: the brief builder makes the check before launch (the proposal had this under cost); point 4 on a tool's imports, from the proposal's own fourth evidence group; the ruling role is named among the lanes. The citation of the supplement is corrected to its manifest path.",
+   "target_section": "section 18 (tiers), new paragraph after 'Enforce it in a tool'; one cross-reference line in section 9",
+   "defer_waits_on": null
+  },
+  {
+   "proposal_id": "Dan-P07",
+   "verdict": "REJECT",
+   "rating": "LOW_REWARD",
+   "reasons": "Rejected as method text; recommended to the orchestrator as a tool fix (a stable flag key in the triage tool, with must-fail fixtures; the open-field map generated from the orders). The cost in Daniel was one ruling execution that changed no row. The proposer rated it LOW_REWARD as method text and asked for exactly this routing. A rejection here is not a finding that the defect is unreal.",
+   "proposer_estimate": "LOW_REWARD",
+   "rating_differs_because": null,
+   "admissible": true,
+   "admissibility_reasons": "It gives text and evidence from Daniel. Its own target line allows 'no method text at all if adopted as a validator fix', and its cost line calls it wholly a generator and validator fix. It is admissible as a proposal; whether it belongs in the method record is the question ruled here. Two of its cited paths are wrong (see the fourth check).",
+   "evidence_checks": [
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E7.v1.json",
+     "sha256": "0648ec2988fac5d25cb48026bf0ff4268674910c2c62dd684435b2bf8fbca9ef",
+     "looked_for": "rulings P7-UNIVERSALS-CONTEXT and P7-COUNTER defining a flag key; the gate with A01 to A38 accepted and no fix-up ordered; BLOCKED-W3-010 and BLOCKED-W4-NOTES closing blocked entries",
+     "found": "P7-UNIVERSALS-CONTEXT: 'a flag key under P7 is the claim word together with its path, counted ... The context string is not part of the key.' P7-COUNTER: 'A per-file counter object of a suite member is not a flag key for P7.' gate: p7_accepted_entry_ids A01 to A38 (38 ids), fixup7_may_launch false, fixup7_parts empty. BLOCKED-W4-NOTES: 'All three entries are closed; nothing is owed.' BLOCKED-W3-010: 'Nothing further is owed on row W3-010.' P7-FAR-SIDE I confirmed only through the routed item.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E10.v1.json",
+     "sha256": "ef7a3e0028eca463fbe011e5c166b6ea38d825ded7abd12fc1a832413db9b85d",
+     "looked_for": "ruling B7-NEW-KEYS: the same question at the tenth ruling",
+     "found": "'exactly four keys by the E7 definition are in the applied report and not in the base report. I accept all four by their exact five-part tuples'. So by the tenth ruling a key definition existed and was in use; the question asked again was which keys were new, not what a key is.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fixup/landed6/W4_e2/fixup6_W4_changes.json",
+     "sha256": "cf19989afcf495a5e9c51a3ae029944284ecc9f43c0a8cb7c6ea4f4f691c04ac",
+     "looked_for": "six blocked entries",
+     "found": "blocked has 6 entries. The first: row W4-005, field strongest_rejected_alternative, 'The finding on this row also reports two claims with no tier word in this field ... The map opens only boundary_rationale on W4-005, so the field is left unchanged.' An order reached a field the brief had left closed, as the proposal says.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/fixup/landed6/W2_e2/fixup6_W2_changes.json",
+     "sha256": "7e85b7273f5db91f8457ceb1235a170719168956c7f43b39898492c5a5e367bf",
+     "looked_for": "the blocked counts at the paths the proposal's evidence implies (landed6 W1, W2, W3, W4, W6)",
+     "found": "By my script the blocked lists hold W1 1, W2 1, W3 2, W4 6, W6 3, thirteen in all, as the proposal says. The W2 and W4 files are at landed6/W2_e2 and landed6/W4_e2; the manifest has no landed6/W2_e1 or W4_e1 change file. The counts hold; the execution suffix has to be read from the manifest.",
+     "holds": true,
+     "tier": "MEASURED"
+    },
+    {
+     "path": "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+     "sha256": "42efe601b731e212ba60bc9b19fd9b3199d86e8d5a152bb7571f8e956376b0d6",
+     "looked_for": "items 44 and 45",
+     "found": "Line 44 id E7-P7-FAR-SIDE ('A02, A03, A04, A05, A06 and A07 are accepted'); line 45 id E7-BLOCKED-W3-010.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    }
+   ],
+   "method_record_check": "Read v6 sections 9, 12 and 17. The reader of the method record is a chunker deciding how to cut and review a book; section 12 already tells that reader to prefer a generator fix to a caution and to keep a repair's scope narrow. Tested against v6: (1) Already there? Not as text; but the definition of a flag key is by Daniel's own rulings a property of one triage tool's report format (claim word and path, counted; a five-part tuple by the tenth ruling), and a method record that fixed it would be describing a tool, which the next generation's tool may not share. (2) Contradiction: the second half ('the brief that opens fields is built by tool from the orders, so that an order cannot name a field the brief leaves closed') pulls against section 12's scope discipline unless carefully built. In Daniel the narrow open-field list did what section 12 wants: thirteen blocked entries were recorded by the authors and closed by ruling, and nothing was changed outside an order. The first W4 entry I read shows the other side: a finding about tier words in a field was left uncured because the map did not open it. That is a real cost, and it is a fault in how the orders and the map were built, cured by building one from the other. (3) Would it have prevented Daniel's cost? Yes: a whole ruling execution accepted 38 entries and ordered nothing. (4) Fitted to one accident? It is fitted to one tool. (5) Blast radius and cost: the proposal gives none beyond the tool change, and its rating of itself is LOW_REWARD as method text. I agree with the proposer on every point of its own assessment. The fix is real and should be made; it is made in the triage tool and the fix-up brief builder, under section 12 as it stands, without new method text. Dan-P01's adopted paragraph speaks of flags 'by flag key' and so depends on the tool having one; that dependency is recorded in the cross-proposal notes and is a reason to make the tool fix, not a reason to put the key's definition in the method record.",
+   "adopted_text": null,
+   "adopted_text_differs_from_proposal": null,
+   "target_section": "none in the method record; tool backlog (triage tool flag-key function; fix-up brief builder)",
+   "defer_waits_on": null
+  },
+  {
+   "proposal_id": "Dan-P08",
+   "verdict": "REJECT",
+   "rating": "LOW_REWARD",
+   "reasons": "No text to adopt; one changed row; one of the two ruling citations is not about the type list; and the lighter course is already available to any strategy under section 5. I considered DEFER, to wait on a book with more vision reports or court speeches, and chose REJECT because nothing in the method record blocks a later book from proposing an exact rule with its own evidence, and a deferred proposal with no text would hold a place it has not earned. The observation is worth keeping: the next strategy that meets one-party speech or a commissioning scene should settle its typing in its unit_type section before the writers run. I rate it LOW_REWARD with the proposer.",
+   "proposer_estimate": "LOW_REWARD",
+   "rating_differs_because": null,
+   "admissible": false,
+   "admissibility_reasons": "The proposer brief asks for the text of the change, not a description of it. This proposal says to 'add ... a rule for typing a unit in which one party speaks and none answers' and does not give the rule; it then offers a second course ('or state that the nearest listed type is used and the mismatch is disclosed in one fixed field') without choosing. There is no text to adopt. It does carry evidence from Daniel, and I tested it on the merits all the same.",
+   "evidence_checks": [
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E6.v1.json",
+     "sha256": "d1626dea516a88039fbc6124934994f973b99c7d1e615b4ce435e31feb646759",
+     "looked_for": "ruling ROW-W4-011 changing a unit type",
+     "found": "'unit_type goes from interpretation to narrative. The span and grade stand. The deviation sentence and a dangling cross-reference are removed.' reason: 'The row itself says 8:15-8:18 is largely narrative of the seer's experience and discloses the type as a deviation.' The row had already disclosed the mismatch in prose, which is the proposal's second course, and the ruling's cure was to pick the listed type that fits.",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E9.v1.json",
+     "sha256": "73a482ab17232319f3c4384cd57d56f5207423953538f1b56db12947605f7e13",
+     "looked_for": "ruling PEER-W2-002",
+     "found": "'The refs entry for 3:13 calls it a speaker change to the king; 3:13 narrates his command and he speaks at 3:14. One exact span uses the wording the row's own rationale already has.' This is a misdescription in an evidence entry. It orders no change of unit_type and is not evidence about the type vocabulary.",
+     "holds": false,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/primaries/rev_LF_c06.json",
+     "sha256": "5ab1a1299edf343e5eb1a617e6eb16d69171101ff18ae0b32625912fedec9771",
+     "looked_for": "an uncertainty on one-party speech typed as dialogue",
+     "found": "unresolved_uncertainty[2]: 'W3-009 is dialogue with a one-sided speech, W3-012 is narrative with a two-sided exchange.' 'The closed vocabulary defines dialogue as an exchange between parties; the two rows are not typed by one rule, and a class ruling would settle both.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/primaries/rev_LF_c03.json",
+     "sha256": "a6ae7ca6a6c69f0fb0aab323261d6b54eb86af14e222bf758a1cac701e29c049",
+     "looked_for": "the same for W2-002",
+     "found": "unresolved_uncertainty[2]: 'Whether unit_type dialogue may cover a one-party address (W2-002).' 'The closed vocabulary has no type for a single speech inside a tale.'",
+     "holds": true,
+     "tier": "EXTRACTED"
+    },
+    {
+     "path": "sp_durable/Dan/book_strategy_Dan.md",
+     "sha256": "158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da",
+     "looked_for": "whether the strategy already has a place for a typing rule",
+     "found": "Line 246 is the heading of a section on the unit_type vocabulary and granularity. The strategy already has the place where a book-level typing rule would stand. My own test; I did not read the section's body.",
+     "holds": true,
+     "tier": "MEASURED"
+    }
+   ],
+   "method_record_check": "Read v6 sections 5, 13 and 17. Section 5 already says to enumerate the conventions a book will meet and settle them before the wave, and a typing rule for one-sided speech is such a convention; the strategy has a section for it. So the second half of the proposal asks for what section 5 and the strategy's own layout already provide, and the failure in Daniel, if it is one, is that the convention was not listed there. Dan-P02 as adopted strengthens that rule without naming this case. The first half (a new type, or a change to the closed list) is cross-generation by the proposal's own blast radius: it reaches every generation's rows and every closed book. Against that cost the evidence is one row of 75 whose type changed, and two lanes of one family noting a doubt about three other rows that no ruling changed in what I read. Section 13 says an untested rule is worse than an open question; a typing rule written here would be untested, since Daniel never applied one. Would it have prevented a cost? One exact-value order in the sixth round. Fitted to one accident: yes, as far as the changed row goes. The proposal's own strongest objection is right: the lanes differed about labels, not about any boundary.",
+   "adopted_text": null,
+   "adopted_text_differs_from_proposal": null,
+   "target_section": "none",
+   "defer_waits_on": null
+  }
+ ],
+ "cross_proposal_notes": [
+  {
+   "proposals": [
+    "Dan-P01",
+    "Dan-P05"
+   ],
+   "kind": "same section, order of text",
+   "note": "Both add a paragraph at the end of section 9. They do not conflict. Dan-P01 goes first (text ordered by a ruling is tested before issue), Dan-P05 second (what happens in and after a repair round). Dan-P05's tenth-round evidence (E12 RR9-TB-W4-004, 'the fault is in the after text E11 worded') is a case of Dan-P01's cause, and its position error is one Dan-P04's position check would refuse. The three should be read as cause (P01, P04) and containment (P05); P05's count of rounds is the measure by which a later book can tell whether P01 and P04 worked."
+  },
+  {
+   "proposals": [
+    "Dan-P01",
+    "Dan-P07"
+   ],
+   "kind": "dependency across an adopted and a rejected proposal",
+   "note": "Dan-P01's adopted text records flags gained and lost 'by flag key'. Dan-P07, which defines that key, is rejected as method text and sent to the tool backlog. This is not a contradiction, but it is a dependency: the dry run of Dan-P01 is only as good as the triage tool's key. The orchestrator should treat the Dan-P07 tool fix as a precondition of running Dan-P01's control in the next book. The method record names the key and leaves its definition to the tool, with must-fail fixtures under section 12."
+  },
+  {
+   "proposals": [
+    "Dan-P01",
+    "Dan-P06"
+   ],
+   "kind": "one rule stated twice",
+   "note": "Dan-P01's adopted text says the ruling role is given the suite and everything it imports as pinned inputs; Dan-P06 point 4 says a pinned tool is pinned with everything it imports. Same rule. When v7 is written, state it once in section 18 (Dan-P06) and let section 9 (Dan-P01) point to it."
+  },
+  {
+   "proposals": [
+    "Dan-P02",
+    "Dan-P06"
+   ],
+   "kind": "same layer, different halves",
+   "note": "Both act on the tier layer of section 18. Dan-P02 fixes when the tier convention is settled and checked for form (before the writers); Dan-P06 fixes who may write MEASURED and what a lane judging a tiered claim must hold. They agree. Dan-P02's caution, that a form check does not prove a tier true, is what Dan-P06 point 3 then supplies a means for: a lane with the layer is the one that can test the truth. One wording to keep in step: Dan-P02 point 2 asks the strategy to fix 'the tier of a negative claim, of a language-zone claim and of a mark-layer claim'; Dan-P06 point 3 lists the layers. The v7 editor should use one list of layer names in both."
+  },
+  {
+   "proposals": [
+    "Dan-P02",
+    "Dan-P03",
+    "Dan-P04"
+   ],
+   "kind": "one principle, three instances",
+   "note": "All three say: give writers and reviewers the pattern the tool uses, before the writers run, and install the check. Dan-P02 states it in general for conventions checkable by form; Dan-P03 is the instance for the rule against unquoted runs of witness words; Dan-P04 point 5 is the instance for stated word positions. They do not conflict. They could have been one proposal; I keep three texts because each lands in the section a chunker will read at that point of the work (5, 7, 12) and each carries its own measured basis. Section 5 should carry a pointer to the other two."
+  },
+  {
+   "proposals": [
+    "Dan-P02",
+    "Dan-P08"
+   ],
+   "kind": "a rejected proposal partly served by an adopted one",
+   "note": "The lighter half of Dan-P08 (settle a typing rule for one-party speech in the strategy before writing) is an instance of section 5 as Dan-P02 strengthens it. Dan-P08 is rejected for want of text and evidence; nothing in the adopted set prevents a later strategy from settling that convention."
+  },
+  {
+   "proposals": [
+    "Dan-P03",
+    "Dan-P05"
+   ],
+   "kind": "possible tension, resolved",
+   "note": "Dan-P03 says a run found by reading is filed as a row finding and as a tool finding. Dan-P05 point 2 says the strategy states what opens a further repair round. A late row finding of this kind is 'true on the bytes' and falls under whatever rule the strategy sets; neither text decides it, and Dan-P05 names the two floors that rule may not go under."
+  },
+  {
+   "proposals": [
+    "Dan-P01",
+    "Dan-P02",
+    "Dan-P03",
+    "Dan-P04",
+    "Dan-P05",
+    "Dan-P06"
+   ],
+   "kind": "common limit of the adopted set",
+   "note": "Every adopted text states a control that Daniel did not run, or ran only in part, and says so in its own words. The measured basis in each is the cost of the control's absence. Six adoptions from one book is a high rate; it reflects that Daniel ran ten repair rounds and twelve rulings and left an unusually full record of causes, and it reflects one reader of the same model family as the proposer agreeing with that proposer on every rating. The second fact is a limit and not a confirmation (OW-19)."
+  },
+  {
+   "proposals": [
+    "Dan-P07",
+    "Dan-P08"
+   ],
+   "kind": "rejections",
+   "note": "Both rejections agree with the proposer's own LOW_REWARD estimate. Dan-P07 is rejected as method text and recommended as a tool fix; Dan-P08 is rejected outright. Neither rejection says the observation was false."
+  }
+ ],
+ "rates": {
+  "proposed": 8,
+  "adopted": 6,
+  "rejected": 2,
+  "deferred": 0,
+  "low_reward": 2,
+  "tier": "MEASURED by work/build.py over the eight unit files of this execution"
+ }
+}

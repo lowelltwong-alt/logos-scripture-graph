@@ -553,3 +553,24 @@ Every figure below was read or measured in session af84b702 after the compaction
 - **OWED:** ledger notes (markdown-pointer gap of E-73; the S2 lane's E-19 glob deviation); the S2-N6 record defects in the Daniel close record with tier REPORTED.
 - OWNER RULING 2026-09-29 (ledger OW-32): after Daniel the stress-first queue: 1 Corinthians, John, Romans, Revelation, Hebrews, Matthew (NT, gated on the Greek substrate from the separate session; if late take the first OT book in the queue not closed), then Genesis, Isaiah, Daniel, Deuteronomy, Acts, Job, Mark, Luke, Galatians, Exodus, Jeremiah, Psalms, 1 Peter, Ephesians, Colossians, Proverbs, 1 John, Zechariah, Ecclesiastes. Closed books' stress passages are audited when the queue reaches them. Re-read AI_FRONT_DOOR.md and .ai/control before each book.
 - CURSOR: phase = DAN_FX3_APPLIED_E4_RUNNING.
+
+
+## 2026-10-06 — owner-authorized efficiency persistence; navigation reconciliation
+
+Reconcile the two P13 executions dan_p13_TB_a1#e1 and dan_p13_OS_a1#e1 against actual outputs and runtime state; they were observed quota-blocked at 2026-10-06T19:41Z, not confirmed running. Preserve their pinned inputs. Resume their own verified work or record a correctly linked new physical execution under CAPTURE_CONTRACT.v3. FIXUP-6/E7 is installed; do not replay E4 or FIXUP-3. Complete P13, any coherent material repair batch and required peer/boss stages, then prepare the exact-byte close package with holds; reserved close authority and the Daniel boundary stop remain. Read OWNER_EXECUTION_EFFICIENCY_2026-10-06.md and verify the new launch contract before any new dispatch.
+
+Evidence: review receipts 5a9bb9b0d1a9054deb67d0bc60f8ae150c72160ad440bcc299bbdc9a9fb7436b; installed FIXUP-6 rows 4b0489010c772555bd483d464cce3beade1aa9454469c9503c9d256080b07ad5.
+Quota status is an as-of observation, not an invented completion receipt. Existing receipt history and all holds remain unchanged.
+- CURSOR: phase = DAN_FX6_APPLIED_P13_QUOTA_BLOCKED_OBSERVED.
+
+## 2026-10-14 - DANIEL CLOSED (27/66); OW-34
+
+- Merged-verdict close (OW-33, Daniel only): lane A (corpus-first, items 20->23) and lane B (evidence-first, items 23->20) both landed after a usage-limit interruption each (one execution identity, two physical segments). Both: postcheck fit_to_assemble, no blocking, low residuals only (A: W4-6, W3-9, W1-3, W6-15; B: process wording in W6-15, W6-9, W6-5, W2-8 x2, W1-9); final check fit_to_close bound to 783a0e9a...; items 20-23 fit_to_accept with reservations; no named question a close_blocker (classes differ on NQ-2, NQ-4, NQ-5). Agreement is one model family: one voice (OW-19).
+- Landing: lane A deliverables in merged_close/lane_a_e1 (final message dc086923...), lane B in lane_b_e1; landing_manifest.v1.json b24f6b5c...; dan_merged_close_attempt_receipts.jsonl 6d2ec1d4... (model_actual REPORTED, never MEASURED).
+- Owner decisions OW-34 (ledger): close authorized, --acf item22, --next-book 1Cor, Daniel's proposals appended to the shared log.
+- Dry run --acf item22 --next-book 1Cor: 101 gates, 0 unmet. Reviewed bytes re-hashed and matched. --close: CLOSED, 75 chunks, receipts/Dan_completion.json 8151f9a9ec35c3fcd28274982f8ba6a117725f1d01f95fa693312b94c165565f; progress Dan complete -> 1Cor (27/66).
+- Shared proposal log: Dan-P01..P08 (6 ADOPT in v7, 2 REJECT) appended byte-exact, method_change_proposals.v1.jsonl e729cd97..., act record close/method_proposals_shared_append.v1.json 0cb7f179.... Follow-up owed: Ezekiel's proposals are absent from the shared log.
+- Preserved: transcript audit OWED, NOT MET (102 attempts, 0 transcripts); campaign-end Fable review DEFERRED (OW-28).
+- Ledger: OW-34 and E-74 appended (ledger f2f0e4cf...). Not verified: Daniel's measured spend against its 25,000,000 ceiling (tracked, not enforced).
+- This log closes here; the live log is sp_durable/1Cor/freeze/CYCLE_STATE.md.
+- CURSOR: phase = DAN_CLOSED_1COR_NEXT.

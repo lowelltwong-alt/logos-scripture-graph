@@ -1,0 +1,99 @@
+{
+ "schema": "m8_orchestrator_acts.v1",
+ "book": "Dan",
+ "for": [
+  {
+   "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E10.v1.json",
+   "sha256": "ef7a3e0028eca463fbe011e5c166b6ea38d825ded7abd12fc1a832413db9b85d",
+   "execution_id": "dan_controlling_rulings_a10#e1"
+  },
+  {
+   "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E11.v1.json",
+   "sha256": "54c547cdec3fe96e2a3ba000326c801e87dcd0c306bf21d3bd5cc6e141c71fc8",
+   "execution_id": "dan_controlling_rulings_a11#e1"
+  },
+  {
+   "path": "sp_durable/Dan/review/dan_controlling_agent_rulings_E12.v1.json",
+   "sha256": "8bc16d34306a990deeb39637e6314b5465da6865dbd647fb4b456a905a2285e1",
+   "execution_id": "dan_controlling_rulings_a12#e1"
+  }
+ ],
+ "orders_to_orchestrator": [
+  {
+   "ruling_file": "E10",
+   "ruling_id": "B7-NEW-KEYS",
+   "order": "Measure B7 with the four tuples of gate.b7_accepted_keys accepted and no other. Any further new key on the e2 applied file returns to the controlling agent."
+  },
+  {
+   "ruling_file": "E10",
+   "ruling_id": "B8-ZONE-HIT",
+   "order": "Measure B8 by its words on the e2 applied file: CWO-DAN-01, -02 and -04 zero hits and CWO-DAN-03 zero zone hits; gate.b8_accepted_zone_hits is empty."
+  },
+  {
+   "ruling_file": "E10",
+   "ruling_id": "GATE-E10",
+   "order": "Launch W9 execution e2 under the E9 orders as E10 amends them. W9 execution e2 works on the installed FIXUP-7 rows (sha256 fceddc6ecc4f523dd89b694685ad38e8abe8040b7c36737a17af9b6f2294c7a0). At every place E10 does not touch it adopts the e1 change record unchanged (same before, same after, same bytes read and scan): 26 records over 25 places. It replaces the e1 record for W2-013 observed_substrate_signals[1] by the E10 exact value and adds one record for W6-009 device_notes. It changes nothing else. Output files are written with LF line endings only; every change record carries the row id, the field, the entry index for a list field and a before text that occurs exactly once in that field of the row as it stands when the record is applied. Measure the e2 applied file against B1 to B12 and B14 to B16 as E10 leaves them; a false condition returns to the controlling agent and nothing is installed. Then run the re-review as gate.rereview_of_fixup8 states."
+  },
+  {
+   "ruling_file": "E12",
+   "ruling_id": "RR9-TB-W4-004",
+   "order": "Launch part W11 as a single-author fix-up on the installed FIXUP-9 rows, measure the applied file against B1 to B12 and B14 to B16 as GATE-E12 amends them, and run the re-review that gate.rereview_of_fixup10 states. Before any later controlling brief asks for an exact span that names a device key with a word position, require the pattern-match script output in the ruling's evidence, as this ruling gives it."
+  },
+  {
+   "ruling_file": "E12",
+   "ruling_id": "RR9-EXTRAS",
+   "order": "Enter in the end-review record the routing above and the exception to E3 S2-N1 rule (a) for record W10#1. In the next lane briefs, say again that the progress file is written after each item."
+  },
+  {
+   "ruling_file": "E12",
+   "ruling_id": "GATE-E12",
+   "order": "Do not launch the boss. Launch W11 under RR9-TB-W4-004, land and install the FIXUP-10 applied file only if B1 to B12 and B14 to B16 as amended pass by script, then run gate.rereview_of_fixup10. Record that GATE-E11 gate.rereview_of_fixup9 is amended by E12 to require a yes on every ordered check."
+  }
+ ],
+ "acts": [
+  {
+   "act": "FIXUP-10 part W11 landed and installed",
+   "rows": {
+    "path": "sp_durable/Dan/fixup/draft_rows_fixup10_applied.jsonl",
+    "sha256": "ccf8040c65e92019d405ba79f9c837fa2c4594d82fc0245143b99e93770a88c6"
+   },
+   "note": "MEASURED by the lander: B1 to B12 and B14 to B16, as E12 amends them, true by script; triage 82"
+  },
+  {
+   "act": "gate.rereview_of_fixup10 evaluated; peers met recorded",
+   "evaluation": {
+    "path": "sp_durable/Dan/review/rr10/rr10_gate_evaluation.v1.json",
+    "sha256": "169e3dfd890816439669190547934efec1fc8439be5598e95db2f67686bd915b"
+   },
+   "note": "MEASURED by rr10_gate_dan.py on the two landed packets: 1 item each, 0 challenges, 0 row-change asks, 0 extra findings, all three ordered checks yes in both lanes. Under the E12 gate the boss may launch without another controlling ruling. Both lanes, the author and the ruling ran on one model family (OW-25 grader_fallback); their agreement is one voice."
+  },
+  {
+   "act": "GATE-E11 rereview_of_fixup9 recorded as amended by E12",
+   "note": "TRANSCRIBED from the E12 order: the E11 gate is amended to require a yes on every ordered check. The E11 file is not edited (E-44); the amendment stands in the E12 ruling file and is pointed to here."
+  },
+  {
+   "act": "end-review routings entered (B17)",
+   "file": "sp_durable/Dan/fable_end_review/routed_items.v1.jsonl",
+   "ids": [
+    "E10-W9-AUTHOR-NOTES-1",
+    "E10-W9-AUTHOR-NOTES-2",
+    "E11-RR8-LOW-EXTRAS",
+    "E11-RR8-PROCESS",
+    "E12-RR9-TB-W4-004",
+    "E12-RR9-EXTRAS"
+   ],
+   "note": "E9's routings were entered earlier (ids E9-PEER-*); with these, the end-review orders of E9, E10, E11 and E12 stand in the record before the boss audit starts. The exception to E3 S2-N1 rule (a) for record W10#1 is entered by item E12-RR9-EXTRAS, whose transcribed order asks the end review to review it and whose decision text is the E12 ruling's own."
+  },
+  {
+   "act": "lane-brief order carried out",
+   "note": "The rr10 briefs state that the progress file is written after each item. REPORTED by the lanes: TB wrote it before the checks; OS wrote it in the same script run as the deliverable, one line earlier."
+  }
+ ],
+ "not_done_here": [
+  "boss audit",
+  "merged close",
+  "close gate",
+  "the ledger notes owed for this round (E-41: entered when no lane pins the ledger)"
+ ],
+ "recorded_at": "2026-10-12T15:52:14Z"
+}

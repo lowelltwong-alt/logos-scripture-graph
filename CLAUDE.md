@@ -31,3 +31,13 @@ Do not split in the middle of an English sentence, Hebrew poetic colon, Greek cl
 The chunker must be designed against the markers that **actually appear** in
 `.ai/control/RAW_SOURCE_INVENTORY.md` (e.g. words-of-Jesus `\wj`, Selah `\qs`,
 superscriptions `\d`, alternate readings `\fqa`), not against assumed structure.
+
+## M8 execution continuity (owner-directed 2026-10-06)
+
+For M8 orchestration only, read
+`.ai/scratch/multi_model_bible_chunking/M8_fable/OWNER_EXECUTION_EFFICIENCY_2026-10-06.md`
+at resume and before constructing new reviewer launches. Run its saved-state
+preflight; preserve in-flight pinned inputs and all existing scholarly gates.
+This scoped owner direction grants no global, registry, publication or close authority.
+Clean reviewers receive only the neutral, pinned reviewer continuation contract,
+not orchestration history or other lanes' answers.

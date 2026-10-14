@@ -1,0 +1,65 @@
+```json
+{
+  "attempt_id": "dan_p13_OS_a1",
+  "execution_id": "dan_p13_OS_a1#e1",
+  "sources": [
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\P13_BRIEF_OS.md",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\p13\\fixup6_changes_for_review.json",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup6_applied.jsonl",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\draft_rows_fixup5_applied.jsonl",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E6.v1.json",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E7.v1.json",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\review\\dan_controlling_agent_rulings_E3.v1.json",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\book_strategy_Dan.md",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_oshb.txt",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\Dan_web_clean.txt",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\pmarks_Dan.json",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\dan_device_inventory.json",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\web_mt_offset_map.json",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\campaign\\grader_models.v1.json",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md (bytes hashed only; no lines read)"
+  ],
+  "outcome": {
+    "changed": [
+      {
+        "what": "Wrote the deliverable C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\dan_p13\\out_OS_e1\\dan_p13_OS.json: 148 items, one per record in extract order; 144 support, 4 challenge (high 0, medium 1, low 3); 3 extra findings; the W1-010 question answered.",
+        "why": "The brief orders one verdict per FIXUP-6 change record."
+      },
+      {
+        "what": "Wrote work files in the OUT work directory only: read-only scripts, their outputs, and three batch files (batch_W1W2.json, batch_W3W4W5.json, batch_W6W7.json).",
+        "why": "Byte checks, and the coordinator's instruction to save reviewed batches before the deliverable."
+      }
+    ]
+  },
+  "verification": [
+    {"claim": "The brief and every pinned input match their recorded sha256.", "how": "hashed each file by exact path", "result": "confirmed"},
+    {"claim": "For all 148 records the before text stands in the fixup5 field and the after text in the fixup6 field.", "how": "own script over the extract and both row files", "result": "confirmed"},
+    {"claim": "Every tier annotation FIXUP-6 added matches the E3 grammar, and every added MEASURED has a scan in its record.", "how": "pattern check on annotations present in after and absent in before", "result": "confirmed"},
+    {"claim": "No changed field holds a pinned-input file stem or a model name; none of the 19 strings E6 orders absent is present.", "how": "whole-file scan of the fixup6 rows; the one hit was the manuscript word codex at W2#35", "result": "confirmed"},
+    {"claim": "No reworded gloss shares a five-word run with the WEB outside marked quotations.", "how": "five-word-run check of every after text against the WEB file", "result": "confirmed"},
+    {"claim": "The mark, device, word-position and verse-count facts stated in the changed text hold on the pinned bytes.", "how": "per-record lookups in the OSHB text, WEB text, mark layer, device inventory and crosswalk", "result": "confirmed"},
+    {"claim": "W2#20: the device inventory holds that the answering opener at 3:24 is weak.", "how": "read the inventory lists; it holds only the listing, in the loose class, and no weighing", "result": "refuted"},
+    {"claim": "W6#4: the inventory no longer lists 10:13 in the year-word class.", "how": "read the year-word class; 10:13 is still listed, labelled a substring artifact", "result": "refuted"},
+    {"claim": "No change adjudicates a divided reading, selects a textual tradition, or builds a timeline into a boundary (W2-011, W2-012, W2-013, W4-008, W4-009 in particular).", "how": "read each rejected-alternative and rationale field in full against its order", "result": "confirmed"},
+    {"claim": "The deliverable holds no model name, has LF line endings, and its rows_file sha256 equals the pinned one.", "how": "assertions in the generator script and a byte count of carriage returns", "result": "confirmed"}
+  ],
+  "challenges": [
+    {"record": "W2#20", "severity": "medium", "claim": "The sentence asserts only that the answered-and-said opener is weak and tiers that as extracted from the device inventory. The inventory holds the listing at 3:24 (loose class only), not the weighing, so the tier word is untrue of what the sentence asserts."},
+    {"record": "W2#12", "severity": "low", "claim": "One extracted annotation covers both the listing of then at 3:19 and 3:24, which the inventory holds, and the judgment that the opener is weak, which is a D4 weighing."},
+    {"record": "W2#37", "severity": "low", "claim": "The order is carried out, but one sentence calls the twelve-months phrase texture and then rests the onset on it. The earlier ground, the change from summary to scene, is dropped though the order did not name it."},
+    {"record": "W6#4", "severity": "low", "claim": "The words 'once listed there' read as if the inventory no longer lists 10:13 in the year-word class; it still does, labelled a substring artifact. The substance of the sentence is right."}
+  ],
+  "unresolved_uncertainty": [
+    {"what": "This run was interrupted once by a usage limit and resumed under the same attempt and execution ids.", "why_it_matters": "Reading and byte checks were done across two sittings; verdicts were written after the resume from saved work files."},
+    {"what": "The language-zone layer is not among this lane's pinned inputs.", "why_it_matters": "W1#7, W1#8 and W1#14 tier a language statement as extracted from that layer; only the annotation form was checked."},
+    {"what": "The Aramaic instrument count in W2#1 (six at 3:5, five at 3:7) was taken from the scan carried in the record.", "why_it_matters": "Only the WEB half was read from the bytes by this lane."},
+    {"what": "The severity of W2#20 depends on how strictly the tier grammar is read.", "why_it_matters": "Read strictly it is an untrue tier word (medium, as graded); read loosely it is the mixed-clause habit graded low at W2#12."},
+    {"what": "The findings and reasons behind the orders were withheld from this lane.", "why_it_matters": "A change can meet the order text and still miss the finding that prompted it."},
+    {"what": "Every lane of this review and the author of the changes run on one model family under the recorded fallback.", "why_it_matters": "Agreement between lanes is weaker evidence than agreement between independent families."},
+    {"what": "The optional ledger lines 807-874 were not read.", "why_it_matters": "The authority statement was taken from the launch message and the brief."}
+  ],
+  "e19_selfreport": "ran no listing, no glob, no recursive search; read only the exact paths named",
+  "deliverable_sha256": "0bf96b2b70912ef6f5ff83b625431699e4d57a4cd1f8853baeef5c80e5cea6ca",
+  "limit": "accountable work summary; not chain of thought and not independent proof"
+}
+```

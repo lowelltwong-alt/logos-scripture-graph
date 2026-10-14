@@ -3330,3 +3330,67 @@ in the tool-fix receipts failed its recorded digest. Every figure below was MEAS
   break again at the next ref switch.
 - OWED: the unexplained part of the no-match class for the closed books; the DAD learning-loop record; the owner's
   answer on a global prevention control.
+
+## OWNER DIRECTIVE OW-33 (2026-10-13) - DANIEL'S CLOSE SHAPE: THE MERGED-VERDICT CLOSE, GRANTED FOR DANIEL ONLY
+
+**The directive (TRANSCRIBED, owner in chat, 2026-10-13T00:12:24Z, cut by script from the session transcript; the message's four line breaks are written here as spaces, nothing else is changed):** "for Daniel only, I approve the merged-verdict shape as the required per-book decision. Keep two independent blind lanes, each returning the postcheck, final check and grades for items 20–23 in one pass. Record that these verdicts share a reader within each lane. Preserve every acceptance criterion. The transcript audit remains OWED / NOT MET; any status or gate requiring that audit remains blocked. Report substantive findings or disagreement before adding further review. Do not repeat completed work unnecessarily. Use compact, hash-bound handoffs and save completed review batches so quota interruptions don’t require restarting. Reuse evidence only where its artifact hashes and review scope still match. Use the most efficient available model that meets the required reviewer qualifications. Don’t silently override an Opus requirement, switch providers, or use a higher-priced speed tier. This approves Daniel’s review shape only. It does not authorize a reserved close action, waive remaining gates, or establish the choice for later books."
+
+**What it grants.** OW-26 was Ezekiel only and said later books are a per-book decision. This is that decision for Daniel: one pair of blind lanes, each returning in one pass the postcheck (`fit_to_assemble`), the OW-6 final check (`fit_to_close`, bound to the corpus sha256) and the grades for close-gate items 20-23. The grader carrier records it as `book_close_shapes.Dan` with `directive: OW-26` (the shape's name) and `granted_by: OW-33` (this entry).
+
+**The weakness, recorded as the owner ordered.** In Daniel's close the three verdicts share one reader within each lane: a reader that misses something misses it in the postcheck, the final check and the item grades alike. The two-lane floor (OW-19) is met by two blind non-author lanes, but both run on the one fallback model family (OW-25), so their agreement is one family's voice, and the three verdicts in a lane are not three lenses. The completion receipt must say so beside the OW-25 `grader_fallback` statement.
+
+**What it does NOT change.** Every acceptance criterion stands. The transcript audit stays OWED, NOT MET, and any status or gate that requires it stays blocked. The close action is reserved: the orchestrator brings the dry report and an exact-byte close recommendation to the owner and does not run the close on this directive. No later book is granted this shape. Substantive findings or disagreement between the lanes are reported to the owner before any further review is added. The model rule is unchanged (OW-25): no silent override, no provider switch, no higher-priced speed tier.
+
+**Tier.** The directive paragraph is TRANSCRIBED. The other three paragraphs are the orchestrator's reading of it (INFERRED where they go beyond the owner's words) and bind nothing the owner did not say.
+
+## OWNER DIRECTIVE OW-34 (2026-10-14) - DANIEL CLOSED ON THE REVIEWED BYTES; 1 CORINTHIANS NEXT; DANIEL'S PROPOSALS IN THE SHARED LOG
+
+**The owner's words (TRANSCRIBED).** First, the answers to four questions put in chat:
+
+> Owner answers in chat, 2026-10-14 (AskUserQuestion, verbatim labels selected):
+> Q: May I run --close on the reviewed bytes?  A: "Yes, run the close (Recommended)"
+> Q: Which atlas rows should the close append to the shared feed (--acf)?  A: "item22 (Recommended)"
+> Q: Which book comes after Daniel (--next-book)?  A: "1Cor"
+> Q: Append Daniel's six adjudicated method proposals to the shared method_change_proposals.v1.jsonl?  A: "Append them now"
+> Option text offered for the proposal answer: "I append Daniel's six adjudicated rows to the shared log after the close, as a separate recorded act."
+
+Then, in the owner's next message:
+
+> Owner message in chat, 2026-10-14, after the AskUserQuestion answers (verbatim):
+> Append all eight Daniel proposals to the shared method_change_proposals.v1.jsonl: six adopted and two rejected, preserving IDs, adjudications, reasons and method-version links. Perform and verify this as a separate recorded act, avoiding duplicates, before the final durability checkpoint. Track Ezekiel's missing entries as an explicit follow-up.
+>
+> Use --acf item22 and --next-book 1Cor.
+>
+> I authorize --close on the reviewed Daniel bytes after the final checks pass, followed by the durability checkpoint, README refresh, push, PR and squash-merge through the established M8 sandbox publication workflow. Preserve the recorded outstanding transcript audit and deferred Fable review.
+>
+> Save these choices and the latest resume prompt durably, then stop at the book boundary. The next session should resolve the Greek source's licensing and provenance and proceed with 1 Corinthians. Preserve my hardest-first order: 1 Corinthians, John, Romans, Revelation, Hebrews, Matthew.
+
+**What was done under it (MEASURED).** A dry run with `--acf item22 --next-book 1Cor` showed 101 gates, 0 unmet. The reviewed bytes were re-hashed and matched (close tool 48f2337e..., rows_v1_final 783a0e9a..., merged landing manifest b24f6b5c..., merged receipts 6d2ec1d4..., item-22 feed 96ddcca4...). `--close --acf item22 --next-book 1Cor`: CLOSED, 75 chunks, receipt `receipts/Dan_completion.json` sha256 8151f9a9ec35c3fcd28274982f8ba6a117725f1d01f95fa693312b94c165565f, progress Dan complete -> 1Cor (27/66). Then, as a separate recorded act, Daniel's eight adjudicated proposals (Dan-P01..P06 ADOPT, landed in v7; Dan-P07, Dan-P08 REJECT) were appended byte-exact to `method_change_proposals.v1.jsonl` (before 1e1d494b..., after e729cd97..., 9 rows, no duplicate id); the act record is `sp_durable/Dan/close/method_proposals_shared_append.v1.json` (0cb7f179...).
+
+**Preserved, as ordered.** The stage-1 transcript audit stays OWED, NOT MET (102 attempts, 0 retained transcripts). The campaign-end Fable review stays DEFERRED (OW-28); DEFERRED is never MET. OW-33's merged-verdict shape is not carried to any later book.
+
+**Follow-up, explicit.** Ezekiel's adjudicated proposals are also absent from the shared log: its close left only `sp_durable/Ezek/deliverables/method_change_proposals.Ezek.candidate.jsonl`. Not done here; owed as its own act.
+
+**Next session (the owner's order).** Resolve the Greek source's licensing and provenance (`greek_substrate/`, Byzantine RP primary and SBLGNT secondary per OW-31; never committed until resolved), then proceed with 1 Corinthians. The hardest-first order stands: 1 Corinthians, John, Romans, Revelation, Hebrews, Matthew (OW-32's queue continues after them). Every download still needs a per-file yes.
+
+**Tier.** The owner's words are TRANSCRIBED from the chat; the act figures are MEASURED; nothing else here binds beyond the owner's words.
+
+## E-74 (2026-10-14) - DANIEL CLOSE PHASE: A THIRD SUITE-ROUTE SLIP, A CRLF DIGEST NEAR-MISS, A MANIFEST PATH DEFECT, AND THE DISCLOSURES THE CLOSE CARRIES
+
+Drafted from a fresh read of the orchestrator's close-phase notes and the close outputs (E-59), not from a summary.
+
+- **(a) E-67/E-70 recurrence, third (orchestrator_defect, low).** `Dan/tools/run_validator_suite.py` was run directly on `Dan/rows_v1_final.jsonl` (twice), so the report was written beside the corpus with CRLF bytes. MEASURED: no tool file changed; the report was converted to LF (dc9e5d1b...). It is a close artifact in Ezekiel's form and stays; the slip is the route. Control already standing: suite runs go through the scratch runner only.
+
+- **(b) E-73 near-miss (orchestrator_defect, medium by counterfactual).** The first CWO parity record took its suite-report digest on CRLF bytes. It was never recorded; regenerated on LF (9a626802...). Root cause: `grep -c $'\r'` in Git Bash printed 0 on a CRLF file. Cure: `_cwo_parity_dan.py` refuses a CR byte in corpus or report; only `_eol_digest_audit.py --check` counts as an EOL test. Sibling audit: any other place a grep CR count was trusted (owed).
+
+- **(c) Rule slips (low).** One `sed -i` with a pattern on a scratch script, and one heredoc that carried escape sequences into `gen_method_v7.py` (syntax error, caught at once, fixed with Edit). Recurrences of standing rules.
+
+- **(d) Landed-outputs manifest v1 path defect (medium).** Four entries carried an absolute scratch path behind `sp_durable/`; pathlib's join to an absolute path let the re-hash pass. Amended as `dan_landed_outputs_manifest.v2.json` (5fadae2c...), v1 untouched (E-44).
+
+- **(e) Method checker (fix, not loosening).** `check_method_record.py` held three v6-literal tampers that missed on v7; made version-generic (prior kept `.pre_62f449667549`); its record is now LF. A reviewer's copy run gave 12 of 13 because the generator check runs only at the installed path; at the installed path `gen_method_v7.py --check` prints MATCH and the shipped record is 13 of 13 (MEASURED 2026-10-14).
+
+- **(f) Merged-close lanes stopped on the session usage limit** right after verifying their digests, with no review unit done (REPORTED). Each was continued by message: one execution identity, two physical segments; first-segment usage UNAVAILABLE. Recorded in each landing as an interruption note.
+
+- **(g) Disclosures the close carries.** The merged receipts record `model_actual` as REPORTED (the Agent call's `opus` alias and each lane's own files), never MEASURED. Gate tests are 143 of 144: one location-dependent case (refusal without --m8-root from outside a tree) fails, and both lanes' source reads agree it does not hold at the installed path. The completion receipt carries no E-23 sweep or B-8 lane digits (gate lines 54-55); Ezekiel's tool did not either - a standing gap. The receipt cites OW-9, not OW-29/OW-33; the gate file has no OW-33 addendum. Both lanes marked items 4, 16, 18, 19, addendum OW-20 and item 15's spend met without evidence; Daniel's measured spend against its ceiling is not verified here. The scholar record's licence wording is carried from Ezekiel and awaits confirmation. The JSONL ledger stops at E-43/OW-24; the MD is the live carrier.
+
+- **Lesson for the method record.** A copy-based reproduction of a checker that calls a generator by installed path is not a reproduction; the reviewer must be given the installed path or told the arm will SKIP.

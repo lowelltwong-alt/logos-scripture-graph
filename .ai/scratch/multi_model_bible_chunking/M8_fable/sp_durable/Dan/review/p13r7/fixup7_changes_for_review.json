@@ -1,0 +1,118 @@
+{
+ "schema": "dan_p13_review_extract.v1",
+ "book": "Dan",
+ "what": "every FIXUP-7 change record of the landed W8 log, in replay order (suite figures, blocked entries and the author's notes are withheld from the review lanes)",
+ "tier": "EXTRACTED by p13r7_dan.py from the landed change log",
+ "applied_rows": {
+  "path": "sp_durable/Dan/fixup/draft_rows_fixup7_applied.jsonl",
+  "sha256": "fceddc6ecc4f523dd89b694685ad38e8abe8040b7c36737a17af9b6f2294c7a0"
+ },
+ "base_rows": {
+  "path": "sp_durable/Dan/fixup/draft_rows_fixup6_applied.jsonl",
+  "sha256": "4b0489010c772555bd483d464cce3beade1aa9454469c9503c9d256080b07ad5"
+ },
+ "records": [
+  {
+   "record": "W8#1",
+   "part": "W8",
+   "row": "W2-002",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "opening with then (then_aram), a weak connective (EXTRACTED, device inventory).",
+   "after": "opening with then (then_aram), a connective listed at 3:13 (EXTRACTED, device inventory); it is weak as an opener (INFERRED).",
+   "ruling_id": "TIER-WEAK-OPENER",
+   "scan": null
+  },
+  {
+   "record": "W8#2",
+   "part": "W8",
+   "row": "W2-004",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "The opener then (then_aram) is weak, and it stands at both 3:19 and 3:24 (EXTRACTED, device inventory).",
+   "after": "The opener then (then_aram) stands at both 3:19 and 3:24 (EXTRACTED, device inventory), and it is weak as an opener (INFERRED).",
+   "ruling_id": "TIER-WEAK-OPENER",
+   "scan": null
+  },
+  {
+   "record": "W8#3",
+   "part": "W8",
+   "row": "W2-005",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "its answered-and-said opener is weak by itself (EXTRACTED, device inventory).",
+   "after": "it opens with the answered-and-said formula (EXTRACTED, device inventory), which is weak by itself (INFERRED).",
+   "ruling_id": "TIER-WEAK-OPENER",
+   "scan": null
+  },
+  {
+   "record": "W8#4",
+   "part": "W8",
+   "row": "W2-011",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "stands at its head, a weak opener (EXTRACTED, OSHB/WLC and device inventory).",
+   "after": "stands at its head (EXTRACTED, OSHB/WLC and device inventory), a weak opener (INFERRED).",
+   "ruling_id": "TIER-WEAK-OPENER",
+   "scan": null
+  },
+  {
+   "record": "W8#5",
+   "part": "W8",
+   "row": "W2-008",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "the king to the peoples of the nations and tongues",
+   "after": "the king to the peoples, the nations and the tongues",
+   "ruling_id": "W2-008-THREE-TERMS",
+   "scan": null
+  },
+  {
+   "record": "W8#6",
+   "part": "W8",
+   "row": "W2-014",
+   "field": "boundary_rationale",
+   "entry_index": null,
+   "before": "The twelve-months phrase is texture, and the onset rests on that time phrase together with the PE that stands before it (INFERRED).",
+   "after": "The twelve-months phrase is a duration and not a dateline, and it does not carry the onset by itself; the onset rests on that time phrase together with the PE that stands before it (INFERRED).",
+   "ruling_id": "W2-014-TWELVE-MONTHS",
+   "scan": null
+  },
+  {
+   "record": "W8#7",
+   "part": "W8",
+   "row": "W6-003",
+   "field": "device_notes",
+   "entry_index": null,
+   "before": "the letters once listed there belong to the adjective of the chief princes, and the verse's own time word",
+   "after": "the letters listed there under the substring reading belong to the adjective of the chief princes, the anchored reading does not list the verse, and the verse's own time word",
+   "ruling_id": "W6-003-ONCE-LISTED",
+   "scan": null
+  },
+  {
+   "record": "W8#8",
+   "part": "W8",
+   "row": "W4-006",
+   "field": "strongest_rejected_alternative",
+   "entry_index": null,
+   "before": "and no form of the saying or answering verbs and no kingdom word stands in 7:25 or 7:26 (MEASURED, OSHB/WLC and WEB);",
+   "after": "and no form of the two speech-frame roots, say and answer, and no kingdom word stands in 7:25 or 7:26 (MEASURED, OSHB/WLC and WEB); the verb of speaking at word 4 of 7:25 is of another root (EXTRACTED, OSHB/WLC);",
+   "ruling_id": "W4-006-SPEAKING-VERB",
+   "scan": {
+    "code": "# Scan for FIXUP-7 W8 record 8 (ruling W4-006-SPEAKING-VERB).\n# Roots say (אמר), answer (ענה) and the kingdom root (מלכ) on the OSHB/WLC words of\n# Dan 7:25 and 7:26; the WEB pattern on WEB 7:25 and 7:26; word 4 of 7:25.\nimport re, sys, unicodedata\nSP = r\"C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\"\nFINALS = str.maketrans(\"ךםןףץ\", \"כמנפצ\")\n\n\ndef cons(w):\n    s = \"\".join(c for c in w if \"\\u05d0\" <= c <= \"\\u05ea\")\n    return s.translate(FINALS)\n\n\nROOTS = {\"say_אמר\": [\"אמר\"], \"answer_ענה\": [\"ענה\", \"ענ\"], \"kingdom_מלכ\": [\"מלכ\"]}\nverses = {}\nfor line in open(SP + r\"\\Dan\\Dan_oshb.txt\", encoding=\"utf-8\").read().split(\"\\n\"):\n    if \"\\t\" in line:\n        ref, text = line.split(\"\\t\", 1)\n        verses[ref] = text\ntotal = 0\nfor ref in (\"Dan.7.25\", \"Dan.7.26\"):\n    words = verses[ref].replace(\"\\u05be\", \" \").split()\n    print(ref, \"words\", len(words))\n    for name, pats in ROOTS.items():\n        hits = [(i + 1, w) for i, w in enumerate(words) if any(p in cons(w) for p in pats)]\n        total += len(hits)\n        print(\" \", name, \"patterns\", pats, \"hits\", len(hits), hits)\nw4 = verses[\"Dan.7.25\"].replace(\"\\u05be\", \" \").split()[3]\nprint(\"Dan.7.25 word 4 surface\", w4, \"consonants\", cons(w4),\n      \"nfc_codepoints\", \" \".join(\"%04X\" % ord(c) for c in w4))\nPAT = re.compile(r\"\\b(said|says|say|answered|answer|replied|kingdom|kingdoms)\\b\", re.I)\nchap = None\nweb = {}\nfor line in open(SP + r\"\\Dan\\Dan_web_clean.txt\", encoding=\"utf-8\").read().split(\"\\n\"):\n    m = re.match(r\"===== DAN (\\d+) =====\", line)\n    if m:\n        chap = int(m.group(1))\n        continue\n    m = re.match(r\"\\[v\\] (\\d+) (.*)\", line)\n    if m:\n        web[(chap, int(m.group(1)))] = m.group(2)\nfor v in (25, 26):\n    hits = PAT.findall(web[(7, v)])\n    total += len(hits)\n    print(\"WEB 7:%d pattern %s hits %d %s\" % (v, PAT.pattern, len(hits), hits))\n    print(\"  text:\", web[(7, v)])\nprint(\"speak in WEB 7:25:\", bool(re.search(r\"\\bspeak\\b\", web[(7, 25)])))\nprint(\"TOTAL_HITS\", total)\n",
+    "output": "Dan.7.25 words 18\n  say_אמר patterns ['אמר'] hits 0 []\n  answer_ענה patterns ['ענה', 'ענ'] hits 0 []\n  kingdom_מלכ patterns ['מלכ'] hits 0 []\nDan.7.26 words 8\n  say_אמר patterns ['אמר'] hits 0 []\n  answer_ענה patterns ['ענה', 'ענ'] hits 0 []\n  kingdom_מלכ patterns ['מלכ'] hits 0 []\nDan.7.25 word 4 surface יְמַלִּ֔ל consonants ימלל nfc_codepoints 05D9 05B0 05DE 05B7 05DC 05B4 05BC 0594 05DC\nWEB 7:25 pattern \\b(said|says|say|answered|answer|replied|kingdom|kingdoms)\\b hits 0 []\n  text: He will speak words against the Most High, and will wear out the saints of the Most High. He will plan to change the times and the law; and they will be given into his hand until a time and times and half a time.\nWEB 7:26 pattern \\b(said|says|say|answered|answer|replied|kingdom|kingdoms)\\b hits 0 []\n  text: “‘But the judgment will be set, and they will take away his dominion, to consume and to destroy it to the end.\nspeak in WEB 7:25: True\nTOTAL_HITS 0\n"
+   }
+  },
+  {
+   "record": "W8#9",
+   "part": "W8",
+   "row": "W1-010",
+   "field": "observed_substrate_signals",
+   "entry_index": 2,
+   "before": "answered_and_said_aram at 2:26 and 2:27",
+   "after": "answered_and_said_aram at 2:26; answered_and_said_aram (loose) at 2:27, held in the loose class and not in the strict class (EXTRACTED, device inventory)",
+   "ruling_id": "W1-010-LOOSE-CLASS",
+   "scan": null
+  }
+ ]
+}

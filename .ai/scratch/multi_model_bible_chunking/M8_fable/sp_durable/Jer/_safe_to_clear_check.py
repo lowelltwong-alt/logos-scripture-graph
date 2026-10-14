@@ -41,6 +41,7 @@ Usage: _safe_to_clear_check.py PROMPT_FILE
        _safe_to_clear_check.py --binding      (print the current STATE-BINDING line)
        _safe_to_clear_check.py --selftest     (negative-fixture proof run)
 """
+import importlib.util
 import hashlib
 import json
 import re
@@ -499,6 +500,13 @@ def selftest() -> int:
     return 0 if all_ok else 2
 
 
+
+def load_efficiency():
+    spec = importlib.util.spec_from_file_location("m8_execution_efficiency", M8 / "sp_durable/campaign/m8_execution_efficiency.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
 def main() -> int:
     if len(sys.argv) > 1 and sys.argv[1] == "--selftest":
         return selftest()
@@ -507,6 +515,7 @@ def main() -> int:
         return 0
     text = Path(sys.argv[1]).read_text(encoding="utf-8-sig")
     missing = check_text(text)
+    missing.extend(load_efficiency().check_resume(M8, text))
     if missing:
         print("SAFE_TO_CLEAR_CHECK: FAIL")
         for m in missing:
