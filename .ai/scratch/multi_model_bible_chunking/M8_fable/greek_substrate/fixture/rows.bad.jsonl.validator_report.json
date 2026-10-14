@@ -1,0 +1,83 @@
+{
+ "rows_file": "rows.bad.jsonl",
+ "citation_sweep": {
+  "status": "RED",
+  "rows": 6,
+  "defect_count": 5,
+  "nfd_degraded_count": 1,
+  "defects": [
+   {
+    "row": "B-REF",
+    "kind": "span_end_absent",
+    "span": "web:3John.1.1-3John.1.15"
+   },
+   {
+    "row": "B-RPREF",
+    "kind": "ref_absent_in_witness",
+    "ref": "rp:3John.1.15"
+   },
+   {
+    "row": "B-OVERCLAIM",
+    "kind": "tier_overclaim",
+    "ref": "rp:Phlm.1.25",
+    "claimed": "byte",
+    "measured": "accent_stripped"
+   },
+   {
+    "row": "B-NODISC",
+    "kind": "missing_disclosure",
+    "refs": [
+     "Acts.8.37"
+    ]
+   },
+   {
+    "row": "B-WRONGVERSE",
+    "kind": "quote_not_at_ref",
+    "ref": "rp:3John.1.2"
+   }
+  ],
+  "_exit": 1
+ },
+ "normalize_dryrun": {
+  "file": "rows.bad.jsonl",
+  "status": "RED",
+  "ok": 0,
+  "fixed": 1,
+  "mention": 0,
+  "defect_count": 2,
+  "defects": [
+   {
+    "row": "B-OVERCLAIM",
+    "kind": "quote_unmatched_or_overclaimed",
+    "ref": "rp:Phlm.1.25",
+    "measured": "accent_stripped",
+    "claimed": "byte"
+   },
+   {
+    "row": "B-WRONGVERSE",
+    "kind": "quote_unmatched_or_overclaimed",
+    "ref": "rp:3John.1.2",
+    "measured": "none",
+    "claimed": "byte"
+   }
+  ],
+  "_exit": 1
+ },
+ "stray_sweep": {
+  "status": "GREEN",
+  "root": "greek_substrate",
+  "problem_count": 0,
+  "problems": [],
+  "_exit": 0
+ },
+ "summary": {
+  "hard_status": "RED",
+  "red_members": [
+   "citation_sweep",
+   "normalize_dryrun"
+  ],
+  "dead_members": [],
+  "nfd_hard_e01": true,
+  "members_run": 3
+ }
+}
