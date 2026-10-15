@@ -243,3 +243,51 @@ Daniel's close is evidenced: receipts/Dan_completion.json sha256 8151f9a9ec35c3f
   Receipts cf694b5a79b4 -> ea7d6da26074 -> 13764a29c9cf -> 5576927f2a3d -> cda4d4ba2373.
 - CURSOR: phase = 1COR_P0_T1_T3_C1_C2_INFLIGHT. Next: land each lane on its notification; T1/T3 re-stage and install
   with the suite; C1/C2 reconcile into the accepted strategy; then K1/K2 toolkit reviews.
+
+## 2026-10-15 - C1/C2 landed; strategy reconciled to a2 and accepted
+
+- C1 LANDED (verdict not_fit, 13 defects: 9 exact, 4 judgement) receipts cda4d4ba2373 -> e03306a5; C2 LANDED (verdict
+  not_fit, 6 defects: 3 exact, 3 judgement) -> 846bee9a0537. Orchestrator spot checks on RP reproduced C1 DEF-01
+  (synerchesthai adds 14:23) and DEF-10 (5513 distinct / 73 recurring 4-token runs) by spot_C1.py, and C2 DEF-04's
+  verse lists by measure_a2.py.
+- Reconciled by make_a2.py into strategy_candidate/book_strategy_1Cor.a2.md (70e344fed9f0) and
+  strategy_plan_1Cor.a2.json (a55044ceabc4); every edit, with its defect id, find and replace, is in
+  a2_reconciliation.json (efe45ecf3cc4). 39 md edits and 5 plan edits, each find matched its exact expected count;
+  4 for_fable_end_review items appended (8 -> 12). Every double-quoted string and all 13 opening-word cells re-checked
+  against the WEB, RP and SBL bytes: 0 unresolved (three quoted terms are labels, not quotations, and are listed in
+  the script). Scripts copied to strategy_candidate/a2_scripts/.
+- Judgement adjudications by the orchestrator (claude-opus-5-5, OW-25), NO Fable call (OW-30), all listed for Fable's
+  end review: C1 DEF-09 (a) WEB slices plus labelled glosses; DEF-10 (a) 5513/73; DEF-12 (a) the 14:33b disclosure on
+  both rows meeting at the 14:33/14:34 seam; DEF-13 (a) record readings re-tiered EXTRACTED, bare MEASURED tags given a
+  script, the method-record convention REPORTED; C2 DEF-04 A the P02/P07 adoption argued from measured text links, the
+  scorer record kept as corroboration only; DEF-05 A 12:31, 14:36 and chapter 9 typing sent to Fable, row-fixing text
+  reworded; DEF-06 A 6:13 named as a contested slogan extent.
+- _validate_strategy_1cor.py GREEN on a2 and on the accepted copies. Accepted byte-exact (0 CR):
+  1Cor/book_strategy_1Cor.md and ../book_strategy/1Cor.md (70e344fed9f0), 1Cor/strategy_plan_1Cor.json
+  (a55044ceabc4). a1 is kept unchanged.
+- CURSOR: phase = 1COR_P0_STRATEGY_ACCEPTED_T1_T3_INFLIGHT. Next: land T1 #e2 and T3 #e2 on notification, re-stage and
+  install with the suite; then TOOLKIT.md and the K1/K2 toolkit reviews.
+
+## 2026-10-15 - T1/T3 #e2 stopped by the session limit again; relaunched as #e3; Phase 0 toolkit drafting
+
+- T1 and T3 #e2 STOPPED on the account's API session limit (HTTP 429, reset 5:40am America/New_York, about 09:40Z).
+  Neither completed its deliverable set: each OUT holds a top-level spec file but no report.json and no
+  final_message.md (lane_T1_e2 38 files, manifest 5d7db5ecda69; lane_T3_e2 101 files, manifest 7da171db8c2a). The
+  partial spec files are unreviewed and are not inputs to #e3. Landing rows FAILED_BY_API_SESSION_LIMIT, usage counts
+  UNAVAILABLE (not captured before the compaction, never estimated): receipts 846bee9a0537 -> 7a4147b2b954 ->
+  52092d557c25. A launch row never proved either worker finished.
+- After the reset (MEASURED 09:43:07Z): T1 #e3 (09:44:10Z) and T3 #e3 (09:44:43Z) launched in fresh OUT directories
+  (lane_T1_e3, lane_T3_e3) from BRIEF_T1_e3.md 551bbafdf867 / BRIEF_T3_e3.md 0cb01206db8d (pin check MATCH, message
+  check MATCH, gate PASS as the last command). Receipts 52092d557c25 -> 53b155d1a394 -> 94f918536ed1.
+- Drafted while T1/T3 run (scratch, not installed): the K1/K2 toolkit-review templates are in
+  1Cor/phase0_lanes/BRIEF_K1.template.md and BRIEF_K2.template.md (K2's pins must include
+  greek_substrate/tools/greek_lib.py, which cor_lib re-exports). The TOOLKIT.md generator computes "Book facts"
+  through "Data files" from the artifacts and asserts byte facts: RP NFC; SBLGNT NFC except 7 U+037E kept
+  byte-faithfully; no pilcrow in RP; U+2019 present with no ASCII apostrophe in WEB verse lines. A draft
+  _toolkit_selfcheck.py is GREEN on a stub TOOLKIT (87/87; declared amended_after_inventory 1, e65_exempt 10, each
+  exemption triaged in context as lineage or a fixture, not a leaked figure).
+- Near-miss (E-75 candidate, a recurrence of the heredoc class): a scratch row generator written through a bash
+  heredoc lost its backslash escapes and failed to compile before writing anything; the receipts stayed at
+  846bee9a0537. It was rewritten with the file tool, and an assert on the path's separator count was added.
+- CURSOR: phase = 1COR_P0_T1_T3_E3_INFLIGHT. Next: land T1/T3 #e3 on notification; re-stage and install with the
+  suite; TOOLKIT tail and install; install _toolkit_selfcheck.py; add K1/K2 to build_launch.py; launch K1/K2.
