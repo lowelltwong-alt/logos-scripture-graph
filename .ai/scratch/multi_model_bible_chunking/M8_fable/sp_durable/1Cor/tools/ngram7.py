@@ -27,6 +27,9 @@ boundaries, and replaced by a SEGMENT BREAK so that no 7-gram bridges a removed 
 inventory at run time. A generic snake_case strip is rejected (it could hide author-coined identifiers used as
 templating). Without this, the key month_or_day_word_not_a_date tokenized as the prose gram "month or day word not a
 date" in 10 rows.
+1Cor port (2026-10-15): 1cor_device_inventory.json carries none of those four top-level keys, so
+TOP_LEVEL_KEYS is empty and only the formulae keys are stripped; a key listed there and missing from the
+inventory still makes the member ERROR.
 Usage: ngram7.py rows.jsonl [--gate 10] [more files: rows are pooled]
 """
 from __future__ import annotations
@@ -56,8 +59,7 @@ REF_TOKENS = re.compile(
     r"|\b(?:web|rp|sbl):", re.I)
 
 INVENTORY = Path(__file__).resolve().parent.parent / "1cor_device_inventory.json"
-TOP_LEVEL_KEYS = ("year_word_but_not_a_dateline", "calendar_dates_not_datelines", "month_or_day_word_not_a_date",
-                  "month_or_day_substring_artifacts")
+TOP_LEVEL_KEYS = ()  # 1Cor: the inventory has no top-level device-class key (see the docstring)
 
 
 def device_key_pattern():

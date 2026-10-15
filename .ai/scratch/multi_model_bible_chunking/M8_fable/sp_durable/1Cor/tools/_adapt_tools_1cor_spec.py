@@ -289,6 +289,15 @@ SUBS = {
          1),
     ],
     'ngram7.py': [
+        ('TOP_LEVEL_KEYS = ("year_word_but_not_a_dateline", "calendar_dates_not_datelines", "month_or_day_word_not_a_date",\n'
+         '                  "month_or_day_substring_artifacts")\n',
+         'TOP_LEVEL_KEYS = ()  # 1Cor: the inventory has no top-level device-class key (see the docstring)\n',
+         1),
+        ('date" in 10 rows.\nUsage: ngram7.py',
+         'date" in 10 rows.\n1Cor port (2026-10-15): 1cor_device_inventory.json carries none of those four '
+         'top-level keys, so\nTOP_LEVEL_KEYS is empty and only the formulae keys are stripped; a key listed '
+         'there and missing from the\ninventory still makes the member ERROR.\nUsage: ngram7.py',
+         1),
         ('"""7-gram cross-row template scanner (Hebrew-quotation-aware), Dan.\n',
          '"""7-gram cross-row template scanner (Greek-quotation-aware), 1Cor.\n',
          1),

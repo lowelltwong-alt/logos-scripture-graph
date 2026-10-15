@@ -14,7 +14,7 @@ following hold:
   - for --execution N > 1, execution N-1 has a launch row AND a landing row (one the pin guard's lands() accepts).
 It appends under an exclusive lock with an atomic replace and a post-write check.
 
-usage: append_launch_row.py --lane D|T2|T1|T3|S|C1|C2 --agent-id ID --brief-sha SHA --message-sha SHA --expect-before SHA|ABSENT
+usage: append_launch_row.py --lane D|T2|T1|T3|S|C1|C2|K1|K2 --agent-id ID --brief-sha SHA --message-sha SHA --expect-before SHA|ABSENT
                             --launched-at ISO [--execution N --retry-reason TEXT]
 """
 import argparse
@@ -68,6 +68,12 @@ LANES = {
     "C2": ("cor_strategy_check_c2_a1", "strategy_check_c2",
            "blind strategy check lane 2 of 2 (OW-19), text first: a pre-registered reading of the book, then the "
            "candidate tested against it. Writes in OUT only"),
+    "K1": ("cor_toolkit_review_k1_a1", "toolkit_review_k1",
+           "blind toolkit review lane 1 of 2 (OW-19), by the bytes: re-measure every figure, absence and rule "
+           "TOOLKIT.md states against the witnesses and Phase 0 artifacts. Writes in OUT only"),
+    "K2": ("cor_toolkit_review_k2_a1", "toolkit_review_k2",
+           "blind toolkit review lane 2 of 2 (OW-19), by the code: check every tool contract TOOLKIT.md states against "
+           "the tools' source, running no pinned file (E-67). Writes in OUT only"),
 }
 # Per-lane producer and catcher. Every lane must have an explicit entry: until 2026-10-15 these tables were empty and a
 # default naming the toolkit port was written for every lane, so the D (device inventory) and S (strategy) launch rows
@@ -86,6 +92,11 @@ CATCHER = {"D": "the orchestrator's landing review; the strategy check lane that
            "T2": _PORT_CATCH, "T1": _PORT_CATCH, "T3": _PORT_CATCH,
            "S": "the orchestrator's review and _validate_strategy_1cor.py; the two blind strategy check lanes (OW-19); "
                 "Fable at the campaign-end review (OW-28)", "C1": _CHECK, "C2": _CHECK}
+_KCHECK = ("the orchestrator's reconciliation of the two blind toolkit review lanes, byte-verifying every correction "
+           "before applying it; Fable at the campaign-end review (OW-28)")
+PRODUCER.update({"K1": "this lane (1 Corinthians toolkit review, bytes)",
+                 "K2": "this lane (1 Corinthians toolkit review, code)"})
+CATCHER.update({"K1": _KCHECK, "K2": _KCHECK})
 if set(PRODUCER) != set(LANES) or set(CATCHER) != set(LANES):
     raise SystemExit("REFUSED: every lane needs an explicit PRODUCER and CATCHER entry (missing: %s)"
                      % sorted((set(LANES) - set(PRODUCER)) | (set(LANES) - set(CATCHER))))

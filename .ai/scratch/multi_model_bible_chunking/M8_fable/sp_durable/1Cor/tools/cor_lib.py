@@ -11,7 +11,8 @@ from nothing. This is a Greek rebinding, not a token swap. The Hebrew-only parts
 HEB_RUN, POINTS, ACCENTS, the K/Q splitter, the language zones and the paseq/parashah apparatus. The Greek text
 functions (nfc, strip_accents, skeleton, is_letter, is_mark, bounded_find, collate_greek) are greek_lib's own,
 re-exported unchanged; there is exactly one Greek normalization in the campaign, and it lives in
-greek_substrate/tools/greek_lib.py.
+greek_substrate/tools/greek_lib.py. It is loaded by its exact path and sys.path is never changed, so no
+greek_substrate tool can shadow a book tool of the same name.
 
 WITNESSES (OW-31): Byzantine Robinson-Pierpont (rp) is PRIMARY, SBLGNT (sbl) is SECONDARY, WEB is the English face.
 Swete's LXX is reference-only and is never loaded here.
@@ -46,6 +47,7 @@ continuation into its verse; the result equals greek_lib.load_web()["1Cor"] vers
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import re
 import sys
@@ -56,8 +58,25 @@ SPBOOK = TOOLS.parent                       # SP/1Cor
 SP = SPBOOK.parent                          # sp_durable
 GREEK_TOOLS = SP.parent / "greek_substrate" / "tools"
 BOOK = "1Cor"
-sys.path.insert(0, str(GREEK_TOOLS))
-import greek_lib as g  # noqa: E402
+
+
+def _load_greek_lib():
+    """Load greek_lib by its exact path. sys.path is never changed: inserting GREEK_TOOLS there let
+    greek_substrate/tools/citation_sweep.py shadow this book's own citation_sweep.py (2026-10-15)."""
+    path = (GREEK_TOOLS / "greek_lib.py").resolve()
+    have = sys.modules.get("greek_lib")
+    if have is not None:
+        if Path(have.__file__).resolve() != path:
+            raise ImportError("greek_lib is already bound to %s, not %s" % (have.__file__, path))
+        return have
+    spec = importlib.util.spec_from_file_location("greek_lib", path)
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules["greek_lib"] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+g = _load_greek_lib()
 
 from greek_lib import bounded_find, collate_greek, is_letter, is_mark, nfc, skeleton, strip_accents  # noqa: E402,F401
 
@@ -308,6 +327,11 @@ def _selftest() -> int:
     checks.append(("REF reads prefixed and bare refs and refuses 2Cor/11Cor",
                    [m.group(0) for m in REF.finditer("sbl:1Cor.14.34 and 1Cor.7.1; 2Cor.1.1 11Cor.1.1")]
                    == ["sbl:1Cor.14.34", "1Cor.7.1"]))
+
+    checks.append(("greek_lib is bound from greek_substrate/tools by path; GREEK_TOOLS is not on sys.path",
+                   Path(g.__file__).resolve() == (GREEK_TOOLS / "greek_lib.py").resolve()
+                   and sys.modules.get("greek_lib") is g
+                   and all(Path(p or ".").resolve() != GREEK_TOOLS.resolve() for p in sys.path)))
 
     # ---- collation (greek_lib's, re-exported) ----
     rp11, sbl11 = w["rp"][(1, 1)], w["sbl"][(1, 1)]

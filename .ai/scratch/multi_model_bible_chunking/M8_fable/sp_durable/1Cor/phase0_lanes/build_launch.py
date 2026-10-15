@@ -15,7 +15,7 @@ for each input sits in a separate list that carries no digest. The script refuse
 exists and differs (E-41, E-44). It then runs both checkers and prints their verdicts and the digests. It is not the
 last command before a launch: the scratch prelaunch_gate.py is (E-69).
 
-usage: build_launch.py --lane D|T2|T1|T3|S|C1|C2 [--execution N]
+usage: build_launch.py --lane D|T2|T1|T3|S|C1|C2|K1|K2 [--execution N]
 """
 import argparse
 import hashlib
@@ -72,6 +72,22 @@ COMMON = [
     ("campaign/REVIEWER_CONTINUATION_CONTRACT.v1.md", "READ whole", "the continuation contract the efficiency block "
      "names"),
     ("../ERROR_PATTERN_LEDGER.v1.md", "READ lines 3412-3434 only", "the M8 ledger: OW-36, the owner's grant for this book"),
+]
+K2_TOOLS = [  # every tool TOOLKIT.md's "Staged tools" section names, with the adapter and its specs
+    ("run_validator_suite.py", "the suite runner"), ("citation_sweep.py", "the citation sweep"),
+    ("normalize_greek_in_json.py", "the Greek normalizer"), ("check_marks.py", "the mark checker"),
+    ("check_role_tokens.py", "the role-token member"), ("check_brief_vs_suite.py", "the brief-versus-suite checker"),
+    ("check_placeholders.py", "the placeholder member"), ("ngram7.py", "the 7-gram member"),
+    ("cap_sweep.py", "the whole-chapter cap sweep"), ("cor_lib.py", "the shared library"),
+    ("_toolkit_selfcheck.py", "the toolkit selfcheck"), ("_test_tools_1cor.py", "the T1 fixture test"),
+    ("_test_marks_tools_1cor.py", "the T3 fixture test"), ("check_web_quotes.py", "a suite member"),
+    ("check_refs_mirror.py", "a suite member"), ("check_universals.py", "a suite member"),
+    ("check_register.py", "a suite member"), ("check_tiling.py", "a tool named in the toolkit"),
+    ("sweep.py", "a tool named in the toolkit"), ("check_atomic_isolation.py", "a tool named in the toolkit"),
+    ("_punct_boundary_sweep.py", "a tool named in the toolkit"),
+    ("_audit_book_token_transform.py", "a tool named in the toolkit"),
+    ("_adapt_tools_1cor.py", "the adapter that ported the tools"), ("_adapt_tools_1cor_spec.py", "its base spec"),
+    ("_adapt_tools_1cor_spec_t1.py", "lane T1's extra spec"), ("_adapt_tools_1cor_spec_t3.py", "lane T3's extra spec"),
 ]
 LANES = {
     "D": {
@@ -216,6 +232,44 @@ LANES = {
             ("campaign/hardness_batch_03.json", "READ lines 9-38 only, in Stage B only",
              "the 1 Corinthians hardness entry, with its divided readings"),
             ("1Cor/1cor_start_readiness.v1.json", "READ whole, in Stage B only", "the prepared scrutiny targets"),
+        ] + COMMON,
+    },
+    # the two blind toolkit reviews (OW-19): K1 re-measures TOOLKIT.md's facts on the bytes, K2 audits its tool
+    # contracts against the code and runs no pinned file (E-67)
+    "K1": {
+        "attempt": "cor_toolkit_review_k1_a1",
+        "work": "checking, against the book's own bytes, the figures and rules of a verification toolkit",
+        "pins": [
+            ("1Cor/tools/TOOLKIT.md", "READ, through scripts of yours that print counts and short slices",
+             "the toolkit under review"),
+        ] + [(r, "READ, through scripts of yours that print counts and short slices", w) for r, _u, w in COR_FACE] + [
+            ("1Cor/1Cor_web.usfm", "READ, through scripts of yours", "the WEB source the clean extract was cut from"),
+            ("1Cor/1cor_stage_report.json", "READ", "the staging report the Data files table cites"),
+            ("1Cor/1cor_device_inventory.json", "READ, through scripts of yours", "the 1 Corinthians device inventory "
+             "(WEB face = Greek face)"),
+            ("1Cor/book_strategy_1Cor.md", "READ, through scripts of yours", "the reconciled strategy"),
+            ("1Cor/strategy_plan_1Cor.json", "READ", "the reconciled strategy's plan"),
+            ("1Cor/_validate_strategy_1cor.py", "READ; RUN only as `python -B SP\\1Cor\\_validate_strategy_1cor.py "
+             "--md SP\\1Cor\\book_strategy_1Cor.md --plan SP\\1Cor\\strategy_plan_1Cor.json` (it writes nothing)",
+             "the strategy validator"),
+            ("1Cor/tools/cor_lib.py", "READ; your scripts may import it in place, running python -B; never run its "
+             "selftest", "the 1 Corinthians library: verse order, faces, refs, witness loaders and the Greek skeleton"),
+            ("../greek_substrate/tools/greek_lib.py", "READ in ranges; cor_lib loads it by exact path; never call its "
+             "load_* functions and never run it", "the Greek substrate library: nfc, strip_accents, skeleton"),
+        ] + COMMON,
+    },
+    "K2": {
+        "attempt": "cor_toolkit_review_k2_a1",
+        "work": "checking, against the tools' source code, the contracts a verification toolkit states for its tools",
+        "pins": [
+            ("1Cor/tools/TOOLKIT.md", "READ in ranges", "the toolkit under review"),
+        ] + [("1Cor/tools/" + t, "READ ONLY - NEVER RUN; in ranges", w) for t, w in K2_TOOLS] + [
+            ("../greek_substrate/tools/greek_lib.py", "READ ONLY - NEVER RUN; in ranges", "the Greek substrate library "
+             "cor_lib loads by exact path: nfc, strip_accents, skeleton, collate_greek"),
+            ("1Cor/1cor_device_inventory.json", "READ, through scripts of yours", "the device inventory ngram7.py "
+             "reads its keys from"),
+            ("campaign/_cure_verification.py", "READ ONLY - NEVER RUN; in ranges", "the tool a standing rule names"),
+            ("campaign/_launch_message_check.py", "READ ONLY - NEVER RUN; in ranges", "the tool a standing rule names"),
         ] + COMMON,
     },
 }
