@@ -1,0 +1,235 @@
+#!/usr/bin/env python3
+"""1 CORINTHIANS PHASE 0 STAGING - every input derived from source bytes, none carried from another book.
+
+Adapted from Dan/_stage_phase0_dan.py. The WEB pass is unchanged apart from the book constants. The OSHB pass and the
+language pass are replaced by the Greek pass: 1 Corinthians is an NT book, so the comparison witnesses are the
+committed Greek substrate (OW-31/OW-35): Byzantine RP primary, SBLGNT secondary, both read through
+greek_substrate/tools/greek_lib.py, whose verify_staged() checks every staged file against the staging receipt
+before anything is read here.
+
+The WEB member digest was MEASURED at this staging from the member itself (2026-10-14), exactly as Daniel's was.
+There is no external registry of member digests, so the pin guards later drift and does not prove first-read
+authenticity. The zip's own digest is recorded in the report for that reason (greek_lib also pins it).
+
+Produces, in SP/1Cor/:
+  1Cor_web.usfm             the WEB USFM member, extracted verbatim from the zip (byte-identical, digest asserted)
+  1Cor_web_clean.txt        the readable WEB extract in this campaign's established shape
+  1Cor_rp.txt               Byzantine RP text, one `ref\\ttext` line per verse (pilcrows removed, recorded apart)
+  1Cor_sbl.txt              SBLGNT text, one `ref\\ttext` line per verse
+  verse_inventory.json      per-chapter WEB verse counts and the book total, with its numbering face DECLARED
+  web_greek_verse_check.json  per-chapter WEB / RP / SBL counts and every verse not printed by all three
+  1cor_stage_report.json    what was derived, with counts and digests, for the receipt
+
+It asserts rather than assumes. WEB, RP and SBL verse existence is compared per verse, and any divergence is
+REPORTED, never silently folded. RP pilcrows are carried as evidence only (E-23); they never decide a boundary.
+"""
+import collections
+import datetime
+import hashlib
+import json
+import re
+import sys
+import zipfile
+from pathlib import Path
+
+SP = Path(__file__).resolve().parent
+REPO = Path(r"C:\wt\logos-t423-m8-fable")
+M8 = SP.parent.parent
+G = M8 / "greek_substrate"
+BOOK = "1Cor"
+BANNER = "1COR"
+
+WEB_ZIP = REPO / "data/raw/bible/eng-web/usfm/eng-web_usfm.zip"
+WEB_MEMBER = "76-1COeng-web.usfm"
+WEB_MEMBER_SHA = "ad005fab15ff20ed"  # first 16 hex, MEASURED 2026-10-14 at this staging
+RP_FILE = G / "byzantine_rp_PRIMARY" / "1CO.csv"
+SBL_FILE = G / "sblgnt_SECONDARY" / "1Cor.txt"
+DAN_INV = SP.parent / "Dan" / "verse_inventory.json"
+
+sys.path.insert(0, str(G / "tools"))
+import greek_lib  # noqa: E402
+
+
+def sha(b):
+    return hashlib.sha256(b).hexdigest()
+
+
+def extract_web():
+    with zipfile.ZipFile(WEB_ZIP) as z:
+        raw = z.read(WEB_MEMBER)
+    d = sha(raw)
+    assert d[:16] == WEB_MEMBER_SHA, "WEB member digest %s does not match the pin %s" % (d[:16], WEB_MEMBER_SHA)
+    assert b"\r" not in raw, "WEB member carries CR bytes"
+    (SP / f"{BOOK}_web.usfm").write_bytes(raw)
+    return raw.decode("utf-8"), d
+
+
+W = re.compile(r'\\w ([^|\\]*)(?:\|[^\\]*)?\\w\*')
+NOTE = re.compile(r"\\f .*?\\f\*", re.S)
+CHAR = re.compile(r"\\\+?(?:add|nd|qt|tl|bk|wj|it|bd|sc|no|ord|pn|sig|sls|fig)\s*(.*?)\\\+?[a-z]+\*", re.S)
+
+
+def strip_markup(s, fn_counter):
+    n = len(NOTE.findall(s))
+    if n:
+        fn_counter[0] += n
+        s = NOTE.sub("[fn]", s)
+    s = W.sub(r"\1", s)
+    for _ in range(3):
+        s2 = CHAR.sub(r"\1", s)
+        if s2 == s:
+            break
+        s = s2
+    s = re.sub(r"\\\+?[a-z]+\d*\*?", "", s)
+    return re.sub(r"[ \t]+", " ", s).strip()
+
+
+def build_web_clean(usfm):
+    """The established shape: a chapter banner, ¶ for a paragraph start, [v] N for a verse, and the poetry /
+    structural markers carried through as ` |xx ` so a reviewer can see the line layout the translation used.
+    Tier-4 metadata is VISIBLE here and never drives a boundary (E-23) - it is carried so it can be excluded
+    knowingly rather than invisibly. In 1 Corinthians this matters for the slogans (6:12, 7:1, 8:1, 10:23): WEB's
+    quotation punctuation is carried, and it never decides a quotation's extent."""
+    out, counts, fn = [], collections.Counter(), [0]
+    cur_ch = None
+    for line in usfm.splitlines():
+        line = line.rstrip()
+        if not line:
+            continue
+        m = re.match(r"\\c\s+(\d+)", line)
+        if m:
+            cur_ch = int(m.group(1))
+            out.append("")
+            out.append("===== %s %d =====" % (BANNER, cur_ch))
+            continue
+        if cur_ch is None:
+            continue  # front matter: \id \ide \h \toc \mt - not scripture text
+        tag = re.match(r"\\([a-z]+\d*)\s?(.*)$", line, re.S)
+        if not tag:
+            out.append(strip_markup(line, fn))
+            continue
+        t, rest = tag.group(1), tag.group(2)
+        if t == "v":
+            mv = re.match(r"(\d+(?:-\d+)?)\s*(.*)$", rest, re.S)
+            counts[cur_ch] += 1
+            out.append("[v] %s %s" % (mv.group(1), strip_markup(mv.group(2), fn)))
+        elif t == "p":
+            out.append("\u00b6" + (" " + strip_markup(rest, fn) if rest.strip() else ""))
+        elif t == "b":
+            out.append(" |b(blank poetry line)")
+        elif t in ("id", "ide", "h", "toc1", "toc2", "toc3", "mt1", "mt2", "mt3", "rem"):
+            continue
+        else:
+            out.append(" |%s %s" % (t, strip_markup(rest, fn)))
+    (SP / f"{BOOK}_web_clean.txt").write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
+    return counts, fn[0]
+
+
+def build_greek(space, verses):
+    rows, counts = [], collections.Counter()
+    for (c, v), txt in sorted(verses.items()):
+        txt = greek_lib.nfc(txt)
+        if not txt:
+            continue
+        rows.append("%s.%d.%d\t%s" % (BOOK, c, v, txt))
+        counts[c] += 1
+    (SP / f"{BOOK}_{space}.txt").write_text("\n".join(rows) + "\n", encoding="utf-8", newline="\n")
+    return counts
+
+
+def main():
+    sys.stdout.reconfigure(encoding="utf-8")
+    problems = greek_lib.verify_staged()
+    assert not problems, "greek_substrate drifted from its staging receipt: %s" % problems[:5]
+    usfm, web_digest = extract_web()
+    web_counts, fn_sites = build_web_clean(usfm)
+    rp = greek_lib.load_rp()[BOOK]
+    sbl = greek_lib.load_sbl()[BOOK]
+    rp_counts = build_greek("rp", rp)
+    sbl_counts = build_greek("sbl", sbl)
+    xw = greek_lib.crosswalk(BOOK)
+    not_all_three = [e for e in xw if not (e["web"] and e["rp"] and e["sbl"])]
+    flagged = [e for e in xw if set(e) - {"ref", "web", "rp", "sbl"}]
+    rp_pilcrows = ["%s.%d.%d" % (BOOK, c, v) for b, c, v in sorted(greek_lib.RP_PARAGRAPH) if b == BOOK]
+
+    lib_web = greek_lib.load_web()[BOOK]
+    lib_web_counts = collections.Counter(c for c, _ in lib_web)
+    assert lib_web_counts == web_counts, "WEB counts differ between this parse and greek_lib.load_web"
+
+    chapters = sorted(set(web_counts) | set(rp_counts) | set(sbl_counts))
+    per = {str(c): {"web": web_counts.get(c, 0), "rp": rp_counts.get(c, 0), "sbl": sbl_counts.get(c, 0)}
+           for c in chapters}
+    divergent = [c for c in chapters if len(set(per[str(c)].values())) > 1]
+    check = {"schema": "m8_web_greek_verse_check.v1", "book": BOOK, "per_chapter": per,
+             "divergent_chapters": divergent, "verses_not_in_all_three": not_all_three,
+             "crosswalk_flags": flagged,
+             "method": ("per-verse existence from greek_lib.crosswalk(); a verse counts as existing in a witness when "
+                        "that witness prints text for it. MEASURED from the staged bytes.")}
+    (SP / "web_greek_verse_check.json").write_text(json.dumps(check, ensure_ascii=False, indent=1) + "\n",
+                                                   encoding="utf-8", newline="\n")
+
+    obligation = json.loads(DAN_INV.read_text(encoding="utf-8"))["numbering_face_obligation_on_consumers"]
+    inv = {"book": BOOK, "total_verses": sum(web_counts.values()),
+           "chapters": {str(c): web_counts[c] for c in sorted(web_counts)},
+           "numbering_face": "WEB",
+           "numbering_face_basis": (
+               "MEASURED, not asserted: every per-chapter count in this file is the WEB count parsed from the pinned "
+               "WEB member and equals greek_lib.load_web()'s count for the same chapter. Divergent chapters against "
+               "RP/SBL: %s (web_greek_verse_check.json). Declared at staging under the Ezek #e13 ruling R2, which the "
+               "Daniel staging script omitted and had to amend." % (divergent or "none")),
+           "numbering_face_obligation_on_consumers": obligation,
+           "declared_at": datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    (SP / "verse_inventory.json").write_text(json.dumps(inv, ensure_ascii=False, indent=1),
+                                             encoding="utf-8", newline="\n")
+
+    out_names = [f"{BOOK}_web.usfm", f"{BOOK}_web_clean.txt", f"{BOOK}_rp.txt", f"{BOOK}_sbl.txt",
+                 "verse_inventory.json", "web_greek_verse_check.json"]
+    report = {
+        "schema": "m8_phase0_stage_report.v1",
+        "book": BOOK,
+        "derived_from_bytes_only": True,
+        "sources": {
+            "web_usfm": {"zip": str(WEB_ZIP.relative_to(REPO)).replace("\\", "/"), "zip_sha256": sha(WEB_ZIP.read_bytes()),
+                         "member": WEB_MEMBER, "sha256": web_digest, "bytes": len(usfm.encode("utf-8"))},
+            "rp_csv": {"path": RP_FILE.relative_to(M8).as_posix(), "sha256": sha(RP_FILE.read_bytes()),
+                       "role": "primary comparison witness (OW-31)", "licence": "Unlicense (EXTRACTED)"},
+            "sbl_txt": {"path": SBL_FILE.relative_to(M8).as_posix(), "sha256": sha(SBL_FILE.read_bytes()),
+                        "role": "secondary comparison witness (OW-31)",
+                        "licence": "CC BY 4.0; attribution: Copyright 2010 by the Society of Biblical Literature "
+                                   "and Logos Bible Software"},
+            "greek_lib_verify_staged": "GREEN (0 problems) at this run",
+        },
+        "outputs": {n: {"sha256": sha((SP / n).read_bytes()), "bytes": (SP / n).stat().st_size} for n in out_names},
+        "web": {"chapters": len(web_counts), "total_verses": sum(web_counts.values()),
+                "per_chapter": {str(c): web_counts[c] for c in sorted(web_counts)}, "fn_sites": fn_sites},
+        "rp": {"chapters": len(rp_counts), "total_verses": sum(rp_counts.values()), "pilcrow_verses": rp_pilcrows},
+        "sbl": {"chapters": len(sbl_counts), "total_verses": sum(sbl_counts.values()),
+                "apparatus_sigla_MEASURED": {
+                    "chars": dict(sorted(collections.Counter(
+                        "U+%04X" % ord(ch) for t in sbl.values() for ch in t if 0x2E00 <= ord(ch) <= 0x2E7F).items())),
+                    "verses_carrying_any": sum(1 for t in sbl.values() if any(0x2E00 <= ord(ch) <= 0x2E7F for ch in t)),
+                    "note": ("SBLGNT's inline critical signs (U+2E00 block) are carried byte-faithfully in "
+                             "1Cor_sbl.txt. They are apparatus markers, not Greek wording: any quotation or collation "
+                             "against SBL must strip or tolerate them explicitly. greek_lib.skeleton turns them into "
+                             "spaces (Unicode category Po); the byte, nfc and accent_stripped tiers keep them.")}},
+        "numbering": {
+            "identity_throughout": not divergent and not not_all_three,
+            "divergent_chapters": divergent,
+            "verses_not_in_all_three": [e["ref"] for e in not_all_three],
+            "crosswalk_flags": flagged,
+            "note": ("every verse's existence in WEB, RP and SBL was compared from the bytes. A divergence is "
+                     "REPORTED here and resolved explicitly before any row is written; it is never silently folded."),
+        },
+    }
+    (SP / "1cor_stage_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1),
+                                               encoding="utf-8", newline="\n")
+    print(json.dumps({"web_chapters": len(web_counts), "web_verses": sum(web_counts.values()),
+                      "rp_verses": sum(rp_counts.values()), "sbl_verses": sum(sbl_counts.values()),
+                      "divergent_chapters": divergent, "verses_not_in_all_three": [e["ref"] for e in not_all_three],
+                      "crosswalk_flags": flagged, "rp_pilcrow_verses": len(rp_pilcrows), "fn_sites": fn_sites,
+                      "outputs": out_names}, ensure_ascii=False, indent=1))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

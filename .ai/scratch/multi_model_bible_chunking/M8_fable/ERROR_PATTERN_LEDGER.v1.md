@@ -3408,3 +3408,27 @@ Drafted from a fresh read of the orchestrator's close-phase notes and the close 
 **Basis (record).** `sp_durable/campaign/greek_substrate_licensing_provenance.v1.json` sha256 555634cef2bda4ac33c0684dd69413fe884b6e9753d9a31e41c7483be1f1e467. It was drafted from a fresh read of the receipt, the three licence files and the tracked SBLGNT `source_manifest.yaml` (`redistribution_allowed: true`). The staged files were re-verified on 2026-10-14: stray_sweep, the greek_lib selftest and `_stage_and_verify` were all GREEN, and every blob in A, B and B2 matched its pin.
 
 **Limits.** This grants no download, licence reinterpretation or publication of Swete wording. It also grants no change to canonical Scripture or to reading preference. Publication still goes through the standing PR workflow.
+
+## OWNER DIRECTIVE OW-36 (2026-10-14) - OPUS-SUBAGENT AUTHORITY FOR THE SIX-BOOK HARDEST-FIRST QUEUE
+
+**The owner's words (TRANSCRIBED from this session's own log).**
+
+> Owner answer in chat, 2026-10-14 (AskUserQuestion, verbatim label selected):
+> Q: The launch checker only lets Opus subagents run for Ezekiel and Daniel (your OW-11 answer, "Yes: Ezekiel, then Daniel"). It treats Daniel's close as the end of that permission, so no 1 Corinthians lane can launch. How far should the subagent permission extend? Every other rule stays as it is: all roles on Opus (OW-25), no Fable call (OW-30), subagents never run git or write receipts.  A: "Your six-book queue (Recommended)"
+> Option text offered: "Covers 1 Corinthians, John, Romans, Revelation, Hebrews and Matthew. I'd record your answer as OW-36 and add to the checker without weakening it. Each book needs its own research preamble (an NT one, since 'Hebrew Bible' is false here), and its permission ends at its own completion receipt. No further stop at each book."
+> The other options offered were "1 Corinthians only" and "No subagents".
+
+**What it decides.** The Opus orchestration may launch Opus subagents for these six books, each under its own authority: 1Cor, John, Rom, Rev, Heb and Matt (OW-34's hardest-first order). Each book's permission ends when its own `sp_durable/receipts/<Book>_completion.json` exists. There is no further stop between books for this question. authorization_ref: `lowell_chat_2026-10-14_m8_opus_orchestration_six_book_queue`.
+
+**What travels in each launch message (E-62, OW-11-h shape).** The launch message carries:
+- an NT research preamble beginning `RESEARCH CONTEXT (E-13 preamble): this is scholarly text-structure research on the Greek New Testament`. The Hebrew Bible preamble is false for these books.
+- the owner's selected label verbatim and the authorization_ref above
+- the ledger path, so the subagent can verify the grant
+- the unchanged no-mutation statement
+- the E-19 lines
+
+`sp_durable/campaign/_launch_message_check.py` is amended additively to enforce this. Ezekiel and Daniel keep OW-11's strings and its expiry at `receipts/Dan_completion.json`. Each OW-36 book gets its own required strings and its own expiry. Every existing gap (brief digest, brief pin check, efficiency launch contract) still applies to every book.
+
+**Unchanged.** Every role runs on claude-opus-5-5 as a recorded grader_fallback (OW-25). No Fable call without new authorization (OW-30). Subagents never run git, never write a receipt and never touch the registry. OW-19's two-blind-lane floor, OW-28 (tracked, not enforced; DEFERRED is never MET), OW-29 and OW-31/OW-35 stand.
+
+**Limits.** This grants no spending, model, access, publication, merge, close or gate-bypass authority. It covers no book outside the six; the next book in OW-32's queue needs a new owner answer and a new checker entry.

@@ -1,0 +1,6797 @@
+{
+ "book": "1Cor",
+ "produced_by": {
+  "attempt_id": "cor_p0_device_inventory_a1",
+  "execution_id": "cor_p0_device_inventory_a1#e1",
+  "model": "claude-opus-5-5",
+  "grader_role": "grader_fallback (OW-25)",
+  "statement": "a recorded downgrade, not an equivalence: this lane ran on claude-opus-5-5 under OW-25"
+ },
+ "witness": {
+  "primary": "Robinson-Pierpont Byzantine Textform (RP), 1Cor_rp.txt",
+  "secondary": "SBLGNT, 1Cor_sbl.txt (inline critical signs U+2E00-U+2E05 kept)",
+  "english_face": "World English Bible (WEB), 1Cor_web_clean.txt",
+  "ruling": "OW-31: Byzantine primary, SBLGNT secondary; neither is preferred here"
+ },
+ "numbering": "identity: WEB = RP = SBLGNT verse for verse on all 437 verses in 16 chapters (web_greek_offset_map.json identity_throughout true, zones empty). There is no numbering zone.",
+ "numbering_face": "WEB",
+ "numbering_face_obligation_on_consumers": "every ref here is on the WEB face, which equals the Greek face verse for verse (identity). verse_inventory.json beside it declares the WEB face too. A consumer still asserts the face it expects before verse arithmetic and maps through cor_lib.web_to_greek, which is range-guarded.",
+ "method": "word-bounded skeleton match. Each verse of each witness is tokenised into greek_lib.skeleton words (NFD, combining marks removed, casefold, final sigma to σ, elision deleted; punctuation and the SBLGNT signs become separators); the token list is asserted equal to skeleton(verse).split(). A pattern is a list of alternative skeleton word sequences, matched by token equality and re-checked with greek_lib.bounded_find. Position classes come from the raw separators: sentence_start (verse-initial after a verse ending in . ; · or the book start, or after . ; · within the verse), verse_initial_mid_sentence, after_comma, after_other_punct, internal. Punctuation is each EDITION's, so position classes are per witness. Counts are of VERSES containing a form, per witness. The substring reading is reported per formula.",
+ "inputs": {
+  "1Cor_rp.txt": "94f7cf39fbd87f7952aba3ca957b7a4790edfb5d120dceffc8deac0ad0ccc2eb",
+  "1Cor_sbl.txt": "354b6dcf5b5f43a24dd85918e9759eeeb3153dc5284ab707a4167b64919456ff",
+  "1Cor_web_clean.txt": "7c8224ccf9eb0a06df20c5b2289d33ea32267dda136e88e73ea5761807cf0778",
+  "pmarks_1Cor.json": "5cd9055a8ecbfbc8dcf0f5dbc43e7bedbb0e69dc4fb7e8d9000e164e074c7fd7",
+  "web_greek_offset_map.json": "663ad11ac6d68af24b5dc18fc8b6e3c41cd00d2a83369530c16a95fd497823dd",
+  "verse_inventory.json": "6d61f7911cdfca32c7da7b279964bd41dab283e32e760705af0f70210382f410",
+  "web_greek_verse_check.json": "ac94ac6b64a28b47e08b38d4217b9c35d537a80fa255e11872b7b6a719e48aae",
+  "tools/cor_lib.py": "324f75f5ed80d2636e6d91d1d839d102fde6c8af86ce2d28ef83bb3a38575a4e",
+  "../../greek_substrate/tools/greek_lib.py": "a0bab9868a824784af2c521ff584bb5079738ed16e5cb72b4f300614b0911dfd"
+ },
+ "web_format": {
+  "verse_lines": 437,
+  "continuation_lines": 8,
+  "verses_with_continuation_lines": 5,
+  "note": "1Cor_web_clean.txt has one '[v] N' line per verse plus paragraph and poetry continuation lines; every WEB quotation is sliced from a single line and asserted byte-exact in the file"
+ },
+ "totals": {
+  "verses": 437,
+  "chapters": 16,
+  "verses_per_chapter": {
+   "1": 31,
+   "2": 16,
+   "3": 23,
+   "4": 21,
+   "5": 13,
+   "6": 20,
+   "7": 40,
+   "8": 13,
+   "9": 27,
+   "10": 33,
+   "11": 34,
+   "12": 31,
+   "13": 13,
+   "14": 40,
+   "15": 58,
+   "16": 24
+  },
+  "rp_sbl_differing_verses": 218,
+  "sbl_critical_signs": {
+   "signs": 419,
+   "verses": 220
+  },
+  "sbl_hits_with_a_sign_inside_the_span": {
+   "count": 5,
+   "would_be_missed_if_signs_were_kept": 5
+  },
+  "hebrew_block_characters_in_greek_witnesses": 0
+ },
+ "position_census": {
+  "rp": {
+   "after_comma": 723,
+   "after_other_punct": 2,
+   "internal": 5530,
+   "sentence_start": 647,
+   "verse_initial_mid_sentence": 24
+  },
+  "sbl": {
+   "after_comma": 580,
+   "after_other_punct": 2,
+   "internal": 5607,
+   "sentence_start": 562,
+   "verse_initial_mid_sentence": 61
+  }
+ },
+ "formulae": {
+  "peri_de": {
+   "family": "topic_marker",
+   "gloss": "περὶ δέ 'now concerning', any position",
+   "pattern": [
+    "περι δε"
+   ],
+   "constraints": null,
+   "count_rp": 6,
+   "verses_rp": [
+    "1Cor.7.1",
+    "1Cor.7.25",
+    "1Cor.8.1",
+    "1Cor.12.1",
+    "1Cor.16.1",
+    "1Cor.16.12"
+   ],
+   "count_sbl": 6,
+   "verses_sbl": [
+    "1Cor.7.1",
+    "1Cor.7.25",
+    "1Cor.8.1",
+    "1Cor.12.1",
+    "1Cor.16.1",
+    "1Cor.16.12"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.7.1": [
+     "sentence_start"
+    ],
+    "1Cor.7.25": [
+     "sentence_start"
+    ],
+    "1Cor.8.1": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.12": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.7.1": [
+     "sentence_start"
+    ],
+    "1Cor.7.25": [
+     "sentence_start"
+    ],
+    "1Cor.8.1": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.12": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.7.1": "Περὶ δὲ",
+    "1Cor.7.25": "Περὶ δὲ",
+    "1Cor.8.1": "Περὶ δὲ",
+    "1Cor.12.1": "Περὶ δὲ",
+    "1Cor.16.1": "Περὶ δὲ",
+    "1Cor.16.12": "Περὶ δὲ"
+   },
+   "quotes_sbl": {
+    "1Cor.7.1": "Περὶ δὲ",
+    "1Cor.7.25": "Περὶ δὲ",
+    "1Cor.8.1": "Περὶ δὲ",
+    "1Cor.12.1": "Περὶ δὲ",
+    "1Cor.16.1": "Περὶ δὲ",
+    "1Cor.16.12": "Περὶ δὲ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 6,
+     "word_bounded_unconstrained_count": 6,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 6,
+     "word_bounded_unconstrained_count": 6,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 6
+   }
+  },
+  "peri_de_ton": {
+   "family": "topic_marker",
+   "gloss": "περὶ δὲ τῶν 'now concerning the ...', any position",
+   "pattern": [
+    "περι δε των"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.7.25",
+    "1Cor.8.1",
+    "1Cor.12.1"
+   ],
+   "count_sbl": 3,
+   "verses_sbl": [
+    "1Cor.7.25",
+    "1Cor.8.1",
+    "1Cor.12.1"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.7.25": [
+     "sentence_start"
+    ],
+    "1Cor.8.1": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.7.25": [
+     "sentence_start"
+    ],
+    "1Cor.8.1": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.7.25": "Περὶ δὲ τῶν",
+    "1Cor.8.1": "Περὶ δὲ τῶν",
+    "1Cor.12.1": "Περὶ δὲ τῶν"
+   },
+   "quotes_sbl": {
+    "1Cor.7.25": "Περὶ δὲ τῶν",
+    "1Cor.8.1": "Περὶ δὲ τῶν",
+    "1Cor.12.1": "Περὶ δὲ τῶν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 3
+   }
+  },
+  "peri_de_topic_marker": {
+   "family": "topic_marker",
+   "gloss": "περὶ δέ at a sentence start (verse-initial after a stop, or after . ; · within the verse): the topic-marker reading",
+   "pattern": [
+    "περι δε"
+   ],
+   "constraints": {
+    "positions": [
+     "sentence_start"
+    ]
+   },
+   "count_rp": 6,
+   "verses_rp": [
+    "1Cor.7.1",
+    "1Cor.7.25",
+    "1Cor.8.1",
+    "1Cor.12.1",
+    "1Cor.16.1",
+    "1Cor.16.12"
+   ],
+   "count_sbl": 6,
+   "verses_sbl": [
+    "1Cor.7.1",
+    "1Cor.7.25",
+    "1Cor.8.1",
+    "1Cor.12.1",
+    "1Cor.16.1",
+    "1Cor.16.12"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.7.1": [
+     "sentence_start"
+    ],
+    "1Cor.7.25": [
+     "sentence_start"
+    ],
+    "1Cor.8.1": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.12": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.7.1": [
+     "sentence_start"
+    ],
+    "1Cor.7.25": [
+     "sentence_start"
+    ],
+    "1Cor.8.1": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.12": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.7.1": "Περὶ δὲ",
+    "1Cor.7.25": "Περὶ δὲ",
+    "1Cor.8.1": "Περὶ δὲ",
+    "1Cor.12.1": "Περὶ δὲ",
+    "1Cor.16.1": "Περὶ δὲ",
+    "1Cor.16.12": "Περὶ δὲ"
+   },
+   "quotes_sbl": {
+    "1Cor.7.1": "Περὶ δὲ",
+    "1Cor.7.25": "Περὶ δὲ",
+    "1Cor.8.1": "Περὶ δὲ",
+    "1Cor.12.1": "Περὶ δὲ",
+    "1Cor.16.1": "Περὶ δὲ",
+    "1Cor.16.12": "Περὶ δὲ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 6,
+     "word_bounded_unconstrained_count": 6,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 6,
+     "word_bounded_unconstrained_count": 6,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 6
+   }
+  },
+  "peri_de_internal": {
+   "family": "topic_marker",
+   "gloss": "περὶ δέ NOT at a sentence start (inside a clause)",
+   "pattern": [
+    "περι δε"
+   ],
+   "constraints": {
+    "positions": [
+     "verse_initial_mid_sentence",
+     "after_comma",
+     "after_other_punct",
+     "internal"
+    ]
+   },
+   "count_rp": 0,
+   "verses_rp": [],
+   "count_sbl": 0,
+   "verses_sbl": [],
+   "witness_disagreements": [],
+   "positions_rp": {},
+   "positions_sbl": {},
+   "quotes_rp": {},
+   "quotes_sbl": {},
+   "substring_reading": {
+    "rp": {
+     "substring_count": 6,
+     "word_bounded_unconstrained_count": 6,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 6,
+     "word_bounded_unconstrained_count": 6,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "peri_sentence_start_bare": {
+   "family": "topic_marker",
+   "gloss": "bare περί (not περὶ δέ) at a sentence start",
+   "pattern": [
+    "περι"
+   ],
+   "constraints": {
+    "positions": [
+     "sentence_start"
+    ],
+    "exclude_followed": [
+     "περι δε"
+    ]
+   },
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.8.4"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.8.4"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.8.4": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.8.4": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.8.4": "Περὶ"
+   },
+   "quotes_sbl": {
+    "1Cor.8.4": "Περὶ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 24,
+     "word_bounded_unconstrained_count": 10,
+     "substring_only_verses": [
+      "1Cor.3.3",
+      "1Cor.4.13",
+      "1Cor.7.17",
+      "1Cor.7.18",
+      "1Cor.7.19",
+      "1Cor.7.35",
+      "1Cor.8.8",
+      "1Cor.9.5",
+      "1Cor.11.15",
+      "1Cor.12.23",
+      "1Cor.12.24",
+      "1Cor.14.12",
+      "1Cor.15.10",
+      "1Cor.15.58"
+     ]
+    },
+    "sbl": {
+     "substring_count": 24,
+     "word_bounded_unconstrained_count": 10,
+     "substring_only_verses": [
+      "1Cor.3.3",
+      "1Cor.4.13",
+      "1Cor.7.17",
+      "1Cor.7.18",
+      "1Cor.7.19",
+      "1Cor.7.35",
+      "1Cor.8.8",
+      "1Cor.9.5",
+      "1Cor.11.15",
+      "1Cor.12.23",
+      "1Cor.12.24",
+      "1Cor.14.12",
+      "1Cor.15.10",
+      "1Cor.15.58"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "peri_any": {
+   "family": "topic_marker",
+   "gloss": "περί, any position (frequency control)",
+   "pattern": [
+    "περι"
+   ],
+   "constraints": null,
+   "count_rp": 10,
+   "verses_rp": [
+    "1Cor.1.4",
+    "1Cor.1.11",
+    "1Cor.7.1",
+    "1Cor.7.25",
+    "1Cor.7.37",
+    "1Cor.8.1",
+    "1Cor.8.4",
+    "1Cor.12.1",
+    "1Cor.16.1",
+    "1Cor.16.12"
+   ],
+   "count_sbl": 10,
+   "verses_sbl": [
+    "1Cor.1.4",
+    "1Cor.1.11",
+    "1Cor.7.1",
+    "1Cor.7.25",
+    "1Cor.7.37",
+    "1Cor.8.1",
+    "1Cor.8.4",
+    "1Cor.12.1",
+    "1Cor.16.1",
+    "1Cor.16.12"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.4": [
+     "internal"
+    ],
+    "1Cor.1.11": [
+     "internal"
+    ],
+    "1Cor.7.1": [
+     "sentence_start"
+    ],
+    "1Cor.7.25": [
+     "sentence_start"
+    ],
+    "1Cor.7.37": [
+     "internal"
+    ],
+    "1Cor.8.1": [
+     "sentence_start"
+    ],
+    "1Cor.8.4": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.12": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.4": [
+     "internal"
+    ],
+    "1Cor.1.11": [
+     "internal"
+    ],
+    "1Cor.7.1": [
+     "sentence_start"
+    ],
+    "1Cor.7.25": [
+     "sentence_start"
+    ],
+    "1Cor.7.37": [
+     "internal"
+    ],
+    "1Cor.8.1": [
+     "sentence_start"
+    ],
+    "1Cor.8.4": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.1": [
+     "sentence_start"
+    ],
+    "1Cor.16.12": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.4": "περὶ",
+    "1Cor.1.11": "περὶ",
+    "1Cor.7.1": "Περὶ",
+    "1Cor.7.25": "Περὶ",
+    "1Cor.7.37": "περὶ",
+    "1Cor.8.1": "Περὶ",
+    "1Cor.8.4": "Περὶ",
+    "1Cor.12.1": "Περὶ",
+    "1Cor.16.1": "Περὶ",
+    "1Cor.16.12": "Περὶ"
+   },
+   "quotes_sbl": {
+    "1Cor.1.4": "περὶ",
+    "1Cor.1.11": "περὶ",
+    "1Cor.7.1": "Περὶ",
+    "1Cor.7.25": "Περὶ",
+    "1Cor.7.37": "περὶ",
+    "1Cor.8.1": "Περὶ",
+    "1Cor.8.4": "Περὶ",
+    "1Cor.12.1": "Περὶ",
+    "1Cor.16.1": "Περὶ",
+    "1Cor.16.12": "Περὶ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 24,
+     "word_bounded_unconstrained_count": 10,
+     "substring_only_verses": [
+      "1Cor.3.3",
+      "1Cor.4.13",
+      "1Cor.7.17",
+      "1Cor.7.18",
+      "1Cor.7.19",
+      "1Cor.7.35",
+      "1Cor.8.8",
+      "1Cor.9.5",
+      "1Cor.11.15",
+      "1Cor.12.23",
+      "1Cor.12.24",
+      "1Cor.14.12",
+      "1Cor.15.10",
+      "1Cor.15.58"
+     ]
+    },
+    "sbl": {
+     "substring_count": 24,
+     "word_bounded_unconstrained_count": 10,
+     "substring_only_verses": [
+      "1Cor.3.3",
+      "1Cor.4.13",
+      "1Cor.7.17",
+      "1Cor.7.18",
+      "1Cor.7.19",
+      "1Cor.7.35",
+      "1Cor.8.8",
+      "1Cor.9.5",
+      "1Cor.11.15",
+      "1Cor.12.23",
+      "1Cor.12.24",
+      "1Cor.14.12",
+      "1Cor.15.10",
+      "1Cor.15.58"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 2,
+    "rp_hits_on_web_paragraph_start": 8
+   }
+  },
+  "adelphoi": {
+   "family": "vocative",
+   "gloss": "ἀδελφοί, any case reading (nominative and vocative share the form)",
+   "pattern": [
+    "αδελφοι"
+   ],
+   "constraints": null,
+   "count_rp": 22,
+   "verses_rp": [
+    "1Cor.1.10",
+    "1Cor.1.11",
+    "1Cor.1.26",
+    "1Cor.2.1",
+    "1Cor.3.1",
+    "1Cor.4.6",
+    "1Cor.7.24",
+    "1Cor.7.29",
+    "1Cor.9.5",
+    "1Cor.10.1",
+    "1Cor.11.2",
+    "1Cor.11.33",
+    "1Cor.12.1",
+    "1Cor.14.6",
+    "1Cor.14.20",
+    "1Cor.14.26",
+    "1Cor.14.39",
+    "1Cor.15.1",
+    "1Cor.15.50",
+    "1Cor.15.58",
+    "1Cor.16.15",
+    "1Cor.16.20"
+   ],
+   "count_sbl": 21,
+   "verses_sbl": [
+    "1Cor.1.10",
+    "1Cor.1.11",
+    "1Cor.1.26",
+    "1Cor.2.1",
+    "1Cor.3.1",
+    "1Cor.4.6",
+    "1Cor.7.24",
+    "1Cor.7.29",
+    "1Cor.9.5",
+    "1Cor.10.1",
+    "1Cor.11.33",
+    "1Cor.12.1",
+    "1Cor.14.6",
+    "1Cor.14.20",
+    "1Cor.14.26",
+    "1Cor.14.39",
+    "1Cor.15.1",
+    "1Cor.15.50",
+    "1Cor.15.58",
+    "1Cor.16.15",
+    "1Cor.16.20"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.11.2",
+     "rp": true,
+     "sbl": false,
+     "rp_quote": "ἀδελφοί",
+     "sbl_quote": null,
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.1.10": [
+     "after_comma"
+    ],
+    "1Cor.1.11": [
+     "after_comma"
+    ],
+    "1Cor.1.26": [
+     "after_comma"
+    ],
+    "1Cor.2.1": [
+     "after_comma"
+    ],
+    "1Cor.3.1": [
+     "after_comma"
+    ],
+    "1Cor.4.6": [
+     "after_comma"
+    ],
+    "1Cor.7.24": [
+     "after_comma"
+    ],
+    "1Cor.7.29": [
+     "after_comma"
+    ],
+    "1Cor.9.5": [
+     "internal"
+    ],
+    "1Cor.10.1": [
+     "after_comma"
+    ],
+    "1Cor.11.2": [
+     "after_comma"
+    ],
+    "1Cor.11.33": [
+     "after_comma"
+    ],
+    "1Cor.12.1": [
+     "after_comma"
+    ],
+    "1Cor.14.6": [
+     "after_comma"
+    ],
+    "1Cor.14.20": [
+     "sentence_start"
+    ],
+    "1Cor.14.26": [
+     "after_comma"
+    ],
+    "1Cor.14.39": [
+     "after_comma"
+    ],
+    "1Cor.15.1": [
+     "after_comma"
+    ],
+    "1Cor.15.50": [
+     "after_comma"
+    ],
+    "1Cor.15.58": [
+     "after_comma"
+    ],
+    "1Cor.16.15": [
+     "after_comma"
+    ],
+    "1Cor.16.20": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.10": [
+     "after_comma"
+    ],
+    "1Cor.1.11": [
+     "after_comma"
+    ],
+    "1Cor.1.26": [
+     "after_comma"
+    ],
+    "1Cor.2.1": [
+     "after_comma"
+    ],
+    "1Cor.3.1": [
+     "after_comma"
+    ],
+    "1Cor.4.6": [
+     "after_comma"
+    ],
+    "1Cor.7.24": [
+     "after_comma"
+    ],
+    "1Cor.7.29": [
+     "after_comma"
+    ],
+    "1Cor.9.5": [
+     "internal"
+    ],
+    "1Cor.10.1": [
+     "after_comma"
+    ],
+    "1Cor.11.33": [
+     "after_comma"
+    ],
+    "1Cor.12.1": [
+     "after_comma"
+    ],
+    "1Cor.14.6": [
+     "after_comma"
+    ],
+    "1Cor.14.20": [
+     "sentence_start"
+    ],
+    "1Cor.14.26": [
+     "after_comma"
+    ],
+    "1Cor.14.39": [
+     "after_comma"
+    ],
+    "1Cor.15.1": [
+     "after_comma"
+    ],
+    "1Cor.15.50": [
+     "after_comma"
+    ],
+    "1Cor.15.58": [
+     "after_comma"
+    ],
+    "1Cor.16.15": [
+     "after_comma"
+    ],
+    "1Cor.16.20": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.10": "ἀδελφοί",
+    "1Cor.1.11": "ἀδελφοί",
+    "1Cor.1.26": "ἀδελφοί",
+    "1Cor.2.1": "ἀδελφοί",
+    "1Cor.3.1": "ἀδελφοί",
+    "1Cor.4.6": "ἀδελφοί",
+    "1Cor.7.24": "ἀδελφοί",
+    "1Cor.7.29": "ἀδελφοί",
+    "1Cor.9.5": "ἀδελφοὶ",
+    "1Cor.10.1": "ἀδελφοί",
+    "1Cor.11.2": "ἀδελφοί",
+    "1Cor.11.33": "ἀδελφοί",
+    "1Cor.12.1": "ἀδελφοί",
+    "1Cor.14.6": "ἀδελφοί",
+    "1Cor.14.20": "Ἀδελφοί",
+    "1Cor.14.26": "ἀδελφοί",
+    "1Cor.14.39": "ἀδελφοί",
+    "1Cor.15.1": "ἀδελφοί",
+    "1Cor.15.50": "ἀδελφοί",
+    "1Cor.15.58": "ἀδελφοί",
+    "1Cor.16.15": "ἀδελφοί",
+    "1Cor.16.20": "ἀδελφοὶ"
+   },
+   "quotes_sbl": {
+    "1Cor.1.10": "ἀδελφοί",
+    "1Cor.1.11": "ἀδελφοί",
+    "1Cor.1.26": "ἀδελφοί",
+    "1Cor.2.1": "ἀδελφοί",
+    "1Cor.3.1": "ἀδελφοί",
+    "1Cor.4.6": "ἀδελφοί",
+    "1Cor.7.24": "ἀδελφοί",
+    "1Cor.7.29": "ἀδελφοί",
+    "1Cor.9.5": "ἀδελφοὶ",
+    "1Cor.10.1": "ἀδελφοί",
+    "1Cor.11.33": "ἀδελφοί",
+    "1Cor.12.1": "ἀδελφοί",
+    "1Cor.14.6": "ἀδελφοί",
+    "1Cor.14.20": "Ἀδελφοί",
+    "1Cor.14.26": "ἀδελφοί",
+    "1Cor.14.39": "ἀδελφοί",
+    "1Cor.15.1": "ἀδελφοί",
+    "1Cor.15.50": "ἀδελφοί",
+    "1Cor.15.58": "ἀδελφοί",
+    "1Cor.16.15": "ἀδελφοί",
+    "1Cor.16.20": "ἀδελφοὶ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 23,
+     "word_bounded_unconstrained_count": 22,
+     "substring_only_verses": [
+      "1Cor.15.6"
+     ]
+    },
+    "sbl": {
+     "substring_count": 22,
+     "word_bounded_unconstrained_count": 21,
+     "substring_only_verses": [
+      "1Cor.15.6"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 9,
+    "rp_hits_on_web_paragraph_start": 14
+   }
+  },
+  "adelphoi_no_article": {
+   "family": "vocative",
+   "gloss": "ἀδελφοί not preceded by the article οἱ in the verse (the vocative reading; a heuristic)",
+   "pattern": [
+    "αδελφοι"
+   ],
+   "constraints": {
+    "not_preceded_by": [
+     "οι"
+    ]
+   },
+   "count_rp": 20,
+   "verses_rp": [
+    "1Cor.1.10",
+    "1Cor.1.11",
+    "1Cor.1.26",
+    "1Cor.2.1",
+    "1Cor.3.1",
+    "1Cor.4.6",
+    "1Cor.7.24",
+    "1Cor.7.29",
+    "1Cor.10.1",
+    "1Cor.11.2",
+    "1Cor.11.33",
+    "1Cor.12.1",
+    "1Cor.14.6",
+    "1Cor.14.20",
+    "1Cor.14.26",
+    "1Cor.14.39",
+    "1Cor.15.1",
+    "1Cor.15.50",
+    "1Cor.15.58",
+    "1Cor.16.15"
+   ],
+   "count_sbl": 19,
+   "verses_sbl": [
+    "1Cor.1.10",
+    "1Cor.1.11",
+    "1Cor.1.26",
+    "1Cor.2.1",
+    "1Cor.3.1",
+    "1Cor.4.6",
+    "1Cor.7.24",
+    "1Cor.7.29",
+    "1Cor.10.1",
+    "1Cor.11.33",
+    "1Cor.12.1",
+    "1Cor.14.6",
+    "1Cor.14.20",
+    "1Cor.14.26",
+    "1Cor.14.39",
+    "1Cor.15.1",
+    "1Cor.15.50",
+    "1Cor.15.58",
+    "1Cor.16.15"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.11.2",
+     "rp": true,
+     "sbl": false,
+     "rp_quote": "ἀδελφοί",
+     "sbl_quote": null,
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.1.10": [
+     "after_comma"
+    ],
+    "1Cor.1.11": [
+     "after_comma"
+    ],
+    "1Cor.1.26": [
+     "after_comma"
+    ],
+    "1Cor.2.1": [
+     "after_comma"
+    ],
+    "1Cor.3.1": [
+     "after_comma"
+    ],
+    "1Cor.4.6": [
+     "after_comma"
+    ],
+    "1Cor.7.24": [
+     "after_comma"
+    ],
+    "1Cor.7.29": [
+     "after_comma"
+    ],
+    "1Cor.10.1": [
+     "after_comma"
+    ],
+    "1Cor.11.2": [
+     "after_comma"
+    ],
+    "1Cor.11.33": [
+     "after_comma"
+    ],
+    "1Cor.12.1": [
+     "after_comma"
+    ],
+    "1Cor.14.6": [
+     "after_comma"
+    ],
+    "1Cor.14.20": [
+     "sentence_start"
+    ],
+    "1Cor.14.26": [
+     "after_comma"
+    ],
+    "1Cor.14.39": [
+     "after_comma"
+    ],
+    "1Cor.15.1": [
+     "after_comma"
+    ],
+    "1Cor.15.50": [
+     "after_comma"
+    ],
+    "1Cor.15.58": [
+     "after_comma"
+    ],
+    "1Cor.16.15": [
+     "after_comma"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.10": [
+     "after_comma"
+    ],
+    "1Cor.1.11": [
+     "after_comma"
+    ],
+    "1Cor.1.26": [
+     "after_comma"
+    ],
+    "1Cor.2.1": [
+     "after_comma"
+    ],
+    "1Cor.3.1": [
+     "after_comma"
+    ],
+    "1Cor.4.6": [
+     "after_comma"
+    ],
+    "1Cor.7.24": [
+     "after_comma"
+    ],
+    "1Cor.7.29": [
+     "after_comma"
+    ],
+    "1Cor.10.1": [
+     "after_comma"
+    ],
+    "1Cor.11.33": [
+     "after_comma"
+    ],
+    "1Cor.12.1": [
+     "after_comma"
+    ],
+    "1Cor.14.6": [
+     "after_comma"
+    ],
+    "1Cor.14.20": [
+     "sentence_start"
+    ],
+    "1Cor.14.26": [
+     "after_comma"
+    ],
+    "1Cor.14.39": [
+     "after_comma"
+    ],
+    "1Cor.15.1": [
+     "after_comma"
+    ],
+    "1Cor.15.50": [
+     "after_comma"
+    ],
+    "1Cor.15.58": [
+     "after_comma"
+    ],
+    "1Cor.16.15": [
+     "after_comma"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.10": "ἀδελφοί",
+    "1Cor.1.11": "ἀδελφοί",
+    "1Cor.1.26": "ἀδελφοί",
+    "1Cor.2.1": "ἀδελφοί",
+    "1Cor.3.1": "ἀδελφοί",
+    "1Cor.4.6": "ἀδελφοί",
+    "1Cor.7.24": "ἀδελφοί",
+    "1Cor.7.29": "ἀδελφοί",
+    "1Cor.10.1": "ἀδελφοί",
+    "1Cor.11.2": "ἀδελφοί",
+    "1Cor.11.33": "ἀδελφοί",
+    "1Cor.12.1": "ἀδελφοί",
+    "1Cor.14.6": "ἀδελφοί",
+    "1Cor.14.20": "Ἀδελφοί",
+    "1Cor.14.26": "ἀδελφοί",
+    "1Cor.14.39": "ἀδελφοί",
+    "1Cor.15.1": "ἀδελφοί",
+    "1Cor.15.50": "ἀδελφοί",
+    "1Cor.15.58": "ἀδελφοί",
+    "1Cor.16.15": "ἀδελφοί"
+   },
+   "quotes_sbl": {
+    "1Cor.1.10": "ἀδελφοί",
+    "1Cor.1.11": "ἀδελφοί",
+    "1Cor.1.26": "ἀδελφοί",
+    "1Cor.2.1": "ἀδελφοί",
+    "1Cor.3.1": "ἀδελφοί",
+    "1Cor.4.6": "ἀδελφοί",
+    "1Cor.7.24": "ἀδελφοί",
+    "1Cor.7.29": "ἀδελφοί",
+    "1Cor.10.1": "ἀδελφοί",
+    "1Cor.11.33": "ἀδελφοί",
+    "1Cor.12.1": "ἀδελφοί",
+    "1Cor.14.6": "ἀδελφοί",
+    "1Cor.14.20": "Ἀδελφοί",
+    "1Cor.14.26": "ἀδελφοί",
+    "1Cor.14.39": "ἀδελφοί",
+    "1Cor.15.1": "ἀδελφοί",
+    "1Cor.15.50": "ἀδελφοί",
+    "1Cor.15.58": "ἀδελφοί",
+    "1Cor.16.15": "ἀδελφοί"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 23,
+     "word_bounded_unconstrained_count": 22,
+     "substring_only_verses": [
+      "1Cor.15.6"
+     ]
+    },
+    "sbl": {
+     "substring_count": 22,
+     "word_bounded_unconstrained_count": 21,
+     "substring_only_verses": [
+      "1Cor.15.6"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 9,
+    "rp_hits_on_web_paragraph_start": 14
+   }
+  },
+  "adelphoi_mou": {
+   "family": "vocative",
+   "gloss": "ἀδελφοί μου",
+   "pattern": [
+    "αδελφοι μου"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.1.11",
+    "1Cor.11.33",
+    "1Cor.15.58"
+   ],
+   "count_sbl": 4,
+   "verses_sbl": [
+    "1Cor.1.11",
+    "1Cor.11.33",
+    "1Cor.14.39",
+    "1Cor.15.58"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.14.39",
+     "rp": false,
+     "sbl": true,
+     "rp_quote": null,
+     "sbl_quote": "ἀδελφοί ⸀μου",
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.1.11": [
+     "after_comma"
+    ],
+    "1Cor.11.33": [
+     "after_comma"
+    ],
+    "1Cor.15.58": [
+     "after_comma"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.11": [
+     "after_comma"
+    ],
+    "1Cor.11.33": [
+     "after_comma"
+    ],
+    "1Cor.14.39": [
+     "after_comma"
+    ],
+    "1Cor.15.58": [
+     "after_comma"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.11": "ἀδελφοί μου",
+    "1Cor.11.33": "ἀδελφοί μου",
+    "1Cor.15.58": "ἀδελφοί μου"
+   },
+   "quotes_sbl": {
+    "1Cor.1.11": "ἀδελφοί μου",
+    "1Cor.11.33": "ἀδελφοί μου",
+    "1Cor.14.39": "ἀδελφοί ⸀μου",
+    "1Cor.15.58": "ἀδελφοί μου"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 4,
+     "substring_only_verses": []
+    }
+   },
+   "sbl_hits_with_a_critical_sign_inside": [
+    {
+     "verse": "1Cor.14.39",
+     "quote": "ἀδελφοί ⸀μου",
+     "found_if_signs_kept": false
+    }
+   ],
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "adelphoi_mou_agapetoi": {
+   "family": "vocative",
+   "gloss": "ἀδελφοί μου ἀγαπητοί",
+   "pattern": [
+    "αδελφοι μου αγαπητοι"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.15.58"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.15.58"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.15.58": [
+     "after_comma"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.15.58": [
+     "after_comma"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.15.58": "ἀδελφοί μου ἀγαπητοί"
+   },
+   "quotes_sbl": {
+    "1Cor.15.58": "ἀδελφοί μου ἀγαπητοί"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "agapetoi": {
+   "family": "vocative",
+   "gloss": "ἀγαπητοί, any position",
+   "pattern": [
+    "αγαπητοι"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.10.14",
+    "1Cor.15.58"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.10.14",
+    "1Cor.15.58"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.10.14": [
+     "after_comma"
+    ],
+    "1Cor.15.58": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.10.14": [
+     "after_comma"
+    ],
+    "1Cor.15.58": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.10.14": "ἀγαπητοί",
+    "1Cor.15.58": "ἀγαπητοί"
+   },
+   "quotes_sbl": {
+    "1Cor.10.14": "ἀγαπητοί",
+    "1Cor.15.58": "ἀγαπητοί"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "agapetoi_mou": {
+   "family": "vocative",
+   "gloss": "ἀγαπητοί μου",
+   "pattern": [
+    "αγαπητοι μου"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.10.14"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.10.14"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.10.14": [
+     "after_comma"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.10.14": [
+     "after_comma"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.10.14": "ἀγαπητοί μου"
+   },
+   "quotes_sbl": {
+    "1Cor.10.14": "ἀγαπητοί μου"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "ou_thelo_agnoein": {
+   "family": "disclosure",
+   "gloss": "οὐ θέλω (δὲ / γὰρ) ὑμᾶς ἀγνοεῖν 'I do not want you to be ignorant'",
+   "pattern": [
+    "ου θελω υμασ αγνοειν",
+    "ου θελω δε υμασ αγνοειν",
+    "ου θελω γαρ υμασ αγνοειν"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.10.1",
+    "1Cor.12.1"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.10.1",
+    "1Cor.12.1"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.10.1": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "after_comma"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.10.1": [
+     "sentence_start"
+    ],
+    "1Cor.12.1": [
+     "after_comma"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.10.1": "Οὐ θέλω δὲ ὑμᾶς ἀγνοεῖν",
+    "1Cor.12.1": "οὐ θέλω ὑμᾶς ἀγνοεῖν"
+   },
+   "quotes_sbl": {
+    "1Cor.10.1": "Οὐ θέλω ⸀γὰρ ὑμᾶς ἀγνοεῖν",
+    "1Cor.12.1": "οὐ θέλω ὑμᾶς ἀγνοεῖν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "sbl_hits_with_a_critical_sign_inside": [
+    {
+     "verse": "1Cor.10.1",
+     "quote": "Οὐ θέλω ⸀γὰρ ὑμᾶς ἀγνοεῖν",
+     "found_if_signs_kept": false
+    }
+   ],
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "gnorizo_hymin": {
+   "family": "disclosure",
+   "gloss": "γνωρίζω (δὲ / γὰρ) ὑμῖν 'I make known to you'",
+   "pattern": [
+    "γνωριζω υμιν",
+    "γνωριζω δε υμιν",
+    "γνωριζω γαρ υμιν"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.12.3",
+    "1Cor.15.1"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.12.3",
+    "1Cor.15.1"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.12.3": [
+     "internal"
+    ],
+    "1Cor.15.1": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.12.3": [
+     "internal"
+    ],
+    "1Cor.15.1": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.12.3": "γνωρίζω ὑμῖν",
+    "1Cor.15.1": "Γνωρίζω δὲ ὑμῖν"
+   },
+   "quotes_sbl": {
+    "1Cor.12.3": "γνωρίζω ὑμῖν",
+    "1Cor.15.1": "Γνωρίζω δὲ ὑμῖν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "thelo_de_hymas_eidenai": {
+   "family": "disclosure",
+   "gloss": "θέλω δὲ ὑμᾶς εἰδέναι 'I want you to know'",
+   "pattern": [
+    "θελω δε υμασ ειδεναι"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.11.3"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.11.3"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.11.3": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.11.3": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.11.3": "Θέλω δὲ ὑμᾶς εἰδέναι"
+   },
+   "quotes_sbl": {
+    "1Cor.11.3": "θέλω δὲ ὑμᾶς εἰδέναι"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "thelo_de_hymas_wider": {
+   "family": "disclosure_control",
+   "gloss": "θέλω δὲ (πάντας) ὑμᾶς + any infinitive: a wider wish form, NOT counted in the disclosure family",
+   "pattern": [
+    "θελω δε υμασ",
+    "θελω δε παντασ υμασ"
+   ],
+   "constraints": null,
+   "count_rp": 5,
+   "verses_rp": [
+    "1Cor.7.32",
+    "1Cor.10.1",
+    "1Cor.10.20",
+    "1Cor.11.3",
+    "1Cor.14.5"
+   ],
+   "count_sbl": 4,
+   "verses_sbl": [
+    "1Cor.7.32",
+    "1Cor.10.20",
+    "1Cor.11.3",
+    "1Cor.14.5"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.10.1",
+     "rp": true,
+     "sbl": false,
+     "rp_quote": "θέλω δὲ ὑμᾶς",
+     "sbl_quote": null,
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.7.32": [
+     "sentence_start"
+    ],
+    "1Cor.10.1": [
+     "internal"
+    ],
+    "1Cor.10.20": [
+     "internal"
+    ],
+    "1Cor.11.3": [
+     "sentence_start"
+    ],
+    "1Cor.14.5": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.7.32": [
+     "sentence_start"
+    ],
+    "1Cor.10.20": [
+     "internal"
+    ],
+    "1Cor.11.3": [
+     "sentence_start"
+    ],
+    "1Cor.14.5": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.7.32": "Θέλω δὲ ὑμᾶς",
+    "1Cor.10.1": "θέλω δὲ ὑμᾶς",
+    "1Cor.10.20": "θέλω δὲ ὑμᾶς",
+    "1Cor.11.3": "Θέλω δὲ ὑμᾶς",
+    "1Cor.14.5": "Θέλω δὲ πάντας ὑμᾶς"
+   },
+   "quotes_sbl": {
+    "1Cor.7.32": "Θέλω δὲ ὑμᾶς",
+    "1Cor.10.20": "θέλω δὲ ὑμᾶς",
+    "1Cor.11.3": "θέλω δὲ ὑμᾶς",
+    "1Cor.14.5": "θέλω δὲ πάντας ὑμᾶς"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 5,
+     "word_bounded_unconstrained_count": 5,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 4,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "parakalo": {
+   "family": "appeal",
+   "gloss": "παρακαλῶ, any position",
+   "pattern": [
+    "παρακαλω"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.1.10",
+    "1Cor.4.16",
+    "1Cor.16.15"
+   ],
+   "count_sbl": 3,
+   "verses_sbl": [
+    "1Cor.1.10",
+    "1Cor.4.16",
+    "1Cor.16.15"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.10": [
+     "sentence_start"
+    ],
+    "1Cor.4.16": [
+     "sentence_start"
+    ],
+    "1Cor.16.15": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.10": [
+     "sentence_start"
+    ],
+    "1Cor.4.16": [
+     "sentence_start"
+    ],
+    "1Cor.16.15": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.10": "Παρακαλῶ",
+    "1Cor.4.16": "Παρακαλῶ",
+    "1Cor.16.15": "Παρακαλῶ"
+   },
+   "quotes_sbl": {
+    "1Cor.1.10": "Παρακαλῶ",
+    "1Cor.4.16": "παρακαλῶ",
+    "1Cor.16.15": "Παρακαλῶ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": [
+      "1Cor.14.31"
+     ]
+    },
+    "sbl": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": [
+      "1Cor.14.31"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 2,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "parakalo_hymas": {
+   "family": "appeal",
+   "gloss": "παρακαλῶ (δὲ / οὖν) ὑμᾶς 'I appeal to you'",
+   "pattern": [
+    "παρακαλω υμασ",
+    "παρακαλω δε υμασ",
+    "παρακαλω ουν υμασ"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.1.10",
+    "1Cor.4.16",
+    "1Cor.16.15"
+   ],
+   "count_sbl": 3,
+   "verses_sbl": [
+    "1Cor.1.10",
+    "1Cor.4.16",
+    "1Cor.16.15"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.10": [
+     "sentence_start"
+    ],
+    "1Cor.4.16": [
+     "sentence_start"
+    ],
+    "1Cor.16.15": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.10": [
+     "sentence_start"
+    ],
+    "1Cor.4.16": [
+     "sentence_start"
+    ],
+    "1Cor.16.15": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.10": "Παρακαλῶ δὲ ὑμᾶς",
+    "1Cor.4.16": "Παρακαλῶ οὖν ὑμᾶς",
+    "1Cor.16.15": "Παρακαλῶ δὲ ὑμᾶς"
+   },
+   "quotes_sbl": {
+    "1Cor.1.10": "Παρακαλῶ δὲ ὑμᾶς",
+    "1Cor.4.16": "παρακαλῶ οὖν ὑμᾶς",
+    "1Cor.16.15": "Παρακαλῶ δὲ ὑμᾶς"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 2,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "parakalo_de_hymas": {
+   "family": "appeal",
+   "gloss": "παρακαλῶ δὲ ὑμᾶς",
+   "pattern": [
+    "παρακαλω δε υμασ"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.1.10",
+    "1Cor.16.15"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.1.10",
+    "1Cor.16.15"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.10": [
+     "sentence_start"
+    ],
+    "1Cor.16.15": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.10": [
+     "sentence_start"
+    ],
+    "1Cor.16.15": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.10": "Παρακαλῶ δὲ ὑμᾶς",
+    "1Cor.16.15": "Παρακαλῶ δὲ ὑμᾶς"
+   },
+   "quotes_sbl": {
+    "1Cor.1.10": "Παρακαλῶ δὲ ὑμᾶς",
+    "1Cor.16.15": "Παρακαλῶ δὲ ὑμᾶς"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 2,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "ouk_oidate": {
+   "family": "rhetorical",
+   "gloss": "οὐκ οἴδατε 'do you not know'",
+   "pattern": [
+    "ουκ οιδατε"
+   ],
+   "constraints": null,
+   "count_rp": 10,
+   "verses_rp": [
+    "1Cor.3.16",
+    "1Cor.5.6",
+    "1Cor.6.2",
+    "1Cor.6.3",
+    "1Cor.6.9",
+    "1Cor.6.15",
+    "1Cor.6.16",
+    "1Cor.6.19",
+    "1Cor.9.13",
+    "1Cor.9.24"
+   ],
+   "count_sbl": 10,
+   "verses_sbl": [
+    "1Cor.3.16",
+    "1Cor.5.6",
+    "1Cor.6.2",
+    "1Cor.6.3",
+    "1Cor.6.9",
+    "1Cor.6.15",
+    "1Cor.6.16",
+    "1Cor.6.19",
+    "1Cor.9.13",
+    "1Cor.9.24"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.3.16": [
+     "sentence_start"
+    ],
+    "1Cor.5.6": [
+     "sentence_start"
+    ],
+    "1Cor.6.2": [
+     "sentence_start"
+    ],
+    "1Cor.6.3": [
+     "sentence_start"
+    ],
+    "1Cor.6.9": [
+     "internal"
+    ],
+    "1Cor.6.15": [
+     "sentence_start"
+    ],
+    "1Cor.6.16": [
+     "sentence_start"
+    ],
+    "1Cor.6.19": [
+     "internal"
+    ],
+    "1Cor.9.13": [
+     "sentence_start"
+    ],
+    "1Cor.9.24": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.3.16": [
+     "sentence_start"
+    ],
+    "1Cor.5.6": [
+     "sentence_start"
+    ],
+    "1Cor.6.2": [
+     "internal"
+    ],
+    "1Cor.6.3": [
+     "sentence_start"
+    ],
+    "1Cor.6.9": [
+     "internal"
+    ],
+    "1Cor.6.15": [
+     "sentence_start"
+    ],
+    "1Cor.6.16": [
+     "internal"
+    ],
+    "1Cor.6.19": [
+     "internal"
+    ],
+    "1Cor.9.13": [
+     "sentence_start"
+    ],
+    "1Cor.9.24": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.3.16": "Οὐκ οἴδατε",
+    "1Cor.5.6": "Οὐκ οἴδατε",
+    "1Cor.6.2": "Οὐκ οἴδατε",
+    "1Cor.6.3": "Οὐκ οἴδατε",
+    "1Cor.6.9": "οὐκ οἴδατε",
+    "1Cor.6.15": "Οὐκ οἴδατε",
+    "1Cor.6.16": "Οὐκ οἴδατε",
+    "1Cor.6.19": "οὐκ οἴδατε",
+    "1Cor.9.13": "Οὐκ οἴδατε",
+    "1Cor.9.24": "Οὐκ οἴδατε"
+   },
+   "quotes_sbl": {
+    "1Cor.3.16": "Οὐκ οἴδατε",
+    "1Cor.5.6": "οὐκ οἴδατε",
+    "1Cor.6.2": "οὐκ οἴδατε",
+    "1Cor.6.3": "οὐκ οἴδατε",
+    "1Cor.6.9": "οὐκ οἴδατε",
+    "1Cor.6.15": "οὐκ οἴδατε",
+    "1Cor.6.16": "οὐκ οἴδατε",
+    "1Cor.6.19": "οὐκ οἴδατε",
+    "1Cor.9.13": "οὐκ οἴδατε",
+    "1Cor.9.24": "Οὐκ οἴδατε"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 10,
+     "word_bounded_unconstrained_count": 10,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 10,
+     "word_bounded_unconstrained_count": 10,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 3
+   }
+  },
+  "ouk_oidate_hoti": {
+   "family": "rhetorical",
+   "gloss": "οὐκ οἴδατε ὅτι",
+   "pattern": [
+    "ουκ οιδατε οτι"
+   ],
+   "constraints": null,
+   "count_rp": 10,
+   "verses_rp": [
+    "1Cor.3.16",
+    "1Cor.5.6",
+    "1Cor.6.2",
+    "1Cor.6.3",
+    "1Cor.6.9",
+    "1Cor.6.15",
+    "1Cor.6.16",
+    "1Cor.6.19",
+    "1Cor.9.13",
+    "1Cor.9.24"
+   ],
+   "count_sbl": 10,
+   "verses_sbl": [
+    "1Cor.3.16",
+    "1Cor.5.6",
+    "1Cor.6.2",
+    "1Cor.6.3",
+    "1Cor.6.9",
+    "1Cor.6.15",
+    "1Cor.6.16",
+    "1Cor.6.19",
+    "1Cor.9.13",
+    "1Cor.9.24"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.3.16": [
+     "sentence_start"
+    ],
+    "1Cor.5.6": [
+     "sentence_start"
+    ],
+    "1Cor.6.2": [
+     "sentence_start"
+    ],
+    "1Cor.6.3": [
+     "sentence_start"
+    ],
+    "1Cor.6.9": [
+     "internal"
+    ],
+    "1Cor.6.15": [
+     "sentence_start"
+    ],
+    "1Cor.6.16": [
+     "sentence_start"
+    ],
+    "1Cor.6.19": [
+     "internal"
+    ],
+    "1Cor.9.13": [
+     "sentence_start"
+    ],
+    "1Cor.9.24": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.3.16": [
+     "sentence_start"
+    ],
+    "1Cor.5.6": [
+     "sentence_start"
+    ],
+    "1Cor.6.2": [
+     "internal"
+    ],
+    "1Cor.6.3": [
+     "sentence_start"
+    ],
+    "1Cor.6.9": [
+     "internal"
+    ],
+    "1Cor.6.15": [
+     "sentence_start"
+    ],
+    "1Cor.6.16": [
+     "internal"
+    ],
+    "1Cor.6.19": [
+     "internal"
+    ],
+    "1Cor.9.13": [
+     "sentence_start"
+    ],
+    "1Cor.9.24": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.3.16": "Οὐκ οἴδατε ὅτι",
+    "1Cor.5.6": "Οὐκ οἴδατε ὅτι",
+    "1Cor.6.2": "Οὐκ οἴδατε ὅτι",
+    "1Cor.6.3": "Οὐκ οἴδατε ὅτι",
+    "1Cor.6.9": "οὐκ οἴδατε ὅτι",
+    "1Cor.6.15": "Οὐκ οἴδατε ὅτι",
+    "1Cor.6.16": "Οὐκ οἴδατε ὅτι",
+    "1Cor.6.19": "οὐκ οἴδατε ὅτι",
+    "1Cor.9.13": "Οὐκ οἴδατε ὅτι",
+    "1Cor.9.24": "Οὐκ οἴδατε ὅτι"
+   },
+   "quotes_sbl": {
+    "1Cor.3.16": "Οὐκ οἴδατε ὅτι",
+    "1Cor.5.6": "οὐκ οἴδατε ὅτι",
+    "1Cor.6.2": "οὐκ οἴδατε ὅτι",
+    "1Cor.6.3": "οὐκ οἴδατε ὅτι",
+    "1Cor.6.9": "οὐκ οἴδατε ὅτι",
+    "1Cor.6.15": "οὐκ οἴδατε ὅτι",
+    "1Cor.6.16": "οὐκ οἴδατε ὅτι",
+    "1Cor.6.19": "οὐκ οἴδατε ὅτι",
+    "1Cor.9.13": "οὐκ οἴδατε ὅτι",
+    "1Cor.9.24": "Οὐκ οἴδατε ὅτι"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 10,
+     "word_bounded_unconstrained_count": 10,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 10,
+     "word_bounded_unconstrained_count": 10,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 3
+   }
+  },
+  "e_ouk_oidate": {
+   "family": "rhetorical",
+   "gloss": "ἢ οὐκ οἴδατε 'or do you not know'",
+   "pattern": [
+    "η ουκ οιδατε"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.6.9",
+    "1Cor.6.19"
+   ],
+   "count_sbl": 4,
+   "verses_sbl": [
+    "1Cor.6.2",
+    "1Cor.6.9",
+    "1Cor.6.16",
+    "1Cor.6.19"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.6.2",
+     "rp": false,
+     "sbl": true,
+     "rp_quote": null,
+     "sbl_quote": "ἢ οὐκ οἴδατε",
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    },
+    {
+     "verse": "1Cor.6.16",
+     "rp": false,
+     "sbl": true,
+     "rp_quote": null,
+     "sbl_quote": "ἢ οὐκ οἴδατε",
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.6.9": [
+     "sentence_start"
+    ],
+    "1Cor.6.19": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.6.2": [
+     "sentence_start"
+    ],
+    "1Cor.6.9": [
+     "sentence_start"
+    ],
+    "1Cor.6.16": [
+     "sentence_start"
+    ],
+    "1Cor.6.19": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.6.9": "Ἢ οὐκ οἴδατε",
+    "1Cor.6.19": "Ἢ οὐκ οἴδατε"
+   },
+   "quotes_sbl": {
+    "1Cor.6.2": "ἢ οὐκ οἴδατε",
+    "1Cor.6.9": "Ἢ οὐκ οἴδατε",
+    "1Cor.6.16": "ἢ οὐκ οἴδατε",
+    "1Cor.6.19": "ἢ οὐκ οἴδατε"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 4,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "gegraptai": {
+   "family": "citation",
+   "gloss": "γέγραπται 'it is written', any form of introduction",
+   "pattern": [
+    "γεγραπται"
+   ],
+   "constraints": null,
+   "count_rp": 9,
+   "verses_rp": [
+    "1Cor.1.19",
+    "1Cor.1.31",
+    "1Cor.2.9",
+    "1Cor.3.19",
+    "1Cor.4.6",
+    "1Cor.9.9",
+    "1Cor.10.7",
+    "1Cor.14.21",
+    "1Cor.15.45"
+   ],
+   "count_sbl": 9,
+   "verses_sbl": [
+    "1Cor.1.19",
+    "1Cor.1.31",
+    "1Cor.2.9",
+    "1Cor.3.19",
+    "1Cor.4.6",
+    "1Cor.9.9",
+    "1Cor.10.7",
+    "1Cor.14.21",
+    "1Cor.15.45"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.19": [
+     "sentence_start"
+    ],
+    "1Cor.1.31": [
+     "internal"
+    ],
+    "1Cor.2.9": [
+     "internal"
+    ],
+    "1Cor.3.19": [
+     "sentence_start"
+    ],
+    "1Cor.4.6": [
+     "internal"
+    ],
+    "1Cor.9.9": [
+     "internal"
+    ],
+    "1Cor.10.7": [
+     "internal"
+    ],
+    "1Cor.14.21": [
+     "internal"
+    ],
+    "1Cor.15.45": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.19": [
+     "sentence_start"
+    ],
+    "1Cor.1.31": [
+     "internal"
+    ],
+    "1Cor.2.9": [
+     "internal"
+    ],
+    "1Cor.3.19": [
+     "sentence_start"
+    ],
+    "1Cor.4.6": [
+     "internal"
+    ],
+    "1Cor.9.9": [
+     "internal"
+    ],
+    "1Cor.10.7": [
+     "internal"
+    ],
+    "1Cor.14.21": [
+     "internal"
+    ],
+    "1Cor.15.45": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.19": "Γέγραπται",
+    "1Cor.1.31": "γέγραπται",
+    "1Cor.2.9": "γέγραπται",
+    "1Cor.3.19": "Γέγραπται",
+    "1Cor.4.6": "γέγραπται",
+    "1Cor.9.9": "γέγραπται",
+    "1Cor.10.7": "γέγραπται",
+    "1Cor.14.21": "γέγραπται",
+    "1Cor.15.45": "γέγραπται"
+   },
+   "quotes_sbl": {
+    "1Cor.1.19": "γέγραπται",
+    "1Cor.1.31": "γέγραπται",
+    "1Cor.2.9": "γέγραπται",
+    "1Cor.3.19": "γέγραπται",
+    "1Cor.4.6": "γέγραπται",
+    "1Cor.9.9": "γέγραπται",
+    "1Cor.10.7": "γέγραπται",
+    "1Cor.14.21": "γέγραπται",
+    "1Cor.15.45": "γέγραπται"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 9,
+     "word_bounded_unconstrained_count": 9,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 9,
+     "word_bounded_unconstrained_count": 9,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "kathos_gegraptai": {
+   "family": "citation",
+   "gloss": "καθὼς γέγραπται",
+   "pattern": [
+    "καθωσ γεγραπται"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.1.31",
+    "1Cor.2.9"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.1.31",
+    "1Cor.2.9"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.31": [
+     "after_comma"
+    ],
+    "1Cor.2.9": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.31": [
+     "internal"
+    ],
+    "1Cor.2.9": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.31": "καθὼς γέγραπται",
+    "1Cor.2.9": "καθὼς γέγραπται"
+   },
+   "quotes_sbl": {
+    "1Cor.1.31": "καθὼς γέγραπται",
+    "1Cor.2.9": "καθὼς γέγραπται"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "gegraptai_gar": {
+   "family": "citation",
+   "gloss": "γέγραπται γάρ",
+   "pattern": [
+    "γεγραπται γαρ"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.1.19",
+    "1Cor.3.19"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.1.19",
+    "1Cor.3.19"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.19": [
+     "sentence_start"
+    ],
+    "1Cor.3.19": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.19": [
+     "sentence_start"
+    ],
+    "1Cor.3.19": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.19": "Γέγραπται γάρ",
+    "1Cor.3.19": "Γέγραπται γάρ"
+   },
+   "quotes_sbl": {
+    "1Cor.1.19": "γέγραπται γάρ",
+    "1Cor.3.19": "γέγραπται γάρ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "legei": {
+   "family": "citation",
+   "gloss": "λέγει 'he/it says', any subject (frequency control)",
+   "pattern": [
+    "λεγει"
+   ],
+   "constraints": null,
+   "count_rp": 6,
+   "verses_rp": [
+    "1Cor.1.12",
+    "1Cor.9.8",
+    "1Cor.9.10",
+    "1Cor.12.3",
+    "1Cor.14.21",
+    "1Cor.14.34"
+   ],
+   "count_sbl": 6,
+   "verses_sbl": [
+    "1Cor.1.12",
+    "1Cor.9.8",
+    "1Cor.9.10",
+    "1Cor.12.3",
+    "1Cor.14.21",
+    "1Cor.14.34"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.12": [
+     "internal"
+    ],
+    "1Cor.9.8": [
+     "internal"
+    ],
+    "1Cor.9.10": [
+     "internal"
+    ],
+    "1Cor.12.3": [
+     "internal"
+    ],
+    "1Cor.14.21": [
+     "after_comma"
+    ],
+    "1Cor.14.34": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.12": [
+     "internal"
+    ],
+    "1Cor.9.8": [
+     "internal"
+    ],
+    "1Cor.9.10": [
+     "internal"
+    ],
+    "1Cor.12.3": [
+     "internal"
+    ],
+    "1Cor.14.21": [
+     "after_comma"
+    ],
+    "1Cor.14.34": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.12": "λέγει",
+    "1Cor.9.8": "λέγει",
+    "1Cor.9.10": "λέγει",
+    "1Cor.12.3": "λέγει",
+    "1Cor.14.21": "λέγει",
+    "1Cor.14.34": "λέγει"
+   },
+   "quotes_sbl": {
+    "1Cor.1.12": "λέγει",
+    "1Cor.9.8": "λέγει",
+    "1Cor.9.10": "λέγει",
+    "1Cor.12.3": "λέγει",
+    "1Cor.14.21": "λέγει",
+    "1Cor.14.34": "λέγει"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 7,
+     "word_bounded_unconstrained_count": 6,
+     "substring_only_verses": [
+      "1Cor.14.16"
+     ]
+    },
+    "sbl": {
+     "substring_count": 7,
+     "word_bounded_unconstrained_count": 6,
+     "substring_only_verses": [
+      "1Cor.14.16"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "ho_nomos_legei": {
+   "family": "citation",
+   "gloss": "ὁ νόμος λέγει 'the law says'",
+   "pattern": [
+    "ο νομοσ λεγει"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.14.34"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.14.34"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.14.34": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.14.34": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.14.34": "ὁ νόμος λέγει"
+   },
+   "quotes_sbl": {
+    "1Cor.14.34": "ὁ νόμος λέγει"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "legei_kyrios": {
+   "family": "citation",
+   "gloss": "λέγει κύριος 'says the Lord'",
+   "pattern": [
+    "λεγει κυριοσ"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.14.21"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.14.21"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.14.21": [
+     "after_comma"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.14.21": [
+     "after_comma"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.14.21": "λέγει κύριος"
+   },
+   "quotes_sbl": {
+    "1Cor.14.21": "λέγει κύριος"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "panta_moi_exestin": {
+   "family": "slogan",
+   "gloss": "πάντα μοι ἔξεστιν 'all things are lawful for me'",
+   "pattern": [
+    "παντα μοι εξεστιν"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.6.12",
+    "1Cor.10.23"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.6.12"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.10.23",
+     "rp": true,
+     "sbl": false,
+     "rp_quote": "Πάντα μοι ἔξεστιν",
+     "sbl_quote": null,
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.6.12": [
+     "sentence_start",
+     "sentence_start"
+    ],
+    "1Cor.10.23": [
+     "sentence_start",
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.6.12": [
+     "sentence_start",
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.6.12": "Πάντα μοι ἔξεστιν",
+    "1Cor.10.23": "Πάντα μοι ἔξεστιν"
+   },
+   "quotes_sbl": {
+    "1Cor.6.12": "Πάντα μοι ἔξεστιν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 2,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "panta_exestin": {
+   "family": "slogan",
+   "gloss": "πάντα ἔξεστιν (without μοι)",
+   "pattern": [
+    "παντα εξεστιν"
+   ],
+   "constraints": null,
+   "count_rp": 0,
+   "verses_rp": [],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.10.23"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.10.23",
+     "rp": false,
+     "sbl": true,
+     "rp_quote": null,
+     "sbl_quote": "Πάντα ἔξεστιν",
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {},
+   "positions_sbl": {
+    "1Cor.10.23": [
+     "sentence_start",
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {},
+   "quotes_sbl": {
+    "1Cor.10.23": "Πάντα ἔξεστιν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 0,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "exestin_any": {
+   "family": "slogan",
+   "gloss": "ἔξεστιν, any position",
+   "pattern": [
+    "εξεστιν"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.6.12",
+    "1Cor.10.23"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.6.12",
+    "1Cor.10.23"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.6.12": [
+     "internal",
+     "internal"
+    ],
+    "1Cor.10.23": [
+     "internal",
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.6.12": [
+     "internal",
+     "internal"
+    ],
+    "1Cor.10.23": [
+     "internal",
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.6.12": "ἔξεστιν",
+    "1Cor.10.23": "ἔξεστιν"
+   },
+   "quotes_sbl": {
+    "1Cor.6.12": "ἔξεστιν",
+    "1Cor.10.23": "ἔξεστιν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 2,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "ou_panta_sympherei": {
+   "family": "slogan",
+   "gloss": "the reply οὐ πάντα συμφέρει",
+   "pattern": [
+    "ου παντα συμφερει"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.6.12",
+    "1Cor.10.23"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.6.12",
+    "1Cor.10.23"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.6.12": [
+     "internal"
+    ],
+    "1Cor.10.23": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.6.12": [
+     "internal"
+    ],
+    "1Cor.10.23": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.6.12": "οὐ πάντα συμφέρει",
+    "1Cor.10.23": "οὐ πάντα συμφέρει"
+   },
+   "quotes_sbl": {
+    "1Cor.6.12": "οὐ πάντα συμφέρει",
+    "1Cor.10.23": "οὐ πάντα συμφέρει"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 2,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "parelabon": {
+   "family": "tradition",
+   "gloss": "παρέλαβον 'I received'",
+   "pattern": [
+    "παρελαβον"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.11.23",
+    "1Cor.15.3"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.11.23",
+    "1Cor.15.3"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.11.23": [
+     "internal"
+    ],
+    "1Cor.15.3": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.11.23": [
+     "internal"
+    ],
+    "1Cor.15.3": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.11.23": "παρέλαβον",
+    "1Cor.15.3": "παρέλαβον"
+   },
+   "quotes_sbl": {
+    "1Cor.11.23": "παρέλαβον",
+    "1Cor.15.3": "παρέλαβον"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "parelabete": {
+   "family": "tradition",
+   "gloss": "παρελάβετε 'you received'",
+   "pattern": [
+    "παρελαβετε"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.15.1"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.15.1"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.15.1": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.15.1": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.15.1": "παρελάβετε"
+   },
+   "quotes_sbl": {
+    "1Cor.15.1": "παρελάβετε"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "paredoka": {
+   "family": "tradition",
+   "gloss": "παρέδωκα 'I delivered'",
+   "pattern": [
+    "παρεδωκα"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.11.2",
+    "1Cor.11.23",
+    "1Cor.15.3"
+   ],
+   "count_sbl": 3,
+   "verses_sbl": [
+    "1Cor.11.2",
+    "1Cor.11.23",
+    "1Cor.15.3"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.11.2": [
+     "internal"
+    ],
+    "1Cor.11.23": [
+     "internal"
+    ],
+    "1Cor.15.3": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.11.2": [
+     "internal"
+    ],
+    "1Cor.11.23": [
+     "internal"
+    ],
+    "1Cor.15.3": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.11.2": "παρέδωκα",
+    "1Cor.11.23": "παρέδωκα",
+    "1Cor.15.3": "Παρέδωκα"
+   },
+   "quotes_sbl": {
+    "1Cor.11.2": "παρέδωκα",
+    "1Cor.11.23": "παρέδωκα",
+    "1Cor.15.3": "Παρέδωκα"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 3
+   }
+  },
+  "paradoseis": {
+   "family": "tradition",
+   "gloss": "παραδόσεις 'traditions'",
+   "pattern": [
+    "παραδοσεισ"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.11.2"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.11.2"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.11.2": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.11.2": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.11.2": "παραδόσεις"
+   },
+   "quotes_sbl": {
+    "1Cor.11.2": "παραδόσεις"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "epaino": {
+   "family": "praise",
+   "gloss": "ἐπαινῶ 'I praise', any position (includes the denial)",
+   "pattern": [
+    "επαινω"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.11.2",
+    "1Cor.11.17",
+    "1Cor.11.22"
+   ],
+   "count_sbl": 3,
+   "verses_sbl": [
+    "1Cor.11.2",
+    "1Cor.11.17",
+    "1Cor.11.22"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.11.2": [
+     "sentence_start"
+    ],
+    "1Cor.11.17": [
+     "internal"
+    ],
+    "1Cor.11.22": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.11.2": [
+     "sentence_start"
+    ],
+    "1Cor.11.17": [
+     "internal"
+    ],
+    "1Cor.11.22": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.11.2": "Ἐπαινῶ",
+    "1Cor.11.17": "ἐπαινῶ",
+    "1Cor.11.22": "ἐπαινῶ"
+   },
+   "quotes_sbl": {
+    "1Cor.11.2": "Ἐπαινῶ",
+    "1Cor.11.17": "ἐπαινῶ",
+    "1Cor.11.22": "ἐπαινῶ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 2,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "ouk_epaino": {
+   "family": "praise",
+   "gloss": "οὐκ ἐπαινῶ 'I do not praise'",
+   "pattern": [
+    "ουκ επαινω"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.11.17",
+    "1Cor.11.22"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.11.17",
+    "1Cor.11.22"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.11.17": [
+     "internal"
+    ],
+    "1Cor.11.22": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.11.17": [
+     "internal"
+    ],
+    "1Cor.11.22": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.11.17": "οὐκ ἐπαινῶ",
+    "1Cor.11.22": "Οὐκ ἐπαινῶ"
+   },
+   "quotes_sbl": {
+    "1Cor.11.17": "οὐκ ἐπαινῶ",
+    "1Cor.11.22": "οὐκ ἐπαινῶ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "epaino_de_hymas": {
+   "family": "praise",
+   "gloss": "ἐπαινῶ δὲ ὑμᾶς",
+   "pattern": [
+    "επαινω δε υμασ"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.11.2"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.11.2"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.11.2": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.11.2": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.11.2": "Ἐπαινῶ δὲ ὑμᾶς"
+   },
+   "quotes_sbl": {
+    "1Cor.11.2": "Ἐπαινῶ δὲ ⸀ὑμᾶς"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "sbl_hits_with_a_critical_sign_inside": [
+    {
+     "verse": "1Cor.11.2",
+     "quote": "Ἐπαινῶ δὲ ⸀ὑμᾶς",
+     "found_if_signs_kept": false
+    }
+   ],
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "epaineso": {
+   "family": "praise",
+   "gloss": "ἐπαινέσω 'shall I praise'",
+   "pattern": [
+    "επαινεσω"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.11.22"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.11.22"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.11.22": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.11.22": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.11.22": "Ἐπαινέσω"
+   },
+   "quotes_sbl": {
+    "1Cor.11.22": "ἐπαινέσω"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "prescript_paulos": {
+   "family": "frame",
+   "gloss": "prescript Παῦλος κλητὸς ἀπόστολος",
+   "pattern": [
+    "παυλοσ κλητοσ αποστολοσ"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.1.1"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.1.1"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.1": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.1": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.1": "Παῦλος κλητὸς ἀπόστολος"
+   },
+   "quotes_sbl": {
+    "1Cor.1.1": "Παῦλος κλητὸς ἀπόστολος"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "adscript_church_of_god": {
+   "family": "frame",
+   "gloss": "adscript τῇ ἐκκλησίᾳ τοῦ θεοῦ",
+   "pattern": [
+    "τη εκκλησια του θεου"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.1.2",
+    "1Cor.10.32"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.1.2",
+    "1Cor.10.32"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.2": [
+     "verse_initial_mid_sentence"
+    ],
+    "1Cor.10.32": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.2": [
+     "verse_initial_mid_sentence"
+    ],
+    "1Cor.10.32": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.2": "τῇ ἐκκλησίᾳ τοῦ θεοῦ",
+    "1Cor.10.32": "τῇ ἐκκλησίᾳ τοῦ θεοῦ"
+   },
+   "quotes_sbl": {
+    "1Cor.1.2": "τῇ ἐκκλησίᾳ τοῦ θεοῦ",
+    "1Cor.10.32": "τῇ ἐκκλησίᾳ τοῦ θεοῦ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "grace_peace_greeting": {
+   "family": "frame",
+   "gloss": "salutation χάρις ὑμῖν καὶ εἰρήνη",
+   "pattern": [
+    "χαρισ υμιν και ειρηνη"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.1.3"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.1.3"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.3": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.3": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.3": "χάρις ὑμῖν καὶ εἰρήνη"
+   },
+   "quotes_sbl": {
+    "1Cor.1.3": "χάρις ὑμῖν καὶ εἰρήνη"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "eucharisto": {
+   "family": "frame",
+   "gloss": "εὐχαριστῶ 'I give thanks', any position",
+   "pattern": [
+    "ευχαριστω"
+   ],
+   "constraints": null,
+   "count_rp": 4,
+   "verses_rp": [
+    "1Cor.1.4",
+    "1Cor.1.14",
+    "1Cor.10.30",
+    "1Cor.14.18"
+   ],
+   "count_sbl": 4,
+   "verses_sbl": [
+    "1Cor.1.4",
+    "1Cor.1.14",
+    "1Cor.10.30",
+    "1Cor.14.18"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.4": [
+     "sentence_start"
+    ],
+    "1Cor.1.14": [
+     "sentence_start"
+    ],
+    "1Cor.10.30": [
+     "internal"
+    ],
+    "1Cor.14.18": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.4": [
+     "sentence_start"
+    ],
+    "1Cor.1.14": [
+     "sentence_start"
+    ],
+    "1Cor.10.30": [
+     "internal"
+    ],
+    "1Cor.14.18": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.4": "Εὐχαριστῶ",
+    "1Cor.1.14": "Εὐχαριστῶ",
+    "1Cor.10.30": "εὐχαριστῶ",
+    "1Cor.14.18": "Εὐχαριστῶ"
+   },
+   "quotes_sbl": {
+    "1Cor.1.4": "Εὐχαριστῶ",
+    "1Cor.1.14": "εὐχαριστῶ",
+    "1Cor.10.30": "εὐχαριστῶ",
+    "1Cor.14.18": "εὐχαριστῶ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 4,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 4,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "eucharisto_to_theo": {
+   "family": "frame",
+   "gloss": "εὐχαριστῶ τῷ θεῷ",
+   "pattern": [
+    "ευχαριστω τω θεω"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.1.4",
+    "1Cor.1.14",
+    "1Cor.14.18"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.1.4",
+    "1Cor.14.18"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.1.14",
+     "rp": true,
+     "sbl": false,
+     "rp_quote": "Εὐχαριστῶ τῷ θεῷ",
+     "sbl_quote": null,
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.1.4": [
+     "sentence_start"
+    ],
+    "1Cor.1.14": [
+     "sentence_start"
+    ],
+    "1Cor.14.18": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.4": [
+     "sentence_start"
+    ],
+    "1Cor.14.18": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.4": "Εὐχαριστῶ τῷ θεῷ",
+    "1Cor.1.14": "Εὐχαριστῶ τῷ θεῷ",
+    "1Cor.14.18": "Εὐχαριστῶ τῷ θεῷ"
+   },
+   "quotes_sbl": {
+    "1Cor.1.4": "Εὐχαριστῶ τῷ θεῷ",
+    "1Cor.14.18": "εὐχαριστῶ τῷ ⸀θεῷ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "sbl_hits_with_a_critical_sign_inside": [
+    {
+     "verse": "1Cor.14.18",
+     "quote": "εὐχαριστῶ τῷ ⸀θεῷ",
+     "found_if_signs_kept": false
+    }
+   ],
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "greet_third_person": {
+   "family": "frame",
+   "gloss": "ἀσπάζεται / ἀσπάζονται 'greets / greet'",
+   "pattern": [
+    "ασπαζεται",
+    "ασπαζονται"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.16.19",
+    "1Cor.16.20"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.16.19",
+    "1Cor.16.20"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.16.19": [
+     "sentence_start",
+     "sentence_start"
+    ],
+    "1Cor.16.20": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.16.19": [
+     "sentence_start",
+     "sentence_start"
+    ],
+    "1Cor.16.20": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.16.19": "Ἀσπάζονται",
+    "1Cor.16.20": "Ἀσπάζονται"
+   },
+   "quotes_sbl": {
+    "1Cor.16.19": "Ἀσπάζονται",
+    "1Cor.16.20": "ἀσπάζονται"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "greet_imperative": {
+   "family": "frame",
+   "gloss": "ἀσπάσασθε 'greet'",
+   "pattern": [
+    "ασπασασθε"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.16.20"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.16.20"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.16.20": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.16.20": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.16.20": "Ἀσπάσασθε"
+   },
+   "quotes_sbl": {
+    "1Cor.16.20": "ἀσπάσασθε"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "greeting_own_hand": {
+   "family": "frame",
+   "gloss": "ὁ ἀσπασμὸς τῇ ἐμῇ χειρί 'the greeting in my own hand'",
+   "pattern": [
+    "ο ασπασμοσ τη εμη χειρι"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.16.21"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.16.21"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.16.21": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.16.21": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.16.21": "Ὁ ἀσπασμὸς τῇ ἐμῇ χειρὶ"
+   },
+   "quotes_sbl": {
+    "1Cor.16.21": "Ὁ ἀσπασμὸς τῇ ἐμῇ χειρὶ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "grace_benediction": {
+   "family": "frame",
+   "gloss": "benediction ἡ χάρις τοῦ κυρίου",
+   "pattern": [
+    "η χαρισ του κυριου"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.16.23"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.16.23"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.16.23": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.16.23": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.16.23": "Ἡ χάρις τοῦ κυρίου"
+   },
+   "quotes_sbl": {
+    "1Cor.16.23": "ἡ χάρις τοῦ κυρίου"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "love_closing": {
+   "family": "frame",
+   "gloss": "ἡ ἀγάπη μου 'my love'",
+   "pattern": [
+    "η αγαπη μου"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.16.24"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.16.24"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.16.24": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.16.24": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.16.24": "Ἡ ἀγάπη μου"
+   },
+   "quotes_sbl": {
+    "1Cor.16.24": "ἡ ἀγάπη μου"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "maranatha": {
+   "family": "frame",
+   "gloss": "Aramaic μαρὰν ἀθά in Greek letters, all divisions",
+   "pattern": [
+    "μαραν αθα",
+    "μαρανα θα",
+    "μαραναθα"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.16.22"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.16.22"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.16.22": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.16.22": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.16.22": "Μαρὰν ἀθά"
+   },
+   "quotes_sbl": {
+    "1Cor.16.22": "Μαράνα θά"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "amen": {
+   "family": "frame",
+   "gloss": "ἀμήν",
+   "pattern": [
+    "αμην"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.14.16",
+    "1Cor.16.24"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.14.16"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.16.24",
+     "rp": true,
+     "sbl": false,
+     "rp_quote": "Ἀμήν",
+     "sbl_quote": null,
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.14.16": [
+     "internal"
+    ],
+    "1Cor.16.24": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.14.16": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.14.16": "Ἀμὴν",
+    "1Cor.16.24": "Ἀμήν"
+   },
+   "quotes_sbl": {
+    "1Cor.14.16": "Ἀμήν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 6,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": [
+      "1Cor.3.12",
+      "1Cor.9.15",
+      "1Cor.15.1",
+      "1Cor.15.2"
+     ]
+    },
+    "sbl": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": [
+      "1Cor.3.12",
+      "1Cor.15.1",
+      "1Cor.15.2"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "ego_paulos": {
+   "family": "frame",
+   "gloss": "ἐγὼ Παῦλος (first-person self-naming; Daniel's 'I, Daniel' analogue)",
+   "pattern": [
+    "εγω παυλοσ"
+   ],
+   "constraints": null,
+   "count_rp": 0,
+   "verses_rp": [],
+   "count_sbl": 0,
+   "verses_sbl": [],
+   "witness_disagreements": [],
+   "positions_rp": {},
+   "positions_sbl": {},
+   "quotes_rp": {},
+   "quotes_sbl": {},
+   "substring_reading": {
+    "rp": {
+     "substring_count": 0,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 0,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "ti_oun": {
+   "family": "question",
+   "gloss": "τί οὖν",
+   "pattern": [
+    "τι ουν"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.10.19",
+    "1Cor.14.15",
+    "1Cor.14.26"
+   ],
+   "count_sbl": 4,
+   "verses_sbl": [
+    "1Cor.3.5",
+    "1Cor.10.19",
+    "1Cor.14.15",
+    "1Cor.14.26"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.3.5",
+     "rp": false,
+     "sbl": true,
+     "rp_quote": null,
+     "sbl_quote": "Τί οὖν",
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.10.19": [
+     "sentence_start"
+    ],
+    "1Cor.14.15": [
+     "sentence_start"
+    ],
+    "1Cor.14.26": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.3.5": [
+     "sentence_start"
+    ],
+    "1Cor.10.19": [
+     "sentence_start"
+    ],
+    "1Cor.14.15": [
+     "sentence_start"
+    ],
+    "1Cor.14.26": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.10.19": "Τί οὖν",
+    "1Cor.14.15": "Τί οὖν",
+    "1Cor.14.26": "Τί οὖν"
+   },
+   "quotes_sbl": {
+    "1Cor.3.5": "Τί οὖν",
+    "1Cor.10.19": "τί οὖν",
+    "1Cor.14.15": "τί οὖν",
+    "1Cor.14.26": "Τί οὖν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 4,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 3
+   }
+  },
+  "ti_oun_estin": {
+   "family": "question",
+   "gloss": "τί οὖν ἐστιν",
+   "pattern": [
+    "τι ουν εστιν"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.14.15",
+    "1Cor.14.26"
+   ],
+   "count_sbl": 3,
+   "verses_sbl": [
+    "1Cor.3.5",
+    "1Cor.14.15",
+    "1Cor.14.26"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.3.5",
+     "rp": false,
+     "sbl": true,
+     "rp_quote": null,
+     "sbl_quote": "Τί οὖν ἐστιν",
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.14.15": [
+     "sentence_start"
+    ],
+    "1Cor.14.26": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.3.5": [
+     "sentence_start"
+    ],
+    "1Cor.14.15": [
+     "sentence_start"
+    ],
+    "1Cor.14.26": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.14.15": "Τί οὖν ἐστίν",
+    "1Cor.14.26": "Τί οὖν ἐστίν"
+   },
+   "quotes_sbl": {
+    "1Cor.3.5": "Τί οὖν ἐστιν",
+    "1Cor.14.15": "τί οὖν ἐστιν",
+    "1Cor.14.26": "Τί οὖν ἐστιν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 3,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 2
+   }
+  },
+  "ti_oun_eroumen": {
+   "family": "question",
+   "gloss": "τί οὖν ἐροῦμεν (tried; a Romans form)",
+   "pattern": [
+    "τι ουν ερουμεν"
+   ],
+   "constraints": null,
+   "count_rp": 0,
+   "verses_rp": [],
+   "count_sbl": 0,
+   "verses_sbl": [],
+   "witness_disagreements": [],
+   "positions_rp": {},
+   "positions_sbl": {},
+   "quotes_rp": {},
+   "quotes_sbl": {},
+   "substring_reading": {
+    "rp": {
+     "substring_count": 0,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 0,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "ti_gar": {
+   "family": "question",
+   "gloss": "τί γάρ",
+   "pattern": [
+    "τι γαρ"
+   ],
+   "constraints": null,
+   "count_rp": 3,
+   "verses_rp": [
+    "1Cor.5.12",
+    "1Cor.7.16",
+    "1Cor.10.29"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.5.12",
+    "1Cor.7.16"
+   ],
+   "witness_disagreements": [
+    {
+     "verse": "1Cor.10.29",
+     "rp": true,
+     "sbl": false,
+     "rp_quote": "τί γὰρ",
+     "sbl_quote": null,
+     "cause": "wording (RP and SBLGNT skeletons differ in this verse)"
+    }
+   ],
+   "positions_rp": {
+    "1Cor.5.12": [
+     "sentence_start"
+    ],
+    "1Cor.7.16": [
+     "sentence_start"
+    ],
+    "1Cor.10.29": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.5.12": [
+     "sentence_start"
+    ],
+    "1Cor.7.16": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.5.12": "Τί γάρ",
+    "1Cor.7.16": "Τί γὰρ",
+    "1Cor.10.29": "τί γὰρ"
+   },
+   "quotes_sbl": {
+    "1Cor.5.12": "τί γάρ",
+    "1Cor.7.16": "τί γὰρ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 3,
+     "substring_only_verses": [
+      "1Cor.3.3"
+     ]
+    },
+    "sbl": {
+     "substring_count": 4,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": [
+      "1Cor.3.3",
+      "1Cor.10.29"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "me_genoito": {
+   "family": "question",
+   "gloss": "μὴ γένοιτο",
+   "pattern": [
+    "μη γενοιτο"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.6.15"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.6.15"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.6.15": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.6.15": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.6.15": "Μὴ γένοιτο"
+   },
+   "quotes_sbl": {
+    "1Cor.6.15": "μὴ γένοιτο"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "touto_de_phemi": {
+   "family": "other_marker",
+   "gloss": "τοῦτο δέ φημι 'this I say'",
+   "pattern": [
+    "τουτο δε φημι"
+   ],
+   "constraints": null,
+   "count_rp": 2,
+   "verses_rp": [
+    "1Cor.7.29",
+    "1Cor.15.50"
+   ],
+   "count_sbl": 2,
+   "verses_sbl": [
+    "1Cor.7.29",
+    "1Cor.15.50"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.7.29": [
+     "sentence_start"
+    ],
+    "1Cor.15.50": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.7.29": [
+     "sentence_start"
+    ],
+    "1Cor.15.50": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.7.29": "Τοῦτο δέ φημι",
+    "1Cor.15.50": "Τοῦτο δέ φημι"
+   },
+   "quotes_sbl": {
+    "1Cor.7.29": "τοῦτο δέ φημι",
+    "1Cor.15.50": "Τοῦτο δέ φημι"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 2,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 1,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "touto_de_lego": {
+   "family": "other_marker",
+   "gloss": "τοῦτο δὲ λέγω",
+   "pattern": [
+    "τουτο δε λεγω"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.7.6"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.7.6"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.7.6": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.7.6": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.7.6": "Τοῦτο δὲ λέγω"
+   },
+   "quotes_sbl": {
+    "1Cor.7.6": "τοῦτο δὲ λέγω"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "idou": {
+   "family": "other_marker",
+   "gloss": "ἰδού 'behold' (Daniel's behold analogue)",
+   "pattern": [
+    "ιδου"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.15.51"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.15.51"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.15.51": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.15.51": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.15.51": "Ἰδού"
+   },
+   "quotes_sbl": {
+    "1Cor.15.51": "ἰδοὺ"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 1
+   }
+  },
+  "charis_to_theo": {
+   "family": "other_marker",
+   "gloss": "thanks ascription τῷ δὲ θεῷ χάρις",
+   "pattern": [
+    "τω δε θεω χαρισ"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.15.57"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.15.57"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.15.57": [
+     "sentence_start"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.15.57": [
+     "sentence_start"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.15.57": "τῷ δὲ θεῷ χάρις"
+   },
+   "quotes_sbl": {
+    "1Cor.15.57": "τῷ δὲ θεῷ χάρις"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "year_word": {
+   "family": "date_family_control",
+   "gloss": "year noun ἔτος, any form",
+   "pattern": [
+    "ετοσ",
+    "ετουσ",
+    "ετει",
+    "ετη",
+    "ετων",
+    "ετεσι",
+    "ετεσιν"
+   ],
+   "constraints": null,
+   "count_rp": 0,
+   "verses_rp": [],
+   "count_sbl": 0,
+   "verses_sbl": [],
+   "witness_disagreements": [],
+   "positions_rp": {},
+   "positions_sbl": {},
+   "quotes_rp": {},
+   "quotes_sbl": {},
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": [
+      "1Cor.1.19"
+     ]
+    },
+    "sbl": {
+     "substring_count": 2,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": [
+      "1Cor.1.19",
+      "1Cor.4.14"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "month_word": {
+   "family": "date_family_control",
+   "gloss": "month noun μήν, any form",
+   "pattern": [
+    "μην",
+    "μηνοσ",
+    "μηνι",
+    "μηνα",
+    "μηνεσ",
+    "μηνασ",
+    "μηνων"
+   ],
+   "constraints": null,
+   "count_rp": 0,
+   "verses_rp": [],
+   "count_sbl": 0,
+   "verses_sbl": [],
+   "witness_disagreements": [],
+   "positions_rp": {},
+   "positions_sbl": {},
+   "quotes_rp": {},
+   "quotes_sbl": {},
+   "substring_reading": {
+    "rp": {
+     "substring_count": 28,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": [
+      "1Cor.2.3",
+      "1Cor.3.12",
+      "1Cor.5.7",
+      "1Cor.7.6",
+      "1Cor.7.25",
+      "1Cor.7.40",
+      "1Cor.9.15",
+      "1Cor.9.20",
+      "1Cor.9.22",
+      "1Cor.10.28",
+      "1Cor.11.24",
+      "1Cor.11.25",
+      "1Cor.12.10",
+      "1Cor.12.23",
+      "1Cor.12.24",
+      "1Cor.12.30",
+      "1Cor.13.11",
+      "1Cor.14.3",
+      "1Cor.14.5",
+      "1Cor.14.12",
+      "1Cor.14.13",
+      "1Cor.14.16",
+      "1Cor.14.26",
+      "1Cor.14.27",
+      "1Cor.14.28",
+      "1Cor.15.1",
+      "1Cor.15.2",
+      "1Cor.16.24"
+     ]
+    },
+    "sbl": {
+     "substring_count": 26,
+     "word_bounded_unconstrained_count": 0,
+     "substring_only_verses": [
+      "1Cor.2.3",
+      "1Cor.3.12",
+      "1Cor.5.7",
+      "1Cor.7.6",
+      "1Cor.7.25",
+      "1Cor.7.40",
+      "1Cor.9.20",
+      "1Cor.9.22",
+      "1Cor.10.28",
+      "1Cor.11.24",
+      "1Cor.11.25",
+      "1Cor.12.10",
+      "1Cor.12.23",
+      "1Cor.12.24",
+      "1Cor.12.30",
+      "1Cor.13.11",
+      "1Cor.14.3",
+      "1Cor.14.5",
+      "1Cor.14.12",
+      "1Cor.14.13",
+      "1Cor.14.16",
+      "1Cor.14.26",
+      "1Cor.14.27",
+      "1Cor.14.28",
+      "1Cor.15.1",
+      "1Cor.15.2"
+     ]
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "day_word": {
+   "family": "date_family_control",
+   "gloss": "day noun ἡμέρα, any form",
+   "pattern": [
+    "ημερα",
+    "ημερασ",
+    "ημεραν",
+    "ημεραι",
+    "ημερων",
+    "ημεραισ"
+   ],
+   "constraints": null,
+   "count_rp": 7,
+   "verses_rp": [
+    "1Cor.1.8",
+    "1Cor.3.13",
+    "1Cor.4.3",
+    "1Cor.5.5",
+    "1Cor.10.8",
+    "1Cor.15.4",
+    "1Cor.15.31"
+   ],
+   "count_sbl": 7,
+   "verses_sbl": [
+    "1Cor.1.8",
+    "1Cor.3.13",
+    "1Cor.4.3",
+    "1Cor.5.5",
+    "1Cor.10.8",
+    "1Cor.15.4",
+    "1Cor.15.31"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.1.8": [
+     "internal"
+    ],
+    "1Cor.3.13": [
+     "internal"
+    ],
+    "1Cor.4.3": [
+     "internal"
+    ],
+    "1Cor.5.5": [
+     "internal"
+    ],
+    "1Cor.10.8": [
+     "internal"
+    ],
+    "1Cor.15.4": [
+     "internal"
+    ],
+    "1Cor.15.31": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.1.8": [
+     "internal"
+    ],
+    "1Cor.3.13": [
+     "internal"
+    ],
+    "1Cor.4.3": [
+     "internal"
+    ],
+    "1Cor.5.5": [
+     "internal"
+    ],
+    "1Cor.10.8": [
+     "internal"
+    ],
+    "1Cor.15.4": [
+     "internal"
+    ],
+    "1Cor.15.31": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.1.8": "ἡμέρᾳ",
+    "1Cor.3.13": "ἡμέρα",
+    "1Cor.4.3": "ἡμέρας",
+    "1Cor.5.5": "ἡμέρᾳ",
+    "1Cor.10.8": "ἡμέρᾳ",
+    "1Cor.15.4": "ἡμέρᾳ",
+    "1Cor.15.31": "ἡμέραν"
+   },
+   "quotes_sbl": {
+    "1Cor.1.8": "ἡμέρᾳ",
+    "1Cor.3.13": "ἡμέρα",
+    "1Cor.4.3": "ἡμέρας",
+    "1Cor.5.5": "ἡμέρᾳ",
+    "1Cor.10.8": "ἡμέρᾳ",
+    "1Cor.15.4": "ἡμέρᾳ",
+    "1Cor.15.31": "ἡμέραν"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 7,
+     "word_bounded_unconstrained_count": 7,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 7,
+     "word_bounded_unconstrained_count": 7,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "first_of_the_week": {
+   "family": "date_family_control",
+   "gloss": "κατὰ μίαν σαββάτου 'the first day of the week'",
+   "pattern": [
+    "μιαν σαββατου",
+    "μιαν σαββατων"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.16.2"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.16.2"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.16.2": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.16.2": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.16.2": "μίαν σαββάτων"
+   },
+   "quotes_sbl": {
+    "1Cor.16.2": "μίαν ⸀σαββάτου"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "sbl_hits_with_a_critical_sign_inside": [
+    {
+     "verse": "1Cor.16.2",
+     "quote": "μίαν ⸀σαββάτου",
+     "found_if_signs_kept": false
+    }
+   ],
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "pentecost": {
+   "family": "date_family_control",
+   "gloss": "πεντηκοστή 'Pentecost'",
+   "pattern": [
+    "πεντηκοστησ",
+    "πεντηκοστη"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.16.8"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.16.8"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.16.8": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.16.8": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.16.8": "Πεντηκοστῆς"
+   },
+   "quotes_sbl": {
+    "1Cor.16.8": "πεντηκοστῆς"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  },
+  "pascha": {
+   "family": "date_family_control",
+   "gloss": "πάσχα 'Passover'",
+   "pattern": [
+    "πασχα"
+   ],
+   "constraints": null,
+   "count_rp": 1,
+   "verses_rp": [
+    "1Cor.5.7"
+   ],
+   "count_sbl": 1,
+   "verses_sbl": [
+    "1Cor.5.7"
+   ],
+   "witness_disagreements": [],
+   "positions_rp": {
+    "1Cor.5.7": [
+     "internal"
+    ]
+   },
+   "positions_sbl": {
+    "1Cor.5.7": [
+     "internal"
+    ]
+   },
+   "quotes_rp": {
+    "1Cor.5.7": "Πάσχα"
+   },
+   "quotes_sbl": {
+    "1Cor.5.7": "πάσχα"
+   },
+   "substring_reading": {
+    "rp": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    },
+    "sbl": {
+     "substring_count": 1,
+     "word_bounded_unconstrained_count": 1,
+     "substring_only_verses": []
+    }
+   },
+   "paragraph_overlay": {
+    "rp_hits_on_rp_pilcrow": 0,
+    "rp_hits_on_web_paragraph_start": 0
+   }
+  }
+ },
+ "paragraph_marks": {
+  "gloss": "edition paragraphing from pmarks_1Cor.json: RP pilcrows (removed from 1Cor_rp.txt) and WEB paragraph starts. Evidence, never a driver (E-23).",
+  "rp_pilcrow": {
+   "count": 35,
+   "verses": [
+    "1Cor.1.4",
+    "1Cor.1.10",
+    "1Cor.1.18",
+    "1Cor.1.26",
+    "1Cor.2.6",
+    "1Cor.3.10",
+    "1Cor.3.16",
+    "1Cor.3.18",
+    "1Cor.4.6",
+    "1Cor.4.14",
+    "1Cor.5.9",
+    "1Cor.6.12",
+    "1Cor.7.8",
+    "1Cor.7.25",
+    "1Cor.10.14",
+    "1Cor.10.23",
+    "1Cor.11.2",
+    "1Cor.11.17",
+    "1Cor.12.4",
+    "1Cor.12.12",
+    "1Cor.14.20",
+    "1Cor.14.26",
+    "1Cor.14.34",
+    "1Cor.14.37",
+    "1Cor.14.39",
+    "1Cor.15.12",
+    "1Cor.15.20",
+    "1Cor.15.29",
+    "1Cor.15.35",
+    "1Cor.15.50",
+    "1Cor.16.10",
+    "1Cor.16.13",
+    "1Cor.16.15",
+    "1Cor.16.19",
+    "1Cor.16.21"
+   ]
+  },
+  "web_paragraph_start": {
+   "count": 87,
+   "verses": [
+    "1Cor.1.1",
+    "1Cor.1.4",
+    "1Cor.1.10",
+    "1Cor.1.20",
+    "1Cor.1.26",
+    "1Cor.2.1",
+    "1Cor.2.6",
+    "1Cor.2.10",
+    "1Cor.3.1",
+    "1Cor.3.5",
+    "1Cor.3.10",
+    "1Cor.3.16",
+    "1Cor.3.18",
+    "1Cor.4.1",
+    "1Cor.4.6",
+    "1Cor.4.8",
+    "1Cor.4.14",
+    "1Cor.5.1",
+    "1Cor.5.6",
+    "1Cor.5.9",
+    "1Cor.6.1",
+    "1Cor.6.9",
+    "1Cor.6.12",
+    "1Cor.7.1",
+    "1Cor.7.6",
+    "1Cor.7.12",
+    "1Cor.7.17",
+    "1Cor.7.18",
+    "1Cor.7.25",
+    "1Cor.7.32",
+    "1Cor.7.36",
+    "1Cor.7.39",
+    "1Cor.8.1",
+    "1Cor.8.4",
+    "1Cor.8.7",
+    "1Cor.9.1",
+    "1Cor.9.3",
+    "1Cor.9.8",
+    "1Cor.9.15",
+    "1Cor.9.19",
+    "1Cor.10.1",
+    "1Cor.10.6",
+    "1Cor.10.13",
+    "1Cor.10.14",
+    "1Cor.10.19",
+    "1Cor.10.23",
+    "1Cor.10.31",
+    "1Cor.11.1",
+    "1Cor.11.2",
+    "1Cor.11.11",
+    "1Cor.11.17",
+    "1Cor.11.23",
+    "1Cor.11.27",
+    "1Cor.12.1",
+    "1Cor.12.4",
+    "1Cor.12.12",
+    "1Cor.12.14",
+    "1Cor.12.27",
+    "1Cor.13.1",
+    "1Cor.13.4",
+    "1Cor.13.8",
+    "1Cor.14.1",
+    "1Cor.14.6",
+    "1Cor.14.13",
+    "1Cor.14.15",
+    "1Cor.14.20",
+    "1Cor.14.26",
+    "1Cor.14.37",
+    "1Cor.14.39",
+    "1Cor.15.1",
+    "1Cor.15.3",
+    "1Cor.15.12",
+    "1Cor.15.20",
+    "1Cor.15.29",
+    "1Cor.15.35",
+    "1Cor.15.42",
+    "1Cor.15.45",
+    "1Cor.15.51",
+    "1Cor.15.56",
+    "1Cor.16.1",
+    "1Cor.16.5",
+    "1Cor.16.10",
+    "1Cor.16.12",
+    "1Cor.16.13",
+    "1Cor.16.15",
+    "1Cor.16.19",
+    "1Cor.16.21"
+   ]
+  },
+  "web_paragraph_midverse": [
+   "1Cor.9.12"
+  ],
+  "overlap": {
+   "count": 31,
+   "verses": [
+    "1Cor.1.4",
+    "1Cor.1.10",
+    "1Cor.1.26",
+    "1Cor.2.6",
+    "1Cor.3.10",
+    "1Cor.3.16",
+    "1Cor.3.18",
+    "1Cor.4.6",
+    "1Cor.4.14",
+    "1Cor.5.9",
+    "1Cor.6.12",
+    "1Cor.7.25",
+    "1Cor.10.14",
+    "1Cor.10.23",
+    "1Cor.11.2",
+    "1Cor.11.17",
+    "1Cor.12.4",
+    "1Cor.12.12",
+    "1Cor.14.20",
+    "1Cor.14.26",
+    "1Cor.14.37",
+    "1Cor.14.39",
+    "1Cor.15.12",
+    "1Cor.15.20",
+    "1Cor.15.29",
+    "1Cor.15.35",
+    "1Cor.16.10",
+    "1Cor.16.13",
+    "1Cor.16.15",
+    "1Cor.16.19",
+    "1Cor.16.21"
+   ]
+  },
+  "rp_only": {
+   "count": 4,
+   "verses": [
+    "1Cor.1.18",
+    "1Cor.7.8",
+    "1Cor.14.34",
+    "1Cor.15.50"
+   ]
+  },
+  "web_only": {
+   "count": 56,
+   "verses": [
+    "1Cor.1.1",
+    "1Cor.1.20",
+    "1Cor.2.1",
+    "1Cor.2.10",
+    "1Cor.3.1",
+    "1Cor.3.5",
+    "1Cor.4.1",
+    "1Cor.4.8",
+    "1Cor.5.1",
+    "1Cor.5.6",
+    "1Cor.6.1",
+    "1Cor.6.9",
+    "1Cor.7.1",
+    "1Cor.7.6",
+    "1Cor.7.12",
+    "1Cor.7.17",
+    "1Cor.7.18",
+    "1Cor.7.32",
+    "1Cor.7.36",
+    "1Cor.7.39",
+    "1Cor.8.1",
+    "1Cor.8.4",
+    "1Cor.8.7",
+    "1Cor.9.1",
+    "1Cor.9.3",
+    "1Cor.9.8",
+    "1Cor.9.15",
+    "1Cor.9.19",
+    "1Cor.10.1",
+    "1Cor.10.6",
+    "1Cor.10.13",
+    "1Cor.10.19",
+    "1Cor.10.31",
+    "1Cor.11.1",
+    "1Cor.11.11",
+    "1Cor.11.23",
+    "1Cor.11.27",
+    "1Cor.12.1",
+    "1Cor.12.14",
+    "1Cor.12.27",
+    "1Cor.13.1",
+    "1Cor.13.4",
+    "1Cor.13.8",
+    "1Cor.14.1",
+    "1Cor.14.6",
+    "1Cor.14.13",
+    "1Cor.14.15",
+    "1Cor.15.1",
+    "1Cor.15.3",
+    "1Cor.15.42",
+    "1Cor.15.45",
+    "1Cor.15.51",
+    "1Cor.15.56",
+    "1Cor.16.1",
+    "1Cor.16.5",
+    "1Cor.16.12"
+   ]
+  }
+ },
+ "citation_sweep_constants": {
+  "face": "WEB",
+  "face_equals_greek": true,
+  "face_basis": "Daniel's citation_sweep.py compares its calendar pairs on the MT face: DATELINE_PAIRS, CAL_DATE_PAIRS and CAL_NO_ONSET are MT pairs (lines 303-308), and the onset arm converts a WEB span with web_to_mt before the membership test (lines 389-393). In 1 Corinthians cor_lib.web_to_mt is web_to_greek, identity on all 437 verses, so these pairs are on the WEB face and equal the Greek (RP and SBLGNT) face verse for verse; a consumer still converts through the range-guarded function.",
+  "pairs_taken_from": "the RP (primary) verse lists; any SBLGNT-only hit is listed separately",
+  "family_members": {
+   "TOPIC_MARKER": [
+    "peri_de_topic_marker"
+   ],
+   "BARE_PERI_SENTENCE_START": [
+    "peri_sentence_start_bare"
+   ],
+   "DISCLOSURE": [
+    "ou_thelo_agnoein",
+    "gnorizo_hymin",
+    "thelo_de_hymas_eidenai"
+   ],
+   "APPEAL": [
+    "parakalo_hymas"
+   ],
+   "TRADITION": [
+    "parelabon",
+    "parelabete",
+    "paredoka",
+    "paradoseis"
+   ],
+   "PRAISE": [
+    "epaino",
+    "epaineso"
+   ],
+   "SLOGAN": [
+    "panta_moi_exestin",
+    "panta_exestin"
+   ],
+   "FRAME": [
+    "prescript_paulos",
+    "adscript_church_of_god",
+    "grace_peace_greeting",
+    "greet_third_person",
+    "greet_imperative",
+    "greeting_own_hand",
+    "grace_benediction"
+   ],
+   "THANKSGIVING": [
+    "eucharisto_to_theo"
+   ]
+  },
+  "TOPIC_MARKER_PAIRS": [
+   [
+    7,
+    1
+   ],
+   [
+    7,
+    25
+   ],
+   [
+    8,
+    1
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    16,
+    1
+   ],
+   [
+    16,
+    12
+   ]
+  ],
+  "TOPIC_MARKER_SBL_ONLY_PAIRS": [],
+  "BARE_PERI_SENTENCE_START_PAIRS": [
+   [
+    8,
+    4
+   ]
+  ],
+  "BARE_PERI_SENTENCE_START_SBL_ONLY_PAIRS": [],
+  "DISCLOSURE_PAIRS": [
+   [
+    10,
+    1
+   ],
+   [
+    11,
+    3
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    12,
+    3
+   ],
+   [
+    15,
+    1
+   ]
+  ],
+  "DISCLOSURE_SBL_ONLY_PAIRS": [],
+  "APPEAL_PAIRS": [
+   [
+    1,
+    10
+   ],
+   [
+    4,
+    16
+   ],
+   [
+    16,
+    15
+   ]
+  ],
+  "APPEAL_SBL_ONLY_PAIRS": [],
+  "TRADITION_PAIRS": [
+   [
+    11,
+    2
+   ],
+   [
+    11,
+    23
+   ],
+   [
+    15,
+    1
+   ],
+   [
+    15,
+    3
+   ]
+  ],
+  "TRADITION_SBL_ONLY_PAIRS": [],
+  "PRAISE_PAIRS": [
+   [
+    11,
+    2
+   ],
+   [
+    11,
+    17
+   ],
+   [
+    11,
+    22
+   ]
+  ],
+  "PRAISE_SBL_ONLY_PAIRS": [],
+  "SLOGAN_PAIRS": [
+   [
+    6,
+    12
+   ],
+   [
+    10,
+    23
+   ]
+  ],
+  "SLOGAN_SBL_ONLY_PAIRS": [],
+  "FRAME_PAIRS": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    16,
+    19
+   ],
+   [
+    16,
+    20
+   ],
+   [
+    16,
+    21
+   ],
+   [
+    16,
+    23
+   ]
+  ],
+  "FRAME_SBL_ONLY_PAIRS": [],
+  "THANKSGIVING_PAIRS": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    14
+   ],
+   [
+    14,
+    18
+   ]
+  ],
+  "THANKSGIVING_SBL_ONLY_PAIRS": [],
+  "DEVICE_NO_ONSET": [],
+  "FRAME_IN_BODY_PAIRS": [
+   [
+    10,
+    32
+   ]
+  ],
+  "FRAME_edges": {
+   "opening_before": [
+    1,
+    10
+   ],
+   "closing_from": [
+    16,
+    19
+   ]
+  },
+  "FRAME_edges_statement": "FRAME_PAIRS = frame-formula RP hits before the first APPEAL pair or at/after the first frame-formula hit of the last chapter that has one; FRAME_IN_BODY_PAIRS = the other frame-formula RP hits. An orchestrator amendment of the lane's builder, named for the Fable end review.",
+  "DEVICE_NO_ONSET_statement": "empty: no 1 Corinthians ruling restricts onsets at any device. Daniel's CAL_NO_ONSET was also empty and Ezekiel's came from that book's own ruling; neither carries over. These constants record facts only (which verses carry which form), never an onset rule."
+ },
+ "reading_candidates": [
+  {
+   "family": "peri_de",
+   "candidate": "περὶ δέ",
+   "verse": "1Cor.7.1",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "peri_de",
+    "peri_de_topic_marker"
+   ],
+   "formulae_hit_sbl": [
+    "peri_de",
+    "peri_de_topic_marker"
+   ],
+   "positions_rp": {
+    "peri_de": [
+     "sentence_start"
+    ],
+    "peri_de_topic_marker": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Περὶ δὲ",
+   "quote_sbl": "Περὶ δὲ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "Now concerning the things about which you",
+   "web_keyword": "concerning"
+  },
+  {
+   "family": "peri_de",
+   "candidate": "περὶ δέ",
+   "verse": "1Cor.7.25",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "peri_de",
+    "peri_de_topic_marker",
+    "peri_de_ton"
+   ],
+   "formulae_hit_sbl": [
+    "peri_de",
+    "peri_de_topic_marker",
+    "peri_de_ton"
+   ],
+   "positions_rp": {
+    "peri_de": [
+     "sentence_start"
+    ],
+    "peri_de_topic_marker": [
+     "sentence_start"
+    ],
+    "peri_de_ton": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Περὶ δὲ",
+   "quote_sbl": "Περὶ δὲ",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "Now concerning virgins, I have no commandment",
+   "web_keyword": "concerning"
+  },
+  {
+   "family": "peri_de",
+   "candidate": "περὶ δέ",
+   "verse": "1Cor.8.1",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "peri_de",
+    "peri_de_topic_marker",
+    "peri_de_ton"
+   ],
+   "formulae_hit_sbl": [
+    "peri_de",
+    "peri_de_topic_marker",
+    "peri_de_ton"
+   ],
+   "positions_rp": {
+    "peri_de": [
+     "sentence_start"
+    ],
+    "peri_de_topic_marker": [
+     "sentence_start"
+    ],
+    "peri_de_ton": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Περὶ δὲ",
+   "quote_sbl": "Περὶ δὲ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "Now concerning things sacrificed to idols:",
+   "web_keyword": "concerning"
+  },
+  {
+   "family": "peri_de",
+   "candidate": "περὶ δέ",
+   "verse": "1Cor.12.1",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "peri_de",
+    "peri_de_topic_marker",
+    "peri_de_ton"
+   ],
+   "formulae_hit_sbl": [
+    "peri_de",
+    "peri_de_topic_marker",
+    "peri_de_ton"
+   ],
+   "positions_rp": {
+    "peri_de": [
+     "sentence_start"
+    ],
+    "peri_de_topic_marker": [
+     "sentence_start"
+    ],
+    "peri_de_ton": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Περὶ δὲ",
+   "quote_sbl": "Περὶ δὲ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "Now concerning spiritual things, brothers,",
+   "web_keyword": "concerning"
+  },
+  {
+   "family": "peri_de",
+   "candidate": "περὶ δέ",
+   "verse": "1Cor.16.1",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "peri_de",
+    "peri_de_topic_marker"
+   ],
+   "formulae_hit_sbl": [
+    "peri_de",
+    "peri_de_topic_marker"
+   ],
+   "positions_rp": {
+    "peri_de": [
+     "sentence_start"
+    ],
+    "peri_de_topic_marker": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Περὶ δὲ",
+   "quote_sbl": "Περὶ δὲ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "Now concerning the collection for the saints:",
+   "web_keyword": "concerning"
+  },
+  {
+   "family": "peri_de",
+   "candidate": "περὶ δέ",
+   "verse": "1Cor.16.12",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "peri_de",
+    "peri_de_topic_marker"
+   ],
+   "formulae_hit_sbl": [
+    "peri_de",
+    "peri_de_topic_marker"
+   ],
+   "positions_rp": {
+    "peri_de": [
+     "sentence_start"
+    ],
+    "peri_de_topic_marker": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Περὶ δὲ",
+   "quote_sbl": "Περὶ δὲ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "Now concerning Apollos the brother, I strongly",
+   "web_keyword": "concerning"
+  },
+  {
+   "family": "parakalo",
+   "candidate": "παρακαλῶ",
+   "verse": "1Cor.1.10",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "parakalo",
+    "parakalo_hymas"
+   ],
+   "formulae_hit_sbl": [
+    "parakalo",
+    "parakalo_hymas"
+   ],
+   "positions_rp": {
+    "parakalo": [
+     "sentence_start"
+    ],
+    "parakalo_hymas": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Παρακαλῶ",
+   "quote_sbl": "Παρακαλῶ",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "Now I beg you, brothers,[fn] through",
+   "web_keyword": "beg"
+  },
+  {
+   "family": "parakalo",
+   "candidate": "παρακαλῶ",
+   "verse": "1Cor.4.16",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "parakalo",
+    "parakalo_hymas"
+   ],
+   "formulae_hit_sbl": [
+    "parakalo",
+    "parakalo_hymas"
+   ],
+   "positions_rp": {
+    "parakalo": [
+     "sentence_start"
+    ],
+    "parakalo_hymas": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Παρακαλῶ",
+   "quote_sbl": "παρακαλῶ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "I beg you therefore, be imitators",
+   "web_keyword": "beg"
+  },
+  {
+   "family": "parakalo",
+   "candidate": "παρακαλῶ",
+   "verse": "1Cor.16.15",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "parakalo",
+    "parakalo_hymas"
+   ],
+   "formulae_hit_sbl": [
+    "parakalo",
+    "parakalo_hymas"
+   ],
+   "positions_rp": {
+    "parakalo": [
+     "sentence_start"
+    ],
+    "parakalo_hymas": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Παρακαλῶ",
+   "quote_sbl": "Παρακαλῶ",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "Now I beg you, brothers—you know the",
+   "web_keyword": "beg"
+  },
+  {
+   "family": "slogan",
+   "candidate": "πάντα μοι ἔξεστιν",
+   "verse": "1Cor.6.12",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "panta_moi_exestin"
+   ],
+   "formulae_hit_sbl": [
+    "panta_moi_exestin"
+   ],
+   "positions_rp": {
+    "panta_moi_exestin": [
+     "sentence_start",
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Πάντα μοι ἔξεστιν",
+   "quote_sbl": "Πάντα μοι ἔξεστιν",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "“All things are lawful for me,” but not all things",
+   "web_keyword": "lawful"
+  },
+  {
+   "family": "slogan",
+   "candidate": "πάντα μοι ἔξεστιν",
+   "verse": "1Cor.10.23",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "panta_moi_exestin"
+   ],
+   "formulae_hit_sbl": [
+    "panta_exestin"
+   ],
+   "positions_rp": {
+    "panta_moi_exestin": [
+     "sentence_start",
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Πάντα μοι ἔξεστιν",
+   "quote_sbl": "Πάντα ἔξεστιν",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "“All things are lawful for me,” but not all things",
+   "web_keyword": "lawful"
+  },
+  {
+   "family": "tradition",
+   "candidate": "παρέλαβον / παρέδωκα",
+   "verse": "1Cor.11.2",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "paredoka",
+    "paradoseis"
+   ],
+   "formulae_hit_sbl": [
+    "paredoka",
+    "paradoseis"
+   ],
+   "positions_rp": {
+    "paredoka": [
+     "internal"
+    ],
+    "paradoseis": [
+     "internal"
+    ]
+   },
+   "quote_rp": "παρέδωκα",
+   "quote_sbl": "παρέδωκα",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "the traditions, even as I delivered them to you.",
+   "web_keyword": "delivered"
+  },
+  {
+   "family": "tradition",
+   "candidate": "παρέλαβον / παρέδωκα",
+   "verse": "1Cor.11.23",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "parelabon",
+    "paredoka"
+   ],
+   "formulae_hit_sbl": [
+    "parelabon",
+    "paredoka"
+   ],
+   "positions_rp": {
+    "parelabon": [
+     "internal"
+    ],
+    "paredoka": [
+     "internal"
+    ]
+   },
+   "quote_rp": "παρέλαβον",
+   "quote_sbl": "παρέλαβον",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "the Lord that which also I delivered to you, that the Lord Jesus",
+   "web_keyword": "delivered"
+  },
+  {
+   "family": "tradition",
+   "candidate": "παρέλαβον / παρέδωκα",
+   "verse": "1Cor.15.1",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "parelabete"
+   ],
+   "formulae_hit_sbl": [
+    "parelabete"
+   ],
+   "positions_rp": {
+    "parelabete": [
+     "internal"
+    ]
+   },
+   "quote_rp": "παρελάβετε",
+   "quote_sbl": "παρελάβετε",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "preached to you, which also you received, in which you also stand,",
+   "web_keyword": "received"
+  },
+  {
+   "family": "tradition",
+   "candidate": "παρέλαβον / παρέδωκα",
+   "verse": "1Cor.15.3",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "parelabon",
+    "paredoka"
+   ],
+   "formulae_hit_sbl": [
+    "parelabon",
+    "paredoka"
+   ],
+   "positions_rp": {
+    "parelabon": [
+     "internal"
+    ],
+    "paredoka": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "παρέλαβον",
+   "quote_sbl": "παρέλαβον",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "For I delivered to you first of all that",
+   "web_keyword": "delivered"
+  },
+  {
+   "family": "praise",
+   "candidate": "ἐπαινῶ",
+   "verse": "1Cor.11.2",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "epaino"
+   ],
+   "formulae_hit_sbl": [
+    "epaino"
+   ],
+   "positions_rp": {
+    "epaino": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Ἐπαινῶ",
+   "quote_sbl": "Ἐπαινῶ",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "Now I praise you, brothers, that you remember",
+   "web_keyword": "praise"
+  },
+  {
+   "family": "praise",
+   "candidate": "ἐπαινῶ",
+   "verse": "1Cor.11.17",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "epaino",
+    "ouk_epaino"
+   ],
+   "formulae_hit_sbl": [
+    "epaino",
+    "ouk_epaino"
+   ],
+   "positions_rp": {
+    "epaino": [
+     "internal"
+    ],
+    "ouk_epaino": [
+     "internal"
+    ]
+   },
+   "quote_rp": "ἐπαινῶ",
+   "quote_sbl": "ἐπαινῶ",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "you this command I don’t praise you, because you come together",
+   "web_keyword": "praise"
+  },
+  {
+   "family": "praise",
+   "candidate": "ἐπαινῶ",
+   "verse": "1Cor.11.22",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "epaino",
+    "ouk_epaino",
+    "epaineso"
+   ],
+   "formulae_hit_sbl": [
+    "epaino",
+    "ouk_epaino",
+    "epaineso"
+   ],
+   "positions_rp": {
+    "epaino": [
+     "internal"
+    ],
+    "ouk_epaino": [
+     "sentence_start"
+    ],
+    "epaineso": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "ἐπαινῶ",
+   "quote_sbl": "ἐπαινῶ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "shall I tell you? Shall I praise you? In this I don’t praise",
+   "web_keyword": "praise"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.1.1",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "prescript_paulos"
+   ],
+   "formulae_hit_sbl": [
+    "prescript_paulos"
+   ],
+   "positions_rp": {
+    "prescript_paulos": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Παῦλος κλητὸς ἀπόστολος",
+   "quote_sbl": "Παῦλος κλητὸς ἀπόστολος",
+   "rp_pilcrow": false,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "Paul, called to be an apostle",
+   "web_keyword": "Paul"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.1.2",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "adscript_church_of_god"
+   ],
+   "formulae_hit_sbl": [
+    "adscript_church_of_god"
+   ],
+   "positions_rp": {
+    "adscript_church_of_god": [
+     "verse_initial_mid_sentence"
+    ]
+   },
+   "quote_rp": "τῇ ἐκκλησίᾳ τοῦ θεοῦ",
+   "quote_sbl": "τῇ ἐκκλησίᾳ τοῦ θεοῦ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "to the assembly of God which is at Corinth—those",
+   "web_keyword": "assembly"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.1.3",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "grace_peace_greeting"
+   ],
+   "formulae_hit_sbl": [
+    "grace_peace_greeting"
+   ],
+   "positions_rp": {
+    "grace_peace_greeting": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "χάρις ὑμῖν καὶ εἰρήνη",
+   "quote_sbl": "χάρις ὑμῖν καὶ εἰρήνη",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "Grace to you and peace from God",
+   "web_keyword": "Grace"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.1.4",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "eucharisto",
+    "eucharisto_to_theo"
+   ],
+   "formulae_hit_sbl": [
+    "eucharisto",
+    "eucharisto_to_theo"
+   ],
+   "positions_rp": {
+    "eucharisto": [
+     "sentence_start"
+    ],
+    "eucharisto_to_theo": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Εὐχαριστῶ",
+   "quote_sbl": "Εὐχαριστῶ",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "God concerning you for the grace of God which was given you",
+   "web_keyword": "grace"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.16.19",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "greet_third_person"
+   ],
+   "formulae_hit_sbl": [
+    "greet_third_person"
+   ],
+   "positions_rp": {
+    "greet_third_person": [
+     "sentence_start",
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Ἀσπάζονται",
+   "quote_sbl": "Ἀσπάζονται",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "the Lord, together with the assembly that is in their house.",
+   "web_keyword": "assembly"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.16.20",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "greet_third_person",
+    "greet_imperative"
+   ],
+   "formulae_hit_sbl": [
+    "greet_third_person",
+    "greet_imperative"
+   ],
+   "positions_rp": {
+    "greet_third_person": [
+     "sentence_start"
+    ],
+    "greet_imperative": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Ἀσπάζονται",
+   "quote_sbl": "ἀσπάζονται",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "All the brothers greet you. Greet one another with",
+   "web_keyword": "greet"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.16.21",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "greeting_own_hand"
+   ],
+   "formulae_hit_sbl": [
+    "greeting_own_hand"
+   ],
+   "positions_rp": {
+    "greeting_own_hand": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Ὁ ἀσπασμὸς τῇ ἐμῇ χειρὶ",
+   "quote_sbl": "Ὁ ἀσπασμὸς τῇ ἐμῇ χειρὶ",
+   "rp_pilcrow": true,
+   "web_paragraph_start": true,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "This greeting is by me, Paul, with my own hand.",
+   "web_keyword": "Paul"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.16.23",
+   "on_orchestrator_list": true,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "grace_benediction"
+   ],
+   "formulae_hit_sbl": [
+    "grace_benediction"
+   ],
+   "positions_rp": {
+    "grace_benediction": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Ἡ χάρις τοῦ κυρίου",
+   "quote_sbl": "ἡ χάρις τοῦ κυρίου",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "The grace of the Lord Jesus Christ",
+   "web_keyword": "grace"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.1.14",
+   "on_orchestrator_list": false,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "eucharisto",
+    "eucharisto_to_theo"
+   ],
+   "formulae_hit_sbl": [
+    "eucharisto"
+   ],
+   "positions_rp": {
+    "eucharisto": [
+     "sentence_start"
+    ],
+    "eucharisto_to_theo": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Εὐχαριστῶ",
+   "quote_sbl": "εὐχαριστῶ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "I thank God that I baptized none",
+   "web_keyword": "thank"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.10.30",
+   "on_orchestrator_list": false,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "eucharisto"
+   ],
+   "formulae_hit_sbl": [
+    "eucharisto"
+   ],
+   "positions_rp": {
+    "eucharisto": [
+     "internal"
+    ]
+   },
+   "quote_rp": "εὐχαριστῶ",
+   "quote_sbl": "εὐχαριστῶ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": false,
+   "web_evidence": "If I partake with thankfulness, why am I denounced",
+   "web_keyword": "thank"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.10.32",
+   "on_orchestrator_list": false,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "adscript_church_of_god"
+   ],
+   "formulae_hit_sbl": [
+    "adscript_church_of_god"
+   ],
+   "positions_rp": {
+    "adscript_church_of_god": [
+     "internal"
+    ]
+   },
+   "quote_rp": "τῇ ἐκκλησίᾳ τοῦ θεοῦ",
+   "quote_sbl": "τῇ ἐκκλησίᾳ τοῦ θεοῦ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "Jews, to Greeks, or to the assembly of God;",
+   "web_keyword": "assembly"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.14.16",
+   "on_orchestrator_list": false,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "amen"
+   ],
+   "formulae_hit_sbl": [
+    "amen"
+   ],
+   "positions_rp": {
+    "amen": [
+     "internal"
+    ]
+   },
+   "quote_rp": "Ἀμὴν",
+   "quote_sbl": "Ἀμήν",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "“Amen” at your giving of thanks, seeing he doesn’t know",
+   "web_keyword": "thank"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.14.18",
+   "on_orchestrator_list": false,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "eucharisto",
+    "eucharisto_to_theo"
+   ],
+   "formulae_hit_sbl": [
+    "eucharisto",
+    "eucharisto_to_theo"
+   ],
+   "positions_rp": {
+    "eucharisto": [
+     "sentence_start"
+    ],
+    "eucharisto_to_theo": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Εὐχαριστῶ",
+   "quote_sbl": "εὐχαριστῶ",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "I thank my God, I speak with other",
+   "web_keyword": "thank"
+  },
+  {
+   "family": "frame",
+   "candidate": "the frame",
+   "verse": "1Cor.16.24",
+   "on_orchestrator_list": false,
+   "class": "present_both_witnesses",
+   "formulae_hit_rp": [
+    "love_closing",
+    "amen"
+   ],
+   "formulae_hit_sbl": [
+    "love_closing"
+   ],
+   "positions_rp": {
+    "love_closing": [
+     "sentence_start"
+    ],
+    "amen": [
+     "sentence_start"
+    ]
+   },
+   "quote_rp": "Ἡ ἀγάπη μου",
+   "quote_sbl": "ἡ ἀγάπη μου",
+   "rp_pilcrow": false,
+   "web_paragraph_start": false,
+   "rp_sbl_wording_differs": true,
+   "web_evidence": "all of you in Christ Jesus. Amen.",
+   "web_keyword": "Amen"
+  }
+ ],
+ "how_these_are_used": [
+  "RULE: these are EVIDENCE, not a verdict. No boundary is set by a count alone; edition punctuation, edition paragraphing and translation formatting never drive one (E-23).",
+  "RULE: a refrain CLOSES a unit, so a closing formula (grace benediction, ἀμήν, a doxology) belongs to the unit BEFORE it.",
+  "RULE: a seam is assessed from BOTH sides; an onset-only diagnosis is incomplete until the adjacent unit's close is weighed from bytes.",
+  "RULE: refs are WEB = Greek (identity); assert the face anyway before comparing.",
+  "RULE: quote RP (primary); where RP and SBLGNT disagree on a hit, disclose both and argue from neither alone. A disagreement whose cause is 'position class only' is an edition-punctuation fact, not a textual variant.",
+  "RULE: a sentence_start position rests on the edition's punctuation; it is evidence about the edition, not about the author.",
+  "HYPOTHESIS to test: a sentence-initial περὶ δέ opens a topic section; weigh each against the close of the section before it, and weigh a mid-clause περὶ δέ separately.",
+  "HYPOTHESIS to test: disclosure (οὐ θέλω ὑμᾶς ἀγνοεῖν, γνωρίζω ὑμῖν) and appeal (παρακαλῶ ὑμᾶς) formulae open units; test each from both sides.",
+  "HYPOTHESIS to test: the vocative ἀδελφοί marks a turn or an appeal, but it is too frequent to set a boundary alone; the skeleton cannot separate vocative from nominative.",
+  "HYPOTHESIS to test: citation formulae (γέγραπται, λέγει) and rhetorical οὐκ οἴδατε introduce support inside a unit and are weak boundary signals.",
+  "HYPOTHESIS to test: the epistolary frame (prescript, salutation, thanksgiving, greetings, benediction) brackets the body; the thanksgiving verb also stands outside the frame, so the verb alone does not mark it.",
+  "HYPOTHESIS to test: question openers (τί οὖν, τί γάρ, μὴ γένοιτο) step an argument within a unit."
+ ],
+ "dan_key_crosswalk": {
+  "top_level": [
+   {
+    "dan_key": "book",
+    "cor_key": "book",
+    "reason": "same role; value '1Cor'"
+   },
+   {
+    "dan_key": "produced_by",
+    "cor_key": "produced_by",
+    "reason": "same role and shape"
+   },
+   {
+    "dan_key": "witness",
+    "cor_key": "witness",
+    "reason": "TWO witnesses (RP primary, SBLGNT secondary, OW-31) and the WEB face, not one"
+   },
+   {
+    "dan_key": "numbering",
+    "cor_key": "numbering",
+    "reason": "same role; identity, measured: web_greek_offset_map.json identity_throughout=True, zones=0"
+   },
+   {
+    "dan_key": "numbering_face",
+    "cor_key": "numbering_face",
+    "reason": "'WEB' (equal to the Greek face), not Daniel's 'MT'"
+   },
+   {
+    "dan_key": "numbering_face_obligation_on_consumers",
+    "cor_key": "numbering_face_obligation_on_consumers",
+    "reason": "same role"
+   },
+   {
+    "dan_key": "method",
+    "cor_key": "method",
+    "reason": "Greek skeleton words matched word-bounded, with position classes; not Hebrew regex"
+   },
+   {
+    "dan_key": "inputs",
+    "cor_key": "inputs",
+    "reason": "same role ({path: sha256})"
+   },
+   {
+    "dan_key": "web_format",
+    "cor_key": "web_format",
+    "reason": "same role"
+   },
+   {
+    "dan_key": "totals",
+    "cor_key": "totals",
+    "reason": "same role; adds rp_sbl_differing_verses and the SBLGNT sign census; no language split"
+   },
+   {
+    "dan_key": "datelines",
+    "cor_key": null,
+    "reason": "no 1 Corinthians counterpart: the year noun ἔτος measures RP 0 / SBLGNT 0 verses; the letter carries no regnal or calendar dateline"
+   },
+   {
+    "dan_key": "year_word_but_not_a_dateline",
+    "cor_key": "formulae.year_word",
+    "reason": "kept as a measured control (RP 0 / SBLGNT 0)"
+   },
+   {
+    "dan_key": "calendar_dates_not_datelines",
+    "cor_key": null,
+    "reason": "no month+day date: month noun RP 0 / SBLGNT 0; the calendar REFERENCES are kept as controls (first_of_the_week RP 1 / SBLGNT 1, pentecost RP 1 / SBLGNT 1, pascha RP 1 / SBLGNT 1) and are named for the Fable end review, not made constants"
+   },
+   {
+    "dan_key": "month_or_day_word_not_a_date",
+    "cor_key": "formulae.day_word / formulae.month_word",
+    "reason": "day noun RP 7 / SBLGNT 7, month noun RP 0 / SBLGNT 0; recorded as controls"
+   },
+   {
+    "dan_key": "month_or_day_substring_artifacts",
+    "cor_key": "formulae.*.substring_reading",
+    "reason": "generalised: every formula reports its substring count and its substring-only verses"
+   },
+   {
+    "dan_key": "date_family_patterns",
+    "cor_key": null,
+    "reason": "no date family; every formula carries its own pattern"
+   },
+   {
+    "dan_key": "formulae",
+    "cor_key": "formulae",
+    "reason": "per formula: pattern (skeleton word sequences), count_rp/verses_rp, count_sbl/verses_sbl, witness_disagreements, positions, quotes; no language field"
+   },
+   {
+    "dan_key": "language_switches",
+    "cor_key": null,
+    "reason": "single language (Koine Greek); Hebrew-block characters measured 0. The Aramaic μαρὰν ἀθά stands in Greek letters (maranatha RP 1 / SBLGNT 1); named for the Fable end review, not a switch"
+   },
+   {
+    "dan_key": "citation_sweep_constants",
+    "cor_key": "citation_sweep_constants",
+    "reason": "DATELINE_PAIRS / CAL_DATE_PAIRS / CAL_NO_ONSET are replaced by <FAMILY>_PAIRS, <FAMILY>_SBL_ONLY_PAIRS, FRAME_IN_BODY_PAIRS and DEVICE_NO_ONSET (empty); face WEB = Greek"
+   },
+   {
+    "dan_key": "how_these_are_used",
+    "cor_key": "how_these_are_used",
+    "reason": "same role; rules separated from hypotheses to test"
+   },
+   {
+    "dan_key": "ezek_key_crosswalk",
+    "cor_key": "dan_key_crosswalk",
+    "reason": "same role, one book on"
+   },
+   {
+    "dan_key": "for_fable_end_review",
+    "cor_key": "for_fable_end_review",
+    "reason": "same role"
+   },
+   {
+    "dan_key": "attribution",
+    "cor_key": "attribution",
+    "reason": "keys greek / english, not hebrew_aramaic / english"
+   },
+   {
+    "dan_key": "self_assertions",
+    "cor_key": "self_assertions",
+    "reason": "same role and shape"
+   },
+   {
+    "dan_key": null,
+    "cor_key": "paragraph_marks",
+    "reason": "new: RP pilcrows and WEB paragraph starts with their overlap (Daniel had none)"
+   },
+   {
+    "dan_key": null,
+    "cor_key": "position_census",
+    "reason": "new: per-witness count of words in each position class"
+   },
+   {
+    "dan_key": null,
+    "cor_key": "reading_candidates",
+    "reason": "new: the orchestrator's reading candidates, classified from bytes"
+   }
+  ],
+  "formula_families": [
+   {
+    "dan_family": "ezek_* (Ezekiel's eleven, run on Daniel's Hebrew)",
+    "cor_key": null,
+    "reason": "not run: Hebrew-script patterns cannot occur in a Greek witness (Hebrew-block characters 0)"
+   },
+   {
+    "dan_family": "first-person report (i_daniel_*, i_nebuchadnezzar_aram)",
+    "cor_key": "ego_paulos / prescript_paulos",
+    "reason": "ἐγὼ Παῦλος RP 0 / SBLGNT 0; the prescript RP 1 / SBLGNT 1"
+   },
+   {
+    "dan_family": "vision formulae (i_saw_*, vision nouns, behold_*)",
+    "cor_key": "idou",
+    "reason": "no vision report; ἰδού RP 1 / SBLGNT 1 kept as the 'behold' analogue"
+   },
+   {
+    "dan_family": "speech introductions (answered_and_said_*, and_he_said_*, court greeting, decree)",
+    "cor_key": "citation family (gegraptai, legei, ho_nomos_legei)",
+    "reason": "an analogue, not an equivalent: γέγραπται RP 9 / SBLGNT 9, λέγει RP 6 / SBLGNT 6"
+   },
+   {
+    "dan_family": "doxologies and ascriptions (blessed_*, everlasting_*, most_high, recognition refrain)",
+    "cor_key": "frame family (grace_benediction, amen) / charis_to_theo",
+    "reason": "benediction RP 1 / SBLGNT 1, ἀμήν RP 2 / SBLGNT 1, τῷ δὲ θεῷ χάρις RP 1 / SBLGNT 1"
+   },
+   {
+    "dan_family": "transitions (at_that_time_*, vayehi_heb, then_aram, after_this_aram)",
+    "cor_key": "topic_marker / question families",
+    "reason": "περὶ δέ at a sentence start RP 6 / SBLGNT 6; τί οὖν RP 3 / SBLGNT 4"
+   },
+   {
+    "dan_family": "address and direction (son_of_man_*, fear_not_heb, set_face_heb)",
+    "cor_key": "vocative family",
+    "reason": "ἀδελφοί (no article) RP 20 / SBLGNT 19; ἀγαπητοί RP 2 / SBLGNT 2"
+   }
+  ],
+  "formula_entry_fields": [
+   {
+    "dan_field": "language",
+    "cor_field": null,
+    "reason": "one language"
+   },
+   {
+    "dan_field": "pattern",
+    "cor_field": "pattern",
+    "reason": "skeleton word sequences, not a regex"
+   },
+   {
+    "dan_field": "count",
+    "cor_field": "count_rp / count_sbl",
+    "reason": "per witness"
+   },
+   {
+    "dan_field": "verses_mt",
+    "cor_field": "verses_rp / verses_sbl",
+    "reason": "WEB = Greek refs"
+   },
+   {
+    "dan_field": "cross_language_hits",
+    "cor_field": "witness_disagreements",
+    "reason": "the cross-witness comparison replaces the cross-language one"
+   }
+  ]
+ },
+ "for_fable_end_review": [
+  {
+   "item": "sentence-start rests on edition punctuation",
+   "measurement": "περὶ δέ any position RP 6, at a sentence start RP 6 / SBLGNT 6, inside a clause RP 0; position-only witness disagreements over all formulae fall in 0 verses: []",
+   "question": "is an edition's punctuation an acceptable basis for the topic-marker class, or must position be read from syntax?"
+  },
+  {
+   "item": "vocative versus nominative ἀδελφοί",
+   "measurement": "ἀδελφοί any reading RP 22, without a preceding article RP 20",
+   "question": "is the article rule an adequate vocative test for a constant, or should the vocative family stay evidence only?"
+  },
+  {
+   "item": "witness disagreements on a hit",
+   "measurement": "wording-caused disagreements over all formulae fall in 10 verses: ['1Cor.1.14', '1Cor.3.5', '1Cor.6.2', '1Cor.6.16', '1Cor.10.1', '1Cor.10.23', '1Cor.10.29', '1Cor.11.2', '1Cor.14.39', '1Cor.16.24']",
+   "question": "does an RP-only or SBLGNT-only form count for an onset family? (pairs are taken from RP; SBLGNT-only hits are listed apart)"
+  },
+  {
+   "item": "calendar references in the closing chapter",
+   "measurement": "first_of_the_week ['1Cor.16.2'], pentecost ['1Cor.16.8'], pascha ['1Cor.5.7']; no month+day date",
+   "question": "are these a calendar class for a DEVICE arm, or plain evidence?"
+  },
+  {
+   "item": "Aramaic phrase in Greek letters",
+   "measurement": "maranatha RP ['1Cor.16.22'], SBLGNT ['1Cor.16.22']",
+   "question": "is a transliterated Aramaic acclamation a language-switch class, or a frame formula?"
+  },
+  {
+   "item": "thanksgiving verb outside the frame",
+   "measurement": "εὐχαριστῶ RP ['1Cor.1.4', '1Cor.1.14', '1Cor.10.30', '1Cor.14.18']",
+   "question": "does THANKSGIVING_PAIRS belong with FRAME_PAIRS, given hits outside the opening?"
+  },
+  {
+   "item": "frame edges (orchestrator amendment)",
+   "measurement": "FRAME_PAIRS [[1, 1], [1, 2], [1, 3], [16, 19], [16, 20], [16, 21], [16, 23]]; FRAME_IN_BODY_PAIRS [[10, 32]]; edges {'opening_before': [1, 10], 'closing_from': [16, 19]}",
+   "question": "are the opening (before the first appeal) and closing (from the first closing frame hit) edges the right frame extent for an onset family?"
+  },
+  {
+   "item": "model downgrade",
+   "measurement": "this inventory was built and self-checked on claude-opus-5-5 as grader_fallback (OW-25)",
+   "question": "the Fable end review is the first non-Opus check of these constants"
+  }
+ ],
+ "attribution": {
+  "greek": "Greek witnesses: Robinson-Pierpont Byzantine Textform (Unlicense), primary; SBLGNT (CC BY 4.0), secondary; their attribution terms travel with any quotation",
+  "english": "World English Bible (WEB); its attribution terms travel with any quotation"
+ },
+ "self_assertions": [
+  {
+   "assertion": "16 chapters and 437 verses in each of RP, SBLGNT and WEB",
+   "holds": true
+  },
+  {
+   "assertion": "per-chapter counts of RP, SBLGNT and WEB are equal and equal verse_inventory.json and web_greek_verse_check.json",
+   "holds": true
+  },
+  {
+   "assertion": "numbering is identity: offset map identity_throughout, no zones, verse_inventory numbering_face WEB, and the three witnesses carry the same verse keys",
+   "holds": true
+  },
+  {
+   "assertion": "RP/SBLGNT wording differs (after greek_lib.skeleton) in 218 verses, equal to pmarks rp_sbl_differences",
+   "holds": true
+  },
+  {
+   "assertion": "SBLGNT carries 419 critical signs over 220 verses, equal to pmarks sbl_variant_sites",
+   "holds": true
+  },
+  {
+   "assertion": "RP carries no critical sign and no pilcrow (removed and recorded in pmarks)",
+   "holds": true
+  },
+  {
+   "assertion": "no Hebrew-block character in either Greek witness (Daniel's Hebrew/Aramaic patterns cannot apply)",
+   "holds": true
+  },
+  {
+   "assertion": "skeleton tokenisation equals greek_lib.skeleton(verse).split() in every verse of both witnesses",
+   "holds": true
+  },
+  {
+   "assertion": "RP pilcrows 35, WEB paragraph starts 87, overlap 31",
+   "holds": true
+  },
+  {
+   "assertion": "FRAME_PAIRS and FRAME_IN_BODY_PAIRS partition the frame family's RP hits at the measured edges",
+   "holds": true
+  },
+  {
+   "assertion": "citation_sweep constants equal the union of their families' RP verse lists (FRAME with FRAME_IN_BODY); SBL-only lists are disjoint from them; DEVICE_NO_ONSET is empty",
+   "holds": true
+  },
+  {
+   "assertion": "every listed reading candidate is classified, and every off-list family hit is classified",
+   "holds": true
+  },
+  {
+   "assertion": "every hit of every pattern is found word-bounded (greek_lib.bounded_find) in its witness's skeleton",
+   "holds": true
+  },
+  {
+   "assertion": "every Greek quotation is found by cor_lib.collate at tier byte in its witness",
+   "holds": true
+  },
+  {
+   "assertion": "every formula's witness_disagreements equal the symmetric difference of its RP and SBLGNT lists",
+   "holds": true
+  },
+  {
+   "assertion": "every SBLGNT hit whose span carries a critical sign is still found by the skeleton match",
+   "holds": true
+  },
+  {
+   "assertion": "every count equals the length of its verse list (and no list repeats a verse)",
+   "holds": true
+  },
+  {
+   "assertion": "every verse listed exists in the witness it is listed for",
+   "holds": true
+  },
+  {
+   "assertion": "every WEB quotation is found byte-exact in 1Cor_web_clean.txt",
+   "holds": true
+  }
+ ]
+}
