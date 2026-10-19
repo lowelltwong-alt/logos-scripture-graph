@@ -215,7 +215,7 @@ TD = tempfile.TemporaryDirectory()
 
 
 def run(tool, rows_path):
-    out = subprocess.run([sys.executable, str(HERE / tool), str(rows_path)],
+    out = subprocess.run([sys.executable, "-B", str(HERE / tool), str(rows_path)],   # K2-D6: no __pycache__
                          capture_output=True, text=True, encoding="utf-8", env=ENV)
     return json.loads(out.stdout)
 

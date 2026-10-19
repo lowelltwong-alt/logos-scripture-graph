@@ -54,7 +54,8 @@ TOOLS = Path(__file__).resolve().parent
 
 
 def run(script: str, *args: str) -> dict:
-    proc = subprocess.run([sys.executable, str(TOOLS / script), *args],
+    # K2-D6: -B, so a member that imports cor_lib writes no __pycache__ into 1Cor/tools or greek_substrate/tools
+    proc = subprocess.run([sys.executable, "-B", str(TOOLS / script), *args],
                           capture_output=True, text=True, encoding="utf-8")
     try:
         out = json.loads(proc.stdout)

@@ -9,10 +9,14 @@ looked for in the two Greek witnesses, 1Cor_rp.txt and 1Cor_sbl.txt, word-bounde
   ok            the run's bytes stand in RP or SBLGNT. RP and SBLGNT differ at many verses; both readings are
                 legitimate, and ok_sources says which witness carried each run (RP is tried first)
   fixed         only the run's NFC form stands there (E-01: the suite treats fixed > 0 as HARD). --write replaces
-                each such run with its NFC form, preferring RP; nothing else in the file changes
-  sbl_unsigned  the run stands in SBLGNT only once SBLGNT's critical signs are removed: SBLGNT wording quoted
-                across an interior sign without disclosing it. Counted, not a defect; the row's own sign
-                disclosure is check_marks' business
+                each such run with its NFC form, preferring RP, and re-serialises the WHOLE file (json.dumps, LF
+                line ends, written newline="\n" so Windows never turns them into CRLF, E-73); the file's layout and
+                any BOM are not kept, so --write is for scratch copies only
+  sbl_unsigned  the run's own bytes stand in SBLGNT only once SBLGNT's critical signs are removed: SBLGNT wording
+                quoted across an interior sign without disclosing it. Counted, not a defect; the row's own sign
+                disclosure is check_marks' business. K2-D9: a run that stands there only in its NFC form is an NFD
+                copy across a sign, which is the E-01 class, so it is the defect nfd_across_a_critical_sign, never
+                sbl_unsigned
   mention       the run carries NO tone mark (greek_lib.TONE) and its accent-stripped form stands in a witness's
                 accent-stripped text: a deliberate unaccented mention. Skeleton is never accepted: it casefolds,
                 drops elision and turns punctuation and the critical signs into spaces
@@ -92,7 +96,8 @@ def classify(run: str, idx) -> tuple[str, str | None]:
             if bounded_in(n, idx[sp]):
                 return "fixed", sp
     if bounded_in(n, idx["sbl_unsigned"]):
-        return "sbl_unsigned", None
+        # K2-D9: an NFD run across a sign is copy degradation (E-01), a HARD defect, not the counted tier
+        return ("sbl_unsigned", None) if n == run else ("defect:nfd_across_a_critical_sign", None)
     has_tone = any(ch in TONE for ch in unicodedata.normalize("NFD", run))
     if not has_tone:
         s = strip_accents(n)
@@ -170,9 +175,9 @@ def main() -> int:
         if write and stats["fixed"]:
             if is_jsonl:
                 p.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in new) + "\n",
-                             encoding="utf-8")
+                             encoding="utf-8", newline="\n")   # K2-D5: LF on every platform (E-73)
             else:
-                p.write_text(json.dumps(new, indent=1, ensure_ascii=False), encoding="utf-8")
+                p.write_text(json.dumps(new, indent=1, ensure_ascii=False), encoding="utf-8", newline="\n")
         print(json.dumps({"file": p.name, "mode": "write" if write else "dry-run",
                           **stats, "defects": defects[:15], "defect_count": len(defects)},
                          ensure_ascii=False))

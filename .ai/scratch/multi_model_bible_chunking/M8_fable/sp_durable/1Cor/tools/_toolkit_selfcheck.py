@@ -215,7 +215,7 @@ TOOLKIT_PINS = [  # (claim, predicate over the loaded data); every figure is for
      lambda d: "**%d formula keys in %d families**" % (len(d["dev"]["formulae"]), len(_families(d["dev"])))
      in d["text"]),
     ("TOOLKIT.md states the device inventory's self-assertions",
-     lambda d: "%d self-assertions all hold" % len(d["dev"]["self_assertions"]) in d["text"]
+     lambda d: "%d self-assertions are all recorded as holding" % len(d["dev"]["self_assertions"]) in d["text"]
      and all(x["holds"] for x in d["dev"]["self_assertions"])),
     ("TOOLKIT.md states the WEB extract line count",
      lambda d: "WEB extract, %d lines" % len(d["web"]) in d["text"]),

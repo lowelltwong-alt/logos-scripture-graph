@@ -47,8 +47,9 @@ EXPECTED = {
                        "duty": "the literal single-witness disclosure on any mark, paseq or puncta entry"},
     "register": {"phrases": ["register rule", "scholar-facing record"],
                  "duty": "no staged file names, internal rule labels or process talk in row prose"},
-    "hebrew_normalize_dryrun": {"phrases": ["never hand-type Hebrew", "Never hand-type Hebrew", "SLICED"],
-                                "duty": "every Hebrew run byte-identical to the witness, sliced not typed"},
+    # K2-D3: the 1Cor suite's normalizer member is greek_normalize_dryrun (the Hebrew entry was dead)
+    "greek_normalize_dryrun": {"phrases": ["never hand-type Greek", "Never hand-type Greek", "SLICED"],
+                               "duty": "every Greek run byte-identical to RP or SBLGNT, sliced not typed (E-01)"},
     "web_quotes": {"phrases": ["double curly quotes", "A6-b"],
                    "duty": "the quotation convention and its formula-rendering exemption"},
     "refs_mirror": {"phrases": ["DEF-A4-ARGUED", "ROLE token"],
@@ -118,7 +119,8 @@ suite_src = SUITE.read_text(encoding="utf-8")
 # DISCOVERY READS THE RUNNER'S OWN REGISTRATION LINES. The first pattern matched none of the runner's actual
 # '"name": run("tool.py", ...)' lines, so discovery silently fell back to the LAST REPORT on disk - which cannot know a
 # member added since it was written. A member installed at REPAIR-2 step 4 would have been invisible to this control.
-members = sorted(set(re.findall(r'"(\w+)":\s*run\(', suite_src))
+# K2-D3: run_each registers a member too (greek_normalize_dryrun); the run-only pattern missed it
+members = sorted(set(re.findall(r'"(\w+)":\s*run(?:_each)?\(', suite_src))
                  | set(re.findall(r'"(\w+)":\s*(?:res|status|out)', suite_src))
                  | set(re.findall(r'per_check\[["\'](\w+)["\']\]', suite_src))
                  | set(re.findall(r'\bPER_CHECK_ORDER\s*=\s*\[([^\]]*)\]', suite_src)

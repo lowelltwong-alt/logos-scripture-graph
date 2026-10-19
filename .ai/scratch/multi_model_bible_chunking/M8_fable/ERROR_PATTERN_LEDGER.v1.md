@@ -3432,3 +3432,40 @@ Drafted from a fresh read of the orchestrator's close-phase notes and the close 
 **Unchanged.** Every role runs on claude-opus-5-5 as a recorded grader_fallback (OW-25). No Fable call without new authorization (OW-30). Subagents never run git, never write a receipt and never touch the registry. OW-19's two-blind-lane floor, OW-28 (tracked, not enforced; DEFERRED is never MET), OW-29 and OW-31/OW-35 stand.
 
 **Limits.** This grants no spending, model, access, publication, merge, close or gate-bypass authority. It covers no book outside the six; the next book in OW-32's queue needs a new owner answer and a new checker entry.
+
+## E-75 (2026-10-19) - 1 CORINTHIANS PHASE 0 TOOLKIT REVIEW: A CRLF WRITE SITE, AN E-01 HOLE, A DUTY CHECK THAT MISSED A MEMBER, UNDECLARED BYTECODE WRITES, AND TOOLKIT PROSE THAT SAID MORE THAN THE CODE
+
+Drafted from a fresh read of the K1/K2 #e2 deliverables (`toolkit_review_k1.json` df227ec81800..., `toolkit_review_k2.json` ebb97d8e4b36..., digests as recorded in `sp_durable/1Cor/1cor_phase0_attempt_receipts.jsonl`@2ef98c608a21 rows 34-35), the `.pre_` copies against the installed tools, and the orchestrator's own re-measurement (E-59). It was not drafted from a summary. Both lanes returned `not_fit`: K1 3 defects (by the bytes), K2 10 (by the code). The orchestrator confirmed all 13 against the cited lines before changing anything. Every listed slip is in tools or text the orchestrator built or ported in Phase 0; no row has been written for 1 Corinthians yet.
+
+- **(a) The normalizer's `--write` wrote CRLF on Windows (orchestrator_defect, medium by counterfactual; E-73 class).** `1Cor/tools/normalize_greek_in_json.py` re-serialises the whole file through `Path.write_text` with no `newline=`. MEASURED: a mutation run of the regression suite against the old copy fails the new no-CR check. No review file had yet been normalised, so no recorded digest was affected. Cure: both `write_text` calls take `newline="\n"` (5028bc2e913e -> 4f2f7416eb96, pre copy kept). The TOOLKIT row now says the write re-serialises the whole file (LF; BOM and layout not kept).
+
+- **(b) An E-01 hole in the normalizer (orchestrator_defect, medium).** The `sbl_unsigned` tier was tested on the NFC form before the defect tier. So an NFD-degraded run across an SBLGNT critical sign was counted, not HARD. Cure: such a run is now `defect:nfd_across_a_critical_sign`. Regression vector n09 expects one defect and no `sbl_unsigned` count. `citation_sweep.py`'s `bind()` was not changed; that it already returns RED at the skeleton tier for a bound case is INFERRED from its code, not tested.
+
+- **(c) The brief-duty checker missed a suite member (orchestrator_defect, medium; a gate with a hole).** `check_brief_vs_suite.py` found members only by `"name": run(`. It missed the one registered through `run_each(`, and its EXPECTED table still carried the Hebrew-era name `hebrew_normalize_dryrun` (port residue). So the Greek normalizer's duty was never checked against a brief. Cure: discovery matches `run(` and `run_each(`, and EXPECTED names `greek_normalize_dryrun` with its E-01 duty (4fa369b96cea -> 4ebd43ac6d18). A new AST check requires every suite member to appear among the checker's names. **Sibling (MEASURED, closed book, not reopened):** `Dan/tools/run_validator_suite.py` has one `run_each` member, and `Dan/tools/check_brief_vs_suite.py` line 120 uses the `run(`-only pattern, so Daniel's checker had the same blind member. Ezekiel's suite has no `run_each` member.
+
+- **(d) Undeclared bytecode writes (orchestrator_defect, low; E-67 class).** The suite and the tools test started each child as `sys.executable <tool>`, without `-B`. A child could leave `__pycache__` in SP. MEASURED: none was found under `1Cor/tools`. Cure: `-B` in `run_validator_suite.py`, `_test_tools_1cor.py` and the `check_web_quotes.py` selftest child. A source scan fails any `sys.executable, str(` launch in `1Cor/tools` (one-time `_adapt_*` port scripts excepted). **Sibling (MEASURED, read-only grep for that launch shape; closed books not reopened):** Dan 4 files, Ezek 3, Eccl/Isa/Jer/Lam/Prov/Song 2 each, campaign 1 (`_test_mirror_truncation_guard.py`). This is a pattern count, not a count of confirmed writes.
+
+- **(e) TOOLKIT prose said more than the code (orchestrator_defect, medium; OW-18).**
+  - `check_marks.py` was said to make a Hebrew-device claim RED. Its status is only GREEN or FLAGS, and the suite runs it as triage (K2-D1, D2).
+  - The brief checker's selftest was said to write nothing; it writes temp fixtures (K2-D4).
+  - The skeleton note left out breathings, diaeresis, iota subscript, casefold, final sigma, elision and P/S/Z-to-space (K2-D7).
+  - A quotation across a critical sign was said to match "only at the skeleton tier". It matches byte-exact when it carries the sign, and the normalizer and sweep accept the unsigned form (K1-D1 = K2-D8).
+  - "19 self-assertions all hold" stated the inventory's own report as fact (K1-D2).
+  - The E-65 floor's scope and blind spots were not stated, and 14 numbers were neither re-measurable nor labelled (K1-D3, K2-D10).
+
+  All are corrected in `1Cor/tools/TOOLKIT.md` (1cca901e377c -> a8313a3a8140), regenerated through the generator, never hand-edited. `_toolkit_selfcheck.py` follows the D2 wording (adcae46bdde6 -> 744911b3252d).
+
+- **(f) Lane E-19 slip, self-disclosed (lane, low).** K2 ran one `os.path.exists` on its own helper inside its OUT (result False). It touched no SP path and changed no state, and K2 reported it in `e19_selfreport`.
+
+- **(g) Not a defect (correction of the orchestrator's own reconciliation note).** K1 observed that `1cor_device_inventory.json` records 8 WEB continuation lines over 5 verses, while TOOLKIT states 7 `|q` lines over 4. A fresh read of `_build_device_inventory_1cor.py` `parse_web` shows the inventory counts every non-empty, non-`¶` line after a verse line, and that includes the mid-verse `¶ Nevertheless...` line in 9:12. The two figures measure different things, and both are true. The orchestrator's interim note had called this a miscount; that was wrong.
+
+**Verification (MEASURED, installed paths).**
+- `_test_tools_1cor.py` 272/272.
+- `_test_marks_tools_1cor.py` 496/496, up from 487.
+- A mutation run with the old tool copies fails exactly the 8 new checks.
+- `check_brief_vs_suite.py --selftest` PASS (6 cases); `check_web_quotes.py --selftest` GREEN.
+- `_toolkit_selfcheck.py` GREEN: 98/98 full and 80/80 `--artifacts-only`.
+
+**Recorded, not done.** The fixes and corrections were confirmed by the orchestrator against the bytes and proved by the regression and mutation runs. No second pair of blind lanes re-reviewed them; Daniel's Phase 0 close set that precedent. They are listed for Fable's end review (OW-28) with K2's judgements (D9, D10). A prose-only Hebrew claim stays triage, not RED, and joins the deferred review list.
+
+**Lesson.** A tool ported between books keeps its old call shapes, and a checker keyed on one shape (`run(`) misses the other (`run_each(`). Derive a gate's discovery from the parsed code (AST), not a regex, and test it against the target's real member set. On Windows, every `write_text` that produces a digest-recorded file needs `newline="\n"` and a no-CR test.

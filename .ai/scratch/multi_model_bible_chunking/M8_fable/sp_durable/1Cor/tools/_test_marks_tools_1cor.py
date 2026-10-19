@@ -258,6 +258,8 @@ def _unsigned():
 
 
 k_uns, uns_run = pick(_unsigned(), "sbl_unsigned")
+check("fixture: the sbl_unsigned run has an NFD form that differs from it (K2-D9 vector n09)", nfd(uns_run) != uns_run,
+      uns_run)
 k_men, men_run = pick(((k, strip_accents(w)) for k, w in windows(RPV, 2)
                        if not tone(strip_accents(w)) and strip_accents(w) != w and nowhere(strip_accents(w))
                        and bounded_in(strip_accents(w), rp_s) and one_run(strip_accents(w))), "mention")
@@ -298,6 +300,9 @@ NV = [  # (id, section, lineage, text_source, value, expect)
     ("n07", "defects", P + " §10b lines 877-886 (S1-07 word-bounded presence)", "1Cor_rp.txt %d:%d, first letter cut" % k_cut,
      cut_run, {"defect_count": 1, "kind": "cut_inside_a_witness_word"}),
     ("n08", "defects", C, "synthetic", NEITHER, {"defect_count": 1, "kind": "in_neither_witness"}),
+    ("n09", "defects", C + " (K2-D9: an NFD copy across a critical sign is E-01, not the counted tier)",
+     "1Cor_sbl.txt %d:%d, sign removed, NFD" % k_uns, nfd(uns_run),
+     {"sbl_unsigned": 0, "defect_count": 1, "kind": "nfd_across_a_critical_sign"}),
 ]
 DISABLED = [
     {"lineage": P + " §3 lines 217-226", "what": "Qere accepted / pointed-run tier", "reason": "1Cor has no K/Q layer; there is no Qere tier"},
@@ -364,6 +369,7 @@ with tempfile.TemporaryDirectory() as td:
     p = run(NORM, "--write", wf)
     back = json.loads(wf.read_text(encoding="utf-8"))
     check("normalizer --write: the NFD run becomes the RP bytes", back[0]["quote"] == rp_run, back[0]["quote"][:40])
+    check("normalizer --write: LF line ends only, no CR byte (K2-D5, E-73)", b"\r" not in wf.read_bytes())
     check("normalizer --write: other fields untouched", back[0]["note"] == "kept as written"
           and back[0]["decision_id"] == "w01", back[0])
     # witness refusal, by resolved path and by case-folded name
@@ -451,6 +457,25 @@ check("suite runs normalize_greek_in_json.py, not the Hebrew normalizer",
       "normalize_greek_in_json.py" in suite_consts and "normalize_hebrew_in_json.py" not in suite_consts)
 check("suite has no language_zones member", "check_language_zones.py" not in suite_consts)
 check("suite sums the Greek tier keys", {"sbl_unsigned", "mention", "fixed", "defect_count"} <= suite_consts)
+# K2-D6: a Python child started without -B caches cor_lib's bytecode inside SP
+check("suite starts every member with -B (K2-D6)", "-B" in suite_consts)
+no_b = [f.name for f in sorted(TOOLS.glob("*.py")) if not f.name.startswith("_adapt_")
+        and re.search(r"sys\.executable,\s*str\(", f.read_text(encoding="utf-8"))]
+check("no tool starts a Python child without -B (K2-D6)", not no_b, no_b)
+# K2-D3: the brief checker must discover every member the suite registers, by run( or run_each(
+suite_members = {k.value for d in ast.walk(ast.parse((TOOLS / SUITE).read_text(encoding="utf-8")))
+                 if isinstance(d, ast.Dict) for k, v in zip(d.keys, d.values)
+                 if isinstance(k, ast.Constant) and isinstance(v, ast.Call)
+                 and getattr(v.func, "id", "") in ("run", "run_each")}
+with tempfile.TemporaryDirectory() as td2:
+    no_duty = Path(td2) / "no_duty.md"
+    no_duty.write_bytes(b"a brief that names no duty\n")
+    p = run("check_brief_vs_suite.py", no_duty)
+listed = set(re.findall(r"^  .{14} (\w+)", p.stdout, re.M))
+check("brief checker lists every suite member (K2-D3)", suite_members and suite_members <= listed,
+      sorted(suite_members - listed))
+check("brief checker maps greek_normalize_dryrun to a duty (K2-D3)",
+      re.search(r"^  DUTY MISSING\s+greek_normalize_dryrun ", p.stdout, re.M), p.stdout[-400:])
 read_by["cor_lib.py (shared)"] = sorted({n.value for n in ast.walk(ast.parse((HERE / "cor_lib.py").read_text(encoding="utf-8")))
                                         if isinstance(n, ast.Constant) and isinstance(n.value, str)
                                         and re.fullmatch(r"[\w%.-]+\.(?:json|jsonl|txt|tsv)", n.value)})

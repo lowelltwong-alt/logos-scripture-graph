@@ -350,3 +350,51 @@ Daniel's close is evidenced: receipts/Dan_completion.json sha256 8151f9a9ec35c3f
 - CURSOR: phase = 1COR_P0_TOOLKIT_REVIEW_IN_FLIGHT. Next: land K1/K2; reconcile; apply byte-verified corrections to
   TOOLKIT.md (regenerate via gen_toolkit) and rerun the selfcheck; write the Phase 0 readiness record; checkpoint
   commit.
+
+## 2026-10-19 - K1/K2 #e1 stopped by the API weekly limit; relaunched as #e2
+
+- Both #e1 workers stopped on HTTP 429 "You've hit your weekly limit" (resets Oct 19, 10am America/New_York) before
+  writing a deliverable. K1 had verified its brief and contract digests; K2 was part-way through the tool table. Landed
+  as FAILED_BY_API_WEEKLY_LIMIT, stop_class quota (not a lane defect), with no outputs; the partial files in lane_K1
+  and lane_K2 are counted and hashed in the landing rows and are not given to #e2. Usage UNAVAILABLE (the stop
+  notifications carried no usage block; never estimated). Receipts 01d986cedffc -> 93fdc667ed82 -> 73926c987e48.
+- MEASURED: the reset had passed at 2026-10-19T20:28:45Z (date -u).
+- Relaunched blind in fresh OUT directories (lane_K1_e2, lane_K2_e2, both empty at launch). The #e2 briefs differ from
+  #e1 only in the execution id, a relaunch note and OUT. Briefs BRIEF_K1_e2.md 23a264a2a92f and BRIEF_K2_e2.md
+  7c36b4ad96d4; brief_pin_check and launch_message_check MATCH, prelaunch gate PASS for both. Launch rows
+  cor_toolkit_review_k1_a1#e2 (20:29:09Z, -> 7c6f9b857663) and cor_toolkit_review_k2_a1#e2 (20:29:30Z,
+  -> 859812c8358b). A launch receipt does not prove a worker is running.
+- CURSOR: phase = 1COR_P0_TOOLKIT_REVIEW_IN_FLIGHT (#e2). Next: land K1/K2 #e2; reconcile; apply byte-verified
+  corrections to TOOLKIT.md and rerun the selfcheck; write the Phase 0 readiness record; checkpoint commit.
+
+## 2026-10-19 - 1 CORINTHIANS PHASE 0 CLOSED: K1 and K2 #e2 landed and reconciled; five tools fixed; TOOLKIT corrected
+
+- **Landed** (receipts 2ef98c608a21, 35 rows; rows 34-35 are the #e2 completions):
+  - K1 (by the bytes): `not_fit`, 3 defects. 88219 notification tokens, 41 tool uses.
+  - K2 (by the code): `not_fit`, 10 defects. 147143 notification tokens, 55 tool uses.
+  - Spend-unit tokens are UNAVAILABLE until the census (E-55). The orchestrator confirmed all 13 defects against the cited lines; K1-D1 and K2-D8 are the same defect.
+- **Code fixed** (E-44 pre copies kept for each):
+  - `normalize_greek_in_json.py` 5028bc2e913e -> 4f2f7416eb96. LF writes (K2-D5). An NFD run across a critical sign is now the HARD `nfd_across_a_critical_sign` defect (K2-D9).
+  - `check_brief_vs_suite.py` 4fa369b96cea -> 4ebd43ac6d18. Discovers `run_each(` members, and `greek_normalize_dryrun` replaces the Hebrew-era EXPECTED name (K2-D3).
+  - `-B` added to every Python child (K2-D6 and a sibling): `run_validator_suite.py` e0166dd4a95f -> ebe7197b3563, `_test_tools_1cor.py` d34834b8add2 -> d87b2186ca34, `check_web_quotes.py` ad26fa77c768 -> 43eaed2d51fa.
+  - `_test_marks_tools_1cor.py` 460a0797b2de -> d46bfdc61363: 9 new checks.
+- **TOOLKIT.md** 1cca901e377c -> a8313a3a8140, regenerated through the scratch generator. It now carries every prose correction (K1-D1..D3, K2-D1, D2, D4, D5, D7, D8, D10); the K1-D3 numbers are labelled and the E-65 floor's scope and blind spots are stated. `_toolkit_selfcheck.py` adcae46bdde6 -> 744911b3252d, its pin following the K1-D2 wording.
+- **Verification (MEASURED, installed paths):**
+  - `_toolkit_selfcheck.py` GREEN, 98/98 full and 80/80 `--artifacts-only`.
+  - `_test_tools_1cor.py` 272/272; `_test_marks_tools_1cor.py` 496/496.
+  - A mutation run against the old tool copies fails exactly the 8 behavioural checks.
+  - `check_brief_vs_suite.py --selftest` PASS; `check_web_quotes.py --selftest` GREEN.
+  - No `__pycache__` under `1Cor/tools`.
+- **Not a defect:** the inventory's 8 continuation lines over 5 verses includes the mid-verse `¶` line in 9:12, while TOOLKIT's 7 `|q` lines over 4 verses counts only the poetry lines. They measure different things and both are true. The orchestrator's interim note calling this a miscount was wrong (E-75 g).
+- **Sibling audit (read-only, closed books not reopened):**
+  - Daniel's `check_brief_vs_suite.py` (line 120) misses its one `run_each` member.
+  - The launch shape without `-B` appears in Dan 4 files, Ezek 3, six other books 2 each, and campaign 1. That is a pattern count, not confirmed writes.
+- **Records:**
+  - Ledger E-75 appended: 07b65998884c -> 4dc47a3e406c.
+  - Learning log L-0088 and L-0089: 11603db742e0, 89 rows.
+- **Rulings on opus, listed for Fable (OW-28):** K2-D9 (the NFD-across-a-sign tier) and K2-D10 (the E-65 scope disclosure). A prose-only Hebrew claim stays triage, not RED, and is added to the deferred list.
+- **Not done (precedent: Daniel's Phase 0 close):** no second pair of blind lanes re-reviewed these fixes. They rest on the orchestrator's byte checks and the regression and mutation runs.
+- **OWED:**
+  - The DAD ingest of E-69 onward (now through E-75), OW-35 and OW-36.
+  - Asking the owner about a prevention skill for the E-19 lane slip and E-75.
+- CURSOR: phase = 1COR_PHASE0_CLOSED. Next: checkpoint commit; then the 1 Corinthians writer wave (parts from strategy plan a2) under OW-36.

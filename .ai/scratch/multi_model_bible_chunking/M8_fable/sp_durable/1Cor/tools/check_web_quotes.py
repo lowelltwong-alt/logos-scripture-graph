@@ -219,7 +219,7 @@ def selftest() -> int:
         for name, text, want in cases:
             p = Path(td) / "vector.jsonl"
             p.write_text(json.dumps({"decision_id": "P01-001", "device_notes": text}, ensure_ascii=False) + "\n", encoding="utf-8")
-            out = subprocess.run([sys.executable, str(Path(__file__).resolve()), str(p)], capture_output=True, text=True, encoding="utf-8")
+            out = subprocess.run([sys.executable, "-B", str(Path(__file__).resolve()), str(p)], capture_output=True, text=True, encoding="utf-8")  # K2-D6 sibling: no __pycache__
             got = json.loads(out.stdout)["flag_count"]
             results.append({"vector": name, "want_flags": want, "got_flags": got, "ok": got == want})
     failed = [r["vector"] for r in results if not r["ok"]]

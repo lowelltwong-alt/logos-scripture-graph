@@ -7,8 +7,8 @@ scratchpad root, and write no debug files anywhere under SP, including SP output
 Run everything with `PYTHONUTF8=1 python -B <tool> ...` from this directory. The tools print Greek, which the default
 Windows console codec cannot encode, and `-B` keeps `__pycache__` out of SP.
 
-**1 Corinthians is the first New Testament book of the campaign and heads the owner's hardest-first queue (OW-34,
-OW-36).** Its witnesses are Greek, not Hebrew: RP primary and SBLGNT secondary (OW-31), with the WEB as the English
+**1 Corinthians is the first New Testament book of the campaign (every one of the campaign's 27 book completion
+receipts is an Old Testament book) and heads the owner's hardest-first queue (OW-34, OW-36).** Its witnesses are Greek, not Hebrew: RP primary and SBLGNT secondary (OW-31), with the WEB as the English
 face. Under OW-25 every role runs on claude-opus-5-5 and is recorded as `grader_fallback`. That is a recorded
 downgrade, not an equivalence. At the end of the campaign Fable reviews each book's least-confident chunks and the
 orchestrator's notes on them (OW-28). The orchestrator reads that as every row graded low or medium_low, with its
@@ -34,10 +34,10 @@ artifacts named beside each figure; no figure there was typed in. `_toolkit_self
 
 - **RP, primary** (OW-31): `../1Cor_rp.txt`, 437 lines, 6926 whitespace tokens. **SBLGNT, secondary**: `../1Cor_sbl.txt`, 437 lines, 6812 whitespace tokens. Swete is an OT reference text and plays no part here.
 - **RP and SBLGNT wording differ in 218 verses** after the skeleton (`pmarks_1Cor.json` `rp_sbl_differences`). Where they differ, disclose both and argue from neither alone.
-- **SBLGNT carries 419 inline critical signs over 220 verses** (U+2E00-U+2E05, kept in the bytes). The skeleton turns a sign into a space, so a quotation that crosses a sign matches SBLGNT only at the skeleton tier; 5 device hits have a sign inside the matched span (`../1cor_device_inventory.json` totals).
+- **SBLGNT carries 419 inline critical signs over 220 verses** (U+2E00-U+2E05, kept in the bytes). The skeleton turns a sign into a space. A quotation that crosses a sign matches SBLGNT byte-exact only when it carries the sign; written without it, it stands only once the signs are removed, which the normalizer counts `sbl_unsigned` (not a defect) and `citation_sweep.py` accepts as `sigla_stripped`. 5 device hits have a sign inside the matched span (`../1cor_device_inventory.json` totals).
 - Hebrew-block characters in the Greek witnesses: 0.
 
-### Fabrication classes for 1Cor (fabrications; RED where `citation_sweep.py` or `check_marks.py` says so)
+### Fabrication classes for 1Cor (fabrications; RED where `citation_sweep.py` says so, FLAGS where `check_marks.py` does)
 
 Every absence below was byte-swept on 2026-10-15 over `../1Cor_rp.txt`, `../1Cor_sbl.txt` and `../1Cor_web_clean.txt`
 (LF bytes, no CR) and `../pmarks_1Cor.json`.
@@ -45,7 +45,10 @@ Every absence below was byte-swept on 2026-10-15 over `../1Cor_rp.txt`, `../1Cor
 - **The Hebrew-witness device layers have no site in 1Cor.** `../pmarks_1Cor.json` carries no PE/SAMEKH, Ketiv/Qere,
   paseq, puncta, special-letter or selah key; the three extracts hold zero Hebrew code points; "selah" occurs zero times
   in the WEB and σελα zero times in either Greek witness. `check_marks.py` keeps those rule ids over EMPTY inventories:
-  any positive claim of petuchah, setumah, K/Q, paseq, puncta, a special letter or selah is RED, and a denial passes.
+  any positive claim of petuchah, setumah, K/Q, paseq, puncta, a special letter or selah is FLAGGED there, and a denial
+  passes. `check_marks.py` reports only GREEN or FLAGS, and the suite runs it as `mark_symmetry`, a triage member, not
+  a HARD one. The same claim is RED only in `citation_sweep.py`, whose Hebrew-claim arms read the tail of a
+  `boundary_evidence_refs` entry; a claim made only in row prose is triage, not HARD.
   Do not port a Hebrew-book claim shape into a 1Cor row.
 - **There is no chapter 17 and no verse 0.** A ref outside the book's chapter and verse ranges, in any of the three
   spaces, is RED in `citation_sweep.py` (REFS arm).
@@ -74,7 +77,7 @@ Every absence below was byte-swept on 2026-10-15 over `../1Cor_rp.txt`, `../1Cor
 
 - **68 formula keys in 14 families** (appeal 3, citation 6, date_family_control 6, disclosure 3, disclosure_control 1, frame 13, other_marker 4, praise 4, question 5, rhetorical 3, slogan 4, topic_marker 6, tradition 4, vocative 6). Each entry gives its pattern, RP and SBLGNT counts and verses, witness disagreements, positions and quotes.
 - Position census (RP / SBLGNT): after comma 723 / 580; after other punct 2 / 2; internal 5530 / 5607; sentence start 647 / 562; verse initial mid sentence 24 / 61. A sentence-start position rests on the edition's punctuation.
-- `citation_sweep_constants`: 28 keys; `DEVICE_NO_ONSET` has 0 entries. Reading candidates: 32. Its 19 self-assertions all hold. It was produced by `cor_p0_device_inventory_a1#e1` on claude-opus-5-5, grader_fallback (OW-25).
+- `citation_sweep_constants`: 28 keys; `DEVICE_NO_ONSET` has 0 entries. Reading candidates: 32. Its 19 self-assertions are all recorded as holding (`holds: true`, the file's own report). It was produced by `cor_p0_device_inventory_a1#e1` on claude-opus-5-5, grader_fallback (OW-25).
 
 **How to use the spine** (6 RULEs and 6 HYPOTHESES, verbatim from the file):
 - RULE: these are EVIDENCE, not a verdict. No boundary is set by a count alone; edition punctuation, edition paragraphing and translation formatting never drive one (E-23).
@@ -162,10 +165,10 @@ code is the contract and this table is the defect.
 |---|---|
 | `run_validator_suite.py rows.jsonl` | runs eleven members (citation_sweep, greek_normalize_dryrun, web_quotes, refs_mirror, mark_symmetry, universals, ngram7, cap_sweep, register, role_tokens, placeholders) and writes `<rows>.validator_report.json` BESIDE ITS INPUT, so run it only on rows in your own scratch. HARD: citation_sweep RED, ngram7 RED, cap_sweep RED or ERROR (E-02), role_tokens FLAGS or ERROR, placeholders RED (S1-02), a normalizer defect or fixed count above zero or a citation_sweep `nfd_degraded_count` above zero (E-01), and any member whose status is ERROR (listed in `summary.dead_members`, K2 D1). `--reviews f1.json ...` adds files for the normalizer, web_quotes and universals; the normalizer runs once per file and its counts are summed (K2 D2). There is no language_zones member: 1Cor has no language zone |
 | `citation_sweep.py` | `boundary_evidence_refs` grammar `(web\|rp\|sbl):1Cor.C.V[-...]` and ranges in all three spaces (verse 0 invalid, both ends checked); the X-X single-verse span form; dual-cite arithmetic through the range-guarded identity crosswalk; the zone-disclosure arm (inert: no zone); cross-tradition refs (CROSS); Greek quote binding (every Greek run of three or more letters binds to the nearest rp:/sbl: ref in its own field). Its docstring lists every arm; `_test_tools_1cor.py` asserts them |
-| `normalize_greek_in_json.py [--write] file.json` | every Greek run of two or more letters, in every string at any depth, is looked for word-bounded in RP then SBLGNT. Tiers, first match wins: ok (bytes stand in a witness; `ok_sources` says which), fixed (only the NFC form stands: HARD under E-01; `--write` replaces it IN PLACE, preferring RP, so pass `--write` only on scratch copies), sbl_unsigned (stands in SBLGNT only once its critical signs are removed; counted, not a defect), mention (no tone mark and the accent-stripped form stands in a witness), defect (anything else). The skeleton is never accepted as a match. There is no Qere tier |
+| `normalize_greek_in_json.py [--write] file.json` | every Greek run of two or more letters, in every string at any depth, is looked for word-bounded in RP then SBLGNT. Tiers, first match wins: ok (bytes stand in a witness; `ok_sources` says which), fixed (only the NFC form stands: HARD under E-01; `--write` replaces it with the NFC form, preferring RP, and re-serialises the WHOLE file in place (LF line ends; the file's layout and any BOM are not kept), so pass `--write` only on scratch copies), sbl_unsigned (the run's own bytes stand in SBLGNT only once its critical signs are removed; counted, not a defect; an NFD copy that stands there only in NFC form is the defect `nfd_across_a_critical_sign`, HARD under E-01), mention (no tone mark and the accent-stripped form stands in a witness), defect (anything else). The skeleton is never accepted as a match. There is no Qere tier |
 | `check_marks.py` | three mark claim types kept apart: RP pilcrows (keyed at the verse that begins a paragraph), WEB paragraphs (same keying) and SBLGNT critical signs (keyed at the verse that carries the sign). A claim binds to the verse numbers in its own clause; an RP or WEB claim at N is met by a start at N or N+1, an SBL claim reads N only. The Hebrew-witness arms keep their rule ids over empty inventories (see the fabrication list). `--marks3d-selftest` checks every verse under both readings |
 | `check_role_tokens.py` | role-token face qualifiers verified against verse and span. There is no `role_tokens_phase.json` in 1Cor/tools, so it runs STRICT (post); the suite's comment naming that file describes a file 1Cor does not have. It REFUSES a file with zero refs entries (E-36), which is intended |
-| `check_brief_vs_suite.py <brief>` | does the author brief carry a duty for every check the suite will measure it by? It writes `1Cor/tools/brief_vs_suite.v1.json`, overwriting it pass or fail, for a brief inside SP/1Cor and for a run with no argument (which defaults to `1Cor/AUTHOR_WAVE_BRIEF.v1.md`); a foreign brief is reported and not written; `--selftest` proves both and writes nothing (E-67) |
+| `check_brief_vs_suite.py <brief>` | does the author brief carry a duty for every check the suite will measure it by? It writes `1Cor/tools/brief_vs_suite.v1.json`, overwriting it pass or fail, for a brief inside SP/1Cor and for a run with no argument (which defaults to `1Cor/AUTHOR_WAVE_BRIEF.v1.md`); a foreign brief is reported and not written; `--selftest` proves both, and writes only its own `good.md` and `bad.md` fixtures inside a temporary directory that it removes (E-67). It discovers the suite's members from the runner's `run(` and `run_each(` registrations, so `greek_normalize_dryrun` is checked for its Greek-quote duty (E-01) |
 | `check_placeholders.py` | HARD (S1-02): walks every string value at any depth of every row and is RED on an unfilled template placeholder such as `%s`, `%(x)s`, `{name}`, `{0}` or `{}`; `50%` and `{ a b }` pass; `--selftest` runs the ruling's fixtures |
 | `ngram7.py` | HARD: a 7-gram of authored prose shared by 10 or more rows is RED (WEB 7-grams, Greek runs, curly-quoted quotations and citation apparatus excluded). Before tokenizing it removes each whole-identifier occurrence of every key of `formulae` in `../1cor_device_inventory.json` that contains "_" (51 of the 68 formulae keys on 2026-10-15), case-sensitively, and puts a segment break in its place so no 7-gram bridges a removed key. 1Cor port (2026-10-15): the inventory has no top-level device-class key, so `TOP_LEVEL_KEYS` is empty; the key set is read at run time and a listed key missing from the inventory makes the member ERROR (HARD). `--no-key-strip` and `--dump-grams` exist for fixtures only |
 | `cap_sweep.py` | a row whose span is exactly one whole WEB chapter must carry confidence medium_low or low, `frontier_flag_considered` true, and a cap disclosure in its own prose; any failure is RED (E-02) |
@@ -184,8 +187,10 @@ state their contracts in their own docstrings.
   witness file**, and never quote an SBLGNT question mark as a semicolon.
 - **SBLGNT's critical signs sit inside its text.** A quote across a sign either carries the sign or is judged
   `sbl_unsigned` by the normalizer; disclose the sign in the row where it matters (`check_marks.py`).
-- **`cor_lib.skeleton` (greek_lib's) is a comparison key, not a quotation.** It casefolds, drops accents and elision,
-  and turns punctuation and critical signs into spaces. Use it to compare RP with SBLGNT; never write its output into a
+- **`cor_lib.skeleton` (greek_lib's) is a comparison key, not a quotation.** It decomposes (NFD) and drops every
+  combining mark (accents, breathings, diaeresis, iota subscript), casefolds, folds final sigma to σ, deletes elision
+  marks and apostrophes with no space, and turns every punctuation, symbol and separator character (U+037E and the
+  critical signs among them) into a space. Use it to compare RP with SBLGNT; never write its output into a
   row.
 - **`greek_lib.py` is READ ONLY: never run it.** Import what you need through `cor_lib`.
 - **No morphology layer is staged.** A grammatical claim (case, tense, mood) is the author's reading, not a measured
@@ -210,9 +215,16 @@ state their contracts in their own docstrings.
 - **Every attempt records under its EXECUTION id** (`<attempt_id>#e<N>`), with layers A/B/C kept separate and never
   merged (OW-7/OW-8/OW-10; `SP/campaign/CAPTURE_CONTRACT.v3.md`).
 - **E-62**: every launch message is a file that `SP/campaign/_launch_message_check.py` MATCHes before launch.
-- **E-65**: no Daniel or Ezekiel figure in a 1Cor artifact; `_toolkit_selfcheck.py` runs a FLOOR for it (predecessor
-  JSON integers of three or more digits that appear in no 1Cor JSON, searched in 1Cor JSON strings, 1Cor and 1Cor/tools Python
-  string constants, and this file); every other case stays a review-lane duty.
+- **E-65**: no Daniel or Ezekiel figure in a 1Cor artifact. `_toolkit_selfcheck.py` runs a FLOOR for it, not a
+  proof. It takes the integer values of three or more digits in the top-level `SP/Dan/*.json` and `SP/Ezek/*.json`
+  files that are integer values in no top-level `SP/1Cor/*.json` file, and searches for them in the string values of
+  the top-level `SP/1Cor/*.json` files, the Python string constants of `SP/1Cor/*.py` and `SP/1Cor/tools/*.py`, and
+  this file (not under `--artifacts-only`). It cannot see a number of one or two digits, a number that is also an
+  integer anywhere in a top-level 1Cor JSON file, a non-integer, a predecessor figure that lives only in a string, a
+  `.md`, `.py` or `.jsonl` file or a subdirectory, a 1Cor `.jsonl` row, `.md` file or subdirectory file, a Python
+  comment or integer literal, or a number written as chapter:verse or joined to a letter. Every other case stays a
+  review-lane duty. Tool thresholds, window sizes and ruling counts in this file are code constants or rulings, not
+  book figures, so E-65 does not reach them.
 - **E-67**: read a tool's write sites before smoke-running it in SP. Run tools on foreign inputs only from scratch
   copies, and re-run every gate that scans a directory after placing a file into it.
 - **E-73**: digests are taken on LF bytes; a file written with CR bytes is a defect, not a variant.
