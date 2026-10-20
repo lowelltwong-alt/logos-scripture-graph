@@ -398,3 +398,200 @@ Daniel's close is evidenced: receipts/Dan_completion.json sha256 8151f9a9ec35c3f
   - The DAD ingest of E-69 onward (now through E-75), OW-35 and OW-36.
   - Asking the owner about a prevention skill for the E-19 lane slip and E-75.
 - CURSOR: phase = 1COR_PHASE0_CLOSED. Next: checkpoint commit; then the 1 Corinthians writer wave (parts from strategy plan a2) under OW-36.
+
+## 2026-10-19 - 1 Corinthians writer wave: tooling built; W1, W2 and W3 launched (OW-36)
+
+- New in `1Cor/writer_lanes/` (all LF, 0 CR bytes), ported from Daniel's writer tooling and the 1Cor Phase 0 lanes:
+  `_validate_writer_part_1cor.py` b0be0d01fde7 (writes nothing; SCHEMA, TILING, SEAMS, REFS, GREEK byte-exactness in
+  RP or SBLGNT, attribution, C3-C9 in part), `BRIEF_W.template.md` 0e114a4ac239, `build_writer_launch.py`
+  dddd1176644a, `append_launch_row.py` e78f9528422b, `append_landing_row.py` 75b5f0739251.
+- Smoke runs on scratch fixtures (MEASURED): the good W6 fixture is GREEN and the bad W6 fixture catches all 7 seeded
+  defects; a W5 fixture catches C9 and a tiling gap; a merged 16:5-16:18 W6 variant fires C4 at 16:12. One false
+  positive was found and fixed before any brief was built: C5 is now also satisfied by a byte-exact SBLGNT-only run of
+  that verse in the row.
+- Disclosed narrowings, written into the template and the validator docstring: the validator exempts every byte-exact
+  Greek run from C2, whereas strategy §10 exempts only a tagged script-sliced quotation; §8.1 writes spans `C:V-C:V`
+  while the schema field is `1Cor.C.V-1Cor.C.V` (a "Span form" bullet explains both). ASSUMED conventions listed for
+  Fable's end review (OW-28): `language` "G", the 15-verse review prompt, the C5 predicate.
+- Briefs W1/W2/W3 (30 pins each): brief_pin_check MATCH, launch_message_check MATCH, prelaunch gate PASS (E-62/E-69).
+  Launch rows in `1Cor/1cor_writer_attempt_receipts.jsonl`: cor_writer_W1_a1#e1 (launched_at 2026-10-19T21:14:14Z,
+  receipts ABSENT -> eca09eaaa197), cor_writer_W2_a1#e1 (21:15:41Z, -> 0fa389751ab0), cor_writer_W3_a1#e1 (21:15:59Z,
+  -> c89e37c16d69). At most three writers in flight; W4-W6 launch as slots free.
+- A launch receipt does not prove a worker is running; landing waits on each completion notification.
+- CURSOR: phase = 1COR_WRITERS_W1_W3_IN_FLIGHT. Next: land each part (independent re-run of check_tiling, the part
+  validator and the suite on copies; landing row); build and launch W4-W6 as slots free; then the two blind row-review
+  lanes (OW-19); checkpoint commit.
+
+## 2026-10-20 - 1 Corinthians writer wave: W1-W3 stopped by a session-limit 429, then resumed in place (same executions #e1)
+
+- All three writers (cor_writer_W1_a1#e1, W2_a1#e1, W3_a1#e1) were stopped by an account session-limit 429 (reset
+  9:20pm America/New_York, 2026-10-19) shortly after launch. None wrote its deliverable. MEASURED at 2026-10-20T02:38Z:
+  no `W<n>_rows.jsonl` in lane_W1/W2/W3. The `work/` dirs held only working files: W1 4 files (49K), W2 7 files (105K,
+  including a generator and `W2_cursor.json`), W3 5 files (50K). The launch receipts recorded launches, not running workers.
+- Disposition: each agent was resumed via SendMessage at about 2026-10-20T02:40Z, with no new agent and no new execution
+  row. The message said: continue from where it stopped; brief, pins and OUT unchanged; same brief rules; write the
+  deliverable and report. The briefs were not edited. No landing row was written because no execution has finished;
+  each #e1 lands on its completion notification. If a resumed agent fails again, write a STOPPED landing row and
+  relaunch as #e2 with a retry reason.
+- Receipts unchanged at c89e37c16d69 (3 launch rows, 0 landing rows).
+- CURSOR: phase = 1COR_WRITERS_W1_W3_IN_FLIGHT (resumed). Next: land each part on its notification; W4-W6 as slots free;
+  then the two blind row-review lanes (OW-19).
+
+## 2026-10-20 - W2 landed GREEN; brief template gains a no-transcript clause; W4 launched (OW-36)
+
+- cor_writer_W2_a1#e1 DELIVERED after an in-place resume: `lane_W2/W2_rows.jsonl` 22f3bc1d929d, 15 rows, 1Cor.5.1-7.40
+  (73 verses). Orchestrator re-check on a private copy (verify_part.py, MEASURED): 0 CR bytes, tiling GREEN 73/73, part
+  validator GREEN with 0 problems and 0 warnings, suite HARD GREEN with 0 triage flags. Five rows medium_low. Landing
+  row appended: receipts c89e37c16d69 -> e41ca9ed3f8b. Notification: 77454 subagent_tokens, 16 tool uses, 200470 ms
+  (resumed run only).
+- SCOPE DEPARTURE, disclosed by the agent: after its own context compaction, the W2 writer read its own session
+  transcript (outside SP and OUT, read-only) to rebuild its sources list. The deliverable does not depend on it.
+  Root cause: the brief's EXACT-PATH LAW names allowed paths but does not forbid a path the harness's compaction summary
+  hands the agent, and no brief says how to recover after a compaction. Siblings: W1 and W3 run the same template
+  (in flight; not edited). Prevention: `BRIEF_W.template.md` 0e114a4ac239 -> e8ec6b8e713d (pre copy kept) adds "Never
+  open any session or agent transcript, `.output` file or compaction summary path, including your own ... rebuild from
+  your OUT working files only". BRIEF_W4 carries it (grep count 1). Regression: the clause is checked by grep at each
+  build; no validator was weakened. E-entry candidate E-77 (subagent transcript read after self-compaction), owed with E-76.
+- W4 (1Cor.11.2-11.34): BRIEF_W4 9ace4f2c1288, message ca2548c47229; brief_pin_check MATCH, launch_message_check MATCH,
+  prelaunch gate PASS (date -u 2026-10-20T02:44:21Z, gate last). Launch row cor_writer_W4_a1#e1: receipts e41ca9ed3f8b
+  -> a0d9d03366e8.
+- In flight: W1, W3 (resumed #e1), W4 (#e1). W5 and W6 launch as slots free.
+- CURSOR: phase = 1COR_WRITERS_IN_FLIGHT (W1, W3, W4; W2 landed). Next: land each part on notification; W5, W6; then
+  the two blind row-review lanes (OW-19).
+
+## 2026-10-20 - W3 landed GREEN; W5 launched; MISTAKE: estimated notification times in two landing rows (E-78 candidate)
+
+- cor_writer_W3_a1#e1 DELIVERED after an in-place resume: `lane_W3/W3_rows.jsonl` be174a23d8a0, 8 rows, 1Cor.8.1-11.1
+  (74 verses). Orchestrator re-check on a private copy (MEASURED): 0 CR bytes, tiling GREEN 74/74, validator GREEN with
+  0 problems and 0 warnings, suite HARD GREEN with 0 flags. Rows 8:1-8:13 (whole chapter, chapter-fallback cap
+  disclosed) and the three chapter-9 rows are medium_low. Landing row: receipts a0d9d03366e8 -> 8dd185ed6746.
+  Notification: 166535 subagent_tokens, 13 tool uses, 441545 ms (resumed run only).
+- W5 (1Cor.12.1-14.40): BRIEF_W5 0605853d8196 (carries the no-transcript clause), message aa18f85b6946 (same shape as
+  W4's apart from the part and brief digest, checked with diff); pin check MATCH, message check MATCH, gate PASS (date
+  -u 2026-10-20T02:47:24Z, gate last). Launch row cor_writer_W5_a1#e1: receipts 8dd185ed6746 -> 77e15790d995.
+- MISTAKE (orchestrator), disclosed: the W2 and W3 landing rows carry notification_time 02:45Z and 02:52Z. These were
+  estimates typed into a free `--notified` argument of my new scratch generator make_landing.py. Each is later than its
+  own row's script-stamped recorded_at (02:43:40Z, 02:47:17Z), so it is an ASSUMED value shown as a fact (OW-18).
+  Impact: metadata only; no row, digest or verdict depends on it. Counterfactual: token and timing analyses (OW-28
+  tracking, the efficiency metrics) read these fields. Root cause: the generator accepted a free-text time with no
+  basis, where the Phase 0 and Daniel landings wrote "(the orchestrator's read of the notification ...)" with the
+  measured minute. Siblings: `audit_notif_times.py` over every *attempt_receipts*.jsonl in SP: 29 rows carry both
+  times, 2 impossible, both mine. (A first draft of the audit compared the raw strings and flagged 20 rows. The fault
+  was the audit's: it read the basis notes as later times. It now compares to the minute.) Correction: new append-only
+  `1Cor/1cor_writer_receipt_corrections.v1.jsonl` 400fcd7effc1, 2 rows giving MEASURED bounds for each time. The
+  receipts file was not rewritten (E-44). Any consumer of the writer receipts must read this file too. Prevention:
+  make_landing.py now stamps its own clock with a stated basis and has no `--notified` argument. Regression: passing
+  `--notified` fails as an unrecognized argument, and a test build shows the stamped basis. E-entry candidate E-78,
+  owed with E-76 and E-77.
+- In flight: W1 (resumed #e1), W4, W5. Landed: W2, W3. W6 launches when a slot frees.
+- CURSOR: phase = 1COR_WRITERS_IN_FLIGHT (W1, W4, W5; W2 and W3 landed). Next: land on notification; W6; then the two
+  blind row-review lanes (OW-19).
+
+## 2026-10-20 - W1 landed GREEN; W6 launched; all six parts now launched (OW-36)
+
+- cor_writer_W1_a1#e1 DELIVERED after an in-place resume: `lane_W1/W1_rows.jsonl` 975f8eb0e67b, 15 rows, 1Cor.1.1-4.21
+  (91 verses). Orchestrator re-check on a private copy (MEASURED): 0 CR bytes, tiling GREEN 91/91, validator GREEN with
+  0 problems and 0 warnings, suite HARD GREEN with 0 flags. Confidence: high 2, medium 10, medium_low 3. Landing row
+  built by the fixed make_landing.py (self-stamped notification time with its basis): receipts 77e15790d995 ->
+  1f359a226ff8. Notification: 163164 subagent_tokens, 28 tool uses, 1032847 ms (resumed run only).
+- Carried to blind review and Fable's end review: all 10 RP pilcrows in 1:1-5:1 fall on W1 row onsets. Independence
+  from the marks is INFERRED, not shown, so the blind lanes should test the seams against the marks. The SBLGNT sign at
+  2:1 is UNAVAILABLE as a reading.
+- W6 (1Cor.15.1-16.24): BRIEF_W6 6d3507309297 (no-transcript clause present), message 3c4b350911c8 (cmp-identical to
+  W4's after the part and brief substitution); pin check MATCH, message check MATCH, gate PASS (date -u
+  2026-10-20T02:57:13Z, gate last). Launch row cor_writer_W6_a1#e1 appended after 1f359a226ff8.
+- Landed: W1, W2, W3. In flight: W4, W5, W6.
+- CURSOR: phase = 1COR_WRITERS_IN_FLIGHT (W4, W5, W6; W1-W3 landed). Next: land on notification; then the two blind
+  row-review lanes (OW-19) over the assembled 1Cor rows.
+
+## 2026-10-20 - W4 landed GREEN (OW-36)
+
+- cor_writer_W4_a1#e1 DELIVERED on its first run: `lane_W4/W4_rows.jsonl` bbd067e9a9f2, 4 rows, 1Cor.11.2-11.34
+  (33 verses). The orchestrator re-checked a private copy (MEASURED): 0 CR bytes, tiling GREEN 33/33, validator GREEN
+  with 0 problems and 0 warnings, suite HARD GREEN with 0 flags. Confidence: medium_low 2, medium 2. Landing row built
+  by make_landing.py with a self-stamped notification time: receipts 23dae6331d07 -> b6a0b62757c4. Notification:
+  102203 subagent_tokens, 53 tool uses, 887964 ms. The lane self-reports opening no transcript, so the no-transcript
+  clause in its brief held. This is REPORTED, not checked.
+- Carried to blind review and to Fable's end review:
+  - The seam at 11:12/11:13 rests on the text alone: no RP pilcrow, WEB paragraph or device marks it. The rival,
+    one row for 11:2-11:16, is recorded on both P08 rows.
+  - The seam at 11:22/11:23 is grade B. The rival is one row for 11:17-11:34.
+  - The part has 4 rows where the P08 and P09 parents lead one to expect 3.
+  - The variant content behind the SBLGNT signs is UNAVAILABLE.
+- Landed: W1, W2, W3, W4. In flight: W5, W6.
+- CURSOR: phase = 1COR_WRITERS_IN_FLIGHT (W5, W6; W1-W4 landed). Next: land on notification; then the two blind
+  row-review lanes and the reception-tradition lens (OW-19, strategy §11) over the assembled 1Cor rows.
+
+## 2026-10-20 - W5 landed GREEN (OW-36)
+
+- cor_writer_W5_a1#e1 DELIVERED on its first run: `lane_W5/W5_rows.jsonl` 83e9ab611086, 14 rows, 1Cor.12.1-14.40
+  (84 verses). The orchestrator re-checked a private copy (MEASURED): 0 CR bytes, tiling GREEN, validator GREEN with 0
+  problems and 0 warnings, suite HARD GREEN with 0 flags. Confidence: medium 9, medium_low 4, low 1. Landing row built
+  by make_landing.py with a self-stamped notification time: receipts b6a0b62757c4 -> 4a658c835902. Notification:
+  87580 subagent_tokens, 70 tool uses, 1263999 ms. The lane self-reports a first suite pass with web_quotes and
+  universals FLAGS, both cured by rewording (REPORTED), and 88 Greek runs byte-found in RP or SBL (REPORTED; S1 owes
+  the MEASURED count). It also self-reports opening no transcript (REPORTED, not checked).
+- Carried to blind review and to Fable's end review:
+  - 12:31b is kept with chapter 12; the rival, the head of the love inset, is disclosed (W5-004 frontier).
+  - 14:33b is attached backward; the forward attachment to 14:34 is disclosed (W5-012 and W5-013 frontier).
+  - 14:36 is attached backward as the close of 14:34-14:36 (INFERRED, low); the forward attachment is disclosed.
+  - 13:8a could close 13:4-13:7; the 14:12/14:13 seam is soft.
+  - The 14:34-14:35 Western transposition is REPORTED metadata only, never a seam reason.
+  - W5-003 (12:12-12:26) is 15 verses, over twelve: the S1 sample must test the under-split guard there.
+- Review tooling added in scratch since the W4 entry: `cor_w/make_review_landing.py`, and in SP
+  `1Cor/review/append_review_landing_row.py`, derived by exact replacements from the writer landing tool
+  (generator `cor_w/gen_review_landing_row.py`; refusal rules unchanged; 0 CR bytes).
+- Landed: W1-W5. In flight: W6.
+- CURSOR: phase = 1COR_WRITERS_IN_FLIGHT (W6; W1-W5 landed). Next: land W6 on notification; then combine, install by
+  receipt, and launch S1 (playbook v3 section 2), before the two blind lanes and the reception-tradition lens.
+
+## 2026-10-20 - W6 stopped by a session-limit 429, then resumed in place (same execution #e1)
+
+- cor_writer_W6_a1#e1 was stopped by an account session-limit 429 (reset 2:20am America/New_York, 2026-10-20). It had
+  not written its deliverable. MEASURED at 2026-10-20T06:23Z: no `W6_rows.jsonl` in lane_W6; `work/` held 6 working
+  files only, including a generator, `gen_rows.py`. The launch receipt recorded a launch, not a running worker.
+- Disposition, following the W1-W3 precedent: the agent was resumed via SendMessage at about 2026-10-20T06:24Z, with no
+  new agent and no new execution row. The message said: continue from where it stopped; brief, pins and OUT unchanged;
+  every brief rule still binds; write the deliverable and report. The brief was not edited. No landing row was written
+  because the execution has not finished; #e1 lands on its completion notification. If it fails again, write a
+  STOPPED landing row and relaunch as #e2 with a retry reason.
+- Receipts unchanged at 4a658c835902.
+- CURSOR: phase = 1COR_WRITERS_IN_FLIGHT (W6 resumed; W1-W5 landed). Next: land W6 on notification; then combine,
+  install by receipt, and launch S1.
+
+## 2026-10-20 - W6 landed GREEN; writer wave combined and installed; S1 launched (OW-36)
+
+- cor_writer_W6_a1#e1 DELIVERED after its in-place resume: `lane_W6/W6_rows.jsonl` d818b2648a50, 14 rows,
+  1Cor.15.1-16.24 (82 verses). The orchestrator re-checked a private copy (MEASURED): 0 CR bytes, tiling GREEN,
+  validator GREEN with 0 problems and 1 warning (the one-verse row W6-009, 16:12, justified in-row), suite HARD GREEN
+  with 0 flags. Confidence: high 4, medium 9, medium_low 1 (MEASURED). Receipts 4a658c835902 -> ee4b521b993f. Usage caveat: the 429-stopped first segment's
+  notification carried no usage block, so the recorded 162835 subagent_tokens, 12 tool uses and 165809 ms are the
+  resumed segment's notification only; tool uses and duration are a lower bound; whether the token figure is
+  cumulative is UNKNOWN. The lane's E-19 self-report omits the no-transcript clause (REPORTED gap, noted in the row).
+- Carried to blind review and Fable's end review: the 15:50/15:51 seam (W6-006 medium_low frontier); the closing-frame
+  onset 16:19 versus 16:13 (W6-010..012 frontier; decides the parent seam 16:18/16:19); 16:5-16:11 kept whole against
+  a split at 16:10; 15:35-15:49 kept whole (15 verses); the 15:29 divided reading's wording.
+- COMBINED by `cor_w/combine_cor_writer.py`: 70 rows, output 3d328c8afa9f, 0 CR bytes. Whole-book tiling GREEN 437/437
+  (MEASURED). Book-wide suite on a scratch copy: hard_status RED, rc 1, 0 triage flags, no dead members; the one member
+  not GREEN is ngram7: the 7-gram "rp pilcrow at and web paragraph at" is shared by 10 rows (gate 10): W5-002, W5-011,
+  W5-012, W5-013, W5-014, W6-002, W6-003, W6-008, W6-011, W6-012 (edition-mark disclosure boilerplate across parts, which
+  no per-part run can see). The combine script's printed "verdict" covers form and tiling only, as in the Daniel
+  precedent; the suite result travels separately and unchanged. Confidence (book): high 6, medium 44, medium_low 19,
+  low 1. Part joins: all five fall on parent seams.
+- INSTALLED by `cor_w/install_writer_drafts_cor.py --expect-before ABSENT` into 1Cor/writer/: draft_W1..W6, the combined
+  draft and its report (9e4d40a46db8); install receipts ABSENT -> bfdcbf513659, with the suite's RED status copied.
+- MISTAKE, caught before any launch (E-entry candidate; number assigned at the ledger write): the S1 brief builder's
+  "members not GREEN" filter in `1Cor/review/build_review_launch.py` assumed each suite per_check value is a dict, but
+  the suite stores plain strings, so the first dry run's book-wide line silently omitted "ngram7". The brief still said
+  "hard_status RED", so it was less precise, not false, and no brief had been written. Root cause: a filter written
+  against an assumed shape and not exercised until real data existed (the summary had flagged it as untested). Fix:
+  `red_members()` reads string or dict forms and REFUSES an unrecognised status instead of skipping it; pre copy
+  `build_review_launch.py.pre_1444c1d841ff`. Regression test `1Cor/review/test_red_members.py`: PASS 5. Sibling audit:
+  the Daniel fix-up apply scripts already handle both forms; combine, install and verify_part only copy the values.
+- S1 LAUNCHED: cor_writer_wave_spot_review_s1_a1#e1 at 2026-10-20T06:29:22Z (MEASURED `date -u`). Brief
+  `1Cor/review/BRIEF_S1.md` 279bd3b25c68 (equal to the corrected dry run), 32 pins; brief pin check MATCH; message
+  `cor_review_msgs/launch_message_S1.txt` 1fd439df0278, launch message check MATCH; prelaunch gate PASS as the last
+  command before the launch. Review receipts ABSENT -> 3a365c2eab92. A launch receipt does not prove the worker runs.
+- CURSOR: phase = 1COR_S1_IN_FLIGHT (writer wave installed). Next: land S1 on notification (`cor_w/make_review_landing.py`
+  -> `1Cor/review/append_review_landing_row.py`); then the controlling execution (Opus under OW-30; items for Fable's
+  end review listed), fix-up waves and S2 until fit; then the two blind lanes and the reception-tradition lens.
