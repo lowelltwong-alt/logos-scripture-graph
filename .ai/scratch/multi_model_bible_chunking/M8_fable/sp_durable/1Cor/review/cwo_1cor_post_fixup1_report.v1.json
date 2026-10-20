@@ -1,0 +1,161 @@
+{
+ "schema": "m8_cwo_coverage_report.v1",
+ "book": "1Cor",
+ "report_kind": "post-FIXUP-1 (CWO-1COR-03 and the S2 conditions)",
+ "ordered_by": "cor_controlling_rulings_r1_a1#e1 GATE-E1 (then CWO-1COR-03; then a fresh S2) and s2_conditions",
+ "rulings_file": {
+  "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E1.v1.json",
+  "sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90"
+ },
+ "rows_file": {
+  "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+  "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec"
+ },
+ "rows_manifest": {
+  "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.manifest.json",
+  "sha256": "05ee28d40fd88980cabce536ce2fda63e251f58c0eb8840a210113b3d6cb059c"
+ },
+ "baseline_report": {
+  "path": "sp_durable/1Cor/review/cwo_1cor_baseline_report.v1.json",
+  "sha256": "451c051d1a5ee2827904a6da863b15214bdc101dcb942325d77da8427367cd2b"
+ },
+ "rows_scanned": 70,
+ "sweep_script": {
+  "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+  "sha256": "c6be0cb5d21a298be0c7c2ae2f0583b8db83ca9eebc58aed60d1a597e2d7e040"
+ },
+ "ngram7": {
+  "path": "sp_durable/1Cor/tools/ngram7.py",
+  "sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230"
+ },
+ "predicates": {
+  "CWO-1COR-01": "A: an element of boundary_evidence_refs matching ^\\s*web: and matching (?i)WEB paragraph|paragraph start|DISCLOSURE-mark. B: a sentence (split on (?<=[.;])\\s+) of boundary_rationale, strongest_rejected_alternative or device_notes matching (?i)pilcrow|WEB paragraph|paragraph start|chapter division and also matching (?i)corroborat|agree|join|inform|favour|support|lean|confirm.",
+  "CWO-1COR-02": "A row whose string fields outside boundary_evidence_refs contain a character in [\\u0370-\\u03FF\\u1F00-\\u1FFF] must contain both literal substrings 'Robinson-Pierpont Byzantine Textform (Unlicense)' and 'SBLGNT (CC BY 4.0)'.",
+  "CWO-1COR-03": "ngram7 as installed with TF-2, default gate 10, --full-ids, on the applied combined rows: any 7-gram shared by 10 or more rows."
+ },
+ "classifier": "orchestrator (claude-opus-5-5, OW-25), by the CWO-1COR-01 remedy text; MEASURED hits; a carried class is the baseline's, a fresh class is INFERRED; S2 and the lenses may contest any class",
+ "CWO-1COR-01": {
+  "A": {
+   "hits": 0,
+   "rows": 0
+  },
+  "B": {
+   "hits": 6,
+   "rows": 6,
+   "support_use": 0,
+   "compliant": 6,
+   "carried": 4,
+   "fresh": 2,
+   "by_part": {
+    "W2": 2,
+    "W3": 1,
+    "W6": 3
+   },
+   "list": [
+    {
+     "row": "W2-003",
+     "part": "W2",
+     "field": "boundary_rationale",
+     "sentence": "RP pilcrow at 5:9 coincides with this onset (EXTRACTED) and informs without deciding.",
+     "class": "compliant",
+     "basis": "an RP pilcrow that informs without deciding (ruled compliant in coverage_report)",
+     "provenance": "carried: sentence identical to the baseline-classified sentence",
+     "disposition": "none"
+    },
+    {
+     "row": "W2-005",
+     "part": "W2",
+     "field": "boundary_rationale",
+     "sentence": "RP pilcrow at 6:12 coincides with this close seam (EXTRACTED) and informs without deciding.",
+     "class": "compliant",
+     "basis": "an RP pilcrow that informs without deciding (ruled compliant in coverage_report)",
+     "provenance": "carried: sentence identical to the baseline-classified sentence",
+     "disposition": "none"
+    },
+    {
+     "row": "W3-006",
+     "part": "W3",
+     "field": "boundary_rationale",
+     "sentence": "The RP pilcrow at 10:14 informs and does not decide.",
+     "class": "compliant",
+     "basis": "an RP pilcrow that informs without deciding (the FIXUP-1 W3 rewording of a support-use 'agrees' sentence; the baseline disposition allowed exactly this clause to stay)",
+     "provenance": "fresh classification (INFERRED)",
+     "disposition": "none"
+    },
+    {
+     "row": "W6-001",
+     "part": "W6",
+     "field": "boundary_rationale",
+     "sentence": "RP pilcrow at 15:12 (the close seam): it informs that edge and does not decide it.",
+     "class": "compliant",
+     "basis": "an RP pilcrow that informs without deciding ('informs that edge and does not decide it')",
+     "provenance": "carried: sentence identical to the baseline-classified sentence",
+     "disposition": "none"
+    },
+    {
+     "row": "W6-002",
+     "part": "W6",
+     "field": "device_notes",
+     "sentence": "the onset rests on the conditional and the pilcrow informs it.",
+     "class": "compliant",
+     "basis": "an RP pilcrow that informs without deciding (the same sentence rests the onset on the conditional)",
+     "provenance": "carried: sentence identical to the baseline-classified sentence",
+     "disposition": "none"
+    },
+    {
+     "row": "W6-005",
+     "part": "W6",
+     "field": "boundary_rationale",
+     "sentence": "An RP pilcrow at 15:35 informs the onset.",
+     "class": "compliant",
+     "basis": "an RP pilcrow informing: 'informs' is not among the remedy's pilcrow support-use verbs (agreeing, joining, corroborating, confirming), and the paired WEB clause was deleted by FIXUP-1 W6; the sentence does not say 'without deciding' in words, so S2 and the lenses may contest the class",
+     "provenance": "fresh classification (INFERRED)",
+     "disposition": "none"
+    }
+   ]
+  },
+  "support_use_open": 0,
+  "baseline": {
+   "A": 30,
+   "B": 25,
+   "support_use": 21,
+   "compliant": 4
+  }
+ },
+ "CWO-1COR-02": {
+  "fail": 0,
+  "of": 70,
+  "target": "0 of 70",
+  "baseline_fail": 14
+ },
+ "CWO-1COR-03": {
+  "gate": 10,
+  "rows": 70,
+  "device_keys_stripped": 51,
+  "offending": [],
+  "status": "GREEN",
+  "worst_reuse_below_gate": [
+   {
+    "rows": 8,
+    "gram": "witness english evidence from the world english"
+   },
+   {
+    "rows": 8,
+    "gram": "w over the rp and sblgnt texts"
+   },
+   {
+    "rows": 8,
+    "gram": "tiers greek quotations extracted byte exact from"
+   },
+   {
+    "rows": 8,
+    "gram": "the rp and sblgnt texts seams and"
+   },
+   {
+    "rows": 8,
+    "gram": "the rp and sblgnt texts counts measured"
+   }
+  ]
+ },
+ "recorded_at": "2026-10-20T11:41:11Z"
+}

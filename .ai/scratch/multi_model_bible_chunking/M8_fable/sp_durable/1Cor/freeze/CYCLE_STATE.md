@@ -629,3 +629,164 @@ Daniel's close is evidenced: receipts/Dan_completion.json sha256 8151f9a9ec35c3f
 - CURSOR: phase = 1COR_CTL1_IN_FLIGHT. Next: land the controlling round-1 deliverable on notification. Then follow its
   rulings: tool fixes staged, fixture-tested and installed by receipt; the FIXUP-1 lanes (at most three in flight); the
   apply, suite and tiling; S2 until fit; then the two blind lanes and the reception-tradition lens (OW-19).
+
+## 2026-10-20 - controlling round 1 landed and installed; tool fixes TF-1/TF-2 installed; CWO baseline report; FIXUP-1 W5, W6, W3 launched (OW-36)
+
+- cor_controlling_rulings_r1_a1#e1 landed and its rulings were installed byte-identical as
+  `1Cor/review/1cor_controlling_agent_rulings_E1.v1.json` 93e5918b10b1 (by the durable `review/install_review_output.py`;
+  receipted in `1cor_review_attempt_receipts.jsonl`). Routing: one fix-up lane per part W2-W6 (S1-ROUTING; W1 none);
+  GATE-E1 order: tool fixes installed, then the CWO-1COR-01/02 baseline coverage report with support-use hits appended
+  to the part orders, then FIXUP-1 W2-W6, then CWO-03, a fresh S2, and primaries. No confidence or grade is raised
+  (S1-03, S1-06); WARRANT/DISCLOSURE tags are optional (S1-10); the "listed for Fable's end review" disclosures stay
+  (S1-05).
+- TOOL FIXES installed by receipt, each with a `.pre_<sha12>` copy and fixtures run from the installed location:
+  TF-1 (S1-07) `_validate_writer_part_1cor.py` b0be0d01fde7 -> 59ef3318dbd9, an added `--book-index` mode only, default
+  mode byte-identical on all six slices (`review/tool_fixes/fixtures_tf1.result.json` 3287cf2aa972, ALL_PASS). TF-2
+  (S1-08) `tools/ngram7.py` 8646f540acc3 -> 2dc3a80d5785 and `tools/TOOLKIT.md` a8313a3a8140 -> 49de0883f5cb: a
+  NARROWING of a HARD member (each exact rule-14 licence string is a segment break), offending set unchanged on the
+  pinned draft (`fixtures_tf2.result.json` ed674b8db08c, F1-F4 ALL_PASS). The narrowing is listed for Fable's end
+  review. Then the gate_flip row `fixup_may_launch` false -> true.
+- CWO BASELINE (GATE-E1, S1-02b): `review/cwo_sweep_1cor.py` c6be0cb5d21a (predicates verbatim from
+  corpus_wide_orders; imports ngram7.prose read-only) and `review/cwo_1cor_baseline_report.v1.json` 451c051d1a5e on
+  the pinned combined draft 3d328c8afa9f: CWO-1COR-01 A 30 hits in 17 rows (all delete); B 25 hits, 21 support-use and
+  4 compliant (W2-003 BR, W2-005 BR, W6-001 BR, W6-002 DN); CWO-1COR-02 fails 14 of 70 (W5-001..W5-014). Hits are
+  MEASURED, classes INFERRED by the orchestrator from the remedy text (S2 and the lenses may contest any class).
+  Predicate gap listed for Fable: the W6-005 clause "the WEB also starts a paragraph at 15:35" is not matched on its
+  own and is classified on its pair. Receipt row cwo_coverage_report: receipts 00c6b0b1c0be -> 1992fb0f5c34.
+- FIXUP-1 BRIEFS: scratch builder `cor_fx1/build_fixup1_1cor.py` (ported from the Daniel builder) wrote
+  `1Cor/fixup/FIXUP1_BRIEF_W2.md` fa650dc8e031, `_W3.md` 467ff28063b5, `_W4.md` e996cb3edfbd, `_W5.md` 9e194b078e27 and
+  `_W6.md` 0f8030d2d6f6, 16 pins each. Orders and CWO texts are read verbatim from the rulings; the allowed-change map
+  licenses only (row, field) pairs where the named target is MEASURED present (the builder refuses otherwise and lists
+  skipped pairs, e.g. W6-004 BR has no WEB paragraph); boundary_evidence_refs are deletion-only, limited to the A hits
+  and the refuted `rp:1Cor.7.29` ref on W6-006. The W5 brief states as MEASURED that all 14 W5 rows carry an attribution
+  passage in five wordings (the exact quoted string is in W5-004/009/014 only). check_brief_vs_suite PASS, brief pin
+  check MATCH and launch message check MATCH for all five; dry runs equal.
+- LAUNCHED (each: `date -u`, prelaunch gate PASS as the last command, prompt exactly the gated message, sent file equal,
+  launch row by `cor_fx1/record_fx1_launch_1cor.py`): cor_fixup1_W5_a1#e1 at 2026-10-20T07:30:04Z (receipts ->
+  98a1269b265b), cor_fixup1_W6_a1#e1 at 07:30:41Z (-> d492034133aa), cor_fixup1_W3_a1#e1 at 07:31:02Z (-> 0d1232fe1760).
+  Three in flight (the gate's limit); W2 and W4 wait for a free slot. A launch receipt does not prove the worker runs.
+- LANDER and APPLY ported: `cor_fx1/land_fx1_1cor.py` (allowed map, deletion-only refs within the permitted list, then
+  on a scratch "after" copy: CWO A 0 on the part, no support-use sentence surviving verbatim, CWO-02 0 on W5, no ngram7
+  offender naming the part, tiling 437/437, the part validator `--book-index`, no suite member other than ngram7 leaving
+  GREEN). Fixtures on `--check-only`: an empty deliverable, a forbidden ref deletion and a change to `confidence` are all
+  caught as HARD. `cor_fx1/apply_fx1_1cor.py` writes a NEW applied file plus manifest (the writer draft is never
+  overwritten).
+- SLIPS (own, minor; recorded here as candidates for the error ledger): (1) a `--help` run of
+  `_build_current_state.py` before confirming it uses argparse (E-67 repeat); (2) `install_review_output.py` was written
+  before its pin guard ran (the guard was CLEAR when run); (3) a fixture `%` slip; (4) the first launch-row attempt for
+  W5 refused with FileNotFoundError because the ported recorder kept a `cor_fx1/` path segment after moving into that
+  directory; it refused before writing, the path base was fixed and the row recorded at the expected digest.
+  Prevention: run each ported script's `--check-only`/dry path before its first live use.
+- Checkpoint commit 61a2412b (local, unpushed) holds the state before this entry.
+- CURSOR: phase = 1COR_FIXUP1_IN_FLIGHT. Next: land W5, W6, W3 on notification with `land_fx1_1cor.py` (check-only
+  first); launch W2 and W4 as slots free; when all five are LANDED, run `apply_fx1_1cor.py --dry`, then apply; then
+  CWO-03, a fresh S2 until fit, then the two blind lanes and the reception-tradition lens (OW-19).
+
+## 2026-10-20 - FIXUP-1 W6, W5, W3 landed; W2 interrupted by quota and resumed; W4 launched (OW-36)
+
+- LANDED by `cor_fx1/land_fx1_1cor.py` (check-only first, then live; every HARD check empty), each with model_actual
+  claude-opus-5-5 and the notification usage block as tokens_spend:
+  cor_fixup1_W6_a1#e1 (13 rows, 30 fields; rows 4d340f4627de, changes 36e20630597f; 130853 tokens; receipts
+  0d1232fe1760 -> 7b8463673af4); cor_fixup1_W5_a1#e1 (14 rows, 39 fields; rows 983173e912dc, changes b258b8e449fc;
+  150013 tokens; -> db978ed1fb76); cor_fixup1_W3_a1#e1 (7 rows, 14 fields; rows 323cc8c00961, changes 695781da62c9;
+  145503 tokens; -> 6118863c0cfc). On the part: CWO-1COR-01 A 0 for all three, CWO-1COR-02 0 on W5; tiling 437/437.
+  On each lane's own single-part copy the W5 and W6 deletions alone bring ngram7 to GREEN (MEASURED by the lanes and
+  the lander); the book-wide result is measured only at the apply step.
+- CARRIED TO S2 AND THE CONTROLLING ROUND (lane reports, not yet adjudicated): W3 BLOCKED its licensed
+  W3-004.boundary_rationale edit (S1-05 text "in 1Cor 8:1-11:1" makes refs_mirror read an argued citation the refs do
+  not carry; a new ref is outside the licence); W3-001 keeps a chapter-fallback cap mention because deleting it turns
+  cap_sweep (E-02) RED, a conflict with S1-06 that needs a ruling; W3 device_notes deletions join two untouched sentences
+  into 2 junction 7-grams on 7 rows (below gate 10); W5 and W6 report unlicensed WEB-paragraph and pilcrow mentions left
+  byte-identical (strategy section 8 rule 4 may bear on them); W6 states its INFERRED reading of S1-01b ("at most one
+  bare pilcrow location item"); W5-010 and W5-014 rewordings are INFERRED prose. Soft B hits left: W6-005 and W3-006
+  "informs" pilcrow sentences (the compliant class).
+- QUOTA INTERRUPTION: cor_fixup1_W2_a1#e1 was launched at 07:37:49Z (gate PASS, message 38ba4d62be20) and its worker
+  stopped early on a session usage limit (HTTP 429). Its launch row was recorded after the stop, with the measured
+  launch time (receipts 5be8a563849b). After the reset the same worker was resumed by a message that adds no content
+  beyond "continue the same brief and note the interruption"; no brief was edited. The launch row stays RUNNING until
+  its deliverable lands.
+- LAUNCHED cor_fixup1_W4_a1#e1 at 11:24:00Z (gate PASS as the last command; message 9018a9557339 equals the sent file;
+  receipts -> dcd9bb039ae2).
+- CARRIER: RESUME_PROMPT_CURRENT.md archived (receipts/prompt_archive/RESUME_PROMPT_2026-10-20_98fe46a5.md) and its four
+  anchored lines refreshed to 1COR_FIXUP1_IN_FLIGHT by `cor_fx1/refresh_prompt_lines_fx1.py` (slot 98fe46a55918 ->
+  fba7ebced495).
+- SLIP 5 (own, minor): the W5 and W3 live landings took --expect-before from a sha computed in the same command, not a
+  pinned literal, which weakens the anchor to "unchanged during the run". No other writer touches the receipts, and
+  each landing printed its receipts digest. Prevention: pin the literal from the prior output, as for W6.
+- CURSOR: phase = 1COR_FIXUP1_IN_FLIGHT. Next: land W2 and W4 on notification (check-only first); then
+  `apply_fx1_1cor.py --dry`, then apply; then CWO-03, a fresh S2 until fit, with the carried items above in its
+  brief, then the two blind lanes and the reception-tradition lens (OW-19).
+
+## 2026-10-20 - FIXUP-1 W2 and W4 landed (all five parts LANDED); E-73 slip disclosed and corrected (OW-36)
+
+- LANDED by `cor_fx1/land_fx1_1cor.py` (check-only first, then live with a pinned literal --expect-before; every HARD
+  check empty), model_actual claude-opus-5-5, notification usage block as tokens_spend:
+  cor_fixup1_W2_a1#e1 (2 rows, 2 fields; rows d446b586ba53, changes 7db175516b6a; 110737 tokens for the resumed run
+  only, the pre-quota part is UNAVAILABLE; receipts dcd9bb039ae2 -> 0b7d770341cc); cor_fixup1_W4_a1#e1 (4 rows, 6
+  fields; rows d70f12db06ea, changes b11b81419958; 105838 tokens, 17 tool uses; -> 375e0cc552ec). On each part:
+  CWO-1COR-01 A 0 and B_left 0, CWO-1COR-02 0, tiling 437/437. ngram7 stays RED on each single-part copy because the
+  one gram sits in W5/W6 rows that those lanes cured on their own copies; the book-wide result is measured at apply.
+- CARRIED TO S2 AND THE CONTROLLING ROUND (lane reports, not adjudicated): W2 kept W2-015.frontier_flag_considered
+  true (S1-05 permitted false, did not require it); W2-015's new device_notes sentence restates content already in
+  the row. W4: two rp: refs it could not edit still read "RP pilcrow at 11:2 / 11:17 agrees and decides nothing"
+  (W4-001 and W4-003 boundary_evidence_refs[0]; curing them needs an order licensing a ref-element edit); W4-003's
+  rationale still names "the WEB paragraph start at 11:23" though web:1Cor.11.23 was deleted (refs_mirror GREEN).
+- E-73 SLIP (own; disclosed): the TF-1/TF-2 fixture results
+  `sp_durable/1Cor/review/tool_fixes/fixtures_tf1.result.json` and `fixtures_tf2.result.json` were recorded (receipts
+  rows 7 and 8; the CYCLE_STATE tool-fix entry) as 3287cf2aa972 and ed674b8db08c, digests of CRLF bytes (one CR each,
+  the trailing line end). MEASURED cause: each result was a fixture's `print(json.dumps(...))` with stdout
+  redirected to the file by the shell, which on Windows writes CRLF; scratch `cor_tf/make_tf_rows.py` hashed raw
+  bytes with no CR check, and `cor_tf/install_tf.py` checked CR only on its own staged files. The required
+  `_eol_digest_audit.py --check` was not run before recording. Found by the pre-checkpoint CR count, before any
+  commit. Correction: both files converted to LF by `cor_fx1/fix_crlf_fixtures.py` (pinned recorded digest, proof
+  that the CRLF form of the LF bytes reproduces it, atomic replace): tf1 -> 3b6b7d7e1bbf, tf2 -> 31014a68588c. The
+  original bytes are kept in scratch `cor_fx1/crlf_pre/*.pre_<sha12>`, not in the tree, because a CRLF copy would
+  trip `--tree`. Two rows from `_eol_digest_audit.py --recorded --emit` appended to
+  `sp_durable/campaign/eol_digest_corrections.v1.jsonl` (b28053dda2be -> f47f954a39b3; 495 rows). Receipt rows were
+  not rewritten (E-44). Sibling audit: `--check` over all 41 checkpoint candidates found only these two; a
+  newline-less write_text sweep of cor_fx1, cor_w and cor_tf found one live defect, the manifest write in
+  `cor_fx1/apply_fx1_1cor.py` (not yet run), now `newline="\n"`, and its digest function now refuses CRLF bytes.
+  Regression test `cor_fx1/test_crlf_guard.py`: reproduces the cause (cause_reproduced true), PASS on the fixed
+  script, FAIL on the pre-fix copy. Severity: low observed (no commit, no published digest), moderate counterfactual
+  (a CRLF digest in a public receipt). E-entry candidate: "a digest recorded from a shell-redirected stdout file on
+  Windows is a CRLF digest; produce recorded artifacts with an explicit LF write and run --check before recording."
+  Not filed in the ledger yet.
+- OUT OF SCOPE, NOTED ONLY: the same `--recorded` run reports 1052 CRLF_ONLY pairs over 113 files tree-wide against
+  495 correction rows. That predates this book and is not repaired here.
+- CURSOR: phase = 1COR_FIXUP1_LANDED. Next: `cor_fx1/apply_fx1_1cor.py --dry`, then apply (pin guard first); then
+  CWO-03, a fresh S2 until fit, with the carried items above and in the previous entry in its brief, then the two
+  blind lanes and the reception-tradition lens (OW-19).
+
+## 2026-10-20 - CORRECTION to the entry above (W2 B_left)
+
+- The previous entry says "On each part: CWO-1COR-01 A 0 and B_left 0". That holds for W4 only. MEASURED from the
+  W2 landing row (receipts row 19): cwo_on_part {"A": 0, "B_left": 2, "CWO02": 0}. The 2 are the W2-003 and W2-005
+  boundary_rationale B hits that the lane classed as compliant and left (W4: receipts row 20, B_left 0). Cause: the
+  sentence was written from the W4 lander output alone and not checked against the W2 row. Prevention: per-part
+  figures in a carrier are copied from each landing row, not generalised. The W2 B hits go to S2 with the carried items.
+
+
+## 2026-10-20 - FIXUP-1 applied; CWO-1COR-03 run; the post-fixup coverage report installed (OW-36)
+
+- APPLIED by scratch `cor_fx1/apply_fx1_1cor.py` (dry first, pin guard CLEAR on both targets, new files only):
+  `sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl` 646f9eeaad82 (70 rows, 40 changed from the pinned combined
+  rows) and its manifest 05ee28d40fd8. MEASURED on the applied rows: suite hard GREEN (no triage flags, no dead
+  members), tiling 437/437 over 1Cor.1.1-1Cor.16.24.
+- CWO-1COR-03 (MEASURED): `tools/ngram7.py` (2dc3a80d5785, TF-2) --gate 10 --full-ids on the applied rows: 70 rows,
+  device_keys_stripped 51, offending_7grams [], GREEN.
+- CWO-1COR-01/02 re-run (MEASURED, `review/cwo_sweep_1cor.py` c6be0cb5d21a): A 0 (baseline 30); B 6 (baseline 25);
+  CWO-1COR-02 0 of 70 (baseline 14). The six B hits are classed compliant by the remedy text (classifier the
+  orchestrator on claude-opus-5-5): four carry the baseline class because their sentence is byte-identical to a
+  baseline-classified sentence (W2-003, W2-005, W6-001, W6-002); two are fresh classes, INFERRED: W3-006 ("informs and
+  does not decide") and W6-005 ("An RP pilcrow at 15:35 informs the onset.", no "without deciding" in words; S2 and the
+  lenses may contest it). Support-use open: 0.
+- REPORT installed as a new file `sp_durable/1Cor/review/cwo_1cor_post_fixup1_report.v1.json` ee3170b0f376 (built by
+  scratch `cor_cwo3/make_cwo_post_report.py`, every input pinned and CR-refusing); receipt row 21 (record_kind
+  cwo_coverage_report) appended by `cor_tf/append_rows.py`: receipts 375e0cc552ec -> fcb75c342d72. `--check` LF_CLEAN
+  on both.
+- s2_conditions as MEASURED: suite hard GREEN on the applied rows; ngram7 TF-2 GREEN at gate 10; tiling 437/437;
+  CWO-1COR-01 report complete with every hit classified and 0 support-use open; CWO-1COR-02 0 of 70. The remaining
+  condition is S2 itself (a fresh, distinct agent in ACCEPT form). primaries_may_launch stays false until S2 fits.
+- CURSOR: phase = 1COR_FIXUP1_APPLIED. Next: checkpoint commit (validator, --check, --tree), then a fresh S2 until fit
+  on the applied rows, whose brief carries every item listed under CARRIED in the two FIXUP-1 landing entries plus the
+  two INFERRED B classes above; then the two blind lanes and the reception-tradition lens (OW-19).

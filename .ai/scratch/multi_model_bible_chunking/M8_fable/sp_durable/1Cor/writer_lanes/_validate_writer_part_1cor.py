@@ -11,8 +11,11 @@ witness); the Greek arm and the strategy §10 conventions that a row check can t
 Checks (problems make the verdict RED; warnings are for the orchestrator's review and never turn it RED):
   SCHEMA     the 23 fields; unit_type in book_strategy_1Cor.md §6's closed 14; confidence in the closed 4;
              non_authorizing true; book "1Cor", model_id, review_status, writer_part and language "G" fixed;
-             decision_id "<part>-NNN" and chunk_index_in_book ascending from 1, in span order
-  TILING     the rows cover the part's WEB range exactly (strategy_plan_1Cor.json parts)
+             decision_id "<part>-NNN" and chunk_index_in_book ascending from 1, in span order; with --book-index
+             (TF-1, 1Cor controlling ruling S1-07, 2026-10-20; for a slice of the combined, book-wide-numbered file)
+             chunk_index_in_book is instead contiguous and strictly increasing from the index the combined file gives
+             the slice's first row (decision_id). The default mode is unchanged; this adds a mode and weakens no check
+  TILING    the rows cover the part's WEB range exactly (strategy_plan_1Cor.json parts)
   SEAMS      no row straddles a parent start; parent_collection opens with the id of the parent that holds the row
   REFS       no oshb: or mt: token and no Hebrew character anywhere (§8.1; 0 Hebrew code points in the witnesses);
              a bare C:V that is not a 1 Corinthians verse is a WARNING (it may be another book's ref, e.g. Hos 13:14)
@@ -41,7 +44,8 @@ Checks (problems make the verdict RED; warnings are for the orchestrator's revie
              not naming both verses is a warning (§8.12)
   E-65       the words Dan, Daniel, Ezek or Ezekiel in a row are a warning
 
-usage: _validate_writer_part_1cor.py ROWS.jsonl --part W1..W6 [--attempt ATTEMPT_ID]
+usage: _validate_writer_part_1cor.py ROWS.jsonl --part W1..W6 [--attempt ATTEMPT_ID] [--book-index [COMBINED.jsonl]]
+       (--book-index alone reads 1Cor/writer/draft_rows_combined.jsonl)
 """
 import argparse
 import json
@@ -108,6 +112,7 @@ def main():
     ap.add_argument("rows")
     ap.add_argument("--part", required=True, choices=["W1", "W2", "W3", "W4", "W5", "W6"])
     ap.add_argument("--attempt")
+    ap.add_argument("--book-index", nargs="?", const=str(BK / "writer" / "draft_rows_combined.jsonl"))
     a = ap.parse_args()
 
     plan = json.loads((BK / "strategy_plan_1Cor.json").read_text(encoding="utf-8"))
@@ -128,6 +133,19 @@ def main():
 
     rows = [json.loads(x) for x in Path(a.rows).read_text(encoding="utf-8").splitlines() if x.strip()]
     problems, warnings = [], []
+    base = None
+    if a.book_index is not None:
+        comb = {}
+        for x in Path(a.book_index).read_text(encoding="utf-8").splitlines():
+            if x.strip():
+                c = json.loads(x)
+                comb[c.get("decision_id")] = c.get("chunk_index_in_book")
+        first = rows[0].get("decision_id") if rows else None
+        base = comb.get(first)
+        if type(base) is not int:
+            problems.append("--book-index: %s gives no integer chunk_index_in_book for the slice's first row %r"
+                            % (Path(a.book_index).name, first))
+            base = None
     want = order[pos[cv(part["start"])]:pos[cv(part["end"])] + 1]
     wset = set(want)
     seen, spans, starts, holder = {}, [], set(), {}
@@ -144,6 +162,12 @@ def main():
                  "language": "G"}
         if a.attempt:
             fixed["writer_attempt_id"] = a.attempt
+        if a.book_index is not None:
+            del fixed["chunk_index_in_book"]
+            if base is not None and r.get("chunk_index_in_book") != base + n - 1:
+                problems.append("%s: chunk_index_in_book is %r, expected %r (--book-index: contiguous and strictly "
+                                "increasing from the combined file's index for the slice's first row)"
+                                % (did, r.get("chunk_index_in_book"), base + n - 1))
         for k, v in fixed.items():
             if r.get(k) != v:
                 problems.append("%s: %s is %r, expected %r" % (did, k, r.get(k), v))
@@ -280,14 +304,17 @@ def main():
         problems.append("TILING GAP: %d verses uncovered, first %s" % (len(miss), miss[:5]))
     if over:
         problems.append("TILING OVERRUN: %d verses outside the part, first %s" % (len(over), over[:5]))
-    print(json.dumps({
+    out = {
         "part": a.part, "rows_file": str(a.rows), "rows": len(rows), "assigned_verses": len(want),
         "covered_verses": len(seen), "tiling": "EXACT" if not miss and not over else "BROKEN",
         "confidence_spread": {k: sum(1 for r in rows if r.get("confidence") == k) for k in sorted(CONFIDENCE)},
         "unit_types_used": sorted({str(r.get("unit_type")) for r in rows}),
         "problems": problems, "warnings": warnings, "verdict": "GREEN" if not problems else "RED",
         "limit": "a deterministic pass is NOT semantic verification; it proves form, not judgment",
-    }, ensure_ascii=False, indent=1))
+    }
+    if a.book_index is not None:   # the key appears only in this mode, so default-mode output stays byte-identical
+        out["index_mode"] = {"mode": "book-index", "combined": str(a.book_index), "first_index": base}
+    print(json.dumps(out, ensure_ascii=False, indent=1))
     return 1 if problems else 0
 
 

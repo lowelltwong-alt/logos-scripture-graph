@@ -30,6 +30,15 @@ date" in 10 rows.
 1Cor port (2026-10-15): 1cor_device_inventory.json carries none of those four top-level keys, so
 TOP_LEVEL_KEYS is empty and only the formulae keys are stripped; a key listed there and missing from the
 inventory still makes the member ERROR.
+1Cor amendment TF-2 (controlling ruling S1-08, cor_controlling_rulings_r1_a1#e1, 2026-10-20) - a NARROWING of this
+HARD member, stated in words: each exact, case-sensitive occurrence of either literal licence string that
+book_strategy_1Cor.md section 8 rule 14 mandates verbatim on every Greek-bearing row (LICENCE_STRINGS below) is also
+replaced by a SEGMENT BREAK, exactly as a device key is, so no 7-gram touches or bridges it. What is no longer caught:
+a 7-gram that includes any token of one of those two literal strings (on the pinned 70-row draft, 662 of 13601 grams,
+0 gained, the offending set unchanged). What is still caught: every 7-gram of authored words on either side of the
+break, any templated phrase of 7 or more tokens that does not contain a literal string, and any salted or variant
+form of the strings (a comma for the parentheses, a changed word), which is not matched and counts as prose.
+Fixtures F1..F4 (1Cor/review/tool_fixes/fixtures_tf2.py) gate this.
 Usage: ngram7.py rows.jsonl [--gate 10] [more files: rows are pooled]
 """
 from __future__ import annotations
@@ -60,6 +69,7 @@ REF_TOKENS = re.compile(
 
 INVENTORY = Path(__file__).resolve().parent.parent / "1cor_device_inventory.json"
 TOP_LEVEL_KEYS = ()  # 1Cor: the inventory has no top-level device-class key (see the docstring)
+LICENCE_STRINGS = ("Robinson-Pierpont Byzantine Textform (Unlicense)", "SBLGNT (CC BY 4.0)")  # TF-2: rule 14, exact
 
 
 def device_key_pattern():
@@ -71,7 +81,8 @@ def device_key_pattern():
             raise SystemExit(f"ngram7: device key {k} missing from {INVENTORY.name}")
         keys.append(k)
     keys = sorted(set(keys), key=lambda k: (-len(k), k))
-    pat = re.compile(r"(?<![A-Za-z0-9_])(?:" + "|".join(re.escape(k) for k in keys) + r")(?![A-Za-z0-9_])")
+    pat = re.compile(r"(?:(?<![A-Za-z0-9_])(?:" + "|".join(re.escape(k) for k in keys) + r")(?![A-Za-z0-9_]))|"
+                     + "|".join(re.escape(s) for s in LICENCE_STRINGS))   # TF-2: the licence strings break segments too
     return pat, len(keys)
 
 
