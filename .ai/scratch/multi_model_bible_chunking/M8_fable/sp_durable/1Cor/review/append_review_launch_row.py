@@ -41,12 +41,20 @@ SCR = (r"C:\Users\lowel\AppData\Local\Temp\claude\C--Users-lowel-OneDrive-Deskto
 PARTS = {"S1": ("cor_writer_wave_spot_review_s1_a1", "review_S1",
                 "1 Corinthians S1 distinct-checker spot review of the installed combined writer draft "
                 "(1Cor/writer/draft_rows_combined.jsonl): form, seams, a stratified row sample, Greek bytes, book-wide "
-                "checks, flags and confidence against the binding strategy; not a lens. Writes in OUT only")}
-OUTDIR = {"S1": "cor_s1"}
+                "checks, flags and confidence against the binding strategy; not a lens. Writes in OUT only"),
+         "CTL_E1": ("cor_controlling_rulings_r1_a1", "controlling_r1",
+                    "1 Corinthians controlling execution, round 1 (Fable's role on claude-opus-5-5, OW-25/OW-30): "
+                    "rules on every item of 1Cor/review/1cor_controlling_agent_queue_e1.v1.json (S1's findings, the "
+                    "tool fixes, the fix-up scope and the gate); items for Fable's end review listed. Writes in OUT "
+                    "only")}
+OUTDIR = {"S1": "cor_s1", "CTL_E1": "cor_ctl1"}
+BRIEFNAME = {"S1": "BRIEF_S1", "CTL_E1": "CONTROLLING_BRIEF_E1"}
 # Every part needs an explicit producer and catcher (the Phase 0 tables once defaulted a wrong pair; E-75).
 PRODUCER = {p: "this lane (1 Corinthians review lane %s, claude-opus-5-5 on grader_fallback, OW-25)" % p for p in PARTS}
 CATCHER = {p: ("the orchestrator's landing check of the deliverable against its schema and its claimed runs; the "
                "controlling execution that rules on its findings; Fable at the campaign-end review (OW-28)") for p in PARTS}
+CATCHER["CTL_E1"] = ("the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); "
+                     "the fix-up authors and S2, who apply and test its orders; Fable at the campaign-end review (OW-28)")
 if set(PRODUCER) != set(PARTS) or set(CATCHER) != set(PARTS):
     raise SystemExit("REFUSED: every part needs an explicit PRODUCER and CATCHER entry")
 sha = lambda b: hashlib.sha256(b).hexdigest()      # noqa: E731
@@ -66,7 +74,7 @@ if a.execution < 1 or (a.execution > 1) != bool(a.retry_reason):
 eid = "%s#e%d" % (att, a.execution)
 prev = "%s#e%d" % (att, a.execution - 1) if a.execution > 1 else None
 tag = "" if a.execution == 1 else "_e%d" % a.execution
-brief = HERE / ("BRIEF_%s%s.md" % (a.part, tag))
+brief = HERE / ("%s%s.md" % (BRIEFNAME[a.part], tag))
 msg = Path(SCR) / "cor_review_msgs" / ("launch_message_%s%s.txt" % (a.part, tag))
 _now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 _floor = datetime.fromtimestamp(msg.stat().st_mtime, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")

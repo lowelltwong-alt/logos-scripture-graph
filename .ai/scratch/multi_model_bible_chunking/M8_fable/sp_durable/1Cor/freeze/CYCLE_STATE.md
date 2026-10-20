@@ -595,3 +595,37 @@ Daniel's close is evidenced: receipts/Dan_completion.json sha256 8151f9a9ec35c3f
 - CURSOR: phase = 1COR_S1_IN_FLIGHT (writer wave installed). Next: land S1 on notification (`cor_w/make_review_landing.py`
   -> `1Cor/review/append_review_landing_row.py`); then the controlling execution (Opus under OW-30; items for Fable's
   end review listed), fix-up waves and S2 until fit; then the two blind lanes and the reception-tradition lens.
+
+
+## 2026-10-20 - S1 landed (fit_with_changes, 13 findings); controlling round 1 launched (OW-36)
+
+- Checkpoint commit c2a4817f (local, unpushed) holds the writer wave, its install, the review tooling and the S1
+  launch; validator pass with blocking_failures [], `_eol_digest_audit.py --check` and `--tree` LF_CLEAN.
+- cor_writer_wave_spot_review_s1_a1#e1 DELIVERED: `1cor_writer_wave_spot_review_S1.json` 6586e74003e7, 0 CR bytes,
+  verdict fit_with_changes, 13 findings (major 4, minor 4, note 5; MEASURED by `cor_w/make_review_landing.py`, no form
+  problems). It reproduced tiling 437/437 and the book-wide suite claim (RED on ngram7 only), found the 619 Greek runs
+  byte-exact, reproduced nine writer counts, and refuted one row claim (W6-006: the 15:50 formula "opens a unit at
+  7:29"; 7:29 is interior to W2-012). Usage from the notification: 146647 subagent_tokens, 65 tool uses, 945233 ms.
+  Review receipts 3a365c2eab92 -> 1d1f929b651e. Disclosed by the lane: one lane on the writers' model family (S1 is not
+  a lens); its sample rule was written after reading all 70 rows; its input-hash file was first written at the OUT root
+  and then moved to OUT/work (nothing was written outside OUT); its E-19 self-report includes the no-transcript clause.
+- CONTROLLING round 1: new durable builder `1Cor/review/build_ctl_launch.py`, ported from the Daniel builder. It
+  installed S1 byte-identical into 1Cor/review/ by receipt (install row; receipts -> 8a13e4947f92), wrote the queue
+  `1cor_controlling_agent_queue_e1.v1.json` 673274b0123e (16 orchestrator proposals covering all 13 S1 ids plus
+  S1-ROUTING, U-SINGLE-LANE and GATE-E1), and wrote `CONTROLLING_BRIEF_E1.md` 27983bb6cf03 (equal to its dry run),
+  21 pins. Brief pin check MATCH, launch message check MATCH (no gaps). The proposals call for fix-up lanes W2-W6 (W1
+  has no finding), with the S1-07 validator --book-index tool fix first. The ngram7 RED is to be cured by rewording, not
+  by a tool exclusion. S1-08's exclusion is deferred to the method-change loop, and whether the S1-10 tags are required
+  is put to the controlling agent.
+- `1Cor/review/append_review_launch_row.py` amended (pre copy `.pre_f5f712dc959b`): lane CTL_E1 with its own brief name
+  and catcher; S1 unchanged.
+- LAUNCHED cor_controlling_rulings_r1_a1#e1 at 2026-10-20T06:47:41Z (MEASURED `date -u`); prelaunch gate PASS, re-run as
+  the last command after the message was read for copying. Review receipts -> ff6338f028ca. A launch receipt does not
+  prove the worker runs.
+- SLIP (minor, own): a syntax check with `python -B -m py_compile` wrote
+  `1Cor/review/__pycache__/build_ctl_launch.cpython-312.pyc`, because py_compile writes bytecode whatever -B says. I
+  removed it at once; nothing was staged or committed. Prevention: check syntax with `ast.parse` and never with
+  py_compile.
+- CURSOR: phase = 1COR_CTL1_IN_FLIGHT. Next: land the controlling round-1 deliverable on notification. Then follow its
+  rulings: tool fixes staged, fixture-tested and installed by receipt; the FIXUP-1 lanes (at most three in flight); the
+  apply, suite and tiling; S2 until fit; then the two blind lanes and the reception-tradition lens (OW-19).
