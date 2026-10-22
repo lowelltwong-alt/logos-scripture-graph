@@ -49,6 +49,8 @@ Every human or AI contributor must follow this read order:
 | 9 | [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) | Deterministic agent handoffs |
 | 10 | [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md) | Chunking architecture |
 
+M9 research: [project status and review limitations](docs/architecture/M9_BIBLE_CHUNKING_RESEARCH.md) · [canonical-order book index](docs/architecture/M9_BOOK_INDEX.md). As of 2026-10-22, 16/66 books (455 units) are reviewed local research candidates; 50 remain and zero are scholar-ready. The latest accepted book is 1 Kings (33 units). Local acceptance does not authorize production retrieval, public source release or canonical promotion.
+
 **Validation (CI green/red):**
 
 ```bash
