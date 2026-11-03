@@ -1,0 +1,104 @@
+{
+ "schema": "1cor_merged_close_landing.v1",
+ "written_at": "2026-11-03T11:46:56Z",
+ "lanes": {
+  "A": {
+   "attempt_id": "cor_merged_close_lane_a_a3",
+   "execution_id": "cor_merged_close_lane_a_a3#e1",
+   "files": {
+    "postcheck.json": {
+     "durable": "lane_a_e3/postcheck.json",
+     "sha256": "c6ae0ffe82d88bb6a3852c1384d41c07c896af6f674137e27e9ddb768ca28f76"
+    },
+    "final_check.json": {
+     "durable": "lane_a_e3/final_check.json",
+     "sha256": "0c4831d2cd39cbabc3523c093b81e95c3cd7f4de2248a24bb9da10e7b2c25bb4"
+    },
+    "items_20_23.json": {
+     "durable": "lane_a_e3/items_20_23.json",
+     "sha256": "3fdd6604b6ae27fb9e0eacfe762e802d5ee2b179ac6b79000f8f448b42c4aabb"
+    },
+    "named_questions.json": {
+     "durable": "lane_a_e3/named_questions.json",
+     "sha256": "11d96054b3d4fbe5cf935d4d47e8a4d8871e9f4030eb4c2ad97e44fee176bb9b"
+    },
+    "lane_meta.json": {
+     "durable": "lane_a_e3/lane_meta.json",
+     "sha256": "f66d05d0014a53a26ae31633853f419b4818947d3350e4800a936ec8044e7ee1"
+    },
+    "final_message.md": {
+     "durable": "lane_a_e3/final_message.md",
+     "sha256": "1bb7e4c5716e5919b6d562c362e649f203dd2cb54592a6bb0356dc2b03e88e0d"
+    }
+   }
+  },
+  "B": {
+   "attempt_id": "cor_merged_close_lane_b_a3",
+   "execution_id": "cor_merged_close_lane_b_a3#e1",
+   "files": {
+    "postcheck.json": {
+     "durable": "lane_b_e3/postcheck.json",
+     "sha256": "3dc9b2b3cfb9303a56dcc335e403955f1804670430318b324ecf5d92c4136ada"
+    },
+    "final_check.json": {
+     "durable": "lane_b_e3/final_check.json",
+     "sha256": "37223d66251f4e2073357d1ac9bd9fdb70cd593373684f8a0dec87490092d032"
+    },
+    "items_20_23.json": {
+     "durable": "lane_b_e3/items_20_23.json",
+     "sha256": "b0f62e88bcdba1cf4dc47c65de40d894e51efff095d63ee0e93cb05e33c64748"
+    },
+    "named_questions.json": {
+     "durable": "lane_b_e3/named_questions.json",
+     "sha256": "2a3fc6998d5445917b3be5fd3cf286d5f94787f706e92f69260794761bdf4ffe"
+    },
+    "lane_meta.json": {
+     "durable": "lane_b_e3/lane_meta.json",
+     "sha256": "a19caf4b22823fdc322e97d48a0c66b01e7f0fa8acf9f06162f3eef25f7a4902"
+    },
+    "final_message.md": {
+     "durable": "lane_b_e3/final_message.md",
+     "sha256": "50b0e8d972c1fc7d2e8f6276d483dd97e0ea06211878a409d79f656d29f44222"
+    }
+   }
+  }
+ },
+ "supersedes": {
+  "landing_manifest_sha256": "1f309f69808b02060d0298f8884439150d8809de10dfdd018d9e251692923933",
+  "kept_as": "landing_manifest.v1.json.pre_1f309f69808b",
+  "reason": "OW-38: the _a2 verdicts predate the repairs; the _a3 re-check pair re-judged them"
+ },
+ "amendments": [
+  {
+   "lane": "B",
+   "attempt_id": "cor_merged_close_lane_b_a3",
+   "file": "final_check.json",
+   "sha256_before": "29846a34a71ee358a26b88b53c01430472f270534d512842e80a53437f4f5d0d",
+   "sha256_after": "37223d66251f4e2073357d1ac9bd9fdb70cd593373684f8a0dec87490092d032",
+   "kept_as": "lane_b_e3/final_check.json.pre_29846a34a71e",
+   "fields_changed": [
+    "rows_held_by_byte_equality",
+    "rows_lists_basis",
+    "rows_read"
+   ],
+   "reason": "the lane recorded rows_read and rows_held_by_byte_equality as counts where its brief required id lists; the lane itself rewrote them on a continuation message and changed nothing else (checked field by field)",
+   "message_sha256": "6d40a87f19fe60f452dbc09fcbd497c5eba5ad22e23a92706c427356c36c5f6b",
+   "recorded_at": "2026-11-03T11:54:33Z"
+  },
+  {
+   "lane": "B",
+   "attempt_id": "cor_merged_close_lane_b_a3",
+   "file": "items_20_23.json",
+   "sha256_before": "f3d932a033748ac77fdf5a97c22f93a054dbe460c797872e6849adcd2088216a",
+   "sha256_after": "b0f62e88bcdba1cf4dc47c65de40d894e51efff095d63ee0e93cb05e33c64748",
+   "kept_as": "lane_b_e3/items_20_23.json.pre_f3d932a03374",
+   "fields_changed": [
+    "item_22.feed_sha256",
+    "item_22.feed_sha256_basis"
+   ],
+   "reason": "the lane's item_22 lacked the feed_sha256 its brief required; the lane itself added it on a continuation message and changed nothing else (checked field by field)",
+   "message_sha256": "c52a1a4602005b18ae4ec152676b02a4ed7471f5c4f5f9f346f3bc82f2c8f995",
+   "recorded_at": "2026-11-03T11:58:01Z"
+  }
+ ]
+}

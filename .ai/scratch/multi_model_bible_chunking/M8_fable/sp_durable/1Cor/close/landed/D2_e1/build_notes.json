@@ -1,0 +1,183 @@
+{
+ "schema": "1cor_atlas_build_notes.v1",
+ "attempt_id": "cor_close_atlas_a1",
+ "execution_id": "cor_close_atlas_a1#e1",
+ "tier": "counts MEASURED by work/make_docs.py from the delivered files; the rest is the builder's own account",
+ "status": {
+  "pin_moved": [
+   {
+    "path": "1Cor\\close\\1cor_landed_outputs_manifest.v1.json",
+    "pinned_sha256": "7305395a9c3850a20a5227c74768271402c45fb571c45e74efb7c1a0b56526ea",
+    "pinned_bytes": 134770,
+    "live_sha256": "e46eefd38aa481b2618b49de6b193acac12be8a8d418cc40223dbf342d560c4c",
+    "live_bytes": 135371
+   }
+  ],
+  "manifest_change": {
+   "added": [
+    "sp_durable/1Cor/review/D3_result.json"
+   ],
+   "removed": [],
+   "digest_changed": [],
+   "packets_read_by_this_lane_changed_or_gone": []
+  },
+  "repinned_to_live": false,
+  "frozen_pin": {
+   "path": "close/1cor_landed_outputs_manifest.frozen_for_close_lanes.v1.json",
+   "sha256": "e46eefd38aa481b2618b49de6b193acac12be8a8d418cc40223dbf342d560c4c"
+  },
+  "pin_notes": {
+   "close/1cor_landed_outputs_manifest.frozen_for_close_lanes.v1.json": "Orchestrator-written frozen copy of the landed manifest, authorised by the orchestrator's decision and superseding the brief's value for this one pin. The live manifest close/1cor_landed_outputs_manifest.v1.json moves with every landing, so it is not an input. Every other pin stands."
+  },
+  "brief_value_superseded": "7305395a9c3850a20a5227c74768271402c45fb571c45e74efb7c1a0b56526ea",
+  "filter_fix_built": true
+ },
+ "ported": {
+  "gen_atlas_rows.py": "Dan/deliverables/gen_atlas_rows.py, form only",
+  "check_atlas_rows.py": "Dan/deliverables/check_atlas_rows.py, form only",
+  "gen_sidecars.py": "Dan/deliverables/gen_sidecars.py, form only",
+  "README.md": "Dan/deliverables/README.md, form only"
+ },
+ "changed_from_template": [
+  {
+   "what": "all book-specific values moved to book_params.v1.json; arguments are --params, --book-root, --out-root",
+   "why": "TE-7"
+  },
+  {
+   "what": "is_file calls replaced by an open by exact path that catches FileNotFoundError",
+   "why": "E-19"
+  },
+  {
+   "what": "packets come from the landed manifest, filtered by named patterns, with a never-open pattern",
+   "why": "exact-path law; the manifest is the pinned source of paths"
+  },
+  {
+   "what": "a third lane (RT) is read; contested means verdict sets differ among the lanes present",
+   "why": "this book's RT lane covers c06-c08 only"
+  },
+  {
+   "what": "the numbering conversion is identity with no zones",
+   "why": "the inventory records WEB, RP and SBLGNT as verse-identical"
+  },
+  {
+   "what": "witness byte ranges, marks and severities are Greek-book values; RP paragraph starts count only on a seam's right face and WEB paragraph starts are recorded, never counted",
+   "why": "the brief's witnesses and E-23"
+  },
+  {
+   "what": "chapter references reach units",
+   "why": "several questions name a chapter and no verse"
+  },
+  {
+   "what": "sentence filter drops lower-case fragments, normalises a trailing semicolon and uses boundary_rationale when device_notes gives no sentence",
+   "why": "the first eye check found boilerplate and fragments"
+  },
+  {
+   "what": "sentence filter also drops provenance sentences about the English witness, WEB footnote-marker sentences, and sentences saying a fact touches no seam or moves neither edge",
+   "why": "the second eye check found these in six rows; they state no doubt"
+  },
+  {
+   "what": "review_packet_final_state is derived from status, hold and last audit verdict, not assumed",
+   "why": "the brief; the rows carry no such field"
+  },
+  {
+   "what": "checker adds A9, B7, B8, E1, E2, covers every non-routed question source in C2 and all five linkage kinds in D1; 20 tampers against the template's 14",
+   "why": "independent re-derivation of what this lane added"
+  }
+ ],
+ "counts": {
+  "units": 70,
+  "feed_rows": 20,
+  "feed_by_confidence": {
+   "low": 1,
+   "medium_low": 19
+  },
+  "sidecar_rows": 20,
+  "contested_units": 28,
+  "contested_units_in_feed": 10,
+  "severities_landed_totals": {
+   "blocker": 5,
+   "high": 1,
+   "low": 92,
+   "major": 46,
+   "medium": 32,
+   "minor": 75,
+   "note": 18
+  },
+  "onset_evidence_on_both_faces": {
+   "False": 60,
+   "None": 1,
+   "True": 9
+  },
+  "answerable": {
+   "a_witness_limit_is_stated": 32,
+   "left_out": 32,
+   "seam_evidence_present_in_the_witness_layers": 6
+  },
+  "judged_hardness": {
+   "high": 17,
+   "low": 8,
+   "medium": 45
+  },
+  "open_questions": 216,
+  "open_question_kinds": {
+   "device_inventory_end_review_item": 8,
+   "escalation_in_packet": 2,
+   "finding_routed_to_end_review": 1,
+   "routed_end_review_item": 27,
+   "strategy_line_for_end_review": 8,
+   "unresolved_in_packet": 121,
+   "unresolved_in_ruling": 49
+  },
+  "blast_radius": {
+   "campaign_wide": 34,
+   "one_book": 142,
+   "one_unit": 9,
+   "several_units": 31
+  },
+  "linkages": 309,
+  "linkages_treated_differently": 263,
+  "statements": {
+   "possible_inconsistency_unruled/word_of_divergence_and_no_controlling_ruling": 3,
+   "real_distinction/different_recorded_kind": 79,
+   "real_distinction/no_packet_alleges_inconsistency": 90,
+   "real_distinction/standing_after_controlling_ruling": 91,
+   "same_treatment/equal_confidence_and_unit_type": 46
+  },
+  "concern_types": {
+   "contested_between_lanes": 10,
+   "open_question_carried": 1,
+   "seam_evidence_on_one_face_or_none": 9
+  },
+  "suggested_reviewers": {
+   "convergence": 16,
+   "literary_form_reviewer": 4
+  },
+  "why_frontier_sources": {
+   "COMPOSED/None": 4,
+   "TRANSCRIBED/boundary_rationale": 4,
+   "TRANSCRIBED/strongest_rejected_alternative": 12
+  },
+  "packets_reopened_by_checker": 30,
+  "checks": 28,
+  "checks_passed": 28,
+  "tampers": 20,
+  "tampers_caught": 20
+ },
+ "limits": [
+  "One pin differs from the brief: the landed manifest pin is the orchestrator-written frozen copy (path and digest in book_params.v1.json), superseding the brief's value. These outputs stop at that copy, so a later landing does not reach them.",
+  "The live manifest close/1cor_landed_outputs_manifest.v1.json moves with every landing and is not an input.",
+  "The reason filter is a mechanical phrase list in book_params; it changed six rows. In M8-1Cor-011, 027, 028, 051 and 052 the recorded alternative is the only sentence of why_low_confidence that states a doubt. why_frontier_review_needed fell back to composed text more often: 1 row before the filter, 4 after.",
+  "ASSUMED: the landed final_(LF|OL|RT)_cNN_e1.json files are review packets, not forbidden final-message files.",
+  "Shared feed not read: feed keys and the state vocabulary are form constants from the Daniel tools; the gate does not define them.",
+  "Item 22's Fable execution check is not done by this lane (OW-28, OW-30).",
+  "Blast classes and statements are JUDGED_BY_RULE and may misfile; convention words deliberately over-class toward one_book.",
+  "real_distinction/no_packet_alleges_inconsistency rests on absence of an allegation.",
+  "The checker has the same builder and model family as the generators; every lane of the book is one voice (OW-19).",
+  "Primaries reviewed FIXUP-2 rows, not final rows; carry-by-byte-equality is REPORTED.",
+  "Later disposition of open questions is not derived; corpus_wide_orders are orders and are not open questions.",
+  "Severity scales differ and are not converted; primary challenges without a severity are not counted.",
+  "Cross-reference harvest can give false positives and skips adjacent units; items over the pair cap are skipped and counted.",
+  "The sentence filter is mechanical. human_owner reviewer, language-seam and numbering concerns cannot fire for this book.",
+  "The mirror under work/ was re-run on the frozen pin and still holds an unused copy of the old manifest."
+ ]
+}

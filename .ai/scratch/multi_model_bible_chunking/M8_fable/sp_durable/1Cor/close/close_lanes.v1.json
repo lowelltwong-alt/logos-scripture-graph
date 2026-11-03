@@ -1,0 +1,411 @@
+{
+ "schema": "m8_close_lanes.v1",
+ "book": "1Cor",
+ "what": "Lane table for the close kit (TE-1: data, not a new generator). Read by review/tools/make_review_landing.py and review/append_review_launch_row.py. A lane is added here, never by editing those tools.",
+ "lanes": {
+  "D4": {
+   "attempt": "cor_close_tool_d4_a1",
+   "review_lane": "close_D4",
+   "out_dir": "cor_close_D4",
+   "brief": "BRIEF_D4",
+   "deliverable": "D4_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "regression",
+    "gates_unmet_today",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps",
+    "CANDIDATE_KIT_BUILT_NOT_INSTALLED: gate suites pass, regression lost no gate and moved no verdict, 1 Corinthians dry run has 27 of 54 printed gates UNMET as expected"
+   ],
+   "role": "1 Corinthians close kit D4: ports the close tool, its gate tests, the end-review packet generator, the parity tool and the final-rows and landed-outputs builders to book-agnostic form under TE-7, with a parameter file for each book and a regression against the closed book. Closes nothing. Writes in OUT only",
+   "catcher": "the orchestrator's landing check of the deliverable and its regression; a re-run of the gate tests by the orchestrator; the dry run of the close itself; the two blind merged-close lanes that read the same gates",
+   "verdicts_note": "BRIEF_D4 named no verdict set; the lane's value is added as written, not rewritten"
+  },
+  "BOSS": {
+   "attempt": "cor_boss_audit_a1",
+   "review_lane": "close_BOSS",
+   "out_dir": "cor_close_BOSS",
+   "brief": "BRIEF_BOSS",
+   "deliverable": "1cor_boss_audit.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "book",
+    "role",
+    "rows_file",
+    "conditions",
+    "rows",
+    "reported_where_measured",
+    "escalations",
+    "overall",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "CONFIRM",
+    "RETURN"
+   ],
+   "role": "1 Corinthians boss audit on the hard-book track: all 70 rows against the standing conditions of the controlling rulings, on Opus as a recorded grader_fallback (OW-25). Changes no row. Writes in OUT only",
+   "catcher": "the controlling agent on any RETURN; the two blind merged-close lanes on the final rows; the close gate, which reads this record's conditions"
+  },
+  "CTL_E6": {
+   "attempt": "cor_controlling_rulings_r6_a1",
+   "review_lane": "controlling_r6",
+   "out_dir": "cor_ctl6",
+   "brief": "BRIEF_CTL_E6",
+   "deliverable": "1cor_controlling_agent_rulings_r6_e1.v1.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "inputs_ruled_on",
+    "rulings",
+    "corpus_wide_orders",
+    "gate",
+    "unresolved_uncertainty",
+    "deliverables",
+    "verification"
+   ],
+   "verdict_key": "attempt_id",
+   "verdicts": [
+    "cor_controlling_rulings_r6_a1"
+   ],
+   "role": "1 Corinthians controlling execution, round 6 (Fable's role on claude-opus-5-5, OW-25/OW-30): rules on every item of 1Cor/review/1cor_controlling_agent_queue_e6.v1.json (S6's three findings, two S6 uncertainties and GATE-E6). Writes in OUT only",
+   "catcher": "the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); the suite, ngram7, tiling and sweep on any applied rows; the boss audit and the two blind merged-close lanes on the final rows; Fable at the campaign-end review (OW-28)"
+  },
+  "D1": {
+   "attempt": "cor_close_scholar_record_a1",
+   "review_lane": "close_D1",
+   "out_dir": "cor_close_D1",
+   "brief": "BRIEF_D1",
+   "deliverable": "D1_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "1 Corinthians close kit D1: builds the scholar record of close-gate item 20 from landed packets with a book-agnostic generator and checker. Changes no row. Writes in OUT only",
+   "catcher": "the checker's own sub-checks re-run by the orchestrator with default paths; the two blind merged-close lanes that grade the record against the primary sources"
+  },
+  "D2": {
+   "attempt": "cor_close_atlas_a1",
+   "review_lane": "close_D2",
+   "out_dir": "cor_close_D2",
+   "brief": "BRIEF_D2",
+   "deliverable": "D2_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "1 Corinthians close kit D2: builds the atlas feed rows, dimensions and sidecar of close-gate item 22 with book-agnostic generators. Changes no row. Writes in OUT only",
+   "catcher": "the generators' --check re-run by the orchestrator with default paths; the coverage validator at the dry run; the two blind merged-close lanes"
+  },
+  "D3": {
+   "attempt": "cor_close_proposer_a1",
+   "review_lane": "close_D3",
+   "out_dir": "cor_close_D3",
+   "brief": "BRIEF_D3",
+   "deliverable": "D3_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "1 Corinthians close kit D3: the method proposer of close-gate item 23. Reads the landed evidence itself, edits no method record. Writes in OUT only",
+   "catcher": "the adjudicator D5, who opens the cited artefacts; the orchestrator's schema check on the candidate file"
+  },
+  "D5": {
+   "attempt": "cor_close_adjudicator_a1",
+   "review_lane": "close_D5",
+   "out_dir": "cor_close_D5",
+   "brief": "BRIEF_D5",
+   "deliverable": "D5_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "1 Corinthians close kit D5: the method adjudicator of close-gate item 23. Tests each proposal's cited evidence and rules. Edits no method record. Writes in OUT only",
+   "catcher": "the orchestrator's schema check and rate count; the campaign-end review (OW-28)"
+  },
+  "CTL_E7": {
+   "attempt": "cor_controlling_rulings_r7_a1",
+   "review_lane": "controlling_r7",
+   "out_dir": "cor_ctl7",
+   "brief": "BRIEF_CTL_E7",
+   "deliverable": "1cor_controlling_agent_rulings_r7_e1.v1.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "inputs_ruled_on",
+    "rulings",
+    "corpus_wide_orders",
+    "gate",
+    "unresolved_uncertainty",
+    "deliverables",
+    "verification"
+   ],
+   "verdict_key": "attempt_id",
+   "verdicts": [
+    "cor_controlling_rulings_r7_a1"
+   ],
+   "role": "1 Corinthians controlling execution, round 7 (Fable's role on claude-opus-5-5, OW-25/OW-30): rules on every item of 1Cor/review/1cor_controlling_agent_queue_e7.v1.json (the boss audit's findings on W2-6, W3-1, W3-2, its low findings and escalations, and GATE-E7). Writes in OUT only",
+   "catcher": "the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); the suite, ngram7 and the sweep on the FIXUP-5 applied rows; the delta boss execution on every changed row and on B3, B4, B7, B8"
+  },
+  "BOSS_E2": {
+   "attempt": "cor_boss_audit_e2_a1",
+   "review_lane": "close_BOSS_e2",
+   "out_dir": "cor_close_BOSS_E2",
+   "brief": "BRIEF_BOSS_E2",
+   "deliverable": "1cor_boss_audit_e2.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "book",
+    "role",
+    "rows_file",
+    "diff_f4_f5",
+    "conditions",
+    "carried_conditions",
+    "return_cleared",
+    "rows",
+    "reported_where_measured",
+    "escalations",
+    "overall",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "CONFIRM",
+    "RETURN"
+   ],
+   "role": "1 Corinthians boss audit, second execution (close tag e2): the 21 rows FIXUP-5 changed and conditions B3, B4, B7, B8, as R7-NOT-TESTABLE ruled, on Opus as a recorded grader_fallback (OW-25). Changes no row. Writes in OUT only",
+   "catcher": "the controlling agent on any RETURN; the two blind merged-close lanes on the final rows; the close gate, which reads this record's conditions"
+  },
+  "MERGED_A": {
+   "attempt": "cor_merged_close_lane_a_a1",
+   "review_lane": "close_MERGED_A",
+   "out_dir": "cor_close_MERGED_A",
+   "brief": "BRIEF_MERGED_A",
+   "deliverable": "MERGED_A_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "blind merged-verdict close grader, lane A (postcheck, final check, items 20-23, named questions), on Opus as a recorded grader_fallback (OW-25). Changes no file of the book. Writes in OUT only",
+   "catcher": "the close tool's lane gates; the other blind lane; the campaign-end review, deferred under OW-28"
+  },
+  "MERGED_B": {
+   "attempt": "cor_merged_close_lane_b_a1",
+   "review_lane": "close_MERGED_B",
+   "out_dir": "cor_close_MERGED_B",
+   "brief": "BRIEF_MERGED_B",
+   "deliverable": "MERGED_B_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "blind merged-verdict close grader, lane B (postcheck, final check, items 20-23, named questions), on Opus as a recorded grader_fallback (OW-25). Changes no file of the book. Writes in OUT only",
+   "catcher": "the close tool's lane gates; the other blind lane; the campaign-end review, deferred under OW-28"
+  },
+  "CTL_E8": {
+   "attempt": "cor_controlling_rulings_r8_a1",
+   "review_lane": "controlling_r8",
+   "out_dir": "cor_ctl8",
+   "brief": "BRIEF_CTL_E8",
+   "deliverable": "1cor_controlling_agent_rulings_r8_e1.v1.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "inputs_ruled_on",
+    "rulings",
+    "corpus_wide_orders",
+    "gate",
+    "unresolved_uncertainty",
+    "deliverables",
+    "verification"
+   ],
+   "verdict_key": "attempt_id",
+   "verdicts": [
+    "cor_controlling_rulings_r8_a1"
+   ],
+   "role": "1 Corinthians controlling execution, round 7 (Fable's role on claude-opus-5-5, OW-25/OW-30): rules on every item of 1Cor/review/1cor_controlling_agent_queue_e7.v1.json (the boss audit's findings on W2-6, W3-1, W3-2, its low findings and escalations, and GATE-E7). Writes in OUT only",
+   "catcher": "the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); the suite, ngram7 and the sweep on the FIXUP-5 applied rows; the delta boss execution on every changed row and on B3, B4, B7, B8"
+  },
+  "CTL_E9": {
+   "attempt": "cor_controlling_rulings_r9_a1",
+   "review_lane": "controlling_r9",
+   "out_dir": "cor_ctl9",
+   "brief": "BRIEF_CTL_E9",
+   "deliverable": "1cor_controlling_agent_rulings_r9_e1.v1.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "inputs_ruled_on",
+    "rulings",
+    "corpus_wide_orders",
+    "gate",
+    "unresolved_uncertainty",
+    "deliverables",
+    "verification"
+   ],
+   "verdict_key": "attempt_id",
+   "verdicts": [
+    "cor_controlling_rulings_r9_a1"
+   ],
+   "role": "1 Corinthians controlling execution, round 9 (Fable's role on claude-opus-5-5, OW-25/OW-30): rules on every item of 1Cor/review/1cor_controlling_agent_queue_e9.v1.json (the tested continuation of round 8: final spans, atlas leads, WEB substitution, the two new close gates, the close-evidence shape, lane A's PF-5..PF-13, and the reissue mechanics) and sets GATE-E9. Writes in OUT only",
+   "catcher": "the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); _apply_exact_orders.py on the ruled spans with the four tools; gen_atlas_rows.py and gen_scholar_record.py --check after the ruled inputs; the two reissued merged lanes"
+  },
+  "MERGED_A2": {
+   "attempt": "cor_merged_close_lane_a_a2",
+   "review_lane": "close_MERGED_A2",
+   "out_dir": "cor_close_MERGED_A2",
+   "brief": "BRIEF_MERGED_A2",
+   "deliverable": "MERGED_A2_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "blind merged-verdict close grader, lane A (postcheck, final check, items 20-23, named questions), on Opus as a recorded grader_fallback (OW-25). Changes no file of the book. Writes in OUT only",
+   "catcher": "the close tool's lane gates; the other blind lane; the campaign-end review, deferred under OW-28"
+  },
+  "MERGED_B2": {
+   "attempt": "cor_merged_close_lane_b_a2",
+   "review_lane": "close_MERGED_B2",
+   "out_dir": "cor_close_MERGED_B2",
+   "brief": "BRIEF_MERGED_B2",
+   "deliverable": "MERGED_B2_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "blind merged-verdict close grader, lane B (postcheck, final check, items 20-23, named questions), on Opus as a recorded grader_fallback (OW-25). Changes no file of the book. Writes in OUT only",
+   "catcher": "the close tool's lane gates; the other blind lane; the campaign-end review, deferred under OW-28"
+  },
+  "MERGED_A3": {
+   "attempt": "cor_merged_close_lane_a_a3",
+   "review_lane": "close_MERGED_A3",
+   "out_dir": "cor_close_MERGED_A3",
+   "brief": "BRIEF_MERGED_A3",
+   "deliverable": "MERGED_A3_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "blind merged-verdict close grader, lane A (postcheck, final check, items 20-23, named questions), on Opus as a recorded grader_fallback (OW-25). Changes no file of the book. Writes in OUT only",
+   "catcher": "the close tool's lane gates; the other blind lane; the campaign-end review, deferred under OW-28"
+  },
+  "MERGED_B3": {
+   "attempt": "cor_merged_close_lane_b_a3",
+   "review_lane": "close_MERGED_B3",
+   "out_dir": "cor_close_MERGED_B3",
+   "brief": "BRIEF_MERGED_B3",
+   "deliverable": "MERGED_B3_result.json",
+   "keys": [
+    "attempt_id",
+    "execution_id",
+    "verdict",
+    "deliverables",
+    "verification",
+    "unresolved_uncertainty"
+   ],
+   "verdict_key": "verdict",
+   "verdicts": [
+    "delivered",
+    "delivered_with_gaps"
+   ],
+   "role": "blind merged-verdict close grader, lane B (postcheck, final check, items 20-23, named questions), on Opus as a recorded grader_fallback (OW-25). Changes no file of the book. Writes in OUT only",
+   "catcher": "the close tool's lane gates; the other blind lane; the campaign-end review, deferred under OW-28"
+  }
+ }
+}

@@ -1,0 +1,1157 @@
+{
+ "schema": "m8_s3_receipt_extract.v1",
+ "book": "1Cor",
+ "source": {
+  "path": "sp_durable/1Cor/review/1cor_review_attempt_receipts.jsonl",
+  "sha256": "f936f3c1170340a198d40f4bc77bacf5414efbd2c6276fa7fbb0ca558e271fbc",
+  "rows": 41
+ },
+ "whitelist": {
+  "rows_covered": [
+   28,
+   41
+  ],
+  "whole_rows_except_parent_agent_id": [
+   28,
+   29,
+   30,
+   41
+  ],
+  "launch_fields": [
+   "record_kind",
+   "attempt_id",
+   "execution_id",
+   "lane",
+   "ordered_by",
+   "orders",
+   "brief",
+   "brief_sha256",
+   "rows_under_repair",
+   "launched_at"
+  ],
+  "completion_fields": [
+   "record_kind",
+   "attempt_id",
+   "amends_execution_id",
+   "outcome",
+   "outputs",
+   "lander_checks",
+   "recorded_at"
+  ],
+  "left_out": "rows 1-27 (S1/S2 reviews, E1/E2 controlling executions, FIXUP-1), agent ids, launch messages and sent prompts, completion notes, token fields, and every lane's final message (S3 is blind to lane prose beyond the change records)"
+ },
+ "built_at": "2026-10-20T16:48:42Z",
+ "built_by": "orchestrator (claude-opus-5-5, OW-25)",
+ "rows": [
+  {
+   "receipt_row": 28,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "tool_fix_install",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 S2-07",
+   "rulings_file": {
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E2.v1.json",
+    "sha256": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541"
+   },
+   "rows_tested": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "note": "fixtures ran on scratch copies and plants only (E-67); staged bytes tested as if installed, then re-run from the installed location"
+   },
+   "tool_fix_id": "TF-3 (S2-07 / CWO-1COR-04)",
+   "outcome": "INSTALLED - CWO-1COR-04 added to cwo_sweep_1cor.py as an addition, its W, P, DIS, PD2 and VERB patterns and the S1-01/S1-01b row list verbatim from the E2 predicate; A, B and CWO02 output is byte-identical to the pre-TF-3 tool on the applied rows, the combined draft and the plants (F1); on the applied rows it reproduces the ruling's MEASURED baseline, 106 hits in 52 rows (F3). Four mutants (PD2 without 'agree', no free oss item, no W.sub, B2 without 'agree') each failed at least one case when run in scratch (MEASURED there, not re-run from SP).",
+   "tools": {
+    "cwo_sweep_1cor.py": {
+     "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+     "after_sha256": "bb71fd0bc1347ac6ff17f5d0222249d78b19de8e6ce43b7a31eea276fbd58cd9",
+     "before_sha256": "c6be0cb5d21a298be0c7c2ae2f0583b8db83ca9eebc58aed60d1a597e2d7e040",
+     "pre_copy": "sp_durable/1Cor/review/cwo_sweep_1cor.py.pre_c6be0cb5d21a"
+    }
+   },
+   "tests": {
+    "script": {
+     "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf3.py",
+     "sha256": "ed845ea5a0566183de7a9263fbae93bc43c39c1d0aaba78f90f5f74469874bc2"
+    },
+    "harness": {
+     "path": "sp_durable/1Cor/review/tool_fixes/_exec_as.py",
+     "sha256": "29d6d00cd04baf12a323267bfbbca99a666fc5db8964a148e47806062a028143"
+    },
+    "result": {
+     "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf3.result.json",
+     "sha256": "e42095cc25ddc6058a92f372b0d7c17698caff1aff380ba85057d7cb77a1e8a5"
+    },
+    "verdict": "ALL_PASS",
+    "cases": {
+     "F1": true,
+     "F2": true,
+     "F3": true,
+     "F4": true,
+     "F5": true
+    }
+   },
+   "recorded_at": "2026-10-20T12:46:50Z"
+  },
+  {
+   "receipt_row": 29,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "cwo_coverage_report",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 S2-07 / CWO-1COR-04 coverage_report and GATE-E2",
+   "report": {
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup1_cwo04_report.v1.json",
+    "sha256": "3ec5221234fd7ce7dd82779ffdc026d666a60e9b0511dfc58829a5f6adfbe150"
+   },
+   "sweep_script": {
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "bb71fd0bc1347ac6ff17f5d0222249d78b19de8e6ce43b7a31eea276fbd58cd9"
+   },
+   "ngram7": {
+    "path": "sp_durable/1Cor/tools/ngram7.py",
+    "sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230"
+   },
+   "rows_file": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec"
+   },
+   "summary": {
+    "cwo04_hits": 106,
+    "rows": 52,
+    "true_ordered": 63,
+    "false_positive": 1,
+    "compliant_no_order": 42,
+    "A": 0,
+    "B": 6,
+    "cwo02_fail": 0
+   },
+   "effect": "every CWO-1COR-04 hit on the FIXUP-1 applied rows is hand-classed; each true hit is named by an E2 order for FIXUP-2 (W1, W3, W4, W5, W6)",
+   "recorded_at": "2026-10-20T12:46:50Z"
+  },
+  {
+   "receipt_row": 30,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "gate_flip",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 GATE-E2 tool_fixes_before_fixup",
+   "gate": "fixup_may_launch",
+   "from": false,
+   "to": true,
+   "basis": [
+    "tool_fix_install TF-3 (S2-07 / CWO-1COR-04), two rows above in this file; fixtures_tf3 F1..F5 ALL_PASS from the installed location",
+    "cwo_coverage_report (CWO-1COR-04, every hit hand-classed), the row immediately above"
+   ],
+   "scope": "FIXUP-2 on W1, W3, W4, W5 and W6 (GATE-E2 fixup_parts), at most three in flight; primaries_may_launch stays false; S3 runs only after every GATE-E2 s2_condition holds.",
+   "recorded_at": "2026-10-20T12:46:50Z"
+  },
+  {
+   "receipt_row": 31,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup2_W5_a1",
+   "execution_id": "cor_fixup2_W5_a1#e1",
+   "lane": "fixup2:W5",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 (GATE-E2; TF-3 install receipt; CWO-04 coverage report receipt; gate_flip fixup_may_launch FIXUP-2 receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP2_BRIEF_W5.md",
+   "brief_sha256": "23a179ceb2dce7cabf67d1ad6c44245908ea4de4306a9ba85a32d3e840e0e5e2",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec"
+   },
+   "launched_at": "2026-10-20T16:33:51Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S3 does not read scratch)",
+    "sha256_measured_at_build": "ba0ee5afb7e941cfb775452e06ecbbd549c45453687db9c038a41581860a08f1",
+    "inlined": {
+     "part": "W5",
+     "execution_id": "cor_fixup2_W5_a1#e1",
+     "rows_sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+     "rulings_sha256": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541",
+     "cwo_report_sha256": "3ec5221234fd7ce7dd82779ffdc026d666a60e9b0511dfc58829a5f6adfbe150",
+     "fx2_edits_sha256": "f4466becd0abd5e4bf3e4bf5072579275cea8b74bc83a8ea5abda2b1056c8594",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP2_BRIEF_W5.md",
+     "brief_sha256": "23a179ceb2dce7cabf67d1ad6c44245908ea4de4306a9ba85a32d3e840e0e5e2",
+     "licensed": [
+      {
+       "row": "W5-001",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W5-001",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-10"
+       ]
+      },
+      {
+       "row": "W5-003",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W5-004",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-04"
+       ]
+      },
+      {
+       "row": "W5-005",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-04"
+       ]
+      },
+      {
+       "row": "W5-008",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-03"
+       ]
+      },
+      {
+       "row": "W5-010",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W5-010",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-01"
+       ]
+      },
+      {
+       "row": "W5-011",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W5-012",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W5-012",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-10"
+       ]
+      },
+      {
+       "row": "W5-013",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W5-013",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-10"
+       ]
+      },
+      {
+       "row": "W5-014",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 32,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup2_W6_a1",
+   "execution_id": "cor_fixup2_W6_a1#e1",
+   "lane": "fixup2:W6",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 (GATE-E2; TF-3 install receipt; CWO-04 coverage report receipt; gate_flip fixup_may_launch FIXUP-2 receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP2_BRIEF_W6.md",
+   "brief_sha256": "2b7204c4471432f5e4e5559f2fb753f6925176c3f748049311857970555f6a9c",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec"
+   },
+   "launched_at": "2026-10-20T16:33:51Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S3 does not read scratch)",
+    "sha256_measured_at_build": "07a1fef2908c2ce3b88f66edbae2ffe8d897ff74f924037715fd049d5b83b6a9",
+    "inlined": {
+     "part": "W6",
+     "execution_id": "cor_fixup2_W6_a1#e1",
+     "rows_sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+     "rulings_sha256": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541",
+     "cwo_report_sha256": "3ec5221234fd7ce7dd82779ffdc026d666a60e9b0511dfc58829a5f6adfbe150",
+     "fx2_edits_sha256": "f4466becd0abd5e4bf3e4bf5072579275cea8b74bc83a8ea5abda2b1056c8594",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP2_BRIEF_W6.md",
+     "brief_sha256": "2b7204c4471432f5e4e5559f2fb753f6925176c3f748049311857970555f6a9c",
+     "licensed": [
+      {
+       "row": "W6-002",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W6-002",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-002",
+       "field": "device_notes",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-002",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-003",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W6-003",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-003",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-004",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-02"
+       ]
+      },
+      {
+       "row": "W6-005",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-05"
+       ]
+      },
+      {
+       "row": "W6-008",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W6-008",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-008",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-008",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-009",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-06"
+       ]
+      },
+      {
+       "row": "W6-011",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W6-011",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-011",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-012",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-11"
+       ]
+      },
+      {
+       "row": "W6-012",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-012",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S2-09"
+       ]
+      },
+      {
+       "row": "W6-013",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-06"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 33,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup2_W3_a1",
+   "execution_id": "cor_fixup2_W3_a1#e1",
+   "lane": "fixup2:W3",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 (GATE-E2; TF-3 install receipt; CWO-04 coverage report receipt; gate_flip fixup_may_launch FIXUP-2 receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP2_BRIEF_W3.md",
+   "brief_sha256": "6e45230beca8346fcd241588123511fca4e9b4859eab302945ad50fcf2a61d1f",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec"
+   },
+   "launched_at": "2026-10-20T16:33:51Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S3 does not read scratch)",
+    "sha256_measured_at_build": "3037f0a01bbb5acdbbc07e62e52e1b782bf8748fc4acee38b7656294e822d57f",
+    "inlined": {
+     "part": "W3",
+     "execution_id": "cor_fixup2_W3_a1#e1",
+     "rows_sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+     "rulings_sha256": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541",
+     "cwo_report_sha256": "3ec5221234fd7ce7dd82779ffdc026d666a60e9b0511dfc58829a5f6adfbe150",
+     "fx2_edits_sha256": "f4466becd0abd5e4bf3e4bf5072579275cea8b74bc83a8ea5abda2b1056c8594",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP2_BRIEF_W3.md",
+     "brief_sha256": "6e45230beca8346fcd241588123511fca4e9b4859eab302945ad50fcf2a61d1f",
+     "licensed": [
+      {
+       "row": "W3-004",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-13"
+       ]
+      },
+      {
+       "row": "W3-004",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-13"
+       ]
+      },
+      {
+       "row": "W3-006",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-08"
+       ]
+      },
+      {
+       "row": "W3-006",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-12"
+       ]
+      },
+      {
+       "row": "W3-007",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-08"
+       ]
+      },
+      {
+       "row": "W3-008",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-07"
+       ]
+      },
+      {
+       "row": "W3-008",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-07"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 34,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup2_W5_a1",
+   "amends_execution_id": "cor_fixup2_W5_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W5_e1/fixup2_W5_rows.jsonl",
+     "sha256": "7e254411a2c2750852e8b7fc78a114e5674e98e5589267ec411b25e5c15c200f"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W5_e1/fixup2_W5_changes.json",
+     "sha256": "4454d2fb7bdeea2a40c1e4629c080407451445bc0afbaf6354b8f75884643fd5"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W5_e1/final_message_e1.json",
+     "sha256": "3c64704d0eb147dbd0416dec59572f114efbfbbb11196bbc2045ea11eeeeb19e"
+    }
+   ],
+   "lander_checks": {
+    "part": "W5",
+    "execution": "cor_fixup2_W5_a1#e1",
+    "rows_sha256": "7e254411a2c2750852e8b7fc78a114e5674e98e5589267ec411b25e5c15c200f",
+    "changes_sha256": "4454d2fb7bdeea2a40c1e4629c080407451445bc0afbaf6354b8f75884643fd5",
+    "rows_changed": 10,
+    "fields_changed": 14,
+    "licensed": 14,
+    "hard": [],
+    "soft": [],
+    "authored_sentence": null,
+    "cwo_on_part": {
+     "A": 0,
+     "CWO04_bad": 0,
+     "CWO02_total": 0
+    },
+    "ngram7_offending_total": 0,
+    "tiling": "GREEN 437",
+    "suite_equals_base": true,
+    "blocked": []
+   },
+   "recorded_at": "2026-10-20T16:40:47Z"
+  },
+  {
+   "receipt_row": 35,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup2_W6_a1",
+   "amends_execution_id": "cor_fixup2_W6_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W6_e1/fixup2_W6_rows.jsonl",
+     "sha256": "80c09c1189857c9cae6083472f68f9a1f93c1a195ca015a0bf864e899be8c251"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W6_e1/fixup2_W6_changes.json",
+     "sha256": "7b2cbcc34a94fc3ace1e75d371122d4e1c254169a3f395d878983844f36f8eee"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W6_e1/final_message_e1.json",
+     "sha256": "ca35c0ac5968e51b90df6dd913db4c2233f4ad2e245843bec43dc8468fd823b5"
+    }
+   ],
+   "lander_checks": {
+    "part": "W6",
+    "execution": "cor_fixup2_W6_a1#e1",
+    "rows_sha256": "80c09c1189857c9cae6083472f68f9a1f93c1a195ca015a0bf864e899be8c251",
+    "changes_sha256": "7b2cbcc34a94fc3ace1e75d371122d4e1c254169a3f395d878983844f36f8eee",
+    "rows_changed": 9,
+    "fields_changed": 21,
+    "licensed": 21,
+    "hard": [],
+    "soft": [
+     "W6-013.boundary_rationale CWO-04 support_use flag at its expected text: known false positive, re-class pending"
+    ],
+    "authored_sentence": null,
+    "cwo_on_part": {
+     "A": 0,
+     "CWO04_bad": 1,
+     "CWO02_total": 0
+    },
+    "ngram7_offending_total": 0,
+    "tiling": "GREEN 437",
+    "suite_equals_base": true,
+    "blocked": []
+   },
+   "recorded_at": "2026-10-20T16:40:52Z"
+  },
+  {
+   "receipt_row": 36,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup2_W3_a1",
+   "amends_execution_id": "cor_fixup2_W3_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W3_e1/fixup2_W3_rows.jsonl",
+     "sha256": "37e9b1d5a7601fe800524bce1e3354041ae081587a088e8f03dbd68839e8308a"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W3_e1/fixup2_W3_changes.json",
+     "sha256": "941bae3f81608b74c195aa1c526405422aecf3a3316a8c0f4ab07d64d49d2773"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W3_e1/final_message_e1.json",
+     "sha256": "887c403e2c0c15622515cb9a0588cd6ed256a5e54697b3d3b0889d69d6898dcb"
+    }
+   ],
+   "lander_checks": {
+    "part": "W3",
+    "execution": "cor_fixup2_W3_a1#e1",
+    "rows_sha256": "37e9b1d5a7601fe800524bce1e3354041ae081587a088e8f03dbd68839e8308a",
+    "changes_sha256": "941bae3f81608b74c195aa1c526405422aecf3a3316a8c0f4ab07d64d49d2773",
+    "rows_changed": 4,
+    "fields_changed": 7,
+    "licensed": 7,
+    "hard": [],
+    "soft": [],
+    "authored_sentence": "Here the seam itself is in doubt as well as the typing, because merges across 9:23/9:24 and across 9:27/10:1 are both weighed against it.",
+    "cwo_on_part": {
+     "A": 0,
+     "CWO04_bad": 0,
+     "CWO02_total": 0
+    },
+    "ngram7_offending_total": 0,
+    "tiling": "GREEN 437",
+    "suite_equals_base": true,
+    "blocked": []
+   },
+   "recorded_at": "2026-10-20T16:40:57Z"
+  },
+  {
+   "receipt_row": 37,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup2_W1_a1",
+   "execution_id": "cor_fixup2_W1_a1#e1",
+   "lane": "fixup2:W1",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 (GATE-E2; TF-3 install receipt; CWO-04 coverage report receipt; gate_flip fixup_may_launch FIXUP-2 receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP2_BRIEF_W1.md",
+   "brief_sha256": "fa7c70a00986acb635dec9295422cadcfb540d94e34c381e68eb3c12e68c681e",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec"
+   },
+   "launched_at": "2026-10-20T16:37:37Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S3 does not read scratch)",
+    "sha256_measured_at_build": "90b757e2f6efac4d99e8be387fc460132b0f9cad2bc754bb676a71cf6dbf8424",
+    "inlined": {
+     "part": "W1",
+     "execution_id": "cor_fixup2_W1_a1#e1",
+     "rows_sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+     "rulings_sha256": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541",
+     "cwo_report_sha256": "3ec5221234fd7ce7dd82779ffdc026d666a60e9b0511dfc58829a5f6adfbe150",
+     "fx2_edits_sha256": "f4466becd0abd5e4bf3e4bf5072579275cea8b74bc83a8ea5abda2b1056c8594",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP2_BRIEF_W1.md",
+     "brief_sha256": "fa7c70a00986acb635dec9295422cadcfb540d94e34c381e68eb3c12e68c681e",
+     "licensed": [
+      {
+       "row": "W1-001",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-07"
+       ]
+      },
+      {
+       "row": "W1-003",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-12"
+       ]
+      },
+      {
+       "row": "W1-004",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-07"
+       ]
+      },
+      {
+       "row": "W1-007",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-07"
+       ]
+      },
+      {
+       "row": "W1-008",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-07"
+       ]
+      },
+      {
+       "row": "W1-012",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-07"
+       ]
+      },
+      {
+       "row": "W1-014",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-07"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 38,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup2_W4_a1",
+   "execution_id": "cor_fixup2_W4_a1#e1",
+   "lane": "fixup2:W4",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 (GATE-E2; TF-3 install receipt; CWO-04 coverage report receipt; gate_flip fixup_may_launch FIXUP-2 receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP2_BRIEF_W4.md",
+   "brief_sha256": "53c484c79a360b11d11350d1035c243045ef0a3624cc0e6daeeaacb20fb774b6",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec"
+   },
+   "launched_at": "2026-10-20T16:37:37Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S3 does not read scratch)",
+    "sha256_measured_at_build": "750e320f5a6165d97ee5cd61c98f867b8fbbb98e6ba4e7b07590686812f67a3c",
+    "inlined": {
+     "part": "W4",
+     "execution_id": "cor_fixup2_W4_a1#e1",
+     "rows_sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+     "rulings_sha256": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541",
+     "cwo_report_sha256": "3ec5221234fd7ce7dd82779ffdc026d666a60e9b0511dfc58829a5f6adfbe150",
+     "fx2_edits_sha256": "f4466becd0abd5e4bf3e4bf5072579275cea8b74bc83a8ea5abda2b1056c8594",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP2_BRIEF_W4.md",
+     "brief_sha256": "53c484c79a360b11d11350d1035c243045ef0a3624cc0e6daeeaacb20fb774b6",
+     "licensed": [
+      {
+       "row": "W4-001",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-08"
+       ]
+      },
+      {
+       "row": "W4-001",
+       "field": "boundary_rationale",
+       "by": [
+        "S2-15"
+       ]
+      },
+      {
+       "row": "W4-001",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S2-07"
+       ]
+      },
+      {
+       "row": "W4-002",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-08"
+       ]
+      },
+      {
+       "row": "W4-003",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "S2-08"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 39,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup2_W4_a1",
+   "amends_execution_id": "cor_fixup2_W4_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W4_e1/fixup2_W4_rows.jsonl",
+     "sha256": "09b66a02080f66bd794f1014f8d4df38352a832bc0eff18e607a4ed5e76ff9c7"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W4_e1/fixup2_W4_changes.json",
+     "sha256": "1da943faf81aa33b512dd13cce4b1d102f0afd3d00255b9a0a86e159a550390e"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W4_e1/final_message_e1.json",
+     "sha256": "0dc850263f5f3537c803b485fecac3b26dd501ae5e06875ab9e1117bdd4a62b4"
+    }
+   ],
+   "lander_checks": {
+    "part": "W4",
+    "execution": "cor_fixup2_W4_a1#e1",
+    "rows_sha256": "09b66a02080f66bd794f1014f8d4df38352a832bc0eff18e607a4ed5e76ff9c7",
+    "changes_sha256": "1da943faf81aa33b512dd13cce4b1d102f0afd3d00255b9a0a86e159a550390e",
+    "rows_changed": 3,
+    "fields_changed": 5,
+    "licensed": 5,
+    "hard": [],
+    "soft": [],
+    "authored_sentence": null,
+    "cwo_on_part": {
+     "A": 0,
+     "CWO04_bad": 0,
+     "CWO02_total": 0
+    },
+    "ngram7_offending_total": 0,
+    "tiling": "GREEN 437",
+    "suite_equals_base": true,
+    "blocked": []
+   },
+   "recorded_at": "2026-10-20T16:42:31Z"
+  },
+  {
+   "receipt_row": 40,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup2_W1_a1",
+   "amends_execution_id": "cor_fixup2_W1_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W1_e1/fixup2_W1_rows.jsonl",
+     "sha256": "26ca9fc631e055aa15fe4e543578c4e667ddff4bbdafcf8083da20f9749626bc"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W1_e1/fixup2_W1_changes.json",
+     "sha256": "d8b17f1827af04e5ef0b35a220362c7ca7e52870e28ef5653d0f3b83e19bf5cb"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed2/W1_e1/final_message_e1.json",
+     "sha256": "24f4dd056c33905db980693776029d666bd075478bd90888458331d70c3bb041"
+    }
+   ],
+   "lander_checks": {
+    "part": "W1",
+    "execution": "cor_fixup2_W1_a1#e1",
+    "rows_sha256": "26ca9fc631e055aa15fe4e543578c4e667ddff4bbdafcf8083da20f9749626bc",
+    "changes_sha256": "d8b17f1827af04e5ef0b35a220362c7ca7e52870e28ef5653d0f3b83e19bf5cb",
+    "rows_changed": 7,
+    "fields_changed": 7,
+    "licensed": 7,
+    "hard": [],
+    "soft": [],
+    "authored_sentence": null,
+    "cwo_on_part": {
+     "A": 0,
+     "CWO04_bad": 0,
+     "CWO02_total": 0
+    },
+    "ngram7_offending_total": 0,
+    "tiling": "GREEN 437",
+    "suite_equals_base": true,
+    "blocked": []
+   },
+   "recorded_at": "2026-10-20T16:42:39Z"
+  },
+  {
+   "receipt_row": 41,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "cwo_coverage_report",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r2_a1#e1 GATE-E2 s2_conditions",
+   "report": {
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup2_report.v1.json",
+    "sha256": "87de15f46d123b3a4fb3e42f8ab69f4abeb3d22221b47000e6bbe479dd3d3611"
+   },
+   "sweep_script": {
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "bb71fd0bc1347ac6ff17f5d0222249d78b19de8e6ce43b7a31eea276fbd58cd9"
+   },
+   "ngram7": {
+    "path": "sp_durable/1Cor/tools/ngram7.py",
+    "sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230"
+   },
+   "rows_file": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup2_applied.jsonl",
+    "sha256": "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe"
+   },
+   "summary": {
+    "cwo04_hits": 48,
+    "cwo04_by_class": {
+     "disclosure_only": 18,
+     "informs_compliant": 11,
+     "location_only": 18,
+     "support_use": 1
+    },
+    "false_positive": 1,
+    "open_true": 0,
+    "A": 0,
+    "B": 5,
+    "B_compliant": 5,
+    "cwo02_fail": 0,
+    "suite": "GREEN",
+    "ngram7": "GREEN",
+    "tiling": "GREEN"
+   },
+   "effect": "measured state of the FIXUP-2 applied rows against the GATE-E2 s2_conditions; W6-013 boundary_rationale false positive re-classed under its new text sha; S3 (fresh, ACCEPT form) judges fit",
+   "recorded_at": "2026-10-20T16:46:45Z"
+  }
+ ],
+ "orchestrator_measured": {
+  "pairs": 34,
+  "counts": {
+   "match": 34
+  },
+  "items": [
+   {
+    "at": "row28.rulings_file",
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E2.v1.json",
+    "sha256": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541",
+    "class": "match"
+   },
+   {
+    "at": "row28.rows_tested",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "class": "match"
+   },
+   {
+    "at": "row28.tools.cwo_sweep_1cor.py",
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "bb71fd0bc1347ac6ff17f5d0222249d78b19de8e6ce43b7a31eea276fbd58cd9",
+    "class": "match"
+   },
+   {
+    "at": "row28.tests.script",
+    "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf3.py",
+    "sha256": "ed845ea5a0566183de7a9263fbae93bc43c39c1d0aaba78f90f5f74469874bc2",
+    "class": "match"
+   },
+   {
+    "at": "row28.tests.harness",
+    "path": "sp_durable/1Cor/review/tool_fixes/_exec_as.py",
+    "sha256": "29d6d00cd04baf12a323267bfbbca99a666fc5db8964a148e47806062a028143",
+    "class": "match"
+   },
+   {
+    "at": "row28.tests.result",
+    "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf3.result.json",
+    "sha256": "e42095cc25ddc6058a92f372b0d7c17698caff1aff380ba85057d7cb77a1e8a5",
+    "class": "match"
+   },
+   {
+    "at": "row29.report",
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup1_cwo04_report.v1.json",
+    "sha256": "3ec5221234fd7ce7dd82779ffdc026d666a60e9b0511dfc58829a5f6adfbe150",
+    "class": "match"
+   },
+   {
+    "at": "row29.sweep_script",
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "bb71fd0bc1347ac6ff17f5d0222249d78b19de8e6ce43b7a31eea276fbd58cd9",
+    "class": "match"
+   },
+   {
+    "at": "row29.ngram7",
+    "path": "sp_durable/1Cor/tools/ngram7.py",
+    "sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230",
+    "class": "match"
+   },
+   {
+    "at": "row29.rows_file",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "class": "match"
+   },
+   {
+    "at": "row31.rows_under_repair",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "class": "match"
+   },
+   {
+    "at": "row32.rows_under_repair",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "class": "match"
+   },
+   {
+    "at": "row33.rows_under_repair",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "class": "match"
+   },
+   {
+    "at": "row34.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed2/W5_e1/fixup2_W5_rows.jsonl",
+    "sha256": "7e254411a2c2750852e8b7fc78a114e5674e98e5589267ec411b25e5c15c200f",
+    "class": "match"
+   },
+   {
+    "at": "row34.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed2/W5_e1/fixup2_W5_changes.json",
+    "sha256": "4454d2fb7bdeea2a40c1e4629c080407451445bc0afbaf6354b8f75884643fd5",
+    "class": "match"
+   },
+   {
+    "at": "row34.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed2/W5_e1/final_message_e1.json",
+    "sha256": "3c64704d0eb147dbd0416dec59572f114efbfbbb11196bbc2045ea11eeeeb19e",
+    "class": "match"
+   },
+   {
+    "at": "row35.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed2/W6_e1/fixup2_W6_rows.jsonl",
+    "sha256": "80c09c1189857c9cae6083472f68f9a1f93c1a195ca015a0bf864e899be8c251",
+    "class": "match"
+   },
+   {
+    "at": "row35.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed2/W6_e1/fixup2_W6_changes.json",
+    "sha256": "7b2cbcc34a94fc3ace1e75d371122d4e1c254169a3f395d878983844f36f8eee",
+    "class": "match"
+   },
+   {
+    "at": "row35.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed2/W6_e1/final_message_e1.json",
+    "sha256": "ca35c0ac5968e51b90df6dd913db4c2233f4ad2e245843bec43dc8468fd823b5",
+    "class": "match"
+   },
+   {
+    "at": "row36.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed2/W3_e1/fixup2_W3_rows.jsonl",
+    "sha256": "37e9b1d5a7601fe800524bce1e3354041ae081587a088e8f03dbd68839e8308a",
+    "class": "match"
+   },
+   {
+    "at": "row36.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed2/W3_e1/fixup2_W3_changes.json",
+    "sha256": "941bae3f81608b74c195aa1c526405422aecf3a3316a8c0f4ab07d64d49d2773",
+    "class": "match"
+   },
+   {
+    "at": "row36.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed2/W3_e1/final_message_e1.json",
+    "sha256": "887c403e2c0c15622515cb9a0588cd6ed256a5e54697b3d3b0889d69d6898dcb",
+    "class": "match"
+   },
+   {
+    "at": "row37.rows_under_repair",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "class": "match"
+   },
+   {
+    "at": "row38.rows_under_repair",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "class": "match"
+   },
+   {
+    "at": "row39.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed2/W4_e1/fixup2_W4_rows.jsonl",
+    "sha256": "09b66a02080f66bd794f1014f8d4df38352a832bc0eff18e607a4ed5e76ff9c7",
+    "class": "match"
+   },
+   {
+    "at": "row39.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed2/W4_e1/fixup2_W4_changes.json",
+    "sha256": "1da943faf81aa33b512dd13cce4b1d102f0afd3d00255b9a0a86e159a550390e",
+    "class": "match"
+   },
+   {
+    "at": "row39.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed2/W4_e1/final_message_e1.json",
+    "sha256": "0dc850263f5f3537c803b485fecac3b26dd501ae5e06875ab9e1117bdd4a62b4",
+    "class": "match"
+   },
+   {
+    "at": "row40.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed2/W1_e1/fixup2_W1_rows.jsonl",
+    "sha256": "26ca9fc631e055aa15fe4e543578c4e667ddff4bbdafcf8083da20f9749626bc",
+    "class": "match"
+   },
+   {
+    "at": "row40.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed2/W1_e1/fixup2_W1_changes.json",
+    "sha256": "d8b17f1827af04e5ef0b35a220362c7ca7e52870e28ef5653d0f3b83e19bf5cb",
+    "class": "match"
+   },
+   {
+    "at": "row40.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed2/W1_e1/final_message_e1.json",
+    "sha256": "24f4dd056c33905db980693776029d666bd075478bd90888458331d70c3bb041",
+    "class": "match"
+   },
+   {
+    "at": "row41.report",
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup2_report.v1.json",
+    "sha256": "87de15f46d123b3a4fb3e42f8ab69f4abeb3d22221b47000e6bbe479dd3d3611",
+    "class": "match"
+   },
+   {
+    "at": "row41.sweep_script",
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "bb71fd0bc1347ac6ff17f5d0222249d78b19de8e6ce43b7a31eea276fbd58cd9",
+    "class": "match"
+   },
+   {
+    "at": "row41.ngram7",
+    "path": "sp_durable/1Cor/tools/ngram7.py",
+    "sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230",
+    "class": "match"
+   },
+   {
+    "at": "row41.rows_file",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup2_applied.jsonl",
+    "sha256": "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe",
+    "class": "match"
+   }
+  ]
+ }
+}

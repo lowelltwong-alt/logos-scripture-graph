@@ -1,0 +1,1232 @@
+{
+ "schema": "m8_receipt_extract.v1",
+ "book": "1Cor",
+ "source": {
+  "path": "sp_durable/1Cor/review/1cor_review_attempt_receipts.jsonl",
+  "sha256": "7b225eaec8f42dfac5903488b0a5cbf47ead7154ae15cfbb99cc93983b0b062c",
+  "lines": [
+   95,
+   114
+  ]
+ },
+ "whitelist": {
+  "dropped_keys": [
+   "agent",
+   "agent_id",
+   "effort",
+   "launch_message",
+   "output_dir",
+   "parent_agent_id",
+   "tokens_unit_note"
+  ]
+ },
+ "built_at": "2026-11-01T12:53:57Z",
+ "built_by": "1Cor/fixup/fx3/make_s5_extract.py",
+ "rows": [
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "launch",
+   "attempt_id": "cor_controlling_rulings_r4_a1",
+   "execution_id": "cor_controlling_rulings_r4_a1#e1",
+   "execution_of": "cor_controlling_rulings_r4_a1",
+   "execution_ordinal": 1,
+   "previous_execution_id": null,
+   "retry_of": null,
+   "retry_reason": null,
+   "book": "1Cor",
+   "lane": "controlling_r4",
+   "role": "1 Corinthians controlling execution, round 4 (Fable's role on claude-opus-5-5, OW-25/OW-30): rules on every item of 1Cor/review/1cor_controlling_agent_queue_e4.v1.json (the 23 primaries' challenges, the triage, the uncertainties and the gate for FIXUP-3 and S4); items for Fable's end review listed. Writes in OUT only",
+   "producer": "this lane (1 Corinthians review lane CTL_E4, claude-opus-5-5 on grader_fallback, OW-25)",
+   "catcher": "the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); the two blind primary lanes and the reception-tradition lens, or the next fix-up and S4, who act on its gate; Fable at the campaign-end review (OW-28)",
+   "model": "claude-opus-5-5",
+   "model_actual": "PENDING - read from the completion usage block",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-36 grant; E-13 (NT preamble); E-19; M8-EFFICIENCY-V1",
+   "launch_message_sha256": "7b249c46f0cad3eb6041fc362ffca3339528acbb2317fb3efbf682d386234657",
+   "brief": "sp_durable/1Cor/review/CONTROLLING_BRIEF_E4.md",
+   "brief_sha256": "90613cb7d7509d98211da354f491c5b6732bac786302807295ed2f6e51c5fcba",
+   "launched_at": "2026-11-01T03:39:54Z",
+   "recorded_at": "2026-11-01T03:39:55Z",
+   "outcome": "RUNNING",
+   "receipt_line": 95
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "completion",
+   "book": "1Cor",
+   "attempt_id": "cor_controlling_rulings_r4_a1",
+   "amends_execution_id": "cor_controlling_rulings_r4_a1#e1",
+   "lane": "controlling_r4",
+   "model_ordered": "claude-opus-5-5",
+   "model_actual": "UNAVAILABLE (the notification does not report the served model)",
+   "model_actual_tier": "UNAVAILABLE",
+   "grader_role": "grader_fallback (OW-25; Fable's controlling role, OW-30)",
+   "outcome": "DELIVERED",
+   "notification_time": "2026-11-01T08:06:43Z (the orchestrator's read of the notification, measured by this script's clock when the landing row was built; an upper bound; the notification carried no time)",
+   "tokens_notification_unit": 127757,
+   "tokens_spend_unit": "UNAVAILABLE (the notification reports subagent_tokens only)",
+   "token_note": "subagent_tokens from the completion notification; OW-28 tracked, not enforced",
+   "tool_uses": 37,
+   "duration_ms": 2065314,
+   "out_dir": "C:/Users/lowel/AppData/Local/Temp/claude/C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View/af84b702-d913-4495-8e57-252cf7894c63/scratchpad/cor_ctl4",
+   "outputs": [
+    {
+     "path": "C:/Users/lowel/AppData/Local/Temp/claude/C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View/af84b702-d913-4495-8e57-252cf7894c63/scratchpad/cor_ctl4/1cor_controlling_agent_rulings_r4_e1.v1.json",
+     "sha256": "33ac57245ee930b1484a1227fc019e11c6f082b5c984a20ecc9e7c765d463187"
+    }
+   ],
+   "result_summary": "61 rulings (50 adopt, 9 ratify_with_changes, 2 close), CWO-1COR-06 and -07, GATE-E4: TF-4 and TF-5 before FIXUP-3 on W1-W6, next check S5, no cut moved, W6-007, W6-013, W6-014 high to medium, thirteen orders routed to the end review",
+   "orchestrator_verification": {
+    "method": "make_ctl_landing.py: JSON parse, schema keys, ids, one ruling per queue id (61 ids from 1cor_controlling_agent_queue_e4.v1.json), ruling set, order targets, gate field types, CR count (MEASURED)",
+    "problems": [],
+    "ruling_counts": {
+     "adopt": 50,
+     "ratify_with_changes": 9,
+     "close": 2
+    },
+    "corpus_wide_orders": 2,
+    "gate": {
+     "tool_fixes_before_fixup": [
+      "TF-4",
+      "TF-5"
+     ],
+     "fixup_may_launch": true,
+     "fixup_parts": [
+      "W1",
+      "W2",
+      "W3",
+      "W4",
+      "W5",
+      "W6"
+     ],
+     "s2_conditions": [
+      "S5 is a fresh agent distinct from every author and earlier checker, working on the FIXUP-3 applied rows, and returns the readiness ACCEPT form: fit=true, or fit_with_changes with the rows named.",
+      "run_validator_suite hard members GREEN.",
+      "ngram7 GREEN at gate 10 with 0 offending rows.",
+      "Tiling 437/437 with no gap or overlap.",
+      "CWO-1COR-01 complete with every B hit hand-classed compliant; CWO-1COR-02 0 failures.",
+      "CWO-1COR-04: 0 open support_use, 0 count_excess, every hit hand-classed. W6-013's false-positive class is re-read against its new bytes (S3-05).",
+      "CWO-1COR-05 installed by TF-4 with plants passing, every hit classed, 0 open true. W1-011 is re-classed against its new bytes.",
+      "CWO-1COR-06 and CWO-1COR-07 installed by TF-5 with 10 of 10 plants passing; CWO-1COR-06: every hit classed, 0 open true; CWO-1COR-07: 0 unlisted verses.",
+      "Every sentence with the whole word REPORTED in boundary_rationale, strongest_rejected_alternative or device_notes of any row names a record.",
+      "Regex ((?:rp|sbl|web):1Cor\\.\\d+\\.\\d+)( reads)? \\1\\b has 0 hits over boundary_rationale, strongest_rejected_alternative and device_notes.",
+      "confidence shown at medium for W6-007, W6-013 and W6-014, and unchanged for every other row, with the count of high at 3.",
+      "Each licensed span shown fixed byte by byte, including S3-01's seven W4 spans; RP and SBL slices unchanged; no change outside the licences.",
+      "From receipts, at most three 1Cor launches lack completion rows."
+     ],
+     "primaries_may_launch": false
+    }
+   },
+   "for_fable_end_review": [
+    "Stopped once by the account session limit (HTTP 429) after verifying its pins and resumed by message as the same execution: no new launch row. tokens, tool_uses and duration are the second notification's only; the first span's usage was not reported, so all three are floors.",
+    "E-19 self-report: read one harness-persisted copy of its own script output at a harness-named path outside the brief; content was its own output, recorded here for the orchestrator."
+   ],
+   "working_files_count": 53,
+   "working_files_manifest": [
+    "E1_render.txt",
+    "E2_render.txt",
+    "chk1.py",
+    "chk2.py",
+    "chk3.py",
+    "chk4.py",
+    "chk5.py",
+    "chk6.py",
+    "chk7.py",
+    "chk7.txt",
+    "chk8.py",
+    "chk8.txt",
+    "chk9.py",
+    "chk9.txt",
+    "chk_1550.py",
+    "chk_1550.txt",
+    "chk_parts.py",
+    "chk_parts.txt",
+    "chk_rest.py",
+    "chk_rest.txt",
+    "chk_rest2.py",
+    "chk_rest2.txt",
+    "cwo0607_baseline.json",
+    "cwo06_baseline.json",
+    "cwo06_ref.py",
+    "gen_check.txt",
+    "gen_rulings.py",
+    "gen_write.txt",
+    "inputs_ruled_on.json",
+    "medrows.txt",
+    "p_W1.py",
+    "p_W2.py",
+    "p_W3.py",
+    "p_W4.py",
+    "p_W5.py",
+    "p_W6.py",
+    "p_rest.py",
+    "patch1.py",
+    "patch1.txt",
+    "patch2.py",
+    "patch3.py",
+    "patch3.txt",
+    "plants06.py",
+    "post.py",
+    "post.txt",
+    "q_render.txt",
+    "qrender.py",
+    "qshape.py",
+    "render_e1e2.py",
+    "rlib.py",
+    "rowdump.py",
+    "sidecar_r4_all_v1.json",
+    "verify_pins.py"
+   ],
+   "lane_verdict": "LANDED_FORM_OK (form only; the rulings bind the orchestrator's next acts, within the owner's grants)",
+   "recorded_at": "2026-11-01T08:06:57Z",
+   "receipt_line": 96
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "install",
+   "book": "1Cor",
+   "attempt_id": "cor_controlling_rulings_r4_a1",
+   "installs_execution_id": "cor_controlling_rulings_r4_a1#e1",
+   "source": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\af84b702-d913-4495-8e57-252cf7894c63\\scratchpad\\cor_ctl4\\1cor_controlling_agent_rulings_r4_e1.v1.json",
+   "installed_path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E4.v1.json",
+   "output_sha256": "33ac57245ee930b1484a1227fc019e11c6f082b5c984a20ecc9e7c765d463187",
+   "method": "byte-identical copy by 1Cor/review/install_review_output.py; pin guard CLEAR",
+   "recorded_at": "2026-11-01T08:07:34Z",
+   "receipt_line": 97
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "tool_fix_install",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r3_a1#e1 S3-03; held to before FIXUP-3 by cor_controlling_rulings_r4_a1#e1 GATE-E4",
+   "rulings_file": {
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E3.v1.json",
+    "sha256": "a7f32674dee0b0e27f25803729f93142cefdaf2847f9d7122010397e992efe70"
+   },
+   "rows_tested": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup2_applied.jsonl",
+    "sha256": "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe"
+   },
+   "tool_fix_id": "TF-4 (S3-03 / CWO-1COR-05)",
+   "outcome": "INSTALLED - CWO-1COR-05 added to cwo_sweep_1cor.py as an addition, its PD3 copied from the reference bytes. The eleven plants of cwo05_ref.py pass through the sweep itself (7 hit, 4 clear as expected); the sweep's hits equal the reference's on the applied rows, 11 hits in 10 rows; A, B, CWO02 and CWO04 output equal the pre-TF-4 tool's on those rows. The first draft carried a backspace for a word boundary in PD3 (a heredoc mangled it) and matched nothing; the baseline comparison caught that, and PD3 was then copied from the reference. The reference was recovered after the scratchpad purge by resuming its E3 author, digest-equal.",
+   "tools": {
+    "cwo_sweep_1cor.py": {
+     "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+     "after_sha256": "23b15aef64e8f59eca1395cf3cacb0b028cf8e6ff9673ae083855b245ae21573",
+     "before_sha256": "bb71fd0bc1347ac6ff17f5d0222249d78b19de8e6ce43b7a31eea276fbd58cd9",
+     "pre_copy": "sp_durable/1Cor/review/cwo_sweep_1cor.py.pre_bb71fd0bc134"
+    }
+   },
+   "tests": {
+    "script": {
+     "path": "sp_durable/1Cor/review/tools/test_cwo05.py",
+     "sha256": "dfaf710c5e07889acf58edd5b185f3fbd206c07cb145f2038d6037b8a9657d67"
+    },
+    "reference": {
+     "path": "sp_durable/1Cor/review/tools/cwo05_ref.py",
+     "sha256": "efaa7c0da9414d30eac1b77d6131843bd7bc300031b408337834d44677a8b77f"
+    },
+    "result": {
+     "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf4.result.json",
+     "sha256": "1d3a745f4c5682db08a1523c055189bdbdf517095a010fa9a773a20203ed3144"
+    },
+    "verdict": "GREEN",
+    "red_on_pre_tool": "KeyError CWO05"
+   },
+   "recorded_at": "2026-11-01T08:13:31Z",
+   "receipt_line": 98
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "tool_fix_install",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r4_a1#e1 R4-UNCERTAINTY order to tool_fix, GATE-E4",
+   "rulings_file": {
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E4.v1.json",
+    "sha256": "33ac57245ee930b1484a1227fc019e11c6f082b5c984a20ecc9e7c765d463187"
+   },
+   "rows_tested": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup2_applied.jsonl",
+    "sha256": "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe"
+   },
+   "tool_fix_id": "TF-5 (CWO-1COR-06, CWO-1COR-07)",
+   "outcome": "INSTALLED - CWO-1COR-06 and CWO-1COR-07 added to cwo_sweep_1cor.py as added sections, copied line by line from the reference bytes by mk_tf5.py; only the reference's path constant and the two load lines that use it changed. Ten of ten E4 plants pass through the sweep itself, and the sweep's lists equal the reference's on every one of the eleven row sets. On the applied rows 18 hits in 17 rows (on_sign 5, wording_absent_from_sbl 13, range_token 3) and 63 unlisted in 25 rows, equal to the E4 baseline. A, B, CWO02, CWO04 and CWO05 output is equal to the pre-TF-5 tool's on the applied rows and the combined draft; no HARD member is narrowed. Four mutants all RED.",
+   "tools": {
+    "cwo_sweep_1cor.py": {
+     "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+     "after_sha256": "6f6578ea5958ee580493dbf56edec56bd0ee2cd6daf99c26fc9353cfba2ee92f",
+     "before_sha256": "23b15aef64e8f59eca1395cf3cacb0b028cf8e6ff9673ae083855b245ae21573",
+     "pre_copy": "sp_durable/1Cor/review/cwo_sweep_1cor.py.pre_23b15aef64e8"
+    }
+   },
+   "tests": {
+    "script": {
+     "path": "sp_durable/1Cor/review/tools/test_cwo0607.py",
+     "sha256": "07a764d9126c0fbd9c8582bcb85dac672d12ca0535e121f7ccfd95e5efab9fd7"
+    },
+    "builder": {
+     "path": "sp_durable/1Cor/review/tool_fixes/mk_tf5.py",
+     "sha256": "b883563257744ce1083fbbc1e083ec8f691e1083d04d5d2cecf90d56c7df8767"
+    },
+    "reference": {
+     "path": "sp_durable/1Cor/review/tools/cwo06_ref.py",
+     "sha256": "f8dce30cb6ece8c0cc05bb153618248968518ae602952584528b955e1e97c5e3"
+    },
+    "plants": {
+     "path": "sp_durable/1Cor/review/tools/plants06.py",
+     "sha256": "c67ed4a6657955b7f0f0367c9b30dc10ad3e3400df1e11be8078e5809a2c337b"
+    },
+    "mutants": {
+     "path": "sp_durable/1Cor/review/tool_fixes/mutants_tf5.py",
+     "sha256": "599a7a6384db68d7253db1da3ce53b98e99c1b54b971752ec776b2bd439d5bdf"
+    },
+    "mutants_result": {
+     "path": "sp_durable/1Cor/review/tool_fixes/mutants_tf5.result.json",
+     "sha256": "24ae23bf2530aa63cef4850b37d0cfc3901bcaaa4e883a21062de04a309af024"
+    },
+    "result": {
+     "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf5.result.json",
+     "sha256": "7b7aad0b601e4ddc17e45170704bceefb03129d0b65841d0e338a3d5dbba65c9"
+    },
+    "verdict": "GREEN",
+    "red_on_pre_tool": "KeyError CWO06"
+   },
+   "recorded_at": "2026-11-01T08:13:32Z",
+   "receipt_line": 99
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "book": "1Cor",
+   "record_kind": "cwo_coverage_report",
+   "ordered_by": "cor_controlling_rulings_r4_a1#e1 CWO-1COR-06, CWO-1COR-07 and GATE-E4",
+   "report": {
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup2_cwo0607_report.v1.json",
+    "sha256": "9daa00d3197cf79f17389016e8bf75afad7b9ea51bc45da4c114116259b1162c"
+   },
+   "sweep_script": {
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "6f6578ea5958ee580493dbf56edec56bd0ee2cd6daf99c26fc9353cfba2ee92f"
+   },
+   "rows_file": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup2_applied.jsonl",
+    "sha256": "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe"
+   },
+   "summary": {
+    "cwo06_hits": 18,
+    "rows": 17,
+    "true_ordered": 16,
+    "false_positive": 2,
+    "cwo07_unlisted": 63,
+    "cwo07_rows": 25,
+    "A": 0,
+    "B": 5,
+    "cwo02_fail": 0
+   },
+   "outcome": "CWO-1COR-06 and -07 reported on the FIXUP-2 applied rows; every CWO-1COR-06 hit carries its E4 hand class",
+   "effect": "the true hits and the unlisted verses are named per part in the FIXUP-3 briefs",
+   "recorded_at": "2026-11-01T08:20:20Z",
+   "receipt_line": 100
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "book": "1Cor",
+   "record_kind": "gate_flip",
+   "ordered_by": "cor_controlling_rulings_r4_a1#e1 GATE-E4 tool_fixes_before_fixup",
+   "gate": "fixup_may_launch",
+   "from": "False",
+   "to": "True",
+   "basis": [
+    "tool_fix_install TF-4, line 98 of this file",
+    "tool_fix_install TF-5, line 99 of this file",
+    "cwo_coverage_report, the row above this one",
+    {
+     "rulings_file": {
+      "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E4.v1.json",
+      "sha256": "33ac57245ee930b1484a1227fc019e11c6f082b5c984a20ecc9e7c765d463187"
+     },
+     "rows_file": {
+      "path": "sp_durable/1Cor/fixup/draft_rows_fixup2_applied.jsonl",
+      "sha256": "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe"
+     },
+     "lane_cap": {
+      "tool": "sp_durable/1Cor/review/tools/lane_cap.py",
+      "sha256": "03f3f267a9d7ca7cd3a49e1872cb2ab683b691479e8cf633f01fb962c1789bb5",
+      "exit_code": 0,
+      "output": "{\"in_flight\": [], \"count\": 0, \"cap\": 3}"
+     }
+    }
+   ],
+   "scope": "FIXUP-3 on W1..W6 (GATE-E4 fixup_parts), at most three in flight; primaries_may_launch stays false; S5 runs only after every part has landed and the rows are applied",
+   "recorded_at": "2026-11-01T08:20:21Z",
+   "receipt_line": 101
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup3_W1_a1",
+   "execution_id": "cor_fixup3_W1_a1#e1",
+   "execution_of": "cor_fixup3_W1_a1",
+   "execution_ordinal": 1,
+   "previous_execution_id": null,
+   "retry_of": null,
+   "retry_reason": null,
+   "book": "1Cor",
+   "lane": "fixup3:W1",
+   "role": "1 Corinthians FIXUP-3 author for part W1: carries out the round-4 rulings' orders to that part, CWO-1COR-06 and -07 and, for W4, S3-01 (claude-opus-5-5 on grader_fallback, OW-25). Writes in OUT only",
+   "producer": "this lane (1 Corinthians FIXUP-3 author, part W1, claude-opus-5-5 on grader_fallback, OW-25)",
+   "catcher": "the orchestrator's landing check (fixup/fx3/land_fixup3.py: changed fields against the licence, suite, ngram7, tiling and sweep on the applied copy), then S5, a fresh agent on the applied rows",
+   "model": "claude-opus-5-5",
+   "model_actual": "PENDING - read from the completion usage block",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-36 grant; E-13 (NT preamble); E-19; M8-EFFICIENCY-V1",
+   "launch_message_sha256": "beb5d769659a78271e1bb8472a4d1f421fcaacb7708df5df0c728dec04243736",
+   "brief": "sp_durable/1Cor/review/FIXUP3_BRIEF_W1.md",
+   "brief_sha256": "d0103daca876132a26f49eb4a031ded77826e1aae06587cc1063d94e2091b6df",
+   "launched_at": "2026-11-01T08:25:39Z",
+   "recorded_at": "2026-11-01T08:27:55Z",
+   "outcome": "RUNNING",
+   "receipt_line": 102
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup3_W2_a1",
+   "execution_id": "cor_fixup3_W2_a1#e1",
+   "execution_of": "cor_fixup3_W2_a1",
+   "execution_ordinal": 1,
+   "previous_execution_id": null,
+   "retry_of": null,
+   "retry_reason": null,
+   "book": "1Cor",
+   "lane": "fixup3:W2",
+   "role": "1 Corinthians FIXUP-3 author for part W2: carries out the round-4 rulings' orders to that part, CWO-1COR-06 and -07 and, for W4, S3-01 (claude-opus-5-5 on grader_fallback, OW-25). Writes in OUT only",
+   "producer": "this lane (1 Corinthians FIXUP-3 author, part W2, claude-opus-5-5 on grader_fallback, OW-25)",
+   "catcher": "the orchestrator's landing check (fixup/fx3/land_fixup3.py: changed fields against the licence, suite, ngram7, tiling and sweep on the applied copy), then S5, a fresh agent on the applied rows",
+   "model": "claude-opus-5-5",
+   "model_actual": "PENDING - read from the completion usage block",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-36 grant; E-13 (NT preamble); E-19; M8-EFFICIENCY-V1",
+   "launch_message_sha256": "2f53efeef8b78b3ca05766936a5e2f7c8ccfce160a6183974226750388d7fdfb",
+   "brief": "sp_durable/1Cor/review/FIXUP3_BRIEF_W2.md",
+   "brief_sha256": "4607adf6d6a93d7545c7938337da894c92965999849c5ef0a81646dbf78d3736",
+   "launched_at": "2026-11-01T08:25:48Z",
+   "recorded_at": "2026-11-01T08:27:56Z",
+   "outcome": "RUNNING",
+   "receipt_line": 103
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup3_W3_a1",
+   "execution_id": "cor_fixup3_W3_a1#e1",
+   "execution_of": "cor_fixup3_W3_a1",
+   "execution_ordinal": 1,
+   "previous_execution_id": null,
+   "retry_of": null,
+   "retry_reason": null,
+   "book": "1Cor",
+   "lane": "fixup3:W3",
+   "role": "1 Corinthians FIXUP-3 author for part W3: carries out the round-4 rulings' orders to that part, CWO-1COR-06 and -07 and, for W4, S3-01 (claude-opus-5-5 on grader_fallback, OW-25). Writes in OUT only",
+   "producer": "this lane (1 Corinthians FIXUP-3 author, part W3, claude-opus-5-5 on grader_fallback, OW-25)",
+   "catcher": "the orchestrator's landing check (fixup/fx3/land_fixup3.py: changed fields against the licence, suite, ngram7, tiling and sweep on the applied copy), then S5, a fresh agent on the applied rows",
+   "model": "claude-opus-5-5",
+   "model_actual": "PENDING - read from the completion usage block",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-36 grant; E-13 (NT preamble); E-19; M8-EFFICIENCY-V1",
+   "launch_message_sha256": "3a5e4e14689d9f6b45d551c27c18d24042dd9ec62cbc40bc7dae40390edc967e",
+   "brief": "sp_durable/1Cor/review/FIXUP3_BRIEF_W3.md",
+   "brief_sha256": "f6c4a4cb9b24990837feaa105d0e7b76e8fab5049b04ffbd20256d8b33f90ffe",
+   "launched_at": "2026-11-01T08:25:58Z",
+   "recorded_at": "2026-11-01T08:27:57Z",
+   "outcome": "RUNNING",
+   "receipt_line": 104
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup3_W1_a1",
+   "amends_execution_id": "cor_fixup3_W1_a1#e1",
+   "book": "1Cor",
+   "outcome": "LANDED",
+   "model_actual": "claude-opus-5-5",
+   "tokens_notification": 124650,
+   "tokens_spend": {
+    "subagent_tokens": 124650,
+    "tool_uses": 38,
+    "duration_ms": 833166
+   },
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W1_e1/fixup3_W1_rows.jsonl",
+     "sha256": "275085122f359ad819141ef5e6d02bf01e84055d75bb3df2f6f30a9798279910"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W1_e1/fixup3_W1_changes.json",
+     "sha256": "260dc669d0e596437a3f4aab6f1230b9fe3c69f676e2053090aeb8c518927574"
+    }
+   ],
+   "lander_checks": {
+    "part": "W1",
+    "execution": "cor_fixup3_W1_a1#e1",
+    "rows_sha256": "275085122f359ad819141ef5e6d02bf01e84055d75bb3df2f6f30a9798279910",
+    "rows_changed": 13,
+    "fields_changed": 21,
+    "blocked": []
+   },
+   "orchestrator_verification": {
+    "problems": [],
+    "applied_copy": {
+     "suite": {
+      "rc": 0,
+      "hard_status": "GREEN",
+      "triage_flags": 0,
+      "not_green": {}
+     },
+     "ngram7": {
+      "rc": 0,
+      "status": "GREEN",
+      "offending": [
+       "offending_7grams"
+      ]
+     },
+     "tiling": {
+      "rc": 0,
+      "tail": " \"rows_applied.jsonl\",\n \"range\": \"1Cor.1.1-1Cor.16.24\",\n \"verses_expected\": 437,\n \"verses_covered\": 437,\n \"decisions\": 70,\n \"problems\": [],\n \"status\": \"GREEN\"\n}"
+     },
+     "sweep": {
+      "A": 0,
+      "B": 5,
+      "CWO02": 0,
+      "CWO04": {
+       "disclosure_only": 18,
+       "informs_compliant": 11,
+       "location_only": 18,
+       "support_use": 1
+      },
+      "CWO05": 11,
+      "CWO06": 18,
+      "CWO07": 53
+     }
+    }
+   },
+   "note": "Author used about 40 tool calls against a budget of about 30, iterating wording against universals flags",
+   "recorded_at": "2026-11-01T08:40:15Z",
+   "receipt_line": 105
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup3_W3_a1",
+   "amends_execution_id": "cor_fixup3_W3_a1#e1",
+   "book": "1Cor",
+   "outcome": "LANDED",
+   "model_actual": "claude-opus-5-5",
+   "tokens_notification": 126390,
+   "tokens_spend": {
+    "subagent_tokens": 126390,
+    "tool_uses": 35,
+    "duration_ms": 807788
+   },
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W3_e1/fixup3_W3_rows.jsonl",
+     "sha256": "d7b5ec3f49c2cdddbba6fc9bb8c3314c760f9410daf5b090b65fd66f19994dab"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W3_e1/fixup3_W3_changes.json",
+     "sha256": "33285bdde7f4def5a333b3cd41334ec862c80a1bb1dd76c69bb819c206cb8045"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W3_e1/measure_w3b.py",
+     "sha256": "9e625b63b3b594f4f0be01dca0fae32fd6a4a9f96817ef49af61a76baa8c0460"
+    }
+   ],
+   "lander_checks": {
+    "part": "W3",
+    "execution": "cor_fixup3_W3_a1#e1",
+    "rows_sha256": "d7b5ec3f49c2cdddbba6fc9bb8c3314c760f9410daf5b090b65fd66f19994dab",
+    "rows_changed": 8,
+    "fields_changed": 23,
+    "blocked": []
+   },
+   "orchestrator_verification": {
+    "problems": [],
+    "applied_copy": {
+     "suite": {
+      "rc": 0,
+      "hard_status": "GREEN",
+      "triage_flags": 0,
+      "not_green": {}
+     },
+     "ngram7": {
+      "rc": 0,
+      "status": "GREEN",
+      "offending": [
+       "offending_7grams"
+      ]
+     },
+     "tiling": {
+      "rc": 0,
+      "tail": " \"rows_applied.jsonl\",\n \"range\": \"1Cor.1.1-1Cor.16.24\",\n \"verses_expected\": 437,\n \"verses_covered\": 437,\n \"decisions\": 70,\n \"problems\": [],\n \"status\": \"GREEN\"\n}"
+     },
+     "sweep": {
+      "A": 0,
+      "B": 5,
+      "CWO02": 0,
+      "CWO04": {
+       "disclosure_only": 18,
+       "informs_compliant": 11,
+       "location_only": 18,
+       "support_use": 1
+      },
+      "CWO05": 11,
+      "CWO06": 10,
+      "CWO07": 32
+     }
+    }
+   },
+   "note": "W3-004 and W3-005 now name measure_w3b; the script is kept beside this landing as measure_w3b.py because a row cites it",
+   "recorded_at": "2026-11-01T08:40:15Z",
+   "receipt_line": 106
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup3_W4_a1",
+   "execution_id": "cor_fixup3_W4_a1#e1",
+   "execution_of": "cor_fixup3_W4_a1",
+   "execution_ordinal": 1,
+   "previous_execution_id": null,
+   "retry_of": null,
+   "retry_reason": null,
+   "book": "1Cor",
+   "lane": "fixup3:W4",
+   "role": "1 Corinthians FIXUP-3 author for part W4: carries out the round-4 rulings' orders to that part, CWO-1COR-06 and -07 and, for W4, S3-01 (claude-opus-5-5 on grader_fallback, OW-25). Writes in OUT only",
+   "producer": "this lane (1 Corinthians FIXUP-3 author, part W4, claude-opus-5-5 on grader_fallback, OW-25)",
+   "catcher": "the orchestrator's landing check (fixup/fx3/land_fixup3.py: changed fields against the licence, suite, ngram7, tiling and sweep on the applied copy), then S5, a fresh agent on the applied rows",
+   "model": "claude-opus-5-5",
+   "model_actual": "PENDING - read from the completion usage block",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-36 grant; E-13 (NT preamble); E-19; M8-EFFICIENCY-V1",
+   "launch_message_sha256": "8c588acba7d5e4dd94f860221f60f346a1bfb837e47df4203b6781033ad1e816",
+   "brief": "sp_durable/1Cor/review/FIXUP3_BRIEF_W4.md",
+   "brief_sha256": "27c71a47a4c1191c693ad22b756b4b9792d1912ac0ece6996b52ae747269d4bb",
+   "launched_at": "2026-11-01T08:40:32Z",
+   "recorded_at": "2026-11-01T08:40:50Z",
+   "outcome": "RUNNING",
+   "receipt_line": 107
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup3_W5_a1",
+   "execution_id": "cor_fixup3_W5_a1#e1",
+   "execution_of": "cor_fixup3_W5_a1",
+   "execution_ordinal": 1,
+   "previous_execution_id": null,
+   "retry_of": null,
+   "retry_reason": null,
+   "book": "1Cor",
+   "lane": "fixup3:W5",
+   "role": "1 Corinthians FIXUP-3 author for part W5: carries out the round-4 rulings' orders to that part, CWO-1COR-06 and -07 and, for W4, S3-01 (claude-opus-5-5 on grader_fallback, OW-25). Writes in OUT only",
+   "producer": "this lane (1 Corinthians FIXUP-3 author, part W5, claude-opus-5-5 on grader_fallback, OW-25)",
+   "catcher": "the orchestrator's landing check (fixup/fx3/land_fixup3.py: changed fields against the licence, suite, ngram7, tiling and sweep on the applied copy), then S5, a fresh agent on the applied rows",
+   "model": "claude-opus-5-5",
+   "model_actual": "PENDING - read from the completion usage block",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-36 grant; E-13 (NT preamble); E-19; M8-EFFICIENCY-V1",
+   "launch_message_sha256": "91b4a45d9d9c81bf41cf70bd9bb760af0c02ead381c672b54948c2de3918f0eb",
+   "brief": "sp_durable/1Cor/review/FIXUP3_BRIEF_W5.md",
+   "brief_sha256": "82de57a58e8bdaca542e3b70b51a3fdd589aaa98a2af95bb14f5e844905cc775",
+   "launched_at": "2026-11-01T08:40:42Z",
+   "recorded_at": "2026-11-01T08:40:51Z",
+   "outcome": "RUNNING",
+   "receipt_line": 108
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup3_W2_a1",
+   "amends_execution_id": "cor_fixup3_W2_a1#e1",
+   "book": "1Cor",
+   "outcome": "LANDED",
+   "model_actual": "claude-opus-5-5",
+   "tokens_notification": 134766,
+   "tokens_spend": {
+    "subagent_tokens": 134766,
+    "tool_uses": 38,
+    "duration_ms": 865946
+   },
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W2_e1/fixup3_W2_rows.jsonl",
+     "sha256": "ed9e6a7973be5468a7b82972f7896baa3c0d244d4a56eacbd8b80f1f3195c279"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W2_e1/fixup3_W2_changes.json",
+     "sha256": "1a5b0275d64adb6929198be457279eceee3cf8d5e92da9df3beae53ada134645"
+    }
+   ],
+   "lander_checks": {
+    "part": "W2",
+    "execution": "cor_fixup3_W2_a1#e1",
+    "rows_sha256": "ed9e6a7973be5468a7b82972f7896baa3c0d244d4a56eacbd8b80f1f3195c279",
+    "rows_changed": 14,
+    "fields_changed": 36,
+    "blocked": []
+   },
+   "orchestrator_verification": {
+    "problems": [],
+    "applied_copy": {
+     "suite": {
+      "rc": 0,
+      "hard_status": "GREEN",
+      "triage_flags": 0,
+      "not_green": {}
+     },
+     "ngram7": {
+      "rc": 0,
+      "status": "GREEN",
+      "offending": [
+       "offending_7grams"
+      ]
+     },
+     "tiling": {
+      "rc": 0,
+      "tail": " \"rows_applied.jsonl\",\n \"range\": \"1Cor.1.1-1Cor.16.24\",\n \"verses_expected\": 437,\n \"verses_covered\": 437,\n \"decisions\": 70,\n \"problems\": [],\n \"status\": \"GREEN\"\n}"
+     },
+     "sweep": {
+      "A": 0,
+      "B": 5,
+      "CWO02": 0,
+      "CWO04": {
+       "disclosure_only": 18,
+       "informs_compliant": 11,
+       "location_only": 18,
+       "support_use": 1
+      },
+      "CWO05": 11,
+      "CWO06": 13,
+      "CWO07": 57
+     }
+    }
+   },
+   "note": "Same execution, two notifications: 120217 tokens, 28 tools, 759916 ms; then an amendment resume reported 134766 tokens, 10 tools, 106030 ms. tokens here is the second figure; whether it is cumulative is UNKNOWN. The amendment licensed W2-006.literature_type_guess, which R4-W2-006 ordered and the orchestrator's brief left out. rows_file_sha256 in the changes file stays the pinned digest, as the brief defines it.",
+   "recorded_at": "2026-11-01T08:41:44Z",
+   "receipt_line": 109
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup3_W6_a1",
+   "execution_id": "cor_fixup3_W6_a1#e1",
+   "execution_of": "cor_fixup3_W6_a1",
+   "execution_ordinal": 1,
+   "previous_execution_id": null,
+   "retry_of": null,
+   "retry_reason": null,
+   "book": "1Cor",
+   "lane": "fixup3:W6",
+   "role": "1 Corinthians FIXUP-3 author for part W6: carries out the round-4 rulings' orders to that part, CWO-1COR-06 and -07 and, for W4, S3-01 (claude-opus-5-5 on grader_fallback, OW-25). Writes in OUT only",
+   "producer": "this lane (1 Corinthians FIXUP-3 author, part W6, claude-opus-5-5 on grader_fallback, OW-25)",
+   "catcher": "the orchestrator's landing check (fixup/fx3/land_fixup3.py: changed fields against the licence, suite, ngram7, tiling and sweep on the applied copy), then S5, a fresh agent on the applied rows",
+   "model": "claude-opus-5-5",
+   "model_actual": "PENDING - read from the completion usage block",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-36 grant; E-13 (NT preamble); E-19; M8-EFFICIENCY-V1",
+   "launch_message_sha256": "f83896be172da89769f162bab910ccbc9901ad07a1f3fce4c9f4b17c7152c394",
+   "brief": "sp_durable/1Cor/review/FIXUP3_BRIEF_W6.md",
+   "brief_sha256": "e63ad456c8966c490c1420511ef80a17399ae01b5ee5a422db62a1544f143f09",
+   "launched_at": "2026-11-01T08:41:56Z",
+   "recorded_at": "2026-11-01T08:42:05Z",
+   "outcome": "RUNNING",
+   "receipt_line": 110
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup3_W5_a1",
+   "amends_execution_id": "cor_fixup3_W5_a1#e1",
+   "book": "1Cor",
+   "outcome": "LANDED",
+   "model_actual": "claude-opus-5-5",
+   "tokens_notification": 117950,
+   "tokens_spend": {
+    "subagent_tokens": 117950,
+    "tool_uses": 22,
+    "duration_ms": 422265
+   },
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W5_e1/fixup3_W5_rows.jsonl",
+     "sha256": "4cd9c053fa01165f5db0938ab4946ebeed1e3b4eb8ba97e7e22ecccb6ac17884"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W5_e1/fixup3_W5_changes.json",
+     "sha256": "60f2328797aad847bcca5340e4dcec3f7792af8617abec4305719bb6ea91d325"
+    }
+   ],
+   "lander_checks": {
+    "part": "W5",
+    "execution": "cor_fixup3_W5_a1#e1",
+    "rows_sha256": "4cd9c053fa01165f5db0938ab4946ebeed1e3b4eb8ba97e7e22ecccb6ac17884",
+    "rows_changed": 12,
+    "fields_changed": 31,
+    "blocked": []
+   },
+   "orchestrator_verification": {
+    "problems": [],
+    "applied_copy": {
+     "suite": {
+      "rc": 0,
+      "hard_status": "GREEN",
+      "triage_flags": 0,
+      "not_green": {}
+     },
+     "ngram7": {
+      "rc": 0,
+      "status": "GREEN",
+      "offending": [
+       "offending_7grams"
+      ]
+     },
+     "tiling": {
+      "rc": 0,
+      "tail": " \"rows_applied.jsonl\",\n \"range\": \"1Cor.1.1-1Cor.16.24\",\n \"verses_expected\": 437,\n \"verses_covered\": 437,\n \"decisions\": 70,\n \"problems\": [],\n \"status\": \"GREEN\"\n}"
+     },
+     "sweep": {
+      "A": 0,
+      "B": 5,
+      "CWO02": 0,
+      "CWO04": {
+       "disclosure_only": 18,
+       "informs_compliant": 11,
+       "location_only": 18,
+       "support_use": 1
+      },
+      "CWO05": 11,
+      "CWO06": 16,
+      "CWO07": 56
+     }
+    }
+   },
+   "note": "The author stopped once at the session limit (HTTP 429) and was resumed by message to the same execution; no quota-interruption receipt kind exists, so it is recorded here. Tokens, tool uses and duration are the figures of the final notification; whether they are cumulative is UNKNOWN. The author's sources list names one session tool-results file, the overflow of its own script's output, not a brief-named input; recorded as a deviation.",
+   "recorded_at": "2026-11-01T12:39:15Z",
+   "receipt_line": 111
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup3_W4_a1",
+   "amends_execution_id": "cor_fixup3_W4_a1#e1",
+   "book": "1Cor",
+   "outcome": "LANDED",
+   "model_actual": "claude-opus-5-5",
+   "tokens_notification": 109862,
+   "tokens_spend": {
+    "subagent_tokens": 109862,
+    "tool_uses": 22,
+    "duration_ms": 451378
+   },
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W4_e1/fixup3_W4_rows.jsonl",
+     "sha256": "f16512efd28c70584a7312d39b7338e57c018ac1dd581702de2ab4ebd02360c7"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W4_e1/fixup3_W4_changes.json",
+     "sha256": "1b63dc9c96a9ca78d4747500b5c044fe37d514a184c9c64a82507a2087cd7d49"
+    }
+   ],
+   "lander_checks": {
+    "part": "W4",
+    "execution": "cor_fixup3_W4_a1#e1",
+    "rows_sha256": "f16512efd28c70584a7312d39b7338e57c018ac1dd581702de2ab4ebd02360c7",
+    "rows_changed": 4,
+    "fields_changed": 14,
+    "blocked": [
+     {
+      "order": "CWO-1COR-07 and step 2 of How you check your work",
+      "why": "Step 2's line 'every member GREEN' cannot be met under the licences given. The ordered sign-site lists are written and CWO-1COR-07 is 0 unlisted on W4, but refs_mirror reads a colon citation in observed_substrate_signals as an argued in-span citation needing a mirroring boundary_evidence_refs element, and flags 11:5 (W4-001), 11:15 (W4-002), 11:25 and 11:31 (W4-004). CWO-1COR-07's remedy licenses observed_substrate_signals only, and R4-W4-001's refs licence names sbl:1Cor.11.17 only, so a mirroring ref at any of the four would widen a licence. No such ref was added. The order itself could be followed, so its fields carry the ordered text rather than the pinned value; leaving them pinned would fail GATE-E4 condition 8. W4-001's 11:5 is carried both by the ordered signal and by the R4-W4-001 quote, so dropping the quote would not clear it.",
+      "evidence": "run_validator_suite.py on work\\rows_applied.jsonl: hard_status GREEN, refs_mirror FLAGS, worklist [[\"W4-001\", \"1Cor.11.5\", \"strongest_rejected_alternative\"], [\"W4-002\", \"1Cor.11.15\", \"observed_substrate_signals\"], [\"W4-004\", \"1Cor.11.25\", \"observed_substrate_signals\"], [\"W4-004\", \"1Cor.11.31\", \"observed_substrate_signals\"]]. work\\s08_mirror_ctx.py over the pinned rows and the pinned CWO report: 4 of the 63 CWO-1COR-07 verses book-wide lack a mirroring ref in the pinned row, all four in W4, so no other part meets this. The E4 rulings hold no mirror exemption (s08 pattern search). GATE-E4 condition 2 asks only hard members GREEN and refs_mirror is a triage member. Ruling needed: license one mirroring element at each of the four verses, or rule the flags accepted for sign-site lists."
+     }
+    ]
+   },
+   "orchestrator_verification": {
+    "problems": [
+     "triage members not GREEN on the applied copy: {'refs_mirror': 'FLAGS'}"
+    ],
+    "applied_copy": {
+     "suite": {
+      "rc": 0,
+      "hard_status": "GREEN",
+      "triage_flags": 0,
+      "not_green": {
+       "refs_mirror": "FLAGS"
+      },
+      "refs_mirror_worklist": [
+       [
+        "W4-001",
+        "1Cor.11.5",
+        "strongest_rejected_alternative"
+       ],
+       [
+        "W4-002",
+        "1Cor.11.15",
+        "observed_substrate_signals"
+       ],
+       [
+        "W4-004",
+        "1Cor.11.25",
+        "observed_substrate_signals"
+       ],
+       [
+        "W4-004",
+        "1Cor.11.31",
+        "observed_substrate_signals"
+       ]
+      ]
+     },
+     "ngram7": {
+      "rc": 0,
+      "status": "GREEN",
+      "offending": []
+     },
+     "tiling": {
+      "rc": 0,
+      "tail": " \"rows_applied.jsonl\",\n \"range\": \"1Cor.1.1-1Cor.16.24\",\n \"verses_expected\": 437,\n \"verses_covered\": 437,\n \"decisions\": 70,\n \"problems\": [],\n \"status\": \"GREEN\"\n}"
+     },
+     "sweep": {
+      "A": 0,
+      "B": 5,
+      "CWO02": 0,
+      "CWO04": {
+       "disclosure_only": 18,
+       "informs_compliant": 11,
+       "location_only": 18,
+       "support_use": 1
+      },
+      "CWO05": 11,
+      "CWO06": 17,
+      "CWO07": 54
+     }
+    }
+   },
+   "note": "The author stopped once at the session limit (HTTP 429) and was resumed by message to the same execution; no quota-interruption receipt kind exists, so it is recorded here. Tokens, tool uses and duration are the figures of the final notification; whether they are cumulative is UNKNOWN. The author blocked one item: refs_mirror (a triage member, not a hard one) FLAGS 11:5 on W4-001, 11:15 on W4-002, 11:25 and 11:31 on W4-004, because the CWO-1COR-07 sign lists and an R4-W4-001 quote read as in-span citations with no mirroring ref, and no order licenses a ref there. No ref was added and no licence was widened. The item goes to S5 as a carried item. Lander correction: until this landing the lander read a suite key that does not exist, so not_green on the W1, W2, W3 and W5 rows (lines 105, 106, 109, 111) was {} by a dead read. Those four parts' saved suite reports were re-read member by member and show every member GREEN, so those values are true. The suite's own triage_flags omits refs_mirror, so it reads 0 here too.",
+   "recorded_at": "2026-11-01T12:41:36Z",
+   "receipt_line": 112
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup3_W6_a1",
+   "amends_execution_id": "cor_fixup3_W6_a1#e1",
+   "book": "1Cor",
+   "outcome": "LANDED",
+   "model_actual": "claude-opus-5-5",
+   "tokens_notification": 135659,
+   "tokens_spend": {
+    "subagent_tokens": 135659,
+    "tool_uses": 44,
+    "duration_ms": 971502
+   },
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W6_e1/fixup3_W6_rows.jsonl",
+     "sha256": "80680e58c08d68c4726ad832a92067b48a02afbcf7f33ef3387b81989f0bf796"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed3/W6_e1/fixup3_W6_changes.json",
+     "sha256": "32ab0c3f2d534b69d1cd544182518d478fa37f8076ad39b89e0a19b3979ccd0e"
+    }
+   ],
+   "lander_checks": {
+    "part": "W6",
+    "execution": "cor_fixup3_W6_a1#e1",
+    "rows_sha256": "80680e58c08d68c4726ad832a92067b48a02afbcf7f33ef3387b81989f0bf796",
+    "rows_changed": 12,
+    "fields_changed": 34,
+    "blocked": []
+   },
+   "orchestrator_verification": {
+    "problems": [],
+    "applied_copy": {
+     "suite": {
+      "rc": 0,
+      "hard_status": "GREEN",
+      "triage_flags": 0,
+      "not_green": {}
+     },
+     "ngram7": {
+      "rc": 0,
+      "status": "GREEN",
+      "offending": []
+     },
+     "tiling": {
+      "rc": 0,
+      "tail": " \"rows_applied.jsonl\",\n \"range\": \"1Cor.1.1-1Cor.16.24\",\n \"verses_expected\": 437,\n \"verses_covered\": 437,\n \"decisions\": 70,\n \"problems\": [],\n \"status\": \"GREEN\"\n}"
+     },
+     "sweep": {
+      "A": 0,
+      "B": 5,
+      "CWO02": 0,
+      "CWO04": {
+       "disclosure_only": 18,
+       "informs_compliant": 12,
+       "location_only": 18,
+       "support_use": 1
+      },
+      "CWO05": 11,
+      "CWO06": 18,
+      "CWO07": 63
+     }
+    }
+   },
+   "note": "The author stopped once at the session limit (HTTP 429) and was resumed by message to the same execution; no quota-interruption receipt kind exists, so it is recorded here. Tokens, tool uses and duration are the figures of the final notification; whether they are cumulative is UNKNOWN.",
+   "recorded_at": "2026-11-01T12:50:48Z",
+   "receipt_line": 113
+  },
+  {
+   "schema": "m8_attempt_receipt.v1",
+   "book": "1Cor",
+   "record_kind": "cwo_coverage_report",
+   "ordered_by": "cor_controlling_rulings_r4_a1#e1 GATE-E4 s2_conditions 5 to 8",
+   "report": {
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup3_report.v1.json",
+    "sha256": "46e43ad5bd1ca4836c8b61cfe6f4daf394de37677a6187ff8147fd6cce230208"
+   },
+   "sweep_script": {
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "6f6578ea5958ee580493dbf56edec56bd0ee2cd6daf99c26fc9353cfba2ee92f"
+   },
+   "rows_file": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup3_applied.jsonl",
+    "sha256": "c21035080156a2ef0ee79e2384ec9aa8985e62e00d421277898a7f475490e03c"
+   },
+   "summary": {
+    "A": 0,
+    "B": 5,
+    "cwo02_fail": 0,
+    "cwo04": {
+     "disclosure_only": 18,
+     "informs_compliant": 12,
+     "location_only": 18,
+     "support_use": 1
+    },
+    "cwo04_open": 0,
+    "cwo05_hits": 11,
+    "cwo05": {
+     "location": 3,
+     "false_positive": 8
+    },
+    "cwo06_hits": 2,
+    "cwo06": {
+     "false_positive": 2
+    },
+    "cwo07_unlisted": 0
+   },
+   "outcome": "Every hit on the FIXUP-3 applied rows classed; 0 open true, 0 open support_use, 0 count_excess, 0 unlisted verses.",
+   "effect": "None on the gate: S5 tests the conditions.",
+   "recorded_at": "2026-11-01T12:52:33Z",
+   "receipt_line": 114
+  }
+ ],
+ "orchestrator_measured": {
+  "pairs": 39,
+  "counts": {
+   "not_on_disk": 1,
+   "match": 37,
+   "superseded": 1
+  },
+  "classes": [
+   {
+    "path": "C:/Users/lowel/AppData/Local/Temp/claude/C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View/af84b702-d913-4495-8e57-252cf7894c63/scratchpad/cor_ctl4/1cor_controlling_agent_rulings_r4_e1.v1.json",
+    "sha256": "33ac57245ee930b1484a1227fc019e11c6f082b5c984a20ecc9e7c765d463187",
+    "class": "not_on_disk"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup2_applied.jsonl",
+    "sha256": "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup3_applied.jsonl",
+    "sha256": "c21035080156a2ef0ee79e2384ec9aa8985e62e00d421277898a7f475490e03c",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W1_e1/fixup3_W1_changes.json",
+    "sha256": "260dc669d0e596437a3f4aab6f1230b9fe3c69f676e2053090aeb8c518927574",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W1_e1/fixup3_W1_rows.jsonl",
+    "sha256": "275085122f359ad819141ef5e6d02bf01e84055d75bb3df2f6f30a9798279910",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W2_e1/fixup3_W2_changes.json",
+    "sha256": "1a5b0275d64adb6929198be457279eceee3cf8d5e92da9df3beae53ada134645",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W2_e1/fixup3_W2_rows.jsonl",
+    "sha256": "ed9e6a7973be5468a7b82972f7896baa3c0d244d4a56eacbd8b80f1f3195c279",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W3_e1/fixup3_W3_changes.json",
+    "sha256": "33285bdde7f4def5a333b3cd41334ec862c80a1bb1dd76c69bb819c206cb8045",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W3_e1/fixup3_W3_rows.jsonl",
+    "sha256": "d7b5ec3f49c2cdddbba6fc9bb8c3314c760f9410daf5b090b65fd66f19994dab",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W3_e1/measure_w3b.py",
+    "sha256": "9e625b63b3b594f4f0be01dca0fae32fd6a4a9f96817ef49af61a76baa8c0460",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W4_e1/fixup3_W4_changes.json",
+    "sha256": "1b63dc9c96a9ca78d4747500b5c044fe37d514a184c9c64a82507a2087cd7d49",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W4_e1/fixup3_W4_rows.jsonl",
+    "sha256": "f16512efd28c70584a7312d39b7338e57c018ac1dd581702de2ab4ebd02360c7",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W5_e1/fixup3_W5_changes.json",
+    "sha256": "60f2328797aad847bcca5340e4dcec3f7792af8617abec4305719bb6ea91d325",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W5_e1/fixup3_W5_rows.jsonl",
+    "sha256": "4cd9c053fa01165f5db0938ab4946ebeed1e3b4eb8ba97e7e22ecccb6ac17884",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W6_e1/fixup3_W6_changes.json",
+    "sha256": "32ab0c3f2d534b69d1cd544182518d478fa37f8076ad39b89e0a19b3979ccd0e",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/fixup/landed3/W6_e1/fixup3_W6_rows.jsonl",
+    "sha256": "80680e58c08d68c4726ad832a92067b48a02afbcf7f33ef3387b81989f0bf796",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E3.v1.json",
+    "sha256": "a7f32674dee0b0e27f25803729f93142cefdaf2847f9d7122010397e992efe70",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E4.v1.json",
+    "sha256": "33ac57245ee930b1484a1227fc019e11c6f082b5c984a20ecc9e7c765d463187",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/CONTROLLING_BRIEF_E4.md",
+    "sha256": "90613cb7d7509d98211da354f491c5b6732bac786302807295ed2f6e51c5fcba",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/FIXUP3_BRIEF_W1.md",
+    "sha256": "d0103daca876132a26f49eb4a031ded77826e1aae06587cc1063d94e2091b6df",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/FIXUP3_BRIEF_W2.md",
+    "sha256": "4607adf6d6a93d7545c7938337da894c92965999849c5ef0a81646dbf78d3736",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/FIXUP3_BRIEF_W3.md",
+    "sha256": "f6c4a4cb9b24990837feaa105d0e7b76e8fab5049b04ffbd20256d8b33f90ffe",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/FIXUP3_BRIEF_W4.md",
+    "sha256": "27c71a47a4c1191c693ad22b756b4b9792d1912ac0ece6996b52ae747269d4bb",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/FIXUP3_BRIEF_W5.md",
+    "sha256": "82de57a58e8bdaca542e3b70b51a3fdd589aaa98a2af95bb14f5e844905cc775",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/FIXUP3_BRIEF_W6.md",
+    "sha256": "e63ad456c8966c490c1420511ef80a17399ae01b5ee5a422db62a1544f143f09",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup2_cwo0607_report.v1.json",
+    "sha256": "9daa00d3197cf79f17389016e8bf75afad7b9ea51bc45da4c114116259b1162c",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup3_report.v1.json",
+    "sha256": "46e43ad5bd1ca4836c8b61cfe6f4daf394de37677a6187ff8147fd6cce230208",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "23b15aef64e8f59eca1395cf3cacb0b028cf8e6ff9673ae083855b245ae21573",
+    "class": "superseded"
+   },
+   {
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "6f6578ea5958ee580493dbf56edec56bd0ee2cd6daf99c26fc9353cfba2ee92f",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf4.result.json",
+    "sha256": "1d3a745f4c5682db08a1523c055189bdbdf517095a010fa9a773a20203ed3144",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf5.result.json",
+    "sha256": "7b7aad0b601e4ddc17e45170704bceefb03129d0b65841d0e338a3d5dbba65c9",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tool_fixes/mk_tf5.py",
+    "sha256": "b883563257744ce1083fbbc1e083ec8f691e1083d04d5d2cecf90d56c7df8767",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tool_fixes/mutants_tf5.py",
+    "sha256": "599a7a6384db68d7253db1da3ce53b98e99c1b54b971752ec776b2bd439d5bdf",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tool_fixes/mutants_tf5.result.json",
+    "sha256": "24ae23bf2530aa63cef4850b37d0cfc3901bcaaa4e883a21062de04a309af024",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tools/cwo05_ref.py",
+    "sha256": "efaa7c0da9414d30eac1b77d6131843bd7bc300031b408337834d44677a8b77f",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tools/cwo06_ref.py",
+    "sha256": "f8dce30cb6ece8c0cc05bb153618248968518ae602952584528b955e1e97c5e3",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tools/plants06.py",
+    "sha256": "c67ed4a6657955b7f0f0367c9b30dc10ad3e3400df1e11be8078e5809a2c337b",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tools/test_cwo05.py",
+    "sha256": "dfaf710c5e07889acf58edd5b185f3fbd206c07cb145f2038d6037b8a9657d67",
+    "class": "match"
+   },
+   {
+    "path": "sp_durable/1Cor/review/tools/test_cwo0607.py",
+    "sha256": "07a764d9126c0fbd9c8582bcb85dac672d12ca0535e121f7ccfd95e5efab9fd7",
+    "class": "match"
+   }
+  ]
+ }
+}

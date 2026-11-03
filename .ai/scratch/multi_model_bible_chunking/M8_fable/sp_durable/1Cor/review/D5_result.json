@@ -1,0 +1,65 @@
+{
+ "attempt_id": "cor_close_adjudicator_a1",
+ "execution_id": "cor_close_adjudicator_a1#e1",
+ "verdict": "delivered_with_gaps",
+ "deliverables": [
+  {
+   "name": "method_change_adjudications.1Cor.v1.json",
+   "sha256": "0ad4f16f8ce9909402dc2f0c3df78b6ac17a65dca56613e96fffc2f62034a8be",
+   "bytes": 38916
+  },
+  {
+   "name": "adjudicator_notes.json",
+   "sha256": "59477800f513fa9506f09d3355e01b29decd936b0e3a546cbdde82a0806571fb",
+   "bytes": 11405
+  }
+ ],
+ "verification": [
+  {
+   "claim": "Inputs pinned",
+   "how": "work/pin_check.py, sha256 of 21 pinned inputs; brief and contract digests against the launch message",
+   "result": "21 of 21 match, 0 mismatches"
+  },
+  {
+   "claim": "Every quotation in the evidence checks stands in its pinned file",
+   "how": "work/gen_adjudications.py asserts each needle against decoded text before any write; a failure writes nothing",
+   "result": "all passed; files written"
+  },
+  {
+   "claim": "Proposal counts reproduced",
+   "how": "own script over E1 to E7 gate.s2_conditions and the final rows",
+   "result": "clause, file-token and Deciding-token counts, confidence counts and 'imperative' counts all equal the proposal"
+  },
+  {
+   "claim": "C2 predicate absence",
+   "how": "term scan of 23 manifest code files, digest-checked, and of 11 packets",
+   "result": "0 hits, scoped by the limit that the sweep and current suite are not in the manifest"
+  },
+  {
+   "claim": "Adoption anchors exist in v7",
+   "how": "string test of each target sentence in v7",
+   "result": "all present"
+  },
+  {
+   "claim": "Each proposal had at least two cited artefacts opened",
+   "how": "evidence_checks lists path, sha256, looked_for, found, holds, tier per proposal",
+   "result": "6, 7, 8, 3, 6, 6 checks per proposal"
+  },
+  {
+   "claim": "e19_selfreport",
+   "how": "self-report",
+   "result": "No listing and no glob were run, on SP, on OUT or anywhere else, and no recursive search. Paths came from the brief or the manifest. Two PowerShell Get-Item size reads and one more in the extract4 step read my own just-written OUT files by exact path; these were not listings. Grep was used only on single named files: the ledger, proposer_notes.json and my own pin_check.py. No git, no receipt, no registry, nothing written under SP. The lane stopped at a rate limit and resumed under the coordinator's order; context compactions, at least two, also occurred and I rebuilt each time from OUT working files and pinned inputs. No transcript, .output file or compaction summary path was opened. The persisted harness tool-results file from one oversized print was not opened. Tool calls about 75 across both stretches, over the budget of about 60 and under the stop at 100."
+  }
+ ],
+ "unresolved_uncertainty": [
+  "One reader, one family, fallback model; the rulings are unchecked and non-authorizing.",
+  "All six verdicts are ADOPT, but five changed text or scope, and that rate is not evidence the loop is working.",
+  "1Cor-P06 is a part adoption: question 12 waits on the end review of R4-W6-005.",
+  "The C2 absence holds only for the record read: cwo_sweep_1cor.py and the current suite are not in the manifest.",
+  "1Cor-P04's direction was checked from the strategy and by reasoning, not on the mark layer's bytes.",
+  "Manifest digest differs from the one in the proposer's notes (7305395a against e46eefd3); cause UNKNOWN; 67 of 67 listed digests agree.",
+  "Flag, no ruling: E7's 'S8 is not owed' is in no routed row while the strategy states a lens count of 3 and section 19 is a floor.",
+  "Gap: the D5 brief's path is not kept in OUT, so the notes give its digest only.",
+  "Gap: the wording of close-gate item 23 was not found by my search; I relied on section 17's description of it."
+ ]
+}

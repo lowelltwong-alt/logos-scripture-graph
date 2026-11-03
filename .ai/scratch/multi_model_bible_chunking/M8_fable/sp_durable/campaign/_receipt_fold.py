@@ -24,6 +24,9 @@ THE RULES (the precedent is `_orchestration_metrics.fold()`, whose behaviour on 
     number.
   - An amending row's notification tokens fill an execution that has none of its own. Its spend tokens are summed into
     `_spend`. `tool_uses` fills an execution that has none.
+  - An install row (it carries installs_execution_id and no execution_id of its own) records where an execution's
+    output was installed. It is never an execution and applies nothing; it is counted, and a missing target is
+    counted (2026-11-02: before this, each 1Cor and Dan install row became a phantom run with no lane).
 
 usage: python -B _receipt_fold.py --selftest
 """
@@ -35,6 +38,10 @@ from pathlib import Path
 
 def is_amending(r):
     return bool(r.get("amends_execution_id")) or str(r.get("schema", "")).endswith("_amendment.v1")
+
+
+def is_install(r):
+    return bool(r.get("installs_execution_id")) and not r.get("execution_id") and not is_amending(r)
 
 
 def spend_unit(r):
@@ -76,12 +83,16 @@ def fold(rows):
     carries `tokens_notification` (int or None), `_spend` (int, when any spend-unit tokens exist), `_partial` (when a
     segment-only note applies) and `_amended_by` (the count of amending rows applied). The input rows are never
     modified."""
-    execs = [dict(r) for r in rows if not is_amending(r)]
+    execs = [dict(r) for r in rows if not is_amending(r) and not is_install(r)]
     by_ex = defaultdict(list)
     for r in execs:
         if r.get("execution_id"):
             by_ex[r["execution_id"]].append(r)
     stats = {"amending_rows": 0, "applied": 0, "target_missing": 0, "target_not_unique": 0}
+    ins = [r for r in rows if is_install(r)]
+    if ins:
+        stats["install_rows"] = len(ins)
+        stats["install_target_missing"] = sum(1 for r in ins if len(by_ex.get(r["installs_execution_id"], [])) != 1)
     pending = defaultdict(list)
     for a in rows:
         if not is_amending(a):
@@ -161,6 +172,8 @@ def selftest():
         {"amends_execution_id": "nobody#e1", "tokens_reported": 1},
         L("dup#e1"), L("dup#e1"),
         {"amends_execution_id": "dup#e1", "tokens_reported": 2},
+        {"record_kind": "install", "installs_execution_id": "fill#e1", "attempt_id": "fill", "installed_path": "x"},
+        {"record_kind": "install", "installs_execution_id": "gone#e1", "attempt_id": "gone", "installed_path": "y"},
     ]
     before = json.dumps(rows, sort_keys=True)
     ex, st = fold(rows)
@@ -169,7 +182,9 @@ def selftest():
         by.setdefault(e["execution_id"], e)
     checks = [
         ("an amending row is never an execution", len(ex) == 7),
-        ("stats", st == {"amending_rows": 7, "applied": 5, "target_missing": 1, "target_not_unique": 1}),
+        ("stats", st == {"amending_rows": 7, "applied": 5, "target_missing": 1, "target_not_unique": 1,
+                         "install_rows": 2, "install_target_missing": 1}),
+        ("an install row is never an execution and applies nothing", by["fill#e1"].get("installed_path") is None),
         ("v10 notification-unit field is read", by["v10a#e1"]["tokens_notification"] == 154052),
         ("v10 spend-unit field is kept apart", by["v10a#e1"]["_spend"] == 195173),
         ("completion outcome replaces RUNNING", by["v10a#e1"]["outcome"] == "COMPLETED"),
@@ -191,8 +206,10 @@ def selftest():
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import _orchestration_metrics as om  # noqa: E402
     real = read_receipts(sorted(sp.rglob("*_attempt_receipts.jsonl")))
-    old_ex, old_st = om.fold([dict(r) for r in real])
+    # the precedent predates install rows and counts each as a run, so parity is taken over the rows it can read
+    old_ex, old_st = om.fold([dict(r) for r in real if not is_install(r)])
     new_ex, new_st = fold(real)
+    new_st = {k: v for k, v in new_st.items() if not k.startswith("install_")}
     diffs = []
     if old_st != new_st:
         fails.append("parity: fold stats differ %s vs %s" % (old_st, new_st))

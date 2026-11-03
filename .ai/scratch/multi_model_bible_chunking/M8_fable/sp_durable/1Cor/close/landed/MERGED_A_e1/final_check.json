@@ -1,0 +1,467 @@
+{
+ "book": "1Cor",
+ "corpus": "rows_v1_final.jsonl",
+ "corpus_sha256": "d175136999a5409789e055592c8341b2bd92230ef132b00697a30c2ec03e76b0",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "audit_coverage": {
+  "rows_read_whole": 70,
+  "rows_total": 70,
+  "over_all_70_by_tool": [
+   "parity --check",
+   "gen_sidecars --check",
+   "validator report read",
+   "close tool dry run",
+   "FIXUP-5 field diff",
+   "sign, mark, quotation and Greek-run tests (work\\test1.py, work\\prep2.py)"
+  ],
+  "scholar_record": "six unit ranges, §8-§10 and spot lines; never whole",
+  "what_i_did_not_check": [
+   "attention itself: row reading is one reader's, and rows_read is no proof of it",
+   "the RP CSV behind the marks layer (unpinned)",
+   "any receipt or transcript",
+   "the suite run itself (report read only)",
+   "lane B, to which I am blind",
+   "licence terms at each witness's source",
+   "items 1-9, 16, 18 beyond the close tool's gates or their headings"
+  ],
+  "rows_read_how": "18 by script print, 52 by Read by line under the coordinator's order"
+ },
+ "byte_verifications": [
+  {
+   "claim": "corpus sha",
+   "tool": "build_all.py",
+   "result": "d175136999a5409789e055592c8341b2bd92230ef132b00697a30c2ec03e76b0"
+  },
+  {
+   "claim": "75 pins unchanged, re-run at the end",
+   "tool": "revise1.py",
+   "result": "75 pins, 0 mismatch"
+  },
+  {
+   "claim": "feed sha",
+   "tool": "build_all.py",
+   "result": "11ecb458dfaa4da2af43c718f6fc046bb831ac8ba6d77ee5e271576558dfc863"
+  },
+  {
+   "claim": "final differs from FIXUP-5 only in three status keys",
+   "tool": "my diff",
+   "result": "70/70; review_status, candidate_hold_state, candidate_hold_basis"
+  },
+  {
+   "claim": "ten marks in the layer",
+   "tool": "build_all.py",
+   "result": "10 of 10 in rp_paragraph_starts; direction start-keyed: True"
+  },
+  {
+   "claim": "generators reproduce deliverables",
+   "tool": "--check runs",
+   "result": "scholar IDENTICAL, v8 MATCH, atlas MATCH, sidecars MATCH, proposals MATCH, packet MATCH"
+  },
+  {
+   "claim": "row claims over all 70 rows",
+   "tool": "work\\test1.py, work\\prep2.py",
+   "result": "SBL 120, WEB 56, RP pilcrow 100, footnote 4, quotations 104, Greek runs 720; 0 false"
+  }
+ ],
+ "residual": [
+  {
+   "row_id": "W3-001",
+   "e_class": "claim_about_witness_position",
+   "severity": "low",
+   "origin": "boundary_evidence_refs [WARRANT-close:far] and boundary_rationale",
+   "defective_text": "rp:1Cor.9.1 [WARRANT-close:far] Οὐκ εἰμὶ ἐλεύθερος opens questions about Paul's own standing",
+   "byte_evidence": "1Cor_rp.txt 9:1 reads Οὐκ εἰμὶ ἀπόστολος; Οὐκ εἰμὶ ἐλεύθερος; so in the cited primary witness the freedom question is the second, not the opener. The opener order quoted is SBLGNT's. The same row's last ref says the SBL order is the reverse of RP, so a reader of the whole row can recover the true order; the seam stands under either order (both questions are asyndetic and on Paul's standing). Chapter-fallback cap citation tested: the validator's cap_sweep lists W3-1 as the one whole-chapter row, status GREEN (MEASURED read of the report), so the row's claim holds; the words 'chapter-fallback' have 0 hits in strategy, gate and toolkit, so the row's name for that cap is private (low). I weighed this residual at medium and chose low: the row's last ref states the reversal and the seam is unaffected.",
+   "proposed_cure": "In that ref change 'opens questions' to 'stands among the questions', or quote Οὐκ εἰμὶ ἀπόστολος as the RP opener."
+  },
+  {
+   "row_id": "W6-010",
+   "e_class": "judged_as_observed",
+   "severity": "low",
+   "origin": "observed_substrate_signals[0] and device_notes",
+   "defective_text": "asyndetic imperatives (16:13); sbl:1Cor.16.13 has the imperatives as RP has them",
+   "byte_evidence": "boundary_rationale says 'four verbs read here as imperatives'. The signal list and device_notes state the mood flatly. The mood is the row's reading, by the row's own words, and is not a byte fact.",
+   "proposed_cure": "Signal: 'asyndetic run of four verbs (16:13), read as imperatives'. Device note: 'has the four verbs as RP has them'."
+  },
+  {
+   "row_id": "W2-014+W2-015",
+   "e_class": "shared_seam_graded_apart",
+   "severity": "low",
+   "origin": "confidence; strongest_rejected_alternative of both rows",
+   "defective_text": "W2-015 calls the merge 'a fair alternative'; W2-014 declines it",
+   "byte_evidence": "W2-014 span 1Cor.7.36-1Cor.7.38, medium; W2-015 span 1Cor.7.39-1Cor.7.40, medium_low (MEASURED in the corpus). Their facts at the seam agree; only the grade differs.",
+   "proposed_cure": "None required. Optional: W2-014 strongest_rejected_alternative adds 'graded medium_low from the other side in W2-015'."
+  },
+  {
+   "row_id": "W3-008",
+   "e_class": "measured_tag_names_lost_script",
+   "severity": "low",
+   "origin": "boundary_rationale and siblings W3-001..W3-008",
+   "defective_text": "'(MEASURED, script measure_w3)'",
+   "byte_evidence": "MEASURED: measure_w3 occurs in 8 rows, 17 times; e1 records it as not preserved and R5-S5-11 is routed. Every count of it in the rows I read reproduced on witness bytes; a reader cannot re-run the named script.",
+   "proposed_cure": "None to the row. The routed item R5-S5-11 carries it."
+  },
+  {
+   "row_id": "W6-013",
+   "e_class": "imprecise_negative",
+   "severity": "low",
+   "origin": "strongest_rejected_alternative",
+   "defective_text": "'No verse from the greetings onward opens with a connective'",
+   "byte_evidence": "1Cor_rp.txt 16:22 starts 'Εἴ τις οὐ φι' (MEASURED); a conditional, not a linking particle, so the claim holds in the row's sense. e2 reached the same.",
+   "proposed_cure": "'opens with a linking particle'."
+  },
+  {
+   "row_id": "W1-003",
+   "e_class": "judged_as_observed",
+   "severity": "low",
+   "origin": "device_notes; carried to feed M8-1Cor-003 why_low_confidence",
+   "defective_text": "The thanks verb at 1:14 is ironic relief that belongs to the recollection rather than opening a fresh thanksgiving.",
+   "byte_evidence": "The sentence stands in the row's device_notes and in feed M8-1Cor-003 why_low_confidence (MEASURED, string found in both). 'ironic relief' is a judgement of tone, not a witness fact, and it is stated flat where the row's other judgements are hedged. It is not labelled as measured, so a reader is misled at most about how settled the tone is; the row keeps 1:14 inside on the recollection, which stands without the word ironic (INFERRED).",
+   "proposed_cure": "'reads here as ironic relief that belongs to the recollection', in device_notes and in the feed text that carries it."
+  },
+  {
+   "row_id": "W3-003+W3-006",
+   "e_class": "vacuous_tier_line",
+   "severity": "low",
+   "origin": "device_notes",
+   "defective_text": "counts MEASURED by script measure_w3 over the RP and SBLGNT texts",
+   "byte_evidence": "The clause stands in both rows' device_notes, and neither row states a count in any field (MEASURED by pattern test, and both rows read whole). W3-004, flagged by the first form of the same pattern, states 2 RP verses and was a false flag. The line tells a reader that a measurement stands behind the row when none is shown, and the script it names is the lost one (R5-S5-11). No seam on either row rests on a count.",
+   "proposed_cure": "Drop the clause from both rows' device_notes."
+  },
+  {
+   "row_id": "W5-010",
+   "e_class": "confidence_ground_elsewhere",
+   "severity": "low",
+   "origin": "confidence",
+   "defective_text": "confidence: medium_low",
+   "byte_evidence": "W5-010 states no ground for medium_low in any field: its rejected cut at 14:15 is refused firmly, and a search of its fields for soft, attach, confidence, could and open hits only a sentence on 14:26. The softness of its onset is stated only on W5-009: 'the seam is soft and the attachment of 14:13 remains open'. Feed M8-1Cor-052 concern_type is contested_between_lanes, a source the row does not state. A reader of W5-009 is not misled; a reader of W5-010 alone cannot tell why the grade is low.",
+   "proposed_cure": "Add to W5-010 strongest_rejected_alternative: 'The onset shares the soft seam at 14:13 stated in W5-009.'"
+  },
+  {
+   "row_id": "W6-008",
+   "e_class": "rejection_omits_signal",
+   "severity": "low",
+   "origin": "strongest_rejected_alternative; sibling W5-014",
+   "defective_text": "Opening a separate unit at 16:10 on the conditional: neither witness gives 16:10 a formula of its own",
+   "byte_evidence": "True of a formula. The RP pilcrow at 16:10, listed in the row's signals, and the WEB paragraph start at 16:10, stated nowhere on the row, are the marks a reader would set against the rejection (MEASURED, both in pmarks), and the rejection weighs neither. W5-014 is the sibling: 14:39 and 16:10 are the only two interior RP pilcrows in the book (MEASURED), each named only in signals, though W5-014's rejection does weigh the hoste opening. I weighed this at medium and chose low: the signals disclose the pilcrow, marks decide no seam in this book's method (W6-006: 'the RP pilcrow there decides nothing'), and the seam stands on the who-is-coming reasoning.",
+   "proposed_cure": "Add to the rejection: 'The RP pilcrow and WEB paragraph at 16:10 inform and decide nothing.'"
+  }
+ ],
+ "close_gate_assessment": [
+  {
+   "item": "1 (gate l.14): 1. **RETRO LF-SUPPORT AUDIT (the B-8 lane, applied backward).** The lane exists because",
+   "met": true,
+   "type": null,
+   "evidence": "Campaign retro lane, not due at this book. Nothing in this book fails it: no row credits a mark with a seam (validator mark_symmetry GREEN).",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "2 (gate l.29): 2. **STANDING RE-SCAN QUEUE (ERROR_PATTERN_LEDGER.v1.md).** Run the deterministic sweeps",
+   "met": true,
+   "type": null,
+   "evidence": "Validator suite hard_status GREEN, triage_flags 0, on rows_v1_final.jsonl. The report carries a name, not a sha.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "3 (gate l.35): 3. **DEFERRED ITEMS STILL OPEN AT CLOSE.** Verify disposition (done or owner-waived) of:",
+   "met": true,
+   "type": null,
+   "evidence": "Close tool gates MET in my dry run; the 27 routed items are carried, not held (manifest holds).",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "4 (gate l.38): 4. **OW-1 OWNER-WARNING RETRO/PROSPECTIVE OBLIGATIONS (added 2026-08-31).** The owner",
+   "met": true,
+   "type": null,
+   "evidence": "Close tool gates MET in my dry run. I did not test them beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "5 (gate l.58): 5. **OW-2 HARD CLOSE GATES (owner directive, 2026-08-31 — each blocks book-close for",
+   "met": true,
+   "type": null,
+   "evidence": "The close tool lists this as not evaluated. Appeals part not tested by tool or by me; the rest MET in the dry run.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "6 (gate l.82): 6. **OW-2 REVELATION REQUIREMENTS (owner directive, 2026-08-31).** The Revelation",
+   "met": true,
+   "type": null,
+   "evidence": "Not due: this book is not Revelation.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "7 (gate l.88): 7. **OW-2 RETRO SEMANTIC AUDIT (owner directive, 2026-08-31 — scheduled NOW, not at",
+   "met": true,
+   "type": null,
+   "evidence": "Campaign-level; no failure of this book seen in 70 rows read whole.",
+   "tier": "INFERRED"
+  },
+  {
+   "item": "8 (gate l.164): 8. **OW-3 QUALITY-CONTROL FOLLOW-UP (owner directive, 2026-09-04 — binds every remaining",
+   "met": true,
+   "type": null,
+   "evidence": "Close tool gates MET in my dry run.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "9 (gate l.207): 9. **OWNER_REPAIR_ADVANCE_2026-09-06 (owner standing ruling, 2026-09-06; canonical verbati",
+   "met": true,
+   "type": null,
+   "evidence": "Close tool gates MET in my dry run; five fix-up rounds are on record.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "10 (gate l.237): 10. **OW-6 FINAL-CHECKER GATE + FABLE BOSS ESCALATION AUTHORITY (owner directive, 2026-09-",
+   "met": true,
+   "type": null,
+   "evidence": "Boss record: e1 13 MET, e2 4 MET, no RETURN standing on the join (NQ-9). Authority OW-6 as amended by OW-25, OW-26, OW-37. Rests on the R7-NOT-TESTABLE construction. Merged pair owed; lane B not seen by me.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "11 (gate l.257): 11. **OW-6b HARD-BOOK TRACK + FABLE AS CONTROLLING AGENT (owner directive, 2026-09-07 — bi",
+   "met": true,
+   "type": null,
+   "evidence": "Rulings E1..E7 ran on the recorded fallback model (OW-25), a recorded downgrade, not an equivalence.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "12 (gate l.273): 12. **OW-6c END-OF-CAMPAIGN RE-CHECK DECISION (owner directive, 2026-09-07 — campaign-leve",
+   "met": true,
+   "type": null,
+   "evidence": "Campaign-level, not a per-book item.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "13 (gate l.296): Item 13 — OW-7 UNIVERSAL PER-ATTEMPT CAPTURE (owner directive 2026-09-07; answers boss rul",
+   "met": true,
+   "type": null,
+   "evidence": "The close tool lists this as not evaluated. Capture index is the orchestrator's close-packet duty, not tested by me. Census shows transcript_retained 0 of 75: that is the ground of the owed audit entry below.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "14 (gate l.324): Item 14 — OW-10 EXECUTION IDENTITY, CURE BINDING, CENSUS COVERAGE, PERMANENT PROMPT DUTIES",
+   "met": true,
+   "type": null,
+   "evidence": "The close tool lists this as not evaluated. Census ran: attempts 75. Cure verification is the orchestrator's duty and I did not test it.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "15 (gate l.368): Item 15 — OW-11 WRITE AUTHORITY, ONE-BOUNDARY CONTINUATION, COMBINED CEILING (owner direct",
+   "met": true,
+   "type": null,
+   "evidence": "Item 15's exception covered Ezekiel and Daniel and expired at Daniel's close. The close does not rely on it: it cites OW-37 point 3 and OW-36. I did not test that no subagent wrote inside the worktree; I read no receipts.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "16 (gate l.398): Item 16 — OW-12 BOOK-CLOSE PROJECT STATUS UPDATE (owner directive 2026-09-11)",
+   "met": true,
+   "type": null,
+   "evidence": "Not due until after the close; the orchestrator owes it.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "17 (gate l.408): Item 17 — OW-13 MODEL ROLES (owner directive 2026-09-11)",
+   "met": true,
+   "type": null,
+   "evidence": "Carrier declares the fallback; every role on claude-opus-5-5 under OW-25 and OW-36.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "18 (gate l.422): Item 18 — OW-14 ORCHESTRATION PLAYBOOK (owner directive 2026-09-11)",
+   "met": true,
+   "type": null,
+   "evidence": "Not due until the close; the orchestrator owes it; not tested.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "19 (gate l.435): Item 19 — OW-16 QUALITY AND COMPLETION OVER BUDGET (owner directive 2026-09-15)",
+   "met": true,
+   "type": null,
+   "evidence": "OW-28 keeps budgets tracked and not gating; no row shows a budget shortcut in what I read. The brief's sample read fell short of E6; the coordinator ordered the full read; see PF-3.",
+   "tier": "INFERRED"
+  },
+  {
+   "item": "20 (gate l.448): Item 20 - OW-17 SCHOLAR-FACING TRANSPARENCY RECORD (owner directive 2026-09-15)",
+   "met": true,
+   "type": null,
+   "evidence": "Exists, generated, check IDENTICAL, 19/19 PASS, binds the corpus sha at l.13903. Fable post-flight audit is DEFERRED under the OW-28 entry below. Reservations in items_20_23.json.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "21 (gate l.465): Item 21 - OW-17 (a) CROSS-GENERATION CHUNKING-METHOD RECORD (owner directive 2026-09-15)",
+   "met": true,
+   "type": null,
+   "evidence": "v8 generated, MATCH; copy check 13/13, 6 tampers caught. Reservations in items_20_23.json.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "22 (gate l.482): Item 22 - OW-17 (b) DIFFICULTY / RISK / BLAST-RADIUS ATLAS (owner directive 2026-09-15)",
+   "met": true,
+   "type": null,
+   "evidence": "28 checks 0 failed, 20 tampers 0 uncaught. Three pairs carry possible_inconsistency_unruled and are remarked, so not silent; NQ-1 reads them. Fable execution check is DEFERRED under the OW-28 entry below.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "23 (gate l.500): Item 23 - OW-17 (c) METHOD-CHANGE PROPOSALS PROPOSED AND ADJUDICATED (owner directive 2026",
+   "met": true,
+   "type": null,
+   "evidence": "gen_proposals_adjudicated.py --check MATCH; 6 ADOPT on one reader, one family. Reservations in items_20_23.json.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "24 (gate l.517): Item 24 - OW-18 NO IMPLIED PROVENANCE: EVERY CLAIM CARRIES ITS TRUE EVIDENCE TIER (owner d",
+   "met": true,
+   "type": null,
+   "evidence": "Tier labels hold in 70 rows read, with low residuals only. Item stands with the measure_w3 note.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "25 (gate l.554): Item 25 - OW-19 LENS MULTIPLICITY: SINGLE-LANE REVIEW IS BANNED (owner directive 2026-09-1",
+   "met": true,
+   "type": null,
+   "evidence": "Every unit group has two lanes, three on c06-c08, by final_(LF|OL|RT)_cNN_e1 names in the manifest (MEASURED); their blindness is REPORTED. Count and reason recorded, strategy l.421. The floor speaks of unit groups, so it is met at the primary rung, on FIXUP-2 bytes. It was not met again on the prose changed after: Before the merged lanes FIXUP-5 was read by e2 alone, an audit that had the orders; the merged lanes' reads are audits too (NQ-8). The close reports one voice, not independent confirmation.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "OW-28 campaign-end Fable review, with the Fable clauses of items 20, 21, 22",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Deferred by the owner. Deferred is never met.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "Stage-1 transcript audit (OW-26 shape, granted by OW-37)",
+   "met": false,
+   "type": "OWED_TRANSCRIPT_AUDIT",
+   "evidence": "Owed, not met: 0 of 75 attempts have a transcript, 0 bytes audited. No statement here implies transcripts were audited.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "Addendum OW-29",
+   "met": true,
+   "type": null,
+   "evidence": "Close runs after a dry run of the same arguments shows 0 unmet; the status report, checkpoint, compaction follow. Not yet run.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "Addendum OW-30",
+   "met": true,
+   "type": null,
+   "evidence": "No row held; no Fable call made or needed for this close.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "Addendum OW-20, OW-21, OW-22, OW-27",
+   "met": true,
+   "type": null,
+   "evidence": "Not applicable: Ezekiel and Daniel ceilings and pauses.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "E-57 known gap",
+   "met": true,
+   "type": null,
+   "evidence": "reviews/<book>/review_packets.jsonl: known campaign gap, not tested here.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "OW-36 and OW-37 (ledger; the gate holds no addendum for them)",
+   "met": true,
+   "type": null,
+   "evidence": "Close act is OW-37 point 3, six books only. Point 3 conditions: see NQ-4 and NQ-6.",
+   "tier": "EXTRACTED"
+  }
+ ],
+ "process_findings": [
+  {
+   "id": "PF-1",
+   "severity": "medium",
+   "finding": "E7's 'S8 is not owed' and the lens count are recorded nowhere in the routed items (tokens S8 and floor: 0 of 27), though the adjudicator flagged it. An agent's ruling cannot weigh an owner's floor (v8 §19 l.810).",
+   "exact_change": "Add one routed end-review item to SP\\1Cor\\fable_end_review\\routed_items.v1.jsonl: 'FIXUP-5 prose was read whole by audit readers only (e2, and the merged lanes as far as each read it), none blind to the shipped rows or E7's orders; E7 says S8 is not owed; strategy count 3, floor 2; no owner ruling grants this. Rule or re-read.'"
+  },
+  {
+   "id": "PF-2",
+   "severity": "medium",
+   "finding": "R7-NOT-TESTABLE says its reading 'goes to Fable's end review with the rest of this file'; the routed items hold 0 mentions of it. 'the boss audit record's conditions, all MET' rests on it.",
+   "exact_change": "Add one routed item naming R7-NOT-TESTABLE's reading of E6 s2_conditions[4], and regenerate the packet."
+  },
+  {
+   "id": "PF-3",
+   "severity": "medium",
+   "finding": "E6 s2_conditions[4] and E7's condition say the two blind merged lanes 'read every final row under their own gates', deciding record 'those lanes' own read records'. The brief as first issued set a sample, short of that ruling; the coordinator named that its own error and ordered the full read. My read record now shows 70 of 70 whole: 18 by script print, 52 by Read by line. This lane needs no construction. Lane B's read record is unknown to me, so the condition stays open for the pair.",
+   "exact_change": "The orchestrator checks lane B's read record before relying on the condition, and records the coordinator's correction in the close record."
+  },
+  {
+   "id": "PF-4",
+   "severity": "low",
+   "finding": "v7 §9 rule 2 (Dan-P05) is unmet in this book's strategy: repair, round, fix-up, fixup each 0 hits (MEASURED). Recorded only in proposer_notes and adjudication notes; routed items 0.",
+   "exact_change": "Carry it in the same routed item as PF-1."
+  },
+  {
+   "id": "PF-5",
+   "severity": "low",
+   "finding": "deliverables README l.4-5: 'Merging into the shared atlas feed is the owner's act.' The close tool appends that feed at --close under OW-37 point 3 and OW-29.",
+   "exact_change": "Replace with 'Merging into the shared atlas feed is the close act: OW-37 point 3, run by the orchestrator.'"
+  },
+  {
+   "id": "PF-6",
+   "severity": "low",
+   "finding": "OW-37 point 3 says the close appends the proposals to the shared log as a recorded act. Lines mentioning proposals in _close_book.py: 0 (MEASURED). So the append is not in the tool's plan and is the orchestrator's separate act.",
+   "exact_change": "Orchestrator appends and records it, or the tool gains it."
+  },
+  {
+   "id": "PF-7",
+   "severity": "low",
+   "finding": "The gate holds no addendum for OW-36 or OW-37, and item 15 is expired, so a gate reader cannot find the close authority there.",
+   "exact_change": "Add a gate addendum citing OW-36 and OW-37 point 3."
+  },
+  {
+   "id": "PF-8",
+   "severity": "low",
+   "finding": "v8 tail l.955 says the boss audit and lanes D1, D2, D5 were interrupted by a usage limit. Word search: D1 0, D2 0, e2 0, D5 and adjudicator notes hold it. For boss, D1, D2 the claim is the orchestrator's report only.",
+   "exact_change": "Label the sentence REPORTED (orchestrator) or cite."
+  },
+  {
+   "id": "PF-9",
+   "severity": "low",
+   "finding": "v8 'Changed here' for P02: 'they replace the last two sentences of the paragraph before them'; the first sentence stays and only the adjudicator's replacement sentences land. Also 'Five rules follow, the first two measured and the last two untried' leaves rule 3 unclassed.",
+   "exact_change": "Correct at the next method version."
+  },
+  {
+   "id": "PF-10",
+   "severity": "low",
+   "finding": "D1 'One reading lens ran on 3 of 10 groups.' can be read as a single lens on three groups, which item 25 would fail. Measured: LF and OL on all 10, RT on c06, c07, c08. The scholar record holds '3 of 10' 0 times.",
+   "exact_change": "'A third reading lens, reception, ran on 3 of 10 groups.'"
+  },
+  {
+   "id": "PF-11",
+   "severity": "low",
+   "finding": "Close text 'One blind pair': blind to each other only; both read the shipped rows, so under item 25 neither adds to the lens count.",
+   "exact_change": "Say 'blind to each other'."
+  },
+  {
+   "id": "PF-12",
+   "severity": "low",
+   "finding": "D1 disclosures say a profiling script read final_message and final_FX files and ask the orchestrator to confirm the review finals fall outside the ban. I found no record of that confirmation in what I read.",
+   "exact_change": "Orchestrator records the confirmation or a disclosure."
+  },
+  {
+   "id": "PF-13",
+   "severity": "low",
+   "finding": "The brief says check_atlas_rows.py's record goes to --out-root, but the tool also reads outputs from there; it failed until I copied four pinned files in. Validator report carries a rows file name, no sha.",
+   "exact_change": "Brief wording; add the corpus sha to the report."
+  }
+ ],
+ "stage1_findings_disposition": [],
+ "transcript_coverage": {
+  "attempts_total": 75,
+  "attempts_with_a_transcript": 0,
+  "attempts_with_no_transcript": 75,
+  "bytes_audited_by_stage1": 0,
+  "reconcile_verdict": "NOT_RUN",
+  "statement": "The stage-1 transcript audit is owed and not met. No transcript exists for any of the 75 attempts, no byte was audited, and nothing in this check stands in for that audit."
+ },
+ "verdict": "fit_to_close",
+ "statement": "Fit on the evidence I read, with the transcript audit owed and the campaign-end review deferred, and no more than that. I read 70 of 70 rows whole, 52 of them by Read by line under the coordinator's order, and ran tools over all 70. One reader carried all three verdicts, on one model family, a recorded downgrade. The fit depends on three unrouted matters staying disclosed: PF-1, PF-2, PF-3. I recommend routing PF-1 and PF-2 and checking lane B's read record (PF-3) before --close; the owner may want to see PF-1 first."
+}

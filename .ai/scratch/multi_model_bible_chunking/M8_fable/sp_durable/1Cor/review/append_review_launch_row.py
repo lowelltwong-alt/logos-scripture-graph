@@ -46,19 +46,91 @@ PARTS = {"S1": ("cor_writer_wave_spot_review_s1_a1", "review_S1",
                     "1 Corinthians controlling execution, round 1 (Fable's role on claude-opus-5-5, OW-25/OW-30): "
                     "rules on every item of 1Cor/review/1cor_controlling_agent_queue_e1.v1.json (S1's findings, the "
                     "tool fixes, the fix-up scope and the gate); items for Fable's end review listed. Writes in OUT "
-                    "only")}
-OUTDIR = {"S1": "cor_s1", "CTL_E1": "cor_ctl1"}
-BRIEFNAME = {"S1": "BRIEF_S1", "CTL_E1": "CONTROLLING_BRIEF_E1"}
+                    "only"),
+         "S2": ("cor_fixup_wave_review_s2_a1", "review_S2",
+                "1 Corinthians S2 fresh distinct-checker review of the FIXUP-1 applied rows "
+                "(1Cor/fixup/draft_rows_fixup1_applied.jsonl): tests every E1 s2_condition from the bytes and its own "
+                "runs (tool-fix receipts with plants, fix-up spans against the inlined licence maps, suite, tiling, "
+                "ngram7, the CWO reports), the ruled findings, the carried items, an untouched sample and the digests; "
+                "records readiness fit or fit_with_changes; not a lens. Writes in OUT only"),
+         "CTL_E2": ("cor_controlling_rulings_r2_a1", "controlling_r2",
+                    "1 Corinthians controlling execution, round 2 (Fable's role on claude-opus-5-5, OW-25/OW-30): "
+                    "rules on every item of 1Cor/review/1cor_controlling_agent_queue_e2.v1.json (S2's findings, the "
+                    "class rulings, the next tool fix, the fix-up scope and the gate for S3); items for Fable's end "
+                    "review listed. Writes in OUT only"),
+         "CTL_E3": ("cor_controlling_rulings_r3_a1", "controlling_r3",
+                    "1 Corinthians controlling execution, round 3 (Fable's role on claude-opus-5-5, OW-25/OW-30): "
+                    "rules on every item of 1Cor/review/1cor_controlling_agent_queue_e3.v1.json (S3's findings and "
+                    "the gate for the primaries or a further fix-up); items for Fable's end review listed. Writes in "
+                    "OUT only"),
+         "CTL_E4": ("cor_controlling_rulings_r4_a1", "controlling_r4",
+                    "1 Corinthians controlling execution, round 4 (Fable's role on claude-opus-5-5, OW-25/OW-30): "
+                    "rules on every item of 1Cor/review/1cor_controlling_agent_queue_e4.v1.json (the 23 primaries' "
+                    "challenges, the triage, the uncertainties and the gate for FIXUP-3 and S4); items for Fable's end review listed. Writes in "
+                    "OUT only"),
+         "CTL_E5": ("cor_controlling_rulings_r5_a1", "controlling_r5",
+                    "1 Corinthians controlling execution, round 5 (Fable's role on claude-opus-5-5, OW-25/OW-30): "
+                    "rules on every item of 1Cor/review/1cor_controlling_agent_queue_e5.v1.json (S5's 14 findings and "
+                    "the gate for FIXUP-4 and S6); items for Fable's end review listed. Writes in OUT only"),
+         "S5": ("cor_fixup3_review_s5_a1", "review_S5",
+                "1 Corinthians S5 fresh distinct-checker review of the FIXUP-3 applied rows "
+                "(1Cor/fixup/draft_rows_fixup3_applied.jsonl), in ACCEPT form against GATE-E4 s2_conditions; not a lens. "
+                "Writes in OUT only"),
+         "S6": ("cor_fixup4_review_s6_a1", "review_S6",
+                "1 Corinthians S6 fresh distinct delta check of the FIXUP-4 applied rows "
+                "(1Cor/fixup/draft_rows_fixup4_applied.jsonl) against GATE-E5's seven conditions, including the "
+                "stated no-author deviation; not a lens. Writes in OUT only")}
+OUTDIR = {"S1": "cor_s1", "CTL_E1": "cor_ctl1", "S2": "cor_s2", "CTL_E2": "cor_ctl2", "CTL_E3": "cor_ctl3", "CTL_E4": "cor_ctl4", "CTL_E5": "cor_ctl5",
+          "S5": "cor_s5_out", "S6": "cor_s6_out"}
+BRIEFNAME = {"S1": "BRIEF_S1", "CTL_E1": "CONTROLLING_BRIEF_E1", "S2": "BRIEF_S2",
+             "CTL_E2": "CONTROLLING_BRIEF_E2", "CTL_E3": "CONTROLLING_BRIEF_E3", "CTL_E4": "CONTROLLING_BRIEF_E4", "CTL_E5": "CONTROLLING_BRIEF_E5",
+             "S5": "BRIEF_S5", "S6": "BRIEF_S6"}
+# Close-kit lanes come from the data table (TE-1); a new lane is a row there, not an edit here.
+CLOSE = json.loads((SP / "1Cor" / "close" / "close_lanes.v1.json").read_text(encoding="utf-8"))["lanes"]
+for _l, _e in CLOSE.items():
+    PARTS[_l] = (_e["attempt"], _e["review_lane"], _e["role"])
+    OUTDIR[_l] = _e["out_dir"]
+    BRIEFNAME[_l] = _e["brief"]
 # Every part needs an explicit producer and catcher (the Phase 0 tables once defaulted a wrong pair; E-75).
 PRODUCER = {p: "this lane (1 Corinthians review lane %s, claude-opus-5-5 on grader_fallback, OW-25)" % p for p in PARTS}
 CATCHER = {p: ("the orchestrator's landing check of the deliverable against its schema and its claimed runs; the "
                "controlling execution that rules on its findings; Fable at the campaign-end review (OW-28)") for p in PARTS}
 CATCHER["CTL_E1"] = ("the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); "
                      "the fix-up authors and S2, who apply and test its orders; Fable at the campaign-end review (OW-28)")
+CATCHER["S2"] = ("the orchestrator's landing check of the deliverable against its schema and its claimed runs; the "
+                 "controlling execution that rules on any change it requires; the two blind lanes and the "
+                 "reception-tradition lens that read the rows after it; Fable at the campaign-end review (OW-28)")
+CATCHER["CTL_E2"] = ("the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); "
+                     "the FIXUP-2 authors and S3, who apply and test its orders; Fable at the campaign-end review "
+                     "(OW-28)")
+CATCHER["CTL_E3"] = ("the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); "
+                     "the two blind primary lanes and the reception-tradition lens, or the next fix-up and S4, who "
+                     "act on its gate; Fable at the campaign-end review (OW-28)")
+CATCHER["CTL_E4"] = ("the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); "
+                     "the two blind primary lanes and the reception-tradition lens, or the next fix-up and S4, who "
+                     "act on its gate; Fable at the campaign-end review (OW-28)")
+CATCHER["CTL_E5"] = ("the orchestrator's landing check of the deliverable (one ruling per queue id, the gate fields); "
+                     "the fix-up authors and S6, who act on its gate; Fable at the campaign-end review (OW-28)")
+CATCHER["S5"] = ("the orchestrator's landing check of the deliverable against its schema and its claimed runs; a further "
+                 "controlling execution if readiness is fit_with_changes; the merged-close lanes that read the rows after "
+                 "it; Fable at the campaign-end review (OW-28)")
+CATCHER["S6"] = CATCHER["S5"]
+for _l, _e in CLOSE.items():
+    CATCHER[_l] = _e["catcher"]
 if set(PRODUCER) != set(PARTS) or set(CATCHER) != set(PARTS):
     raise SystemExit("REFUSED: every part needs an explicit PRODUCER and CATCHER entry")
 sha = lambda b: hashlib.sha256(b).hexdigest()      # noqa: E731
 ap = argparse.ArgumentParser()
+for _n in ("W1", "W2", "W3", "W4", "W5", "W6"):
+    _p = "FX3_" + _n
+    PARTS[_p] = ("cor_fixup3_%s_a1" % _n, "fixup3:" + _n,
+                 "1 Corinthians FIXUP-3 author for part %s: carries out the round-4 rulings' orders to that part, CWO-1COR-06 and "
+                 "-07 and, for W4, S3-01 (claude-opus-5-5 on grader_fallback, OW-25). Writes in OUT only" % _n)
+    OUTDIR[_p] = "cor_fx3\\" + _n
+    BRIEFNAME[_p] = "FIXUP3_BRIEF_" + _n
+    PRODUCER[_p] = "this lane (1 Corinthians FIXUP-3 author, part %s, claude-opus-5-5 on grader_fallback, OW-25)" % _n
+    CATCHER[_p] = ("the orchestrator's landing check (fixup/fx3/land_fixup3.py: changed fields against the licence, suite, ngram7, "
+                   "tiling and sweep on the applied copy), then S5, a fresh agent on the applied rows")
 ap.add_argument("--lane", dest="part", required=True, choices=sorted(PARTS))
 ap.add_argument("--agent-id", required=True)
 ap.add_argument("--brief-sha", required=True)

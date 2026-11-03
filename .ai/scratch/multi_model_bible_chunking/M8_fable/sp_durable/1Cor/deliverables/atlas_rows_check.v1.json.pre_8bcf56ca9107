@@ -1,0 +1,320 @@
+{
+ "schema": "1cor_atlas_rows_check.v1",
+ "book": "1Cor",
+ "overall": "PASS",
+ "params_sha256": "7ceb0a2db6d039afc13ecabff8057afb65e01d182be1bb8cd5968d45bf8446bd",
+ "checked": {
+  "atlas_candidate_feed_rows.jsonl": "11ecb458dfaa4da2af43c718f6fc046bb831ac8ba6d77ee5e271576558dfc863",
+  "1Cor_atlas_dimensions.v1.jsonl": "9ff6ca8c6f1a4e5e209d27246ff01e657dc2f2c2922dfe8a008add3d4d57ad08",
+  "sidecar_src_1cor.jsonl": "a28e9a8fef8f04cd65a4e359bdff702ec7138b86ab8c41f5007b40e5f0cf9379"
+ },
+ "inputs_sha256": {
+  "../campaign/grader_models.v3.json": "45a45ae1582c098f22979d674f2b479cb23e909cab383eaebbc9cbda20472d41",
+  "1Cor_rp.txt": "94f7cf39fbd87f7952aba3ca957b7a4790edfb5d120dceffc8deac0ad0ccc2eb",
+  "1Cor_sbl.txt": "354b6dcf5b5f43a24dd85918e9759eeeb3153dc5284ab707a4167b64919456ff",
+  "1Cor_web_clean.txt": "7c8224ccf9eb0a06df20c5b2289d33ea32267dda136e88e73ea5761807cf0778",
+  "1cor_device_inventory.json": "62c608d775710f56040d3889db9c2cc2a98f40589d15e9b11b8ba2af9b3795ad",
+  "book_strategy_1Cor.md": "70e344fed9f0f64654baa97dff80e03b706a1288b47de182628dc453212e39ca",
+  "close/1cor_landed_outputs_manifest.frozen_for_close_lanes.v1.json": "e46eefd38aa481b2618b49de6b193acac12be8a8d418cc40223dbf342d560c4c",
+  "fable_end_review/routed_items.v1.jsonl": "9a649112983050c74901c11a38f0755604bdd84d69f8412c4f65f47a69243a35",
+  "pmarks_1Cor.json": "5cd9055a8ecbfbc8dcf0f5dbc43e7bedbb0e69dc4fb7e8d9000e164e074c7fd7",
+  "review/1cor_controlling_agent_rulings_E1.v1.json": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90",
+  "review/1cor_controlling_agent_rulings_E2.v1.json": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541",
+  "review/1cor_controlling_agent_rulings_E3.v1.json": "a7f32674dee0b0e27f25803729f93142cefdaf2847f9d7122010397e992efe70",
+  "review/1cor_controlling_agent_rulings_E4.v1.json": "33ac57245ee930b1484a1227fc019e11c6f082b5c984a20ecc9e7c765d463187",
+  "review/1cor_controlling_agent_rulings_E5.v1.json": "c83f49370ed176790530dabdcdfabb85083e94e70acfa87dd4723c16fefa4171",
+  "review/1cor_controlling_agent_rulings_E6.v1.json": "b2b3c6dd0ebebe681cabdfd528de9b1f5016f0e200dc0907d9d6d7f83d23d61a",
+  "review/1cor_controlling_agent_rulings_E7.v1.json": "47926b2b0e2a3b31f6ef6f79e840675006484ec3acd08a3a0550ec702b0bc864",
+  "rows_v1_final.jsonl": "d175136999a5409789e055592c8341b2bd92230ef132b00697a30c2ec03e76b0",
+  "rows_v1_final.manifest.json": "c4918d2383e1d2ab82432cc323d052f6abe130bc317b17fb7df98602dfa2794b"
+ },
+ "packets_reopened": 30,
+ "counts": {
+  "feed_rows": 20,
+  "units": 70,
+  "open_questions": 216,
+  "linkages": 309,
+  "linkages_treated_differently": 263
+ },
+ "checks": [
+  {
+   "id": "A1",
+   "claim": "both outputs are LF-only UTF-8 with a final newline",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "A2",
+   "claim": "every feed row has exactly the shared-feed fields, in order",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "A3",
+   "claim": "feed rows are exactly the final rows graded in the selected set, once each",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "A4",
+   "claim": "each feed row mirrors its corpus row: span, confidence, review state, the row's own hold, non-authorizing, no promotion authority",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "A5",
+   "claim": "no witness bytes, quotation mark or internal code in any feed prose field",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "A6",
+   "claim": "every why_low_confidence is non-empty and unique",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "A7",
+   "claim": "every sentence of why_low_confidence is found verbatim in that row's own prose",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "A8",
+   "claim": "no judged rating travels in the feed",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "A9",
+   "claim": "review_packet_final_state equals a re-derivation from the row's status, its hold and the last audit verdict, on every feed row and every unit",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "B1",
+   "claim": "one unit record per final row",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "B2",
+   "claim": "measured, dependency and judged are separate blocks; the judged block is labelled a rule, and the risk rating is left out and said to be left out",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "B3",
+   "claim": "every span exists on both witnesses, the spans tile the book, and each unit's primary span and size match an independent positional alignment of the two numberings",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "B4",
+   "claim": "contested-between-blind-lanes equals an independent re-read of the lanes' verdicts",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "B5",
+   "claim": "answerable-from-the-witnesses is one of three stated values, and left_out says what it means",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "B6",
+   "claim": "writer ids and decision ids are the same ids in two spellings (the sidecar keys on the former)",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "B7",
+   "claim": "severities landed equal an independent recount from the packets",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "B8",
+   "claim": "onset seam evidence on both faces equals a re-derivation from the marks file and the inventory",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "C1",
+   "claim": "every routed end-review item is an open-question record, once",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "C2",
+   "claim": "every unresolved entry, escalation, inventory end-review item, strategy line and end-review finding without a routed id is an open-question record",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "C3",
+   "claim": "every open question carries one of the four blast-radius classes, labelled as assigned by rule",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "C4",
+   "claim": "no convention question is filed as one unit (the record's own convention words, and this checker's own words over the routed items' text)",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "C5",
+   "claim": "a question that names no unit is never filed as one unit or several units",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "C6",
+   "claim": "a routed item whose id names no unit is filed one_book or wider",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "D1",
+   "claim": "every linkage is harvested from a named source: each source, re-opened at its locator, names both units (a cross-reference names one and cites a verse inside the other)",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "D2",
+   "claim": "treated-differently equals a re-comparison of the two final rows",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "D3",
+   "claim": "every linked pair treated differently carries a statement (real distinction or possible inconsistency) with its basis; none is unremarked",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "E1",
+   "claim": "the sidecar has exactly the selected rows, once each, and every required field is non-empty",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  },
+  {
+   "id": "E2",
+   "claim": "every sidecar why_low_confidence is unique and equals the atlas row's",
+   "result": "PASS",
+   "failures": 0,
+   "first_failures": []
+  }
+ ],
+ "selftest": {
+  "what": "each tamper is applied in memory to a copy of the outputs; a tamper that no check catches fails the run",
+  "caught_by": {
+   "drop_feed_row": [
+    "A3",
+    "E2"
+   ],
+   "hold_a_row": [
+    "A4"
+   ],
+   "witness_bytes_in_prose": [
+    "A5",
+    "E2"
+   ],
+   "duplicate_why": [
+    "A6",
+    "A7",
+    "E2"
+   ],
+   "extra_feed_field": [
+    "A2",
+    "A8"
+   ],
+   "untraceable_sentence": [
+    "A7",
+    "E2"
+   ],
+   "wrong_final_state": [
+    "A9"
+   ],
+   "flip_contested": [
+    "B4"
+   ],
+   "wrong_primary_span": [
+    "B3"
+   ],
+   "severity_count": [
+    "B7"
+   ],
+   "flip_seam_evidence": [
+    "B8"
+   ],
+   "convention_as_one_unit": [
+    "C4"
+   ],
+   "drop_routed_question": [
+    "C1"
+   ],
+   "drop_inventory_question": [
+    "C2"
+   ],
+   "routed_process_item_narrowed": [
+    "C6"
+   ],
+   "linkage_without_source": [
+    "D1"
+   ],
+   "linkage_wrong_source": [
+    "D1"
+   ],
+   "unremarked_divergence": [
+    "D3"
+   ],
+   "sidecar_missing_row": [
+    "E1"
+   ],
+   "sidecar_duplicate_why": [
+    "E2"
+   ]
+  }
+ },
+ "generator_check": {
+  "gen_atlas_rows.py": {
+   "exit": 0,
+   "last_line": "DETERMINISTIC: MATCH"
+  },
+  "gen_sidecars.py": {
+   "exit": 0,
+   "last_line": "MATCH"
+  }
+ },
+ "tier": "MEASURED by this checker; it shares no code with the generator, but it was written by the same builder on the same model family, so it is not independent review",
+ "limit": "The checker proves form, mirroring, tracing and harvest. It cannot prove that a rule-assigned class or statement is the right reading; those are labelled JUDGED_BY_RULE."
+}

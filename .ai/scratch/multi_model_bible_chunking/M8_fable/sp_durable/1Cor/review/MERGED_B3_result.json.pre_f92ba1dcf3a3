@@ -1,0 +1,92 @@
+{
+  "attempt_id": "cor_merged_close_lane_b_a3",
+  "execution_id": "cor_merged_close_lane_b_a3#e1",
+  "verdict": "delivered_with_gaps",
+  "deliverables": [
+    {
+      "name": "postcheck.json",
+      "sha256": "3dc9b2b3cfb9303a56dcc335e403955f1804670430318b324ecf5d92c4136ada",
+      "bytes": 3040
+    },
+    {
+      "name": "final_check.json",
+      "sha256": "37223d66251f4e2073357d1ac9bd9fdb70cd593373684f8a0dec87490092d032",
+      "bytes": 69413
+    },
+    {
+      "name": "items_20_23.json",
+      "sha256": "f3d932a033748ac77fdf5a97c22f93a054dbe460c797872e6849adcd2088216a",
+      "bytes": 3478
+    },
+    {
+      "name": "named_questions.json",
+      "sha256": "2a3fc6998d5445917b3be5fd3cf286d5f94787f706e92f69260794761bdf4ffe",
+      "bytes": 10102
+    },
+    {
+      "name": "lane_meta.json",
+      "sha256": "a19caf4b22823fdc322e97d48a0c66b01e7f0fa8acf9f06162f3eef25f7a4902",
+      "bytes": 30862
+    },
+    {
+      "name": "final_message.md",
+      "sha256": "50b0e8d972c1fc7d2e8f6276d483dd97e0ea06211878a409d79f656d29f44222",
+      "bytes": 2786
+    }
+  ],
+  "verification": [
+    {
+      "claim": "98/98 brief pins match current bytes; corpus 4287903",
+      "how": "hash_pins.py sha256 of every pinned path; gen_out.py asserts",
+      "result": "MEASURED: 0 mismatch"
+    },
+    {
+      "claim": "item 21 cured",
+      "how": "gen_method_v8.py --check; check_method_record.py on work\\m8copy plain and --selftest; record key diff",
+      "result": "MEASURED: MATCH 53601c73; 13/13; record = 57089818; selftest PASS"
+    },
+    {
+      "claim": "end packet current",
+      "how": "gen_fable_end_packet --check",
+      "result": "MEASURED: MATCH a94c9338"
+    },
+    {
+      "claim": "README lead basis matches R9-LEADS",
+      "how": "leadtest2.py: lead sentence of why_low_confidence found in the named row field",
+      "result": "MEASURED: 5/5"
+    },
+    {
+      "claim": "final_check fit_to_close",
+      "how": "gen_out.py: 0 high/medium residuals; every unmet entry carries a fixed type",
+      "result": "MEASURED: 8 unmet, all typed; verdict fit_to_close"
+    },
+    {
+      "claim": "dry run gates",
+      "how": "_close_book.py --dry-report OUT\\work\\dry; ext_dry.py",
+      "result": "MEASURED: 98 gates, 8 unmet, exit 0"
+    },
+    {
+      "claim": "addendum citations",
+      "how": "addendum_test.py against ERROR_PATTERN_LEDGER",
+      "result": "EXTRACTED: l.3412, 3525, 3572, 3598 match"
+    },
+    {
+      "claim": "deliverables UTF-8, LF, final_message <= 40 lines",
+      "how": "gen_result.py asserts",
+      "result": "MEASURED: pass, 37 lines"
+    },
+    {
+      "claim": "e19_selfreport",
+      "how": "note",
+      "result": "I ran no listing and no glob, no existence check and no recursive search; I opened no transcript, .output file or compaction summary; two harness-saved tool-results files were not opened; nothing written under SP; no git, receipt or registry."
+    }
+  ],
+  "unresolved_uncertainty": [
+    "Items 1, 14, 25 (R2-R4) carried from a2, not re-run in a3.",
+    "check_atlas_rows.py not re-run in a3 (inputs unchanged); a2 PASS carried.",
+    "P04/P06 'no measured cause' is REPORTED by the orchestrator, untested.",
+    "Whether OW-38 alters OW-37 point 3's '--acf item22' for 1 Corinthians is untested.",
+    "Blindness exposure: summary values of the other lane were read incidentally in pinned gates.json and close_evidence.",
+    "Close evidence for items 16, 18, 19 is the orchestrator's at the close act; the transcript audit stays OWED and the Fable review DEFERRED."
+  ]
+}

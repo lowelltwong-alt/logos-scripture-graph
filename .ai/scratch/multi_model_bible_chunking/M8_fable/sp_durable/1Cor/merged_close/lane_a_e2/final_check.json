@@ -1,0 +1,1052 @@
+{
+ "book": "1Cor",
+ "corpus": "rows_v1_final.jsonl",
+ "corpus_sha256": "4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "audit_coverage": {
+  "read": "39 rows whole by line; 31 held by byte equality; the dry report, parity, sidecars, validator report, census; the close gate in full; ledger OW-28, OW-36..OW-38; E6-E9 rulings by key; boss audits by key; scholar record lines 3946-4038 whole and all six ranges by script, plus 6144, 6306, 14205; v7/v8 by script; proposals, adjudications, adjudicated file; atlas feed and dimensions by key; frozen manifests by script.",
+  "what_i_did_not_check": [
+   "any transcript (owed, not audited)",
+   "the Greek substrate CSV behind pmarks (forbidden path): RP pilcrow presence rests on pmarks_1Cor.json, EXTRACTED",
+   "scholar ranges other than 3946-4038 were tested by script only, not read line by line",
+   "B1..B17 of the boss audits item by item (overall verdicts only)",
+   "the README of the deliverables claim by claim",
+   "whether each proposal lies inside the proposer brief's scope",
+   "close-gate items 2-12 and addenda OW-20..OW-27 beyond the dry report",
+   "the words of E7 and the manifest against the NQ-10 review_status difference"
+  ]
+ },
+ "byte_verifications": [
+  {
+   "claim": "corpus is the pinned file",
+   "tool": "sha256",
+   "result": "4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea"
+  },
+  {
+   "claim": "31 held rows byte-equal to the first lanes' rows",
+   "tool": "s24_build.py line compare",
+   "result": "31 of 31 equal"
+  },
+  {
+   "claim": "E9 repair applied exactly",
+   "tool": "s15_item14.py",
+   "result": "23 spans APPLIED, re-application equals corpus bytes, 0 mismatches"
+  },
+  {
+   "claim": "after.jsonl equals corpus",
+   "tool": "byte compare",
+   "result": true
+  },
+  {
+   "claim": "90 pinned files",
+   "tool": "s01_pins.py",
+   "result": "0 mismatches"
+  },
+  {
+   "claim": "R9-LEADS and R9-WEB as ordered",
+   "tool": "s17/s18",
+   "result": "5/5 lead sentences word for word; WEB attribution 3 new, 0 old; generators MATCH"
+  },
+  {
+   "claim": "method generator binds the corpus",
+   "tool": "gen_method_v8.py --check",
+   "result": "FAIL (pins d1751369)"
+  }
+ ],
+ "residual": [
+  {
+   "row_id": "W3-004",
+   "e_class": "internal_tension",
+   "severity": "low",
+   "origin": "writer text carried through all rounds",
+   "defective_text": "the row's two mentions of the SBL sign at ⸀γὰρ (9:24 area) are not stated in one consistent way",
+   "byte_evidence": "corpus W3-004 holds '⸀γὰρ' 2 times (MEASURED, s23_last.py); the row's boundary does not rest on it",
+   "proposed_cure": "none required for assembly; route to the end review as wording"
+  },
+  {
+   "row_id": "W2-014/W2-015",
+   "e_class": "seam_confidence_divergence",
+   "severity": "low",
+   "origin": "atlas linkage marked possible_inconsistency_unruled",
+   "defective_text": "W2-014 (medium) declines the 7:36-7:40 merge because 7:39 opens a new case; W2-015 (medium_low) calls the same merge 'a fair alternative'",
+   "byte_evidence": "corpus SRA fields of W2-014 and W2-015 (EXTRACTED, s22_fin.py rows)",
+   "proposed_cure": "none for assembly: both keep the 7:38/7:39 seam and both name the rival; the grade gap is disclosed"
+  },
+  {
+   "row_id": "W5-013/W5-014",
+   "e_class": "shared_open_seam",
+   "severity": "low",
+   "origin": "atlas linkage marked possible_inconsistency_unruled",
+   "defective_text": "W5-013 (low) attaches 14:36 backward and says so; W5-014 (medium) opens at 14:37 while that attachment stays open",
+   "byte_evidence": "corpus BR/SRA of W5-013 and W5-014 (EXTRACTED); W5-014 SRA: 'attaching 14:36 forward to 14:37 stays open ... listed for end review'",
+   "proposed_cure": "none for assembly; both rows disclose it and it is routed to the end review"
+  },
+  {
+   "row_id": "(record) scholar record",
+   "e_class": "unsupported_count_expectation",
+   "severity": "low",
+   "origin": "E9 R9-WEB deciding count",
+   "defective_text": "'public domain' occurs 3 times (lines 14049, 14205, 14396), not the 2 E9 expected",
+   "byte_evidence": "s17_r1b.py count",
+   "proposed_cure": "none: none asserts a WEB term"
+  }
+ ],
+ "close_gate_assessment": [
+  {
+   "item": "item_1",
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "My R2 finding (final_check.reissue_item_1): 0 of 7 sampled defective; on my evidence the item would be met. Filled by the orchestrator after both lanes land.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "item_2",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_3",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_4",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that. close_evidence item_4: E-23 sweep 2 flags, both false positives by my triage.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_5",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that. close_evidence item_5: 0 receipt rows naming an appeal.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_6",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_7",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_8",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_9",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_10",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_11",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_12",
+   "met": true,
+   "type": null,
+   "evidence": "Item read in CAMPAIGN_CLOSE_GATE.v1.md. No dry-report gate tied to it is unmet; this lane did not re-test it beyond that.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "item_13",
+   "met": true,
+   "type": null,
+   "evidence": "close_evidence item_13: capture_index_check GREEN (EXTRACTED from the stdout record, not re-run).",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "item_14",
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "My R3 finding (final_check.reissue_item_14): repair bytes match the E9 orders exactly; no unordered or missing change. Census per_book.1Cor attempts 79, transcript_retained 0 (MEASURED). Filled after both lanes land.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "item_15",
+   "met": true,
+   "type": null,
+   "evidence": "The shared-file appends are made by --close; the dry report lists them (NQ-4). Not yet done, as is correct before the close act.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "item_16",
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "Status update falls due at the close act.",
+   "tier": "TRANSCRIBED"
+  },
+  {
+   "item": "item_17",
+   "met": true,
+   "type": null,
+   "evidence": "Every role runs on claude-opus-5-5 as grader_fallback (OW-25); a recorded downgrade, not an equivalence. The carrier gate states it.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "item_18",
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "Playbook update falls due at the close act.",
+   "tier": "TRANSCRIBED"
+  },
+  {
+   "item": "item_19",
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "The one line on quality traded for tokens falls due at the close act. Spend: 7,761,939 measured tokens across 61 of 98 runs, 37 unmeasured, the full spend unknown. No limit was set for 1 Corinthians; under OW-28 spend is tracked and does not block the close.",
+   "tier": "TRANSCRIBED"
+  },
+  {
+   "item": "item_20",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Scholar record: generator IDENTICAL, checker PASS 19/19; my grade fit_to_accept with reservations (items_20_23.item_20). Its Fable audit is DEFERRED (OW-28), never met; WEB term unstated, so publication staging is not met.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "item_21",
+   "met": false,
+   "type": "STALE_METHOD_GENERATOR_PIN: gen_method_v8.py pins ROWS_SHA d1751369, so --check FAILS on the 4287903015 corpus and the shipped method_record_check.v8.json is stale; Fable check also DEFERRED (OW-28)",
+   "evidence": "See items_20_23.item_21. A one-line re-pin regenerates v8 byte-identical (53601c73) in my copy; the checker must then be re-run.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "item_22",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "gen_atlas_rows --check MATCH; check_atlas_rows PASS 28/0, selftest PASS; feed sha 5d81467f. The Fable check is DEFERRED (OW-28).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "item_23",
+   "met": true,
+   "type": null,
+   "evidence": "6 proposed, 6 adopted by one non-proposer adjudicator (same family); gen_proposals_adjudicated --check MATCH; v8 change table lists the adoptions. Reservations in items_20_23.item_23.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "item_24",
+   "met": true,
+   "type": null,
+   "evidence": "Tiers stated across the rows and records I read; close_evidence item_24 records a v8 measured-cause correction for P04/P06.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "item_25",
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "My R4 finding (final_check.reissue_item_25): 34 rows, 0 defects, 5 low notes. One pair blind to each other. Never count this pair as new blind lenses.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "OW-28 campaign-end architect review",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Deferred by the owner; DEFERRED is never MET.",
+   "tier": "TRANSCRIBED"
+  },
+  {
+   "item": "stage-1 transcript audit (OW-26 shape)",
+   "met": false,
+   "type": "OWED_TRANSCRIPT_AUDIT",
+   "evidence": "OWED, NOT MET: no transcript of this book's 79 attempts was audited (census transcript_retained 0).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "OW-28 fable end packet reproduces over this corpus",
+   "met": false,
+   "type": "STALE_FABLE_END_PACKET: built over d1751369, MISMATCH, stale sidecar; regenerate with gen_fable_end_packet.py --book 1Cor and re-pin",
+   "evidence": "Dry report gates 4-6 unmet (MEASURED).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "landed outputs manifest current",
+   "met": false,
+   "type": "RECEIPT_FILE_CHANGED_SINCE_MANIFEST: 1cor_review_attempt_receipts.jsonl changed after the manifest was frozen; rebuild or re-pin the manifest",
+   "evidence": "Dry report (MEASURED).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "OW-20",
+   "met": true,
+   "type": null,
+   "evidence": "Addendum read in the close gate; no dry-report gate tied to it is unmet; not re-tested further by this lane.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "OW-21",
+   "met": true,
+   "type": null,
+   "evidence": "Addendum read in the close gate; no dry-report gate tied to it is unmet; not re-tested further by this lane.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "OW-22",
+   "met": true,
+   "type": null,
+   "evidence": "Addendum read in the close gate; no dry-report gate tied to it is unmet; not re-tested further by this lane.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "OW-27",
+   "met": true,
+   "type": null,
+   "evidence": "Addendum read in the close gate; no dry-report gate tied to it is unmet; not re-tested further by this lane.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "OW-29",
+   "met": true,
+   "type": null,
+   "evidence": "Addendum read in the close gate; no dry-report gate tied to it is unmet; not re-tested further by this lane. OW-29: --close runs only once a dry run shows 0 unmet; it does not now.",
+   "tier": "REPORTED"
+  },
+  {
+   "item": "OW-30",
+   "met": true,
+   "type": null,
+   "evidence": "Addendum read in the close gate; no dry-report gate tied to it is unmet; not re-tested further by this lane. OW-30: no Fable call is made; the receipt text says so.",
+   "tier": "REPORTED"
+  }
+ ],
+ "process_findings": [
+  "Close blocker A: the fable end packet was built over the pre-FIXUP-6 rows (d1751369) and fails its gates; regenerate and re-pin.",
+  "Close blocker B: gen_method_v8.py still pins d1751369; FIXUP-6 landed after v8 was generated, and the v8 check record was not re-run.",
+  "The landed-outputs manifest predates a change to 1cor_review_attempt_receipts.jsonl.",
+  "v8's header counts 7 rulings (E1-E7) 'measured when written'; E8 and E9 now exist, so the header is dated, not false.",
+  "The adjudicator's flag that E7's 'S8 is not owed' meets no routed row, and its report that v7 rule 2 (what opens a repair round) is unmet, appear in none of close_evidence, routed_items, close_spec or the OW-38 answers (MEASURED counts 0).",
+  "Spend: 7,761,939 measured tokens across 61 of 98 runs, 37 unmeasured, the full spend unknown. No limit was set for 1 Corinthians; under OW-28 spend is tracked and does not block the close.",
+  "One pair blind to each other. Never count this pair as new blind lenses."
+ ],
+ "stage1_findings_disposition": [],
+ "transcript_coverage": {
+  "attempts_total": 79,
+  "attempts_with_a_transcript": 0,
+  "attempts_with_no_transcript": 79,
+  "bytes_audited_by_stage1": 0,
+  "reconcile_verdict": "NOT_RUN",
+  "statement": "The stage-1 transcript audit is OWED, NOT MET. No transcript of any of this book's 79 attempts was audited, and none is retained per the census."
+ },
+ "verdict": "not_fit",
+ "statement": "Not fit to close on the evidence I read: the fable end packet and the method-record generator are bound to the pre-repair corpus, and the landed manifest is stale. The rows themselves are fit to assemble. Even once cured, a pass would mean fit on the evidence read, with the transcript audit OWED, NOT MET and the campaign-end review DEFERRED.",
+ "rows_read": [
+  "W1-001",
+  "W1-002",
+  "W1-003",
+  "W1-004",
+  "W1-007",
+  "W2-003",
+  "W2-005",
+  "W2-006",
+  "W2-007",
+  "W2-012",
+  "W2-013",
+  "W2-014",
+  "W2-015",
+  "W3-001",
+  "W3-002",
+  "W3-003",
+  "W3-004",
+  "W3-005",
+  "W3-006",
+  "W3-007",
+  "W4-003",
+  "W5-002",
+  "W5-003",
+  "W5-004",
+  "W5-007",
+  "W5-008",
+  "W5-009",
+  "W5-010",
+  "W5-011",
+  "W5-013",
+  "W5-014",
+  "W6-001",
+  "W6-002",
+  "W6-009",
+  "W6-010",
+  "W6-011",
+  "W6-012",
+  "W6-013",
+  "W6-014"
+ ],
+ "rows_held_by_byte_equality": [
+  "W1-005",
+  "W1-006",
+  "W1-008",
+  "W1-009",
+  "W1-010",
+  "W1-011",
+  "W1-012",
+  "W1-013",
+  "W1-014",
+  "W1-015",
+  "W2-001",
+  "W2-002",
+  "W2-004",
+  "W2-008",
+  "W2-009",
+  "W2-010",
+  "W2-011",
+  "W3-008",
+  "W4-001",
+  "W4-002",
+  "W4-004",
+  "W5-001",
+  "W5-005",
+  "W5-006",
+  "W5-012",
+  "W6-003",
+  "W6-004",
+  "W6-005",
+  "W6-006",
+  "W6-007",
+  "W6-008"
+ ],
+ "held_byte_equality": {
+  "W1-005": true,
+  "W1-006": true,
+  "W1-008": true,
+  "W1-009": true,
+  "W1-010": true,
+  "W1-011": true,
+  "W1-012": true,
+  "W1-013": true,
+  "W1-014": true,
+  "W1-015": true,
+  "W2-001": true,
+  "W2-002": true,
+  "W2-004": true,
+  "W2-008": true,
+  "W2-009": true,
+  "W2-010": true,
+  "W2-011": true,
+  "W3-008": true,
+  "W4-001": true,
+  "W4-002": true,
+  "W4-004": true,
+  "W5-001": true,
+  "W5-005": true,
+  "W5-006": true,
+  "W5-012": true,
+  "W6-003": true,
+  "W6-004": true,
+  "W6-005": true,
+  "W6-006": true,
+  "W6-007": true,
+  "W6-008": true
+ },
+ "records_read": [
+  {
+   "path": "1Cor/scholar_record/FIRST_CORINTHIANS_SCHOLAR_RECORD.v1.md",
+   "locator": "lines 6144, 6306, 14205; 3946-4038",
+   "sha256": "f0e0cfca2c924d6baee0cbe9da9953f78938a86aa6bae642ad568837eb0b8dbe"
+  },
+  {
+   "path": "1Cor/scholar_record/book_params.v1.json",
+   "locator": "word_subs_before_codes[27] (entry 28)",
+   "sha256": "b73db394867107a80a01fd4a6e1ebcc4f91a0c393319dad6dce865baa0457e2c"
+  },
+  {
+   "path": "1Cor/deliverables/atlas_candidate_feed_rows.jsonl",
+   "locator": "M8-1Cor-011, -027, -028, -051, -052 (+ -019, -033, -034, -039, -040)",
+   "sha256": "5d81467f947a97c5e9beb8799d9845498c1be131d03a10ca326a96006bc1d9f3"
+  },
+  {
+   "path": "1Cor/deliverables/1Cor_sidecar_derivation.v1.jsonl",
+   "locator": "the same five ids",
+   "sha256": "a20f85e6b402a047d7330b4da350fd7304cf189fcd50d80b6814a5591e08b37a"
+  },
+  {
+   "path": "1Cor/deliverables/book_params.v1.json",
+   "locator": "why_lead_sentence",
+   "sha256": "4f329dcfe1b0ed1c2001a10b0ae85b3668171c16bec15b76db7385155fc513f3"
+  }
+ ],
+ "reissue_item_1": {
+  "sample_sha256": "862d7db5645c4d975fb865cc046f639e0fe5a530366ee9884a773c65a68689b2",
+  "corpus_sha256": "4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea",
+  "frame_size": 31,
+  "sample_size": 7,
+  "build_check": "build_lf_support_sample.py --book 1Cor --check: MATCH (runs_summary.json)",
+  "rows": [
+   {
+    "row_id": "W1-001",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary holds against RP/SBL/WEB extracts; the LF support survives an adversarial read.",
+    "byte_evidence": "row line in rows_v1_final.jsonl read whole; quoted Greek runs found in the named witness by script"
+   },
+   {
+    "row_id": "W1-007",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary holds against RP/SBL/WEB extracts; the LF support survives an adversarial read.",
+    "byte_evidence": "row line in rows_v1_final.jsonl read whole; quoted Greek runs found in the named witness by script"
+   },
+   {
+    "row_id": "W2-003",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary holds against RP/SBL/WEB extracts; the LF support survives an adversarial read.",
+    "byte_evidence": "row line in rows_v1_final.jsonl read whole; quoted Greek runs found in the named witness by script"
+   },
+   {
+    "row_id": "W2-015",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary holds against RP/SBL/WEB extracts; the LF support survives an adversarial read. The merge rival at 7:38/7:39 is graded more doubtfully here than in W2-014; disclosed, not a defect.",
+    "byte_evidence": "row line in rows_v1_final.jsonl read whole; quoted Greek runs found in the named witness by script"
+   },
+   {
+    "row_id": "W4-003",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary holds against RP/SBL/WEB extracts; the LF support survives an adversarial read.",
+    "byte_evidence": "row line in rows_v1_final.jsonl read whole; quoted Greek runs found in the named witness by script"
+   },
+   {
+    "row_id": "W5-007",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary holds against RP/SBL/WEB extracts; the LF support survives an adversarial read.",
+    "byte_evidence": "row line in rows_v1_final.jsonl read whole; quoted Greek runs found in the named witness by script"
+   },
+   {
+    "row_id": "W6-002",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary holds against RP/SBL/WEB extracts; the LF support survives an adversarial read.",
+    "byte_evidence": "row line in rows_v1_final.jsonl read whole; quoted Greek runs found in the named witness by script"
+   }
+  ],
+  "defects": 0,
+  "lf_attributable_defects": 0,
+  "digits": "0 of 7 sampled LF-supported rows defective, 0 LF-attributable (object: the sample of lf_support_sample.v1.json over rows_v1_final.jsonl 4287903015be)"
+ },
+ "reissue_item_14": {
+  "before_sha256": "d175136999a5409789e055592c8341b2bd92230ef132b00697a30c2ec03e76b0",
+  "after_sha256": "4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea",
+  "orders_sha256": "66fa2020b76c3c702906501723cc4c5f997e897a74725d0b1ac120bfd5eda37c",
+  "after_equals_corpus": true,
+  "before_equals_first_lanes_rows": true,
+  "rows_differing": 14,
+  "fields_differing": 20,
+  "orders_applied": 23,
+  "per_change": [
+   {
+    "row_id": "W1-003",
+    "field": "device_notes",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W2-006",
+    "field": "strongest_rejected_alternative",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W2-013",
+    "field": "strongest_rejected_alternative",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W2-014",
+    "field": "device_notes",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W3-001",
+    "field": "boundary_evidence_refs",
+    "order": "R9-SPANS",
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W3-001",
+    "field": "boundary_rationale",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W3-003",
+    "field": "device_notes",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W3-003",
+    "field": "strongest_rejected_alternative",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W3-006",
+    "field": "device_notes",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W3-006",
+    "field": "observed_substrate_signals",
+    "order": "R9-SPANS",
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W5-003",
+    "field": "boundary_rationale",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W5-009",
+    "field": "strongest_rejected_alternative",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W5-010",
+    "field": "boundary_rationale",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W5-014",
+    "field": "strongest_rejected_alternative",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W6-001",
+    "field": "boundary_rationale",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W6-010",
+    "field": "boundary_evidence_refs",
+    "order": "R9-SPANS",
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W6-010",
+    "field": "boundary_rationale",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W6-010",
+    "field": "device_notes",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W6-010",
+    "field": "observed_substrate_signals",
+    "order": "R9-SPANS",
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   },
+   {
+    "row_id": "W6-013",
+    "field": "strongest_rejected_alternative",
+    "order": [
+     "R9-SPANS"
+    ],
+    "matches": true,
+    "evidence": "independent re-application of the E9 exact spans to the pre-repair rows reproduces the corpus bytes (s15_item14.py; reapply_vs_corpus_mismatches 0)"
+   }
+  ],
+  "unordered_changes": [],
+  "missing_changes": [],
+  "verdict": "match"
+ },
+ "reissue_item_25": {
+  "rows": [
+   {
+    "row_id": "W1-002",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W1-003",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W1-004",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W2-005",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W2-006",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W2-007",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W2-012",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W2-013",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W2-014",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "low",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams. Low residual, see residual.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W2-015",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "low",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces. Low residual, see residual.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W3-001",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W3-002",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W3-003",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W3-004",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "low",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces. Low residual, see residual.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W3-005",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W3-006",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W3-007",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-002",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-003",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-004",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-008",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-009",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-010",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-011",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-013",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "low",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces. Low residual, see residual.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W5-014",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "low",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams. Low residual, see residual.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W6-001",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W6-002",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W6-009",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W6-010",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W6-011",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W6-012",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W6-013",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Change tested: the new text is the E9 order's text, true to the witness, and consistent with both seams.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   },
+   {
+    "row_id": "W6-014",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour: the shared seam with the changed row agrees on both faces.",
+    "byte_evidence": "corpus line read whole; E9 span texts present in the corpus field (s15/s16)"
+   }
+  ],
+  "rows_reviewed": 34,
+  "defects": 0
+ },
+ "e23_triage": [
+  {
+   "field": "boundary_rationale",
+   "row_id": "W1-002",
+   "reading": "Greek rhetorical period (the thanksgiving period closing at 1:9)",
+   "full_stop_driver": false,
+   "evidence": "'The period closes on rp:1Cor.1.9'; the seam rests on the appeal verb at 1:10"
+  },
+  {
+   "field": "strongest_rejected_alternative",
+   "row_id": "W1-002",
+   "reading": "Greek rhetorical period",
+   "full_stop_driver": false,
+   "evidence": "'close of the period' names the thanksgiving period, not punctuation"
+  }
+ ]
+}

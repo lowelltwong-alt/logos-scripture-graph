@@ -1,0 +1,2254 @@
+{
+ "schema": "m8_s2_receipt_extract.v1",
+ "book": "1Cor",
+ "source": {
+  "path": "sp_durable/1Cor/review/1cor_review_attempt_receipts.jsonl",
+  "sha256": "fcb75c342d72846b3168b588ed0f6da78227480abbc8cacb1f893a9fdc0b1aee",
+  "rows": 21
+ },
+ "whitelist": {
+  "whole_rows_except_parent_agent_id": [
+   7,
+   8,
+   9,
+   10,
+   21
+  ],
+  "launch_fields": [
+   "record_kind",
+   "attempt_id",
+   "execution_id",
+   "lane",
+   "ordered_by",
+   "orders",
+   "brief",
+   "brief_sha256",
+   "rows_under_repair",
+   "launched_at"
+  ],
+  "completion_fields": [
+   "record_kind",
+   "attempt_id",
+   "amends_execution_id",
+   "outcome",
+   "outputs",
+   "lander_checks",
+   "recorded_at"
+  ],
+  "left_out": "agent ids, launch messages and sent prompts, completion notes, token fields, and every lane's final message (S2 is blind to lane prose beyond the change records)"
+ },
+ "built_at": "2026-10-20T11:50:11Z",
+ "built_by": "orchestrator (claude-opus-5-5, OW-25)",
+ "rows": [
+  {
+   "receipt_row": 7,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "tool_fix_install",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1",
+   "rulings_file": {
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E1.v1.json",
+    "sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90"
+   },
+   "rows_tested": {
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "note": "fixtures ran on scratch slices and copies only (E-67); staged bytes tested as if installed, then re-run from the installed location"
+   },
+   "recorded_at": "2026-10-20T07:12:34Z",
+   "tool_fix_id": "TF-1 (S1-07)",
+   "outcome": "INSTALLED - an added --book-index mode in the writer-part validator: chunk_index_in_book is checked against the combined draft's first index for the part (base + n - 1) instead of 1..k; the default mode and its output are unchanged (byte-identical on all six slices) and no check is weakened.",
+   "tools": {
+    "_validate_writer_part_1cor.py": {
+     "path": "sp_durable/1Cor/writer_lanes/_validate_writer_part_1cor.py",
+     "after_sha256": "59ef3318dbd98201e57107e9747f17b579f750116ba875061493fbd3012a46e9",
+     "before_sha256": "b0be0d01fde7b51875ee8bd78058d9b6bbdd2dd4624a2c6989ef35970bff1709",
+     "pre_copy": "sp_durable/1Cor/writer_lanes/_validate_writer_part_1cor.py.pre_b0be0d01fde7"
+    }
+   },
+   "tests": {
+    "script": {
+     "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf1.py",
+     "sha256": "8b073522d32e40e30e6376a839cddd458e5dc5054542e68180b767161e440c9f"
+    },
+    "harness": {
+     "path": "sp_durable/1Cor/review/tool_fixes/_exec_as.py",
+     "sha256": "29d6d00cd04baf12a323267bfbbca99a666fc5db8964a148e47806062a028143"
+    },
+    "result": {
+     "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf1.result.json",
+     "sha256": "3287cf2aa972fbeecb56a3e9a3e979b965f692349dececf50fbd0d4b0f7e500d"
+    },
+    "verdict": "ALL_PASS",
+    "cases": {
+     "W1": {
+      "rows": 15,
+      "T1_book_index_green": true,
+      "T2_default_identical_and_as_measured": true,
+      "T2_default_verdict": "GREEN",
+      "T3_partidx_identical_green": true,
+      "first_index": 1
+     },
+     "W2": {
+      "rows": 15,
+      "T1_book_index_green": true,
+      "T2_default_identical_and_as_measured": true,
+      "T2_default_verdict": "RED",
+      "T3_partidx_identical_green": true,
+      "first_index": 16
+     },
+     "W3": {
+      "rows": 8,
+      "T1_book_index_green": true,
+      "T2_default_identical_and_as_measured": true,
+      "T2_default_verdict": "RED",
+      "T3_partidx_identical_green": true,
+      "first_index": 31
+     },
+     "W4": {
+      "rows": 4,
+      "T1_book_index_green": true,
+      "T2_default_identical_and_as_measured": true,
+      "T2_default_verdict": "RED",
+      "T3_partidx_identical_green": true,
+      "first_index": 39
+     },
+     "W5": {
+      "rows": 14,
+      "T1_book_index_green": true,
+      "T2_default_identical_and_as_measured": true,
+      "T2_default_verdict": "RED",
+      "T3_partidx_identical_green": true,
+      "first_index": 43
+     },
+     "W6": {
+      "rows": 14,
+      "T1_book_index_green": true,
+      "T2_default_identical_and_as_measured": true,
+      "T2_default_verdict": "RED",
+      "T3_partidx_identical_green": true,
+      "first_index": 57
+     },
+     "T4_gap": {
+      "verdict": "RED",
+      "red_on_index": true
+     },
+     "T4_repeat": {
+      "verdict": "RED",
+      "red_on_index": true
+     },
+     "T4_offset": {
+      "verdict": "RED",
+      "red_on_index": true
+     }
+    }
+   }
+  },
+  {
+   "receipt_row": 8,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "tool_fix_install",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1",
+   "rulings_file": {
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E1.v1.json",
+    "sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90"
+   },
+   "rows_tested": {
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "note": "fixtures ran on scratch slices and copies only (E-67); staged bytes tested as if installed, then re-run from the installed location"
+   },
+   "recorded_at": "2026-10-20T07:12:34Z",
+   "tool_fix_id": "TF-2 (S1-08)",
+   "outcome": "INSTALLED - NARROWING of the HARD member ngram7: each exact occurrence of the two rule-14 licence strings is a segment break, as device keys are; on the pinned draft 13601 -> 12939 grams, 662 lost (each touching a licence token), 0 gained, offending set unchanged. The narrowing sentence is in ngram7's docstring and TOOLKIT.md. Listed for Fable's end review (rulings for_fable_end_review).",
+   "tools": {
+    "ngram7.py": {
+     "path": "sp_durable/1Cor/tools/ngram7.py",
+     "after_sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230",
+     "before_sha256": "8646f540acc36975c66a3b0949e509a4a3d41039aecaedd6bb874d9834fd0e3c",
+     "pre_copy": "sp_durable/1Cor/tools/ngram7.py.pre_8646f540acc3"
+    },
+    "TOOLKIT.md": {
+     "path": "sp_durable/1Cor/tools/TOOLKIT.md",
+     "after_sha256": "49de0883f5cbed7fd9e25fdc8a156a083f8794bdd6490de1b0eee82aa2c7361e",
+     "before_sha256": "a8313a3a8140c70847981597ac4d36d1811896b73cd88f4f5049af4d4a847b62",
+     "pre_copy": "sp_durable/1Cor/tools/TOOLKIT.md.pre_a8313a3a8140"
+    }
+   },
+   "tests": {
+    "script": {
+     "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf2.py",
+     "sha256": "b5f84fcc28f5d34f4f4ef27caae3eb7f0cf6ae6e3e929db5f4831ff4ed1b10c0"
+    },
+    "harness": {
+     "path": "sp_durable/1Cor/review/tool_fixes/_exec_as.py",
+     "sha256": "29d6d00cd04baf12a323267bfbbca99a666fc5db8964a148e47806062a028143"
+    },
+    "result": {
+     "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf2.result.json",
+     "sha256": "ed674b8db08c95174223c3fc71abfe92b9fb26db9c7ef613095934c0ee4a822b"
+    },
+    "verdict": "ALL_PASS",
+    "cases": {
+     "F1": {
+      "baseline_grams": 13601,
+      "candidate_grams": 12939,
+      "lost": 662,
+      "gained": 0,
+      "lost_not_touching": [],
+      "row_sets_changed_untouched": 0,
+      "offending_unchanged": true,
+      "status": "RED",
+      "pass": true
+     },
+     "F2": {
+      "w5_rows_cured": 14,
+      "baseline_extra_offenders": 4,
+      "candidate_offending_equals_F1": true,
+      "candidate_status": "RED",
+      "pass": true
+     },
+     "F3": {
+      "status": "RED",
+      "offenders": 11,
+      "pass": true
+     },
+     "F4": {
+      "status": "RED",
+      "offenders": 12,
+      "pass": true
+     }
+    }
+   }
+  },
+  {
+   "receipt_row": 9,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "gate_flip",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1 gate.tool_fixes_before_fixup",
+   "gate": "fixup_may_launch",
+   "from": false,
+   "to": true,
+   "basis": [
+    "tool_fix_install TF-1 (S1-07) and tool_fix_install TF-2 (S1-08), the two rows immediately above in this file",
+    "fixtures passing from the installed location: fixtures_tf1 ALL_PASS, fixtures_tf2 F1..F4 ALL_PASS (sp_durable/1Cor/review/tool_fixes/)"
+   ],
+   "scope": "FIXUP-1 on W2, W3, W4, W5 and W6 (gate.fixup_parts), at most three in flight; primaries_may_launch stays false; S2 runs only after the six gate.s2_conditions hold.",
+   "recorded_at": "2026-10-20T07:12:34Z"
+  },
+  {
+   "receipt_row": 10,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "cwo_coverage_report",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1 GATE-E1 (CWO-1COR-01 and CWO-1COR-02 run with coverage reports before fix-up) and S1-02b",
+   "report": {
+    "path": "sp_durable/1Cor/review/cwo_1cor_baseline_report.v1.json",
+    "sha256": "451c051d1a5ee2827904a6da863b15214bdc101dcb942325d77da8427367cd2b"
+   },
+   "sweep_script": {
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "c6be0cb5d21a298be0c7c2ae2f0583b8db83ca9eebc58aed60d1a597e2d7e040"
+   },
+   "rows_file": {
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6"
+   },
+   "summary": {
+    "A": 30,
+    "B": 25,
+    "support_use": 21,
+    "compliant": 4,
+    "cwo02_fail": 14
+   },
+   "effect": "support-use hits and A hits are appended to the owning part's FIXUP-1 orders (W2 0, W3 11, W4 3+6 A, W5 3+1 A, W6 4+23 A)",
+   "recorded_at": "2026-10-20T07:24:04Z"
+  },
+  {
+   "receipt_row": 11,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup1_W5_a1",
+   "execution_id": "cor_fixup1_W5_a1#e1",
+   "lane": "fixup1:W5",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1 (GATE-E1; gate_flip fixup_may_launch receipt; cwo_coverage_report receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP1_BRIEF_W5.md",
+   "brief_sha256": "9e194b078e274902694bedf8adbb2c94e1c2d23ab4d1cbd2d2033c05384afacf",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6"
+   },
+   "launched_at": "2026-10-20T07:30:04Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S2 does not read scratch)",
+    "sha256_measured_at_build": "c92ed57d90949ac959fe170373540f99f424e104e42d5aefd4ec38e0b6f414fc",
+    "inlined": {
+     "part": "W5",
+     "execution_id": "cor_fixup1_W5_a1#e1",
+     "rows_sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+     "rulings_sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90",
+     "cwo_report_sha256": "451c051d1a5ee2827904a6da863b15214bdc101dcb942325d77da8427367cd2b",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP1_BRIEF_W5.md",
+     "brief_sha256": "9e194b078e274902694bedf8adbb2c94e1c2d23ab4d1cbd2d2033c05384afacf",
+     "allowed": [
+      {
+       "row": "W5-001",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W5-001",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-001",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-002",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-002",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-002",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-003",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-003",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-003",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-003",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-003",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-004",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-005",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-005",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02"
+       ]
+      },
+      {
+       "row": "W5-006",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W5-006",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-007",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W5-007",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-008",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W5-008",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-009",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W5-009",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-010",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-010",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-010",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-010",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02"
+       ]
+      },
+      {
+       "row": "W5-011",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-011",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-011",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-012",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-012",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-012",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-013",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-013",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-013",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-014",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01",
+        "S1-05"
+       ]
+      },
+      {
+       "row": "W5-014",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-02",
+        "S1-04"
+       ]
+      },
+      {
+       "row": "W5-014",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01"
+       ]
+      },
+      {
+       "row": "W5-014",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S1-01"
+       ]
+      }
+     ],
+     "ber_deletable": {
+      "W5-003": [
+       "web:1Cor.12.14 (interior WEB paragraph, rejected cut)"
+      ]
+     },
+     "a_hits": [
+      {
+       "row": "W5-003",
+       "field": "boundary_evidence_refs",
+       "index": 5,
+       "ref": "web:1Cor.12.14 (interior WEB paragraph, rejected cut)",
+       "part": "W5",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      }
+     ],
+     "support_use": [
+      {
+       "row": "W5-001",
+       "part": "W5",
+       "field": "boundary_rationale",
+       "sentence": "The disclosure formula οὐ θέλω ὑμᾶς ἀγνοεῖν (rp:1Cor.12.1) stands in the same verse at 12:1 and confirms a fresh start, and web:1Cor.12.1 “Now concerning spiritual things” opens a WEB paragraph at 12:1.",
+       "class": "support-use",
+       "basis": "a WEB paragraph offered beside a confirmed fresh start (also S1-02b)",
+       "disposition": "delete the WEB-paragraph clause; the disclosure-formula content stays"
+      },
+      {
+       "row": "W5-005",
+       "part": "W5",
+       "field": "strongest_rejected_alternative",
+       "sentence": "The change of grammar at 13:4 is sharp, and the WEB paragraph at 13:4 agrees with it.",
+       "class": "support-use",
+       "basis": "a WEB paragraph agreeing (also S1-02)",
+       "disposition": "delete ', and the WEB paragraph at 13:4 agrees with it'"
+      },
+      {
+       "row": "W5-010",
+       "part": "W5",
+       "field": "strongest_rejected_alternative",
+       "sentence": "the same question at 14:26 does open a unit because a vocative and an RP pilcrow join it there.",
+       "class": "support-use",
+       "basis": "a pilcrow joining (also S1-02)",
+       "disposition": "delete 'because a vocative and an RP pilcrow join it there'; restate the 14:26 onset on the vocative and wording only"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 12,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup1_W6_a1",
+   "execution_id": "cor_fixup1_W6_a1#e1",
+   "lane": "fixup1:W6",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1 (GATE-E1; gate_flip fixup_may_launch receipt; cwo_coverage_report receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP1_BRIEF_W6.md",
+   "brief_sha256": "0f8030d2d6f611f7a533b662d977eee5f22262d54d34ccc1489973b30c69a5d3",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6"
+   },
+   "launched_at": "2026-10-20T07:30:41Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S2 does not read scratch)",
+    "sha256_measured_at_build": "bfbf675e3431c78034075a4fe3b25a153ab441fb8d7a6e398c16185f54d99c5a",
+    "inlined": {
+     "part": "W6",
+     "execution_id": "cor_fixup1_W6_a1#e1",
+     "rows_sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+     "rulings_sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90",
+     "cwo_report_sha256": "451c051d1a5ee2827904a6da863b15214bdc101dcb942325d77da8427367cd2b",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP1_BRIEF_W6.md",
+     "brief_sha256": "0f8030d2d6f611f7a533b662d977eee5f22262d54d34ccc1489973b30c69a5d3",
+     "allowed": [
+      {
+       "row": "W6-001",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W6-002",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-002",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01b",
+        "S1-02"
+       ]
+      },
+      {
+       "row": "W6-002",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-003",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-003",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-003",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-004",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W6-005",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W6-005",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W6-005",
+       "field": "device_notes",
+       "by": [
+        "S1-05"
+       ]
+      },
+      {
+       "row": "W6-006",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02",
+        "S1-03"
+       ]
+      },
+      {
+       "row": "W6-006",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-02",
+        "S1-03"
+       ]
+      },
+      {
+       "row": "W6-006",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-02"
+       ]
+      },
+      {
+       "row": "W6-006",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "S1-02"
+       ]
+      },
+      {
+       "row": "W6-007",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W6-007",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W6-008",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-008",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-008",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-009",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W6-010",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W6-010",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02"
+       ]
+      },
+      {
+       "row": "W6-011",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-011",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-011",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-012",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-012",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-01b",
+        "S1-02"
+       ]
+      },
+      {
+       "row": "W6-012",
+       "field": "observed_substrate_signals",
+       "by": [
+        "S1-01b"
+       ]
+      },
+      {
+       "row": "W6-013",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      }
+     ],
+     "ber_deletable": {
+      "W6-001": [
+       "web:1Cor.15.1 (WEB paragraph)",
+       "web:1Cor.15.3 (WEB paragraph)"
+      ],
+      "W6-002": [
+       "web:1Cor.15.12 (WEB paragraph)"
+      ],
+      "W6-003": [
+       "web:1Cor.15.20 (WEB paragraph)"
+      ],
+      "W6-004": [
+       "web:1Cor.15.29 (WEB paragraph)"
+      ],
+      "W6-005": [
+       "web:1Cor.15.35 (WEB paragraph)",
+       "web:1Cor.15.42 (WEB paragraph)",
+       "web:1Cor.15.45 (WEB paragraph)"
+      ],
+      "W6-006": [
+       "web:1Cor.15.51 (WEB paragraph)",
+       "web:1Cor.15.56 (WEB paragraph)",
+       "rp:1Cor.7.29 (the same summarising formula opens a unit there)"
+      ],
+      "W6-007": [
+       "web:1Cor.16.1 (WEB paragraph)",
+       "web:1Cor.16.5 (WEB paragraph)"
+      ],
+      "W6-008": [
+       "web:1Cor.16.5 (WEB paragraph)",
+       "web:1Cor.16.10 (WEB paragraph)"
+      ],
+      "W6-009": [
+       "web:1Cor.16.12 (WEB paragraph)",
+       "web:1Cor.16.13 (WEB paragraph)"
+      ],
+      "W6-010": [
+       "web:1Cor.16.13 (WEB paragraph)",
+       "web:1Cor.16.15 (WEB paragraph)"
+      ],
+      "W6-011": [
+       "web:1Cor.16.15 (WEB paragraph)",
+       "web:1Cor.16.19 (WEB paragraph)"
+      ],
+      "W6-012": [
+       "web:1Cor.16.19 (WEB paragraph)",
+       "web:1Cor.16.21 (WEB paragraph)"
+      ],
+      "W6-013": [
+       "web:1Cor.16.21 (WEB paragraph)"
+      ]
+     },
+     "a_hits": [
+      {
+       "row": "W6-001",
+       "field": "boundary_evidence_refs",
+       "index": 10,
+       "ref": "web:1Cor.15.1 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-001",
+       "field": "boundary_evidence_refs",
+       "index": 11,
+       "ref": "web:1Cor.15.3 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-002",
+       "field": "boundary_evidence_refs",
+       "index": 10,
+       "ref": "web:1Cor.15.12 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-003",
+       "field": "boundary_evidence_refs",
+       "index": 11,
+       "ref": "web:1Cor.15.20 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-004",
+       "field": "boundary_evidence_refs",
+       "index": 9,
+       "ref": "web:1Cor.15.29 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-005",
+       "field": "boundary_evidence_refs",
+       "index": 14,
+       "ref": "web:1Cor.15.35 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-005",
+       "field": "boundary_evidence_refs",
+       "index": 15,
+       "ref": "web:1Cor.15.42 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-005",
+       "field": "boundary_evidence_refs",
+       "index": 16,
+       "ref": "web:1Cor.15.45 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-006",
+       "field": "boundary_evidence_refs",
+       "index": 13,
+       "ref": "web:1Cor.15.51 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-006",
+       "field": "boundary_evidence_refs",
+       "index": 14,
+       "ref": "web:1Cor.15.56 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-007",
+       "field": "boundary_evidence_refs",
+       "index": 11,
+       "ref": "web:1Cor.16.1 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-007",
+       "field": "boundary_evidence_refs",
+       "index": 12,
+       "ref": "web:1Cor.16.5 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-008",
+       "field": "boundary_evidence_refs",
+       "index": 12,
+       "ref": "web:1Cor.16.5 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-008",
+       "field": "boundary_evidence_refs",
+       "index": 13,
+       "ref": "web:1Cor.16.10 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-009",
+       "field": "boundary_evidence_refs",
+       "index": 7,
+       "ref": "web:1Cor.16.12 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-009",
+       "field": "boundary_evidence_refs",
+       "index": 8,
+       "ref": "web:1Cor.16.13 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-010",
+       "field": "boundary_evidence_refs",
+       "index": 8,
+       "ref": "web:1Cor.16.13 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-010",
+       "field": "boundary_evidence_refs",
+       "index": 9,
+       "ref": "web:1Cor.16.15 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-011",
+       "field": "boundary_evidence_refs",
+       "index": 8,
+       "ref": "web:1Cor.16.15 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-011",
+       "field": "boundary_evidence_refs",
+       "index": 9,
+       "ref": "web:1Cor.16.19 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-012",
+       "field": "boundary_evidence_refs",
+       "index": 7,
+       "ref": "web:1Cor.16.19 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-012",
+       "field": "boundary_evidence_refs",
+       "index": 8,
+       "ref": "web:1Cor.16.21 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W6-013",
+       "field": "boundary_evidence_refs",
+       "index": 7,
+       "ref": "web:1Cor.16.21 (WEB paragraph)",
+       "part": "W6",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      }
+     ],
+     "support_use": [
+      {
+       "row": "W6-002",
+       "part": "W6",
+       "field": "boundary_rationale",
+       "sentence": "Front face: rp:1Cor.15.12 \"Εἰ δὲ χριστὸς κηρύσσεται ὅτι ἐκ νεκρῶν ἐγήγερται,\" states the premise as a condition and asks how some deny resurrection, web:1Cor.15.12 “how do some among you say that there is no resurrection of the dead?” RP pilcrow at 15:12 and WEB paragraph at 15:12 corroborate the conditional onset.",
+       "class": "support-use",
+       "basis": "a pilcrow and a WEB paragraph corroborating (also S1-02)",
+       "disposition": "delete the sentence 'RP pilcrow at 15:12 and WEB paragraph at 15:12 corroborate the conditional onset.'"
+      },
+      {
+       "row": "W6-005",
+       "part": "W6",
+       "field": "boundary_rationale",
+       "sentence": "An RP pilcrow at 15:35 informs the onset;",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing: the next clause 'the WEB also starts a paragraph at 15:35' pairs the WEB start with the informing pilcrow (the predicate's split at ';' separates them; classified on the pair)",
+       "disposition": "delete the WEB clause; the pilcrow clause stays only as informing without deciding"
+      },
+      {
+       "row": "W6-010",
+       "part": "W6",
+       "field": "boundary_rationale",
+       "sentence": "Front face: rp:1Cor.16.13 \"Γρηγορεῖτε, στήκετε ἐν τῇ πίστει,\" opens four asyndetic imperatives, web:1Cor.16.13 “Watch! Stand firm in the faith!” Both witnesses of layout agree here: RP pilcrow at 16:13, WEB paragraph at 16:13.",
+       "class": "support-use",
+       "basis": "a pilcrow and a WEB paragraph agreeing (also S1-02)",
+       "disposition": "delete 'Both witnesses of layout agree here: RP pilcrow at 16:13, WEB paragraph at 16:13.'"
+      },
+      {
+       "row": "W6-012",
+       "part": "W6",
+       "field": "boundary_rationale",
+       "sentence": "Front face: rp:1Cor.16.19 \"Ἀσπάζονται ὑμᾶς αἱ ἐκκλησίαι τῆς Ἀσίας·\" opens the third-person greetings from the churches of Asia, web:1Cor.16.19 “The assemblies of Asia greet you.” RP pilcrow at 16:19 and WEB paragraph at 16:19 corroborate the greeting formula, which carries the onset.",
+       "class": "support-use",
+       "basis": "a pilcrow and a WEB paragraph corroborating (also S1-02)",
+       "disposition": "delete the sentence 'RP pilcrow at 16:19 and WEB paragraph at 16:19 corroborate the greeting formula, which carries the onset.'; the greeting-formula content stays"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 13,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup1_W3_a1",
+   "execution_id": "cor_fixup1_W3_a1#e1",
+   "lane": "fixup1:W3",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1 (GATE-E1; gate_flip fixup_may_launch receipt; cwo_coverage_report receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP1_BRIEF_W3.md",
+   "brief_sha256": "467ff28063b549b4d1e34fe12f9217edbdafa287b3876d22d24065bf01c37867",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6"
+   },
+   "launched_at": "2026-10-20T07:31:02Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S2 does not read scratch)",
+    "sha256_measured_at_build": "3d7424f3d9e5c161c5177ee089f9fbfb417c2a5566ec94636dd6f23dbc5a6c1e",
+    "inlined": {
+     "part": "W3",
+     "execution_id": "cor_fixup1_W3_a1#e1",
+     "rows_sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+     "rulings_sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90",
+     "cwo_report_sha256": "451c051d1a5ee2827904a6da863b15214bdc101dcb942325d77da8427367cd2b",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP1_BRIEF_W3.md",
+     "brief_sha256": "467ff28063b549b4d1e34fe12f9217edbdafa287b3876d22d24065bf01c37867",
+     "allowed": [
+      {
+       "row": "W3-001",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-06"
+       ]
+      },
+      {
+       "row": "W3-001",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W3-002",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-06"
+       ]
+      },
+      {
+       "row": "W3-002",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W3-003",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-06"
+       ]
+      },
+      {
+       "row": "W3-003",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W3-004",
+       "field": "boundary_rationale",
+       "by": [
+        "S1-05",
+        "S1-06"
+       ]
+      },
+      {
+       "row": "W3-005",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W3-005",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W3-005",
+       "field": "strongest_rejected_alternative",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W3-006",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W3-006",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W3-007",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      },
+      {
+       "row": "W3-008",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W3-008",
+       "field": "device_notes",
+       "by": [
+        "CWO-1COR-01"
+       ]
+      }
+     ],
+     "ber_deletable": {},
+     "a_hits": [],
+     "support_use": [
+      {
+       "row": "W3-001",
+       "part": "W3",
+       "field": "device_notes",
+       "sentence": "WEB paragraph starts at 8:1, 8:4 and 8:7 inform and do not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      },
+      {
+       "row": "W3-002",
+       "part": "W3",
+       "field": "device_notes",
+       "sentence": "WEB paragraph starts at 9:1, 9:3 and 9:8 inform and do not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      },
+      {
+       "row": "W3-003",
+       "part": "W3",
+       "field": "device_notes",
+       "sentence": "WEB paragraph starts at 9:15 and 9:19 inform and do not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      },
+      {
+       "row": "W3-005",
+       "part": "W3",
+       "field": "boundary_rationale",
+       "sentence": "WEB paragraph starts at 10:6 and 10:13 inform and do not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      },
+      {
+       "row": "W3-005",
+       "part": "W3",
+       "field": "strongest_rejected_alternative",
+       "sentence": "A seam at 10:12/10:13 would attach 10:13 to the exhortation that follows, reading Πειρασμὸς ὑμᾶς οὐκ εἴληφεν εἰ μὴ ἀνθρώπινος (rp:1Cor.10.13) as the ground of the flight from idolatry, and the WEB paragraph start at 10:13 leans that way.",
+       "class": "support-use",
+       "basis": "a WEB paragraph leaning (also S1-02b)",
+       "disposition": "delete the clause 'and the WEB paragraph start at 10:13 leans that way'; the content rejection stays"
+      },
+      {
+       "row": "W3-005",
+       "part": "W3",
+       "field": "device_notes",
+       "sentence": "WEB paragraph starts at 10:1, 10:6 and 10:13 inform and do not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      },
+      {
+       "row": "W3-006",
+       "part": "W3",
+       "field": "boundary_rationale",
+       "sentence": "The RP pilcrow at 10:14 agrees with the seam and informs and does not decide.",
+       "class": "support-use",
+       "basis": "a pilcrow agreeing (also S1-02b)",
+       "disposition": "delete 'agrees with the seam'; an RP pilcrow clause that informs without deciding may stay"
+      },
+      {
+       "row": "W3-006",
+       "part": "W3",
+       "field": "device_notes",
+       "sentence": "WEB paragraph starts at 10:14 and 10:19 inform and do not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      },
+      {
+       "row": "W3-007",
+       "part": "W3",
+       "field": "device_notes",
+       "sentence": "WEB paragraph start at 10:23 informs and does not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      },
+      {
+       "row": "W3-008",
+       "part": "W3",
+       "field": "boundary_rationale",
+       "sentence": "the WEB paragraph start and the chapter division at 11:1 inform and do not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph and a chapter division informing (also S1-02b)",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      },
+      {
+       "row": "W3-008",
+       "part": "W3",
+       "field": "device_notes",
+       "sentence": "WEB paragraph starts at 10:31 and 11:1 inform and do not decide.",
+       "class": "support-use",
+       "basis": "a WEB paragraph informing",
+       "disposition": "the owning part deletes the WEB-paragraph / chapter-division clause; content argument stays"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 14,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup1_W6_a1",
+   "amends_execution_id": "cor_fixup1_W6_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W6_e1/fixup1_W6_rows.jsonl",
+     "sha256": "4d340f4627de4f78e8ab34bc8d8329310c9929494828dcc90e69d25283445412"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W6_e1/fixup1_W6_changes.json",
+     "sha256": "36e20630597f7c8a4a41bf037a134c496d44695812a4f6e44f5c42630f6693a8"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W6_e1/final_FX1_W6_e1.json",
+     "sha256": "b583d46a8e21ba7958889d2bfed743ace09477142e70b38c14c70517a0a8af01"
+    }
+   ],
+   "lander_checks": {
+    "part": "W6",
+    "execution": "cor_fixup1_W6_a1#e1",
+    "rows_sha256": "4d340f4627de4f78e8ab34bc8d8329310c9929494828dcc90e69d25283445412",
+    "changes_sha256": "36e20630597f7c8a4a41bf037a134c496d44695812a4f6e44f5c42630f6693a8",
+    "rows_changed": 13,
+    "fields_changed": 30,
+    "hard": [],
+    "soft": [
+     "B predicate hit to classify (reworded or new): W6-005.boundary_rationale 'An RP pilcrow at 15:35 informs the onset.'"
+    ],
+    "cwo_on_part": {
+     "A": 0,
+     "B_left": 3,
+     "CWO02": 0
+    },
+    "ngram7_offending_total": 0,
+    "tiling": "GREEN 437",
+    "suite": {
+     "citation_sweep": "GREEN",
+     "greek_normalize_dryrun": null,
+     "web_quotes": "GREEN",
+     "refs_mirror": "GREEN",
+     "mark_symmetry": "GREEN",
+     "universals": "GREEN",
+     "ngram7": "GREEN",
+     "cap_sweep": "GREEN",
+     "register": "GREEN",
+     "role_tokens": "GREEN",
+     "placeholders": "GREEN"
+    },
+    "blocked": []
+   },
+   "recorded_at": "2026-10-20T07:37:42Z"
+  },
+  {
+   "receipt_row": 15,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup1_W2_a1",
+   "execution_id": "cor_fixup1_W2_a1#e1",
+   "lane": "fixup1:W2",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1 (GATE-E1; gate_flip fixup_may_launch receipt; cwo_coverage_report receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP1_BRIEF_W2.md",
+   "brief_sha256": "fa650dc8e031bf17df24e1f5e2ab5f3e56f9db2c5f678c4c66c49910e42a4319",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6"
+   },
+   "launched_at": "2026-10-20T07:37:49Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S2 does not read scratch)",
+    "sha256_measured_at_build": "fd9c7dc1683ac2ab0cda548c83b86ff6a8babd9f04647ac8ad80d6ff32c7ced7",
+    "inlined": {
+     "part": "W2",
+     "execution_id": "cor_fixup1_W2_a1#e1",
+     "rows_sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+     "rulings_sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90",
+     "cwo_report_sha256": "451c051d1a5ee2827904a6da863b15214bdc101dcb942325d77da8427367cd2b",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP1_BRIEF_W2.md",
+     "brief_sha256": "fa650dc8e031bf17df24e1f5e2ab5f3e56f9db2c5f678c4c66c49910e42a4319",
+     "allowed": [
+      {
+       "row": "W2-003",
+       "field": "device_notes",
+       "by": [
+        "S1-05"
+       ]
+      },
+      {
+       "row": "W2-015",
+       "field": "device_notes",
+       "by": [
+        "S1-05"
+       ]
+      },
+      {
+       "row": "W2-015",
+       "field": "frontier_flag_considered",
+       "by": [
+        "S1-05"
+       ]
+      }
+     ],
+     "ber_deletable": {},
+     "a_hits": [],
+     "support_use": []
+    }
+   }
+  },
+  {
+   "receipt_row": 16,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup1_W5_a1",
+   "amends_execution_id": "cor_fixup1_W5_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W5_e1/fixup1_W5_rows.jsonl",
+     "sha256": "983173e912dc746cff71e91e516ad5bcf0a56c6c51f2e66f09ea6da8438d6c48"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W5_e1/fixup1_W5_changes.json",
+     "sha256": "b258b8e449fc697a81281543b909c0563aca1729d29abdac3497ded94c65a01f"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W5_e1/final_FX1_W5_e1.json",
+     "sha256": "b74ef05b31859a57dff6b1bb11d29c037609fc5ea59719358cbbabfbea8a0d4d"
+    }
+   ],
+   "lander_checks": {
+    "part": "W5",
+    "execution": "cor_fixup1_W5_a1#e1",
+    "rows_sha256": "983173e912dc746cff71e91e516ad5bcf0a56c6c51f2e66f09ea6da8438d6c48",
+    "changes_sha256": "b258b8e449fc697a81281543b909c0563aca1729d29abdac3497ded94c65a01f",
+    "rows_changed": 14,
+    "fields_changed": 39,
+    "hard": [],
+    "soft": [
+     "blocked orders reported: 2 (see the change log)"
+    ],
+    "cwo_on_part": {
+     "A": 0,
+     "B_left": 0,
+     "CWO02": 0
+    },
+    "ngram7_offending_total": 0,
+    "tiling": "GREEN 437",
+    "suite": {
+     "citation_sweep": "GREEN",
+     "greek_normalize_dryrun": null,
+     "web_quotes": "GREEN",
+     "refs_mirror": "GREEN",
+     "mark_symmetry": "GREEN",
+     "universals": "GREEN",
+     "ngram7": "GREEN",
+     "cap_sweep": "GREEN",
+     "register": "GREEN",
+     "role_tokens": "GREEN",
+     "placeholders": "GREEN"
+    },
+    "blocked": [
+     {
+      "order": "S1-02b",
+      "why": "span absent in one named row: W5-001.boundary_rationale has no framing of the form 'Onset at X, a WEB paragraph' (it opens 'Onset at 12:1 with'), so that span is a no-op for W5-001; the field was changed under the S1-02b confirm-sentence span, CWO-1COR-01 and S1-01",
+      "evidence": "verification scan of rows_base.jsonl: W5-001.boundary_rationale holds 'WEB paragraph' twice, neither in an 'Onset at 12:1, a WEB paragraph' framing"
+     },
+     {
+      "order": "S1-01",
+      "why": "strongest_rejected_alternative named for W5-001, W5-002 and W5-010..W5-013 holds no 'WEB paragraph' (as the brief measured), so it is left unchanged under S1-01; W5-010.strongest_rejected_alternative was changed under CWO-1COR-01 and S1-02 only",
+      "evidence": "verification scan: substring 'WEB paragraph' absent from those six pinned values"
+     }
+    ]
+   },
+   "recorded_at": "2026-10-20T11:23:44Z"
+  },
+  {
+   "receipt_row": 17,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup1_W3_a1",
+   "amends_execution_id": "cor_fixup1_W3_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W3_e1/fixup1_W3_rows.jsonl",
+     "sha256": "323cc8c009614b178b8bcfe9b1054c95d87c0ddf86044afdf80b76c2fac3f71a"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W3_e1/fixup1_W3_changes.json",
+     "sha256": "695781da62c95e1dcb31fe5d7b5e08a9513483f7eaa4e3a8cfffe07b89cc51ed"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W3_e1/final_FX1_W3_e1.json",
+     "sha256": "bc951909e41775846a66efe321601dec24acfbe5b2a09008e6c31f67b218fdcc"
+    }
+   ],
+   "lander_checks": {
+    "part": "W3",
+    "execution": "cor_fixup1_W3_a1#e1",
+    "rows_sha256": "323cc8c009614b178b8bcfe9b1054c95d87c0ddf86044afdf80b76c2fac3f71a",
+    "changes_sha256": "695781da62c95e1dcb31fe5d7b5e08a9513483f7eaa4e3a8cfffe07b89cc51ed",
+    "rows_changed": 7,
+    "fields_changed": 14,
+    "hard": [],
+    "soft": [
+     "B predicate hit to classify (reworded or new): W3-006.boundary_rationale 'The RP pilcrow at 10:14 informs and does not decide.'",
+     "licensed fields left unchanged: 1 ['W3-004.boundary_rationale']",
+     "blocked orders reported: 2 (see the change log)"
+    ],
+    "cwo_on_part": {
+     "A": 0,
+     "B_left": 1,
+     "CWO02": 0
+    },
+    "ngram7_offending_total": 1,
+    "tiling": "GREEN 437",
+    "suite": {
+     "citation_sweep": "GREEN",
+     "greek_normalize_dryrun": null,
+     "web_quotes": "GREEN",
+     "refs_mirror": "GREEN",
+     "mark_symmetry": "GREEN",
+     "universals": "GREEN",
+     "ngram7": "RED",
+     "cap_sweep": "GREEN",
+     "register": "GREEN",
+     "role_tokens": "GREEN",
+     "placeholders": "GREEN"
+    },
+    "blocked": [
+     {
+      "order": "S1-05",
+      "row": "W3-004",
+      "field": "boundary_rationale",
+      "why": "Carried out as written, the verbatim new phrase 'in 1Cor 8:1-11:1' is parsed by refs_mirror as an argued citation 1Cor.8.1-1Cor.11.1 (class MIXED, 74 verses) that boundary_evidence_refs does not mirror, so refs_mirror goes GREEN -> FLAGS on W3-004. Curing it needs a ref addition, outside the licence (deletion-only, no elements listed). Per the brief the field is left unchanged.",
+      "evidence": "first applied run of run_validator_suite.py on work/rows_applied.jsonl (both W3-004 edits in): refs_mirror FLAGS, worklist_citations [{decision_id W3-004, citation 1Cor.8.1-1Cor.11.1, kind range, class MIXED, verse_count 74}]; base refs_mirror GREEN. Count under the order holds: {\"appeal_form_sliced_from\": \"rp:1Cor.9.24 first two tokens\", \"verses_in_range\": 74, \"case_sensitive_hits\": [\"1Cor.9.13\", \"1Cor.9.24\"], \"case_insensitive_hits\": [\"1Cor.9.13\", \"1Cor.9.24\"]}. Proposed span: before 'in these three chapters' after 'in 1Cor 8:1-11:1'."
+     },
+     {
+      "order": "S1-06",
+      "row": "W3-004",
+      "field": "boundary_rationale",
+      "why": "Same field as the blocked S1-05; the brief directs that field to stay unchanged. The S1-06 restatement itself is clean and is offered as a tested candidate for the orchestrator.",
+      "evidence": "candidate before 'Typing as example is held open against an exhortation reading.' after 'Both the typing and the close keep this row at medium-low: example is held open against an exhortation reading, and the leading alternative joins the row to the Israel example of 10:1-10:13.' (tier INFERRED, from the row's own strongest_rejected_alternative). run_validator_suite.py on work/rows_candidate_w3004_s106.jsonl (applied rows + this edit alone): hard_status RED, triage_flags 0, every member identical to baseline (only ngram7 RED, the pre-existing W5/W6 gram)."
+     }
+    ]
+   },
+   "recorded_at": "2026-10-20T11:23:49Z"
+  },
+  {
+   "receipt_row": 18,
+   "record_kind": "launch",
+   "attempt_id": "cor_fixup1_W4_a1",
+   "execution_id": "cor_fixup1_W4_a1#e1",
+   "lane": "fixup1:W4",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1 (GATE-E1; gate_flip fixup_may_launch receipt; cwo_coverage_report receipt)",
+   "orders": "launch message file (E-62): verify the brief sha, read it whole, execute; OW-11 exception; E-13; E-19",
+   "brief": "sp_durable/1Cor/fixup/FIXUP1_BRIEF_W4.md",
+   "brief_sha256": "e996cb3edfbd9052583bb394892f20524adeea9b16b98a856af2d00fb4ec9b95",
+   "rows_under_repair": {
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6"
+   },
+   "launched_at": "2026-10-20T11:24:00Z",
+   "allowed_change_map": {
+    "receipt_names": "a scratch file (path withheld; S2 does not read scratch)",
+    "sha256_measured_at_build": "cdeab1def1603392f62d7e54c3ca0522f93b4916b63e80f8f8329c6082f9c797",
+    "inlined": {
+     "part": "W4",
+     "execution_id": "cor_fixup1_W4_a1#e1",
+     "rows_sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+     "rulings_sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90",
+     "cwo_report_sha256": "451c051d1a5ee2827904a6da863b15214bdc101dcb942325d77da8427367cd2b",
+     "brief": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\1Cor\\fixup\\FIXUP1_BRIEF_W4.md",
+     "brief_sha256": "e996cb3edfbd9052583bb394892f20524adeea9b16b98a856af2d00fb4ec9b95",
+     "allowed": [
+      {
+       "row": "W4-001",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W4-001",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W4-002",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W4-003",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W4-003",
+       "field": "boundary_rationale",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      },
+      {
+       "row": "W4-004",
+       "field": "boundary_evidence_refs",
+       "by": [
+        "CWO-1COR-01",
+        "S1-02b"
+       ]
+      }
+     ],
+     "ber_deletable": {
+      "W4-001": [
+       "web:1Cor.11.11 [DISCLOSURE-mark] (WEB paragraph start; decides nothing)",
+       "web:1Cor.11.3 [DISCLOSURE-mark] (three WEB footnote markers on the word head; decide nothing)"
+      ],
+      "W4-003": [
+       "web:1Cor.11.17 [DISCLOSURE-mark] (WEB paragraph start agrees; decides nothing)",
+       "web:1Cor.11.23 [DISCLOSURE-mark] (WEB paragraph start; decides nothing)"
+      ],
+      "W4-004": [
+       "web:1Cor.11.23 [DISCLOSURE-mark] (WEB paragraph start; decides nothing)",
+       "web:1Cor.11.27 [DISCLOSURE-mark] (WEB paragraph start; decides nothing)"
+      ]
+     },
+     "a_hits": [
+      {
+       "row": "W4-001",
+       "field": "boundary_evidence_refs",
+       "index": 9,
+       "ref": "web:1Cor.11.11 [DISCLOSURE-mark] (WEB paragraph start; decides nothing)",
+       "part": "W4",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W4-001",
+       "field": "boundary_evidence_refs",
+       "index": 10,
+       "ref": "web:1Cor.11.3 [DISCLOSURE-mark] (three WEB footnote markers on the word head; decide nothing)",
+       "part": "W4",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W4-003",
+       "field": "boundary_evidence_refs",
+       "index": 9,
+       "ref": "web:1Cor.11.17 [DISCLOSURE-mark] (WEB paragraph start agrees; decides nothing)",
+       "part": "W4",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W4-003",
+       "field": "boundary_evidence_refs",
+       "index": 10,
+       "ref": "web:1Cor.11.23 [DISCLOSURE-mark] (WEB paragraph start; decides nothing)",
+       "part": "W4",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W4-004",
+       "field": "boundary_evidence_refs",
+       "index": 13,
+       "ref": "web:1Cor.11.23 [DISCLOSURE-mark] (WEB paragraph start; decides nothing)",
+       "part": "W4",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      },
+      {
+       "row": "W4-004",
+       "field": "boundary_evidence_refs",
+       "index": 14,
+       "ref": "web:1Cor.11.27 [DISCLOSURE-mark] (WEB paragraph start; decides nothing)",
+       "part": "W4",
+       "disposition": "delete (rule 4: a web: ref is never boundary evidence)",
+       "class": "A"
+      }
+     ],
+     "support_use": [
+      {
+       "row": "W4-001",
+       "part": "W4",
+       "field": "boundary_rationale",
+       "sentence": "The RP pilcrow at 11:2 and the WEB paragraph start at 11:2 agree with this onset and do not decide it.",
+       "class": "support-use",
+       "basis": "a pilcrow and a WEB paragraph agreeing (also S1-02b)",
+       "disposition": "delete the sentence pairing the marks with 'agree'"
+      },
+      {
+       "row": "W4-002",
+       "part": "W4",
+       "field": "boundary_rationale",
+       "sentence": "the RP pilcrow at 11:17 agrees and decides nothing.",
+       "class": "support-use",
+       "basis": "a pilcrow agreeing (also S1-02b)",
+       "disposition": "delete the clause pairing the pilcrow with 'agrees'"
+      },
+      {
+       "row": "W4-003",
+       "part": "W4",
+       "field": "boundary_rationale",
+       "sentence": "The RP pilcrow at 11:17 and the WEB paragraph start at 11:17 agree;",
+       "class": "support-use",
+       "basis": "a pilcrow and a WEB paragraph agreeing (also S1-02b)",
+       "disposition": "delete the sentence pairing the marks with 'agree'"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "receipt_row": 19,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup1_W2_a1",
+   "amends_execution_id": "cor_fixup1_W2_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W2_e1/fixup1_W2_rows.jsonl",
+     "sha256": "d446b586ba532bcfa28c5f09ec5d8cc857075ad8cd01fc35508ff6eff09fcf68"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W2_e1/fixup1_W2_changes.json",
+     "sha256": "7db175516b6a63940030503bae13d6f708db1105d43f1beae5bdba01c47f0561"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W2_e1/final_FX1_W2_e1.json",
+     "sha256": "e8bb39c0ce58fdbab5dc20a5c262ca72ec382a30db9387d0b2db5c982d4f4071"
+    }
+   ],
+   "lander_checks": {
+    "part": "W2",
+    "execution": "cor_fixup1_W2_a1#e1",
+    "rows_sha256": "d446b586ba532bcfa28c5f09ec5d8cc857075ad8cd01fc35508ff6eff09fcf68",
+    "changes_sha256": "7db175516b6a63940030503bae13d6f708db1105d43f1beae5bdba01c47f0561",
+    "rows_changed": 2,
+    "fields_changed": 2,
+    "hard": [],
+    "soft": [
+     "licensed fields left unchanged: 1 ['W2-015.frontier_flag_considered']"
+    ],
+    "cwo_on_part": {
+     "A": 0,
+     "B_left": 2,
+     "CWO02": 0
+    },
+    "ngram7_offending_total": 1,
+    "tiling": "GREEN 437",
+    "suite": {
+     "citation_sweep": "GREEN",
+     "greek_normalize_dryrun": null,
+     "web_quotes": "GREEN",
+     "refs_mirror": "GREEN",
+     "mark_symmetry": "GREEN",
+     "universals": "GREEN",
+     "ngram7": "RED",
+     "cap_sweep": "GREEN",
+     "register": "GREEN",
+     "role_tokens": "GREEN",
+     "placeholders": "GREEN"
+    },
+    "blocked": []
+   },
+   "recorded_at": "2026-10-20T11:26:45Z"
+  },
+  {
+   "receipt_row": 20,
+   "record_kind": "completion",
+   "attempt_id": "cor_fixup1_W4_a1",
+   "amends_execution_id": "cor_fixup1_W4_a1#e1",
+   "outcome": "LANDED",
+   "outputs": [
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W4_e1/fixup1_W4_rows.jsonl",
+     "sha256": "d70f12db06ea0136f6715ae6497dc890c7f3af9c4f51f0942b9fb40aa44ae1a2"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W4_e1/fixup1_W4_changes.json",
+     "sha256": "b11b81419958319c6bfc820e4c13e72ec1de00cff6749158dd72546cac101de3"
+    },
+    {
+     "path": "sp_durable/1Cor/fixup/landed/W4_e1/final_FX1_W4_e1.json",
+     "sha256": "434ac3dc201fa9e408c6e13300c76d9a74afab22c77bab14da187b3598552983"
+    }
+   ],
+   "lander_checks": {
+    "part": "W4",
+    "execution": "cor_fixup1_W4_a1#e1",
+    "rows_sha256": "d70f12db06ea0136f6715ae6497dc890c7f3af9c4f51f0942b9fb40aa44ae1a2",
+    "changes_sha256": "b11b81419958319c6bfc820e4c13e72ec1de00cff6749158dd72546cac101de3",
+    "rows_changed": 4,
+    "fields_changed": 6,
+    "hard": [],
+    "soft": [],
+    "cwo_on_part": {
+     "A": 0,
+     "B_left": 0,
+     "CWO02": 0
+    },
+    "ngram7_offending_total": 1,
+    "tiling": "GREEN 437",
+    "suite": {
+     "citation_sweep": "GREEN",
+     "greek_normalize_dryrun": null,
+     "web_quotes": "GREEN",
+     "refs_mirror": "GREEN",
+     "mark_symmetry": "GREEN",
+     "universals": "GREEN",
+     "ngram7": "RED",
+     "cap_sweep": "GREEN",
+     "register": "GREEN",
+     "role_tokens": "GREEN",
+     "placeholders": "GREEN"
+    },
+    "blocked": []
+   },
+   "recorded_at": "2026-10-20T11:29:43Z"
+  },
+  {
+   "receipt_row": 21,
+   "schema": "m8_attempt_receipt.v1",
+   "record_kind": "cwo_coverage_report",
+   "book": "1Cor",
+   "ordered_by": "cor_controlling_rulings_r1_a1#e1 GATE-E1 (then CWO-1COR-03; then a fresh S2) and s2_conditions",
+   "report": {
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup1_report.v1.json",
+    "sha256": "ee3170b0f37688090ed87128fa1e77a71f3dd60d58adc8c4de9d081df53fcc2b"
+   },
+   "sweep_script": {
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "c6be0cb5d21a298be0c7c2ae2f0583b8db83ca9eebc58aed60d1a597e2d7e040"
+   },
+   "ngram7": {
+    "path": "sp_durable/1Cor/tools/ngram7.py",
+    "sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230"
+   },
+   "rows_file": {
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec"
+   },
+   "summary": {
+    "A": 0,
+    "B": 6,
+    "support_use": 0,
+    "compliant": 6,
+    "cwo02_fail": 0,
+    "cwo03_offending": 0,
+    "device_keys_stripped": 51
+   },
+   "effect": "CWO-1COR-01/02/03 s2_conditions met on the applied rows; the compliant B hits go to S2 as contestable",
+   "recorded_at": "2026-10-20T11:41:11Z"
+  }
+ ],
+ "orchestrator_measured": {
+  "pairs": 40,
+  "counts": {
+   "match": 38,
+   "crlf_form": 2
+  },
+  "items": [
+   {
+    "at": "row7.rulings_file",
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E1.v1.json",
+    "sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90",
+    "class": "match"
+   },
+   {
+    "at": "row7.rows_tested",
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "class": "match"
+   },
+   {
+    "at": "row7.tools._validate_writer_part_1cor.py",
+    "path": "sp_durable/1Cor/writer_lanes/_validate_writer_part_1cor.py",
+    "sha256": "59ef3318dbd98201e57107e9747f17b579f750116ba875061493fbd3012a46e9",
+    "class": "match"
+   },
+   {
+    "at": "row7.tests.script",
+    "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf1.py",
+    "sha256": "8b073522d32e40e30e6376a839cddd458e5dc5054542e68180b767161e440c9f",
+    "class": "match"
+   },
+   {
+    "at": "row7.tests.harness",
+    "path": "sp_durable/1Cor/review/tool_fixes/_exec_as.py",
+    "sha256": "29d6d00cd04baf12a323267bfbbca99a666fc5db8964a148e47806062a028143",
+    "class": "match"
+   },
+   {
+    "at": "row7.tests.result",
+    "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf1.result.json",
+    "sha256": "3287cf2aa972fbeecb56a3e9a3e979b965f692349dececf50fbd0d4b0f7e500d",
+    "class": "crlf_form"
+   },
+   {
+    "at": "row8.rulings_file",
+    "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E1.v1.json",
+    "sha256": "93e5918b10b17842e5700471087290036549f4ab2327220d518967c49b53dc90",
+    "class": "match"
+   },
+   {
+    "at": "row8.rows_tested",
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "class": "match"
+   },
+   {
+    "at": "row8.tools.ngram7.py",
+    "path": "sp_durable/1Cor/tools/ngram7.py",
+    "sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230",
+    "class": "match"
+   },
+   {
+    "at": "row8.tools.TOOLKIT.md",
+    "path": "sp_durable/1Cor/tools/TOOLKIT.md",
+    "sha256": "49de0883f5cbed7fd9e25fdc8a156a083f8794bdd6490de1b0eee82aa2c7361e",
+    "class": "match"
+   },
+   {
+    "at": "row8.tests.script",
+    "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf2.py",
+    "sha256": "b5f84fcc28f5d34f4f4ef27caae3eb7f0cf6ae6e3e929db5f4831ff4ed1b10c0",
+    "class": "match"
+   },
+   {
+    "at": "row8.tests.harness",
+    "path": "sp_durable/1Cor/review/tool_fixes/_exec_as.py",
+    "sha256": "29d6d00cd04baf12a323267bfbbca99a666fc5db8964a148e47806062a028143",
+    "class": "match"
+   },
+   {
+    "at": "row8.tests.result",
+    "path": "sp_durable/1Cor/review/tool_fixes/fixtures_tf2.result.json",
+    "sha256": "ed674b8db08c95174223c3fc71abfe92b9fb26db9c7ef613095934c0ee4a822b",
+    "class": "crlf_form"
+   },
+   {
+    "at": "row10.report",
+    "path": "sp_durable/1Cor/review/cwo_1cor_baseline_report.v1.json",
+    "sha256": "451c051d1a5ee2827904a6da863b15214bdc101dcb942325d77da8427367cd2b",
+    "class": "match"
+   },
+   {
+    "at": "row10.sweep_script",
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "c6be0cb5d21a298be0c7c2ae2f0583b8db83ca9eebc58aed60d1a597e2d7e040",
+    "class": "match"
+   },
+   {
+    "at": "row10.rows_file",
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "class": "match"
+   },
+   {
+    "at": "row11.rows_under_repair",
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "class": "match"
+   },
+   {
+    "at": "row12.rows_under_repair",
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "class": "match"
+   },
+   {
+    "at": "row13.rows_under_repair",
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "class": "match"
+   },
+   {
+    "at": "row14.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed/W6_e1/fixup1_W6_rows.jsonl",
+    "sha256": "4d340f4627de4f78e8ab34bc8d8329310c9929494828dcc90e69d25283445412",
+    "class": "match"
+   },
+   {
+    "at": "row14.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed/W6_e1/fixup1_W6_changes.json",
+    "sha256": "36e20630597f7c8a4a41bf037a134c496d44695812a4f6e44f5c42630f6693a8",
+    "class": "match"
+   },
+   {
+    "at": "row14.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed/W6_e1/final_FX1_W6_e1.json",
+    "sha256": "b583d46a8e21ba7958889d2bfed743ace09477142e70b38c14c70517a0a8af01",
+    "class": "match"
+   },
+   {
+    "at": "row15.rows_under_repair",
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "class": "match"
+   },
+   {
+    "at": "row16.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed/W5_e1/fixup1_W5_rows.jsonl",
+    "sha256": "983173e912dc746cff71e91e516ad5bcf0a56c6c51f2e66f09ea6da8438d6c48",
+    "class": "match"
+   },
+   {
+    "at": "row16.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed/W5_e1/fixup1_W5_changes.json",
+    "sha256": "b258b8e449fc697a81281543b909c0563aca1729d29abdac3497ded94c65a01f",
+    "class": "match"
+   },
+   {
+    "at": "row16.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed/W5_e1/final_FX1_W5_e1.json",
+    "sha256": "b74ef05b31859a57dff6b1bb11d29c037609fc5ea59719358cbbabfbea8a0d4d",
+    "class": "match"
+   },
+   {
+    "at": "row17.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed/W3_e1/fixup1_W3_rows.jsonl",
+    "sha256": "323cc8c009614b178b8bcfe9b1054c95d87c0ddf86044afdf80b76c2fac3f71a",
+    "class": "match"
+   },
+   {
+    "at": "row17.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed/W3_e1/fixup1_W3_changes.json",
+    "sha256": "695781da62c95e1dcb31fe5d7b5e08a9513483f7eaa4e3a8cfffe07b89cc51ed",
+    "class": "match"
+   },
+   {
+    "at": "row17.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed/W3_e1/final_FX1_W3_e1.json",
+    "sha256": "bc951909e41775846a66efe321601dec24acfbe5b2a09008e6c31f67b218fdcc",
+    "class": "match"
+   },
+   {
+    "at": "row18.rows_under_repair",
+    "path": "sp_durable/1Cor/writer/draft_rows_combined.jsonl",
+    "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6",
+    "class": "match"
+   },
+   {
+    "at": "row19.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed/W2_e1/fixup1_W2_rows.jsonl",
+    "sha256": "d446b586ba532bcfa28c5f09ec5d8cc857075ad8cd01fc35508ff6eff09fcf68",
+    "class": "match"
+   },
+   {
+    "at": "row19.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed/W2_e1/fixup1_W2_changes.json",
+    "sha256": "7db175516b6a63940030503bae13d6f708db1105d43f1beae5bdba01c47f0561",
+    "class": "match"
+   },
+   {
+    "at": "row19.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed/W2_e1/final_FX1_W2_e1.json",
+    "sha256": "e8bb39c0ce58fdbab5dc20a5c262ca72ec382a30db9387d0b2db5c982d4f4071",
+    "class": "match"
+   },
+   {
+    "at": "row20.outputs[0]",
+    "path": "sp_durable/1Cor/fixup/landed/W4_e1/fixup1_W4_rows.jsonl",
+    "sha256": "d70f12db06ea0136f6715ae6497dc890c7f3af9c4f51f0942b9fb40aa44ae1a2",
+    "class": "match"
+   },
+   {
+    "at": "row20.outputs[1]",
+    "path": "sp_durable/1Cor/fixup/landed/W4_e1/fixup1_W4_changes.json",
+    "sha256": "b11b81419958319c6bfc820e4c13e72ec1de00cff6749158dd72546cac101de3",
+    "class": "match"
+   },
+   {
+    "at": "row20.outputs[2]",
+    "path": "sp_durable/1Cor/fixup/landed/W4_e1/final_FX1_W4_e1.json",
+    "sha256": "434ac3dc201fa9e408c6e13300c76d9a74afab22c77bab14da187b3598552983",
+    "class": "match"
+   },
+   {
+    "at": "row21.report",
+    "path": "sp_durable/1Cor/review/cwo_1cor_post_fixup1_report.v1.json",
+    "sha256": "ee3170b0f37688090ed87128fa1e77a71f3dd60d58adc8c4de9d081df53fcc2b",
+    "class": "match"
+   },
+   {
+    "at": "row21.sweep_script",
+    "path": "sp_durable/1Cor/review/cwo_sweep_1cor.py",
+    "sha256": "c6be0cb5d21a298be0c7c2ae2f0583b8db83ca9eebc58aed60d1a597e2d7e040",
+    "class": "match"
+   },
+   {
+    "at": "row21.ngram7",
+    "path": "sp_durable/1Cor/tools/ngram7.py",
+    "sha256": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230",
+    "class": "match"
+   },
+   {
+    "at": "row21.rows_file",
+    "path": "sp_durable/1Cor/fixup/draft_rows_fixup1_applied.jsonl",
+    "sha256": "646f9eeaad82edaf0f4d1f6651ba1f7b06fbbefe0f3d8da1d0e07a4e7d8f8eec",
+    "class": "match"
+   }
+  ]
+ }
+}

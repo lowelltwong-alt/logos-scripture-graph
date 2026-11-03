@@ -1,0 +1,97 @@
+{
+ "attempt_id": "cor_close_scholar_record_a1",
+ "execution_id": "cor_close_scholar_record_a1#e1",
+ "verdict": "delivered_with_gaps",
+ "deliverables": [
+  {
+   "name": "scholar_record/gen_scholar_record.py",
+   "sha256": "254f5989b93a21b5d0ac44c65c4af993a2801d0ff5f7554f665b6ce91f1f13be",
+   "bytes": 49716
+  },
+  {
+   "name": "scholar_record/check_scholar_record.py",
+   "sha256": "90ce6982454efd6a9c406f05bb9ca36f4c9ecb9f85550264a9c7c44af1616096",
+   "bytes": 25160
+  },
+  {
+   "name": "scholar_record/book_params.v1.json",
+   "sha256": "ec2e4cd73cc52e351e324fa733d99afe02136e59679d304b9a43e2c00af06aee",
+   "bytes": 17682
+  },
+  {
+   "name": "scholar_record/FIRST_CORINTHIANS_SCHOLAR_RECORD.v1.md",
+   "sha256": "471851f016bae6c6c4085844540874b7d5ab512a13aa538282c7e9d1b01652af",
+   "bytes": 1024794
+  },
+  {
+   "name": "scholar_record/scholar_record_check.v1.json",
+   "sha256": "c4925a54cec6d68a72b6e663340d61db1db10f3a34cfc05c07d0c2a29d1e61cd",
+   "bytes": 17088
+  },
+  {
+   "name": "build_notes.json",
+   "sha256": "87a0879cf0e074267dcd0b8b22e29bfec82e313ebfb0b1967b5e74ea3516bd50",
+   "bytes": 7390
+  }
+ ],
+ "verification": [
+  {
+   "claim": "The brief and efficiency contract match their pinned digests.",
+   "how": "sha256 at first read",
+   "result": "MEASURED match: 85c24581... and 4577a873..."
+  },
+  {
+   "claim": "Pinned inputs match.",
+   "how": "generator digest check, then work/post_digest.py after the final build",
+   "result": "MEASURED: 19 pins, 0 mismatched, with the manifest pin as changed by the orchestrator's notice. All 26 first-read pins matched at first read."
+  },
+  {
+   "claim": "The notice's account of the manifest change holds.",
+   "how": "work/patch2.py",
+   "result": "MEASURED for outputs: frozen digest as notified; 112 outputs; only review/D3_result.json is new. Non-output fields not compared because no earlier copy exists."
+  },
+  {
+   "claim": "The record passes its checker with the tools on disk.",
+   "how": "check_scholar_record.py on the final tools",
+   "result": "MEASURED PASS 19 of 19. Sub-checks passed: regeneration_is_byte_identical, lf_line_endings_only, scripts_hold_no_book_specific_token, sections_present_in_order, every_unit_placed_exactly_once, every_raised_passage_has_an_entry, every_landed_packet_represented, every_high_severity_finding_present, every_review_finding_present, every_cross_reading_disagreement_surfaced, every_dispute_entry_has_evidence_on_each_side_and_a_resolution, every_ruling_present, open_questions_present_as_open, every_quoted_line_traces_to_a_landed_or_pinned_string, every_other_line_is_an_instance_of_a_printed_template, body_is_free_of_campaign_vocabulary, substitution_table_and_template_list_present, licence_and_attribution_taken_from_the_books_own_files, book_specific_frame_statements_hold."
+  },
+  {
+   "claim": "Regeneration is byte-identical.",
+   "how": "checker rebuilt twice; generator --check",
+   "result": "MEASURED: same digest on disk and both rebuilds; --check said: FIRST_CORINTHIANS_SCHOLAR_RECORD.v1.md sha256 471851f016bae6c6c4085844540874b7d5ab512a13aa538282c7e9d1b01652af bytes 1024794: IDENTICAL"
+  },
+  {
+   "claim": "Counts.",
+   "how": "read from scholar_record_check.v1.json",
+   "result": "MEASURED: 112 outputs, 53 opened and quoted, 26 no durable file; 70 units, 67 dispute entries, 3 quiet; 13 high findings; 52 review findings; 46 first-reading disagreements; 131 rulings; 27 of 27 open questions; 4007 quoted lines, 0 untraced; 2917 frame lines, 120 templates, 0 off-template; 35 vocabulary patterns, 0 hits."
+  },
+  {
+   "claim": "The record is free of campaign vocabulary.",
+   "how": "blocklist, then audit1, audit2, audit3",
+   "result": "PARTIAL. 0 blocklist hits and the named residue classes are gone from the body, but plain words such as byte, candidate and flag remain, and the blocklist is not proven complete. See limits."
+  },
+  {
+   "claim": "Licence and attribution come from the book's own files.",
+   "how": "sub-check traced 4 terms and 12 source lines",
+   "result": "MEASURED; the WEB term is unstated in the book's files and that gap is stated."
+  },
+  {
+   "claim": "Gate item 20: audit and staging.",
+   "how": "not in this lane",
+   "result": "NOT DONE. The record is candidate-only; the two blind lanes, the post-flight audit and staging are later steps."
+  },
+  {
+   "e19_selfreport": "No listing, no glob and no recursive search was run, by shell or inside a script. Paths were opened as named by the brief, the orchestrator's notice or the pinned manifest, except the failed guessed path under disclosures in build_notes.json. No session or agent transcript, .output file or compaction summary was opened. Nothing was written outside OUT. No git, no receipt, no registry. The run was continued after three compactions and after a rate-limit stop, from the OUT working files and the continuation summary; nothing was restarted. The manifest pin was changed only on the orchestrator's notice (close/1cor_landed_outputs_manifest.frozen_for_close_lanes.v1.json, e46eefd3...), and every other pin stands. Tool calls were about 100, above the 60 guide and below the 110 stop, an unscripted count (INFERRED)."
+  },
+  {
+   "note": "This is an accountable work summary, not chain of thought and not independent proof. D1_result.json cannot carry its own digest. Every lane ran on one model family, so agreement between lanes is one voice (OW-19). Limits, disclosures and pin history are in build_notes.json."
+  }
+ ],
+ "unresolved_uncertainty": [
+  "Whether opening the first-reading final_* files and hashing the closing messages was within the brief: for the orchestrator to confirm.",
+  "Whether the classification of review/D3_result.json as a closing message is what the orchestrator wants; the file was not opened.",
+  "Non-output fields of the manifest were not compared with the earlier version, because no copy exists.",
+  "Whether residue remains that no audit caught: UNKNOWN. The 9 unmatched Greek runs were not investigated.",
+  "27 open questions stay open, owed to a final review not held and not authorised."
+ ]
+}

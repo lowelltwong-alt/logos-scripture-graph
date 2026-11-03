@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+"""OW-12 (owner directive 2026-09-11; close-gate item 16): the project status update the owner gets at every book close.
+
+WHAT THE DIRECTIVE REQUIRES: books closed of 66 and books left; the time and tokens the rest will likely take; and what
+that means in time on the owner's Max 20x plan - MEASURED FROM RECEIPTS, with every estimate labelled, and with plan
+time translated through the campaign's measured pace rather than an invented allowance.
+
+WHAT THIS TOOL WILL NOT DO. It will not produce a per-book token figure for a book whose receipts do not carry one.
+Per-attempt capture (OW-7) begins with Jeremiah's lane; the books before it closed without usage in their receipts, and
+their completion receipts carry `usage_measured_subagent_tokens: null` or a prose approximation. This tool therefore
+reports:
+  - MEASURED: books whose attempt receipts carry per-execution usage, summed by the tool's own count;
+  - NOT MEASURED: books that closed before per-attempt capture, named individually, with no number invented for them.
+A rate derived from the measured books is labelled as derived from those books and from nothing else.
+
+Verse counts come from each book's own verse inventory or completion receipt, never from memory.
+
+Usage: _book_close_status_ow12.py [--json <out>]"""
+import argparse
+import collections
+import hashlib
+import json
+import re
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _receipt_fold import fold, read_receipts  # noqa: E402
+
+sys.stdout.reconfigure(encoding="utf-8")
+M8 = Path(r"C:\wt\logos-t423-m8-fable\.ai\scratch\multi_model_bible_chunking\M8_fable")
+SP = M8 / "sp_durable"
+PROGRESS = M8 / "marathon_progress.yaml"
+RECEIPTS_DIR = M8 / "receipts"
+
+# WEB verse counts for the books not yet closed, taken from the campaign's own staged inventories where one exists and
+# otherwise from the canonical WEB chapter/verse totals the staging step reads. A book with no staged inventory is
+# marked so, and its verse count is labelled as the standard WEB total rather than a measured one.
+WEB_VERSES = {
+    "Ezek": 1273, "Dan": 357, "Hos": 197, "Joel": 73, "Amos": 146, "Obad": 21, "Jonah": 48, "Mic": 105,
+    "Nah": 47, "Hab": 56, "Zeph": 53, "Hag": 38, "Zech": 211, "Mal": 55,
+    "Matt": 1071, "Mark": 678, "Luke": 1151, "John": 879, "Acts": 1007, "Rom": 433, "1Cor": 437, "2Cor": 257,
+    "Gal": 149, "Eph": 155, "Phil": 104, "Col": 95, "1Thess": 89, "2Thess": 47, "1Tim": 113, "2Tim": 83,
+    "Titus": 46, "Phlm": 25, "Heb": 303, "Jas": 108, "1Pet": 105, "2Pet": 61, "1John": 105, "2John": 13,
+    "3John": 15, "Jude": 25, "Rev": 404,
+}
+
+
+def sha(p):
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def progress():
+    t = PROGRESS.read_text(encoding="utf-8-sig")
+    done = re.findall(r"^\s{2}(\S+):\s*$", t, re.M)
+    n = int(re.search(r"books_completed:\s*(\d+)", t).group(1))
+    tot = int(re.search(r"books_total:\s*(\d+)", t).group(1))
+    cur = re.search(r"current_book:\s*(\S+)", t).group(1)
+    return n, tot, cur, [b for b in done if b not in ("book_completion",)]
+
+
+def book_key(r):
+    # An amendment record (m8_attempt_receipt_amendment.v1) carries no attempt_id: it names the execution it amends and
+    # its own `book`. Bucketing on attempt_id alone silently drops it - it dropped S4's 646,412 tokens from Ezekiel
+    # until the total was reconciled against the census.
+    aid = r.get("attempt_id") or r.get("amends_execution_id") or ""
+    return (aid.split("_")[0] or str(r.get("book") or "")).lower()
+
+
+def receipts_by_book():
+    """Per-execution notification-unit tokens, keyed by the attempt-id prefix (the stable book key).
+
+    Amending rows go through the shared fold (campaign/_receipt_fold.py, 2026-09-24). An amending row is never an
+    execution; its notification tokens fill the execution it names when that execution has none; spend-unit tokens
+    (E-55) are never added to the notification unit (OW-28). Until then this count added every row, so it counted
+    amending rows as executions and added the two merged-close spend-unit amendments to Ezekiel's figure. Dates still
+    come from every row, amending rows included, because a landing is often recorded on a later day."""
+    per = collections.defaultdict(lambda: {"executions": 0, "with_usage": 0, "tokens": 0, "dates": []})
+    paths = sorted(SP.rglob("*_attempt_receipts.jsonl"))
+    files = [{"path": str(rp.relative_to(SP)).replace("\\", "/"), "sha256": sha(rp)} for rp in paths]
+    rows = read_receipts(paths)
+    execs, _ = fold(rows)
+    for r in execs:
+        e = per[book_key(r)]
+        e["executions"] += 1
+        if r["tokens_notification"] is not None:
+            e["with_usage"] += 1
+            e["tokens"] += r["tokens_notification"]
+    for r in rows:
+        d = r.get("recorded_at") or r.get("landed_at") or r.get("launched_at")
+        if d:
+            per[book_key(r)]["dates"].append(str(d)[:10])
+    return per, files
+
+
+def verses_for(book):
+    inv = SP / book / "verse_inventory.json"
+    if inv.is_file():
+        d = json.loads(inv.read_text(encoding="utf-8"))
+        for k in ("verses_total", "total_verses", "verses"):
+            if isinstance(d.get(k), int):
+                return d[k], "staged verse_inventory.json"
+    cr = RECEIPTS_DIR / ("%s_completion.json" % book)
+    if cr.is_file():
+        d = json.loads(cr.read_text(encoding="utf-8"))
+        v = d.get("verses") or d.get("verses_covered")
+        if isinstance(v, int):
+            return v, "completion receipt"
+        if isinstance(v, str) and re.fullmatch(r"(\d+)/\1", v):
+            return int(v.split("/")[0]), "completion receipt"
+    if book in WEB_VERSES:
+        return WEB_VERSES[book], "standard WEB total (no staged inventory for this book yet)"
+    return None, "unknown"
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--json")
+    a = ap.parse_args()
+    done_n, total, current, closed = progress()
+    per, files = receipts_by_book()
+
+    # ---- what is actually measured ----
+    measured, not_measured = {}, []
+    for b in closed:
+        e = per.get(b.lower())
+        v, vsrc = verses_for(b)
+        if e and e["tokens"] > 0:
+            measured[b] = {"tokens": e["tokens"], "executions": e["executions"], "with_usage": e["with_usage"],
+                           "verses": v, "verses_source": vsrc,
+                           "tokens_per_verse": round(e["tokens"] / v, 1) if v else None,
+                           "active_days": len(set(e["dates"])) or None,
+                           "tokens_per_active_day": round(e["tokens"] / len(set(e["dates"]))) if e["dates"] else None}
+        else:
+            not_measured.append({"book": b, "verses": v, "verses_source": vsrc,
+                                 "why": "no per-execution usage in its receipts: it closed before per-attempt capture"})
+
+    # the live book
+    ez = per.get("ezek", {})
+    ez_v, ez_vsrc = verses_for("Ezek")
+    live = {"book": current, "tokens_so_far": ez.get("tokens", 0), "executions": ez.get("executions", 0),
+            "verses": ez_v, "verses_source": ez_vsrc,
+            "tokens_per_verse_so_far": round(ez.get("tokens", 0) / ez_v, 1) if ez_v else None,
+            "active_days": len(set(ez.get("dates", []))) or None,
+            "note": "the live book is not closed; its figure is spend to date, not a per-book cost"}
+
+    # ---- the measured rate, from the measured books only ----
+    rate_books = {b: m for b, m in measured.items() if m["verses"]}
+    tot_tok = sum(m["tokens"] for m in rate_books.values())
+    tot_v = sum(m["verses"] for m in rate_books.values())
+    per_verse = round(tot_tok / tot_v, 1) if tot_v else None
+    lo = min((m["tokens_per_verse"] for m in rate_books.values()), default=None)
+    hi = max((m["tokens_per_verse"] for m in rate_books.values()), default=None)
+
+    # ---- the books left ----
+    left = [b for b in WEB_VERSES if b not in closed and b != current]
+    left_verses = sum(WEB_VERSES[b] for b in left)
+    remaining = {
+        "books_left_after_the_live_book": len(left),
+        "verses_left": left_verses,
+        "projection_basis": ("the per-verse rate of the books whose receipts carry usage: %s. It is applied to the "
+                             "standard WEB verse totals of the books left." % ", ".join(sorted(rate_books))),
+        "tokens_low": int(left_verses * lo) if lo else None,
+        "tokens_mid": int(left_verses * per_verse) if per_verse else None,
+        "tokens_high": int(left_verses * hi) if hi else None,
+        "label": "ESTIMATE. Derived from a small number of measured books, applied to verse counts. Not a receipt.",
+        "what_would_move_it": [
+            "a hard-track book costs more per verse than a standard one; Daniel and Revelation are owner-named HARD "
+            "and are in this remainder",
+            "the per-verse rate of the measured books spans a wide band, which is why low, mid and high are given "
+            "rather than one number",
+            "PER-VERSE RATE FALLS AS A BOOK GETS BIGGER, because a book's fixed overhead - Phase 0 staging, strategy, "
+            "toolkit, the controlling executions, the final checks - is paid once whatever its length. The measured "
+            "spread between the longest and shortest measured book is stated in size_effect below, and it is driven by "
+            "SIZE, not by difficulty. Most of the books left are short, so a pooled per-verse rate applied to them "
+            "UNDERSTATES: the mid figure is the weakest number in this update.",
+            "the floor effect above: every measured total counts only the executions whose receipts carry usage",
+        ],
+    }
+
+    # ---- active-day pace, for translating tokens into calendar time ----
+    all_dates = sorted({d for e in per.values() for d in e["dates"]})
+    measured_tokens_all = sum(e["tokens"] for e in per.values())
+    pace = {"first_recorded_day": all_dates[0] if all_dates else None,
+            "last_recorded_day": all_dates[-1] if all_dates else None,
+            "distinct_active_days_in_the_receipts": len(all_dates),
+            "measured_tokens_across_every_lane_with_usage": measured_tokens_all,
+            "tokens_per_active_day": round(measured_tokens_all / len(all_dates)) if all_dates else None,
+            "label": "MEASURED from recorded_at in the receipts, over the lanes that carry usage only",
+            "WHY_THIS_IS_NOT_A_PLANNING_RATE": (
+                "recorded_at is when the ORCHESTRATOR WROTE THE RECEIPT, not when the work ran. Receipts are written "
+                "in bursts at landing, so Jeremiah - which ran across many days - shows 2 distinct dates, and the whole "
+                "campaign shows %d. A tokens-per-active-day figure built on this counts a burst as a day and is an "
+                "artifact of when records were written. It is reported because the directive asks for it and it is "
+                "what the receipts contain; it is NOT used to promise the owner a completion date."
+                % len(all_dates))}
+    # ---- the size effect, computed rather than asserted ----
+    if rate_books:
+        biggest = max(rate_books.items(), key=lambda kv: kv[1]["verses"])
+        smallest = min(rate_books.items(), key=lambda kv: kv[1]["verses"])
+        cutoff = smallest[1]["verses"]
+        shorter = sorted([b for b in left if WEB_VERSES[b] <= cutoff], key=lambda b: WEB_VERSES[b])
+        longer = sorted([b for b in left if WEB_VERSES[b] > cutoff], key=lambda b: -WEB_VERSES[b])
+        remaining["size_effect"] = {
+            "longest_measured_book": {"book": biggest[0], "verses": biggest[1]["verses"],
+                                      "tokens_per_verse": biggest[1]["tokens_per_verse"]},
+            "shortest_measured_book": {"book": smallest[0], "verses": smallest[1]["verses"],
+                                       "tokens_per_verse": smallest[1]["tokens_per_verse"]},
+            "spread": (round(smallest[1]["tokens_per_verse"] / biggest[1]["tokens_per_verse"], 1)
+                       if biggest[1]["tokens_per_verse"] else None),
+            "books_left_at_or_below_%d_verses" % cutoff: len(shorter),
+            "books_left_above_%d_verses" % cutoff: len(longer),
+            "the_long_books_left": [{"book": b, "verses": WEB_VERSES[b]} for b in longer[:8]],
+            "how_to_read_the_band": ("the HIGH bound is built on %s's rate and describes the %d short books left; the "
+                                     "LOW bound is built on %s's rate and describes only the %d longer ones. For this "
+                                     "remainder the high bound is the more informative number."
+                                     % (smallest[0], len(shorter), biggest[0], len(longer))),
+        }
+
+    if remaining["tokens_mid"] and pace["tokens_per_active_day"]:
+        remaining["receipt_writing_days_implied"] = {
+            "low": round(remaining["tokens_low"] / pace["tokens_per_active_day"], 1),
+            "mid": round(remaining["tokens_mid"] / pace["tokens_per_active_day"], 1),
+            "high": round(remaining["tokens_high"] / pace["tokens_per_active_day"], 1),
+            "label": ("NOT calendar days and NOT working days. This is tokens divided by the burst-limited figure in "
+                      "max20x_plan.measured_pace, whose own caveat applies. It is an order-of-magnitude shape, nothing more."),
+        }
+
+    out = {
+        "schema": "m8_book_close_status_update.v1",
+        "authority": "OW-12 (owner directive 2026-09-11, verbatim in ERROR_PATTERN_LEDGER.v1.md); close-gate item 16",
+        "built": datetime.now(timezone.utc).isoformat(),
+        "built_by": "orchestrator (claude-opus-5), measured from the receipts named below",
+        "books": {"closed": done_n, "total": total, "left_including_the_live_book": total - done_n,
+                  "live_book": current, "closed_list": closed},
+        "live_book_spend": live,
+        "measured_per_book": measured,
+        "not_measured": {
+            "books": not_measured,
+            "why_this_matters": ("OW-12 says measure from receipts. For these books there is nothing in the receipts to "
+                                 "measure: they closed before per-attempt capture. No number is invented for them, and "
+                                 "no campaign total is stated as if it were measured."),
+        },
+        "measured_rate": {"books_used": sorted(rate_books), "tokens": tot_tok, "verses": tot_v,
+                          "tokens_per_verse_pooled": per_verse,
+                          "tokens_per_verse_lowest_book": lo, "tokens_per_verse_highest_book": hi,
+                          "usage_coverage": {b: "%d of %d executions carry usage" % (m["with_usage"], m["executions"])
+                                             for b, m in sorted(rate_books.items())},
+                          "direction_of_the_error": ("these totals sum only the executions whose receipts carry a usage "
+                                                     "figure, so every per-book total and every rate below is a FLOOR, "
+                                                     "not a best estimate. Lamentations in particular carries usage on "
+                                                     "well under half its executions."),
+                          "label": "MEASURED over the named books only, and understated by the coverage above"},
+        "remaining": remaining,
+        "max20x_plan": {
+            "rule": ("OW-12: plan limits are not a fixed published token count, so time on the plan is translated "
+                     "through the campaign's measured pace and this update says so."),
+            "measured_pace": pace,
+            "what_can_be_said": ("the remaining work is stated in tokens and in ACTIVE DAYS at the campaign's own "
+                                 "measured pace. An active day is a day the receipts record work on, not a calendar "
+                                 "day, and not a plan window."),
+            "what_cannot_be_said": ("a number of weeks on the plan. That would need a published per-window token "
+                                    "allowance, which the plan does not publish, and inventing one is exactly what the "
+                                    "directive forbids."),
+        },
+        "evidence": {"progress_file": {"path": "marathon_progress.yaml", "sha256": sha(PROGRESS)},
+                     "receipt_files": files},
+        "limit": "counts and rates only. Every forward number is labelled an estimate and names the books it came from.",
+    }
+    print(json.dumps(out, indent=1, ensure_ascii=False))
+    if a.json:
+        Path(a.json).write_text(json.dumps(out, indent=1, ensure_ascii=False), encoding="utf-8", newline="\n")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,134 @@
+{
+ "schema": "m8_controlling_queue.v1",
+ "book": "1Cor",
+ "for_execution": "cor_controlling_rulings_r3_a1#e1",
+ "status": "PROPOSALS by the orchestrator (claude-opus-5-5, OW-25); the controlling execution rules on each id",
+ "review_deliverable": {
+  "path": "sp_durable/1Cor/review/1cor_fixup2_review_S3.json",
+  "sha256": "250665975db7b5288b121eb7ff4d3eb9a5d05ea06b3a3dfcb883f41ea9043d01",
+  "execution": "cor_fixup2_review_s3_a1#e1",
+  "readiness": "fit_with_changes"
+ },
+ "prior_rulings": {
+  "path": "sp_durable/1Cor/review/1cor_controlling_agent_rulings_E2.v1.json",
+  "sha256": "1299a598b60bbf3c8fb193381ead098e394242a713d8bac4e584b39fdf0e0541"
+ },
+ "rows_under_review": {
+  "path": "SP\\1Cor\\fixup\\draft_rows_fixup2_applied.jsonl",
+  "sha256": "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe"
+ },
+ "measured_context": {
+  "review_findings_by_severity": {
+   "minor": 2,
+   "major": 1,
+   "note": 4
+  },
+  "review_changes_required": 1,
+  "books_closed": "27/66 (Daniel closed; 1 Corinthians open, the first book of the OW-36 queue)"
+ },
+ "items": [
+  {
+   "id": "S3-01",
+   "route": "fable_end_review",
+   "proposal": "Not gating. The doubled comma in W4-001.boundary_rationale predates FIXUP-2 (S3 says so; the orchestrator has not re-measured its origin). Either (a) defer it to the end review as a known byte defect, or (b) license a one-character mechanical fix in a later fix-up part, by row and field. The controlling execution chooses; the orchestrator proposes (a).",
+   "review_finding": {
+    "id": "S3-01",
+    "severity": "minor",
+    "row_or_artifact": "W4-001.boundary_rationale",
+    "claim": "Doubled comma 'οὐκ ἐπαινῶ,, so'.",
+    "evidence": "rows_s3.jsonl bytes; the same bytes are in draft_rows_combined and the FIXUP-1 applied rows (pre-existing).",
+    "suggested_fix": "Drop the sentence comma or end the quotation before its comma.",
+    "route": "fable_end_review"
+   }
+  },
+  {
+   "id": "S3-02",
+   "route": "controlling_agent",
+   "proposal": "Ratify as a process finding with no row effect. MEASURED by the orchestrator from file mtimes: W5 final write 16:36:34Z, W1 first write 16:38:18Z, W4 16:38:41Z, W6 final 16:39:46Z, W3 16:40:12Z, so at most four FIXUP-2 authors overlapped; S3's five is the recorded_at upper bound. Either count breaches OW-31's three-lane cap. A sibling breach in Phase 0 (2026-10-15, 04:49:20Z-04:59:52Z) is disclosed. Prevention is installed: the prelaunch gate now refuses at three in flight and requires every landing recorded before the next launch (lane_cap.py, test 8/8, MEASURED). Propose: close, record for the end review.",
+   "review_finding": {
+    "id": "S3-02",
+    "severity": "major",
+    "row_or_artifact": "receipt rows 34-40 (FIXUP-2 launches and completions) against the row 30 gate-flip scope",
+    "claim": "Five FIXUP-2 authors were in flight at once (16:37:37Z-16:40:47Z), against the gate flip's 'at most three in flight'.",
+    "evidence": "Extract: launched_at W5, W6, W3 16:33:51Z; W1, W4 16:37:37Z; first completion W5 16:40:47Z, then W6 16:40:52Z, W3 16:40:57Z, W4 16:42:31Z, W1 16:42:39Z. The parts were disjoint and the rows show no cross-part edit, so the observed impact is nil; the severity is scored on the breached control, not on the luck.",
+    "suggested_fix": "Record the breach and enforce the in-flight cap in the launch gate (refuse a launch while three launches lack completion rows).",
+    "route": "controlling_agent"
+   }
+  },
+  {
+   "id": "S3-03",
+   "route": "tool_fix",
+   "proposal": "Not gating. MEASURED (cor_ctl3/measure_s3_03.py over draft_rows_fixup2_applied.jsonl with the sweep's own splitter): 106 units name a pilcrow; 34 of them are not hit today and carry open/close/decide/drive verbs. Almost all are location uses ('close seam', 'at the close'); in the rest the verb's subject is the text (e.g. 'the appeal formula opens ...; RP pilcrow'). No unit makes a pilcrow the subject of decides or drives. The sweep's docstring already discloses this limit. Propose: a later tool fix with plant fixtures (not before the primaries), plus the end review.",
+   "review_finding": {
+    "id": "S3-03",
+    "severity": "note",
+    "row_or_artifact": "SP\\1Cor\\review\\cwo_sweep_1cor.py (bb71fd0b)",
+    "claim": "CWO-1COR-04 PD2 misses 'opens', 'closes' and 'decides' with a pilcrow subject, though S2-12 counts them as crediting.",
+    "evidence": "work\\plant_result.json: leak_opens, leak_closes and leak_decides gave no new hit; marks, signals and confirms did. No such unit is in the applied rows (51 units read).",
+    "suggested_fix": "Add opens|closes|decides|drives to PD2 in a later tool fix, with fixtures.",
+    "route": "fable_end_review"
+   }
+  },
+  {
+   "id": "S3-04",
+   "route": "fable_end_review",
+   "proposal": "Not gating. Bare '; RP pilcrow' tags (W6-001, W6-009, W6-010) are a method question: does a tag that only locates a mark fall within S2-11's scope? Propose: send to the end review; no row change now.",
+   "review_finding": {
+    "id": "S3-04",
+    "severity": "note",
+    "row_or_artifact": "W6-001 ber[5], W6-009 ber[6], W6-010 ber[4]",
+    "claim": "Untagged boundary_evidence_refs elements outside the S1-01 rows still end in a bare '; RP pilcrow' tag (for example 'rp:1Cor.15.12 (conditional opens the following argument; RP pilcrow)').",
+    "evidence": "rows_s3.jsonl bytes; the same class as S2-11, whose method-change candidate is already routed to the end review.",
+    "suggested_fix": "Decide at the end review whether the S2-11 method change covers these elements.",
+    "route": "fable_end_review"
+   }
+  },
+  {
+   "id": "S3-05",
+   "route": "orchestrator_cwo",
+   "proposal": "Adopt S3's 48 hand classes (cwo.CWO-1COR-04.my_classes in the S3 deliverable) as the per-hit record. MEASURED by the orchestrator on that field: 48 entries; 18 disclosure_only->compliant, 18 location_only->compliant_location, 11 informs_compliant->compliant, 1 support_use->false_positive; S3 reports its scan equal to the pinned sweep and the report. Propose: no new report; the CYCLE_STATE entry cites the deliverable field.",
+   "review_finding": {
+    "id": "S3-05",
+    "severity": "note",
+    "row_or_artifact": "SP\\1Cor\\review\\cwo_1cor_post_fixup2_report.v1.json (87de15f4)",
+    "claim": "The post-FIXUP-2 report hand-classes only the one support_use unit; its other 47 CWO-1COR-04 hits carry no hand class.",
+    "evidence": "The report's hits carry no hand-class field apart from the false-positive record; I hand-classed all 48 (18 disclosure, 18 location, 11 informs, 1 false positive), all compliant.",
+    "suggested_fix": "Carry S3's 48 hand classes into the record if the controlling agent wants per-hit coverage on the FIXUP-2 rows.",
+    "route": "orchestrator_cwo"
+   }
+  },
+  {
+   "id": "S3-06",
+   "route": "fable_end_review",
+   "proposal": "Close. The 7-gram repeats in 8 rows, under the gate of 10. Vary the wording only if a later fix touches those rows for another reason.",
+   "review_finding": {
+    "id": "S3-06",
+    "severity": "note",
+    "row_or_artifact": "W1-004, W1-006, W1-008, W1-010, W1-014, W1-015, W2-008, W2-012",
+    "claim": "The 7-gram 'and the seams do not rest on (those)' is shared by 8 rows, 2 below the ngram7 gate.",
+    "evidence": "work\\run_ngram7_dump.json; a disclosure sentence, not a register defect. The 28 W3 grams at 8 rows are tier-disclosure boilerplate bounded by W3's size.",
+    "suggested_fix": "Vary the wording if a later fix touches these rows.",
+    "route": "fable_end_review"
+   }
+  },
+  {
+   "id": "S3-07",
+   "route": "controlling_agent",
+   "proposal": "Record as an E-19 near-miss (two existence checks on S3's own OUT\\work files, no listing or glob of other paths). The deliverable stands. Propose: an E-entry candidate for the ledger; no re-run.",
+   "review_finding": {
+    "id": "S3-07",
+    "severity": "minor",
+    "row_or_artifact": "this execution (OUT\\work)",
+    "claim": "E-19 self-deviation: I ran two existence checks on my own OUT\\work files: `ls -la rows_s3.jsonl.validator_report.json 2>/dev/null | wc -l` and a Python os.path.isfile check on work\\build_deliverable.py (after a heredoc write failed). I also ran Get-Item size checks on exact paths earlier.",
+    "evidence": "No SP path, no directory listing, no glob, no recursive search; no data exposed. Every other path was opened by exact path only.",
+    "suggested_fix": "None to the rows; record against E-19 as a near-miss.",
+    "route": "controlling_agent"
+   }
+  },
+  {
+   "id": "GATE-E3",
+   "route": "gate",
+   "proposal": "S3 reads fit_with_changes, all nine substantive E2 conditions met, and its one change (S3-01) is pre-existing and routed to the end review. Under E2 condition 10 (ACCEPT = fit, or fit_with_changes with the rows named) the orchestrator proposes: primaries_may_launch true (by a gate-flip receipt after this ruling lands), fixup_may_launch false, fixup_parts [], tool_fixes_before_fixup []. Also rule what E2 rulings[12].orders[3] sends to the primaries (the W3-004 seam-or-typing question) and any other question the primaries must answer."
+  }
+ ]
+}
