@@ -1,0 +1,15 @@
+
+## E-77 (2026-11-01) - 1 CORINTHIANS TOOL FIXES TF-4 AND TF-5: A PIN GUARD THAT CLEARED BY MISSING ITS TARGET, MY OWN OVER-CORRECTION OF IT, A THIRD MANGLED BACKSLASH, AND A STOP NO RECEIPT KIND CAN NAME
+
+**What happened (MEASURED unless marked).**
+
+- **(a) Pin guard false CLEAR, a near-miss (orchestrator, tool defect).** `campaign/_inflight_pin_guard.py` resolved a relative `--target` against the working directory. Run from elsewhere, the target matched no pin and the guard answered CLEAR, which is the verdict a guard gives when there is nothing to protect. No pinned file was changed under it. The blast radius was still every in-flight lane's pinned input, because the guard is what stands between a landing and those files.
+- **(b) My first fix over-corrected (orchestrator).** It refused every relative target that named no existing file, which broke `install_review_output.py` when it installed a deliverable for the first time. That failed safe, with no write. The rule now is: absolute as given; relative to SP if it exists; relative to the working directory if it exists; a not-yet-written file in an existing SP folder allowed; anything else is refused with return code 2. Selftest 29 GREEN. My earlier statement that a target naming no file is refused is superseded by this entry.
+- **(c) Mangled backslash, third occurrence (orchestrator).** While drafting TF-4, a doubled backslash in a heredoc became a backspace character inside the PD3 pattern, so the draft matched nothing. The baseline comparison caught it at 0 hits against an expected 11. PD3 was then copied from the reference bytes. E-76(b) said no backslash goes into a replacement string in a heredoc; that rule did not reach a pattern written the same way.
+- **(d) A stop no receipt kind can name (process gap).** CTL_E4 stopped on the session limit (HTTP 429) after verifying its pins and was resumed as the same execution by message. There is no new launch row, and no receipt kind exists for a quota interruption, so the only record is the landing note. Its token figures describe one execution across that stop.
+
+**Not settled here.** Still owed, and still not recorded because each needs a fresh read of its own source: the tier-template ambiguity, the registry-authority and scoped-parity incident, and the `python -c` deviations.
+
+**Corrective controls (MEASURED).** The narrowed `anchored` rule with its selftest. TF-4 and TF-5 are built by copying lines from the reference bytes (`1Cor/review/tool_fixes/mk_tf5.py`), and every sweep install is compared with the reference on the recorded baseline before it is called installed. `test_cwo0607.py` carries 10 plants through the installed sweep and four mutants all go RED.
+
+**Lesson.** A guard that returns its pass verdict when it finds nothing to check has not checked anything; "no match" must be its own outcome. When correcting a guard, run the callers that reach it before reporting the correction. A regular expression goes into a tool by byte copy or a file written by the Write tool, never through a heredoc, and any tool built on a pattern needs a baseline that would show 0 hits as a failure.

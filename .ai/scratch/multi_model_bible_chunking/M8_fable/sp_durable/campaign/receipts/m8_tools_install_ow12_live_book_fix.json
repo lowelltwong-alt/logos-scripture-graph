@@ -1,0 +1,26 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "batch": "ow12_live_book_fix",
+ "installed_at": "2026-11-03T12:07:36.902991+00:00",
+ "installed_by": "orchestrator (claude-opus-5-5), 1Cor close",
+ "ordered_by": "close-gate item 16 (OW-12) at the 1 Corinthians close; OW-38 (bind evidence to the version proposed for close)",
+ "files": [
+  {
+   "path": "campaign/_book_close_status_ow12.py",
+   "sha256_before": "9cc6f3eb2ac69b90de9b06a48e815f8e73662aa807b3223cdd7ae2859cfa50fb",
+   "sha256_after": "efcd309c2ee698f701c506fd68b1fd16acc5e7fe2ea2989633d0ddbb38862b8d",
+   "kept_as": "campaign/_book_close_status_ow12.py.pre_9cc6f3eb2ac6"
+  }
+ ],
+ "defects_fixed": [
+  "the live book's spend was read from Ezekiel's bucket whatever the live book was: at the 1Cor close it reported 70,428,450 tokens over 1,273 verses (Ezekiel's) as 1 Corinthians' spend",
+  "1 Corinthians attempt ids open 'cor_', so its receipts were bucketed under 'cor' and never matched '1cor': once 1Cor closed it would have been listed as closed before per-attempt capture, a false statement (OW-18)"
+ ],
+ "change": "PREFIX_BOOK maps the 'cor' prefix to '1cor'; the live book is read by its own key; --count-closed BOOK --next-book NEXT counts the live book closed for the close act's own item 16 and says so in books.counted_closed_before_the_close_act. Report-only, as before.",
+ "verification": {
+  "without_flags": "output identical to the old tool's except live_book_spend (now 1Cor's: 8,207,209 tokens, 110 executions, 437 verses) and built",
+  "with_flags": "identical to an in-process run with the progress reader patched to count 1Cor closed, except the new field and built",
+  "refusal": "--count-closed Dan --next-book John is REFUSED (Dan is not the live book)"
+ },
+ "known_limit": "executions are the shared fold's count: the four 1Cor merged-close runs (_a2, _a3) appear three times each (a launch row in both the review and the merged-close receipts, plus the merged file's completion row), so 1Cor reads 110 executions for 102 distinct runs; tokens are counted once (8,207,209). Not fixed here; routed to the shared fold."
+}

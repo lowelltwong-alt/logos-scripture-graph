@@ -1,0 +1,635 @@
+{
+ "schema": "m8_merged_lane_params.v1",
+ "book": "1Cor",
+ "book_lower": "1cor",
+ "book_upper": "1 CORINTHIANS",
+ "attempt_prefix": "cor",
+ "named_rows": [
+  "W2-014",
+  "W2-015",
+  "W3-008",
+  "W6-001",
+  "W5-013",
+  "W5-014",
+  "W6-010",
+  "W6-013",
+  "W3-001",
+  "W2-006",
+  "W6-004",
+  "W6-014"
+ ],
+ "extra_per_lane": 6,
+ "units_per_lane": 6,
+ "ids_per_lane": 5,
+ "scholar_record": "1Cor/scholar_record/FIRST_CORINTHIANS_SCHOLAR_RECORD.v1.md",
+ "unit_regex": "^### 1 Corinthians ",
+ "unit_stop_regex": "^## ",
+ "feed": "1Cor/deliverables/atlas_candidate_feed_rows.jsonl",
+ "feed_id_key": "chunk_decision_id",
+ "budget": "About 80 tool calls; stop and report at 120.",
+ "work": "this lane grades the close of the book in one pass and changes no file of the book",
+ "item21": "Run `gen_method_v8.py --check` in place (writes nothing). To run the checker, build a copy in `work\\m8copy` in your OUT: copy `BIBLE_CHUNKING_METHOD.v1.md` through `.v8.md`, `gen_method_v8.py`, `method_version_engine.py` and `check_method_record.py` from the M8_fable folder into it, and copy the generator's four pinned inputs under the same relative paths (`sp_durable\\1Cor\\rows_v1_final.jsonl`, `sp_durable\\1Cor\\close\\landed\\D3_e1\\method_change_proposals.1Cor.candidate.jsonl`, `sp_durable\\1Cor\\close\\landed\\D5_e1\\method_change_adjudications.1Cor.v1.json`, `sp_durable\\1Cor\\fable_end_review\\routed_items.v1.jsonl`). From inside the copy run the COPY of the checker on `BIBLE_CHUNKING_METHOD.v8.md`, naming that file as its argument, plain and with `--selftest` (with no argument it checks an older version). Compare its record with the shipped `method_record_check.v8.json`; a difference only in path fields is a copy artefact. Read v7 and v8; the older versions are pinned for copying only. Judge whether each change v8 carries would have PREVENTED or caught earlier what this book's evidence shows, or only describes it. Ask what the checker still cannot catch.",
+ "item23_tail": "This adjudication has no REJECT: test the weakest ADOPTs instead, name which you chose and why. The adjudicated file also measures `adopted_text_differs_from_proposal`, copies `grader_fallback` from the record's `model_note` and adds `defer_waits_on`: is each faithful to the record? Is v8's text for each adopted proposal the adjudicator's `adopted_text`, byte for byte?",
+ "book_questions": [
+  "**NQ-7 two passages and the marks.** Read the rows covering 1 Corinthians 14:34-36 and 16:21-22 against all three witnesses. Is every quotation and every claim about the text true of the witness it names? Then, by your own script over `1Cor_rp.txt`, `pmarks_1Cor.json` and `tools\\check_marks.py`: take ten paragraph marks that rows rely on. Does each stand in the witness bytes where the row says, and does the strategy's statement of a mark's direction match the layer?",
+  "**NQ-8 the lens count.** The book's strategy states a lens count and section 19 of the method states a floor. Ruling E7 says a further round is not owed. By the records you can read, how many independent lanes read the rows the last fix-up changed, blind to what? Was the count the strategy states met, and what in the record says so?",
+  "**NQ-9 the boss record and the constructions.** The boss audit ran twice, and rulings E6 and E7 say how the two executions stand together. Taken together, does each of B1..B17 stand MET with no RETURN? Which words of the close rest on a construction rather than on a ruling's plain text? For each, is it named as a construction where it is relied on and routed to the campaign-end review, and what would change if it were refused?",
+  "**NQ-10 the last rung.** Compare `rows_v1_final.jsonl` with `fixup\\draft_rows_fixup5_applied.jsonl` by script, field by field. What differs? Do the manifest and E7 describe that difference accurately? Say exactly which words differ between any description and the bytes.",
+  "**NQ-11 rows left with open notes.** The second boss audit's `unresolved_uncertainty` and `reported_where_measured` name rows and limits. Read that audit's entries for W2-006, W3-001, W6-004, W6-010, W6-013 and W6-014, and read `M8-1Cor-011`, `-027`, `-028`, `-039`, `-040`, `-051` and `-052` in the feed. For each, what if anything would a reader be misled about? Give each a severity by that test. Does the book's confidence distribution follow from the grounds in the rows you read?",
+  "**NQ-12 the scholar record's own limits.** `close\\landed\\D1_e1\\build_notes.json` states what the record's builder could not settle. Does anything in the ranges you read present a fact about the apparatus as a fact about the text? Are its private-term and vocabulary claims true where you can test them? Does the record say which edition of the English witness it used, and is that supported?",
+  "**NQ-13 outputs with no bytes, and the manifests.** The landed manifest lists outputs under `not_matching`. Count them and class them by lane. Does any row, ruling or deliverable rest on an output whose bytes do not exist? Does any record read as though those bytes were kept? Two frozen copies of the manifest exist, and the lanes of this close pinned different copies: is the record of which lane pinned which copy, and why, available to a reader?",
+  "**NQ-14 the orchestrator's words in v8.** v8's header, change table, `Changed here` lines and provenance tail are the orchestrator's text, not the adjudicator's. Test each against the pinned files, including its statements of the book count and the witness pair. Does v8 carry any rule the adjudication does not? The adjudicator's `cross_proposal_notes` report an obligation of v7 that appears unmet in this book, and a flag about E7: is the first true by your own test, and is either recorded anywhere a reader of the close would find it?"
+ ],
+ "pins": [
+  [
+   "1Cor/rows_v1_final.jsonl",
+   "READ by line",
+   "the corpus being closed: 70 rows, row id `decision_id`. Compute its sha256 yourself"
+  ],
+  [
+   "1Cor/rows_v1_final.manifest.json",
+   "READ",
+   "what the final file is built from"
+  ],
+  [
+   "1Cor/rows_v1_final.jsonl.validator_report.json",
+   "READ by script",
+   "the validator suite's report over the corpus. Do not run the suite"
+  ],
+  [
+   "1Cor/fixup/draft_rows_fixup5_applied.jsonl",
+   "READ by script (NQ-10)",
+   "the rows the final file was built from"
+  ],
+  [
+   "1Cor/cwo/cwo_parity.rows_v1_final.json",
+   "READ",
+   "the shipped parity record"
+  ],
+  [
+   "1Cor/close/cwo_hand_record.v1.json",
+   "READ by script",
+   "the hand classification the parity record uses"
+  ],
+  [
+   "campaign/_cwo_parity.py",
+   "RUN as `--book 1Cor --check` from SP (writes nothing in that mode)",
+   "the correction-wave parity check"
+  ],
+  [
+   "1Cor/book_strategy_1Cor.md",
+   "READ the sections you need",
+   "the book's strategy: the rules the rows were written under"
+  ],
+  [
+   "1Cor/1Cor_rp.txt",
+   "READ by script extract",
+   "the primary Greek witness (Byzantine, RP)"
+  ],
+  [
+   "1Cor/1Cor_sbl.txt",
+   "READ by script extract",
+   "the secondary Greek witness (SBLGNT)"
+  ],
+  [
+   "1Cor/1Cor_web_clean.txt",
+   "READ by script extract",
+   "the English witness (WEB)"
+  ],
+  [
+   "1Cor/pmarks_1Cor.json",
+   "READ by script extract",
+   "paragraph marks of the witnesses"
+  ],
+  [
+   "1Cor/1cor_device_inventory.json",
+   "READ by script extract",
+   "the literary-device inventory the rows cite"
+  ],
+  [
+   "1Cor/verse_inventory.json",
+   "READ by script extract",
+   "read by cor_lib"
+  ],
+  [
+   "1Cor/web_greek_verse_check.json",
+   "READ by script extract",
+   "read by cor_lib"
+  ],
+  [
+   "1Cor/web_greek_offset_map.json",
+   "READ by script extract",
+   "read by cor_lib"
+  ],
+  [
+   "1Cor/tools/cor_lib.py",
+   "IMPORT read-only",
+   "the book's library"
+  ],
+  [
+   "1Cor/tools/check_marks.py",
+   "READ (NQ-7)",
+   "the marks check, a member of the suite"
+  ],
+  [
+   "1Cor/fable_end_review/routed_items.v1.jsonl",
+   "READ by script",
+   "the 27 questions carried open to the campaign-end review"
+  ],
+  [
+   "campaign/gen_fable_end_packet.py",
+   "RUN as `--book 1Cor --check` from SP (writes nothing)",
+   "the campaign-end packet's generator"
+  ],
+  [
+   "1Cor/fable_end_review/1Cor_fable_end_packet.v1.json",
+   "READ by script extract",
+   "the campaign-end review packet"
+  ],
+  [
+   "1Cor/scholar_record/FIRST_CORINTHIANS_SCHOLAR_RECORD.v1.md",
+   "READ ONLY the line ranges this brief names (item 20), and sections 8 to 10 where NQ-2 or NQ-12 needs them, found by script. Over 14,000 lines; never print it whole",
+   "the scholar record"
+  ],
+  [
+   "1Cor/scholar_record/gen_scholar_record.py",
+   "RUN with `--check` (writes nothing). READ as needed",
+   "its generator"
+  ],
+  [
+   "1Cor/scholar_record/check_scholar_record.py",
+   "RUN with `--check` (writes nothing). READ as needed",
+   "its checker"
+  ],
+  [
+   "1Cor/scholar_record/scholar_record_check.v1.json",
+   "READ",
+   "the shipped check record"
+  ],
+  [
+   "1Cor/close/landed/D1_e1/build_notes.json",
+   "READ",
+   "the scholar record builder's stated limits"
+  ],
+  [
+   "1Cor/deliverables/README.md",
+   "READ in full",
+   "what the item-22 deliverables claim about themselves"
+  ],
+  [
+   "1Cor/deliverables/atlas_candidate_feed_rows.jsonl",
+   "READ by script",
+   "the item-22 feed, 20 rows. Compute its sha256 yourself"
+  ],
+  [
+   "1Cor/deliverables/1Cor_atlas_dimensions.v1.jsonl",
+   "READ by script",
+   "the atlas dimension rows"
+  ],
+  [
+   "1Cor/deliverables/1Cor_sidecar_derivation.v1.jsonl",
+   "READ by script extract",
+   "how each sidecar field was derived"
+  ],
+  [
+   "1Cor/sidecar_src_1cor.jsonl",
+   "READ by script extract",
+   "the sidecar"
+  ],
+  [
+   "1Cor/deliverables/gen_atlas_rows.py",
+   "RUN with `--check` (writes nothing)",
+   "the atlas rows' generator"
+  ],
+  [
+   "1Cor/deliverables/check_atlas_rows.py",
+   "RUN ONLY with `--out-root` set to `work\\atlas` in your OUT (its record goes there), plain and with `--selftest` added. NEVER without `--out-root`",
+   "the atlas rows' checker"
+  ],
+  [
+   "1Cor/deliverables/atlas_rows_check.v1.json",
+   "READ",
+   "the shipped check record"
+  ],
+  [
+   "1Cor/deliverables/gen_sidecars.py",
+   "RUN with `--check` (writes nothing)",
+   "the sidecars' generator"
+  ],
+  [
+   "1Cor/close/landed/D2_e1/build_notes.json",
+   "READ",
+   "the atlas builder's stated limits"
+  ],
+  [
+   "1Cor/deliverables/gen_proposals_adjudicated.py",
+   "RUN with `--check` (writes nothing)",
+   "the join of proposals and adjudications"
+  ],
+  [
+   "1Cor/deliverables/method_change_proposals.1Cor.adjudicated.jsonl",
+   "READ in full",
+   "the proposals with their adjudications joined (item 23)"
+  ],
+  [
+   "1Cor/close/landed/D3_e1/method_change_proposals.1Cor.candidate.jsonl",
+   "READ in full",
+   "the six proposals as proposed"
+  ],
+  [
+   "1Cor/close/landed/D3_e1/proposer_notes.json",
+   "READ",
+   "the proposer's stated limits"
+  ],
+  [
+   "1Cor/close/landed/D5_e1/method_change_adjudications.1Cor.v1.json",
+   "READ by script",
+   "the adjudicator's verdicts and evidence checks. This is an artefact under your review, not a finding to adopt"
+  ],
+  [
+   "1Cor/close/landed/D5_e1/adjudicator_notes.json",
+   "READ",
+   "the adjudicator's stated limits"
+  ],
+  [
+   "../METHOD_PROPOSER_BRIEF.md",
+   "READ",
+   "what the proposer was bound to"
+  ],
+  [
+   "../BIBLE_CHUNKING_METHOD.v7.md",
+   "READ the sections you need",
+   "the method record before this book's changes"
+  ],
+  [
+   "../BIBLE_CHUNKING_METHOD.v8.md",
+   "READ the change table and every section it names",
+   "the method record with this book's adopted changes (item 21)"
+  ],
+  [
+   "../gen_method_v8.py",
+   "RUN with `--check` (writes nothing). READ",
+   "how v8 was built from v7 and the adopted texts"
+  ],
+  [
+   "../method_version_engine.py",
+   "READ",
+   "the mechanics the generator imports"
+  ],
+  [
+   "../check_method_record.py",
+   "READ. NEVER RUN IN PLACE: it writes its record beside the document. Run it only on a copy, as the brief describes",
+   "the method checker"
+  ],
+  [
+   "../method_record_check.v8.json",
+   "READ",
+   "the shipped check record for v8"
+  ],
+  [
+   "../BIBLE_CHUNKING_METHOD.v1.md",
+   "COPY ONLY, for the checker run on a copy (item 21). Do not read",
+   "method v1"
+  ],
+  [
+   "../BIBLE_CHUNKING_METHOD.v2.md",
+   "COPY ONLY, for the checker run on a copy (item 21). Do not read",
+   "method v2"
+  ],
+  [
+   "../BIBLE_CHUNKING_METHOD.v3.md",
+   "COPY ONLY, for the checker run on a copy (item 21). Do not read",
+   "method v3"
+  ],
+  [
+   "../BIBLE_CHUNKING_METHOD.v4.md",
+   "COPY ONLY, for the checker run on a copy (item 21). Do not read",
+   "method v4"
+  ],
+  [
+   "../BIBLE_CHUNKING_METHOD.v5.md",
+   "COPY ONLY, for the checker run on a copy (item 21). Do not read",
+   "method v5"
+  ],
+  [
+   "../BIBLE_CHUNKING_METHOD.v6.md",
+   "COPY ONLY, for the checker run on a copy (item 21). Do not read",
+   "method v6"
+  ],
+  [
+   "../CAMPAIGN_CLOSE_GATE.v1.md",
+   "READ by line range: the item headings (find them by script), items 20-23 at lines 448-515, the addenda from line 608, and any item you assess",
+   "the close gate"
+  ],
+  [
+   "campaign/grader_models.v3.json",
+   "READ in full",
+   "the grader carrier: the model this role is declared to run on, the recorded downgrade statement, and `book_close_shapes.1Cor`"
+  ],
+  [
+   "campaign/gen_grader_models_v3.py",
+   "RUN with `--check` (writes nothing)",
+   "the carrier's generator"
+  ],
+  [
+   "campaign/_transcript_coverage_census.py",
+   "RUN with no arguments from SP (reads only, prints JSON). Take `per_book.1Cor`. The tool reads the receipts; you still never open a receipts file yourself",
+   "the transcript census"
+  ],
+  [
+   "campaign/_close_book.py",
+   "READ. RUN ONLY as `--book 1Cor --m8-root <the M8_fable folder> --dry-report <your OUT>\\work\\dry` (writes only there). NEVER any other mode",
+   "the close tool"
+  ],
+  [
+   "1Cor/close/close_spec.v1.json",
+   "READ by script",
+   "the book's facts the close tool uses"
+  ],
+  [
+   "1Cor/close/close_params.v1.json",
+   "READ by script",
+   "the close parameters"
+  ],
+  [
+   "1Cor/close/1cor_landed_outputs_manifest.frozen_for_merged_lanes.v1.json",
+   "READ by script",
+   "the manifest of landed outputs: every path in its `outputs` list is a landed artefact you may open by that exact path after checking its sha256, except any whose file name begins `final_message` and any listed under `not_matching`. Paths are relative to SP's parent. Use it to test a claim against the artefact it cites"
+  ],
+  [
+   "1Cor/close/1cor_landed_outputs_manifest.frozen_for_close_lanes.v1.json",
+   "READ by script (NQ-13)",
+   "the earlier frozen copy"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E1.v1.json",
+   "READ when a row, proposal or routed item cites it",
+   "controlling ruling E1"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E2.v1.json",
+   "READ when a row, proposal or routed item cites it",
+   "controlling ruling E2"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E3.v1.json",
+   "READ when a row, proposal or routed item cites it",
+   "controlling ruling E3"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E4.v1.json",
+   "READ when a row, proposal or routed item cites it",
+   "controlling ruling E4"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E5.v1.json",
+   "READ when a row, proposal or routed item cites it",
+   "controlling ruling E5"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E6.v1.json",
+   "READ by key (NQ-9)",
+   "controlling ruling E6"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E7.v1.json",
+   "READ by key (NQ-8, NQ-9, NQ-10)",
+   "controlling ruling E7"
+  ],
+  [
+   "1Cor/review/1cor_boss_audit.v1.json",
+   "READ by key (NQ-9)",
+   "the first boss execution"
+  ],
+  [
+   "1Cor/review/1cor_boss_audit_e2.v1.json",
+   "READ by key (NQ-9, NQ-11)",
+   "the second boss execution"
+  ],
+  [
+   "campaign/REVIEWER_CONTINUATION_CONTRACT.v1.md",
+   "READ where you need it",
+   "the reviewer contract"
+  ],
+  [
+   "../ERROR_PATTERN_LEDGER.v1.md",
+   "READ by script: the OW-28, OW-36, OW-37 and OW-38 (with its SUPPLEMENT) entries only",
+   "the owner's rulings on this close"
+  ],
+  [
+   "1Cor/close/lf_support_sample.v1.json",
+   "READ",
+   "R2: the item 1 frame and sample"
+  ],
+  [
+   "campaign/close_kit/build_lf_support_sample.py",
+   "RUN as `--book 1Cor --check` from SP (writes nothing)",
+   "R2"
+  ],
+  [
+   "1Cor/close/rows_read_by_first_lanes.v1.jsonl",
+   "READ by script",
+   "R1: the rows the first pair read"
+  ],
+  [
+   "1Cor/close/e9_apply/work_final/before.jsonl",
+   "READ by script",
+   "R3: the bytes before FIXUP-6"
+  ],
+  [
+   "1Cor/close/e9_apply/work_final/after.jsonl",
+   "READ by script",
+   "R3: the bytes after FIXUP-6"
+  ],
+  [
+   "1Cor/close/e9_apply/rows_after_e9.manifest.json",
+   "READ",
+   "R3: the repair's own record"
+  ],
+  [
+   "1Cor/close/e9_apply/apply_on_final.json",
+   "READ",
+   "R3: the repair's own record"
+  ],
+  [
+   "campaign/_apply_exact_orders.py",
+   "READ",
+   "R3: the tool that applied the repair"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E8.v1.json",
+   "READ by key (R8-PAIR)",
+   "R1"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E9.v1.json",
+   "READ by key (R9-SPANS, R9-PAIR-MECH, R9-WEB, R9-LEADS)",
+   "R1, R3"
+  ],
+  [
+   "1Cor/close/e23_sweep.rows_v1_final.v1.json",
+   "READ",
+   "E-23 triage"
+  ],
+  [
+   "1Cor/close/close_evidence.v1.json",
+   "READ",
+   "R5: the values the close evidence holds before this pair"
+  ],
+  [
+   "1Cor/scholar_record/book_params.v1.json",
+   "READ by key (word_subs_before_codes)",
+   "R1 records_read"
+  ],
+  [
+   "1Cor/deliverables/book_params.v1.json",
+   "READ by key (why_lead_sentence)",
+   "R1 records_read"
+  ],
+  [
+   "1Cor/close/evidence/ow38_owner_answers.v1.md",
+   "READ",
+   "OW-38"
+  ]
+ ],
+ "attempt_suffix": "a2",
+ "read_every_row": true,
+ "read_rows": [
+  "W1-001",
+  "W1-002",
+  "W1-003",
+  "W1-004",
+  "W1-007",
+  "W2-003",
+  "W2-005",
+  "W2-006",
+  "W2-007",
+  "W2-012",
+  "W2-013",
+  "W2-014",
+  "W2-015",
+  "W3-001",
+  "W3-002",
+  "W3-003",
+  "W3-004",
+  "W3-005",
+  "W3-006",
+  "W3-007",
+  "W4-003",
+  "W5-002",
+  "W5-003",
+  "W5-004",
+  "W5-007",
+  "W5-008",
+  "W5-009",
+  "W5-010",
+  "W5-011",
+  "W5-013",
+  "W5-014",
+  "W6-001",
+  "W6-002",
+  "W6-009",
+  "W6-010",
+  "W6-011",
+  "W6-012",
+  "W6-013",
+  "W6-014"
+ ],
+ "read_construction": "E8 R8-PAIR (sentence 9f94631be1): reading by byte equality is a named construction of 'read every final row'; E9 R9-PAIR-MECH adds the mandatory record reads and the 34-row set. OW-38 points 1-3 add the item 1 sample rows and the item 14 and 25 duties.",
+ "task_addendum": "campaign/close_kit/task_MERGED_REISSUE.md",
+ "task_fill_extra": {
+  "REISSUE_BASIS": "E8 R8-PAIR, E9 R9-PAIR-MECH and owner decision OW-38",
+  "BASE_ROWS_REL": "1Cor/close/rows_read_by_first_lanes.v1.jsonl",
+  "BASE_ROWS_SHA": "d175136999a5409789e055592c8341b2bd92230ef132b00697a30c2ec03e76b0",
+  "REPAIR_ROUND": "FIXUP-6 (GATE-E9: the 23 exact spans of E9, applied by `campaign/_apply_exact_orders.py`)",
+  "CHANGED_ROWS": "W1-003, W2-006, W2-013, W2-014, W3-001, W3-003, W3-006, W5-003, W5-009, W5-010, W5-014, W6-001, W6-010, W6-013",
+  "MANDATORY_RECORDS": "the scholar record lines the R9-WEB entry changes (`1Cor/scholar_record/FIRST_CORINTHIANS_SCHOLAR_RECORD.v1.md` lines 6144 and 6306, the attribution lines, and line 14205, its substitution-table row), with `word_subs_before_codes` entry 28 in `1Cor/scholar_record/book_params.v1.json`; the five feed rows M8-1Cor-011, -027, -028, -051 and -052 in `1Cor/deliverables/atlas_candidate_feed_rows.jsonl` and their derivation records in `1Cor/deliverables/1Cor_sidecar_derivation.v1.jsonl`; the `why_lead_sentence` key in `1Cor/deliverables/book_params.v1.json` (R9-LEADS: W1-011, W2-012, W2-013, W5-009, W5-010)",
+  "SAMPLE_REL": "1Cor/close/lf_support_sample.v1.json",
+  "SAMPLE_CHECK": "python -B campaign/close_kit/build_lf_support_sample.py --book 1Cor --check",
+  "REPAIR_AUTHOR": "The repair was applied by script, `campaign/_apply_exact_orders.py`, from the E9 rulings; no author lane wrote it, and its record is `1Cor/close/e9_apply/apply_on_final.json` with `1Cor/close/e9_apply/rows_after_e9.manifest.json`.",
+  "REPAIR_BEFORE": "1Cor/close/e9_apply/work_final/before.jsonl",
+  "REPAIR_AFTER": "1Cor/close/e9_apply/work_final/after.jsonl",
+  "REPAIR_ORDERS": "1Cor/review/1cor_controlling_agent_rulings_E9.v1.json",
+  "ITEM25_ROWS": "W1-002, W1-003, W1-004, W2-005, W2-006, W2-007, W2-012, W2-013, W2-014, W2-015, W3-001, W3-002, W3-003, W3-004, W3-005, W3-006, W3-007, W5-002, W5-003, W5-004, W5-008, W5-009, W5-010, W5-011, W5-013, W5-014, W6-001, W6-002, W6-009, W6-010, W6-011, W6-012, W6-013, W6-014",
+  "DUE_ITEMS": "1, 14, 16, 18, 19 and 25",
+  "LANE_FILLED_ITEMS": "1, 14 and 25",
+  "REISSUE_BOOK_DUTIES": "**Book duties of this reissue.**\n- **E-23 triage.** `1Cor/close/e23_sweep.rows_v1_final.v1.json` flags two uses of 'period' on W1-002 (boundary_rationale and strongest_rejected_alternative). Say for each whether it names the Greek rhetorical period or a full-stop driver, with the row bytes as evidence, in `final_check.json` under `e23_triage`.\n- **PF-13.** check_atlas_rows.py reads its inputs from --out-root and writes its record there; copy the pinned inputs to that root by exact path first.\n- **R9-WEB and R9-LEADS.** Test that each changed record part above is what the ruling orders, word for word, and that the generators' `--check` runs still MATCH on the pinned files.\n- **PF-11 wording.** Where your report counts lenses, write: One pair blind to each other. Never count this pair as new blind lenses.\n- **Spend (OW-38 point 4).** Where your report names spend, name it as a subtotal: 7,761,939 measured tokens across 61 of 98 runs, 37 unmeasured, the full spend unknown. No limit was set for 1 Corinthians; under OW-28 spend is tracked and does not block the close."
+ },
+ "ruling_duties": [
+  {
+   "sha256": "f583e59222b0800628d0aace11a3deb94a00005b889bb215c91dd20b89a59f6b",
+   "round": "E1",
+   "carried_by": "the item 25 floor of two blind lanes (R4) and, for f583e59222, the W3-001..W3-004 seam rows in R4"
+  },
+  {
+   "sha256": "066bd33817b83ee9a0a3060e6a06d71c919fc5f20cd6964d5a3a500ca5f7a7ca",
+   "round": "E1",
+   "carried_by": "the item 25 floor of two blind lanes (R4) and, for f583e59222, the W3-001..W3-004 seam rows in R4"
+  },
+  {
+   "sha256": "8b4f318e4e384ab34997509c7111dbb484c78b4ecebf4a8cc9dc2b00590a1c64",
+   "round": "E1",
+   "carried_by": "the item 25 floor of two blind lanes (R4) and, for f583e59222, the W3-001..W3-004 seam rows in R4"
+  },
+  {
+   "sha256": "f9085a8e22a1752d3c7036b4ad1b769fd077814079db3bc648f7522446334453",
+   "round": "E3",
+   "carried_by": "the item 25 floor of two blind lanes (R4); the RT third lens is recorded in close evidence item_25.lenses"
+  },
+  {
+   "sha256": "32c3b68074167e9312136a1d1f82456231293cbbfa7dcecc394d9e8fc6614118",
+   "round": "E3",
+   "carried_by": "the item 25 floor of two blind lanes (R4); the RT third lens is recorded in close evidence item_25.lenses"
+  },
+  {
+   "sha256": "6aca53a4c69e483a02ecd1dfc1ec9e3cfc982684dd305d8c254deec27c059b59",
+   "round": "E6",
+   "carried_by": "read_every_row true under the R8-PAIR construction (R1)"
+  },
+  {
+   "sha256": "3bcf82e61920614053264dd5a710f8d0c7859f5c1ecd7bc2272caf2ab529abfe",
+   "round": "E6",
+   "carried_by": "read_every_row true under the R8-PAIR construction (R1)"
+  },
+  {
+   "sha256": "673d548076d923bfe9a678d70aa6d43d70f48f6bb72a88ec4fc3e21642f2ab9f",
+   "round": "E7",
+   "carried_by": "read_every_row true under the R8-PAIR construction (R1); the boss record is not used for either lane"
+  },
+  {
+   "sha256": "78d03d0dcc3e329a1048b21740cfa4fa96009390f703dcaa36c7229395806c95",
+   "round": "E7",
+   "carried_by": "read_every_row true under the R8-PAIR construction (R1); the boss record is not used for either lane"
+  },
+  {
+   "sha256": "60f5c58a4af515ecb2ccf0e4b1b68de52ed5e1373d360618ef47cca8316b4e61",
+   "round": "E7",
+   "carried_by": "read_every_row true under the R8-PAIR construction (R1); the boss record is not used for either lane"
+  },
+  {
+   "sha256": "9a53d12223041ac5a2679fc72e81b268c00d23661334085748f96a7881bd828a",
+   "round": "E7",
+   "carried_by": "read_every_row true under the R8-PAIR construction (R1); the boss record is not used for either lane"
+  },
+  {
+   "sha256": "d8cd830d1ae100b8f5d997bedd7601a878b623e44c1fd945893a1a4bad505608",
+   "round": "E8",
+   "carried_by": "read_rows and read_construction (R1), the two _a2 lanes (R4)"
+  },
+  {
+   "sha256": "9f94631be138a17cba3a7797301c24e73bb4b7a3ea5516f8ded483dd4832ecad",
+   "round": "E8",
+   "carried_by": "read_rows and read_construction (R1), the two _a2 lanes (R4)"
+  },
+  {
+   "sha256": "8eb3739447816dfa24fa5e24274bb5d1ddccf1116080228b6177e6609458d17a",
+   "round": "E8",
+   "carried_by": "read_rows and read_construction (R1), the two _a2 lanes (R4)"
+  },
+  {
+   "sha256": "68bbbb22a8556241d518c361ee43ae94752393f6a21ff6f8dcd03d7148878618",
+   "round": "E9",
+   "carried_by": "the _a2 attempts, R1 records_read and the 34 rows of R4"
+  }
+ ]
+}

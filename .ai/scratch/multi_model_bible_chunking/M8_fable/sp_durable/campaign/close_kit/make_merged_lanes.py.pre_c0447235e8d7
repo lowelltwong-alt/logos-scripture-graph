@@ -1,0 +1,153 @@
+"""Build the two blind merged-close lanes of one book from data, so a later book ports nothing (TE-1, TE-4, TE-7).
+
+Reads <BOOK>/close/merged_params.v1.json, computes each lane's rows, scholar-record units and atlas ids from the corpus
+digest, and writes lane_spec_MERGED_<L>.json at the book's review folder plus one row per lane in close_lanes.v1.json.
+Selection is a function of the corpus digest and the lane, never of anything a person chose, and the two lanes never
+share an extra row, a unit or an id. Run from sp_durable:
+
+  python -B campaign/close_kit/make_merged_lanes.py --params 1Cor/close/merged_params.v1.json --expect-before SHA [--dry-run]
+
+Then build each brief with build_delta_launch.py as any other lane.
+"""
+import argparse
+import hashlib
+import json
+import re
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+SP = HERE.parent.parent
+sys.path.insert(0, str(HERE))
+import ruling_duties
+
+KEYS = ["attempt_id", "execution_id", "verdict", "deliverables", "verification", "unresolved_uncertainty"]
+LANE_META = ("`{lane, attempt_id, model, grader_role, shared_reader_statement, files_opened: [{path, sha256}], tools_run, limits, "
+             "e19_selfreport}`. `e19_selfreport` states, truthfully: that you ran no listing and no glob, opened only pinned paths, "
+             "read no receipts file and no transcript, wrote only under your OUT, and anything you did otherwise.")
+ORDER = {
+    "A": "**Lane A reads CORPUS-FIRST, in row order.** Read your mandatory and extra rows in ascending line order and form your "
+         "postcheck view of each. Only then read the evidence records (parity, validator report, sidecars, dry report), then the "
+         "governance files, then items 20, 21, 22, 23 in that order, then the named questions. Where an evidence record disagrees "
+         "with what you saw in the rows, the rows are what is being closed.",
+    "B": "**Lane B reads EVIDENCE-FIRST.** Read the governance files and the evidence records first (dry report, parity, validator "
+         "report, sidecars), then items 23, 22, 21, 20 in that order. Only then read your mandatory and extra rows in DESCENDING "
+         "line order and test what the evidence records led you to expect against them, then the named questions. Where an "
+         "evidence record disagrees with what you see in the rows, the rows are what is being closed.",
+}
+
+
+def rank(salt, key):
+    return hashlib.sha256(("%s:%s" % (salt, key)).encode("utf-8")).hexdigest()
+
+
+def deal(salt, items, per_lane):
+    """Two disjoint picks from one salted order, so neither lane's set is anyone's choice."""
+    order = sorted(items, key=lambda x: rank(salt, x))
+    if len(order) < 2 * per_lane:
+        raise SystemExit("REFUSED: %d items cannot give two lanes %d each" % (len(order), per_lane))
+    return {"A": sorted(order[:per_lane], key=items.index), "B": sorted(order[per_lane:2 * per_lane], key=items.index)}
+
+
+def units(path, rx, stop_rx):
+    """One (label, first, last) per heading of the record's unit lists, each ending before the next heading."""
+    lines = path.read_text(encoding="utf-8").split("\n")
+    heads = [i for i, s in enumerate(lines) if re.match(rx, s) or re.match(stop_rx, s)]
+    out = []
+    for i, n in enumerate(heads):
+        if re.match(rx, lines[n]):
+            last = (heads[i + 1] if i + 1 < len(heads) else len(lines)) - 1
+            out.append("lines %d-%d (%s)" % (n + 1, last, lines[n].lstrip("# ").split(" — ")[0]))
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--params", required=True)
+    ap.add_argument("--expect-before", required=True, help="sha256 of close_lanes.v1.json before this run")
+    ap.add_argument("--dry-run", action="store_true")
+    a = ap.parse_args()
+    p = json.loads((SP / a.params).read_text(encoding="utf-8"))
+    B, b = p["book"], p["book_lower"]
+    duties = ruling_duties.refusals(SP / B / "review", b, p)
+    if duties:
+        raise SystemExit("REFUSED: the rulings lay duties on these lanes that the parameters do not carry:\n" + "\n".join(duties))
+    corpus = SP / B / "rows_v1_final.jsonl"
+    salt = hashlib.sha256(corpus.read_bytes()).hexdigest()
+    rows = [json.loads(s) for s in corpus.read_text(encoding="utf-8").splitlines()]
+    ids = [r["decision_id"] for r in rows]
+    bad = [x for x in p["named_rows"] if x not in ids]
+    if bad:
+        raise SystemExit("REFUSED: named rows not in the corpus: %r" % bad)
+    if p.get("read_rows"):
+        # A reissue under a byte-equality construction of "read every final row" (1Cor R8-PAIR): these rows are read
+        # whole and every other row is held by byte equality to the rows the first pair read.
+        bad = [x for x in p["read_rows"] if x not in ids]
+        if bad or not p.get("read_construction"):
+            raise SystemExit("REFUSED: read_rows not in the corpus %r, or no read_construction names the ruling" % bad)
+        mandatory, extras = [i for i in ids if i in p["read_rows"]], {"A": [], "B": []}
+    elif p["read_every_row"]:
+        mandatory, extras = list(ids), {"A": [], "B": []}
+    else:
+        mandatory = [i for i, r in zip(ids, rows) if r["confidence"] == "low" or i in p["named_rows"]]
+        extras = deal(salt + ":rows", [i for i in ids if i not in mandatory], p["extra_per_lane"])
+    unit = deal(salt + ":units", units(SP / p["scholar_record"], p["unit_regex"], p["unit_stop_regex"]), p["units_per_lane"])
+    feed = [json.loads(s)[p["feed_id_key"]] for s in (SP / p["feed"]).read_text(encoding="utf-8").splitlines()]
+    atlas = deal(salt + ":feed", feed, p["ids_per_lane"])
+    table = SP / B / "close" / "close_lanes.v1.json"
+    raw = table.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != a.expect_before:
+        raise SystemExit("REFUSED: %s moved" % table.name)
+    tab = json.loads(raw.decode("utf-8"))
+    report = {}
+    # A reissue (attempt_suffix "a2", ...) takes new table keys (MERGED_A2) so the first pair's rows and specs stay as landed.
+    sfx = p.get("attempt_suffix", "a1")
+    key_sfx = "" if sfx == "a1" else sfx[1:]
+    task_rel = "campaign/close_kit/task_MERGED.md"
+    if p.get("task_addendum"):
+        # The reissue's duties are appended to the shared task, so the first pair's task file stays as it was read.
+        text = (SP / task_rel).read_text(encoding="utf-8").rstrip("\n") + (SP / p["task_addendum"]).read_text(encoding="utf-8")
+        task_rel = "%s/review/task_MERGED%s.md" % (B, key_sfx)
+        tp = SP / task_rel
+        if tp.exists() and tp.read_text(encoding="utf-8") != text:
+            raise SystemExit("REFUSED: %s exists with other bytes" % tp.name)
+        if not a.dry_run:
+            tp.write_text(text, encoding="utf-8", newline="\n")
+    for L in ("A", "B"):
+        lane = "MERGED_" + L + key_sfx
+        if lane in tab["lanes"]:
+            raise SystemExit("REFUSED: %s is already in the table" % lane)
+        spec_path = SP / B / "review" / ("lane_spec_%s.json" % lane)
+        if spec_path.exists():
+            raise SystemExit("REFUSED: %s exists" % spec_path.name)
+        attempt = "%s_merged_close_lane_%s_%s" % (p["attempt_prefix"], L.lower(), sfx)
+        tab["lanes"][lane] = {"attempt": attempt, "review_lane": "close_" + lane, "out_dir": "%s_close_%s" % (p["attempt_prefix"], lane),
+                              "brief": "BRIEF_" + lane, "deliverable": lane + "_result.json", "keys": KEYS, "verdict_key": "verdict",
+                              "verdicts": ["delivered", "delivered_with_gaps"],
+                              "role": "blind merged-verdict close grader, lane %s (postcheck, final check, items 20-23, named questions), on Opus as a recorded grader_fallback (OW-25). Changes no file of the book. Writes in OUT only" % L,
+                              "catcher": "the close tool's lane gates; the other blind lane; the campaign-end review, deferred under OW-28"}
+        fill = {"BOOK": B, "ROW_COUNT": str(len(rows)), "MANDATORY_ROWS": ", ".join(mandatory), "EXTRA_ROWS": ", ".join(extras[L]),
+                "ITEM20_UNITS": "; ".join(unit[L]), "ITEM21": p["item21"], "ITEM22_IDS": ", ".join(atlas[L]), "ITEM23_TAIL": p["item23_tail"],
+                "BOOK_QUESTIONS": "\n".join("- " + q for q in p["book_questions"]), "READ_ORDER": ORDER[L], "LANE_META": LANE_META}
+        if p.get("read_rows"):
+            fill.update({"EXTRA_ROWS": "none (R1 below)", "READ_ROWS": ", ".join(mandatory),
+                         "HELD_ROWS": ", ".join(i for i in ids if i not in mandatory)})
+        fill.update(p.get("task_fill_extra", {}))
+        spec = {"lane": lane, "attempt": attempt, "template": "BRIEF_CLOSE.template.md",
+                "title": "%s MERGED-VERDICT CLOSE, BLIND LANE %s%s" % (p["book_upper"], L, "" if sfx == "a1" else " (REISSUE " + sfx + ")"),
+                "task": task_rel,
+                "task_fill": fill, "budget": p["budget"], "out_dir": tab["lanes"][lane]["out_dir"], "deliverable": lane + "_result.json",
+                "work": p["work"], "pins": p["pins"]}
+        report[lane] = {"attempt": attempt, "extra": extras[L], "units": unit[L], "atlas": atlas[L], "pins": len(p["pins"])}
+        if not a.dry_run:
+            spec_path.write_text(json.dumps(spec, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
+    report["mandatory"] = mandatory
+    if not a.dry_run:
+        out = json.dumps(tab, ensure_ascii=False, indent=1) + "\n"
+        table.write_bytes(out.encode("utf-8"))
+        report["table_sha256"] = hashlib.sha256(out.encode("utf-8")).hexdigest()
+    print(json.dumps(report, ensure_ascii=False, indent=1))
+
+
+if __name__ == "__main__":
+    main()

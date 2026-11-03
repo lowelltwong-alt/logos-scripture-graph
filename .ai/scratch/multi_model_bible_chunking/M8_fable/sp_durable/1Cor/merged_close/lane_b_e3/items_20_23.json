@@ -1,0 +1,78 @@
+{
+  "item_20": {
+    "fit_to_accept": true,
+    "reservations": [
+      "six named ranges read by heading and tier scan only",
+      "the record states no WEB licence term, correctly; terms should be confirmed before publication (its own line 14049)"
+    ],
+    "findings": [
+      "gen_scholar_record IDENTICAL; check_scholar_record PASS 19/19",
+      "R9-WEB applied: lines 6144 and 6306 end '...English from the World English Bible (WEB).'; 'public domain' now stands on 3 lines: 14049 (the search sentence), 14205 (the substitution row), 14396 (the section 10 template of the same sentence)",
+      "the record's claim that the three witness files hold 0 licence words is true: {\"SP\\\\1Cor\\\\1Cor_rp.txt\": 0, \"SP\\\\1Cor\\\\1Cor_sbl.txt\": 0, \"SP\\\\1Cor\\\\1Cor_web_clean.txt\": 0}"
+    ],
+    "checks_i_ran": [
+      "gen_scholar_record.py check",
+      "check_scholar_record.py",
+      "rows.py / marks.py line scans"
+    ],
+    "basis": "carried_from_a2"
+  },
+  "item_21": {
+    "fit_to_accept": true,
+    "basis": "rejudged_a3",
+    "reservations": [
+      "v8 header l.17 '7 controlling rulings (E1 to E7)' is stale now that E8 and E9 exist (low, carried)",
+      "v8 l.38-43 'measured cause' sentence corrected only by statement (low, see residual)"
+    ],
+    "findings": [
+      "gen_method_v8.py --check MATCH 53601c73 (in place and on the copy)",
+      "check_method_record.py on work\\m8copy: 13/13 PASS, exit 0; record sha 57089818 = shipped; 0 differing keys",
+      "--selftest PASS, every tamper CAUGHT",
+      "v7/v8 diff and routed/adopted counts carried_from_a2 (v8 unchanged 53601c73)"
+    ],
+    "checks_i_ran": [
+      "i21.py: 15/15 files copied byte-equal to work\\m8copy; gen --check; checker plain and --selftest; record diff"
+    ]
+  },
+  "item_22": {
+    "fit_to_accept": true,
+    "basis": "rejudged_a3",
+    "reservations": [
+      "README lines naming possible_inconsistency_unruled: [(70, 'differently, and each has a statement. Statements by verdict and basis: {\"possible_inconsistency_unruled/word_of_divergence_and_no_controlling_ruling\": 3, \"real_distinction/different_recorded_kind\": 7'), (73, 'passages. These pairs are `possible_inconsistency_unruled`, for the end review to settle:')] (the a2 ambiguity note is carried, low)"
+    ],
+    "findings": [
+      "README 58a184db Status bullet 2 now states the R9-LEADS basis correctly, 5/5 MEASURED",
+      "README counts match the feed and dims files",
+      "gen_atlas DETERMINISTIC MATCH; check_atlas_rows PASS and selftest PASS carried_from_a2 (inputs unchanged)"
+    ],
+    "checks_i_ran": [
+      "leadtest2.py",
+      "changed.py readme",
+      "gen_atlas_rows --check"
+    ],
+    "feed_sha256": "5d81467f947a97c5e9beb8799d9845498c1be131d03a10ca326a96006bc1d9f3",
+    "feed_sha256_basis": "Computed in this attempt by work\\hash_pins.py over the pinned path (recorded in work\\pins.json, equal to the brief's pin and to the gen_atlas_rows --check output), and recomputed from the file's bytes just before recording, with the same result."
+  },
+  "item_23": {
+    "fit_to_accept": true,
+    "reservations": [
+      "'deferred 0' while P06 q12 and the P05 sweep were deferred inside an ADOPT (wording)",
+      "one adjudicator, same family as the proposer"
+    ],
+    "findings": [
+      "P01-P06 ADOPT; P02 NECESSARY",
+      "adopted text equals v8 bytes; P02 and P04 edit instructions applied",
+      "no unadjudicated question 12 in section 13 (the '12. **' at v8 l.656 is in section 16)"
+    ],
+    "checks_i_ran": [
+      "i23.py, i23b.py",
+      "gen_proposals_adjudicated --check MATCH"
+    ],
+    "basis": "carried_from_a2"
+  },
+  "provenance": {
+    "basis": "carried_from_a2",
+    "file": "SP/1Cor/merged_close/lane_b_e2/items_20_23.json",
+    "sha256": "a588d46beead22d640a97cf12cbe4c8038f8c8e135dd07bcfca413e34cca2a18"
+  }
+}

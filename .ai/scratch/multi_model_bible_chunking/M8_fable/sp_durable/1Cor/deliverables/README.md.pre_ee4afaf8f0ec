@@ -1,0 +1,93 @@
+# 1 Corinthians: atlas candidate rows, dimensions record and low-confidence sidecar
+
+Close-gate item 22 for 1 Corinthians (Greek: RP primary, SBLGNT secondary; WEB English). Everything here is a
+**candidate**: it authorizes nothing, promotes nothing and changes no row. Merging into the shared atlas feed is part of
+the close act, run by the orchestrator under OW-37 point 3 and OW-29.
+
+Every number below was measured from the delivered files by `work/make_docs.py`. None was counted by hand.
+
+## Status: read this first
+
+- **One pin changed, on the orchestrator's decision.** The brief pinned `close/1cor_landed_outputs_manifest.v1.json` at
+  `7305395a9c38`. The orchestrator rebuilt that file after D3 landed and it moves with every
+  landing, so this lane stopped. The orchestrator then wrote a frozen copy and authorised it for this one pin, superseding
+  the brief's value: `close/1cor_landed_outputs_manifest.frozen_for_close_lanes.v1.json`, sha256 `e46eefd38aa481b2618b49de6b193acac12be8a8d418cc40223dbf342d560c4c`. Every other pin stands,
+  and the live manifest is no longer an input.
+- **The reason filter is fixed and built.** Sentences about the English witness, WEB footnote markers, or a fact that
+  touches no seam no longer reach `why_low_confidence`. Six rows changed: `M8-1Cor-031`, `032`, `033`, `034`, `039` and
+  `062`. Every row was read by eye and has a real reason. In `M8-1Cor-011`, `027`, `028`, `051` and `052` that reason is
+  the recorded alternative alone, because the sentence before it states a fact rather than a doubt. Nothing was filled by
+  hand.
+
+## Files
+
+| File | What it is |
+|---|---|
+| `gen_atlas_rows.py` | builds the two atlas files from pinned inputs; `--check` prints `DETERMINISTIC: MATCH` |
+| `atlas_candidate_feed_rows.jsonl` | 20 rows in the 16 fields of the shared feed |
+| `1Cor_atlas_dimensions.v1.jsonl` | 1 header, 70 unit records, 216 open-question records, 309 linkage records |
+| `check_atlas_rows.py` | checker with tamper self-test; writes `atlas_rows_check.v1.json` |
+| `atlas_rows_check.v1.json` | the check record: 28 checks, 20 tampers, both generators' own checks |
+| `gen_sidecars.py` | builds the sidecar and its derivation record; `--check` prints `MATCH` as its last line |
+| `1Cor_sidecar_derivation.v1.jsonl` | for each sidecar row, where each field came from and at what tier |
+| `book_params.v1.json` | every book-specific name, path, digest and word list; the scripts hold none |
+| `../sidecar_src_1cor.jsonl` | 20 sidecar rows, keyed by `writer_decision_id` |
+
+Run order: `gen_atlas_rows.py`, `gen_sidecars.py`, `check_atlas_rows.py`. Each takes `--params`, `--book-root` (inputs;
+default the parent of the script's directory) and `--out-root` (default the same). No tool reads a clock, draws a random
+number or scans a directory. Each verifies its input digests and refuses if an input has moved.
+
+## What is measured
+
+- **Selection.** 70 final rows; 20 are graded {"low": 1, "medium_low": 19}. Those are the feed rows and the sidecar rows. No
+  row is held: every feed row has `candidate_hold_state` null and `review_packet_final_state` `accepted_candidate`,
+  re-derived from the row's status and the last audit's verdict.
+- **Contested between the blind lanes.** 28 of 70 units have differing verdict sets among the lanes
+  present (10 of them in the feed). All lanes ran on one model family, so agreement
+  between them is one voice, not corroboration (OW-19).
+- **Severities landed.** Book totals {"blocker": 5, "high": 1, "low": 92, "major": 46, "medium": 32, "minor": 75, "note": 18}. Severity scales differ between packets and
+  are not converted, and primary challenges without a severity are not counted.
+- **Device evidence on both faces of the seam.** Onsets with evidence on both faces, by value: {"False": 60, "None": 1, "True": 9} (`None` is the
+  book's edge). Presence is not strength. WEB paragraph starts are recorded and never counted as evidence (E-23).
+- **Answerable from the witnesses.** {"a_witness_limit_is_stated": 32, "left_out": 32, "seam_evidence_present_in_the_witness_layers": 6}, meaning answerable from RP, SBLGNT and WEB. `left_out` means nothing here
+  derives an answer, so the rating is left out rather than guessed.
+- **Numbering.** The three witnesses share verse numbering, so no numbering concern fires for this book.
+
+## What is judged, and kept apart
+
+Each unit's `judged` block holds a hardness rating from a stated rule over measured fields: {"high": 17, "low": 8, "medium": 45}. It is labelled
+`JUDGED_BY_RULE` and does not travel in the feed. **No risk rating is derived**: no packet rates risk for a unit, and the
+record says so in `risk_rating_left_out`.
+
+## Open questions and blast radius
+
+216 open-question records by kind: {"device_inventory_end_review_item": 8, "escalation_in_packet": 2, "finding_routed_to_end_review": 1, "routed_end_review_item": 27, "strategy_line_for_end_review": 8, "unresolved_in_packet": 121, "unresolved_in_ruling": 49}. Blast-radius classes, assigned by rule: {"campaign_wide": 34, "one_book": 142, "one_unit": 9, "several_units": 31}. A convention
+question is never filed as one unit (checks C4 to C6). Whether a later round settled an entry is not derived here.
+
+## Linkages and divergent treatment
+
+309 linkages, all harvested from packets, each with its source and locator. 263 link passages treated
+differently, and each has a statement. Statements by verdict and basis: {"possible_inconsistency_unruled/word_of_divergence_and_no_controlling_ruling": 3, "real_distinction/different_recorded_kind": 79, "real_distinction/no_packet_alleges_inconsistency": 90, "real_distinction/standing_after_controlling_ruling": 91, "same_treatment/equal_confidence_and_unit_type": 46}.
+
+`real_distinction/no_packet_alleges_inconsistency` rests on the absence of an allegation, not on a reading of the
+passages. These pairs are `possible_inconsistency_unruled`, for the end review to settle:
+
+- `W2-014` and `W2-015`: 1Cor.7.36-1Cor.7.38 and 1Cor.7.39-1Cor.7.40
+- `W3-008` and `W6-001`: 1Cor.10.31-1Cor.11.1 and 1Cor.15.1-1Cor.15.11
+- `W5-013` and `W5-014`: 1Cor.14.34-1Cor.14.36 and 1Cor.14.37-1Cor.14.40
+
+## Sidecar
+
+20 rows, each `why_low_confidence` unique. Concern types: {"contested_between_lanes": 10, "open_question_carried": 1, "seam_evidence_on_one_face_or_none": 9}. Suggested reviewers: {"convergence": 16, "literary_form_reviewer": 4}.
+`why_frontier_review_needed` sources: {"COMPOSED/None": 4, "TRANSCRIBED/boundary_rationale": 4, "TRANSCRIBED/strongest_rejected_alternative": 12}.
+
+## Verification and limits
+
+On the frozen pin: 28 of 28 checks passed, 20 of
+20 tampers were caught, and all three tools matched with no arguments at the install layout, in a mirror
+under `work/mirror`.
+
+The checker shares no code with the generators, but it has the same builder and model family, so it is not independent
+review. It proves form, mirroring, tracing and harvest; it cannot prove that a rule-assigned class or statement is the
+right reading. Item 22's Fable execution check was not done by this lane; it is owed at the end review (OW-28, OW-30).
+See `build_notes.json` for the full list of limits.

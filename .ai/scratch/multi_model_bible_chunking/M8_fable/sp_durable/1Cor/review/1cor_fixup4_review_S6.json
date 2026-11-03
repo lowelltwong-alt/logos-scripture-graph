@@ -1,0 +1,640 @@
+{
+ "attempt_id": "cor_fixup4_review_s6_a1",
+ "execution_id": "cor_fixup4_review_s6_a1#e1",
+ "readiness": "fit_with_changes",
+ "changes_required": [
+  {
+   "id": "S6-01",
+   "rows": [
+    "W3-005"
+   ],
+   "what": "Condition 3: the ordered W3-005 device_notes text newly shares three 7-grams with W3-004. Either order an amended exact span or state that the clause reaches only gate 10. The bytes are ordered, so no author and no orchestrator may reword them.",
+   "route": "controlling_agent"
+  },
+  {
+   "id": "S6-02",
+   "rows": [
+    "W6-007",
+    "W6-009"
+   ],
+   "what": "Condition 3: the ordered boundary_rationale text in W6-007 and W6-009 newly shares three 7-grams. Either order an amended exact span in one row, W6-009 being the tested candidate, or state that the clause reaches only gate 10.",
+   "route": "controlling_agent"
+  }
+ ],
+ "rows_file_reviewed": {
+  "path": "SP\\1Cor\\fixup\\draft_rows_fixup4_applied.jsonl",
+  "sha256": "1aa03b08817c7b007796223b9a6921a81643db35ffa81e2f06e2c33821990562"
+ },
+ "artifacts_reviewed": [
+  {
+   "path": "SP\\1Cor\\review\\1cor_controlling_agent_rulings_E5.v1.json",
+   "artifact_sha256_at_review": "c83f49370ed176790530dabdcdfabb85083e94e70acfa87dd4723c16fefa4171"
+  },
+  {
+   "path": "SP\\1Cor\\fixup\\draft_rows_fixup4_applied.manifest.json",
+   "artifact_sha256_at_review": "d0542a26c4d2dea727460a7f5e5ae3f905ed61e20c46c7f2a274c98221e0a565"
+  },
+  {
+   "path": "SP\\1Cor\\fixup\\draft_rows_fixup3_applied.jsonl",
+   "artifact_sha256_at_review": "c21035080156a2ef0ee79e2384ec9aa8985e62e00d421277898a7f475490e03c"
+  },
+  {
+   "path": "SP\\campaign\\_apply_exact_orders.py",
+   "artifact_sha256_at_review": "fd535f7400251c1b49362e3b3b80df69137752de8d7c8e8c60d879e3e2953a0d"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\run_validator_suite.py",
+   "artifact_sha256_at_review": "ebe7197b35635d9f8cbf88914219003e32816ba37173f00205668eb5aab2dbb4"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\ngram7.py",
+   "artifact_sha256_at_review": "2dc3a80d5785d2048fc7b17dac093a47c26f10599922bd083bb7158de10d0230"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\check_tiling.py",
+   "artifact_sha256_at_review": "71b5ee67b98eeb6815515928448b52baa5cac45692afe09212acf2f85d17bbcf"
+  },
+  {
+   "path": "SP\\1Cor\\review\\cwo_sweep_1cor.py",
+   "artifact_sha256_at_review": "6f6578ea5958ee580493dbf56edec56bd0ee2cd6daf99c26fc9353cfba2ee92f"
+  },
+  {
+   "path": "SP\\1Cor\\book_strategy_1Cor.md",
+   "artifact_sha256_at_review": "70e344fed9f0f64654baa97dff80e03b706a1288b47de182628dc453212e39ca"
+  }
+ ],
+ "conditions": [
+  {
+   "n": 1,
+   "text": "Every exact span ordered in R5-S5-02..09 and R5-S5-11 is replaced byte for byte with the given text, once, and the single W4-001 element is appended at the end of the list.",
+   "status": "met",
+   "evidence": "All 18 spans are fixed once: 17 replacements, each old text once in FIXUP-3 and absent from FIXUP-4 with the new text once, plus the W4-001 append at the end of the list (12 to 13 elements). A build from FIXUP-3 plus the ordered spans by my own script equals the FIXUP-4 bytes.",
+   "runs": [
+    "python -B work\\s6_compare.py -> spans_total 18, spans_all_fixed true, expected_equals_f4_bytes true"
+   ]
+  },
+  {
+   "n": 2,
+   "text": "No byte changes outside those licences. Every other field and list element of all 70 rows is equal by digest to the FIXUP-3 applied rows, including W2-013 observed_substrate_signals[3], which R5-S5-01 licensed. Confidence, span and boundary values are unchanged.",
+   "status": "met",
+   "evidence": "70 rows in the same order. 57 rows are raw-line equal; 13 differ, in exactly 17 elements, and the moved set equals the licensed set in both directions. All scalar fields are equal, including span and confidence. W2-013 observed_substrate_signals[3] is equal and is not a FIXUP-4 element. The only surviving old-span text, 'counts MEASURED by script measure_w3 over' in W3-001, -002, -003, -006, -007, -008, is what R5-S5-11 says stays.",
+   "runs": [
+    "python -B work\\s6_compare.py -> moved_minus_licensed [], licensed_minus_moved [], elements_changed 17, rows_changed 13"
+   ]
+  },
+  {
+   "n": 3,
+   "text": "run_validator_suite.py on the FIXUP-4 applied rows: hard_status GREEN, no dead member, ngram7 GREEN at gate 10 with no new 7-gram shared across rows from FIXUP-4 text, register and universals GREEN.",
+   "status": "not_met",
+   "evidence": "Every named part is GREEN except one clause. Suite: hard_status GREEN, dead_members [], ngram7, register and universals GREEN. Gate 10: GREEN, offending []. The clause 'no new 7-gram shared across rows from FIXUP-4 text' fails: six 7-grams from FIXUP-4 text are newly shared by two rows, see S6-01 and S6-02. Read literally, the clause adds something only below ten rows, because a gram reaching ten rows already fails gate 10. If the controlling agent meant the clause to mean gate 10 only, this condition is met; that reading is mine to report and not mine to choose.",
+   "runs": [
+    "run_validator_suite.py work\\f4_copy.jsonl -> hard_status GREEN, dead_members [], triage_flags 0",
+    "ngram7.py work\\f4_copy.jsonl --gate 10 --full-ids -> GREEN, offending []",
+    "ngram7.py work\\f3_x5.jsonl --gate 10 --full-ids -> RED by design, 269 offending, 350 clone rows",
+    "ngram7.py work\\f4_x5.jsonl --gate 10 --full-ids -> RED by design, 255 offending, 350 clone rows, six new",
+    "python -B work\\s6_detail.py (own re-implementation) -> the same six new shared grams"
+   ]
+  },
+  {
+   "n": 4,
+   "text": "refs_mirror is read by its own status and worklist, not by summary.triage_flags. The worklist holds exactly W4-002 1Cor.11.15, W4-004 1Cor.11.25 and W4-004 1Cor.11.31, which R5-S5-09 accepted.",
+   "status": "met",
+   "evidence": "refs_mirror status FLAGS, read by its own status and worklist. The worklist holds exactly W4-002 1Cor.11.15, W4-004 1Cor.11.25 and W4-004 1Cor.11.31, all from observed_substrate_signals, with 0 orphan warnings. FIXUP-3 also listed W4-001 1Cor.11.5, which the R5-S5-09 append clears.",
+   "runs": [
+    "run_validator_suite.py work\\f4_copy.jsonl -> refs_mirror FLAGS, worklist of 3",
+    "run_validator_suite.py work\\f3_copy.jsonl -> refs_mirror FLAGS, worklist of 4"
+   ]
+  },
+  {
+   "n": 5,
+   "text": "Tiling 437/437 with no gap or overlap. The RP and SBL slices are byte-unchanged.",
+   "status": "met",
+   "evidence": "Tiling 437/437, 70 decisions, problems [] on both files. Slices: Greek token multisets differ only by the one added ἀκατακαλύπτῳ in W4-001, which the row's SRA held in FIXUP-3; nothing was removed anywhere. greek_normalize_dryrun ok=764 fixed=0 defects=0, against 763 on FIXUP-3, the +1 being that token. citation_sweep and web_quotes GREEN. No witness file is a named input, so the slices are shown through these runs and not by my reading the witness bytes.",
+   "runs": [
+    "check_tiling.py work\\f4_copy.jsonl --range 1Cor.1.1-1Cor.16.24 -> rc 0, 437/437, problems []",
+    "check_tiling.py work\\f3_copy.jsonl --range 1Cor.1.1-1Cor.16.24 -> rc 0, 437/437, problems []",
+    "python -B work\\s6_detail.py -> greek_token_multiset_diffs: W4-001 only, one added, none removed"
+   ]
+  },
+  {
+   "n": 6,
+   "text": "CWO sweep: CWO-1COR-07 has 0 unlisted. CWO-06, CWO-04 and CWO-05 hit classes are unchanged from FIXUP-3.",
+   "status": "met",
+   "evidence": "CWO-1COR-07 unlisted 0. CWO-06, CWO-04 and CWO-05 hit classes, counts and rows are equal to FIXUP-3. The only section differences are the excerpt text of one CWO04 item (W6-006) and one CWO05 item (W6-009), which quote the ordered text.",
+   "runs": [
+    "cwo_sweep_1cor.py work\\f4_copy.jsonl --out work\\f4_cwo.json -> rc 0",
+    "cwo_sweep_1cor.py work\\f3_copy.jsonl --out work\\f3_cwo.json -> rc 0",
+    "python -B work\\s6_cwo_diff.py -> class, row, field and citation tuples equal"
+   ]
+  },
+  {
+   "n": 7,
+   "text": "Readiness wording is in ACCEPT form.",
+   "status": "met",
+   "evidence": "The readiness value is one enumerated token, with no hedge and no third value. The pinned inputs do not define 'ACCEPT form'; this status rests on that reading, recorded in unresolved_uncertainty.",
+   "runs": []
+  }
+ ],
+ "deviation_test": {
+  "stated_reason": "every author order carries exact spans, so an author would have had nothing to write",
+  "verdict": "holds",
+  "evidence": "All 10 author orders read whole. Each carries exact spans or a whole append text. None adds a further edit, a condition beyond the byte restrictions, a duty to choose words or a duty to re-check. The restrictions were measured and hold."
+ },
+ "spans": {
+  "rows_changed": 13,
+  "elements_changed": 17,
+  "outside_licence": [],
+  "equal_to_licensed_set": true,
+  "exact_spans": [
+   {
+    "ruling": "R5-S5-02",
+    "row": "W6-013",
+    "field": "strongest_rejected_alternative",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-03",
+    "row": "W4-004",
+    "field": "device_notes",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-03",
+    "row": "W4-001",
+    "field": "device_notes",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-04",
+    "row": "W5-003",
+    "field": "boundary_rationale",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-04",
+    "row": "W5-006",
+    "field": "boundary_rationale",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-05",
+    "row": "W5-010",
+    "field": "boundary_evidence_refs[1]",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-06",
+    "row": "W6-003",
+    "field": "device_notes",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-06",
+    "row": "W6-006",
+    "field": "device_notes",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-06",
+    "row": "W6-007",
+    "field": "boundary_rationale",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-06",
+    "row": "W6-009",
+    "field": "boundary_rationale",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-06",
+    "row": "W6-005",
+    "field": "device_notes",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-07",
+    "row": "W6-006",
+    "field": "boundary_rationale",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-08",
+    "row": "W2-003",
+    "field": "strongest_rejected_alternative",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-08",
+    "row": "W2-003",
+    "field": "strongest_rejected_alternative",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-08",
+    "row": "W6-009",
+    "field": "boundary_evidence_refs[6]",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-08",
+    "row": "W6-009",
+    "field": "boundary_evidence_refs[3]",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-09",
+    "row": "W4-001",
+    "field": "boundary_evidence_refs",
+    "span_fixed": true
+   },
+   {
+    "ruling": "R5-S5-11",
+    "row": "W3-005",
+    "field": "device_notes",
+    "span_fixed": true
+   }
+  ],
+  "verdict": "accept"
+ },
+ "orders": [
+  {
+   "ruling": "R5-S5-02",
+   "to": "author_fixup:W6",
+   "covered_by_spans": true,
+   "note": "One span. Nothing beyond the replacement is ordered."
+  },
+  {
+   "ruling": "R5-S5-03",
+   "to": "author_fixup:W4",
+   "covered_by_spans": true,
+   "note": "Two spans, W4-004 and W4-001 device_notes. Nothing else is ordered."
+  },
+  {
+   "ruling": "R5-S5-04",
+   "to": "author_fixup:W5",
+   "covered_by_spans": true,
+   "note": "Two spans, tier wording only. Nothing else is ordered."
+  },
+  {
+   "ruling": "R5-S5-05",
+   "to": "author_fixup:W5",
+   "covered_by_spans": true,
+   "note": "One annotation span. The order's restriction holds: ref id, locator and bracketed tag are byte-identical and no element was added or removed."
+  },
+  {
+   "ruling": "R5-S5-06",
+   "to": "author_fixup:W6",
+   "covered_by_spans": true,
+   "note": "Five spans. The order's restriction holds: no quoted Greek byte changed (Greek token multisets equal on W6-003, W6-005, W6-006, W6-007, W6-009)."
+  },
+  {
+   "ruling": "R5-S5-07",
+   "to": "author_fixup:W6",
+   "covered_by_spans": true,
+   "note": "One span. Nothing else is ordered."
+  },
+  {
+   "ruling": "R5-S5-08",
+   "to": "author_fixup:W2",
+   "covered_by_spans": true,
+   "note": "Two spans in W2-003 strongest_rejected_alternative. Nothing else is ordered."
+  },
+  {
+   "ruling": "R5-S5-08",
+   "to": "author_fixup:W6",
+   "covered_by_spans": true,
+   "note": "Two annotation spans. Ref id, locator and bracketed tag are byte-identical; no element added or removed."
+  },
+  {
+   "ruling": "R5-S5-09",
+   "to": "author_fixup:W4",
+   "covered_by_spans": true,
+   "note": "One append. The text is given whole, so no choice of words is left. It matches the local ref form of W4-001 refs[9] and refs[10], stands at the end, and no element moved."
+  },
+  {
+   "ruling": "R5-S5-11",
+   "to": "author_fixup:W3",
+   "covered_by_spans": true,
+   "note": "One span. Nothing else is ordered."
+  }
+ ],
+ "other_orders": [
+  {
+   "ruling": "R5-S5-01",
+   "to": "s6",
+   "done": true,
+   "rows_must_change_now": false,
+   "note": "Carried out. W2-013 observed_substrate_signals[3] reads 'SBL variant site at 7:33'; its digest equals FIXUP-3 and it is not a FIXUP-4 element."
+  },
+  {
+   "ruling": "R5-S5-08",
+   "to": "fable_end_review",
+   "rows_must_change_now": false,
+   "note": "Not judged, as the brief directs."
+  },
+  {
+   "ruling": "R5-S5-09",
+   "to": "s6",
+   "done": true,
+   "rows_must_change_now": false,
+   "note": "Carried out. The refs_mirror worklist holds exactly W4-002 1Cor.11.15, W4-004 1Cor.11.25 and W4-004 1Cor.11.31, with no other citation."
+  },
+  {
+   "ruling": "R5-S5-10",
+   "to": "orchestrator",
+   "rows_must_change_now": false,
+   "note": "Not judged, as the brief directs."
+  },
+  {
+   "ruling": "R5-S5-11",
+   "to": "fable_end_review",
+   "rows_must_change_now": false,
+   "note": "Not judged, as the brief directs."
+  },
+  {
+   "ruling": "R5-S5-12",
+   "to": "fable_end_review",
+   "rows_must_change_now": false,
+   "note": "Not judged, as the brief directs."
+  },
+  {
+   "ruling": "R5-S5-13",
+   "to": "orchestrator",
+   "rows_must_change_now": false,
+   "note": "Not judged, as the brief directs."
+  },
+  {
+   "ruling": "R5-S5-14",
+   "to": "orchestrator",
+   "rows_must_change_now": false,
+   "note": "Not judged, as the brief directs."
+  }
+ ],
+ "changed_text": [
+  {
+   "row": "W2-003",
+   "field": "strongest_rejected_alternative",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical; says what R5-S5-08 meant. Span 5:9-5:13.",
+    "The RP future at 5:13 agrees with refs[3], boundary_rationale and device_notes, which carry the SBL imperative."
+   ]
+  },
+  {
+   "row": "W3-005",
+   "field": "device_notes",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical; agrees with the row's boundary_rationale, which names both scripts.",
+    "Carries the condition 3 item, S6-01."
+   ]
+  },
+  {
+   "row": "W4-001",
+   "field": "boundary_evidence_refs[12]",
+   "verdict": "accept",
+   "findings": [
+    "New element. 11:5 lies inside span 11:2-11:12.",
+    "The token agrees with the row's own rp:1Cor.11.5 ἀκατακαλύπτῳ in strongest_rejected_alternative, present since FIXUP-3, and with 11:13 ἀκατακάλυπτον. [ANCHOR] is a tag this row already uses."
+   ]
+  },
+  {
+   "row": "W4-001",
+   "field": "device_notes",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical. 'Neither seam' means the row's onset and close. It is distinct from the W4-004 sentence and shares no sentence with it."
+   ]
+  },
+  {
+   "row": "W4-004",
+   "field": "device_notes",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical; follows its preceding '(ASSUMED; ... UNAVAILABLE)' clause."
+   ]
+  },
+  {
+   "row": "W5-003",
+   "field": "boundary_rationale",
+   "verdict": "accept",
+   "findings": [
+    "Tier wording only. Grammatical, and 12:1-12:12 is inside the row's reach."
+   ]
+  },
+  {
+   "row": "W5-006",
+   "field": "boundary_rationale",
+   "verdict": "accept",
+   "findings": [
+    "Tier wording only; grammatical.",
+    "Limit: the 2/8/1 count it carries is not in the row's substrate. I did not re-measure it, because no witness file is a named input. Accept rests on the ruling's evidence, not on a measurement of mine."
+   ]
+  },
+  {
+   "row": "W5-010",
+   "field": "boundary_evidence_refs[1]",
+   "verdict": "accept",
+   "findings": [
+    "Annotation only; ref id, locator and tag byte-identical. Span 14:13-14:19, 14:12 is the far onset, and 14:9 appears only in the annotation. refs_mirror worklist unaffected."
+   ]
+  },
+  {
+   "row": "W6-003",
+   "field": "device_notes",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical. The doubled locator is gone, and the clause agrees with the row's refs."
+   ]
+  },
+  {
+   "row": "W6-005",
+   "field": "device_notes",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical. The doubled locator is gone, and the clause agrees with the row's refs."
+   ]
+  },
+  {
+   "row": "W6-006",
+   "field": "boundary_rationale",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical. Agrees with strongest_rejected_alternative 'no more than texture stands at 15:50' and with refs[3]."
+   ]
+  },
+  {
+   "row": "W6-006",
+   "field": "device_notes",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical. The doubled locator is gone, and the clause agrees with the row's refs."
+   ]
+  },
+  {
+   "row": "W6-007",
+   "field": "boundary_rationale",
+   "verdict": "accept",
+   "findings": [
+    "Sense is right. 'Front face: RP opens with the heading' is elliptical (the unit opens, in RP) but readable, so no defect.",
+    "Carries the condition 3 item, S6-02."
+   ]
+  },
+  {
+   "row": "W6-009",
+   "field": "boundary_evidence_refs[3]",
+   "verdict": "accept",
+   "findings": [
+    "Annotation only. Agrees with boundary_rationale 'read here as commands'. The locator stays web: and is unchanged."
+   ]
+  },
+  {
+   "row": "W6-009",
+   "field": "boundary_evidence_refs[6]",
+   "verdict": "accept",
+   "findings": [
+    "Annotation only. Agrees with boundary_rationale 'read here as commands'."
+   ]
+  },
+  {
+   "row": "W6-009",
+   "field": "boundary_rationale",
+   "verdict": "accept",
+   "findings": [
+    "Same elliptical frame as W6-007, readable, no defect.",
+    "Carries the condition 3 item, S6-02."
+   ]
+  },
+  {
+   "row": "W6-013",
+   "field": "strongest_rejected_alternative",
+   "verdict": "accept",
+   "findings": [
+    "Grammatical. Span 16:21-16:22, and 16:21 ἐμῇ is in boundary_rationale.",
+    "Limit: 16:24 μου is not in the row's substrate; it stands on the far side of the seam and rests on the ruling's evidence. refs_mirror does not flag it."
+   ]
+  }
+ ],
+ "manifest": {
+  "agrees": true,
+  "differences": []
+ },
+ "suite": {
+  "hard_status": "GREEN",
+  "members": {
+   "citation_sweep": "GREEN",
+   "greek_normalize_dryrun": "ok=764 fixed=0 defects=0",
+   "web_quotes": "GREEN",
+   "refs_mirror": "FLAGS",
+   "mark_symmetry": "GREEN",
+   "universals": "GREEN",
+   "ngram7": "GREEN",
+   "cap_sweep": "GREEN",
+   "register": "GREEN",
+   "role_tokens": "GREEN",
+   "placeholders": "GREEN"
+  },
+  "dead_members": [],
+  "ngram7": "GREEN at gate 10, offending []; six new two-row shared 7-grams on the clone run",
+  "tiling": "437/437, problems [], GREEN",
+  "refs_mirror_worklist": [
+   [
+    "W4-002",
+    "1Cor.11.15"
+   ],
+   [
+    "W4-004",
+    "1Cor.11.25"
+   ],
+   [
+    "W4-004",
+    "1Cor.11.31"
+   ]
+  ]
+ },
+ "cwo": {
+  "pre": {
+   "rows": 70,
+   "A": 0,
+   "B": 5,
+   "CWO02_fail": 0,
+   "CWO04_by_class": {
+    "disclosure_only": 18,
+    "informs_compliant": 12,
+    "location_only": 18,
+    "support_use": 1
+   },
+   "CWO05_hits": 11,
+   "CWO06_hits": 2,
+   "CWO07_unlisted": 0
+  },
+  "post": {
+   "rows": 70,
+   "A": 0,
+   "B": 5,
+   "CWO02_fail": 0,
+   "CWO04_by_class": {
+    "disclosure_only": 18,
+    "informs_compliant": 12,
+    "location_only": 18,
+    "support_use": 1
+   },
+   "CWO05_hits": 11,
+   "CWO06_hits": 2,
+   "CWO07_unlisted": 0
+  },
+  "changed_classes": []
+ },
+ "new_findings": [
+  {
+   "id": "S6-01",
+   "severity": "blocker",
+   "row_or_artifact": "W3-005 (shares with W3-004)",
+   "claim": "The FIXUP-4 text in W3-005 device_notes creates three 7-grams shared with W3-004. FIXUP-3 held them in W3-004 alone. Condition 3's clause 'no new 7-gram shared across rows from FIXUP-4 text' is not met.",
+   "evidence": "ngram7.py --gate 10 --full-ids on private 5x clones, so that two rows reach the gate and one row does not: grams 'measure w b over the rp and', 'w b over the rp and sblgnt', 'b over the rp and sblgnt texts' fire with rows W3-004, W3-005 on the FIXUP-4 clones and not on the FIXUP-3 clones. My own re-implementation returned the same grams. The bytes are what R5-S5-11 ordered, so the apply is correct.",
+   "suggested_fix": "Candidate wording for the controlling agent, since the text is byte-ordered: 'counts MEASURED by scripts measure_w3b and measure_w3 over'. It breaks the run with W3-004, and the grams then fall in the set W3-005 already shared in FIXUP-3. Tested only on a private variant, not on any row: ngram7 --gate 10 --full-ids on 5x clones showed 0 new shared 7-grams against FIXUP-3, and run_validator_suite.py gave hard_status GREEN, dead_members [] on the variant. Tiling and the CWO sweep were not run on the variant.",
+   "route": "controlling_agent"
+  },
+  {
+   "id": "S6-02",
+   "severity": "blocker",
+   "row_or_artifact": "W6-009 (shares with W6-007)",
+   "claim": "The FIXUP-4 text in W6-007 and W6-009 boundary_rationale creates three 7-grams shared by both rows and absent from FIXUP-3. Condition 3's clause is not met.",
+   "evidence": "ngram7.py --gate 10 --full-ids on private 5x clones: grams 'front face rp opens with the heading', 'face rp opens with the heading a', 'rp opens with the heading a peri' fire with rows W6-007, W6-009 on the FIXUP-4 clones and not on the FIXUP-3 clones. My own re-implementation returned the same grams. The pair already shared the unlocated frame 'front face opens with the heading' in FIXUP-3, and R5-S5-06 inserted RP into both, so the sharing is a variant of an older frame and the bytes are what the ruling ordered.",
+   "suggested_fix": "Candidate wording for the controlling agent: in W6-009 only, 'Front face: the RP text opens with the heading rp:1Cor.16.12 \"'. It also removes that row's ellipsis. Tested only on a private variant, not on any row: ngram7 --gate 10 --full-ids on 5x clones showed 0 new shared 7-grams against FIXUP-3, and run_validator_suite.py gave hard_status GREEN, dead_members [] on the variant. Tiling and the CWO sweep were not run on the variant.",
+   "route": "controlling_agent"
+  },
+  {
+   "id": "S6-03",
+   "severity": "note",
+   "row_or_artifact": "SP\\1Cor\\tools\\ngram7.py; SP\\1Cor\\fixup\\draft_rows_fixup4_applied.manifest.json",
+   "claim": "The pinned run, COPY --gate 10 --full-ids, cannot see a 7-gram shared by fewer than ten rows, so the manifest's GREEN and offending [] say nothing about condition 3's second clause, and the manifest records no check of it.",
+   "evidence": "Pinned run: GREEN, offending [], on both files. The clone run shows two-row sharing under the same arguments: 269 offending grams on FIXUP-3, 255 on FIXUP-4, net 14 fewer, with six of the 255 new. The clone counts are a measuring device, not the book's gate result.",
+   "suggested_fix": "A later gate that keeps this clause should name a run able to answer it.",
+   "route": "fable_end_review"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Whether condition 3's clause reaches below gate 10.",
+   "why_it_matters": "On the literal reading used here it fails and readiness is fit_with_changes. If the controlling agent scoped it to gate 10, condition 3 is met, the two blockers fall, and every other answer here would support fit."
+  },
+  {
+   "what": "'ACCEPT form' in condition 7 is defined in no pinned input.",
+   "why_it_matters": "A grep of the strategy found no definition; condition 7 is met only on my reading of it as a bare enumerated token."
+  },
+  {
+   "what": "The rulings say the texts of R5-S5-12 to -14 should be checked against the S5 report, which is forbidden to me.",
+   "why_it_matters": "Those texts are unchecked here. Route to the orchestrator; no row depends on them now."
+  },
+  {
+   "what": "Witness bytes were not read directly. The W5-006 2/8/1 count and W6-013 16:24 μου rest on ruling evidence and tool runs.",
+   "why_it_matters": "They are accepted on that basis and not on a measurement of mine."
+  },
+  {
+   "what": "The clone runs rely on ngram7 treating cloned ids as distinct rows, so a two-row gram reaches ten and a one-row gram reaches five.",
+   "why_it_matters": "This is a private measuring device, not the pinned run. My independent re-implementation agrees on all six grams."
+  }
+ ]
+}

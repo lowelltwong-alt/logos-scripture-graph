@@ -1,0 +1,67 @@
+{
+ "item_20": {
+  "fit_to_accept": true,
+  "reservations": [
+   "six named ranges read by heading and tier scan only",
+   "the record states no WEB licence term, correctly; terms should be confirmed before publication (its own line 14049)"
+  ],
+  "findings": [
+   "gen_scholar_record IDENTICAL; check_scholar_record PASS 19/19",
+   "R9-WEB applied: lines 6144 and 6306 end '...English from the World English Bible (WEB).'; 'public domain' now stands on 3 lines: 14049 (the search sentence), 14205 (the substitution row), 14396 (the section 10 template of the same sentence)",
+   "the record's claim that the three witness files hold 0 licence words is true: {\"SP\\\\1Cor\\\\1Cor_rp.txt\": 0, \"SP\\\\1Cor\\\\1Cor_sbl.txt\": 0, \"SP\\\\1Cor\\\\1Cor_web_clean.txt\": 0}"
+  ],
+  "checks_i_ran": [
+   "gen_scholar_record.py check",
+   "check_scholar_record.py",
+   "rows.py / marks.py line scans"
+  ]
+ },
+ "item_21": {
+  "fit_to_accept": false,
+  "reservations": [
+   "v8 header says '7 controlling rulings (E1 to E7)' (low)"
+  ],
+  "findings": [
+   "gen_method_v8.py --check FAIL: 'an input is not the bytes this generator pins' (ROWS_SHA l.33 = d175)",
+   "check_method_record.py on the copy: 12/13, generated_deterministically FAIL, exit 1; selftest FAIL with every tamper CAUGHT",
+   "shipped method_record_check.v8.json (57089818) says 13/13 PASS: stale; 5 keys differ from my run",
+   "v8 = 964 lines, 19 opcodes from v7; 27 routed and 6/6 adopted match the files"
+  ],
+  "checks_i_ran": [
+   "i21.py: copy to work\\m8copy (all shas equal), checker plain and --selftest, gen --check, record diff, v7/v8 diff"
+  ]
+ },
+ "item_22": {
+  "fit_to_accept": false,
+  "reservations": [
+   "README sentence 'These pairs are possible_inconsistency_unruled' sits after a sentence on the no-allegation basis; ambiguous (low)"
+  ],
+  "findings": [
+   "README Status bullet 2 misdescribes the lead basis of 011, 027, 052 after R9-LEADS (medium)",
+   "why_lead_sentence values equal the E9 sentences (5/5) and stand in the rows' fields",
+   "check_atlas_rows PASS 28 checks, 20 tampers, 0 uncaught; selftest PASS; gen_atlas DETERMINISTIC MATCH",
+   "20 feed rows {low 1, medium_low 19}; 3 possible_inconsistency_unruled pairs, all disclosed for end review"
+  ],
+  "checks_i_ran": [
+   "check_atlas_rows.py --out-root work\\atlas",
+   "big2.py",
+   "marks.py LEADROW/WHYLEAD"
+  ]
+ },
+ "item_23": {
+  "fit_to_accept": true,
+  "reservations": [
+   "'deferred 0' while P06 q12 and the P05 sweep were deferred inside an ADOPT (wording)",
+   "one adjudicator, same family as the proposer"
+  ],
+  "findings": [
+   "P01-P06 ADOPT; P02 NECESSARY",
+   "adopted text equals v8 bytes; P02 and P04 edit instructions applied",
+   "no unadjudicated question 12 in section 13 (the '12. **' at v8 l.656 is in section 16)"
+  ],
+  "checks_i_ran": [
+   "i23.py, i23b.py",
+   "gen_proposals_adjudicated --check MATCH"
+  ]
+ }
+}

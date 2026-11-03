@@ -1,0 +1,83 @@
+{
+ "schema": "m8_controlling_queue.v1",
+ "book": "1Cor",
+ "for_execution": "cor_controlling_rulings_r9_a1#e1",
+ "status": "proposed_by_orchestrator",
+ "test_report": {
+  "path": "1Cor/close/e9_inputs/e9_test_report.v1.json",
+  "sha256": "1a45a324c4022b22777aeffa816e03960e54677d88a98ceed0ba305b481b1023"
+ },
+ "prior_rulings": [
+  "1Cor/review/1cor_controlling_agent_rulings_E8.v1.json",
+  "1Cor/review/1cor_controlling_agent_rulings_E7.v1.json",
+  "1Cor/review/1cor_controlling_agent_rulings_E5.v1.json"
+ ],
+ "items": [
+  {
+   "id": "R9-SPANS",
+   "route": "controlling",
+   "proposal": "GATE-E8 bars the fix-up until a continuation applies every candidate span and the four tools pass. The orchestrator did so on private copies: E8's 21 spans raised one universals triage flag; two reworded spans (W5-003, W5-014) clear it and name line 87's closer. Both variants pass, with and without the two measure_w3 spans. Rule the final span set as exact orders, decide the measure_w3 pair against R5-S5-11 and R7-W4-3-GEN, and rerun the four tools on your final set.",
+   "refs": [
+    "1Cor/close/e9_inputs/e9_test_report.v1.json#spans",
+    "1Cor/close/e9_inputs/candidate_spans_keep.v1.json",
+    "1Cor/close/e9_inputs/candidate_spans_drop.v1.json",
+    "1Cor/close/e9_inputs/e8_spans_as_ruled.v1.json"
+   ]
+  },
+  {
+   "id": "R9-LEADS",
+   "route": "controlling",
+   "proposal": "R8-FEED-011 is cured through a new generator key that names, per feed id, the row's own sentence to lead why_low_confidence. Four leads are tested. Rule the sentence for each of the five ids, as bytes of the row after your spans. -051's tested sentence opens with 'It'; -052's exists only after W5-010's span.",
+   "refs": [
+    "1Cor/close/e9_inputs/e9_test_report.v1.json#atlas_leads",
+    "1Cor/close/e9_inputs/atlas_lead_feed_test.v1.jsonl",
+    "1Cor/deliverables/gen_atlas_rows.py"
+   ]
+  },
+  {
+   "id": "R9-WEB",
+   "route": "controlling",
+   "proposal": "The 'public domain' clause is a reader's sentence, quoted. The tested cure is one substitution entry in the scholar params, printed in the record's table; the check passes. Rule the entry's exact pattern and replacement, or another wording. The owner question on a WEB term stands either way.",
+   "refs": [
+    "1Cor/close/e9_inputs/e9_test_report.v1.json#web_term",
+    "1Cor/close/e9_inputs/scholar_web_params_test.v1.json"
+   ]
+  },
+  {
+   "id": "R9-GATE-TOOLS",
+   "route": "controlling",
+   "proposal": "The DUE_AT_CLOSE and read-record gates are built and the suite passes 200/200. Rule whether they implement R8-GATE-DUE-AT-CLOSE and R8-PAIR without weakening a gate, and rule the planned constant values. Name any defect by line.",
+   "refs": [
+    "1Cor/close/e9_inputs/e9_test_report.v1.json#gate_tools",
+    "campaign/_close_book.py",
+    "campaign/_test_close_book_gates.py"
+   ]
+  },
+  {
+   "id": "R9-CLOSE-EVIDENCE",
+   "route": "controlling",
+   "proposal": "The close-evidence file does not exist yet. Proposal: close/close_evidence.v1.json, keys values.item_N and values.OW-28, each {value, tier, source}, with UNAVAILABLE where no pinned source holds it. Items 16, 18 and 19 are filled at the close act; items 1, 4, 5, 13, 14 and OW-28 before the reissue. Rule the shape, the sources per item, and what a lane's entry cites.",
+   "refs": [
+    "1Cor/review/1cor_controlling_agent_rulings_E8.v1.json#R8-GATE-EVIDENCE",
+    "../CAMPAIGN_CLOSE_GATE.v1.md"
+   ]
+  },
+  {
+   "id": "R9-PF",
+   "route": "controlling",
+   "proposal": "Lane A's process findings PF-5..PF-13 have no ruling (E8 ruled PF-1..PF-4 via routing and pairing). Each is low. Rule each: an orchestrator text change named exactly, routing to the end review, or no change. PF-7 asks for a gate addendum; say whether that is yours to order.",
+   "refs": [
+    "1Cor/close/landed/MERGED_A_e1/final_check.json#process_findings"
+   ]
+  },
+  {
+   "id": "R9-PAIR-MECH",
+   "route": "controlling",
+   "proposal": "For the reissue under R8-PAIR the orchestrator freezes a copy of the d1751369 rows as close/rows_read_by_first_lanes.v1.jsonl, issues attempts _a2, makes every changed row and both neighbours mandatory reads, and has each final check list rows_read and rows_held_by_byte_equality; the read-record gate checks it. Rule whether this is R8-PAIR as written.",
+   "refs": [
+    "1Cor/close/e9_inputs/e9_test_report.v1.json#gate_tools/read_record",
+    "1Cor/review/1cor_controlling_agent_rulings_E8.v1.json#R8-PAIR"
+   ]
+  }
+ ]
+}

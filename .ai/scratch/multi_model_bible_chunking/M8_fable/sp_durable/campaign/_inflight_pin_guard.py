@@ -191,12 +191,32 @@ def pins_for(sp, book, xid, own=None):
     return pinned
 
 
+def anchored(t, sp):
+    """A --target as a path the guard can compare. A relative target is SP-relative first (an M8-relative `sp_durable/`
+    prefix is dropped); failing that, a file that exists from the working directory is that file (the M8 ledger from M8); a
+    destination not yet written is fine when its folder exists under SP (an install checks before it writes); anything else
+    is refused. WHY (2026-11-01): it was resolved against the working directory only, so from M8 `1Cor/review/X` became
+    `../1Cor/review/X`, matched no pin and printed CLEAR for a file an in-flight brief pins. A verdict about a path nobody
+    pinned must not read as a verdict on the file."""
+    p = Path(t)
+    if p.is_absolute():
+        return p
+    s = str(t).replace("\\", "/").removeprefix("SP/").removeprefix("sp_durable/")
+    if (sp / s).exists():
+        return sp / s
+    if p.exists():
+        return p.resolve()
+    if (sp / s).parent.is_dir():
+        return sp / s
+    raise ValueError("--target %s names no file or folder under SP; give the SP-relative or the absolute path" % t)
+
+
 def check(sp, book, targets):
     flight = in_flight(sp, book)
     own = own_briefs(sp, book)
     out = {"book": book, "in_flight": flight, "targets": {}}
     for t in targets:
-        r = rel(t, sp)
+        r = rel(anchored(t, sp), sp)
         by = []
         for xid in flight:
             hit = pins_for(sp, book, xid, own.get(xid)).get(r)
@@ -289,6 +309,29 @@ def selftest():
         for name, tgt, want in vectors:
             got = check(sp, "Book", [sp / tgt])["targets"][tgt]["verdict"]
             results.append({"vector": name, "want": want, "got": got, "ok": got == want})
+        # the 2026-11-01 shape: a relative target from a working directory that is not SP
+        (b / "pinned.jsonl").write_text("", encoding="utf-8")
+        for name, tgt in (("a relative target is SP-relative, not cwd-relative", "Book/pinned.jsonl"),
+                          ("an M8-relative sp_durable/ target", "sp_durable/Book/pinned.jsonl")):
+            got = check(sp, "Book", [tgt])["targets"]["Book/pinned.jsonl"]["verdict"]
+            results.append({"vector": name, "want": "PINNED", "got": got, "ok": got == "PINNED"})
+        got = check(sp, "Book", ["Book/not_yet_written.jsonl"])["targets"]["Book/not_yet_written.jsonl"]["verdict"]
+        results.append({"vector": "an install destination not yet written, in a folder under SP", "want": "CLEAR", "got": got,
+                        "ok": got == "CLEAR"})
+        try:
+            got = str(check(sp, "Book", ["No_such_folder/x.jsonl"])["verdict"])
+        except ValueError:
+            got = "REFUSED"
+        results.append({"vector": "a relative target whose folder is not under SP is refused, not CLEAR", "want": "REFUSED",
+                        "got": got, "ok": got == "REFUSED"})
+        outside = sp.parent / "LEDGER.md"
+        outside.write_text("x", encoding="utf-8")
+        try:
+            got = check(sp, "Book", [os.path.relpath(outside)])["targets"]["../LEDGER.md"]["verdict"]
+        finally:
+            outside.unlink()
+        results.append({"vector": "a file outside SP given relative to the working directory", "want": "PINNED", "got": got,
+                        "ok": got == "PINNED"})
         ml_own = sorted(own_briefs(sp, "Book").get("ml_a1#e1", {}))
         results.append({"vector": "a prose `orders` value on a launch receipt is not taken as a brief path",
                         "want": "['Book/BRIEF_ML.md']", "got": str(ml_own), "ok": ml_own == ["Book/BRIEF_ML.md"]})
@@ -325,7 +368,11 @@ def main():
     if not a.book or not a.target:
         print("usage: --book <Book> --target <path> [...] | --selftest", file=sys.stderr)
         return 2
-    out = check(SP, a.book, a.target)
+    try:
+        out = check(SP, a.book, a.target)
+    except ValueError as e:
+        print(str(e), file=sys.stderr)
+        return 2
     print(json.dumps(out, ensure_ascii=False, indent=1))
     return 0 if out["verdict"] == "CLEAR" else 1
 

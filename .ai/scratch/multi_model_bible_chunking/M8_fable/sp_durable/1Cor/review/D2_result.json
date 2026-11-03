@@ -1,0 +1,149 @@
+{
+ "attempt_id": "cor_close_atlas_a1",
+ "execution_id": "cor_close_atlas_a1#e1",
+ "verdict": "delivered",
+ "deliverables": [
+  {
+   "name": "deliverables/gen_atlas_rows.py",
+   "sha256": "8dbb26ec350ef89d742357331c15fc81d7db9b3bd43e94e4fddb778c3167f359",
+   "bytes": 51273
+  },
+  {
+   "name": "deliverables/check_atlas_rows.py",
+   "sha256": "0dc331981e3e67d33fd86181358d56bb1fba626bde065ceaba24ea86827a83f3",
+   "bytes": 32021
+  },
+  {
+   "name": "deliverables/gen_sidecars.py",
+   "sha256": "ed2af4e29d6333a22ed8e5438789f814e980268fb946e946dc5ed927ccb86a40",
+   "bytes": 8964
+  },
+  {
+   "name": "deliverables/atlas_candidate_feed_rows.jsonl",
+   "sha256": "11ecb458dfaa4da2af43c718f6fc046bb831ac8ba6d77ee5e271576558dfc863",
+   "bytes": 27208
+  },
+  {
+   "name": "deliverables/1Cor_atlas_dimensions.v1.jsonl",
+   "sha256": "9ff6ca8c6f1a4e5e209d27246ff01e657dc2f2c2922dfe8a008add3d4d57ad08",
+   "bytes": 1364096
+  },
+  {
+   "name": "deliverables/1Cor_sidecar_derivation.v1.jsonl",
+   "sha256": "1f99a0108c9b172620e798e55a5ced499817050961f283a5117f21da7ab81cf4",
+   "bytes": 44808
+  },
+  {
+   "name": "deliverables/atlas_rows_check.v1.json",
+   "sha256": "8bcf56ca9107097553c8871da0eec92ff8862df0c8f9d9fe715063c76d83e0ab",
+   "bytes": 9673
+  },
+  {
+   "name": "deliverables/book_params.v1.json",
+   "sha256": "7ceb0a2db6d039afc13ecabff8057afb65e01d182be1bb8cd5968d45bf8446bd",
+   "bytes": 9221
+  },
+  {
+   "name": "deliverables/README.md",
+   "sha256": "590c16a12b634ea332c4a0ef1ce78d65820370ade3136ec5549e4460f6976b98",
+   "bytes": 7096
+  },
+  {
+   "name": "sidecar_src_1cor.jsonl",
+   "sha256": "a28e9a8fef8f04cd65a4e359bdff702ec7138b86ab8c41f5007b40e5f0cf9379",
+   "bytes": 23659
+  },
+  {
+   "name": "build_notes.json",
+   "sha256": "6d207795914cd1d684fe76dfc58b9e8064a1439d46b3a732045f3a1da53dea34",
+   "bytes": 7746
+  }
+ ],
+ "verification": {
+  "pin_change": {
+   "claim": "A pinned input moved, so the lane stopped and did not re-pin. The orchestrator then replaced that one pin with a frozen copy it wrote, superseding the brief's value for that pin. Every other pin stands.",
+   "brief_pin": {
+    "path": "sp_durable/1Cor/close/1cor_landed_outputs_manifest.v1.json",
+    "sha256": "7305395a9c3850a20a5227c74768271402c45fb571c45e74efb7c1a0b56526ea",
+    "bytes": 134770
+   },
+   "live_when_stopped": {
+    "sha256": "e46eefd38aa481b2618b49de6b193acac12be8a8d418cc40223dbf342d560c4c",
+    "bytes": 135371
+   },
+   "frozen_pin": {
+    "path": "sp_durable/1Cor/close/1cor_landed_outputs_manifest.frozen_for_close_lanes.v1.json",
+    "sha256": "e46eefd38aa481b2618b49de6b193acac12be8a8d418cc40223dbf342d560c4c",
+    "bytes": 135371
+   },
+   "authority": "REPORTED: the orchestrator's decision in its second order to this lane, authorising this single pin change.",
+   "cause": "REPORTED: the orchestrator rebuilt the manifest after D3 landed.",
+   "how_checked": "work/eye.py hashed the frozen copy and re-hashed the other brief pins, writing work/pin_recheck_frozen.json; each tool verifies the frozen digest on read",
+   "result": "MEASURED: the frozen copy matches the authorised digest and equals the live digest measured at the stop (True). 26 other pins rechecked, moved: []. At the stop the live manifest had 112 outputs against 111: added ['sp_durable/1Cor/review/D3_result.json'], none removed, no digest changed, no packet this lane read changed."
+  },
+  "reason_filter": {
+   "claim": "The filter fix is built, and every feed row's why_low_confidence states a real reason",
+   "how_checked": "rebuild on the frozen pin; make_result.py compares the feed with work/feed_before_filter.jsonl; I read all 20 rows in work/inspect2.out and the six named rows in work/eye.out",
+   "result": "MEASURED: why_low_confidence changed in ['M8-1Cor-031', 'M8-1Cor-032', 'M8-1Cor-033', 'M8-1Cor-034', 'M8-1Cor-039', 'M8-1Cor-062']; other feed fields changed: []. INFERRED, by my reading: all six named rows and the other 14 have a real reason; none was filled by hand.",
+   "beyond_the_order": "The first rebuild left M8-1Cor-039 and 062 opening with a sentence saying a fact has no effect on a seam. I added two phrases to the filter for that and rebuilt. The order did not name this change; it is one line in work/make_params.py."
+  },
+  "claims": [
+   {
+    "claim": "27 pinned inputs and the brief matched their digests at the start; the frozen pin replaced the manifest pin and the rest still match",
+    "how": "work/pin_check.py, then work/eye.py",
+    "result": "MEASURED: all matched at the start; 26 rechecked after the rebuild, none moved; frozen pin matches"
+   },
+   {
+    "claim": "Feed has one row per low or medium_low final row, with final state and hold taken from the rows and audits",
+    "how": "check_atlas_rows.py A2-A9, rebuilt and passed on the frozen pin",
+    "result": "MEASURED: 20 rows {'low': 1, 'medium_low': 19}; final states ['accepted_candidate']; holds ['None']"
+   },
+   {
+    "claim": "Measured components are separate from judged ratings for every row; risk rating left out and said so",
+    "how": "checks B1-B8, each re-derived without generator code",
+    "result": "MEASURED: 70 unit records"
+   },
+   {
+    "claim": "Every open question has a blast-radius class; no convention question is one_unit",
+    "how": "checks C1-C6",
+    "result": "MEASURED: 216 questions, {\"campaign_wide\": 34, \"one_book\": 142, \"one_unit\": 9, \"several_units\": 31}. Classes are JUDGED_BY_RULE. The 3 one_unit items with no travelling sentence were read and each concerns one row (INFERRED)"
+   },
+   {
+    "claim": "Linkages are harvested from packets only; every divergent pair has a statement",
+    "how": "checks D1-D3 re-open each source at its locator",
+    "result": "MEASURED: 309 linkages, 263 treated differently, statements {\"possible_inconsistency_unruled/word_of_divergence_and_no_controlling_ruling\": 3, \"real_distinction/different_recorded_kind\": 79, \"real_distinction/no_packet_alleges_inconsistency\": 90, \"real_distinction/standing_after_controlling_ruling\": 91, \"same_treatment/equal_confidence_and_unit_type\": 46}. possible_inconsistency_unruled pairs: [['W2-014', 'W2-015'], ['W3-008', 'W6-001'], ['W5-013', 'W5-014']]"
+   },
+   {
+    "claim": "Sidecar has exactly the selected rows, six fields non-empty, why_low_confidence unique, derivation kept",
+    "how": "gen_sidecars.py refusals; checks E1-E2",
+    "result": "MEASURED: 20 rows, 20 unique"
+   },
+   {
+    "claim": "The checker fails on tampering",
+    "how": "20 in-memory tampers",
+    "result": "MEASURED: 28 checks passed and 20 of 20 tampers caught on the rebuilt set (overall PASS in the record)"
+   },
+   {
+    "claim": "Generators are deterministic and book-agnostic at the default install layout",
+    "how": "work/mirror_test.py copied inputs by exact path to work/mirror and ran all three tools --check with no arguments",
+    "result": "MEASURED: DETERMINISTIC: MATCH, MATCH, MATCH on the frozen pin and final filter"
+   },
+   {
+    "claim": "The delivered set is self-consistent",
+    "how": "work/make_result.py compares params digest with the dimensions header and check record, and the check record's digests with the files",
+    "result": "MEASURED: consistent"
+   }
+  ],
+  "e19_selfreport": "I ran no listing and no glob, on SP, OUT or elsewhere; no script scans a directory. Grep ran only on exact named files. I opened no transcript, .output file or compaction summary, though harness notices named some, and left one harness spill path unopened. No final_message, final_FX or *_result.json file was opened, including the new D3_result.json. Scripts create directories under work/mirror with exist_ok, and on_disk_sha opens a tool's own output by exact path and catches FileNotFoundError. SP was only read; no git, receipt or registry. Continued after context interruptions from OUT working files and the harness continuation summary. Rate-limit stop: the coordinator reported one and ordered this resume (REPORTED; I did not measure it). I resumed from saved OUT work and rebuilt nothing at that point. The coordinator's later order authorised the frozen pin and the rebuild, which wrote only in OUT. Counted across all stretches, the calls went over the 60 estimate and stayed under the 110 stop (INFERRED from my own running count, not measured)."
+ },
+ "unresolved_uncertainty": [
+  "ASSUMED, and the largest open risk: the landed final_(LF|OL|RT)_cNN_e1.json files are review packets, not the forbidden final-message files. They are the only primary packets in the manifest and have packet content. If that is wrong, every lane-derived measure falls. The orchestrator can settle this; the lane did not.",
+  "One pin differs from the brief, on the orchestrator's decision: the manifest input is the frozen copy, so these outputs stop at it and a later landing does not reach them.",
+  "Thin reasons, named and not filled by hand: by my reading (INFERRED), in M8-1Cor-011, 027, 028, 051 and 052 the recorded alternative is the only sentence of why_low_confidence that states a doubt; the sentence before it states a fact. M8-1Cor-039 and 040 carry their rows' own ASSUMED sentences. The filter is a mechanical phrase list.",
+  "why_frontier_review_needed fell back to text composed from measured facts more often: 1 row before the filter, 4 after (MEASURED). INFERRED cause: the filter moved boundary_rationale into why_low_confidence, so it no longer fed the frontier field. Those rows name the facts, not a reader's reason.",
+  "Item 22 also requires a Fable execution check; this lane did not do it (owed at end review under OW-28 and OW-30).",
+  "Blast classes and statements are JUDGED_BY_RULE and may misfile; convention words deliberately over-class toward one_book. real_distinction/no_packet_alleges_inconsistency rests on absence of an allegation, not on a reading.",
+  "The checker has the same builder and model family as the generators, so it is not independent review; all lanes of the book are one voice (OW-19).",
+  "Shared feed not read: feed keys and the state vocabulary are form constants from the Daniel tools; the gate does not define them. Primaries reviewed FIXUP-2 rows, not final rows; carry-by-byte-equality is REPORTED. Later disposition of open questions is not derived. Cross-reference harvest can give false positives, skips adjacent units, and items over the pair cap are skipped and counted. Severity scales differ and are not converted. RT lane covers only c06-c08."
+ ]
+}

@@ -1,0 +1,245 @@
+# 1 CORINTHIANS - CYCLE STATE (immutable, append-only)
+
+The live book's log. Daniel closed at 27/66 on 2026-10-14; its own log carries that close and points here.
+This file is append-only: entries are added, never edited, and a correction is itself an appended entry.
+
+1 Corinthians is first in the owner's hardest-first order (1 Corinthians, John, Romans, Revelation, Hebrews, Matthew;
+OW-34, continuing OW-32's queue). It is the campaign's first New Testament book and depends on the Greek substrate
+(OW-31: Byzantine RP primary, SBLGNT secondary). OW-25's model rule, OW-28's tracked-not-enforced ceilings and OW-30's
+no-Fable-call rule stand. OW-33's merged-verdict close shape was Daniel's only.
+
+## 2026-10-14 - log opened at Daniel's close
+
+Daniel's close is evidenced: receipts/Dan_completion.json sha256 8151f9a9ec35c3fcd28274982f8ba6a117725f1d01f95fa693312b94c165565f, 75 chunks, --acf item22 after a dry run of the same arguments showed 101 gates and 0 unmet. marathon_progress.yaml reads books_completed: 27, current_book: 1Cor. Opening this log records what has already happened; it advances nothing and invents no state. Phase 0 has not started.
+- First job (OW-34): resolve the Greek source's licensing and provenance for M8_fable/greek_substrate/ (each source's licence terms, origin and the staged files' digests). Nothing there is committed or published until that is resolved; every download needs a per-file owner yes.
+- Then 1 Corinthians Phase 0 under the playbook. Launch messages cite OW-34 as the owner's order for this book (OW-11's verbatim scope named Ezekiel and Daniel).
+
+## 2026-10-14 - durability checkpoint at Daniel's close
+
+- Daniel closed (27/66), OW-34 recorded, Daniel's proposals in the shared log, carriers re-bound by this checkpoint. Next: Resolve the Greek source's licensing and provenance for greek_substrate/ (OW-31 sources; record licence terms, origin and staged-file digests; nothing committed until resolved; per-file yes for any download), then open 1 Corinthians Phase 0 under the playbook (OW-34).
+- CURSOR: phase = DAN_CLOSED_1COR_GREEK_LICENSING_NEXT.
+
+## 2026-10-14 - Greek licensing and provenance resolved (OW-34 first job)
+
+- Record: sp_durable/campaign/greek_substrate_licensing_provenance.v1.json sha256 555634cef2bda4ac33c0684dd69413fe884b6e9753d9a31e41c7483be1f1e467, drafted from a fresh read of STAGING_RECEIPT.v1.json (a086b7c30ffd...), the three licence files and the tracked SBLGNT source_manifest.yaml.
+- Re-verified 2026-10-14 (MEASURED): stray_sweep GREEN, greek_lib selftest GREEN, _stage_and_verify GREEN (A 32, B 29, B2 27 files blob-matched at the pins).
+- Licences (EXTRACTED): A Byzantine RP = Unlicense/public domain; B and B2 SBLGNT = CC BY 4.0 with attribution; C Swete = CC BY-SA 4.0, reference-only under the owner's 2026-09-29 terms and not needed for 1 Corinthians.
+- Publication of greek_substrate/ is NOT decided; nothing there is committed. One owner question asked.
+- CURSOR: phase = 1COR_GREEK_LICENSING_RECORDED_OWNER_PUBLICATION_QUESTION.
+
+## 2026-10-14 - OW-35: Greek publication scope decided
+
+- The owner chose "Commit A+B+tools (Recommended)". Commit A, B (with LICENSE and attribution), tools/, derived/, fixture/, the README, the receipt and the staging scripts. Keep B2 and C local. Ledger OW-35.
+- Disclosure (near-miss): a scratch edit of the record generator was first attempted through a heredoc carrying backslash escapes, against the standing rule. Its exact-match assert refused, and nothing was written. It was redone with the Edit tool. This is the same class as E-71; it is a candidate for the next E entry.
+- CURSOR: phase = 1COR_GREEK_PUBLICATION_DECIDED_OW35.
+
+## 2026-10-14 - OW-35 scope staged for commit; EOL conversion; two gaps found
+
+- Before git add (E-73), the CRLF files in OW-35's committable greek_substrate scope were converted to LF. The change was proven EOL-only, and each original was kept byte-exact (E-44). No campaign record cited a CRLF digest of these files (searched outside transcripts). Conversions:
+  - STAGING_RECEIPT.v1.json: CRLF 8d1cbcdc229c... -> LF a086b7c30ffd...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/STAGING_RECEIPT.v1.json.pre_8d1cbcdc229c
+  - _build_receipt.py: CRLF feffb56e5f83... -> LF 8b939f10ecb9...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/_build_receipt.py.pre_feffb56e5f83
+  - derived/crosswalk.v1.json: CRLF c0825466057e... -> LF 511f9a990108...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/derived/crosswalk.v1.json.pre_c0825466057e
+  - fixture/rows.bad.jsonl: CRLF b0801d7c7793... -> LF ca65cd952ea4...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/fixture/rows.bad.jsonl.pre_b0801d7c7793
+  - fixture/rows.bad.jsonl.validator_report.json: CRLF a0a58fbfacad... -> LF 2212848065a7...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/fixture/rows.bad.jsonl.validator_report.json.pre_a0a58fbfacad
+  - fixture/rows.good.jsonl: CRLF 8999f6665f61... -> LF 80b4c1e5025f...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/fixture/rows.good.jsonl.pre_8999f6665f61
+  - fixture/rows.good.jsonl.validator_report.json: CRLF e612821db19d... -> LF 2ecc9c6f79ac...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/fixture/rows.good.jsonl.validator_report.json.pre_e612821db19d
+  - fixture/rows.bad.jsonl.validator_report.json: CRLF a0a58fbfacad... -> LF 2212848065a7...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/fixture/rows.bad.jsonl.validator_report.json.pre_a0a58fbfacad
+  - fixture/rows.good.jsonl.validator_report.json: CRLF e612821db19d... -> LF 2ecc9c6f79ac...; original kept at sp_durable/orchestrator_scratch/greek_eol_pre/fixture/rows.good.jsonl.validator_report.json.pre_e612821db19d
+- After conversion: stray_sweep GREEN; run_suite selftest GREEN; the good fixture GREEN and the bad fixture RED (expected); _stage_and_verify GREEN (A 32, B 29, B2 27 blob-matched); workspace validator pass with blocking_failures []; _eol_digest_audit --tree LF_CLEAN.
+- Gap 1 (E-75 candidate): run_suite.py writes its fixture validator_report files in Windows text mode, so every run turns them back into CRLF. The two reports were converted a second time after the re-run. The tool is not edited here.
+- Gap 2 (E-75 candidate): _eol_digest_audit --tree does not scope greek_substrate/, so it reported LF_CLEAN while the two reports held CRLF. A staged-file CR count (0 across all 79 greek files) caught it.
+- Staged by explicit path only. A mechanical check of the staged list found 0 paths under sblgnt_apparatus, swete, __pycache__, transcripts, shell_outputs or orchestrator_scratch.
+- CURSOR: phase = 1COR_GREEK_OW35_COMMITTED_PHASE0_NEXT.
+
+## 2026-10-14 - durability checkpoint: Greek licensing resolved, Phase 0 next
+
+- The owner merged PR 199 manually (merge commit faf44b0c on main). The Greek commit 62f346e2 was pushed on top of a tree equal to main, and PR 200 was opened for the owner to merge. Carriers are re-bound by this checkpoint. Next: Open 1 Corinthians Phase 0 under the highest ORCHESTRATION_PLAYBOOK version (OW-34): book strategy, verse map and inventories from WEB plus the committed Greek substrate (RP primary, SBLGNT secondary; OW-31/OW-35), receipts from the first launch; launches cite OW-34 and pass E-19/E-62/E-69 and the efficiency worker block.
+- CURSOR: phase = 1COR_PHASE0_NEXT.
+
+## 2026-10-14 - 1 Corinthians Phase 0 opened (OW-34)
+
+- Staging script 1Cor/_stage_phase0_1cor.py sha256 2abca026440a9239dd46bd6937e04105a1afacce499a836f74e0cf09b3cef43a, ported from Dan/_stage_phase0_dan.py. The WEB pass is unchanged apart from book constants (member 76-1COeng-web.usfm, digest MEASURED ad005fab15ff20ed... at this staging). The OSHB and language passes are replaced by a Greek pass over the committed substrate (RP primary, SBLGNT secondary; OW-31/OW-35), read through greek_lib after verify_staged().
+- The numbering face (WEB) is declared at staging rather than by later amendment (the Daniel gap under Ezek #e13 R2).
+- Every target was pin-guarded CLEAR with --book 1Cor before the run.
+- CURSOR: phase = 1COR_PHASE0_STAGING.
+
+## 2026-10-14 - Phase 0 staging landed; launch authority question to the owner
+
+- Staged (MEASURED, LF-clean by _eol_digest_audit --check):
+  - 1Cor/_stage_phase0_1cor.py 8f08f01296488ac28643fa3091f39828a8028e0ef6dd4a6bba32651d6aaa1149
+  - 1Cor/_build_pmarks_1cor.py 7f2297e4d31277ef4bc4963adc5967a19ca8e69baf2c73d644130481f659454c
+  - 1Cor/1Cor_web.usfm ad005fab15ff20ed7df4709ba18d433261c70fbc507ce5f0357c6825959664a7
+  - 1Cor/1Cor_web_clean.txt 9ef1fb3b2773175fba117ca956b37b8aaab4c47dcad342d486058c264fc98856
+  - 1Cor/1Cor_rp.txt 94f7cf39fbd87f7952aba3ca957b7a4790edfb5d120dceffc8deac0ad0ccc2eb
+  - 1Cor/1Cor_sbl.txt 7e389ac3f1041db4c73181bdb8f77cb62f6eb83a85c133ddf7916f70db029a46
+  - 1Cor/verse_inventory.json 5e2df2671d3160b536da096a183c3f21c09277b9542c5976e13bd8617bb4c366
+  - 1Cor/web_greek_verse_check.json ac94ac6b64a28b47e08b38d4217b9c35d537a80fa255e11872b7b6a719e48aae
+  - 1Cor/1cor_stage_report.json 5df45dab1c3ffbf6c9db5c78416896fe6d4ecbac36b6815308b0869d9bd12af9
+  - 1Cor/pmarks_1Cor.json 2f378348d01d0079c5437f86b47e1fac109ffd0e60a8ccd18890b4c2ee61a167
+  - 1Cor/web_greek_offset_map.json 663ad11ac6d68af24b5dc18fc8b6e3c41cd00d2a83369530c16a95fd497823dd
+- WEB, RP and SBLGNT each print all 437 verses in 16 chapters; no divergent chapter, no crosswalk flag, so numbering is identity (web_greek_offset_map.json). WEB footnote sites 16.
+- Mark evidence (pmarks_1Cor.json): RP paragraph starts 35 (all at verse start, asserted); WEB paragraph starts 87 plus 1 mid-verse (9:12b), tier-4 only (E-23); RP and WEB agree on 31 starts. SBLGNT variant-site verses 220 (inline sigla carried byte-faithfully, counted in the stage report); RP/SBL skeleton differences 218 verses.
+- Found while porting the launch builder: campaign/_launch_message_check.py requires the OW-11 strings, accepts only Ezek and Dan, and treats receipts/Dan_completion.json as the exception's expiry. Daniel is closed, so no 1 Corinthians launch can MATCH (E-62). Its E-13 preamble string also names the Hebrew Bible, which is false for 1 Corinthians. OW-34 orders the book but carries no subagent-authority wording. Per the resume prompt, the owner is asked once. The checker is NOT edited before the answer.
+- CURSOR: phase = 1COR_PHASE0_STAGED_AUTHORITY_QUESTION.
+
+## 2026-10-14 - Owner answer on launch authority recorded (OW-36); launch checker amended additively
+
+- The owner selected "Your six-book queue (Recommended)": Opus subagents for 1Cor, John, Rom, Rev, Heb and Matt. Each book's grant ends at its own receipts/<Book>_completion.json. Each launch carries an NT research preamble. OW-25, OW-30 and the no-git, no-receipt rule are unchanged. Ledger OW-36 is TRANSCRIBED verbatim from this session's own log. ERROR_PATTERN_LEDGER.v1.md now has sha256 07b65998884c7973a55c16de72ee12efad2fcc60ef8e120ea132cf009a0047a7; its .pre_8e1156aa1a46 copy is kept.
+- campaign/_launch_message_check.py amended additively (governance edit under OW-36): before dd51f44dc18b..., after dad4b7520078ed58c4d4634b00633d188a186e75e64576bf656daa430655a941, with the .pre_dd51f44dc18b copy kept.
+  - Ezek and Dan keep OW-11's strings and their expiry at Daniel's close.
+  - Each OW-36 book requires the common strings plus the NT preamble, an "AUTHORITY (OW-36" heading, the owner's label and the authorization_ref, and it expires at its own completion receipt.
+  - A book outside both grants is refused.
+  - Selftest {"selftest": "PASS", "cases": 33, "fails": []}. It covers 33 cases, up from 15, and includes: the Hebrew Bible preamble refused for 1Cor, the OW-11 message refused for 1Cor, Daniel's close leaving 1Cor open, and 1Cor's close leaving John open.
+  - Process note: the first install attempt rolled itself back on a selftest-ordering bug (the 1Cor receipt was written before the stage that must not see it). The test was fixed, not the check.
+- Next: port the Phase 0 lane machinery into 1Cor/phase0_lanes/. The tools need a Greek rebinding, not a token swap.
+- CURSOR: phase = 1COR_OW36_RECORDED_LANES_PORT_NEXT.
+
+## 2026-10-14 - Three staging defects found by cor_lib's selftest, fixed and re-staged (E-75 candidates)
+
+- Disclosure: my 1 Corinthians staging (recorded above as landed) was not faithful in three ways. cor_lib.py's selftest compares the staged files with greek_lib's independent loaders and failed 2 of 24 checks. No lane had launched and nothing had consumed the staged files, so the blast radius was the staged files and the digests recorded above.
+  1. SBLGNT was not byte-faithful. build_greek applied NFC, which canonically maps U+037E GREEK QUESTION MARK to U+003B, rewriting 7 characters in 5 verses (5:13, 6:19, 7:18, 7:21, 7:27). citation_sweep collates against the raw substrate, so a quote taken from the staged file could have failed at the byte tier. RP was unaffected.
+  2. WEB cross-references leaked into the English. The NT member carries 18 \x ... \x* notes. The stager had no \x rule, and its generic marker strip left their content (for example "+ 1:19 Isaiah 29:14") inside 18 verses.
+  3. WEB word attributes leaked in two verses. The NT member nests \+w ... \+w* inside words of Jesus (11:24-25). The \w rule did not accept the \+ form, so `|strong="G2532"` attributes stayed in the text. This one surfaced only after fix 2, on the re-run.
+- Root cause: the stager was ported from Daniel's, whose WEB pass was written and tested on Hebrew Bible members only. Those members carry no \x notes and no \+w nesting, and the OSHB pass never met U+037E. The port assumed the OT shape held for the NT, and its own asserts checked counts, not content.
+- Sibling audit (MEASURED): every staged OT *_web_clean.txt (Dan, Eccl, Ezek, Isa, Jer, Lam, Prov, Song) has 0 xref-shaped residue, and every staged OT *_web.usfm has 0 \+w. The OT books are unaffected. Every future NT stager must inherit these three rules; John, Rom, Rev, Heb and Matt will all carry \x and words of Jesus.
+- Fixes in 1Cor/_stage_phase0_1cor.py (amended, .pre_8f08f0129648 kept): verbatim build_greek with a tab/CR/LF assert; an XREF rule removing each note whole, counted in the report as web.xref_sites_removed (18); W accepts \+w; and new post-write asserts that re-read the staged RP and SBL from disk and require equality with greek_lib, and that the clean WEB has no backslash, no xref residue, no `="` attribute and the same verse count as greek_lib.
+- Re-staged twice with every target pin-guarded CLEAR and a .pre_<sha12> copy kept of every output that changed. The intermediate state (fix 2 without fix 3) also has .pre_ copies. Residue scan of the final clean WEB: no markup, no CR, NFC-stable. CR bytes 0 in rp, sbl, usfm, pmarks and the stage report.
+- Unchanged by the re-stage: 1Cor_web.usfm, 1Cor_rp.txt, web_greek_verse_check.json, web_greek_offset_map.json. All counts recorded above stand (437 verses, RP pilcrows 35, WEB starts 87 + 9:12, sigla 419 over 220 verses, RP/SBL differences 218, [fn] 16 over 13 verses).
+- 1Cor/tools/cor_lib.py created (orchestrator-written, PROTECTED): the Greek rebinding of dan_lib on greek_lib, with lineage in its docstring. Selftest {"checks": 24, "passed": 24, "verdict": "GREEN"}. One check label was corrected so it says what it tests (collate is a thin wrapper that delegates to greek_lib.collate_greek).
+- Current digests (MEASURED, LF bytes):
+  - 1Cor/_stage_phase0_1cor.py e3b2766a96b6692ee9f17249296960064ae965a0d94a3d0630519a170bc990f0
+  - 1Cor/_build_pmarks_1cor.py 7f2297e4d31277ef4bc4963adc5967a19ca8e69baf2c73d644130481f659454c
+  - 1Cor/tools/cor_lib.py 324f75f5ed80d2636e6d91d1d839d102fde6c8af86ce2d28ef83bb3a38575a4e
+  - 1Cor/1Cor_web.usfm ad005fab15ff20ed7df4709ba18d433261c70fbc507ce5f0357c6825959664a7
+  - 1Cor/1Cor_web_clean.txt 7c8224ccf9eb0a06df20c5b2289d33ea32267dda136e88e73ea5761807cf0778
+  - 1Cor/1Cor_rp.txt 94f7cf39fbd87f7952aba3ca957b7a4790edfb5d120dceffc8deac0ad0ccc2eb
+  - 1Cor/1Cor_sbl.txt 354b6dcf5b5f43a24dd85918e9759eeeb3153dc5284ab707a4167b64919456ff
+  - 1Cor/verse_inventory.json 6d61f7911cdfca32c7da7b279964bd41dab283e32e760705af0f70210382f410
+  - 1Cor/web_greek_verse_check.json ac94ac6b64a28b47e08b38d4217b9c35d537a80fa255e11872b7b6a719e48aae
+  - 1Cor/1cor_stage_report.json 1159886e99b780ff9adc23b21f32acc5c730cda83bf9229b29615ed118ac3daa
+  - 1Cor/pmarks_1Cor.json 5cd9055a8ecbfbc8dcf0f5dbc43e7bedbb0e69dc4fb7e8d9000e164e074c7fd7
+  - 1Cor/web_greek_offset_map.json 663ad11ac6d68af24b5dc18fc8b6e3c41cd00d2a83369530c16a95fd497823dd
+- E-75 candidates (for the ledger at the next ledger write; not yet recorded there): (a) an NT port of an OT stager must be tested on content, not counts: compare the staged files with an independent loader before anything reads them; (b) never normalize a staged witness. Plus the earlier candidates: the heredoc near-miss, run_suite's CRLF reports, and --tree skipping greek_substrate.
+- Next: port the Phase 0 lane machinery into 1Cor/phase0_lanes/ (build_launch with the OW-36 NT message and the efficiency block, append_launch_row, append_landing_row, lane templates), then build lane D and run prelaunch_gate.
+- CURSOR: phase = 1COR_RESTAGED_CORLIB_GREEN_LANES_PORT_NEXT.
+
+## 2026-10-14 - Phase 0 lanes D and T2 launched (OW-36)
+
+- Ported into 1Cor/phase0_lanes/: build_launch.py (NT E-13 preamble, OW-36 authority paragraph, M8-EFFICIENCY-V1 block
+  and EFFICIENCY-OUT line), append_launch_row.py, append_landing_row.py (book constants only), BRIEF_D.template.md and
+  BRIEF_T2.template.md. Generated BRIEF_D.md (0964d8cb4c92...) and BRIEF_T2.md (e7cc8a771c48...); both launch messages
+  returned MATCH on _launch_message_check.py --book 1Cor, and prelaunch_gate.py was the last command before each launch.
+- Lane D, cor_p0_device_inventory_a1#e1: the 1 Corinthians device inventory builder and inventory, in OUT only.
+- Lane T2, cor_p0_toolport_t2_a1#e1: _adapt_tools_1cor.py and its spec, the classification of fourteen Daniel tools,
+  and the port of the language-independent ones, in OUT only.
+- Receipts: 1Cor/1cor_phase0_attempt_receipts.jsonl, 3 rows (D launch, an amendment, T2 launch).
+- Mistake (E-75 candidate (c)): the D launch row was recorded with a placeholder launched_at, 2026-10-14T00:00:00Z.
+  It was not overwritten. An appended amendment row gives MEASURED bounds (the message file's mtime 20:17:55Z, and the
+  row's recorded_at 20:18:29Z); the exact instant is UNAVAILABLE. Root cause: --launched-at accepted any string.
+  Prevention: append_launch_row.py now refuses a launched_at outside [message mtime, now]; tested with midnight, 2099
+  and a non-ISO string, all REFUSED with the receipts unchanged. Sibling audit: 37 launch rows across the Ezekiel and
+  Daniel receipts, 0 flagged. The T2 launch time was measured with date -u.
+- Also an E-75 candidate: python -B -m py_compile still writes __pycache__ (removed from phase0_lanes/).
+- Next: land D and T2 (review OUT, record landing rows), install after review, then port lane T1 (the Greek
+  citation_sweep and check_marks, bound to D's inventory), then S, C1/C2 and K1/K2.
+- CURSOR: phase = 1COR_P0_D_T2_RUNNING.
+
+## 2026-10-14 - Phase 0 lanes D and T2 landed and installed
+
+- D (cor_p0_device_inventory_a1#e1) landed. Review MEASURED: report digest matches its final message; an independent
+  recount (own normalizer, not greek_lib) reproduces all 68 formulae and 9 family unions, 0 differences. Orchestrator
+  amendment, disclosed in the landing row: FRAME_PAIRS split at the letter's measured edges into FRAME_PAIRS and
+  FRAME_IN_BODY_PAIRS ([[10,32]]), after the lane itself flagged 10:32. Installed: 1Cor/_build_device_inventory_1cor.py
+  (1aef62eb...) and 1Cor/1cor_device_inventory.json (62c608d7...), rebuilt in SP with default paths, byte-identical.
+- T2 (cor_p0_toolport_t2_a1#e1) landed (receipts now 7e86429f...). Review MEASURED: report digest matches its final
+  message; its adapter (bcf1c7d2...) and spec (c9ad6945...) installed byte-exact into 1Cor/tools; a fresh --stage from
+  SP reproduces all 14 staged tools byte-identically, residual 0; the adapter's own --install then wrote the 14 tools.
+- cor_lib amended (E-44; .pre_324f75f5ed80 kept; now aa520591...): GREEK_RUN (from greek_lib) and load_verse_maps,
+  as T2 proposed, inserted before _selftest. cor_lib selftest 24/24 GREEN; load_verse_maps gives 437/437 with identity
+  back-refs.
+- Self-tests in SP against the real cor_lib: 7 of 8 pass; check_brief_vs_suite --selftest fails because no 1 Corinthians
+  run_validator_suite exists yet (the marks lane's work). ngram7 has no self-test and is untested against the real
+  inventory (NOT VERIFIED).
+- _audit_book_token_transform run by the orchestrator (the lane could not: it globs): 15 files, 216 of 222 token lines
+  changed, 6 kept verbatim; every line outside the adapter that still names Daniel or Ezekiel carries a lineage word
+  (check_placeholders keeps a Daniel fixture at line 62, already a Fable end-review item). 0 unpaired.
+- Lane disclosures carried: T2 self-counted about 75 tool calls against about 60 (the notification counts 98 tool uses);
+  one E-19 deviation inside its own OUT (Path.exists and shutil.rmtree on OUT/testenv).
+- Next: launch T1 (citation_sweep and its test, via the installed adapter's --extra-spec), then T3 (check_marks, the
+  Greek normalizer, run_validator_suite_1cor), S, C1/C2, K1/K2.
+- CURSOR: phase = 1COR_P0_T1_NEXT.
+
+## 2026-10-15 - Phase 0 lanes T1 and T3 launched (in parallel; disjoint outputs)
+
+- T1 `cor_p0_toolport_t1_a1#e1` launched 2026-10-15T02:38:02Z: citation_sweep.py and _test_tools_1cor.py (from
+  _test_zone_tools_dan.py) through the installed adapter's --extra-spec. Brief BRIEF_T1.md sha c65680779dd6, message sha
+  41b396926ef1. Launch row recorded (receipts e58385705c47).
+- T3 `cor_p0_toolport_t3_a1#e1` launched 2026-10-15T02:42:42Z: check_marks.py, normalize_greek_in_json.py (RENAME from
+  normalize_hebrew_in_json.py), run_validator_suite.py, plus an authored _test_marks_tools_1cor.py. Brief BRIEF_T3.md sha
+  98d68d179611 (31 pins), message sha 3067bb2fc3b8, prelaunch gate PASS. Launch row recorded (receipts 63415210dda0).
+- A launch row proves only the launch; neither lane is yet known to have produced output.
+- Lane-table entries for T3 added to build_launch.py and append_launch_row.py (usage lines now D|T2|T1|T3).
+- Next: land T1, then T3 (review, re-stage with SP's adapter and each lane's spec, landing row, install, run the tests in
+  SP, re-run check_brief_vs_suite --selftest, then the full suite); then S, C1/C2, K1/K2.
+- CURSOR: phase = 1COR_P0_T1_T3_INFLIGHT.
+
+## 2026-10-15 - Phase 0 lane S launched (strategy), concurrent with T1 and T3
+
+- Readiness record `1Cor/1cor_start_readiness.v1.json` (sha 92f9c100adc3) built by scratch mk_readiness_1cor.py:
+  track, budget (OW-28), authority (OW-36), the OW-19 lens floor and 3 decorrelating kinds (axis-to-kind mapping
+  INFERRED), the 7 prepared scrutiny targets verbatim, the hardness note and uncertainty (to be measured, not trusted).
+- Strategy validator `1Cor/_validate_strategy_1cor.py` (sha 094f791732d1) ported from Dan/_validate_strategy_dan.py:
+  refuses unless the offset map is identity with no zones; checks face, tiling, straddle disclosure, spans in the
+  markdown, no dual keys, no MT-face tokens, web/rp/sbl tokens name real verses, sections 1-11, lens, coverage.
+  Selftest 24/24; a smoke run on empty inputs is RED as expected.
+- S `cor_strategy_a1#e1` launched 2026-10-15T02:50:55Z in the controlling role (grader_fallback, OW-25). Brief
+  BRIEF_S.md sha 2d33355baae0 (18 pins; template BRIEF_S.template.md), message sha 305f9c1fa900, brief pin check and
+  launch message check MATCH, prelaunch gate PASS. Launch row recorded (receipts 5a0e83f1fa25).
+- S runs concurrently with T1 and T3 (disjoint outputs; its validator is standalone). A launch row proves only the
+  launch.
+- Lane-table entries for S added to build_launch.py and append_launch_row.py (usage lines now D|T2|T1|T3|S).
+- Next: land T1, T3 and S as they arrive; then C1/C2 blind strategy checks on the landed candidate; K1/K2 toolkit
+  reviews; TOOLKIT.md for 1Cor.
+- CURSOR: phase = 1COR_P0_T1_T3_S_INFLIGHT.
+
+## 2026-10-15 - Mistake disclosed: wrong producer/catcher on the D and S launch rows (E-75 candidate); C1/C2 prepared
+
+- Found while porting the C1/C2 lane entries: append_launch_row.py (1Cor) had empty PRODUCER and CATCHER tables and
+  wrote a toolkit-port default ("this lane (1 Corinthians Phase 0 toolkit port)" / "...install gates; the two blind
+  toolkit review lanes...") for every lane. Root cause: the Daniel recorder's per-lane tables were emptied in the port,
+  and the fallback default hid the gap. Sibling audit over all 5 launch rows: D (device inventory) and S (strategy) are
+  wrong; T1, T2 and T3 are toolkit ports, so their value is correct.
+- Impact: record-only. No campaign reader uses producer or catcher (MEASURED by grep over campaign/*.py), and the fold
+  does not apply them. Counterfactual: a close-time audit reading producer would have misattributed two lanes.
+- Correction: 4 amendment rows (D and S, producer and catcher; values taken from the recorder's new tables, not retyped),
+  receipts 5a0e83f1fa25 -> e137f8b8802d; the fold reports 5 executions, 7 amending rows, all applied.
+- Prevention: the recorder now has explicit entries for every lane and refuses at load time if any lane lacks one; the
+  default is gone. Regression test 1Cor/phase0_lanes/_test_append_launch_row_entries.py: 3/3 GREEN (the real recorder
+  loads; broken copies missing a catcher or a producer each refuse).
+- C1/C2 prepared ahead of S's landing: BRIEF_C1.template.md (bytes and architecture) and BRIEF_C2.template.md (text
+  first, Stage A sealed before the candidate), ported from Daniel's with 1 Corinthians adaptations (identity numbering,
+  three never-conflated mark types, 14:33b-36 measured, quotation extent, reception neutrality); lane entries added to
+  build_launch.py and append_launch_row.py. They are built only after S lands and its candidate is copied to
+  1Cor/strategy_candidate/.
+- CURSOR: phase = 1COR_P0_T1_T3_S_INFLIGHT.
+
+## 2026-10-15 - S landed; T1/T3 stopped by the session limit and relaunched; C1/C2 launched
+
+- S (strategy) LANDED COMPLETED: receipts e137f8b8802d -> 737dab04dfa3. Candidate copied byte-exact (0 CR bytes) to
+  1Cor/strategy_candidate/book_strategy_1Cor.a1.md and strategy_plan_1Cor.a1.json. 13 parents, 6 writer parts, 7
+  internal parent seams, lens 3 (third RECEPTION_TRADITION), no calendar onset rule; 8 Fable questions recorded for the
+  deferred end review. Phase-0 defect 1 (validator docstring date) is not a defect (UTC); defect 2 (method v7 section 6
+  mark direction) is a method-change candidate for the book-close proposal loop.
+- T1 and T3 #e1 STOPPED by the account's API session limit (HTTP 429, reset 12:40am America/New_York). Neither wrote a
+  deliverable; their partial working files stay in lane_T1/lane_T3 and are not inputs to #e2. Landing rows
+  FAILED_BY_API_SESSION_LIMIT (usage counts UNAVAILABLE: not captured before the compaction, never estimated):
+  receipts 737dab04dfa3 -> 6f24089fbd56 -> cf694b5a79b4. A launch receipt alone never proved these workers ran past
+  input verification.
+- C1 had passed its prelaunch gate at 03:10:12Z, but the Agent call was not made before the limit; it had no launch row,
+  so nothing to land.
+- After the reset (MEASURED 04:43:02Z): T1 #e2 (04:47:10Z) and T3 #e2 (04:47:36Z) relaunched in fresh OUT directories
+  (lane_T1_e2, lane_T3_e2) from BRIEF_T1_e2.md 5d8e8bbb8759 / BRIEF_T3_e2.md 1b2eb7c12d5b (pin check MATCH, message
+  check MATCH, gate PASS last); C1 (04:48:00Z) and C2 (04:48:19Z) launched from the briefs built earlier (gate PASS).
+  Receipts cf694b5a79b4 -> ea7d6da26074 -> 13764a29c9cf -> 5576927f2a3d -> cda4d4ba2373.
+- CURSOR: phase = 1COR_P0_T1_T3_C1_C2_INFLIGHT. Next: land each lane on its notification; T1/T3 re-stage and install
+  with the suite; C1/C2 reconcile into the accepted strategy; then K1/K2 toolkit reviews.

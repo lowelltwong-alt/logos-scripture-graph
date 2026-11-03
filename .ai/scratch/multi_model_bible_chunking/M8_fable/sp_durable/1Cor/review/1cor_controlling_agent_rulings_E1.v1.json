@@ -1,0 +1,550 @@
+{
+ "attempt_id": "cor_controlling_rulings_r1_a1",
+ "execution_id": "cor_controlling_rulings_r1_a1#e1",
+ "inputs_ruled_on": [
+  {
+   "path": "SP\\1Cor\\review\\1cor_controlling_agent_queue_e1.v1.json",
+   "sha256": "673274b0123eacf7fe618c8159497270dedea0119b650d23ae431f67583be446"
+  },
+  {
+   "path": "SP\\1Cor\\review\\1cor_writer_wave_spot_review_S1.json",
+   "sha256": "6586e74003e7bd13821710736df5c3075eef535460cc1758e58157fff06b6e3d"
+  },
+  {
+   "path": "SP\\1Cor\\review\\BRIEF_S1.md",
+   "sha256": "279bd3b25c6865ad36ef1536a0bfac6c432f96cae0672af187e6cc2542fec78d"
+  },
+  {
+   "path": "SP\\1Cor\\book_strategy_1Cor.md",
+   "sha256": "70e344fed9f0f64654baa97dff80e03b706a1288b47de182628dc453212e39ca"
+  },
+  {
+   "path": "SP\\1Cor\\strategy_plan_1Cor.json",
+   "sha256": "a55044ceabc4dabd43a7e442ad7dfafb2268700a56904f3734d8c1bf5ab93ca4"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\TOOLKIT.md",
+   "sha256": "a8313a3a8140c70847981597ac4d36d1811896b73cd88f4f5049af4d4a847b62"
+  },
+  {
+   "path": "SP\\1Cor\\writer\\draft_rows_combined.jsonl",
+   "sha256": "3d328c8afa9f2616b963413a15041d916e0d54ad474835da4f92af90b2588af6"
+  },
+  {
+   "path": "SP\\1Cor\\writer\\draft_rows_combined.report.json",
+   "sha256": "9e4d40a46db8d8db1e4f8b9bd6733cc947159cca1e5bc88cb11040d627f361b4"
+  },
+  {
+   "path": "SP\\1Cor\\1Cor_rp.txt",
+   "sha256": "94f7cf39fbd87f7952aba3ca957b7a4790edfb5d120dceffc8deac0ad0ccc2eb"
+  },
+  {
+   "path": "SP\\1Cor\\1Cor_sbl.txt",
+   "sha256": "354b6dcf5b5f43a24dd85918e9759eeeb3153dc5284ab707a4167b64919456ff"
+  },
+  {
+   "path": "SP\\1Cor\\1Cor_web_clean.txt",
+   "sha256": "7c8224ccf9eb0a06df20c5b2289d33ea32267dda136e88e73ea5761807cf0778"
+  },
+  {
+   "path": "SP\\1Cor\\1cor_device_inventory.json",
+   "sha256": "62c608d775710f56040d3889db9c2cc2a98f40589d15e9b11b8ba2af9b3795ad"
+  },
+  {
+   "path": "SP\\1Cor\\pmarks_1Cor.json",
+   "sha256": "5cd9055a8ecbfbc8dcf0f5dbc43e7bedbb0e69dc4fb7e8d9000e164e074c7fd7"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\ngram7.py",
+   "sha256": "8646f540acc36975c66a3b0949e509a4a3d41039aecaedd6bb874d9834fd0e3c"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\run_validator_suite.py",
+   "sha256": "ebe7197b35635d9f8cbf88914219003e32816ba37173f00205668eb5aab2dbb4"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\check_universals.py",
+   "sha256": "e047b8dfbd99f56d86556ef073cd8c0c63886db3bd66cfa9c31433b4042f009f"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\check_marks.py",
+   "sha256": "eb092ed3f802604a63b47c6ebe0fb3db7375e25bd3efc8ff29fe6abe791d6c45"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\cap_sweep.py",
+   "sha256": "1280c21dbd9bf6eaf7feed7d0923b6dcb71e3cf28c0c3b9a0e366c655389a867"
+  },
+  {
+   "path": "SP\\1Cor\\tools\\citation_sweep.py",
+   "sha256": "84514c10f26d2ebf3e85cc109fad63fc00f92d173ba0a8d6504e7677ec0e9914"
+  },
+  {
+   "path": "SP\\campaign\\grader_models.v1.json",
+   "sha256": "cf88544383c707c6e2d87c75829740d696ede0e537403284da0ee84cc239526d"
+  },
+  {
+   "path": "SP\\..\\ERROR_PATTERN_LEDGER.v1.md",
+   "sha256": "4dc47a3e406c7d5a2ca7bf6acd27960f9390424fe236d84b4083e586bb200b9b"
+  }
+ ],
+ "rulings": [
+  {
+   "id": "S1-ROUTING",
+   "ruling": "ratify_with_changes",
+   "decision": "Every finding row is routed to exactly one fix-up lane keyed by its writer_part prefix: W2, W3, W4, W5, W6. W1 receives no fix-up lane (zero S1 findings, zero CWO-1COR-01 baseline hits, zero rule-14 failures). Rows added by CWO-1COR-01 classification route to the owning part of their decision_id prefix.",
+   "reason": "One owner per row prevents two authors editing one row; the part prefix is the existing ownership key in draft_rows_combined.jsonl.",
+   "evidence": [
+    "SP\\1Cor\\writer\\draft_rows_combined.jsonl: 70 rows, decision_id prefixes W1..W6",
+    "OUT\\work\\cwo02_baseline.json: no W1 id under predicate A or B"
+   ],
+   "orders": [
+    {
+     "to": "orchestrator",
+     "order": "Launch one fix-up author per part in fixup_parts, each given only its own rows, the orders below addressed to it, and the CWO-1COR-01 classified hits for its rows. The author changes nothing outside the named rows and fields.",
+     "exact_spans": []
+    }
+   ]
+  },
+  {
+   "id": "S1-01",
+   "ruling": "ratify_with_changes",
+   "decision": "W5 rows W5-001, W5-002, W5-003, W5-010, W5-011, W5-012, W5-013, W5-014 remove every WEB-paragraph mention used as layout evidence: from boundary_rationale and strongest_rejected_alternative delete the WEB-paragraph clause; from observed_substrate_signals delete every item naming a WEB paragraph; from boundary_evidence_refs delete every web: ref naming a WEB paragraph or tagged DISCLOSURE-mark. An RP pilcrow may remain at most once per row, as one observed_substrate_signals item naming only its location. The ngram7 gram is cured by rewording, never by a tool exclusion.",
+   "reason": "Strategy section 8 rule 4 bars WEB paragraphs from driving or corroborating a boundary; rule 5 lets an RP pilcrow inform only. The single offending ngram7 gram 'rp pilcrow at and web paragraph at' is formed by adjacent observed_substrate_signals items, e.g. W5-002 ['RP pilcrow at 12:4 and 12:12', 'WEB paragraph at 12:4 and 12:12', ...]. A cure simulation applying exactly these deletions read GREEN on the current tool. No shared replacement sentence is prescribed: a simulation that appended one identical pilcrow sentence to 26 rows made ngram7 read 26-row offending grams. Each author rewords in row-specific prose. If removing a mark mention leaves a seam with no wording, grammar or device ground, the author stops and reports to the orchestrator instead of writing new seam evidence.",
+   "evidence": [
+    "OUT\\work ngram7_copy.py (pinned ngram7.py with only the cor_lib sys.path line and the INVENTORY path re-pointed to SP\\1Cor) on OUT\\work\\rows.jsonl (byte copy of SP\\1Cor\\writer\\draft_rows_combined.jsonl): status RED, 1 gram, 10 rows W5-002, W5-011, W5-012, W5-013, W5-014, W6-002, W6-003, W6-008, W6-011, W6-012",
+    "OUT\\work\\sim_cure.jsonl through ngram7_copy.py: GREEN",
+    "OUT\\work\\sim_prescribed_phrase.jsonl: RED, 26 rows per gram",
+    "SP\\1Cor\\book_strategy_1Cor.md section 8 rules 4 and 5"
+   ],
+   "orders": [
+    {
+     "to": "author_fixup:W5",
+     "order": "Apply the deletions to the named rows and fields only; keep at most one bare RP pilcrow location item; reword in row-specific prose.",
+     "exact_spans": [
+      "W5-002 observed_substrate_signals item 'WEB paragraph at 12:4 and 12:12'",
+      "W5-001, W5-003, W5-010..W5-014 observed_substrate_signals: every item containing 'WEB paragraph'",
+      "W5-001, W5-002, W5-003, W5-010..W5-014 boundary_rationale and strongest_rejected_alternative: every clause containing 'WEB paragraph'",
+      "W5-003 boundary_evidence_refs: web:1Cor.12.14 (predicate A hit)"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-01b",
+   "ruling": "ratify_with_changes",
+   "decision": "Same remedy as S1-01 for W6-002, W6-003, W6-008, W6-011, W6-012, and the W6 web: refs these rows carry are deleted.",
+   "reason": "Same rule-4 ground and same offending gram as S1-01; the cure simulation covered these rows. No shared replacement sentence is prescribed: a simulation that appended one identical pilcrow sentence to 26 rows made ngram7 read 26-row offending grams. Each author rewords in row-specific prose. If removing a mark mention leaves a seam with no wording, grammar or device ground, the author stops and reports to the orchestrator instead of writing new seam evidence.",
+   "evidence": [
+    "OUT\\work ngram7_copy.py (pinned ngram7.py with only the cor_lib sys.path line and the INVENTORY path re-pointed to SP\\1Cor) on OUT\\work\\rows.jsonl (byte copy of SP\\1Cor\\writer\\draft_rows_combined.jsonl): W6-002, W6-003, W6-008, W6-011, W6-012 in the offending gram",
+    "OUT\\work\\cwo02_baseline.json predicate A: W6-002 web:1Cor.15.12; W6-003 web:1Cor.15.20; W6-008 web:1Cor.16.5, web:1Cor.16.10; W6-011 web:1Cor.16.15, web:1Cor.16.19; W6-012 web:1Cor.16.19, web:1Cor.16.21"
+   ],
+   "orders": [
+    {
+     "to": "author_fixup:W6",
+     "order": "Apply the S1-01 deletions to the named rows; keep at most one bare RP pilcrow location item per row.",
+     "exact_spans": [
+      "W6-002, W6-003, W6-008, W6-011, W6-012 observed_substrate_signals: every item containing 'WEB paragraph'",
+      "same rows boundary_rationale and strongest_rejected_alternative: every clause containing 'WEB paragraph'",
+      "boundary_evidence_refs: web:1Cor.15.12 (W6-002), web:1Cor.15.20 (W6-003), web:1Cor.16.5 and web:1Cor.16.10 (W6-008), web:1Cor.16.15 and web:1Cor.16.19 (W6-011), web:1Cor.16.19 and web:1Cor.16.21 (W6-012)"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-02",
+   "ruling": "ratify_with_changes",
+   "decision": "Major. The clauses that offer a WEB paragraph or a pilcrow as agreement, corroboration or joining evidence for a seam are deleted. W6-006 is added: its WEB-paragraph mentions in boundary_rationale, strongest_rejected_alternative, boundary_evidence_refs and observed_substrate_signals are deleted, and its 'RP pilcrow at 15:50.' sentence is kept only as a bare observed_substrate_signals location item. Pilcrow wording of the form 'informs without deciding' is compliant under rule 5 and stays. No replacement formula is prescribed.",
+   "reason": "Rule 4 forbids corroboration by WEB paragraph; rule 5 forbids a pilcrow deciding. 'agree', 'corroborate' and 'join' assert support. W6-006 carries the same defect, which S1 did not name; it is folded in from the bytes. No shared replacement sentence is prescribed: a simulation that appended one identical pilcrow sentence to 26 rows made ngram7 read 26-row offending grams. Each author rewords in row-specific prose. If removing a mark mention leaves a seam with no wording, grammar or device ground, the author stops and reports to the orchestrator instead of writing new seam evidence.",
+   "evidence": [
+    "W5-010 strongest_rejected_alternative: 'the same question at 14:26 does open a unit because a vocative and an RP pilcrow join it there.'",
+    "W5-005 strongest_rejected_alternative: 'The change of grammar at 13:4 is sharp, and the WEB paragraph at 13:4 agrees with it.'",
+    "W6-010 boundary_rationale: 'Both witnesses of layout agree here: RP pilcrow at 16:13, WEB paragraph at 16:13'",
+    "W6-002 and W6-012 boundary_rationale: 'corroborat' with a mark word (predicate B)",
+    "W6-006 boundary_rationale 'RP pilcrow at 15:50.' and 'WEB paragraph at 15:51.'; strongest_rejected_alternative 'Opening at 15:51 on idou with the WEB paragraph...'; refs 'web:1Cor.15.51 (WEB paragraph)', 'web:1Cor.15.56 (WEB paragraph)'; observed_substrate_signals 'WEB paragraph starts at 15:51 and 15:56'",
+    "W2-003 boundary_rationale 'RP pilcrow at 5:9 coincides with this onset (EXTRACTED) and informs without deciding.' (compliant)"
+   ],
+   "orders": [
+    {
+     "to": "author_fixup:W5",
+     "order": "Delete the support clause; keep the content argument for the rival.",
+     "exact_spans": [
+      "W5-010 strongest_rejected_alternative: 'because a vocative and an RP pilcrow join it there' (restate the 14:26 onset on the vocative and wording only)",
+      "W5-005 strongest_rejected_alternative: ', and the WEB paragraph at 13:4 agrees with it'"
+     ]
+    },
+    {
+     "to": "author_fixup:W6",
+     "order": "Delete the support clauses and the W6-006 WEB-paragraph material.",
+     "exact_spans": [
+      "W6-010 boundary_rationale: 'Both witnesses of layout agree here: RP pilcrow at 16:13, WEB paragraph at 16:13'",
+      "W6-002 boundary_rationale: the sentence pairing a mark word with 'corroborat'",
+      "W6-012 boundary_rationale: the sentence pairing a mark word with 'corroborat'",
+      "W6-006 boundary_rationale: 'RP pilcrow at 15:50.' and 'WEB paragraph at 15:51.'",
+      "W6-006 strongest_rejected_alternative: 'with the WEB paragraph'",
+      "W6-006 boundary_evidence_refs: 'web:1Cor.15.51 (WEB paragraph)', 'web:1Cor.15.56 (WEB paragraph)'",
+      "W6-006 observed_substrate_signals: 'WEB paragraph starts at 15:51 and 15:56'"
+     ]
+    },
+    {
+     "to": "s2",
+     "order": "S2 confirms each named span is absent and that no row offers a WEB paragraph or chapter division as seam support; a pilcrow that informs without deciding is acceptable.",
+     "exact_spans": []
+    }
+   ]
+  },
+  {
+   "id": "S1-02b",
+   "ruling": "ratify_with_changes",
+   "decision": "Minor-class instances of the same defect are fixed on W3, W4, W5 and W6, and the class is swept by CWO-1COR-01, whose classified support-use hits are appended to the owning part orders before fix-up launches.",
+   "reason": "The same rule-4/rule-5 defect at lower weight; E-18 requires the class sweep to run on its own with a coverage report rather than relying on S1's sample.",
+   "evidence": [
+    "W3-005 strongest_rejected_alternative: the WEB paragraph at 10:13 'leans that way'",
+    "OUT\\work\\cwo02_baseline.json predicate B: W3-006 boundary_rationale agree+inform; W3-008 boundary_rationale inform; W4-001/W4-002/W4-003 boundary_rationale agree; W5-001 boundary_rationale confirm",
+    "predicate A: W4-001 web:1Cor.11.11, web:1Cor.11.3; W4-003 web:1Cor.11.17, web:1Cor.11.23; W4-004 web:1Cor.11.23, web:1Cor.11.27; W6-004 web:1Cor.15.29; W6-007 web:1Cor.16.1, web:1Cor.16.5"
+   ],
+   "orders": [
+    {
+     "to": "author_fixup:W3",
+     "order": "Delete the mark-support clause; keep the content rejection.",
+     "exact_spans": [
+      "W3-005 strongest_rejected_alternative: the clause saying the WEB paragraph at 10:13 leans that way",
+      "W3-006 boundary_rationale: the word 'agrees' applied to a mark (an RP pilcrow clause that informs without deciding may stay; a WEB-paragraph clause goes)",
+      "W3-008 boundary_rationale: the clause saying a WEB paragraph start and a chapter division inform"
+     ]
+    },
+    {
+     "to": "author_fixup:W4",
+     "order": "Delete the mark-agreement clauses and the web: mark refs.",
+     "exact_spans": [
+      "W4-001, W4-002, W4-003 boundary_rationale: the sentence pairing a mark word with 'agree'",
+      "boundary_evidence_refs: web:1Cor.11.11, web:1Cor.11.3 (W4-001); web:1Cor.11.17, web:1Cor.11.23 (W4-003); web:1Cor.11.23, web:1Cor.11.27 (W4-004)"
+     ]
+    },
+    {
+     "to": "author_fixup:W5",
+     "order": "Delete the WEB-paragraph onset framing.",
+     "exact_spans": [
+      "W5-001 boundary_rationale: the sentence pairing a mark word with 'confirm'",
+      "W5-001, W5-006, W5-007, W5-008, W5-009 boundary_rationale: the framing 'Onset at X, a WEB paragraph'"
+     ]
+    },
+    {
+     "to": "author_fixup:W6",
+     "order": "Delete the WEB-paragraph mentions and refs.",
+     "exact_spans": [
+      "W6-004 and W6-007 boundary_rationale: every clause containing 'WEB paragraph'",
+      "boundary_evidence_refs: web:1Cor.15.29 (W6-004); web:1Cor.16.1, web:1Cor.16.5 (W6-007)"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-03",
+   "ruling": "ratify_with_changes",
+   "decision": "W6-006 deletes the 7:29 analogy clause and the ref rp:1Cor.7.29, with no replacement analogy. Its confidence is not raised. The 15:50/15:51 seam question stays with fable_end_review, unchanged.",
+   "reason": "The formula is verse-initial at 7:29 in RP, but in this book's own tiling 7:29 sits inside W2-012 (7:25-7:31), whose strongest_rejected_alternative rejects a 7:28/7:29 seam. 'opens a unit there' is therefore contradicted by the corpus and cannot support the 15:50 onset. The likely source is strategy section 7 D wording 'touto de phemi opens at 7:29 as well', which reads as verse position, not unit onset.",
+   "evidence": [
+    "W6-006 boundary_rationale: 'the formula of 15:50 also opens a unit at 7:29, which favours the onset reading without settling it'",
+    "W6-006 boundary_evidence_refs: 'rp:1Cor.7.29 (the same summarising formula opens a unit there)'",
+    "SP\\1Cor\\1Cor_rp.txt lines 130 (1Cor.7.6), 153 (1Cor.7.29), 405 (1Cor.15.50): formula verse-initial",
+    "W2-012 span 7:25-7:31; strongest_rejected_alternative rejects a 7:28/7:29 seam",
+    "SP\\1Cor\\book_strategy_1Cor.md line 281"
+   ],
+   "orders": [
+    {
+     "to": "author_fixup:W6",
+     "order": "Delete the clause and the ref; add nothing in their place; confidence stays medium_low or lower.",
+     "exact_spans": [
+      "W6-006 boundary_rationale: 'the formula of 15:50 also opens a unit at 7:29, which favours the onset reading without settling it'",
+      "W6-006 boundary_evidence_refs: 'rp:1Cor.7.29 (the same summarising formula opens a unit there)'"
+     ]
+    },
+    {
+     "to": "fable_end_review",
+     "order": "The 15:50/15:51 onset stays listed for end review as the strategy directs; no ruling here selects a reading.",
+     "exact_spans": []
+    }
+   ]
+  },
+  {
+   "id": "S1-04",
+   "ruling": "ratify_with_changes",
+   "decision": "All 14 W5 rows (W5-001..W5-014) carry both rule-14 strings verbatim: \"Robinson-Pierpont Byzantine Textform (Unlicense)\" and \"SBLGNT (CC BY 4.0)\". Each attribution passage is rewritten as plain row prose followed by the two exact strings, unsalted (no row words inserted inside or glued to them). This order depends on TF-2 being installed first.",
+   "reason": "W5 rows quote Greek and read 'Attribution: Robinson-Pierpont (Unlicense) and SBLGNT (CC BY 4.0)', lacking 'Byzantine Textform': these are the only rule-14 exact-string failures, 14 of 70 rows. Appending the verbatim line to all 14 rows makes the current ngram7 read 3 attribution grams of 14 rows each; with TF-2 those grams vanish. Without TF-2, rule 14 and the HARD ngram7 gate conflict.",
+   "evidence": [
+    "OUT\\work\\sim_attr_w5all.jsonl via ngram7_copy.py: RED, 3 attribution grams x 14 rows",
+    "same via ngram7_tf2.py: attribution grams absent, only the pilcrow gram remains",
+    "OUT\\work\\sim_cure_w5attr.jsonl: current tool RED, TF-2 GREEN",
+    "SP\\1Cor\\book_strategy_1Cor.md section 8 rule 14"
+   ],
+   "orders": [
+    {
+     "to": "author_fixup:W5",
+     "order": "Replace each attribution passage so that both exact strings appear verbatim and contiguous, each standing alone.",
+     "exact_spans": [
+      "W5-001..W5-014: every occurrence of 'Robinson-Pierpont (Unlicense) and SBLGNT (CC BY 4.0)'"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-05",
+   "ruling": "ratify_with_changes",
+   "decision": "Narrowed to five phrases. The proposal's blanket removal of end-review language is not adopted: 'listed for Fable's end review' disclosures that the strategy directs (W4-001..W4-004, W6-006, W6-010..W6-012) stay.",
+   "reason": "Each named phrase is a positional or cross-unit pointer that a reader cannot resolve inside the row (BRIEF_S1 line 148). W2-015's 7:40/8:1 close is a C4 peri de parent seam that the strategy does not send to end review, so 'a question left for end review' misstates the route.",
+   "evidence": [
+    "W2-015 device_notes: 'The close lies at the part frontier with 8:1, a question left for end review.' frontier_flag_considered true",
+    "W2-003 device_notes: '(INFERRED link, disclosed on the unit at 6:9)'",
+    "W6-005 device_notes: 'that rival is disclosed on the unit that opens at 15:50.'",
+    "W5-014 boundary_rationale: '(rp:1Cor.14.39) summarizes the chapter.'",
+    "W3-004 boundary_rationale: '(MEASURED, script gen_w3: 2 RP verses in these three chapters)'"
+   ],
+   "orders": [
+    {
+     "to": "author_fixup:W2",
+     "order": "Delete or restate the two phrases; frontier_flag_considered may become false only if no frontier question remains after restatement.",
+     "exact_spans": [
+      "W2-015 device_notes: 'The close lies at the part frontier with 8:1, a question left for end review.' (state the close on content)",
+      "W2-003 device_notes: '(INFERRED link, disclosed on the unit at 6:9)' (name the span explicitly)"
+     ]
+    },
+    {
+     "to": "author_fixup:W3",
+     "order": "Name the span.",
+     "exact_spans": [
+      "W3-004 boundary_rationale: 'in these three chapters' becomes 'in 1Cor 8:1-11:1'"
+     ]
+    },
+    {
+     "to": "author_fixup:W5",
+     "order": "State the content.",
+     "exact_spans": [
+      "W5-014 boundary_rationale: 'summarizes the chapter' becomes a statement of what 14:39 summarises"
+     ]
+    },
+    {
+     "to": "author_fixup:W6",
+     "order": "Name the span.",
+     "exact_spans": [
+      "W6-005 device_notes: 'the unit that opens at 15:50' becomes the explicit span of that unit"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-06",
+   "ruling": "ratify",
+   "decision": "W3-001 restates its grade basis on the seam evidence rather than chapter length; W3-002, W3-003, W3-004 state whether the seam or only the typing is doubtful. No grade is raised without byte evidence. Matters of reading are passed to the lenses as questions, not settled here.",
+   "reason": "A chapter-fallback cap stated over a seam resting on wording mislabels the tier (rule 11).",
+   "evidence": [
+    "W3-001 (8:1-8:13, medium_low): 'The row spans the whole chapter of 13 verses, so its confidence is capped at the chapter-fallback level even though the onset and close rest on wording.'",
+    "W3-002 (9:1-9:14), W3-003 (9:15-9:23), W3-004 (9:24-9:27) medium_low: 'Typing as example is held open...'"
+   ],
+   "orders": [
+    {
+     "to": "author_fixup:W3",
+     "order": "Restate the confidence basis only; do not raise confidence.",
+     "exact_spans": [
+      "W3-001 the sentence beginning 'The row spans the whole chapter of 13 verses'",
+      "W3-002, W3-003, W3-004 the sentence beginning 'Typing as example is held open'"
+     ]
+    },
+    {
+     "to": "primaries",
+     "order": "Both blind lanes receive as a question: is the W3-001..W3-004 doubt about the seam or only the typing.",
+     "exact_spans": []
+    }
+   ]
+  },
+  {
+   "id": "S1-07",
+   "ruling": "ratify",
+   "decision": "Adopted as TF-1: the --book-index mode with its fixture exactly as specified in queue entry S1-07. It adds a mode and narrows no HARD member.",
+   "reason": "An added mode leaves every existing check counting what it counted. The writer validator SP\\1Cor\\writer_lanes\\_validate_writer_part_1cor.py is not a pinned input and was not read; the fixture in the queue entry is the proof required at install.",
+   "evidence": [
+    "SP\\1Cor\\review\\1cor_controlling_agent_queue_e1.v1.json entry S1-07"
+   ],
+   "orders": [
+    {
+     "to": "tool_fix",
+     "order": "Stage TF-1 in a copy, run its fixture plus the unchanged-output check on the pinned rows, install by receipt.",
+     "exact_spans": []
+    }
+   ]
+  },
+  {
+   "id": "S1-08",
+   "ruling": "reverse",
+   "decision": "The proposed deferral is reversed. Adopted now as TF-2: in ngram7.device_key_pattern, each exact occurrence of 'Robinson-Pierpont Byzantine Textform (Unlicense)' and of 'SBLGNT (CC BY 4.0)' becomes a segment break, as device keys already are. This NARROWS the HARD member ngram7, stated in words: it removes only 7-grams that touch one of the two literal licence strings (662 of 13601 grams on the pinned rows, 0 gained, offending set unchanged). Any templated phrase of 7 or more tokens not containing a literal string still counts, and salted or variant forms still count.",
+   "reason": "S1-04 with rule 14 otherwise forces a HARD RED or salting of the mandated line. It cannot hide a real defect because only the exact mandated strings are matched; authorial prose around them still forms grams on each side of the break.",
+   "evidence": [
+    "OUT\\work\\ngram7_tf2.py: ATTR alternation added to the device-key regex",
+    "F1 pinned rows: offending set unchanged, 13601 -> 12939 grams, 662 lost, 0 gained, 0 changed grams lacking a licence token",
+    "F2 sim_attr_w5all: attribution grams removed, pilcrow gram still RED",
+    "F3 fx_F3.jsonl: 10 rows with both strings plus 'The seam rests on the same summarising formula in this row.' stay RED",
+    "F4 fx_F4.jsonl: 10 rows with 'Robinson-Pierpont Byzantine Textform, Unlicense; SBLGNT, CC BY 4.0' are not stripped and stay RED"
+   ],
+   "orders": [
+    {
+     "to": "tool_fix",
+     "order": "Stage TF-2 in a copy, add F1..F4 as fixtures, update the ngram7 docstring with the narrowing statement, install by receipt.",
+     "exact_spans": [
+      "ngram7.py device_key_pattern: the regex alternation"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-09",
+   "ruling": "ratify",
+   "decision": "Recorded as reproduced evidence: the ngram7 result reproduces exactly on a private copy.",
+   "reason": "Independent re-run on the pinned bytes.",
+   "evidence": [
+    "OUT\\work ngram7_copy.py (pinned ngram7.py with only the cor_lib sys.path line and the INVENTORY path re-pointed to SP\\1Cor) on OUT\\work\\rows.jsonl (byte copy of SP\\1Cor\\writer\\draft_rows_combined.jsonl): RED, 1 gram 'rp pilcrow at and web paragraph at', 10 rows, device_keys_stripped 51"
+   ],
+   "orders": []
+  },
+  {
+   "id": "S1-10",
+   "ruling": "close",
+   "decision": "WARRANT/DISCLOSURE ref tags are optional, not required; S2 does not raise their presence or absence. A web: ref offered as boundary evidence is barred by rule 4 whatever its tag.",
+   "reason": "No binding 1Cor artifact requires them: strategy section 10 conventions C1-C9, TOOLKIT.md and BRIEF_S1 carry none. W1-W5 use them, W6 does not, and W5-001 lacks WARRANT-close:near.",
+   "evidence": [
+    "SP\\1Cor\\book_strategy_1Cor.md section 10",
+    "SP\\1Cor\\tools\\TOOLKIT.md: no WARRANT/DISCLOSURE match"
+   ],
+   "orders": [
+    {
+     "to": "s2",
+     "order": "Tag presence or absence is acceptable either way.",
+     "exact_spans": []
+    }
+   ]
+  },
+  {
+   "id": "S1-11",
+   "ruling": "ratify",
+   "decision": "The fable_end_review route in queue entry S1-11 is ratified; no row changes.",
+   "reason": "A contested reading is not settled by this agent.",
+   "evidence": [
+    "SP\\1Cor\\review\\1cor_controlling_agent_queue_e1.v1.json entry S1-11"
+   ],
+   "orders": [
+    {
+     "to": "fable_end_review",
+     "order": "Carry the S1-11 matter to end review as listed.",
+     "exact_spans": []
+    }
+   ]
+  },
+  {
+   "id": "U-SINGLE-LANE",
+   "ruling": "ratify",
+   "decision": "S1 is a spot review, not a lens. After S2, two blind lanes plus the reception-tradition third lens run on the applied rows. S1-02 and S1-06 reach them as questions.",
+   "reason": "OW-19 sets two blind lanes as the floor; strategy section 11 adds the reception lens. All roles run on claude-opus-5-5 (OW-25), so same-family correlation remains.",
+   "evidence": [
+    "SP\\campaign\\grader_models.v1.json: fallback claude-opus-5-5, fallback_in_force true",
+    "SP\\1Cor\\book_strategy_1Cor.md section 11"
+   ],
+   "orders": [
+    {
+     "to": "primaries",
+     "order": "Launch only after S2 reads rows readiness fit=true.",
+     "exact_spans": []
+    }
+   ]
+  },
+  {
+   "id": "GATE-E1",
+   "ruling": "adopt",
+   "decision": "Order: TF-1 and TF-2 installed; then CWO-1COR-01 and CWO-1COR-02 run with coverage reports and their support-use hits are appended to part orders; then fix-up for W2, W3, W4, W5, W6; then CWO-1COR-03; then a fresh S2; then primaries.",
+   "reason": "S1-04 cannot be applied without TF-2; CWO hits must be known before authors launch so no row is opened twice.",
+   "evidence": [
+    "see gate block"
+   ],
+   "orders": [
+    {
+     "to": "orchestrator",
+     "order": "Hold fix-up until both tool fixes are installed by receipt and the CWO-1COR-01/02 reports exist.",
+     "exact_spans": []
+    }
+   ]
+  }
+ ],
+ "corpus_wide_orders": [
+  {
+   "id": "CWO-1COR-01",
+   "predicate": "A: an element of boundary_evidence_refs matching ^\\s*web: and matching (?i)WEB paragraph|paragraph start|DISCLOSURE-mark. B: a sentence (split on (?<=[.;])\\s+) of boundary_rationale, strongest_rejected_alternative or device_notes matching (?i)pilcrow|WEB paragraph|paragraph start|chapter division and also matching (?i)corroborat|agree|join|inform|favour|support|lean|confirm.",
+   "fields": "boundary_evidence_refs, boundary_rationale, strongest_rejected_alternative, device_notes; all 70 rows of SP\\1Cor\\writer\\draft_rows_combined.jsonl",
+   "remedy": "Every A hit is deleted (a web: ref is never boundary evidence, rule 4). Every B hit is classified support-use (a WEB paragraph or chapter division informing, agreeing, joining, corroborating, leaning, favouring, supporting or confirming; or a pilcrow agreeing, joining, corroborating or confirming) or compliant (a disclaimer that the mark does not drive the seam, or an RP pilcrow that informs without deciding). Support-use clauses are deleted by the owning part. If a deletion leaves boundary_evidence_refs below what the suite accepts, the author stops and reports.",
+   "coverage_report": "Baseline MEASURED on pinned rows (OUT\\work\\cwo02_baseline.json): A = 30 refs in 17 rows (W4 6 in 3 rows; W5 1 in 1 row; W6 23 in 13 rows: W6-001..W6-013). B = 25 hits in 20 rows (W1 0, W2 2, W3 11, W4 3, W5 3, W6 6). W2-003 and W2-005 are compliant (pilcrow informs without deciding). The orchestrator's report lists every hit with row, field, class and disposition, and counts rows scanned = 70."
+  },
+  {
+   "id": "CWO-1COR-02",
+   "predicate": "A row whose string fields outside boundary_evidence_refs contain a character in [\\u0370-\\u03FF\\u1F00-\\u1FFF] must contain both literal substrings 'Robinson-Pierpont Byzantine Textform (Unlicense)' and 'SBLGNT (CC BY 4.0)'.",
+   "fields": "every string field that ngram7.prose() walks, plus boundary_evidence_refs excluded from the Greek test; all 70 rows",
+   "remedy": "Each failing row is given the S1-04 remedy by its owning part, unsalted.",
+   "coverage_report": "Baseline MEASURED: 14 of 70 rows fail, all W5 (W5-001..W5-014); 56 pass, including W1 and W6 rows whose salted lines still contain both exact strings. After fix-up the report must read 0 failures of 70."
+  },
+  {
+   "id": "CWO-1COR-03",
+   "predicate": "ngram7 as installed with TF-2, default gate 10, --full-ids, on the applied combined rows: any 7-gram shared by 10 or more rows.",
+   "fields": "the fields ngram7.prose() walks",
+   "remedy": "Each offending gram goes back to its owning parts with the named rows; reword, never exclude.",
+   "coverage_report": "Run once after fix-up; record rows scanned, gate, device_keys_stripped, and the offending list (expected empty)."
+  }
+ ],
+ "gate": {
+  "tool_fixes_before_fixup": [
+   "TF-1 (S1-07): --book-index mode with its queue fixture, installed by receipt",
+   "TF-2 (S1-08): exact licence-string segment break in ngram7 with fixtures F1..F4 and the narrowing statement in the docstring, installed by receipt"
+  ],
+  "fixup_may_launch": false,
+  "fixup_parts": [
+   "W2",
+   "W3",
+   "W4",
+   "W5",
+   "W6"
+  ],
+  "s2_conditions": [
+   "run_validator_suite reads hard_status GREEN on the applied rows",
+   "ngram7 with TF-2 reads GREEN at gate 10 (CWO-1COR-03)",
+   "tiling reads GREEN at 437 of 437 verses",
+   "CWO-1COR-01 report is complete: every hit classified, 0 support-use hits left open",
+   "CWO-1COR-02 report reads 0 rule-14 failures of 70",
+   "S2 is a fresh, distinct agent; its readiness wording takes the ACCEPT form: rows readiness fit=true, or fit_with_changes with named rows"
+  ],
+  "primaries_may_launch": false
+ },
+ "unresolved_uncertainty": [
+  {
+   "what": "The writer validator and run_validator_suite.py were not read or run (not RUN-marked); TF-1 is ratified on the queue's fixture alone.",
+   "why_it_matters": "An interaction between TF-1 and an unread check would only surface at install."
+  },
+  {
+   "what": "The cure simulation approximates the authors' edits.",
+   "why_it_matters": "Real rewording may form new shared grams; CWO-1COR-03 catches this."
+  },
+  {
+   "what": "TF-2 drops 662 grams on the pinned rows.",
+   "why_it_matters": "All touch a licence token per F1, but the member is narrower; the docstring must say so."
+  },
+  {
+   "what": "Strategy section 7 D line 281 'touto de phemi opens at 7:29 as well' is ambiguous between verse position and unit onset.",
+   "why_it_matters": "It likely seeded the W6-006 claim; a method-change candidate for the strategy author."
+  },
+  {
+   "what": "Every role runs on claude-opus-5-5 (OW-25).",
+   "why_it_matters": "Same-family lanes are one voice under OW-19; decorrelation is not established."
+  },
+  {
+   "what": "W1 and W6 salt the attribution line with row words around intact exact strings.",
+   "why_it_matters": "Compliant, but it shows tool pressure that TF-2 relieves; a method-change candidate."
+  },
+  {
+   "what": "Deleting all CWO-1COR-01 A refs may leave a row with few refs.",
+   "why_it_matters": "The suite's minimum-ref rule was not read; the stop-and-report clause covers it."
+  }
+ ]
+}

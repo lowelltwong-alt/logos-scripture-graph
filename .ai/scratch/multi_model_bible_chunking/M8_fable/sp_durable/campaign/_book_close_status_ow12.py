@@ -15,7 +15,11 @@ A rate derived from the measured books is labelled as derived from those books a
 
 Verse counts come from each book's own verse inventory or completion receipt, never from memory.
 
-Usage: _book_close_status_ow12.py [--json <out>]"""
+Usage: _book_close_status_ow12.py [--json <out>] [--count-closed BOOK --next-book NEXT]
+
+--count-closed lets the close act's own item 16 be filled before the close tool runs: BOOK is counted closed and NEXT is
+the live book, as the close will make them. The output says so under books.counted_closed_before_the_close_act; nothing
+is written to the progress file."""
 import argparse
 import collections
 import hashlib
@@ -65,7 +69,13 @@ def book_key(r):
     # its own `book`. Bucketing on attempt_id alone silently drops it - it dropped S4's 646,412 tokens from Ezekiel
     # until the total was reconciled against the census.
     aid = r.get("attempt_id") or r.get("amends_execution_id") or ""
-    return (aid.split("_")[0] or str(r.get("book") or "")).lower()
+    key = (aid.split("_")[0] or str(r.get("book") or "")).lower()
+    return PREFIX_BOOK.get(key, key)
+
+
+# An attempt-id prefix that is not the book's own key. 1 Corinthians attempts open "cor_"; until 2026-11-03 they were
+# bucketed apart from "1cor", so a closed 1Cor would have been listed as closed before per-attempt capture.
+PREFIX_BOOK = {"cor": "1cor"}
 
 
 def receipts_by_book():
@@ -117,8 +127,16 @@ def verses_for(book):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json")
+    ap.add_argument("--count-closed")
+    ap.add_argument("--next-book")
     a = ap.parse_args()
     done_n, total, current, closed = progress()
+    if bool(a.count_closed) != bool(a.next_book):
+        raise SystemExit("REFUSED: --count-closed and --next-book go together")
+    if a.count_closed:
+        if a.count_closed != current or a.count_closed in closed:
+            raise SystemExit("REFUSED: %s is not the live book (%s) or is already closed" % (a.count_closed, current))
+        done_n, current, closed = done_n + 1, a.next_book, closed + [a.count_closed]
     per, files = receipts_by_book()
 
     # ---- what is actually measured ----
@@ -136,9 +154,9 @@ def main():
             not_measured.append({"book": b, "verses": v, "verses_source": vsrc,
                                  "why": "no per-execution usage in its receipts: it closed before per-attempt capture"})
 
-    # the live book
-    ez = per.get("ezek", {})
-    ez_v, ez_vsrc = verses_for("Ezek")
+    # the live book (until 2026-11-03 this read Ezekiel's figures whatever the live book was)
+    ez = per.get(current.lower(), {})
+    ez_v, ez_vsrc = verses_for(current)
     live = {"book": current, "tokens_so_far": ez.get("tokens", 0), "executions": ez.get("executions", 0),
             "verses": ez_v, "verses_source": ez_vsrc,
             "tokens_per_verse_so_far": round(ez.get("tokens", 0) / ez_v, 1) if ez_v else None,
@@ -233,7 +251,8 @@ def main():
         "built": datetime.now(timezone.utc).isoformat(),
         "built_by": "orchestrator (claude-opus-5), measured from the receipts named below",
         "books": {"closed": done_n, "total": total, "left_including_the_live_book": total - done_n,
-                  "live_book": current, "closed_list": closed},
+                  "live_book": current, "closed_list": closed,
+                  "counted_closed_before_the_close_act": a.count_closed},
         "live_book_spend": live,
         "measured_per_book": measured,
         "not_measured": {

@@ -1,0 +1,378 @@
+#!/usr/bin/env python3
+"""Verify the 1 Corinthians Phase 0 artifacts against their bytes and one another, and the pinned factual claims in
+TOOLKIT.md against those artifacts.
+
+WHY. The toolkit is the one document every lane reads and none of them re-derives, so a wrong number in it reaches
+every brief and every row as though it were established. Daniel's selfcheck (the lineage of this file) audited
+file-set and key parity against its predecessor's artifacts. 1 Corinthians is the first New Testament book: its
+witnesses, numbering and layers share no file role with Daniel's beyond the verse inventory, so a parity audit would be
+a list of declared differences. This file checks the 1 Corinthians artifacts directly instead:
+
+1. asserts the faces: verse_inventory.json and the device inventory are on the WEB face, and the offset map declares
+   identity throughout with no zones;
+2. re-derives the three-witness alignment from the bytes (the same verse keys in RP, SBLGNT and the WEB extract, and
+   the per-chapter counts of verse_inventory.json and web_greek_verse_check.json);
+3. re-derives the pmarks tallies from their lists, the RP/SBLGNT difference list through greek_lib.skeleton, and the
+   SBLGNT critical-sign count from the bytes;
+4. holds the stage report's output digests and the device inventory's input digests to the current bytes; an input
+   amended after the inventory was built must be declared below, and its pre-image must exist with the recorded digest
+   (E-44);
+5. runs E-65's floor: no Daniel-only or Ezekiel-only integer of three or more digits in a 1 Corinthians JSON string, a
+   Python string constant in SP/1Cor or SP/1Cor/tools, or TOOLKIT.md. It is a FLOOR, not a proof: it cannot see a number
+   of one or two digits, a number that is also a true 1 Corinthians figure, or a non-integer. The review lanes still owe E-65's item;
+6. checks TOOLKIT.md's pinned figures and the existence of every chapter:verse it names. --artifacts-only skips this
+   section, and the output then says the verdict covers only the artifacts;
+7. proves, in a fresh interpreter started in this directory, that importing cor_lib leaves sys.path unchanged and that
+   citation_sweep then binds to this book's file (2026-10-15: cor_lib once inserted greek_substrate/tools at
+   sys.path[0], whose citation_sweep.py shadowed this book's), and that no tool here puts greek_substrate on sys.path.
+
+Read-only. Exit 1 on any failure. Run with PYTHONUTF8=1 python -B.
+"""
+import ast
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+from collections import Counter
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+BK = HERE.parent                                  # SP/1Cor
+SP = BK.parent
+PREDECESSORS = (SP / "Dan", SP / "Ezek")          # E-65: the books whose figures must not leak in
+TK = HERE / "TOOLKIT.md"
+from cor_lib import skeleton  # noqa: E402  (greek_lib's, loaded by exact path; sys.path is never changed)
+
+AMENDED_AFTER_INVENTORY = {  # input -> (digest the device inventory recorded, where the change is recorded)
+    "tools/cor_lib.py": ("324f75f5ed80d2636e6d91d1d839d102fde6c8af86ce2d28ef83bb3a38575a4e",
+                         "freeze/CYCLE_STATE.md: GREEK_RUN and load_verse_maps added (.pre_324f75f5ed80 kept), then "
+                         "greek_lib loaded by exact path (.pre_aa52059191c0 kept)"),
+}
+E65_EXEMPT = [  # (file, number, text that must surround it, reason): a floor hit that is not a book fact
+    ("1cor_device_inventory.json", "389", "Daniel's citation_sweep.py",
+     "a line range of Daniel's citation_sweep.py (lines 389-393), labelled as Daniel's: lineage"),
+    ("_build_device_inventory_1cor.py", "389", "Daniel's citation_sweep.py",
+     "the same lineage label, in the script that writes it"),
+    ("_adapt_tools_1cor.py", "357", "Daniel-only fact pattern",
+     "Daniel's verse total named as a pattern the adapter must not leave behind: lineage"),
+    ("_adapt_tools_1cor_spec.py", "100", "a 100 % count", "a placeholder-check fixture that must pass"),
+    ("_adapt_tools_1cor_spec.py", "200", "within 200 chars", "the quote-attribution window, not a count"),
+    ("_adapt_tools_1cor_spec_t1.py", "121", "|121|243)",
+     "majuscule siglum 0121 in the cross-tradition regex the spec writes, not a count"),
+    ("_adapt_tools_1cor_spec_t1.py", "123", "|68|123)",
+     "papyrus siglum P123 in the cross-tradition regex the spec writes, not a count"),
+    ("_adapt_tools_1cor_spec_t1.py", "345", "UBS[345]", "UBS edition digits 3-5 in a regex class, not a count"),
+    ("_adapt_tools_1cor_spec_t1.py", "200", "<= 200", "the quote-attribution window, not a count"),
+    ("_adapt_tools_1cor_spec_t3.py", "120", "m.start() - 120)",
+     "the +-120-char context window check_marks.py reads around a mark, not a count"),
+    ("_test_marks_tools_1cor.py", "124", "§2 lines 124-140",
+     "a line range of the ported Daniel test file, labelled 'ported': lineage"),
+    ("_test_marks_tools_1cor.py", "140", "§2 lines 124-140",
+     "a line range of the ported Daniel test file, labelled 'ported': lineage"),
+    ("_test_marks_tools_1cor.py", "226", "§3 lines 217-226",
+     "a line range of the ported Daniel test file, in a DISABLED lineage entry"),
+    ("_test_marks_tools_1cor.py", "275", "§4 lines 244-275",
+     "a line range of the ported Daniel test file, labelled 'ported': lineage"),
+    ("_test_marks_tools_1cor.py", "357", "no predecessor verse total 357",
+     "Daniel's verse total named in a check that it is NOT emitted: lineage"),
+    ("citation_sweep.py", "121", "|121|243)","majuscule siglum 0121 in the cross-tradition regex, not a count"),
+    ("citation_sweep.py", "123", "|68|123)", "papyrus siglum P123 in the cross-tradition regex, not a count"),
+    ("citation_sweep.py", "345", "UBS[345]", "UBS edition digits 3-5 in a regex class, not a count"),
+    ("check_placeholders.py", "100", "a 100 % count", "a placeholder-check fixture that must pass"),
+    ("check_register.py", "134", "tier-[134]", "a regex character class of tier numbers, not a count"),
+    ("check_register.py", "351", "a rule the plan states at line 351",
+     "a selftest fixture the artifact-referent check must flag"),
+    ("check_universals.py", "150", "150 chars away", "a history note on a removed context window, not a count"),
+    ("check_web_quotes.py", "200", "within 200 chars", "the quote-attribution window, not a count"),
+]
+SIGNS = set("⸀⸁⸂⸃⸄⸅")
+NUM = re.compile(r"(?<![\w.:])\d{1,3}(?:,\d{3})+(?!\w)|(?<![\w.:,])\d+(?![\w:,]|\.\d)")
+CV = re.compile(r"(?<![\w.:+])(\d{1,2}):(\d{1,2})(?![\w:])")
+
+
+def _j(p):
+    return json.loads(p.read_text(encoding="utf-8"))
+
+
+def _sha(p):
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+
+
+def _rows(name):
+    out = {}
+    for line in (BK / name).read_text(encoding="utf-8").split("\n"):
+        if line:
+            ref, text = line.split("\t", 1)
+            out[ref] = text
+    return out
+
+
+def _web_lines():
+    L = (BK / "1Cor_web_clean.txt").read_text(encoding="utf-8").split("\n")
+    return L[:-1] if L and L[-1] == "" else L
+
+
+def _strings(v, out):
+    if isinstance(v, dict):
+        for x in v.values():
+            _strings(x, out)
+    elif isinstance(v, list):
+        for x in v:
+            _strings(x, out)
+    elif isinstance(v, str):
+        out.append(v)
+
+
+def _ints(v, out):
+    if isinstance(v, dict):
+        for x in v.values():
+            _ints(x, out)
+    elif isinstance(v, list):
+        for x in v:
+            _ints(x, out)
+    elif isinstance(v, int) and not isinstance(v, bool):
+        out.add(v)
+
+
+def _consts(p):
+    """Every string constant of p. In an adapter spec (_adapt_tools_1cor_spec*.py) the OLD element of each SUBS
+    (old, new, count) is the predecessor text the adapter removes, so it is skipped: what the spec emits is its NEW
+    text, and the tool it writes is scanned on its own. The E65_EXEMPT table (this file's) is the floor's own data,
+    each entry pinned to its surrounding text, so its constants are skipped too; nothing else in this file is."""
+    tree = ast.parse(p.read_text(encoding="utf-8"))
+    skip = set()
+    for a in tree.body:
+        if isinstance(a, ast.Assign) and any(getattr(t, "id", None) == "E65_EXEMPT" for t in a.targets):
+            skip.update(id(n) for n in ast.walk(a.value))
+    if p.name.startswith("_adapt_tools_1cor_spec"):
+        for a in tree.body:
+            if (isinstance(a, ast.Assign) and any(getattr(t, "id", None) == "SUBS" for t in a.targets)
+                    and isinstance(a.value, ast.Dict)):
+                for lst in a.value.values:
+                    for tup in getattr(lst, "elts", []):
+                        if isinstance(tup, ast.Tuple) and tup.elts:
+                            skip.update(id(n) for n in ast.walk(tup.elts[0]))
+    return [n.value for n in ast.walk(tree)
+            if isinstance(n, ast.Constant) and isinstance(n.value, str) and id(n) not in skip]
+
+
+def _greek_path_edits(p):
+    """Code in p that mutates sys.path (insert/append/extend, or an assignment to sys.path) with an argument naming
+    GREEK_TOOLS or greek_substrate. Strings and comments that only mention them do not count."""
+    src = p.read_text(encoding="utf-8")
+    hits = []
+    for n in ast.walk(ast.parse(src)):
+        if (isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+                and n.func.attr in ("insert", "append", "extend") and ast.unparse(n.func.value) == "sys.path"):
+            seg = " ".join(ast.unparse(a) for a in n.args)
+        elif isinstance(n, (ast.Assign, ast.AugAssign)) and any(
+                ast.unparse(t) == "sys.path" for t in (n.targets if isinstance(n, ast.Assign) else [n.target])):
+            seg = ast.unparse(n.value)
+        else:
+            continue
+        if "GREEK_TOOLS" in seg or "greek_substrate" in seg:
+            hits.append(n.lineno)
+    return hits
+
+
+TOP_JSON = ("verse_inventory.json", "web_greek_verse_check.json", "web_greek_offset_map.json", "pmarks_1Cor.json",
+            "1cor_device_inventory.json", "1cor_stage_report.json", "strategy_plan_1Cor.json",
+            "1cor_start_readiness.v1.json")
+
+
+def _families(dev):
+    return Counter(f["family"] for f in dev["formulae"].values())
+
+
+TOOLKIT_PINS = [  # (claim, predicate over the loaded data); every figure is formatted from the data, never typed
+    ("TOOLKIT.md states the verse and chapter totals",
+     lambda d: "**%d verses / %d chapters, EQUAL totals in all three witnesses**" % (
+         d["inv"]["total_verses"], len(d["inv"]["chapters"])) in d["text"]),
+    ("TOOLKIT.md states identity numbering with no zones",
+     lambda d: "`identity_throughout` %s, `zones` %s" % (str(d["om"]["identity_throughout"]).lower(),
+                                                         json.dumps(d["om"]["zones"])) in d["text"]),
+    ("TOOLKIT.md states the RP line and token counts",
+     lambda d: "`../1Cor_rp.txt`, %d lines, %d whitespace tokens" % (
+         len(d["rp"]), sum(len(t.split()) for t in d["rp"].values())) in d["text"]),
+    ("TOOLKIT.md states the SBLGNT line and token counts",
+     lambda d: "`../1Cor_sbl.txt`, %d lines, %d whitespace tokens" % (
+         len(d["sbl"]), sum(len(t.split()) for t in d["sbl"].values())) in d["text"]),
+    ("TOOLKIT.md states the RP/SBLGNT difference count (re-derived through the skeleton)",
+     lambda d: "wording differ in %d verses" % d["ndiff"] in d["text"]),
+    ("TOOLKIT.md states the SBLGNT critical-sign count (re-counted from the bytes)",
+     lambda d: "%d inline critical signs over %d verses" % d["signs"] in d["text"]),
+    ("TOOLKIT.md states the SBLGNT U+037E exception to NFC",
+     lambda d: "NFC except %d U+037E GREEK QUESTION MARK in %d verses" % d["q037e"] in d["text"]),
+    ("TOOLKIT.md states the paragraph-start tallies",
+     lambda d: "**RP paragraph starts: %d**; **WEB paragraph starts: %d**" % (
+         len(d["pm"]["rp_paragraph_starts"]), len(d["pm"]["web_paragraph_starts"])) in d["text"]),
+    ("TOOLKIT.md states the WEB footnote verses and marks",
+     lambda d: "**WEB footnote verses: %d**, carrying %d `[fn]` marks" % (
+         len(d["pm"]["web_footnote_verses"]), d["fn"]) in d["text"]),
+    ("TOOLKIT.md states the formula keys and families",
+     lambda d: "**%d formula keys in %d families**" % (len(d["dev"]["formulae"]), len(_families(d["dev"])))
+     in d["text"]),
+    ("TOOLKIT.md states the device inventory's self-assertions",
+     lambda d: "%d self-assertions all hold" % len(d["dev"]["self_assertions"]) in d["text"]
+     and all(x["holds"] for x in d["dev"]["self_assertions"])),
+    ("TOOLKIT.md states the WEB extract line count",
+     lambda d: "WEB extract, %d lines" % len(d["web"]) in d["text"]),
+    ("TOOLKIT.md carries every plan parent row",
+     lambda d: all("| %s | %s-%s | %d |" % (p["id"], p["start"], p["end"],
+                                             p["verses"]) in d["text"] for p in d["plan"]["parents"])),
+    ("TOOLKIT.md carries every plan part row",
+     lambda d: all("| %s | %s-%s | %d |" % (p["id"], p["start"], p["end"],
+                                             p["verses"]) in d["text"] for p in d["plan"]["parts"])),
+    ("TOOLKIT.md carries no Daniel-only or Ezekiel-only number of three or more digits (E-65 floor)",
+     lambda d: not [t for t in NUM.findall(d["text"]) if int(t.replace(",", "")) in d["want"]]),
+]
+
+
+def main():
+    sys.stdout.reconfigure(encoding="utf-8")
+    artifacts_only = "--artifacts-only" in sys.argv
+    checks = []
+
+    def ck(name, ok):
+        checks.append((name, bool(ok)))
+
+    inv, vc, om, pm, dev, st, plan = (_j(BK / n) for n in TOP_JSON[:5] + ("1cor_stage_report.json",
+                                                                         "strategy_plan_1Cor.json"))
+    rp, sbl, web = _rows("1Cor_rp.txt"), _rows("1Cor_sbl.txt"), _web_lines()
+
+    # 1. faces ------------------------------------------------------------------------------------------------------
+    ck("verse_inventory.json is on the WEB face", inv["numbering_face"] == "WEB")
+    ck("the device inventory is on the WEB face", dev["numbering_face"] == "WEB")
+    ck("the offset map declares identity throughout", om["identity_throughout"] is True and om["zones"] == [])
+    ck("the stage report declares identity throughout", st["numbering"]["identity_throughout"] is True)
+
+    # 2. alignment --------------------------------------------------------------------------------------------------
+    web_keys, ch = [], 0
+    for line in web:
+        m = re.match(r"===== 1COR (\d+) =====$", line)
+        if m:
+            ch = int(m.group(1))
+        m = re.match(r"\[v\] (\d+) ", line)
+        if m:
+            web_keys.append("1Cor.%d.%s" % (ch, m.group(1)))
+    ck("RP and SBLGNT carry the same verse keys in the same order", list(rp) == list(sbl))
+    ck("the WEB extract carries the same verse keys in the same order", web_keys == list(rp))
+    per = Counter(int(k.split(".")[1]) for k in rp)
+    ck("verse_inventory.json per-chapter counts equal the bytes",
+       {int(c): n for c, n in inv["chapters"].items()} == dict(per) and inv["total_verses"] == len(rp))
+    ck("web_greek_verse_check.json per-chapter counts equal the bytes",
+       all(set(v.values()) == {per[int(c)]} for c, v in vc["per_chapter"].items()) and len(vc["per_chapter"]) == len(per))
+    ck("the verse check reports no divergence",
+       vc["divergent_chapters"] == [] and vc["verses_not_in_all_three"] == [] and vc["crosswalk_flags"] == [])
+
+    # 3. layers -----------------------------------------------------------------------------------------------------
+    t = pm["tally"]
+    for key, lst in (("rp_paragraph_starts", "rp_paragraph_starts"), ("web_paragraph_starts", "web_paragraph_starts"),
+                     ("web_paragraph_midverse", "web_paragraph_midverse"),
+                     ("sbl_variant_site_verses", "sbl_variant_sites"),
+                     ("rp_sbl_difference_verses", "rp_sbl_differences"), ("web_footnote_verses", "web_footnote_verses")):
+        ck("pmarks tally %s equals its list" % key, t[key] == len(pm[lst]))
+    ck("pmarks rp_and_web_agree_on_start equals the overlap",
+       t["rp_and_web_agree_on_start"] == len(set(pm["rp_paragraph_starts"]) & set(pm["web_paragraph_starts"])))
+    diff = sorted((k for k in rp if skeleton(rp[k]) != skeleton(sbl[k])),
+                  key=lambda k: tuple(map(int, k.split(".")[1:])))
+    ck("rp_sbl_differences equals the skeleton re-derivation (%d)" % len(diff),
+       sorted(pm["rp_sbl_differences"], key=lambda k: tuple(map(int, k.split(".")[1:]))) == diff)
+    ck("the device inventory's differing-verse count equals it", dev["totals"]["rp_sbl_differing_verses"] == len(diff))
+    sign_v = {k for k, v in sbl.items() if SIGNS & set(v)}
+    signs = (sum(1 for v in sbl.values() for c in v if c in SIGNS), len(sign_v))
+    ck("the device inventory's critical-sign count equals the bytes %s" % (signs,),
+       (dev["totals"]["sbl_critical_signs"]["signs"], dev["totals"]["sbl_critical_signs"]["verses"]) == signs)
+    ck("the SBLGNT variant-site verses equal the signed verses", set(pm["sbl_variant_sites"]) == sign_v)
+    fn = sum(line.count("[fn]") for line in web)
+    q037e = (sum(v.count(";") for v in sbl.values()), sum(1 for v in sbl.values() if ";" in v))
+    ck("the WEB footnote marks equal the per-verse footnote counts", sum(pm["web_footnote_verses"].values()) == fn)
+    ck("the device inventory's verse total equals the bytes", dev["totals"]["verses"] == len(rp))
+
+    # 4. digests ----------------------------------------------------------------------------------------------------
+    for name, rec in st["outputs"].items():
+        ck("stage report digest of %s equals the bytes" % name, _sha(BK / name) == rec["sha256"])
+    used = set()
+    for rel, want_sha in dev["inputs"].items():
+        p = (BK / rel).resolve()
+        if rel in AMENDED_AFTER_INVENTORY:
+            used.add(rel)
+            recorded, _why = AMENDED_AFTER_INVENTORY[rel]
+            pre = p.with_name(p.name + ".pre_" + recorded[:12])
+            ck("device-inventory input %s was amended as declared, pre-image kept" % rel,
+               want_sha == recorded and pre.is_file() and _sha(pre) == recorded and _sha(p) != recorded)
+        else:
+            ck("device-inventory input %s equals the bytes" % rel, _sha(p) == want_sha)
+    ck("every declared amendment is still used", used == set(AMENDED_AFTER_INVENTORY))
+
+    # 5. E-65 floor -------------------------------------------------------------------------------------------------
+    pred_ints, cor_ints = set(), set()
+    for d in PREDECESSORS:
+        for p in sorted(d.glob("*.json")):
+            _ints(_j(p), pred_ints)
+    for p in sorted(BK.glob("*.json")):
+        _ints(_j(p), cor_ints)
+    want = {x for x in pred_ints - cor_ints if x >= 100}
+    ck("the E-65 floor has predecessor facts to look for (%d)" % len(want), len(want) >= 5)
+    exempt_used = set()
+
+    def floor_hits(name, strings):
+        hits = set()
+        for v in strings:
+            for x in NUM.findall(v):
+                if int(x.replace(",", "")) not in want:
+                    continue
+                ex = [i for i, e in enumerate(E65_EXEMPT) if e[0] == name and e[1] == x and e[2] in v]
+                if ex:
+                    exempt_used.update(ex)
+                else:
+                    hits.add(x)
+        return sorted(hits)
+
+    for p in sorted(BK.glob("*.json")):
+        ss = []
+        _strings(_j(p), ss)
+        hits = floor_hits(p.name, ss)
+        ck("%s carries no predecessor-only number%s" % (p.name, (" (has %s)" % hits) if hits else ""), not hits)
+    for p in sorted(list(BK.glob("*.py")) + list(HERE.glob("*.py"))):
+        hits = floor_hits(p.name, _consts(p))
+        ck("%s emits no predecessor-only number%s" % (p.name, (" (has %s)" % hits) if hits else ""), not hits)
+    ck("every E-65 exemption is still used", exempt_used == set(range(len(E65_EXEMPT))))
+
+    # 6. TOOLKIT.md claims ------------------------------------------------------------------------------------------
+    if not artifacts_only:
+        ck("TOOLKIT.md exists", TK.is_file())
+        text = TK.read_text(encoding="utf-8") if TK.is_file() else ""
+        ck("TOOLKIT.md pins at least one claim", bool(TOOLKIT_PINS))
+        data = dict(inv=inv, om=om, pm=pm, dev=dev, plan=plan, rp=rp, sbl=sbl, web=web, text=text, want=want,
+                    ndiff=len(diff), signs=signs, q037e=q037e, fn=fn)
+        for claim, pred in TOOLKIT_PINS:
+            ck(claim, pred(data))
+        refs = set(rp)
+        bad = sorted({"%s:%s" % m.groups() for m in CV.finditer(text)
+                      if "1Cor.%d.%d" % tuple(map(int, m.groups())) not in refs})
+        ck("every chapter:verse named in TOOLKIT.md exists%s" % ((" (not: %s)" % bad) if bad else ""), not bad)
+
+    # 7. import shadow (2026-10-15: cor_lib once put greek_substrate/tools at sys.path[0], and its citation_sweep.py
+    # replaced this book's for every importer) -----------------------------------------------------------------------
+    probe = ("import sys, pathlib\nb = list(sys.path)\nimport cor_lib\nassert sys.path == b, 'cor_lib changed sys.path'\n"
+             "import citation_sweep\nprint(pathlib.Path(citation_sweep.__file__).resolve().parent)\n")
+    r = subprocess.run([sys.executable, "-B", "-c", probe], cwd=HERE, capture_output=True, text=True,
+                       encoding="utf-8", env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1"))
+    ck("importing cor_lib leaves sys.path unchanged and citation_sweep binds to this book's tools",
+       r.returncode == 0 and r.stdout.strip() == str(HERE))
+    sp_edits = sorted(p.name for p in HERE.glob("*.py") if _greek_path_edits(p))
+    ck("no tool here puts greek_substrate on sys.path%s" % ((" (%s)" % sp_edits) if sp_edits else ""), not sp_edits)
+
+    failed = [n for n, ok in checks if not ok]
+    print(json.dumps({"checks": len(checks), "passed": len(checks) - len(failed), "failed": failed,
+                      "scope": "artifacts_only" if artifacts_only else "full",
+                      "declared": {"amended_after_inventory": len(AMENDED_AFTER_INVENTORY), "e65_exempt": len(E65_EXEMPT)},
+                      "verdict": "GREEN" if not failed else "RED"}, ensure_ascii=False, indent=1))
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

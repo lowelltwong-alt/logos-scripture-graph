@@ -1,0 +1,750 @@
+{
+ "book": "1Cor",
+ "corpus": "rows_v1_final.jsonl",
+ "corpus_sha256": "4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "audit_coverage": {
+  "rows_read": 39,
+  "rows_held_by_byte_equality": 31,
+  "evidence_first": true,
+  "what_i_did_not_check": [
+   "the six scholar-record ranges of item 20 beyond their headings and a tier scan",
+   "feed rows M8-1Cor-039 and -040 (NQ-11)",
+   "the adjudicator's cross_proposal_notes v7-obligation claim (NQ-14)",
+   "a fresh literary re-argument of each row beyond the quoted bytes, the marks and the seams",
+   "the RP CSV and SBL apparatus (forbidden paths); pilcrow facts rest on pmarks at tier EXTRACTED",
+   "which record, if any, names the review_status flip (NQ-10) beyond E7 and rows_after_e9.manifest",
+   "classing of not_matching outputs is by id prefix only"
+  ]
+ },
+ "byte_verifications": [
+  "corpus sha 4287903 pinned and matched",
+  "first_lanes sha d175 = R3 before",
+  "replay(E9 spans, before) == corpus",
+  "31 held rows byte-equal",
+  "W1-002 'period' bytes",
+  "'¶' count in 1Cor_rp.txt = 0",
+  "lead sentences of 011/027/028/051/052 in E9 and in the rows' fields",
+  "witness files contain 0 licence words: {\"SP\\\\1Cor\\\\1Cor_rp.txt\": 0, \"SP\\\\1Cor\\\\1Cor_sbl.txt\": 0, \"SP\\\\1Cor\\\\1Cor_web_clean.txt\": 0}"
+ ],
+ "residual": [
+  {
+   "row_id": "W5-014",
+   "e_class": "strategy_row_mismatch",
+   "severity": "low",
+   "origin": "book_strategy_1Cor.md l.87 (D3)",
+   "defective_text": "11:33 and 14:39 carry the same hoste-plus-vocative pattern. They close their rows",
+   "byte_evidence": "row span 1Cor.14.37-1Cor.14.40; pmarks 1Cor.14.39 interior",
+   "proposed_cure": "Amend the strategy sentence at end review; the row needs no change (disclosed in E9 unresolved_uncertainty)."
+  },
+  {
+   "row_id": "W1-011",
+   "e_class": "mark_layer_attribution",
+   "severity": "low",
+   "origin": "row prose (held row) and E7 unresolved_uncertainty",
+   "defective_text": "An RP pilcrow stands at 3:16, this unit's opening verse, and another at 3:18",
+   "byte_evidence": "'¶' count in 1Cor_rp.txt = 0; pmarks rp_paragraph_starts contains 1Cor.3.16 and 1Cor.3.18 (EXTRACTED from the RP CSV)",
+   "proposed_cure": "None needed for truth; the claim stands in the RP edition layer. A reader should be told the layer is pmarks, not 1Cor_rp.txt."
+  },
+  {
+   "row_id": "W4-002/W4-004",
+   "e_class": "refs_mirror_flag",
+   "severity": "low",
+   "origin": "validator report refs_mirror arm",
+   "defective_text": "3 citations: W4-002 11:15; W4-004 11:25, 11:31",
+   "byte_evidence": "rows_v1_final.jsonl.validator_report.json refs_mirror FLAGS 3, hard GREEN; E9 GATE s2 expects the same entries",
+   "proposed_cure": "Disclosed; carried to end review."
+  },
+  {
+   "row_id": null,
+   "e_class": "method_record_check_stale",
+   "severity": "medium",
+   "origin": "M8_fable/gen_method_v8.py l.33 ROWS_SHA and method_record_check.v8.json",
+   "defective_text": "ROWS_SHA pinned to d175136999a5409789e055592c8341b2bd92230ef132b00697a30c2ec03e76b0; shipped check record says 13/13 PASS 'regenerated 53601c73c3c0567b, on disk 53601c73c3c0567b: MATCH'",
+   "byte_evidence": "gen_method_v8.py --check (in place and on the m8copy): 'FAIL: an input is not the bytes this generator pins'; check_method_record.py on the copy: 12/13, FAILED=['generated_deterministically'], exit 1; --selftest: 'SELFTEST: FAIL' (clean document 12/13); my record differs from the shipped one on 5 keys",
+   "proposed_cure": "Re-pin gen_method_v8.py to corpus 4287903... and regenerate v8 (bytes may be unchanged) and method_record_check.v8.json, or record a ruling that v8 stands over d175."
+  },
+  {
+   "row_id": null,
+   "e_class": "end_packet_stale",
+   "severity": "medium",
+   "origin": "SP/1Cor/fable_end_review/1Cor_fable_end_packet.v1.json (0f341eff)",
+   "defective_text": "packet built over corpus d175... and sidecar a28e9a8f",
+   "byte_evidence": "gen_fable_end_packet.py --check: MISMATCH; installed sidecar 640f95ae; three dry-report gates unmet for this cause",
+   "proposed_cure": "Regenerate the packet over corpus 4287903... and the installed sidecar, then re-pin."
+  },
+  {
+   "row_id": null,
+   "e_class": "provenance_misdescription",
+   "severity": "medium",
+   "origin": "SP/1Cor/deliverables/README.md Status bullet 2 (ee4afaf8)",
+   "defective_text": "In `M8-1Cor-011`, `027`, `028`, `051` and `052` that reason is the recorded alternative alone, because the sentence before it states a fact rather than a doubt.",
+   "byte_evidence": "After E9 R9-LEADS the lead sentence of 011, 027 and 052 stands in boundary_rationale (W1-011, W2-012, W5-010: in_rationale True, in_alt False); only 028 and 051 lead from strongest_rejected_alternative (marks.py LEADROW)",
+   "proposed_cure": "Regenerate the README (make_docs.py) over the current book_params and corpus; re-pin."
+  },
+  {
+   "row_id": null,
+   "e_class": "stale_count_in_header",
+   "severity": "low",
+   "origin": "BIBLE_CHUNKING_METHOD.v8.md header l.17",
+   "defective_text": "7 controlling rulings (E1 to E7) are on file",
+   "byte_evidence": "E8 and E9 are on file at this close (E9 66fa2020)",
+   "proposed_cure": "State 'measured when written' or regenerate with 9; low."
+  },
+  {
+   "row_id": null,
+   "e_class": "undescribed_status_flip",
+   "severity": "low",
+   "origin": "rows_v1_final.jsonl vs fixup/draft_rows_fixup5_applied.jsonl",
+   "defective_text": "review_status 'pending' -> 'candidate_review_complete' on all 70 rows",
+   "byte_evidence": "nq.py: 90 field diffs = 70 review_status + 20 E9 span fields; E7 predates E9 and rows_after_e9.manifest lists only the 21 elements; I found no record I read that names the flip",
+   "proposed_cure": "Name the status flip in the rows_v1_final manifest or the close evidence."
+  }
+ ],
+ "close_gate_assessment": [
+  {
+   "item": 1,
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "R2 finding in final_check.json reissue_item_1: build_lf_support_sample --check MATCH; frame 31, sample 7; 0 of 7 sampled LF-supported rows defective, 0 LF-attributable. Not found NOT met by R2.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 2,
+   "met": true,
+   "type": null,
+   "evidence": "Validator suite report over the corpus: hard GREEN, refs_mirror FLAGS 3 (disclosed); e23_sweep two flags on W1-002 triaged as the Greek rhetorical period (e23_triage); cwo parity MATCH GREEN.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 3,
+   "met": true,
+   "type": null,
+   "evidence": "27 routed items carried to the deferred end review (routed_items.v1.jsonl, ROUTED n 27), owner-ruled under OW-28; no other deferred item found open in what I read.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 4,
+   "met": true,
+   "type": null,
+   "evidence": "No OW-1 obligation found unmet for this book in the dry report or the records read; campaign-level parts are not due at a book close.",
+   "tier": "INFERRED"
+  },
+  {
+   "item": 5,
+   "met": true,
+   "type": null,
+   "evidence": "Hard validator GREEN and parity GREEN on corpus 4287903; tiling 437/437 over 70 rows (gen.py and apply_on_final.json).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 6,
+   "met": true,
+   "type": null,
+   "evidence": "Revelation requirements: not applicable to 1 Corinthians.",
+   "tier": "INFERRED"
+  },
+  {
+   "item": 7,
+   "met": true,
+   "type": null,
+   "evidence": "Campaign-level retro semantic audit; for this book the rows read show no semantic defect at medium or above (R4, R2, postcheck).",
+   "tier": "INFERRED"
+  },
+  {
+   "item": 8,
+   "met": true,
+   "type": null,
+   "evidence": "Boss audit e1 RETURN (B3, B4, B7, B8 NOT_TESTABLE), e2 CONFIRM with B3, B4, B7, B8 MET and return_cleared for W2-006, W3-001, W3-002; E7 R7-NOT-TESTABLE carries e1's CONFIRMs by byte equality (a construction, routed).",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 9,
+   "met": true,
+   "type": null,
+   "evidence": "Repair rounds applied by ruled exact orders; R3 replay of E9 R9-SPANS reproduces the corpus exactly.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 10,
+   "met": true,
+   "type": null,
+   "evidence": "Final-checker gate: this lane and its blind pair are the final check; boss escalation ran (e1, e2). This lane's own verdict is not_met (see verdict).",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 11,
+   "met": true,
+   "type": null,
+   "evidence": "Controlling rulings E1-E9 issued by claude-opus-5-5 as grader_fallback under OW-25 (carrier ow13_grader_model claude-fable-5-1, fallback_in_force true).",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 12,
+   "met": true,
+   "type": null,
+   "evidence": "Campaign-level re-check decision; it blocks the campaign's completion, not this book's.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 13,
+   "met": false,
+   "type": "OWED_TRANSCRIPT_AUDIT",
+   "evidence": "Census per_book.1Cor: 79 attempts, 0 with a retained transcript; bytes_audited_by_stage1 0; reconcile NOT_RUN. The stage-1 transcript audit is OWED, NOT MET. (Placing this owner-ruled entry on item 13 is my construction.)",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 14,
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "R3 finding in final_check.json reissue_item_14: verdict match; 23 spans each applied exactly once, replay equals after.jsonl and the corpus on every row and field; rows changed 14, unchanged 56. Not found NOT met by R3.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 15,
+   "met": true,
+   "type": null,
+   "evidence": "Write authority and ceiling: under OW-28 spend is tracked and does not block. 7,761,939 measured tokens across 61 of 98 runs, 37 unmeasured, the full spend unknown. No limit was set for 1 Corinthians; under OW-28 spend is tracked and does not block the close. Shared-file appends are the orchestrator's act under OW-37 point 3 and OW-29 (NQ-4).",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 16,
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "Book-close project status update is written at the close act.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 17,
+   "met": true,
+   "type": null,
+   "evidence": "OW-13 model roles with the OW-25 fallback: every role on claude-opus-5-5; downgrade recorded as grader_fallback; decorrelation by family UNAVAILABLE.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 18,
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "Orchestration playbook appended at the close act.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 19,
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "Quality-over-budget statement is filled at the close act; nothing I read put budget ahead of quality.",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": 20,
+   "met": true,
+   "type": null,
+   "evidence": "Scholar record: gen_scholar IDENTICAL, check_scholar PASS 19/19, R9-WEB substitution applied (lines 6144, 6306; table row 14205). The six named ranges were read by heading and tier scan only (limit).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 21,
+   "met": false,
+   "type": "METHOD_RECORD_CHECK_STALE_AGAINST_CURRENT_CORPUS",
+   "evidence": "gen_method_v8.py --check FAILs ('an input is not the bytes this generator pins'; ROWS_SHA = d175); checker on the copy 12/13 with generated_deterministically failing and selftest FAIL; the shipped method_record_check.v8.json (57089818) says 13/13 PASS and is stale.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 22,
+   "met": false,
+   "type": "ATLAS_README_MISDESCRIBES_LEAD_BASIS_AFTER_R9_LEADS",
+   "evidence": "check_atlas_rows PASS (28 checks, 20 tampers caught) and selftest PASS with --out-root work\\atlas; but README Status bullet 2 says the five rows lead from the recorded alternative alone, false for 011, 027, 052 after R9-LEADS.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 23,
+   "met": true,
+   "type": null,
+   "evidence": "P01-P06 each adjudicated by a non-proposer and ADOPTED; adopted text matches v8 bytes; gen_proposals_adjudicated MATCH. Reservation: 'deferred 0' while P06 q12 and the P05 sweep were deferred inside an ADOPT.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 24,
+   "met": false,
+   "type": "SHIPPED_PROVENANCE_MISDESCRIPTION",
+   "evidence": "The README lead-basis sentence (item 22) and the stale method check record (item 21) each state a provenance the current bytes do not support (OW-18).",
+   "tier": "MEASURED"
+  },
+  {
+   "item": 25,
+   "met": false,
+   "type": "DUE_AT_CLOSE_ACT",
+   "evidence": "R4 finding in final_check.json reissue_item_25: 34 rows reviewed, 0 defects, 3 low notes. One pair blind to each other. Never count this pair as new blind lenses. Not found NOT met by R4.",
+   "tier": "MEASURED"
+  },
+  {
+   "item": "addendum OW-28",
+   "met": false,
+   "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+   "evidence": "Campaign-end architect review deferred by the owner; deferred is never met. Its packet is also stale (gen_fable_end_packet --check MISMATCH, NQ-6).",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "addendum OW-29",
+   "met": true,
+   "type": null,
+   "evidence": "The orchestrator runs --close after a clean dry run; README carries 'Merging into the shared atlas feed is part of the close act, run by the orchestrator under OW-37 point 3 and OW-29.' The dry run is not clean (8 unmet).",
+   "tier": "EXTRACTED"
+  },
+  {
+   "item": "addendum OW-30",
+   "met": true,
+   "type": null,
+   "evidence": "No held atlas row needing Fable's precedent found in the feed rows read; check_atlas PASS.",
+   "tier": "INFERRED"
+  }
+ ],
+ "process_findings": [
+  "The method generator and its check record were not re-pinned after E9 changed the corpus; the shipped check record still reports 13/13.",
+  "The end-review packet and the README were not regenerated after E9.",
+  "The review_status flip on all 70 rows is not named in the records I read.",
+  "Every lane, ruling and check is one model family (OW-25); same-family agreement counts as one voice.",
+  "This lane's context was compacted three times; work resumed from OUT working files only.",
+  "The brief names frozen_for_merged_lanes; D1/D2 build notes and the README name frozen_for_close_lanes (D2 records the orchestrator-authorised pin move)."
+ ],
+ "stage1_findings_disposition": [],
+ "transcript_coverage": {
+  "attempts_total": 79,
+  "attempts_with_a_transcript": 0,
+  "attempts_with_no_transcript": 79,
+  "bytes_audited_by_stage1": 0,
+  "reconcile_verdict": "NOT_RUN",
+  "statement": "No attempt of this book retained a transcript and no stage-1 audit read any byte; the transcript audit is OWED, NOT MET."
+ },
+ "verdict": "not_met",
+ "statement": "The rows are fit to assemble: no high or medium defect was found in the corpus bytes. The close is NOT met: besides the owner-ruled DEFERRED_OW28_FABLE_END_REVIEW and OWED_TRANSCRIPT_AUDIT, three medium defects block it: the method record's generator and check record are stale against the current corpus (item 21), the end-review packet is stale (NQ-6), and the deliverables README misdescribes the lead basis of five feed rows after R9-LEADS (items 22, 24).",
+ "rows_read": 39,
+ "rows_held_by_byte_equality": 31,
+ "records_read": [
+  {
+   "path": "SP\\1Cor\\review\\1cor_controlling_agent_rulings_E9.v1.json",
+   "locator": "rulings R9-SPANS orders[0..4] exact_spans; R9-LEADS; R9-WEB; R9-PAIR-MECH",
+   "sha256": "66fa2020b76c3c702906501723cc4c5f997e897a74725d0b1ac120bfd5eda37c"
+  },
+  {
+   "path": "SP\\1Cor\\close\\e9_apply\\apply_on_final.json",
+   "locator": "spans_applied, elements_changed, rows_changed, applied_sha256",
+   "sha256": "beca0d925c93f58bd857bb83b66ad25ab5aecbe282b3109851d34b1afa074872"
+  },
+  {
+   "path": "SP\\1Cor\\close\\e9_apply\\rows_after_e9.manifest.json",
+   "locator": "tool, source, rulings, elements_changed",
+   "sha256": "4bdcfff59993468ab5ba17faa3fd16e2ccf43cd0c762ddd72931c94938b70893"
+  },
+  {
+   "path": "SP\\1Cor\\close\\lf_support_sample.v1.json",
+   "locator": "frame and sample",
+   "sha256": "862d7db5645c4d975fb865cc046f639e0fe5a530366ee9884a773c65a68689b2"
+  },
+  {
+   "path": "SP\\1Cor\\pmarks_1Cor.json",
+   "locator": "rp_paragraph_starts, web_paragraph_starts, sbl_variant_sites",
+   "sha256": "5cd9055a8ecbfbc8dcf0f5dbc43e7bedbb0e69dc4fb7e8d9000e164e074c7fd7"
+  },
+  {
+   "path": "SP\\1Cor\\review\\1cor_boss_audit_e2.v1.json",
+   "locator": "return_cleared, unresolved_uncertainty, reported_where_measured",
+   "sha256": "2d4e55dc1791eef748ce1b29226ef6af606e476dbc1f613472e74d90ff96fa59"
+  },
+  {
+   "path": "SP\\1Cor\\close\\e23_sweep.rows_v1_final.v1.json",
+   "locator": "W1-002 flags",
+   "sha256": "45a9886bbc7762772c835dadbdf99a84291329b3e8313b44903fbf30b65f7d8c"
+  },
+  {
+   "path": "SP\\1Cor\\rows_v1_final.jsonl.validator_report.json",
+   "locator": "hard, refs_mirror",
+   "sha256": "978a58d901f65818124fa3ae95fa56ad174ad850432a68281fa281d3cca27075"
+  }
+ ],
+ "reissue_item_1": {
+  "sample_sha256": "862d7db5645c4d975fb865cc046f639e0fe5a530366ee9884a773c65a68689b2",
+  "corpus_sha256": "4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea",
+  "frame_size": 31,
+  "sample_size": 7,
+  "check_output": "build_lf_support_sample.py --book 1Cor --check: MATCH",
+  "rows": [
+   {
+    "row_id": "W1-001",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary 1Cor.1.1-1Cor.1.3 holds against the witnesses on what I tested: every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); the seams meet book start and 1Cor.1.4-1Cor.1.9 with no gap. The reading lens's 'support' survives this lane's adversarial test; this lane did not re-argue the literary judgement beyond the seam and the quoted bytes.",
+    "byte_evidence": "row bytes held in corpus 4287903015be9fcd; confidence high"
+   },
+   {
+    "row_id": "W1-007",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary 1Cor.2.6-1Cor.2.16 holds against the witnesses on what I tested: every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); the seams meet 1Cor.2.1-1Cor.2.5 and 1Cor.3.1-1Cor.3.4 with no gap. The reading lens's 'support' survives this lane's adversarial test; this lane did not re-argue the literary judgement beyond the seam and the quoted bytes.",
+    "byte_evidence": "row bytes held in corpus 4287903015be9fcd; confidence medium"
+   },
+   {
+    "row_id": "W2-003",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary 1Cor.5.9-1Cor.5.13 holds against the witnesses on what I tested: every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); the seams meet 1Cor.5.6-1Cor.5.8 and 1Cor.6.1-1Cor.6.8 with no gap. The reading lens's 'support' survives this lane's adversarial test; this lane did not re-argue the literary judgement beyond the seam and the quoted bytes.",
+    "byte_evidence": "row bytes held in corpus 4287903015be9fcd; confidence medium"
+   },
+   {
+    "row_id": "W2-015",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary 1Cor.7.39-1Cor.7.40 holds against the witnesses on what I tested: every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); the seams meet 1Cor.7.36-1Cor.7.38 and 1Cor.8.1-1Cor.8.13 with no gap. The reading lens's 'support' survives this lane's adversarial test; this lane did not re-argue the literary judgement beyond the seam and the quoted bytes.",
+    "byte_evidence": "row bytes held in corpus 4287903015be9fcd; confidence medium_low"
+   },
+   {
+    "row_id": "W4-003",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary 1Cor.11.17-1Cor.11.22 holds against the witnesses on what I tested: every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); the seams meet 1Cor.11.13-1Cor.11.16 and 1Cor.11.23-1Cor.11.34 with no gap. The reading lens's 'support' survives this lane's adversarial test; this lane did not re-argue the literary judgement beyond the seam and the quoted bytes.",
+    "byte_evidence": "row bytes held in corpus 4287903015be9fcd; confidence medium"
+   },
+   {
+    "row_id": "W5-007",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary 1Cor.13.8-1Cor.13.13 holds against the witnesses on what I tested: every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); the seams meet 1Cor.13.4-1Cor.13.7 and 1Cor.14.1-1Cor.14.5 with no gap. The reading lens's 'support' survives this lane's adversarial test; this lane did not re-argue the literary judgement beyond the seam and the quoted bytes.",
+    "byte_evidence": "row bytes held in corpus 4287903015be9fcd; confidence medium"
+   },
+   {
+    "row_id": "W6-002",
+    "defect": false,
+    "severity": "none",
+    "defect_class": null,
+    "lf_attributable": false,
+    "finding": "Boundary 1Cor.15.12-1Cor.15.19 holds against the witnesses on what I tested: every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); the seams meet 1Cor.15.1-1Cor.15.11 and 1Cor.15.20-1Cor.15.28 with no gap. The reading lens's 'support' survives this lane's adversarial test; this lane did not re-argue the literary judgement beyond the seam and the quoted bytes.",
+    "byte_evidence": "row bytes held in corpus 4287903015be9fcd; confidence medium"
+   }
+  ],
+  "defects": 0,
+  "lf_attributable_defects": 0,
+  "digits": "0 of 7 sampled LF-supported rows of 1 Corinthians rows_v1_final.jsonl defective, 0 LF-attributable"
+ },
+ "reissue_item_14": {
+  "verdict": "match",
+  "spans_replayed": 23,
+  "each_replace_exactly_once_count": 1,
+  "rows_touched": 14,
+  "elements_touched": 21,
+  "unordered_changes": 0,
+  "missing_changes": 0,
+  "before_sha256": "d175136999a5409789e055592c8341b2bd92230ef132b00697a30c2ec03e76b0",
+  "after_sha256": "4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea",
+  "rulings_sha256": "66fa2020b76c3c702906501723cc4c5f997e897a74725d0b1ac120bfd5eda37c",
+  "record_agreement": "apply_on_final.json: spans_applied 23, elements_changed 21, rows_changed 14, unchanged 56, ok true, applied_sha256 4287903...; rows_after_e9.manifest elements_changed equals my replay",
+  "tier": "MEASURED"
+ },
+ "reissue_item_25": {
+  "rows_reviewed": 34,
+  "defects": 0,
+  "rows": [
+   {
+    "row_id": "W1-002",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W1-001 (1Cor.1.1-1Cor.1.3) and close meets W1-003 (1Cor.1.10-1Cor.1.17); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.1.4-1Cor.1.9; confidence high; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W1-003",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W1-002 (1Cor.1.4-1Cor.1.9) and close meets W1-004 (1Cor.1.18-1Cor.1.25); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.1.10-1Cor.1.17; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W1-004",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W1-003 (1Cor.1.10-1Cor.1.17) and close meets W1-005 (1Cor.1.26-1Cor.1.31); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.1.18-1Cor.1.25; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W2-005",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W2-004 (1Cor.6.1-1Cor.6.8) and close meets W2-006 (1Cor.6.12-1Cor.6.20); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.6.9-1Cor.6.11; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W2-006",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W2-005 (1Cor.6.9-1Cor.6.11) and close meets W2-007 (1Cor.7.1-1Cor.7.7); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.6.12-1Cor.6.20; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W2-007",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W2-006 (1Cor.6.12-1Cor.6.20) and close meets W2-008 (1Cor.7.8-1Cor.7.9); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.7.1-1Cor.7.7; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W2-012",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W2-011 (1Cor.7.17-1Cor.7.24) and close meets W2-013 (1Cor.7.32-1Cor.7.35); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.7.25-1Cor.7.31; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W2-013",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W2-012 (1Cor.7.25-1Cor.7.31) and close meets W2-014 (1Cor.7.36-1Cor.7.38); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.7.32-1Cor.7.35; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W2-014",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W2-013 (1Cor.7.32-1Cor.7.35) and close meets W2-015 (1Cor.7.39-1Cor.7.40); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.7.36-1Cor.7.38; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W2-015",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W2-014 (1Cor.7.36-1Cor.7.38) and close meets W3-001 (1Cor.8.1-1Cor.8.13); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.7.39-1Cor.7.40; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W3-001",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W2-015 (1Cor.7.39-1Cor.7.40) and close meets W3-002 (1Cor.9.1-1Cor.9.14); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.8.1-1Cor.8.13; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W3-002",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W3-001 (1Cor.8.1-1Cor.8.13) and close meets W3-003 (1Cor.9.15-1Cor.9.23); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.9.1-1Cor.9.14; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W3-003",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W3-002 (1Cor.9.1-1Cor.9.14) and close meets W3-004 (1Cor.9.24-1Cor.9.27); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.9.15-1Cor.9.23; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W3-004",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W3-003 (1Cor.9.15-1Cor.9.23) and close meets W3-005 (1Cor.10.1-1Cor.10.13); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.9.24-1Cor.9.27; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W3-005",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W3-004 (1Cor.9.24-1Cor.9.27) and close meets W3-006 (1Cor.10.14-1Cor.10.22); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.10.1-1Cor.10.13; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W3-006",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W3-005 (1Cor.10.1-1Cor.10.13) and close meets W3-007 (1Cor.10.23-1Cor.10.30); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.10.14-1Cor.10.22; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W3-007",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W3-006 (1Cor.10.14-1Cor.10.22) and close meets W3-008 (1Cor.10.31-1Cor.11.1); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.10.23-1Cor.10.30; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W5-002",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-001 (1Cor.12.1-1Cor.12.3) and close meets W5-003 (1Cor.12.12-1Cor.12.26); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.12.4-1Cor.12.11; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W5-003",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-002 (1Cor.12.4-1Cor.12.11) and close meets W5-004 (1Cor.12.27-1Cor.12.31); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.12.12-1Cor.12.26; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W5-004",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-003 (1Cor.12.12-1Cor.12.26) and close meets W5-005 (1Cor.13.1-1Cor.13.3); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.12.27-1Cor.12.31; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W5-008",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-007 (1Cor.13.8-1Cor.13.13) and close meets W5-009 (1Cor.14.6-1Cor.14.12); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.14.1-1Cor.14.5; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W5-009",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-008 (1Cor.14.1-1Cor.14.5) and close meets W5-010 (1Cor.14.13-1Cor.14.19); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.14.6-1Cor.14.12; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W5-010",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-009 (1Cor.14.6-1Cor.14.12) and close meets W5-011 (1Cor.14.20-1Cor.14.25); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.14.13-1Cor.14.19; confidence medium_low; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W5-011",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-010 (1Cor.14.13-1Cor.14.19) and close meets W5-012 (1Cor.14.26-1Cor.14.33); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.14.20-1Cor.14.25; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W5-013",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "low",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-012 (1Cor.14.26-1Cor.14.33) and close meets W5-014 (1Cor.14.37-1Cor.14.40); corpus tiles 437 verses with no gap or overlap. Note: The row names 'RP pilcrow at 14:34 and 14:37'. Both stand in the RP paragraph-start layer (pmarks), not in 1Cor_rp.txt, which holds 0 pilcrow characters; the row's word 'RP' is true of the edition layer at tier EXTRACTED.",
+    "byte_evidence": "span 1Cor.14.34-1Cor.14.36; confidence low; corpus sha256 4287903015be9fcd; pmarks rp_paragraph_starts has 1Cor.14.34, 1Cor.14.37; '¶' count in 1Cor_rp.txt = 0"
+   },
+   {
+    "row_id": "W5-014",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "low",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-013 (1Cor.14.34-1Cor.14.36) and close meets W6-001 (1Cor.15.1-1Cor.15.11); corpus tiles 437 verses with no gap or overlap. Note: Strategy line 87 (D3) says 14:39 'close[s] their rows' while this row runs to 14:40 and reads the RP pilcrow at 14:39 as interior. The row is consistent with the layer (pmarks rp_paragraph_starts has 1Cor.14.39; check_marks treats an interior mark as weighed, not cutting); the mismatch is in the strategy's wording and is already disclosed in E9 unresolved_uncertainty.",
+    "byte_evidence": "span 1Cor.14.37-1Cor.14.40; confidence medium; corpus sha256 4287903015be9fcd; book_strategy_1Cor.md l.87; pmarks_1Cor.json rp_paragraph_starts contains 1Cor.14.37 and 1Cor.14.39; row span 1Cor.14.37-1Cor.14.40"
+   },
+   {
+    "row_id": "W6-001",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W5-014 (1Cor.14.37-1Cor.14.40) and close meets W6-002 (1Cor.15.12-1Cor.15.19); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.15.1-1Cor.15.11; confidence high; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W6-002",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W6-001 (1Cor.15.1-1Cor.15.11) and close meets W6-003 (1Cor.15.20-1Cor.15.28); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.15.12-1Cor.15.19; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W6-009",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W6-008 (1Cor.16.5-1Cor.16.11) and close meets W6-010 (1Cor.16.13-1Cor.16.14); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.16.12-1Cor.16.12; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W6-010",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W6-009 (1Cor.16.12-1Cor.16.12) and close meets W6-011 (1Cor.16.15-1Cor.16.18); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.16.13-1Cor.16.14; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W6-011",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W6-010 (1Cor.16.13-1Cor.16.14) and close meets W6-012 (1Cor.16.19-1Cor.16.20); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.16.15-1Cor.16.18; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W6-012",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W6-011 (1Cor.16.15-1Cor.16.18) and close meets W6-013 (1Cor.16.21-1Cor.16.22); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.16.19-1Cor.16.20; confidence medium; corpus sha256 4287903015be9fcd"
+   },
+   {
+    "row_id": "W6-013",
+    "changed": true,
+    "verdict": "sound",
+    "severity": "low",
+    "finding": "Changed by E9 R9-SPANS only: the replay of the ordered spans on rows_v1_first_lanes reproduces this row's corpus bytes exactly (each replace_exactly_once count 1), so the new text is the ruling's ordered text applied by tool, not an author's; no verse range, boundary value or confidence changed. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W6-012 (1Cor.16.19-1Cor.16.20) and close meets W6-014 (1Cor.16.23-1Cor.16.24); corpus tiles 437 verses with no gap or overlap. Note: RP pilcrow and WEB paragraph at 16:21 stand in their layers; the RP one is a pmarks fact (1Cor_rp.txt holds no pilcrow).",
+    "byte_evidence": "span 1Cor.16.21-1Cor.16.22; confidence medium; corpus sha256 4287903015be9fcd; pmarks: 1Cor.16.21 in rp_paragraph_starts and web_paragraph_starts"
+   },
+   {
+    "row_id": "W6-014",
+    "changed": false,
+    "verdict": "sound",
+    "severity": "none",
+    "finding": "Neighbour of a changed row; bytes held equal to rows_v1_first_lanes. every Greek run quoted in the row stands verbatim (NFC, whitespace-normalised) in 1Cor_rp.txt or 1Cor_sbl.txt and every quoted English run of 3+ words in 1Cor_web_clean.txt (rows.py: 756/756 Greek, 18/18 English corpus-wide, 0 misses); each RP pilcrow / WEB paragraph / SBL sign claim's first named verse is in pmarks_1Cor.json (marks.py; the 59 script misses were each read in context and are window artefacts that bled into the next signal-list item); onset meets W6-013 (1Cor.16.21-1Cor.16.22) and close meets book end (-); corpus tiles 437 verses with no gap or overlap.",
+    "byte_evidence": "span 1Cor.16.23-1Cor.16.24; confidence medium; corpus sha256 4287903015be9fcd"
+   }
+  ],
+  "statement": "One pair blind to each other. Never count this pair as new blind lenses."
+ },
+ "e23_triage": [
+  {
+   "row_id": "W1-002",
+   "field": "boundary_rationale",
+   "use": "Greek rhetorical period",
+   "byte_evidence": "'The period runs on through their enrichment in speech and knowledge' and 'The period closes on rp:1Cor.1.9 Πιστὸς ὁ θεός'",
+   "full_stop_driver": false
+  },
+  {
+   "row_id": "W1-002",
+   "field": "strongest_rejected_alternative",
+   "use": "Greek rhetorical period",
+   "byte_evidence": "'so it belongs to the close of the period'",
+   "full_stop_driver": false
+  }
+ ]
+}

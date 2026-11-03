@@ -1,0 +1,79 @@
+{
+ "item_20": {
+  "fit_to_accept": true,
+  "reservations": [
+   "Fable audit DEFERRED (OW-28), never met",
+   "the WEB licence term and edition are not stated anywhere in the record; publication staging is not met (owner's act)",
+   "only 3946-4038 read line by line; five ranges tested by script"
+  ],
+  "findings": [
+   "In 3946-4038 every ground is in the unit's own terms and both readings and the ruling are given, so a dissenting scholar can find the evidence against the row. The entry still says 'imperative on the present drafter reading' at 1:26; it is labelled as a reading, consistent with the ruling that the entry not assert a mood (low).",
+   "All Greek runs in the six ranges stand in RP or SBL except one unaccented gloss 'τουτο δε φημι' (15:50 range), which is a transliteration-style gloss, not a quotation (low).",
+   "No 'the text reads ... sign/apparatus' conflation found in the ranges.",
+   "The record binds the corpus: gen_scholar --check IDENTICAL; check_scholar PASS 19/19.",
+   "R9-WEB applied: 3 new attribution lines, 0 old; 'public domain' 3 occurrences, none asserting a WEB term."
+  ],
+  "checks_i_ran": [
+   "gen_scholar --check: IDENTICAL",
+   "check_scholar: PASS 19/19",
+   "s22_fin.py sch",
+   "s17_r1b.py"
+  ]
+ },
+ "item_21": {
+  "fit_to_accept": false,
+  "reservations": [
+   "Fable check DEFERRED (OW-28)"
+  ],
+  "findings": [
+   "gen_method_v8.py --check FAILS in place: ROWS_SHA pins d1751369, not the corpus 4287903015. Exact change: set ROWS_SHA to 4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea; my re-pinned copy then regenerates v8 byte-identical (53601c73).",
+   "The checker copy on v8 gives 12/13, not the shipped 13/13: the shipped method_record_check.v8.json is stale. --selftest FAILs on the clean document while catching all 6 tampers.",
+   "Most v8 changes describe controls 1 Corinthians did not run (v8 says so at line 20-21); P01 (builder refusal on an unnamed run) and P03 (rule 5 of repair rounds) would have caught earlier the FIXUP-4/-5 applier issues; P02/P04 (witness pair, primary-witness keying) prevent mis-keying; P05/P06 describe.",
+   "What the checker still cannot catch: whether the generator's pinned rows are the closing corpus (this very defect passed it), and whether an instruction-shaped adopted_text was executed fully."
+  ],
+  "checks_i_ran": [
+   "gen_method_v8.py --check: FAIL",
+   "check_method_record.py BIBLE_CHUNKING_METHOD.v8.md (copy): 12/13",
+   "--selftest (copy): FAIL on clean, 6/6 tampers caught",
+   "gen_method_v8_repin_test.py: IDENTICAL 53601c73"
+  ]
+ },
+ "item_22": {
+  "fit_to_accept": true,
+  "feed_sha256": "5d81467f947a97c5e9beb8799d9845498c1be131d03a10ca326a96006bc1d9f3",
+  "reservations": [
+   "Fable check DEFERRED (OW-28)",
+   "the README was not audited claim by claim"
+  ],
+  "findings": [
+   "No row I read carries a judgement as measurement: the 3 possible_inconsistency_unruled linkages carry tier JUDGED_BY_RULE and 'not_a_measurement: Assigned by the stated rule. No one re-read the two passages'.",
+   "Feed rows M8-1Cor-019/033/034/051/052 mark INFERRED and ASSUMED words as such; 051/052 open with the R9-LEADS sentences.",
+   "Dimensions header: 309 linkages, 263 treated differently, 3 unruled."
+  ],
+  "checks_i_ran": [
+   "gen_atlas_rows --check: MATCH",
+   "check_atlas_rows --out-root work\\atlas: PASS 28/0",
+   "--selftest: PASS",
+   "sha256 feed: 5d81467f947a97c5e9beb8799d9845498c1be131d03a10ca326a96006bc1d9f3"
+  ]
+ },
+ "item_23": {
+  "fit_to_accept": true,
+  "reservations": [
+   "one adjudicator, same family as the proposer: one voice (OW-19)",
+   "a 100% adopt rate; I tested the weakest ADOPTs, P02 and P04, because their adopted_text is instruction-shaped",
+   "proposer-scope not tested"
+  ],
+  "findings": [
+   "gen_proposals_adjudicated --check MATCH; rates proposed 6, adopted 6, rejected 0, deferred 0.",
+   "Byte test: P01, P03, P05, P06 adopted_text stand in v8 byte for byte. P02 and P04 carry an editing instruction as their last paragraph; their content paragraphs stand in v8, and the instructions were executed rather than printed. P04's instruction replaced 'keyed to the Hebrew witness' in one place: v7 holds it 2 times, v8 1 time (MEASURED); whether the remaining one was in scope is not tested.",
+   "Evidence check tested: P05's E5-vs-E4 citation slip is recorded by the adjudicator as a path slip; the proposer's v7 rule-2 report (strategy has no repair-round words) holds by my count (0 'repair', 0 'round', 0 'fix-up').",
+   "No adopted proposal depends on a rejected or deferred one; P04 depends on P02 and P06 q11 on P05, all adopted; P06 q12 waits on the deferred end review."
+  ],
+  "checks_i_ran": [
+   "gen_proposals_adjudicated --check: MATCH",
+   "s20_more.py adopt",
+   "s21_nq.py v8"
+  ]
+ }
+}

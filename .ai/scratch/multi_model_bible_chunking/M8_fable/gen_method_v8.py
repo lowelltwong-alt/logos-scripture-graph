@@ -1,0 +1,226 @@
+#!/usr/bin/env python3
+"""Build BIBLE_CHUNKING_METHOD.v8.md from v7 by ANCHORED INSERTION of the text an adjudicator adopted.
+
+WHY. Close-gate item 23 (OW-17 c): each ADOPTED proposal is carried into a new method version with a change table.
+1 Corinthians' proposer made six proposals and the adjudicator adopted all six, five with changed text or scope. This
+generator carries the adopted texts BYTE FOR BYTE: it reads `adopted_text` from the landed adjudication record, whose
+sha256 it pins, and authors none of it. What it does author is named in v8's provenance tail.
+
+HOW IT WORKS. Everything that is not book-specific is in method_version_engine.py, which from v8 on is not re-written:
+a later version writes this data file and no engine. v7's bytes are never modified.
+
+Usage: gen_method_v8.py [--check]   (--check regenerates and compares digests only)
+"""
+import json
+import re
+import sys
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+from method_version_engine import after_line, after_paragraph, at_section_end, carried, once, replace_once, run, sha
+
+M8 = Path(__file__).resolve().parent
+SRC = M8 / "BIBLE_CHUNKING_METHOD.v7.md"
+OUT = M8 / "BIBLE_CHUNKING_METHOD.v8.md"
+BOOK = M8 / "sp_durable" / "1Cor"
+ADJ_REL = "sp_durable/1Cor/close/landed/D5_e1/method_change_adjudications.1Cor.v1.json"
+ADJ = M8 / ADJ_REL
+ADJ_SHA = "0ad4f16f8ce9909402dc2f0c3df78b6ac17a65dca56613e96fffc2f62034a8be"
+PROP_REL = "sp_durable/1Cor/close/landed/D3_e1/method_change_proposals.1Cor.candidate.jsonl"
+PROP = M8 / PROP_REL
+PROP_SHA = "4cbfecdfdae53fa57e4dc8676d3e2ea2937bcde3b2302c51d383bef4e23a6cd0"
+ROWS = BOOK / "rows_v1_final.jsonl"
+ROWS_SHA = "4287903015be9fcd088e8d4d1c6c6c2ce564c8af46e7f994e5a2768d554cf9ea"  # re-pinned after FIXUP-6 (d175 -> 4287)
+ROUTED = BOOK / "fable_end_review" / "routed_items.v1.jsonl"
+ROUTED_SHA = "9a649112983050c74901c11a38f0755604bdd84d69f8412c4f65f47a69243a35"
+DATE = "2026-11-02"
+WANT = {"1Cor-P01", "1Cor-P02", "1Cor-P03", "1Cor-P04", "1Cor-P05", "1Cor-P06"}
+
+NEXT_6 = "## 7. Witnesses and quotation discipline"
+NEXT_9 = "## 10. Capture discipline: what you will lose if you are careless"
+NEXT_13 = "## 14. Anti-patterns, stated for a chunker"
+
+# 1Cor-P04: the two v7 sentences it replaces, and the phrase its placement line changes.
+A_MARK = "**A mark is recorded ON the verse it FOLLOWS.** A mark recorded at verse 20 divides 20 from 21."
+A_KEYED = "**byte-extracted inventory keyed to the Hebrew witness**"
+NEW_KEYED = "**byte-extracted inventory keyed to the book's primary witness**"
+P04_PLACE = "In 'keyed to the Hebrew witness', read 'keyed to the book's primary witness'."
+# 1Cor-P02: the paragraph it follows, the two sentences it replaces, and the placement line that carries their successor.
+A_PREDICATE = "**The predicate tells a reader where the tool looks; it does not tell the reader to look only there.**"
+A_TESTED = ("Daniel tested this with a Hebrew and Aramaic witness and an English one. The predicate for a Greek witness is "
+            "untried and is stated in the strategy of the first book that has one.")
+P02_PLACE = ("Replace the last two sentences of the paragraph above, those beginning 'Daniel tested this' and "
+             "'The predicate for a Greek witness', with: '")
+# 1Cor-P03
+A_FOUR = "Four rules follow"
+A_RULE4 = "4. A re-review lane is given the whole changed field"
+# 1Cor-P06
+A_Q10 = "   answer it."
+# 1Cor-P01: the list item it follows, and the two items after it, which renumber.
+A_ITEM2 = "2. A gate condition names, for its predicate and for each value it rests on"
+RENUMBER = [("\n4. A pinned tool is pinned with everything it imports.", "\n5. A pinned tool is pinned with everything it imports."),
+            ("\n3. Every layer that a row's tier word names", "\n4. Every layer that a row's tier word names")]
+# 1Cor-P05
+A_IMPLICATION = "**Implication is assertion.**"
+
+# The adopted texts of this book carry their own markers, or none, so each section they enter takes one line naming the
+# change. check_method_record.py needs a marker for this version in every section the change table names.
+MARK = "**Changed here (new in v8, M8, 1 Corinthians; from %s).** %s"
+MARK_S6 = MARK % ("1Cor-P04", "The paragraph opening this section replaces v7's two sentences on where a mark is "
+                  "recorded, and the inventory below is keyed to the book's primary witness, where v7 said the Hebrew witness.")
+MARK_S7 = MARK % ("1Cor-P02", "The witness-pair paragraph and its four rules are new, and they replace the last two "
+                  "sentences of the paragraph before them, which said a Greek witness was untried.")
+MARK_S9 = MARK % ("1Cor-P03", "Rule 5 of the repair rounds above is new.")
+MARK_S13 = MARK % ("1Cor-P06", "Question 11 is new.")
+MARK_S18 = MARK % ("1Cor-P01 and 1Cor-P05", "Item 3 of the list below is new and the two items after it renumbered, and "
+                   "the paragraph above this line on grammatical labels is new.")
+
+# proposal -> (what its first cell says the section gained)
+TABLE = [("1Cor-P04", "§6 changes: a mark's direction belongs to its layer, and the strategy states it for each layer"),
+         ("1Cor-P02", "§7 gains: a witness pair, two editions of one language"),
+         ("1Cor-P03", "§9 gains rule 5 of the repair rounds: a round applied by a tool with no author"),
+         ("1Cor-P06", "§13 gains question 11: a morphology layer for a Greek witness"),
+         ("1Cor-P01", "§18 gains item 3 of its list: every gate condition names its deciding run or its deciding record"),
+         ("1Cor-P05", "§18 gains: a grammatical label is a claim about a form")]
+
+HEADER_RE = re.compile(r"\*\*This version:\*\* v7,.*?itself auditable\.", re.S)
+HEADER_NEW = """**This version:** v8, written by generation **M8** for the **close of 1 Corinthians** (book 28 of 66, and the first
+New Testament book), before that book's close tool ran. Measured when written: the book's final rows file holds **%(rows)d**
+units; **7** controlling rulings (E1 to E7) are on file; **%(routed)d** questions are carried open to the end review; the
+book's proposer made **%(prop)d** method-change proposals, and an adjudicator who was neither the proposer nor the
+orchestrator adopted **%(adopted)d**, five of them with changed text or scope. Every paragraph v8 adds is that adjudicator's
+text, apart from the lines the provenance tail names. Most of them prescribe a control 1 Corinthians did not run or ran only
+in part: read each as a control handed forward untried, which §13 warns about.
+**Supersedes v7** (`BIBLE_CHUNKING_METHOD.v7.md`, sha256 `%(v7)s`), which carries the supersession chain back to v1 and
+whose bytes, like every earlier version's, are kept unchanged so the evolution of this method is itself auditable."""
+
+A_CHANGETABLE = "### v6 → v7 (M8, Daniel close, 2026-10-13)"
+A_PROV = re.compile(r"## Provenance and limits of this version\n.*$", re.S)
+PROV_NEW = """## Provenance and limits of this version
+
+- Written at **M8, for 1 Corinthians' close**, %(date)s, before the close tool ran. The text from each proposal is the
+  adopted text of one adjudication in `%(adj_rel)s`
+  (sha256 `%(adj)s`), carried byte for byte, with these exceptions stated here. The text adopted from 1Cor-P02 ends in a
+  placement line of the adjudicator's own, and the text adopted from 1Cor-P04 ends in another; both were obeyed and are not
+  reproduced, and the replacement sentences 1Cor-P02's line carries stand in §7. The numeral 3 before 1Cor-P01's text is
+  the generator's, as that text's target ordered. The proposals are in `%(prop_rel)s`
+  (sha256 `%(prop)s`). Five adopted texts differ in wording or scope from their proposals. The text adopted from 1Cor-P04
+  is verbatim; from 1Cor-P06, question 11 is adopted and question 12 is not.
+- **What the adjudication is, and is not.** One reader adjudicated all six proposals. That reader ran on the campaign's
+  recorded fallback model (owner directive OW-25), in the same model family as the proposer and the ruling role. It agreed
+  with the proposer's rating on five and lowered one (1Cor-P01, NECESSARY to USEFUL). Under §19 that agreement is one voice
+  and not a confirmation. Six adopted of six is not evidence that the proposal loop is working; the adjudicator says so
+  itself, and the changed-text count stands beside the adopt count for that reason. Refused in part: the sweep and strategy
+  sentences of 1Cor-P05. Deferred: question 12 of 1Cor-P06, which waits on the end review. The adjudicator's own gaps are in
+  `sp_durable/1Cor/close/landed/D5_e1/adjudicator_notes.json`: among them, its finding that no tool ran rests on the records
+  it read, and the direction of the marks in 1Cor-P04 was not checked on the mark bytes.
+- **Untried controls.** The brief builder's refusal in item 3 of §18, the Greek predicate tool in §7 and the ruling role's
+  re-read record under rule 5 of §9 do not exist yet, and the texts say so. Tools the rulings name as backlog: the builder
+  refusal, book-neutral forms of CWO-06 and CWO-07, the C2 tool and the re-read record. Until they exist those controls are
+  weaker than their text reads. The owner or the architect role may prefer any of them to stand as an open question.
+- **A phrase new to this record.** Rule 3 of §7's witness pair says "warrant field", which v7 never used. v8 does not define
+  it: rule 4 makes each book's strategy name the fields. Outside this tail the phrase occurs %(warrant)d time.
+- **Written by the orchestrator, not by the adjudicator:** the header, the change table, the five "Changed here" lines
+  (needed because the adopted texts carry no marker for this version), the renumbering of two §18 items and the change
+  from "Four rules" to "Five rules" in §9, each ordered by a target line, and this tail.
+- **Checked mechanically.** `check_method_record.py`, kept beside this file, verifies the version in the header
+  against the filename, the superseded version's digest against its bytes on disk, the bidirectional agreement
+  between the newest change table and the sections it names, the obligation list, the carried-forward open questions
+  and the presence of §19's floor. Its selftest tampers with a copy in each of those ways and requires the
+  corresponding check to fail. Run both before you trust this file's change table.
+- **This file was generated**, by `gen_method_v8.py` over `method_version_engine.py` from v7 by anchored insertion; v7's
+  bytes were not modified. The generator pins the adjudication record's digest and refuses to run against any other bytes,
+  and it stops unless every adopted text stands in its output byte for byte. `gen_method_v7.py` is retained unchanged beside it.
+- **Not verified:** M9's conventions and its closed books, and M7's method — §1 exists *because* that reconciliation
+  has not happened. The remaining 38 books are not here. 1 Corinthians is the first New Testament book chunked under this
+  method and the only one so far, so what this version says of a Greek witness rests on one book, one witness pair (OW-31:
+  Byzantine primary, SBLGNT secondary) and no morphology layer. No statement in v7 was re-verified in making v8; v7's text
+  is carried.
+- **Unmeasured, and staying that way:** v6's figure of 11 rate-limited review attempts in Ezekiel's final wave stands
+  as v6 disclosed it. In 1 Corinthians' close phase at least the boss audit and lanes D1, D2 and D5 were interrupted by a
+  usage limit and resumed; the token use of each earlier stretch is unavailable and is disclosed rather than estimated (§18).
+- The per-book scholar-facing record required by OW-17 is a **different** document with a different reader, generated
+  from the landed records. 1 Corinthians' is at v1. The term for its WEB text is not stated in that book's files; settle
+  that and confirm the licence wording against the witness files before any publication.
+- Witness licensing travels with any published quotation: each witness (OSHB, Robinson-Pierpont, SBLGNT) and the
+  translation (WEB) carries its own attribution terms, which a published record must state.
+- **Canonical home:** this file sits under `M8_fable/` because that is where this generation's write authority reaches.
+  Its proper home is above any single generation's directory; placing it there is the owner's act, as is publication.
+"""
+
+
+def load():
+    if sha(ADJ) != ADJ_SHA or sha(PROP) != PROP_SHA or sha(ROWS) != ROWS_SHA or sha(ROUTED) != ROUTED_SHA:
+        sys.exit("FAIL: an input is not the bytes this generator pins")
+    d = json.loads(ADJ.read_bytes().decode("utf-8"))
+    adj = {a["proposal_id"]: a for a in d["adjudications"]}
+    if {k for k, a in adj.items() if a["verdict"] == "ADOPT"} != WANT:
+        sys.exit("FAIL: the adopted set is not the set this generator places")
+    t = adj["1Cor-P02"]["adopted_text"].split("\n\n")
+    if len(t) != 3 or not t[2].startswith(P02_PLACE) or not t[2].endswith("'"):
+        sys.exit("FAIL: 1Cor-P02's placement line is not the one this generator was written against")
+    p04 = adj["1Cor-P04"]["adopted_text"].split("\n\n")
+    if len(p04) != 2 or p04[1] != P04_PLACE:
+        sys.exit("FAIL: 1Cor-P04's placement line is not the one this generator was written against")
+    return d, adj, {"pair": "\n\n".join(t[:2]), "sentences": t[2][len(P02_PLACE):-1], "mark": p04[0]}
+
+
+def change_table(d, adj):
+    rows = ["### v7 → v8 (M8, 1 Corinthians close, %s)" % DATE, "", "| Change | Why |", "|---|---|"]
+    for p, cell in TABLE:
+        a = adj[p]
+        rated = ("rated %s by the adjudicator, as the proposer had estimated" % a["rating"]
+                 if a["rating_differs_because"] is None else
+                 "rated %s by the adjudicator, where the proposer estimated %s" % (a["rating"], a["proposer_estimate"]))
+        rows.append("| **%s** (%s) | Adopted by adjudication and %s. The measured cause in 1 Corinthians is stated in the "
+                    "text itself or in the adjudication record. |" % (cell, p, rated))
+    r = d["rates"]
+    rows.append("| Not adopted, in part: the sweep and the strategy sentences of 1Cor-P05, and question 12 of 1Cor-P06, which "
+                "waits on the end review. No section changes. | A part left out stays in the proposal log with its reasons, "
+                "because a refused proposal is evidence. Rates for this book: proposed %d, adopted %d, rejected %d, deferred "
+                "%d. Five of the six adopted texts changed in wording or scope. |"
+                % (r["proposed"], r["adopted"], r["rejected"], r["deferred"]))
+    return "\n".join(rows) + "\n\n"
+
+
+def build():
+    d, adj, p = load()
+    text = SRC.read_bytes().decode("utf-8")
+    head = "# BIBLE CHUNKING METHOD — v7\n"
+    if not text.startswith(head):
+        sys.exit("FAIL: v7 title line is not what this generator was written against")
+    text = head.replace("v7", "v8") + text[len(head):]
+    if len(HEADER_RE.findall(text)) != 1 or len(A_PROV.findall(text)) != 1:
+        sys.exit("FAIL: the header or the provenance tail was not found exactly once")
+    nrows = sum(1 for ln in ROWS.read_bytes().decode("utf-8").splitlines() if ln.strip())
+    nrouted = sum(1 for ln in ROUTED.read_bytes().decode("utf-8").splitlines() if ln.strip())
+    text = HEADER_RE.sub(lambda _m: HEADER_NEW % {"rows": nrows, "routed": nrouted, "prop": d["rates"]["proposed"],
+                                                  "adopted": d["rates"]["adopted"], "v7": sha(SRC)}, text, count=1)
+    pos = once(text, A_CHANGETABLE)
+    text = text[:pos] + change_table(d, adj) + text[pos:]
+    # §9 first: the text adopted from 1Cor-P02 says 'Four rules follow' too.
+    text = replace_once(text, A_FOUR, "Five rules follow")
+    text = after_line(text, A_RULE4, adj["1Cor-P03"]["adopted_text"])
+    text = at_section_end(text, NEXT_9, MARK_S9)
+    text = replace_once(text, A_MARK, p["mark"])
+    text = replace_once(text, A_KEYED, NEW_KEYED)
+    text = at_section_end(text, NEXT_6, MARK_S6)
+    text = replace_once(text, A_TESTED, p["sentences"])
+    text = after_paragraph(text, A_PREDICATE, p["pair"] + "\n\n" + MARK_S7)
+    text = after_line(text, A_Q10, adj["1Cor-P06"]["adopted_text"])
+    text = at_section_end(text, NEXT_13, MARK_S13)
+    for old, new in RENUMBER:
+        text = replace_once(text, old, new)
+    text = after_line(text, A_ITEM2, "3. " + adj["1Cor-P01"]["adopted_text"])
+    text = after_paragraph(text, A_IMPLICATION, adj["1Cor-P05"]["adopted_text"] + "\n\n" + MARK_S18)
+    tail = {"date": DATE, "adj_rel": ADJ_REL, "adj": ADJ_SHA, "prop_rel": PROP_REL, "prop": d["proposals_sha256"],
+            "warrant": text.count("warrant field")}
+    text = A_PROV.sub(lambda _m: PROV_NEW % tail, text, count=1)
+    carried(text, {"1Cor-P01": adj["1Cor-P01"]["adopted_text"], "1Cor-P02": p["pair"], "1Cor-P02 sentences": p["sentences"],
+                   "1Cor-P03": adj["1Cor-P03"]["adopted_text"], "1Cor-P04": p["mark"],
+                   "1Cor-P05": adj["1Cor-P05"]["adopted_text"], "1Cor-P06": adj["1Cor-P06"]["adopted_text"]})
+    return text.encode("utf-8")
+
+
+if __name__ == "__main__":
+    run(build, OUT, sys.argv)

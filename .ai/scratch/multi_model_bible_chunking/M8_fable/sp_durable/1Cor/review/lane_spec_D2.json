@@ -1,0 +1,157 @@
+{
+ "lane": "D2",
+ "attempt": "cor_close_atlas_a1",
+ "template": "BRIEF_CLOSE.template.md",
+ "title": "THE ATLAS ROWS AND THE SIDECAR (ITEM 22)",
+ "task": "campaign/close_kit/task_D2.md",
+ "task_fill": {
+  "BOOK_NAME": "1 Corinthians",
+  "BOOK_UPPER": "FIRST_CORINTHIANS",
+  "BOOK_LOWER": "1cor",
+  "BOOK": "1Cor",
+  "PORT_RULE": "**Build it once for every book (TE-7).** Port from the closed book's tools pinned below. They are templates of FORM only (E-65): nothing from another book passes, and every constant is re-derived from this book's bytes. Write the tools book-agnostic: every book-specific name, path, digest and count lives in `book_params.v1.json` and the scripts hold none, so a later book supplies a new parameter file and ports nothing. Each script takes `--params`, `--book-root` (inputs; default the parent of the script's directory) and `--out-root` (default the same); run it with the book root `SP\\1Cor` and OUT. After landing the orchestrator installs at the same relative place and re-runs `--check` with the defaults, and the bytes must be identical. No clock, no randomness, sorted iteration, every input digest a constant in the parameter file that the script verifies. No script scans a directory: it opens a named path or a path from the landed-outputs manifest.",
+  "GROUND": "This book's witnesses are Greek (RP primary, SBLGNT secondary); answerable-from-witnesses means answerable from those two and WEB."
+ },
+ "budget": "About 60 tool calls; stop and report at 110.",
+ "out_dir": "cor_close_D2",
+ "deliverable": "D2_result.json",
+ "work": "this lane builds the book's atlas feed rows and sidecar from landed packets; it changes no row and judges no boundary, and writes only in OUT",
+ "pins": [
+  [
+   "1Cor/close/1cor_landed_outputs_manifest.v1.json",
+   "read",
+   "the manifest of landed outputs; open packets by its paths"
+  ],
+  [
+   "1Cor/review/1cor_boss_audit.v1.json",
+   "read",
+   "the boss audit record"
+  ],
+  [
+   "1Cor/review/1cor_boss_audit_e2.v1.json",
+   "read",
+   "the boss audit record, second execution (close tag e2): conditions B3, B4, B7, B8 and the 21 rows FIXUP-5 changed; it and e1 stand together as the boss record under E7's R7-NOT-TESTABLE"
+  ],
+  [
+   "1Cor/1Cor_rp.txt",
+   "read",
+   "the primary witness"
+  ],
+  [
+   "1Cor/1Cor_sbl.txt",
+   "read",
+   "the secondary witness"
+  ],
+  [
+   "1Cor/1Cor_web_clean.txt",
+   "read",
+   "the English witness"
+  ],
+  [
+   "1Cor/pmarks_1Cor.json",
+   "read",
+   "the paragraph marks"
+  ],
+  [
+   "1Cor/1cor_device_inventory.json",
+   "read",
+   "the device inventory"
+  ],
+  [
+   "Dan/deliverables/gen_atlas_rows.py",
+   "template of form only",
+   "the closed book's atlas generator"
+  ],
+  [
+   "Dan/deliverables/check_atlas_rows.py",
+   "template of form only",
+   "the closed book's atlas checker"
+  ],
+  [
+   "Dan/deliverables/gen_sidecars.py",
+   "template of form only",
+   "the closed book's sidecar generator"
+  ],
+  [
+   "Dan/deliverables/README.md",
+   "template of form only",
+   "the closed book's deliverables note"
+  ],
+  [
+   "1Cor/rows_v1_final.jsonl",
+   "read",
+   "the final rows"
+  ],
+  [
+   "1Cor/rows_v1_final.manifest.json",
+   "read",
+   "the final rows' manifest"
+  ],
+  [
+   "1Cor/book_strategy_1Cor.md",
+   "read",
+   "the book strategy"
+  ],
+  [
+   "1Cor/fable_end_review/routed_items.v1.jsonl",
+   "read",
+   "the questions routed to the campaign-end review"
+  ],
+  [
+   "campaign/grader_models.v3.json",
+   "read",
+   "the review model shapes for this book"
+  ],
+  [
+   "campaign/REVIEWER_CONTINUATION_CONTRACT.v1.md",
+   "read",
+   "the reviewer continuation contract"
+  ],
+  [
+   "../CAMPAIGN_CLOSE_GATE.v1.md",
+   "read",
+   "the close gate"
+  ],
+  [
+   "../ERROR_PATTERN_LEDGER.v1.md",
+   "read by search, not whole",
+   "the error ledger"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E1.v1.json",
+   "read",
+   "the controlling rulings of one round"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E2.v1.json",
+   "read",
+   "the controlling rulings of one round"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E3.v1.json",
+   "read",
+   "the controlling rulings of one round"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E4.v1.json",
+   "read",
+   "the controlling rulings of one round"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E5.v1.json",
+   "read",
+   "the controlling rulings of one round"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E6.v1.json",
+   "read",
+   "the controlling rulings of one round"
+  ],
+  [
+   "1Cor/review/1cor_controlling_agent_rulings_E7.v1.json",
+   "read",
+   "the controlling rulings of one round"
+  ]
+ ],
+ "other_book_ok": "a port lane: the closed book's tools are pinned as templates of FORM, and the brief forbids passing anything from them as this book's evidence (E-65)"
+}

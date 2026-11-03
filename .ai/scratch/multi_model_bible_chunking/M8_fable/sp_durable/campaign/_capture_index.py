@@ -234,8 +234,13 @@ def build(book, write):
             "layer_c_evidence_note": ({"path": str(note.relative_to(SP)).replace("\\", "/"),
                                        "sha256": sha(note), "self_authored": True} if note.is_file() else
                                       {"state": UNAVAIL, "self_authored": True,
+                                       # 2026-11-02: the exemption is true only for books before OW-7; a later book
+                                       # missing its note is a gap and is named as one
                                        "reason": "attempt predates OW-7; the evidence note binds from the first "
-                                                 "brief of the book after Lamentations and is not retroactive"}),
+                                                 "brief of the book after Lamentations and is not retroactive"
+                                                 if book in ("Jer", "Lam") else
+                                                 "no evidence note is filed for this execution under %s/evidence_notes; "
+                                                 "OW-7 binds this book, so this is a capture gap, not an exemption" % book}),
             "layers_are_separate": "A is the runtime's record, B is what the runtime surfaced of the agent's "
                                    "thinking, C is the agent's own note. They are never merged, C is never "
                                    "presented as chain of thought, and all three attach to this EXECUTION.",

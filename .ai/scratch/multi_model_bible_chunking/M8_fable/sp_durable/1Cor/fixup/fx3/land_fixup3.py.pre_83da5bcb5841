@@ -1,0 +1,202 @@
+#!/usr/bin/env python3
+"""FIXUP-3 landing and apply.
+land:  land_fixup3.py land --part W4 --rows-sha SHA --changes-sha SHA --tokens N --tool-uses N --duration-ms N --row-out FILE [--note TEXT]
+       Copies the part's deliverables out of the scratchpad to fixup/landed3/<part>_e1/, checks them against the pinned rows and
+       writes a completion row to --row-out. A deliverable that fails a check is still landed, with each failure recorded under
+       orchestrator_verification.problems; the row is not appended here.
+apply: land_fixup3.py apply --parts W1,W2,... --out-rows FILE [--manifest FILE]
+       Applies the landed parts in part order onto the pinned rows, then runs suite, ngram7, tiling and the sweep on a copy.
+"""
+import argparse
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+HERE = Path(__file__).resolve().parent
+BK = HERE.parents[1]
+SP = BK.parent
+R = BK / "review"
+PINNED = BK / "fixup/draft_rows_fixup2_applied.jsonl"
+PINNED_SHA = "75933a142375d8736ae71cdcc7f0e0b9052c36ea4ac4b87ccacf676ae50c6fbe"
+SCR = Path(r"C:\Users\lowel\AppData\Local\Temp\claude\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View"
+           r"\af84b702-d913-4495-8e57-252cf7894c63\scratchpad")
+ALLOWED = {"boundary_rationale", "strongest_rejected_alternative", "device_notes", "observed_substrate_signals", "boundary_evidence_refs"}
+EXTRA = {"W2-006": {"literature_type_guess"}, "W5-002": {"literature_type_guess"}, "W6-007": {"confidence"}, "W6-013": {"confidence"}, "W6-014": {"confidence"}}
+env = dict(os.environ, PYTHONUTF8="1", PYTHONDONTWRITEBYTECODE="1", PYTHONIOENCODING="utf-8")
+LANDED = BK / "fixup/landed3"
+
+
+def sha(p):
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def rel(p):
+    return "sp_durable/" + Path(p).relative_to(SP).as_posix()
+
+
+def load(p):
+    return [json.loads(x) for x in Path(p).read_text(encoding="utf-8").splitlines() if x.strip()]
+
+
+def pinned():
+    if sha(PINNED) != PINNED_SHA:
+        raise SystemExit("REFUSED: the pinned rows moved")
+    return load(PINNED)
+
+
+def merged(base, new):
+    by = {r["decision_id"]: r for r in new}
+    return [by.get(r["decision_id"], r) for r in base]
+
+
+def write_rows(p, rows):
+    Path(p).write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8", newline="\n")
+
+
+def validators(rows, work):
+    os.makedirs(work, exist_ok=True)
+    f = Path(work) / "rows_applied.jsonl"
+    write_rows(f, rows)
+    out = {}
+
+    def run(*x):
+        return subprocess.run([sys.executable, "-B", *x], capture_output=True, text=True, encoding="utf-8", env=env, cwd=str(work))
+
+    s = run(str(BK / "tools/run_validator_suite.py"), str(f))
+    try:
+        j = json.loads(s.stdout[s.stdout.index("{"):])
+    except ValueError:
+        j = {}
+    out["suite"] = {"rc": s.returncode, "hard_status": j.get("hard_status"), "triage_flags": j.get("triage_flags"),
+                    "not_green": {k: v for k, v in (j.get("members") or {}).items() if v != "GREEN"}}
+    n = run(str(BK / "tools/ngram7.py"), str(f), "--gate", "10", "--full-ids")
+    try:
+        jn = json.loads(n.stdout[n.stdout.index("{"):])
+    except ValueError:
+        jn = {}
+    out["ngram7"] = {"rc": n.returncode, "status": jn.get("status"), "offending": [k for k in jn if "offend" in k]}
+    t = run(str(BK / "tools/check_tiling.py"), str(f), "--range", "1Cor.1.1-1Cor.16.24")
+    out["tiling"] = {"rc": t.returncode, "tail": t.stdout.strip()[-160:]}
+    sw = Path(work) / "cwo.json"
+    w = run(str(R / "cwo_sweep_1cor.py"), str(f), "--out", str(sw))
+    c = json.loads(sw.read_text(encoding="utf-8")) if w.returncode == 0 else {}
+    if c:
+        out["sweep"] = {"A": c["A"]["hits"], "B": c["B"]["hits"], "CWO02": c["CWO02"]["fail"], "CWO04": c["CWO04"]["by_class"], "CWO05": c["CWO05"]["hits"],
+                        "CWO06": c["CWO06"]["hits"], "CWO07": c["CWO07"]["unlisted"]}
+    else:
+        out["sweep"] = {"rc": w.returncode, "stderr": w.stderr[-300:]}
+    return out, c
+
+
+def land(a):
+    part = a.part
+    src = SCR / "cor_fx3" / part
+    rows_f, chg_f = "fixup3_%s_rows.jsonl" % part, "fixup3_%s_changes.json" % part
+    dest = LANDED / (part + "_e1")
+    dest.mkdir(parents=True, exist_ok=True)
+    problems = []
+    for name, want in ((rows_f, a.rows_sha), (chg_f, a.changes_sha)):
+        got = sha(src / name)
+        if got != want:
+            problems.append("%s is at %s, the final message says %s" % (name, got[:12], want[:12]))
+        shutil.copyfile(src / name, dest / name)
+    base = pinned()
+    byid = {r["decision_id"]: r for r in base}
+    new = load(dest / rows_f)
+    order = [r["decision_id"] for r in base if r["decision_id"].startswith(part + "-")]
+    ids = [r.get("decision_id") for r in new]
+    if len(set(ids)) != len(ids) or [i for i in order if i in ids] != ids:
+        problems.append("row ids are not unique, not this part's, or not in the pinned order: %s" % ids)
+    chg = json.loads((dest / chg_f).read_text(encoding="utf-8"))
+    logged = {(c.get("row"), str(c.get("field")).split("[")[0]) for c in chg.get("changes", [])}  # a list field is logged with its index
+    diff = []
+    for r in new:
+        old = byid.get(r.get("decision_id"))
+        if old is None:
+            continue
+        if set(r) != set(old):
+            problems.append("%s: field set differs: %s" % (r["decision_id"], sorted(set(r) ^ set(old))))
+        for k in old:
+            if k in r and r[k] != old[k]:
+                diff.append((r["decision_id"], k))
+                if k not in ALLOWED | EXTRA.get(r["decision_id"], set()):
+                    problems.append("%s.%s changed outside the fields any order licenses" % (r["decision_id"], k))
+                if (r["decision_id"], k) not in logged:
+                    problems.append("%s.%s changed but is not in the change log" % (r["decision_id"], k))
+    if not new:
+        problems.append("no rows")
+    for r in new:
+        if r["decision_id"] in EXTRA and "confidence" in EXTRA[r["decision_id"]] and r.get("confidence") != "medium":
+            problems.append("%s confidence is %s, ordered medium" % (r["decision_id"], r.get("confidence")))
+    res, c = validators(merged(base, new), SCR / "m8recon/fx3land" / part)
+    if res["suite"]["rc"] != 0 or res["suite"]["hard_status"] != "GREEN":
+        problems.append("suite on the applied copy: %s" % res["suite"])
+    if res["ngram7"]["status"] != "GREEN":
+        problems.append("ngram7 on the applied copy: %s" % res["ngram7"])
+    if res["tiling"]["rc"] != 0:
+        problems.append("tiling on the applied copy: %s" % res["tiling"])
+    if c:
+        own = lambda sec: [h for h in c[sec]["list"] if h["row"].startswith(part + "-")]  # noqa: E731
+        left6 = [(h["row"], h["verse"]) for h in own("CWO06") if (h["row"], h["verse"]) not in (("W2-008", "1Cor.7.9"), ("W6-004", "1Cor.15.35"))]
+        if left6:
+            problems.append("CWO-06 left on this part: %s" % left6)
+        if own("CWO07"):
+            problems.append("CWO-07 left on this part: %s" % [(h["row"], h["verse"]) for h in own("CWO07")])
+        if own("A"):
+            problems.append("A hits on this part: %d" % len(own("A")))
+    row = {"schema": "m8_attempt_receipt.v1", "record_kind": "completion", "attempt_id": "cor_fixup3_%s_a1" % part,
+           "amends_execution_id": "cor_fixup3_%s_a1#e1" % part, "book": "1Cor", "parent_agent_id": "orchestrator", "outcome": "LANDED",
+           "model_actual": "claude-opus-5-5", "tokens_notification": a.tokens, "tokens_spend": {"subagent_tokens": a.tokens, "tool_uses": a.tool_uses, "duration_ms": a.duration_ms},
+           "outputs": [{"path": rel(dest / n), "sha256": sha(dest / n)} for n in (rows_f, chg_f)],
+           "lander_checks": {"part": part, "execution": "cor_fixup3_%s_a1#e1" % part, "rows_sha256": sha(dest / rows_f), "rows_changed": len(new),
+                             "fields_changed": len(diff), "blocked": chg.get("blocked", [])},
+           "orchestrator_verification": {"problems": problems, "applied_copy": res}, "note": a.note or ""}
+    Path(a.row_out).write_text(json.dumps(row, ensure_ascii=False), encoding="utf-8", newline="\n")
+    print(json.dumps({"part": part, "rows": len(new), "fields": len(diff), "blocked": len(chg.get("blocked", [])), "problems": problems, "res": res}, ensure_ascii=False)[:2500])
+
+
+def apply_(a):
+    base = pinned()
+    parts = a.parts.split(",")
+    new, srcs = [], {}
+    for p in parts:
+        f = LANDED / (p + "_e1") / ("fixup3_%s_rows.jsonl" % p)
+        rr = load(f)
+        new += rr
+        srcs[p] = {"execution": "cor_fixup3_%s_a1#e1" % p, "rows": rel(f), "sha256": sha(f), "changed": len(rr)}
+    rows = merged(base, new)
+    if len(rows) != len(base):
+        raise SystemExit("REFUSED: row count")
+    res, c = validators(rows, SCR / "m8recon/fx3apply")
+    if a.out_rows:
+        write_rows(a.out_rows, rows)
+        Path(str(a.out_rows).replace(".jsonl", ".manifest.json")).write_text(json.dumps(
+            {"schema": "m8_rows_manifest.v1", "book": "1Cor", "stage": "fixup3_applied", "source_rows": {"path": rel(PINNED), "sha256": PINNED_SHA},
+             "parts": srcs, "applied": sha(a.out_rows), "grader_fallback": "claude-opus-5-5 (OW-25)", "suite_on_scratch_copy": res}, ensure_ascii=False, indent=1) + "\n",
+            encoding="utf-8", newline="\n")
+    print(json.dumps(res, ensure_ascii=False)[:1500])
+    if a.out_rows:
+        print(sha(a.out_rows))
+
+
+ap = argparse.ArgumentParser()
+sub = ap.add_subparsers(dest="cmd", required=True)
+l = sub.add_parser("land")
+l.add_argument("--part", required=True)
+l.add_argument("--rows-sha", required=True)
+l.add_argument("--changes-sha", required=True)
+l.add_argument("--tokens", type=int, required=True)
+l.add_argument("--tool-uses", type=int, required=True)
+l.add_argument("--duration-ms", type=int, required=True)
+l.add_argument("--row-out", required=True)
+l.add_argument("--note")
+m = sub.add_parser("apply")
+m.add_argument("--parts", required=True)
+m.add_argument("--out-rows")
+a = ap.parse_args()
+land(a) if a.cmd == "land" else apply_(a)

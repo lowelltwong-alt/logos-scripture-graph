@@ -1,0 +1,429 @@
+#!/usr/bin/env python3
+"""Build the 1 Corinthians close-evidence file (R9-CLOSE-EVIDENCE, R8-GATE-EVIDENCE, R8-GATE-24-25) and the retention
+enumeration it cites. Every value is read from a file whose sha256 is recorded beside it; an unsourced value is tier
+UNAVAILABLE with value null. No clock, no random number. The values due at the close act (items 16, 18, 19) are read
+from the OW-12 status file, the learning log, the metrics regenerated at the close and the current playbook.
+
+usage: python -B gen_close_evidence.py [--check]
+"""
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+BK = Path(__file__).resolve().parents[1]          # sp_durable/1Cor
+SP = BK.parent
+M8 = SP.parent
+OUT = BK / "close" / "close_evidence.v1.json"
+RET = BK / "close" / "evidence" / "retention_enumeration.v1.json"
+PRE_REISSUE = "0b42eae2b81dbdbda2245a1de251c3e3276c5237ae7bd7dd4ebba036d1f69299"
+READ_BASE = "d175136999a5409789e055592c8341b2bd92230ef132b00697a30c2ec03e76b0"
+
+
+def sha(p):
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def rel(p):
+    return Path(p).resolve().relative_to(M8).as_posix()
+
+
+def src(p, locator):
+    return {"path": rel(p), "sha256": sha(p), "locator": locator}
+
+
+def V(value, tier, p, locator):
+    if tier == "UNAVAILABLE" and value is not None:
+        raise SystemExit("REFUSED: UNAVAILABLE carries value null")
+    return {"value": value, "tier": tier, "source": src(p, locator)}
+
+
+def jl(p):
+    return [json.loads(x) for x in Path(p).read_text(encoding="utf-8").splitlines() if x.strip()]
+
+
+def jload(p):
+    return json.loads(Path(p).read_text(encoding="utf-8"))
+
+
+def ruling(p, rid):
+    return [r for r in jload(p)["rulings"] if r["id"] == rid][0]["decision"]
+
+
+def line_of(p, needle):
+    hits = [i + 1 for i, x in enumerate(Path(p).read_text(encoding="utf-8").splitlines()) if needle in x]
+    return hits
+
+
+ORDER = ["MEASURED", "EXTRACTED", "TRANSCRIBED", "REPORTED", "INFERRED", "ASSUMED", "UNAVAILABLE"]
+# R9-CLOSE-EVIDENCE: each item is {value, tier, source}, its value an object of named sub-values tiered the same way.
+# The parts named here are the ones the item cannot be met without (OW-38: an UNAVAILABLE value never satisfies a gate);
+# any other part is a disclosure and does not decide the item.
+REQUIRED = {"item_1": ["b8_sample"], "item_4": ["e23_digits"], "item_5": ["appeal_rows_and_files", "retention"],
+            "item_13": ["capture_index_verdict", "executions_indexed"], "item_14": ["capture_index_check", "census",
+            "repair_byte_check"], "item_24": ["v8_measured_cause", "validator_report_beside_rows"],
+            "item_25": ["floor", "reissue_review"], "OW-28": ["notification_unit_tokens"],
+            "item_16": ["status_update"], "item_18": ["learning_log_entries", "metrics_digest", "playbook_version"],
+            "item_19": ["quality_for_tokens"]}
+
+
+def item(name, parts):
+    req = [parts[k] for k in REQUIRED[name]]
+    miss = [k for k in REQUIRED[name] if parts[k]["tier"] == "UNAVAILABLE"]
+    if miss:
+        return {"value": None, "tier": "UNAVAILABLE", "source": req[0]["source"], "missing": miss, "parts": parts}
+    return {"value": parts, "tier": max((p["tier"] for p in req), key=ORDER.index), "source": req[0]["source"]}
+
+
+def reissue(rows_sha, sample_p, ow38):
+    """Items 1, 14 and 25 from the landed _a2 pair only (OW-38 point 3), each bound to the corpus it was measured on."""
+    land = BK / "merged_close" / "landing_manifest.v1.json"
+    why = "the _a2 pair has not landed (no %s)" % rel(land) if not land.is_file() else None
+    fcs = {}
+    if not why:
+        # The _a3 re-check pair (OW-38: a repair to reviewed bytes reruns the affected checks) carries the _a2 items forward.
+        for L, ent in sorted(jload(land)["lanes"].items()):
+            f = ent["files"]["final_check.json"]
+            p = land.parent / f["durable"]
+            if ent["attempt_id"][-3:] not in ("_a2", "_a3") or sha(p) != f["sha256"]:
+                why = "lane %s of the landing manifest is not an _a2 or _a3 attempt or its final check moved" % L
+            fcs[L] = p
+            pair = ent["attempt_id"][-3:]
+        if not why and len({e["attempt_id"][-3:] for e in jload(land)["lanes"].values()}) != 1:
+            why = "the two lanes of the landing manifest are from different attempts"
+    if why or len(fcs) != 2:
+        u = lambda k: V(None, "UNAVAILABLE", ow38, "%s; %s is filled only from the landed _a2 outputs" % (why or "not two lanes", k))
+        return u("item 1"), u("item 14"), u("item 25")
+    got = {L: jload(p) for L, p in fcs.items()}
+    # An _a3 lane may carry an item as {basis: carried_from_a2, file, sha256, value}. It counts only when the cited file
+    # is at the cited digest now and the value equals that file's field byte for byte; otherwise the item stays absent.
+    for L, fc in got.items():
+        for key in ("reissue_item_1", "reissue_item_14", "reissue_item_25"):
+            w = fc.get(key)
+            if isinstance(w, dict) and w.get("basis") == "carried_from_a2" and set(w) >= {"file", "sha256", "value"}:
+                f = BK.parent / str(w["file"]).replace("SP/", "", 1)
+                fc[key] = w["value"] if f.is_file() and sha(f) == w["sha256"] and jload(f).get(key) == w["value"] else None
+    out = []
+    for key, test in (("reissue_item_1", lambda r: r.get("corpus_sha256") == rows_sha and r.get("sample_sha256") == sha(sample_p)
+                       and isinstance(r.get("defects"), int) and len(r.get("rows") or []) == r.get("sample_size")),
+                      # Lane B records the same fact as after_sha256 == corpus; the counts differ only by unit (A: 20
+                      # top-level fields, B: 21 leaf paths, both MEASURED by the orchestrator on d175 -> 4287).
+                      ("reissue_item_14", lambda r: r.get("verdict") == "match" and (r.get("after_equals_corpus") is True
+                       or r.get("after_sha256") == rows_sha) and r.get("before_sha256") == READ_BASE
+                       and not r.get("unordered_changes") and not r.get("missing_changes")),
+                      ("reissue_item_25", lambda r: sorted(x.get("row_id") for x in r.get("rows") or []) == sorted(ITEM25_ROWS))):
+        bad = [L for L in got if not test(got[L].get(key) or {})
+               or got[L].get("corpus_sha256") != rows_sha]
+        src_p = fcs[sorted(fcs)[0]]
+        if bad:
+            out.append(V(None, "UNAVAILABLE", src_p, "%s of lane(s) %s is absent, not bound to corpus %s, or records the item "
+                         "not met; the item stays blocked" % (key, bad, rows_sha[:12])))
+        else:
+            out.append({"value": {L: got[L][key] for L in sorted(got)}, "tier": "REPORTED",
+                        "source": src(src_p, "%s in both landed %s final checks (%s)" % (key, pair, ", ".join(
+                            "%s %s" % (L, sha(fcs[L])[:12]) for L in sorted(fcs))))})
+    return tuple(out)
+
+
+ITEM25_ROWS = ["W1-002", "W1-003", "W1-004", "W2-005", "W2-006", "W2-007", "W2-012", "W2-013", "W2-014", "W2-015",
+               "W3-001", "W3-002", "W3-003", "W3-004", "W3-005", "W3-006", "W3-007", "W5-002", "W5-003", "W5-004",
+               "W5-008", "W5-009", "W5-010", "W5-011", "W5-013", "W5-014", "W6-001", "W6-002", "W6-009", "W6-010",
+               "W6-011", "W6-012", "W6-013", "W6-014"]
+
+
+def retention():
+    man_p = BK / "close" / "1cor_landed_outputs_manifest.frozen_for_merged_lanes.v1.json"
+    man = jload(man_p)
+    outs = []
+    for o in man["outputs"]:
+        p = M8 / o["path"]
+        now = sha(p) if p.is_file() else None
+        outs.append({"execution_id": o["execution_id"], "path": o["path"], "sha256_listed": o["sha256"],
+                     "sha256_on_disk": now, "match": now == o["sha256"]})
+    listed = {o["path"] for o in man["outputs"]}
+    extra = []
+    for d in ("close/landed", "review"):
+        for p in sorted((BK / d).rglob("*")):
+            if p.is_file() and ".pre_" not in p.name and "__pycache__" not in p.parts:
+                r = rel(p)
+                if r not in listed:
+                    extra.append({"path": r, "sha256": sha(p)})
+    doc = {"schema": "m8_retention_enumeration.v1", "book": "1Cor",
+           "what": "every output the frozen landed-outputs manifest lists, re-hashed on disk; every file under "
+                   "1Cor/close/landed and 1Cor/review that the manifest does not list, hashed; the manifest's "
+                   "not_matching outputs carried as listed (no durable file at any named place)",
+           "manifest": {"path": rel(man_p), "sha256": sha(man_p)},
+           "counts": {"manifest_outputs": len(outs), "rehash_match": sum(o["match"] for o in outs),
+                      "rehash_mismatch_or_missing": sum(not o["match"] for o in outs),
+                      "not_matching_no_durable_file": len(man["not_matching"]),
+                      "unlisted_files_hashed": len(extra)},
+           "manifest_outputs": outs, "not_matching": man["not_matching"], "unlisted_files": extra}
+    return doc
+
+
+def build():
+    rows = BK / "rows_v1_final.jsonl"
+    vrep = BK / "rows_v1_final.jsonl.validator_report.json"
+    e23 = BK / "close" / "e23_sweep.rows_v1_final.v1.json"
+    ev = BK / "close" / "evidence"
+    cib, cic, cen = ev / "capture_index_build.stdout.json", ev / "capture_index_check.stdout.json", \
+        ev / "transcript_coverage_census.stdout.json"
+    idx = SP / "campaign" / "capture_index.v1.jsonl"
+    # OW-38 point 4 is bound to these bytes; the metrics regenerated at the close are met_now (item 18)
+    met = ev / "orchestration_metrics.ow38_basis.v1.json"
+    met_now = M8 / "orchestration_metrics.v1.json"
+    ow12 = ev / "ow12_status_at_close.v1.json"
+    ow12_tool = SP / "campaign" / "_book_close_status_ow12.py"
+    llog = M8 / "orchestration_learning_log.v1.jsonl"
+    pb = M8 / "ORCHESTRATION_PLAYBOOK.v5.md"
+    ledger = M8 / "ERROR_PATTERN_LEDGER.v1.md"
+    gate = M8 / "CAMPAIGN_CLOSE_GATE.v1.md"
+    ter = SP / "campaign" / "TOKEN_ECONOMY_RULES.v1.md"
+    ceil = SP / "campaign" / "budget_ceilings.v1.json"
+    r8 = BK / "review" / "1cor_controlling_agent_rulings_E8.v1.json"
+    r9 = BK / "review" / "1cor_controlling_agent_rulings_E9.v1.json"
+    v8 = M8 / "BIBLE_CHUNKING_METHOD.v8.md"
+    nqb = BK / "close" / "landed" / "MERGED_B_e1" / "named_questions.json"
+    fcb = BK / "close" / "landed" / "MERGED_B_e1" / "final_check.json"
+    fca = BK / "close" / "landed" / "MERGED_A_e1" / "final_check.json"
+    readme = BK / "deliverables" / "README.md"
+    ow38 = BK / "close" / "evidence" / "ow38_owner_answers.v1.md"
+    man_p = BK / "close" / "1cor_landed_outputs_manifest.frozen_for_merged_lanes.v1.json"
+    receipts = [M8 / r["path"] for r in jload(man_p)["receipt_files"]]
+    rrows = [r for p in receipts for r in jl(p)]
+
+    # item 1: no execution names B-8 or an LF-support sample audit
+    b8 = [r.get("execution_id") or r.get("amends_execution_id") for r in rrows
+          if "B-8" in json.dumps(r) or "support_audit" in json.dumps(r)]
+    if b8:
+        raise SystemExit("REFUSED: a receipt row names B-8; read it before writing UNAVAILABLE: %s" % b8[:3])
+    rec0 = receipts[0]
+    # item 4
+    e = jload(e23)
+    # item 5
+    appeal_rows = sum(1 for r in rrows if "appeal" in (str(r.get("role", "")) + str(r.get("lane", "")) +
+                                                      str(r.get("attempt_id", ""))).lower())
+    appeal_files = sorted(rel(p) for p in BK.rglob("*appeal*") if ".pre_" not in p.name)
+    RET.write_bytes((json.dumps(retention(), indent=1, ensure_ascii=False) + "\n").encode("utf-8"))
+    ret = jload(RET)
+    # item 13 / 14
+    b = jload(cib)
+    c = jload(cic)
+    ce = jload(cen)["per_book"]["1Cor"]
+    ix = [r for r in jl(idx) if r.get("book") == "1Cor"]
+    # OW-28
+    m = jload(met)
+    keys = ("executions", "tokens_total", "tokens_counted_executions", "tokens_partial_executions",
+            "spend_unit_amended_executions", "spend_unit_amended_total")
+    cells = [x for x in m["by_book_lane_model"] if x["book"] == "1Cor"]
+    mb = {k: sum(x[k] for x in cells) for k in keys}
+    mb["lane_model_cells"] = len(cells)
+    if mb["spend_unit_amended_executions"]:
+        raise SystemExit("REFUSED: a 1Cor spend-unit amendment exists; record it rather than UNAVAILABLE")
+    ceilings = jload(ceil)
+    books_with_ceiling = sorted(ceilings.get("books", {}) if isinstance(ceilings.get("books"), dict)
+                                else ceilings.get("books", []))
+    if "1Cor" in json.dumps(books_with_ceiling):
+        raise SystemExit("REFUSED: a 1Cor ceiling exists; read it")
+    cure_claims = sorted(rel(p) for p in BK.rglob("*cure*claim*") if ".pre_" not in p.name)
+    v8_lines = line_of(v8, "The measured cause in 1 Corinthians")
+    v8_955 = line_of(v8, "at least the boss audit and lanes D1, D2 and D5 were interrupted")
+    sample_p = BK / "close" / "lf_support_sample.v1.json"
+    if jload(sample_p)["corpus"]["sha256"] != sha(rows):
+        raise SystemExit("REFUSED: the LF-support sample is not bound to the corpus")
+    r_1, r_14, r_25 = reissue(sha(rows), sample_p, ow38)
+    # OW-38 point 4: the figure is a subtotal of the measured runs; the full spend is unknown.
+    if (mb["tokens_total"], mb["tokens_counted_executions"], mb["executions"]) != (7761939, 61, 98):
+        raise SystemExit("REFUSED: the metrics no longer give OW-38's 7,761,939 over 61 of 98 runs; re-ask, do not relabel")
+    cells_now = [x for x in jload(met_now)["by_book_lane_model"] if x["book"] == "1Cor"]
+    now = {k: sum(x[k] for x in cells_now) for k in ("executions", "tokens_total", "tokens_counted_executions")}
+    # item 16: the OW-12 update written by the installed tool with --count-closed 1Cor --next-book John
+    st = jload(ow12)
+    if (st["books"].get("counted_closed_before_the_close_act"), st["books"]["live_book"]) != ("1Cor", "John"):
+        raise SystemExit("REFUSED: the OW-12 status file is not the one for the 1Cor close with John next")
+    if st["measured_per_book"]["1Cor"]["tokens"] != now["tokens_total"]:
+        raise SystemExit("REFUSED: the OW-12 1Cor tokens differ from the metrics regenerated at the close")
+    # item 18: the 1Cor entries are those after L-0087, the last Daniel entry (2026-09-29); 1Cor began 2026-10-19
+    lrows = jl(llog)
+    lids = [r["id"] for r in lrows]
+    cor = [r for r in lrows[lids.index("L-0087") + 1:]]
+    if [r["id"] for r in cor] != ["L-%04d" % n for n in range(88, 88 + len(cor))] or \
+            min(r["date"] for r in cor) < "2026-10-19" or lrows[lids.index("L-0087")]["date"] >= "2026-10-19":
+        raise SystemExit("REFUSED: the learning-log entries after L-0087 are not a contiguous 1Cor run")
+    if b"\r" in pb.read_bytes() or not pb.read_text(encoding="utf-8").startswith("# M8 orchestration playbook v5"):
+        raise SystemExit("REFUSED: the playbook v5 file is not the expected one")
+    o25, o37, te9 = line_of(ledger, "OWNER DIRECTIVE OW-25 (2026-09-22)"), line_of(gate, "- OW-37 point 3: for those six books"), \
+        line_of(ter, "weakens a gate, skips a lane, changes a model or bypasses a receipt")
+    if [len(o25), len(o37), len(te9)] != [1, 1, 1]:
+        raise SystemExit("REFUSED: an item 19 source line is not unique: %s" % [o25, o37, te9])
+
+    vals = {
+        "item_1": {
+            "b8_sample": r_1,
+            "sample": V({k: jload(sample_p)[k] for k in ("frame_size", "sample_size", "sample")}, "MEASURED", sample_p,
+                        "frame_size, sample_size, sample (every 5th of the id-sorted LF-support frame)"),
+            "b8_before_reissue": V(None, "UNAVAILABLE", rec0, "no row of the %d receipt rows in the frozen manifest's %d "
+                                   "receipt files names B-8 or a support audit; no B-8 sample audit ran before the _a2 "
+                                   "pair (gate l.26)" % (len(rrows), len(receipts))),
+            "retro_part": V("not due", "TRANSCRIBED", r8, "R8-GATE-EVIDENCE: retro part of item 1 is campaign-level "
+                            "and not due for this book (construction, named as such)")},
+        "item_4": {
+            "e23_digits": V({k: e[k] for k in ("rows_checked", "flag_count", "by_class", "status")}, "MEASURED", e23,
+                            "top-level rows_checked, flag_count, by_class, status"),
+            "e23_flags_reading": {"value": "both flags are on W1-002 (boundary_rationale and "
+                                  "strongest_rejected_alternative) and use 'period' for the Greek rhetorical period, "
+                                  "not a full-stop driver; the reissued lanes triage them (E-12)", "tier": "INFERRED",
+                                  "source": src(e23, "flags[]")},
+            "retro_triage": V("not due", "TRANSCRIBED", r8, "R8-GATE-EVIDENCE: retro triage of item 4 not due")},
+        "item_5": {
+            "appeal_rows_and_files": V({"receipt_rows_naming_appeal": appeal_rows, "files_named_appeal": appeal_files},
+                                       "MEASURED", rec0, "role, lane and attempt_id of every row in the frozen "
+                                       "manifest's receipt files; file names under 1Cor"),
+            "appeal_state": {"value": "no appeal filed during the 1 Corinthians cycle; none held", "tier": "INFERRED",
+                             "source": src(rec0, "from 0 appeal rows and 0 appeal files (the Jeremiah precedent's "
+                                           "wording)")},
+            "retention": V(ret["counts"], "MEASURED", RET, "counts; each output and file is listed with its sha256"),
+            "retention_disclosure": V("the completion receipt's item5 retention block reports 118 files and is "
+                                      "silent on the %d outputs with no durable file; they are enumerated in "
+                                      "not_matching" % ret["counts"]["not_matching_no_durable_file"], "EXTRACTED",
+                                      nqb, "NQ-13")},
+        "item_13": {
+            "capture_index_verdict": V(c.get("verdict", c.get("status")), "MEASURED", cic, "verdict"),
+            "executions_indexed": V(len(ix), "MEASURED", idx, "rows with book 1Cor"),
+            "layer_a_runtime_actions": V(b["layers_present"]["layer_a_runtime_actions"], "MEASURED", cib,
+                                         "layers_present.layer_a_runtime_actions"),
+            "layer_b_exposed_thinking": V(b["layers_present"]["layer_b_exposed_thinking"], "MEASURED", cib,
+                                          "layers_present.layer_b_exposed_thinking"),
+            "layer_c_evidence_note": V(b["layers_present"]["layer_c_evidence_note"], "MEASURED", cib,
+                                       "layers_present.layer_c_evidence_note"),
+            "containment_disclosure": {"value": "the first 1Cor index build turned the shared index RED (23 install "
+                                       "rows read as executions with no task); the backup was restored GREEN, the "
+                                       "shared fold was taught install rows and the index rebuilt GREEN (L-0114)",
+                                       "tier": "REPORTED", "source": src(SP / "campaign" / "_receipt_fold.py",
+                                                                         "docstring rule on install rows")}},
+        "item_14": {
+            "capture_index_check": V(c.get("verdict", c.get("status")), "MEASURED", cic, "verdict"),
+            "repair_byte_check": r_14,
+            "cure_verification_tool": V(None, "UNAVAILABLE", man_p, "_cure_verification.py needs a --claims file; files "
+                                        "under 1Cor named *cure*claim*: %d; the distinct check of the FIXUP-6 bytes is "
+                                        "repair_byte_check (OW-38 point 2)" % len(cure_claims)),
+            "census": V(ce, "MEASURED", cen, "per_book.1Cor")},
+        "item_24": {
+            "v8_measured_cause": V({"occurrences": len(v8_lines), "lines": v8_lines,
+                                    "correction": "for P04 and P06 no measured cause exists; the sentence is "
+                                    "corrected by this statement, an additions item and the next method version; "
+                                    "no v8 byte changes at this close"}, "MEASURED", v8,
+                                   "lines holding 'The measured cause in 1 Corinthians'"),
+            "v8_usage_limit_sentence": V({"lines": v8_955, "label": "REPORTED (orchestrator) for the boss audit, D1 "
+                                          "and D2; the D5 and adjudicator notes hold it"}, "EXTRACTED", fca, "PF-8"),
+            "feed_measured_key": V("answerable_from_the_witnesses: the count is MEASURED; the class is rule-judged by "
+                                   "a word classifier plus a rule", "EXTRACTED", readme, "section 'What is measured', "
+                                   "bullet 'Answerable from the witnesses'"),
+            "usage_key": V(None, "UNAVAILABLE", fcb, "item OW-28: preview key usage_measured_subagent_tokens is "
+                           "empty; the notification-unit figure is under OW-28 here"),
+            "pf12_review_finals_confirmation": V(None, "UNAVAILABLE", fca, "PF-12: no pinned record confirms that "
+                                                 "review finals read by a D1 profiling script fall outside the "
+                                                 "transcript ban, and the owner did not confirm it (OW-38); "
+                                                 "disclosed, routed to end review"),
+            "validator_report_beside_rows": V({"rows_sha256": sha(rows), "validator_report_sha256": sha(vrep)},
+                                              "MEASURED", vrep, "PF-13: the corpus sha recorded beside the report")},
+        "item_25": {
+            "lenses": V({"LF": "c01-c10", "OL": "c01-c10", "RT": "c06-c08"}, "EXTRACTED", fcb,
+                        "item 25 evidence (frozen manifest lanes)"),
+            "rt_is_reception": {"value": "RT is the reception lens", "tier": "INFERRED", "source": src(fcb, "item 25")},
+            "decoys": V(None, "UNAVAILABLE", fcb, "item 25: decoys for the targeted lens are not evidenced; a third "
+                        "lens without decoys is not counted"),
+            "floor": V("two blind lanes on each of 10 groups; the reissued pair is blind to each other only and "
+                       "neither adds to the lens count (PF-11)", "TRANSCRIBED", r9, "R9-PF, PF-11"),
+            "repair_bytes_question": V("the floor reaches the repair bytes; the _a2 pair, blind to each other, reads "
+                                       "all 34 repaired or flagged rows on the final bytes", "TRANSCRIBED", ow38,
+                                       "point 3 (the question R8-GATE-24-25 sent to the owner)"),
+            "reissue_review": r_25},
+        "OW-28": {
+            "notification_unit_tokens": V(dict(mb, label="SUBTOTAL: 7,761,939 measured tokens across 61 of 98 runs; "
+                                               "37 runs unmeasured; the full spend is unknown"), "MEASURED", met,
+                                          "by_book_lane_model, the 1Cor cells summed"),
+            "full_spend": V(None, "UNAVAILABLE", met, "37 of 98 1Cor runs carry no token count; the full spend is "
+                            "unknown (OW-38 point 4)"),
+            "spend_unit": V(None, "UNAVAILABLE", met, "by_book_lane_model 1Cor: spend_unit_amended_executions 0"),
+            "ceiling_measured": V(None, "UNAVAILABLE", ceil, "books holds %s; no 1Cor ceiling; OW-28 tracks and "
+                                  "does not gate" % books_with_ceiling),
+            "ceiling_decision": V("no limit was set; the spend is reported against none and no ceiling is created "
+                                  "after the fact", "TRANSCRIBED", ow38, "point 2"),
+            "subtotal_at_close": V(dict(now, label="SUBTOTAL at the close: %s measured tokens across %d of %d folded "
+                                       "executions; the full spend is unknown" % (format(now["tokens_total"], ","),
+                                       now["tokens_counted_executions"], now["executions"])), "MEASURED", met_now,
+                                  "by_book_lane_model, the 1Cor cells summed, after --write at the close"),
+            "subtotal_distinct_runs": V("the shared fold counts each of the four merged-close runs three times "
+                                       "(two launch rows and one completion row); by distinct run the subtotal is "
+                                       "the same tokens across 65 of 102 runs, 37 unmeasured", "REPORTED", llog,
+                                       "L-0119")},
+        "item_16": {
+            "status_update": V({"books": {k: st["books"][k] for k in ("closed", "total",
+                                "left_including_the_live_book", "live_book", "counted_closed_before_the_close_act")},
+                                "book_spend": st["measured_per_book"]["1Cor"],
+                                "measured_rate": {k: st["measured_rate"][k] for k in ("books_used", "tokens", "verses",
+                                                  "tokens_per_verse_pooled", "tokens_per_verse_lowest_book",
+                                                  "tokens_per_verse_highest_book", "label")}},
+                               "EXTRACTED", ow12, "books, measured_per_book.1Cor, measured_rate"),
+            "remaining_estimate": V({k: st["remaining"][k] for k in ("books_left_after_the_live_book", "verses_left",
+                                     "tokens_low", "tokens_mid", "tokens_high", "label")}, "INFERRED", ow12,
+                                    "remaining (the tool labels every forward number ESTIMATE)"),
+            "max20x_plan": V({k: st["max20x_plan"][k] for k in ("rule", "what_can_be_said", "what_cannot_be_said")},
+                              "EXTRACTED", ow12, "max20x_plan"),
+            "tool": V(rel(ow12_tool), "MEASURED", ow12_tool, "the installed OW-12 tool, run with --count-closed 1Cor "
+                       "--next-book John (install receipt m8_tools_install_ow12_live_book_fix.json)")},
+        "item_18": {
+            "learning_log_entries": V([r["id"] for r in cor], "MEASURED", llog, "every entry after L-0087 (the last "
+                                       "Daniel entry); dated %s to %s" % (cor[0]["date"], cor[-1]["date"])),
+            "entry_stages": V(sorted({r["stage"] for r in cor}), "MEASURED", llog, "stage of each listed entry"),
+            "coverage_reading": V("the stages cover every wave landing, distinct-check landing and controlling-"
+                                   "execution landing of the 1Cor cycle", "REPORTED", llog,
+                                   "the orchestrator's reading of the stage field against the cycle"),
+            "metrics_digest": V(sha(met_now), "MEASURED", met_now, "sha256 after _orchestration_metrics.py --write "
+                                 "at the close"),
+            "metrics_ow38_basis_digest": V(sha(met), "MEASURED", met, "the earlier metrics bytes OW-38 point 4 is "
+                                            "bound to, kept as a snapshot"),
+            "playbook_version": V({"version": "v5", "path": rel(pb), "sha256": sha(pb)}, "MEASURED", pb,
+                                   "line 1; written at this close because the 1Cor evidence changed recommendations")},
+        "item_19": {
+            "quality_for_tokens": V("None narrowed a gate for tokens: no gate, lane floor or review was cut to save "
+                                     "tokens in 1 Corinthians. Owner decisions that changed who or when, disclosed "
+                                     "below: OW-25 (every Fable role on claude-opus-5-5) and OW-28/OW-37 (the Fable "
+                                     "end review deferred, not dropped). The speed-first order narrowed rounds to "
+                                     "deltas under rules that weaken no gate. OW-38 added reviews.", "REPORTED", ter,
+                                     "line %d (the rules' no-weakening clause); the statement is the orchestrator's"
+                                     % te9[0]),
+            "ow25_model_fallback": V("Fable unavailable; every Fable role runs on claude-opus-5-5, recorded as "
+                                      "grader_fallback; owner's authority", "TRANSCRIBED", ledger,
+                                      "line %d, OWNER DIRECTIVE OW-25" % o25[0]),
+            "fable_end_review_deferred": V("the Fable end review stays DEFERRED (OW-28) and the transcript audit "
+                                            "stays OWED; owner's authority", "TRANSCRIBED", gate,
+                                            "line %d, OW-37 point 3" % o37[0]),
+            "speed_first_order": V("no rule weakens a gate, skips a lane, changes a model or bypasses a receipt",
+                                    "TRANSCRIBED", ter, "line %d" % te9[0])},
+    }
+    return {"schema": "m8_close_evidence.v1", "book": "1Cor", "corpus_sha256": sha(rows),
+            "pre_reissue_sha256": PRE_REISSUE,
+            "pre_reissue_basis": "the version of this file both _a2 briefs pin (BRIEF_MERGED_A2.md, BRIEF_MERGED_B2.md)",
+            "due_at_close_act": ["item_1", "item_14", "item_16", "item_18", "item_19", "item_25"],
+            "due_at_close_act_basis": src(ow38, "points 1-3: items 1, 14 and 25 are filled from the _a2 pair's landed "
+                                          "outputs; 16, 18 and 19 at the close act (R9-CLOSE-EVIDENCE)"),
+            "values": {k: item(k, parts) for k, parts in vals.items()}}
+
+
+if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")
+    doc = build()
+    text = (json.dumps(doc, indent=1, ensure_ascii=False) + "\n").encode("utf-8")
+    if "--check" in sys.argv:
+        print("MATCH" if OUT.is_file() and OUT.read_bytes() == text else "DIFFERS")
+        raise SystemExit(0)
+    OUT.write_bytes(text)
+    v = doc["values"]
+    parts = lambda k: v[k]["parts"] if v[k]["value"] is None else v[k]["value"]
+    print(json.dumps({"close_evidence": sha(OUT), "retention": sha(RET),
+                      "items": {k: [v[k]["tier"], v[k].get("missing", [])] for k in v},
+                      "unavailable_parts": sorted("%s.%s" % (k, s) for k in v for s in parts(k)
+                                                  if parts(k)[s]["tier"] == "UNAVAILABLE"),
+                      "ret_counts": jload(RET)["counts"]}))

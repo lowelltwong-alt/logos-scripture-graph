@@ -1,0 +1,88 @@
+{
+ "schema": "m8_controlling_queue.v1",
+ "book": "1Cor",
+ "for_execution": "cor_controlling_rulings_r6_a1#e1",
+ "status": "proposed_by_orchestrator",
+ "review_deliverable": {
+  "path": "1Cor/review/1cor_fixup4_review_S6.json",
+  "sha256": "0e509e74cf246e0caf4124be2a556c288f73ceb00a755efe85950a89af7ee3fb"
+ },
+ "prior_rulings": [
+  {
+   "path": "1Cor/review/1cor_controlling_agent_rulings_E5.v1.json",
+   "sha256": "c83f49370ed176790530dabdcdfabb85083e94e70acfa87dd4723c16fefa4171"
+  },
+  {
+   "path": "1Cor/review/1cor_controlling_agent_rulings_E4.v1.json",
+   "sha256": "33ac57245ee930b1484a1227fc019e11c6f082b5c984a20ecc9e7c765d463187"
+  }
+ ],
+ "rows_under_review": {
+  "path": "1Cor/fixup/draft_rows_fixup4_applied.jsonl",
+  "sha256": "1aa03b08817c7b007796223b9a6921a81643db35ffa81e2f06e2c33821990562"
+ },
+ "measured_context": {
+  "readiness": "fit_with_changes",
+  "changes_required": 2,
+  "new_findings": 3
+ },
+ "items": [
+  {
+   "id": "R6-S6-01",
+   "route": "controlling",
+   "proposal": "S6 asks for one of two acts on W3-005 device_notes: order an amended exact span, or state in words that GATE-E5 condition 3's clause 'no new 7-gram shared across rows' reaches only gate 10. The orchestrator takes no reading of the clause. If you amend, give the exact span in the form of R5-S5-11 so it applies without an author; S6's candidate is in the finding.",
+   "review_finding": {
+    "id": "S6-01",
+    "severity": "blocker",
+    "row_or_artifact": "W3-005 (shares with W3-004)",
+    "claim": "The FIXUP-4 text in W3-005 device_notes creates three 7-grams shared with W3-004. FIXUP-3 held them in W3-004 alone. Condition 3's clause 'no new 7-gram shared across rows from FIXUP-4 text' is not met.",
+    "evidence": "ngram7.py --gate 10 --full-ids on private 5x clones, so that two rows reach the gate and one row does not: grams 'measure w b over the rp and', 'w b over the rp and sblgnt', 'b over the rp and sblgnt texts' fire with rows W3-004, W3-005 on the FIXUP-4 clones and not on the FIXUP-3 clones. My own re-implementation returned the same grams. The bytes are what R5-S5-11 ordered, so the apply is correct.",
+    "suggested_fix": "Candidate wording for the controlling agent, since the text is byte-ordered: 'counts MEASURED by scripts measure_w3b and measure_w3 over'. It breaks the run with W3-004, and the grams then fall in the set W3-005 already shared in FIXUP-3. Tested only on a private variant, not on any row: ngram7 --gate 10 --full-ids on 5x clones showed 0 new shared 7-grams against FIXUP-3, and run_validator_suite.py gave hard_status GREEN, dead_members [] on the variant. Tiling and the CWO sweep were not run on the variant.",
+    "route": "controlling_agent"
+   }
+  },
+  {
+   "id": "R6-S6-02",
+   "route": "controlling",
+   "proposal": "The same choice on W6-007 and W6-009 boundary_rationale. Rule the clause's reach once, in words, so S6-01 and S6-02 get one answer. If you amend, one row suffices; S6's candidate touches W6-009 only and also removes that row's ellipsis.",
+   "review_finding": {
+    "id": "S6-02",
+    "severity": "blocker",
+    "row_or_artifact": "W6-009 (shares with W6-007)",
+    "claim": "The FIXUP-4 text in W6-007 and W6-009 boundary_rationale creates three 7-grams shared by both rows and absent from FIXUP-3. Condition 3's clause is not met.",
+    "evidence": "ngram7.py --gate 10 --full-ids on private 5x clones: grams 'front face rp opens with the heading', 'face rp opens with the heading a', 'rp opens with the heading a peri' fire with rows W6-007, W6-009 on the FIXUP-4 clones and not on the FIXUP-3 clones. My own re-implementation returned the same grams. The pair already shared the unlocated frame 'front face opens with the heading' in FIXUP-3, and R5-S5-06 inserted RP into both, so the sharing is a variant of an older frame and the bytes are what the ruling ordered.",
+    "suggested_fix": "Candidate wording for the controlling agent: in W6-009 only, 'Front face: the RP text opens with the heading rp:1Cor.16.12 \"'. It also removes that row's ellipsis. Tested only on a private variant, not on any row: ngram7 --gate 10 --full-ids on 5x clones showed 0 new shared 7-grams against FIXUP-3, and run_validator_suite.py gave hard_status GREEN, dead_members [] on the variant. Tiling and the CWO sweep were not run on the variant.",
+    "route": "controlling_agent"
+   }
+  },
+  {
+   "id": "R6-S6-03",
+   "route": "fable_end_review",
+   "proposal": "Pass to Fable's end review. For this book, name in the gate which run decides any clause you keep, so the next check does not have to build a private measuring device.",
+   "review_finding": {
+    "id": "S6-03",
+    "severity": "note",
+    "row_or_artifact": "SP\\1Cor\\tools\\ngram7.py; SP\\1Cor\\fixup\\draft_rows_fixup4_applied.manifest.json",
+    "claim": "The pinned run, COPY --gate 10 --full-ids, cannot see a 7-gram shared by fewer than ten rows, so the manifest's GREEN and offending [] say nothing about condition 3's second clause, and the manifest records no check of it.",
+    "evidence": "Pinned run: GREEN, offending [], on both files. The clone run shows two-row sharing under the same arguments: 269 offending grams on FIXUP-3, 255 on FIXUP-4, net 14 fewer, with six of the 255 new. The clone counts are a measuring device, not the book's gate result.",
+    "suggested_fix": "A later gate that keeps this clause should name a run able to answer it.",
+    "route": "fable_end_review"
+   }
+  },
+  {
+   "id": "R6-ACCEPT-FORM",
+   "route": "controlling",
+   "proposal": "S6's uncertainty: 'ACCEPT form' in condition 7 is defined in no pinned input; S6 read it as a bare enumerated token and found the condition met. Rule whether that reading stands. The orchestrator proposes it does."
+  },
+  {
+   "id": "R6-S5-12-14-TEXTS",
+   "route": "orchestrator",
+   "proposal": "S6's uncertainty: the rulings say the texts of R5-S5-12, -13 and -14 are checked against the S5 report, which was forbidden to S6, so they are unchecked. No row depends on them. Proposal: the orchestrator records the check as not run and carries the three items in the close record; rule if you want more."
+  },
+  {
+   "id": "GATE-E6",
+   "route": "controlling",
+   "proposal": "Set the five gate fields. Say what is owed before the final rows: if no bytes change, fixup_may_launch false and FIXUP-4 applied rows are the final-rows candidate. If bytes change, every order carries exact spans so the rows apply with no author lane (fixup_parts names the parts, the tool applies them), and you say in words whether a further distinct check S7 is owed or whether the suite, ngram7, tiling and sweep on the applied rows plus the boss audit and the two blind merged lanes on those rows carry it. Those three read every final row whatever you decide. primaries_may_launch false."
+  }
+ ]
+}

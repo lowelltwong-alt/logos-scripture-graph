@@ -1,0 +1,178 @@
+# WRITER BRIEF: candidate chunk rows for 1 Corinthians, part {{PART}} (M8_fable, m8-mesh-r3)
+
+You are one of SIX part-writers in the M8_fable 1 Corinthians cycle. The work is candidate-only, NON-AUTHORIZING
+research that will be reviewed adversarially. This brief is binding. Attempt `{{ATTEMPT}}`, execution `{{EXECUTION}}`.
+You run on claude-opus-5-5 (OW-25).
+
+{{EFFICIENCY}}
+## E-19: the two binding lines
+
+**AFFIRMATIVE NO-CHECK LINE:** your OUT directory `{{OUT}}` already exists. Write your deliverable directly to
+`{{OUT}}\{{DELIVERABLE}}`. **Never run any existence check, listing, glob or recursive search against it or any other
+directory.** A shell wildcard is a glob.
+
+**EXACT-PATH LAW:** every path you may read is named in this brief. Open each by that exact path. No directory
+listing, no glob, no recursive search, no looking around. State in your final message that you ran no listing and no
+glob. **Never open any session or agent transcript, `.output` file or compaction summary path, including your own,
+even if your context names one; if your context is compacted, rebuild from your OUT working files only.**
+
+## GOVERNANCE
+
+- SP is `{{SP}}`. It is read-only for you. Write nothing under SP, not even a debug file.
+- Every file you write goes under `{{OUT}}`: the deliverable at the exact path above, and your own scripts, private
+  copies and tool reports under `{{OUT}}\work\`. Nothing anywhere else.
+- Never run git, never write a receipt, never touch any registry.
+- **FORBIDDEN LANES:** any path under `.ai\scratch\multi_model_bible_chunking\` belonging to `M1_cursor`,
+  `M2_claude_sonnet5`, `M3_claude_frontier`, `M4_codex_gpt55`, `M5_gemini_thinking`, `M6_fable5`, `M7_sol` or
+  `comparison\`, every other book's directory under SP, the Greek apparatus and the Swete reference directories under
+  `greek_substrate\`, and every other writer's OUT. Never read another model's output; never seek convergence.
+- **Running Python:** always set `PYTHONDONTWRITEBYTECODE=1`, `PYTHONUTF8=1` and `PYTHONIOENCODING=utf-8` in the
+  environment and run `python -B`. The environment variable is required because the validator suite starts its members
+  as child processes; without it a child process could write bytecode into `SP\1Cor\tools\`, which is a write under SP.
+- **The tools you may RUN** are exactly these, each only on a PRIVATE COPY of your rows under `{{OUT}}\work\`:
+  `SP\1Cor\tools\check_tiling.py`, `SP\1Cor\tools\run_validator_suite.py` (it writes `<copy>.validator_report.json`
+  beside its input, so it must only ever see a copy in your `work\`), and
+  `SP\1Cor\writer_lanes\_validate_writer_part_1cor.py` (it writes nothing). You may import `SP\1Cor\tools\cor_lib.py`
+  from your own scripts; it binds `greek_lib.py` by its exact path, which you never run directly. Every other pinned
+  tool is READ ONLY. Never run any other tool: `normalize_greek_in_json.py --write` and other tools under
+  `SP\1Cor\tools\` write files when run.
+
+## PINNED INPUTS
+
+Verify nothing you read has changed: these are the sha256 digests of the files as this brief was built.
+
+{{PINS}}
+
+**Read first:** `SP\1Cor\tools\TOOLKIT.md` (book facts, hazards, the tools' contracts) and
+`SP\1Cor\book_strategy_1Cor.md` whole. The strategy is BINDING; where this brief and the strategy seem to differ,
+follow the strategy and say so in `unresolved_uncertainty`. Where the toolkit and a tool's code differ, the code is the
+contract.
+
+## YOUR PART
+
+{{PART_FACTS}}
+
+## CRITICAL BOOK FACTS (all from 1 Corinthians' own files; read the strategy for the evidence)
+
+1. **Numbering is identity.** WEB, RP and SBLGNT number every verse alike. There is no numbering zone, so no dual span
+   and no `oshb:` or `mt:` token is ever written. Spans are WEB `1Cor.C.V-1Cor.C.V`; inline tokens are `web:`, `rp:`
+   or `sbl:` followed by a real verse, for example `rp:1Cor.16.22`.
+2. **Three witnesses, three roles.** Greek is quoted from RP (Robinson-Pierpont Byzantine Textform), sliced by script
+   from `1Cor_rp.txt`. SBLGNT (`1Cor_sbl.txt`) is quoted only to disclose a differing reading on which a row's
+   argument rests (strategy §3, §10 C5). WEB (`1Cor_web_clean.txt`) is the English face. The SBLGNT critical signs
+   (`⸀⸁⸂⸃⸄⸅`) mark a variant site only; a quotation that crosses one keeps the sign or names both readings.
+3. **Marks inform, never decide.** The RP pilcrows (35 verses), the WEB paragraph starts and footnote sites and the
+   SBLGNT signs are recorded in `pmarks_1Cor.json`. None of them alone opens a row (strategy §4, §6). Cite a mark by
+   its kind, never as "a mark".
+4. **Fabrication classes.** The staged witnesses carry 0 Hebrew characters; any Hebrew in a row is a fabrication. The
+   SBLGNT apparatus was not read: the content of a variant behind a sign is UNAVAILABLE unless the two staged texts
+   show it. Both staged witnesses carry 14:34-14:35 in place between 14:33 and 14:36.
+5. **Cross-tradition material** (the SBLGNT apparatus, other editions, the ancient versions, the Western order of
+   14:34-14:35, reception) is prose metadata only: attributed, never a `boundary_evidence_refs` entry, never a reason
+   for a seam.
+6. **No other book's figures.** Nothing measured in another book passes as 1 Corinthians' (E-65); do not name another
+   book of this campaign or its counts at all.
+7. **Never quote Greek from TOOLKIT.md or the strategy**, which carry citation forms. Row bytes come from `1Cor_rp.txt`
+   or `1Cor_sbl.txt`, always.
+
+## TASK
+
+Tile your part's WEB range **exactly** (no gap, no overlap, no verse outside it) with chunk rows per the strategy:
+
+- **§5 parents.** A row never straddles a parent seam. Your part's internal parent seams are listed above.
+  `parent_collection` opens with the parent id, then its title in parentheses, as listed under YOUR PART. §5's onset
+  candidates per parent are candidates, not quotas.
+- **§6 unit_type**, the closed vocabulary of 14: `frame_prescript`, `frame_thanksgiving`, `frame_closing`, `appeal`,
+  `report_response`, `topic_response`, `argument_step`, `objection_reply`, `example`, `inset`,
+  `tradition_with_application`, `slogan_with_response`, `exhortation`, `travel_and_commendation`. A row takes exactly
+  one, and the row names its evidence. The type names never adjudicate a reading (§6).
+- **§6 granularity.** One row per complete argumentative move. A row opens only where the text's own signal holds on
+  both faces. Obey the over-split and under-split guards of §6. The validator warns on a one-verse row and on a row
+  above 15 verses (15 is a review prompt, not a rule): answer each warning in the row.
+- **Seams from both sides.** Every edge is weighed on both sides, from the bytes. Read the verse on either side of your
+  part as read-only context.
+- **§7 low-confidence regions.** Hold honestly at `medium_low` or `low` with a bespoke rationale rather than force a
+  boundary. A seam with one-sided evidence, or evidence only from a mark, is `low` or `medium_low`. Never round up.
+- **§10 conventions C1-C9** are binding. Read them in the strategy itself. The validator tests parts of C2-C9 only;
+  in particular it exempts every byte-exact Greek run from C2, whereas the strategy exempts only a script-sliced
+  quotation that carries its witness tag. Tag every quotation, and treat a GREEN as form, never as compliance.
+- **Span form.** §8.1's `C:V-C:V` is how a span is written in prose. The `span` field takes the schema form
+  `1Cor.C.V-1Cor.C.V`, which the tiling tools parse; both name the same WEB verses.
+- **§8 register and hygiene**, reproduced verbatim below from the pinned strategy, is binding.
+
+{{SECTION8}}
+
+## OUTPUT: one JSONL row per chunk, 23 fields, in span order, to `{{OUT}}\{{DELIVERABLE}}`
+
+```
+decision_id            "{{PART}}-001", "{{PART}}-002", ... in span order
+book                   "1Cor"
+model_id               "M8_fable"
+chunk_index_in_book    1, 2, 3, ... in span order within your part (the orchestrator renumbers book-wide)
+span                   "1Cor.C.V-1Cor.C.V" on the WEB face; a one-verse row is written X-X
+boundary_rationale     prose: the onset evidence and the close evidence, BOTH SIDES of each edge, byte-cited
+boundary_evidence_refs list of strings, each a ref with its disclosure in parentheses, for example
+                       "rp:1Cor.7.1 (peri de onset)"; the suite checks the grammar
+strongest_rejected_alternative  the best boundary you did NOT take, and why
+literature_type_guess  free label
+confidence             high | medium | medium_low | low
+strong_or_hebrew_tags_used      list of strings (empty in this book unless you used lexical tags); any Greek in it is
+                       spliced from the witnesses
+wj_or_red_letter_considered     boolean: whether you considered a words-of-Jesus / red-letter layer
+frontier_flag_considered        true when the row carries a question for Fable's end review
+non_authorizing        true
+review_status          "pending"
+parent_collection      "P01".."P13" then the title in parentheses
+unit_type              one of the 14
+writer_part            "{{PART}}"
+writer_decision_id     "{{PART}}-<n>"
+writer_attempt_id      "{{ATTEMPT}}"
+observed_substrate_signals  list of strings: the device ids from 1cor_device_inventory.json and the marks you weighed
+device_notes           disclosures: SBLGNT readings, signs crossed, slogan extent, 14:33b-14:36, maranatha, rival readings
+language               "G"
+```
+
+## GREEK: SPLICE IT, NEVER TYPE IT
+
+Build every Greek string by reading it programmatically out of `1Cor_rp.txt` (or, for a disclosed SBLGNT reading,
+`1Cor_sbl.txt`) and splicing it in. Never hand-type it and never write it as unicode escapes: hand-typed Greek is the
+E-01 failure class, and it is avoidable because the source is in front of you. Quotations are short. **Every row that
+carries Greek carries both attribution lines:** "Robinson-Pierpont Byzantine Textform (Unlicense)" and "SBLGNT (CC BY
+4.0)". A run of four or more consecutive witness words that is not byte-exact is an unquoted witness run and is RED.
+
+## SELF-CHECK BEFORE YOU RETURN (on a private copy in `{{OUT}}\work\`)
+
+1. `check_tiling.py <copy> --range {{RANGE}}` (it prints its verdict).
+2. `_validate_writer_part_1cor.py <copy> --part {{PART}} --attempt {{ATTEMPT}}`: it must say GREEN. Read its warnings
+   and either cure each or answer it in the row (a one-verse row's justification, a long row's single-move statement,
+   a sign crossed, a hinge disclosed).
+3. `run_validator_suite.py <copy>`: read `summary` in the report it writes beside the copy. Cure every HARD failure.
+   Report the FLAGS you left and why.
+4. Your own programmatic check, on the finished file, that every Greek run is a byte substring of `1Cor_rp.txt` or
+   `1Cor_sbl.txt`.
+5. Copy the cured copy to the deliverable path, then re-run steps 1 and 2 on a fresh copy of the deliverable.
+
+Report exactly what you ran and what it returned. A claimed tool run that did not happen is the worst thing you can
+put in a record. The orchestrator re-runs all three tools on your deliverable independently. They are deterministic
+and prove form, not judgment: your seams are judged by the review lanes and by Fable at the campaign's end.
+
+## YOUR FINAL MESSAGE (evidence-and-decision record)
+
+Return JSON only:
+
+```
+{"attempt_id":"{{ATTEMPT}}","execution_id":"<the execution id named at the top of this brief>",
+ "sources":["<exact paths you read>"],
+ "outcome":{"changed":[{"what":"<rows written>","why":"..."}]},
+ "verification":[{"claim":"...","how":"<tool + argument>","result":"confirmed|refuted"}],
+ "unresolved_uncertainty":[{"what":"...","why_it_matters":"..."}],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+ "rows_written":0,"span_covered":"...","tiling_check":"PASS|FAIL","validator_verdict":"GREEN|RED",
+ "suite_hard_status":"GREEN|RED","suite_flags_left":["..."],
+ "deliverable_sha256":"<sha256 of the deliverable bytes>",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}
+```
+
+`unresolved_uncertainty` is the field most worth having and the easiest to leave empty. **Held low confidence is a
+result, not a failure**: this campaign would far rather have an honest `low` with a bespoke rationale than a forced
+`high`.

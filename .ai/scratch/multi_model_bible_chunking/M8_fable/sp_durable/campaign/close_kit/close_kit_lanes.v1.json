@@ -1,0 +1,95 @@
+{
+ "schema": "m8_close_kit_lanes.v1",
+ "what": "The four close lanes in book-agnostic form (TE-1, TE-7). Tokens: {B} book id, {b} lower-case book id, {p} attempt prefix, {R} rulings pins, from the book's close_params. make_close_lanes.py turns this into the book's lane specs and close-table rows.",
+ "port_rule": "**Build it once for every book (TE-7).** Port from the closed book's tools pinned below. They are templates of FORM only (E-65): nothing from another book passes, and every constant is re-derived from this book's bytes. Write the tools book-agnostic: every book-specific name, path, digest and count lives in `book_params.v1.json` and the scripts hold none, so a later book supplies a new parameter file and ports nothing. Each script takes `--params`, `--book-root` (inputs; default the parent of the script's directory) and `--out-root` (default the same); run it with the book root `SP\\{B}` and OUT. After landing the orchestrator installs at the same relative place and re-runs `--check` with the defaults, and the bytes must be identical. No clock, no randomness, sorted iteration, every input digest a constant in the parameter file that the script verifies. No script scans a directory: it opens a named path or a path from the landed-outputs manifest.",
+ "common_pins": [
+  ["{B}/rows_v1_final.jsonl", "read", "the final rows"],
+  ["{B}/rows_v1_final.manifest.json", "read", "the final rows' manifest"],
+  ["{B}/book_strategy_{B}.md", "read", "the book strategy"],
+  ["{B}/fable_end_review/routed_items.v1.jsonl", "read", "the questions routed to the campaign-end review"],
+  ["campaign/grader_models.v3.json", "read", "the review model shapes for this book"],
+  ["campaign/REVIEWER_CONTINUATION_CONTRACT.v1.md", "read", "the reviewer continuation contract"],
+  ["../CAMPAIGN_CLOSE_GATE.v1.md", "read", "the close gate"],
+  ["../ERROR_PATTERN_LEDGER.v1.md", "read by search, not whole", "the error ledger"]
+ ],
+ "lanes": {
+  "D1": {
+   "attempt": "{p}_close_scholar_record_a1",
+   "title": "THE SCHOLAR RECORD (ITEM 20)",
+   "task": "campaign/close_kit/task_D1.md",
+   "budget": "About 60 tool calls; stop and report at 110.",
+   "work": "this lane builds the book's scholar record from landed packets; it changes no row and judges no boundary, and writes only in OUT",
+   "role": "{N} close kit D1: builds the scholar record of close-gate item 20 from landed packets with a book-agnostic generator and checker. Changes no row. Writes in OUT only",
+   "catcher": "the checker's own sub-checks re-run by the orchestrator with default paths; the two blind merged-close lanes that grade the record against the primary sources",
+   "other_book_ok": "a port lane: the closed book's tools are pinned as templates of FORM, and the brief forbids passing anything from them as this book's evidence (E-65)",
+   "pins": [
+    ["{b_manifest_v1}", "read", "the manifest of landed outputs; open packets by its paths"],
+    ["{boss}", "read", "the boss audit record"],
+    ["{B}/{B}_rp.txt", "read", "the primary witness"],
+    ["{B}/{B}_sbl.txt", "read", "the secondary witness"],
+    ["{B}/{B}_web_clean.txt", "read", "the English witness"],
+    ["{B}/pmarks_{B}.json", "read", "the paragraph marks"],
+    ["{B}/{b}_device_inventory.json", "read", "the device inventory"],
+    ["Dan/scholar_record/gen_scholar_record.py", "template of form only", "the closed book's generator"],
+    ["Dan/scholar_record/check_scholar_record.py", "template of form only", "the closed book's checker"],
+    ["Dan/scholar_record/DANIEL_SCHOLAR_RECORD.v1.md", "template of form only", "the closed book's record"]
+   ]
+  },
+  "D2": {
+   "attempt": "{p}_close_atlas_a1",
+   "title": "THE ATLAS ROWS AND THE SIDECAR (ITEM 22)",
+   "task": "campaign/close_kit/task_D2.md",
+   "budget": "About 60 tool calls; stop and report at 110.",
+   "work": "this lane builds the book's atlas feed rows and sidecar from landed packets; it changes no row and judges no boundary, and writes only in OUT",
+   "role": "{N} close kit D2: builds the atlas feed rows, dimensions and sidecar of close-gate item 22 with book-agnostic generators. Changes no row. Writes in OUT only",
+   "catcher": "the generators' --check re-run by the orchestrator with default paths; the coverage validator at the dry run; the two blind merged-close lanes",
+   "other_book_ok": "a port lane: the closed book's tools are pinned as templates of FORM, and the brief forbids passing anything from them as this book's evidence (E-65)",
+   "pins": [
+    ["{b_manifest_v1}", "read", "the manifest of landed outputs; open packets by its paths"],
+    ["{boss}", "read", "the boss audit record"],
+    ["{B}/{B}_rp.txt", "read", "the primary witness"],
+    ["{B}/{B}_sbl.txt", "read", "the secondary witness"],
+    ["{B}/{B}_web_clean.txt", "read", "the English witness"],
+    ["{B}/pmarks_{B}.json", "read", "the paragraph marks"],
+    ["{B}/{b}_device_inventory.json", "read", "the device inventory"],
+    ["Dan/deliverables/gen_atlas_rows.py", "template of form only", "the closed book's atlas generator"],
+    ["Dan/deliverables/check_atlas_rows.py", "template of form only", "the closed book's atlas checker"],
+    ["Dan/deliverables/gen_sidecars.py", "template of form only", "the closed book's sidecar generator"],
+    ["Dan/deliverables/README.md", "template of form only", "the closed book's deliverables note"]
+   ]
+  },
+  "D3": {
+   "attempt": "{p}_close_proposer_a1",
+   "title": "THE METHOD PROPOSER (ITEM 23)",
+   "task": "campaign/close_kit/task_D3.md",
+   "budget": "About 70 tool calls; stop and report at 120.",
+   "work": "this lane proposes method changes from the book's landed evidence or says why none; it edits no method record and writes only in OUT",
+   "role": "{N} close kit D3: the method proposer of close-gate item 23. Reads the landed evidence itself, edits no method record. Writes in OUT only",
+   "catcher": "the adjudicator D5, who opens the cited artefacts; the orchestrator's schema check on the candidate file",
+   "pins": [
+    ["{b_manifest_v1}", "read", "the manifest of landed outputs; open packets by its paths"],
+    ["{boss}", "read", "the boss audit record"],
+    ["../METHOD_PROPOSER_BRIEF.md", "read in full, binding", "the proposer brief"],
+    ["../{method}", "read in full", "the current method record"],
+    ["../method_change_proposals.v1.jsonl", "read", "the existing proposals log"]
+   ]
+  },
+  "D5": {
+   "attempt": "{p}_close_adjudicator_a1",
+   "title": "THE METHOD ADJUDICATOR (ITEM 23)",
+   "task": "campaign/close_kit/task_D5.md",
+   "budget": "About 60 tool calls; stop and report at 100.",
+   "work": "this lane rules on the book's method proposals by opening the cited artefacts; it edits no method record and writes only in OUT",
+   "role": "{N} close kit D5: the method adjudicator of close-gate item 23. Tests each proposal's cited evidence and rules. Edits no method record. Writes in OUT only",
+   "catcher": "the orchestrator's schema check and rate count; the campaign-end review (OW-28)",
+   "pins": [
+    ["{B}/close/landed/D3_e1/method_change_proposals.{B}.candidate.jsonl", "read", "the proposals under adjudication"],
+    ["{B}/close/landed/D3_e1/proposer_notes.json", "read", "the proposer's notes"],
+    ["{b_manifest_v1}", "read", "the manifest of landed outputs; open artefacts by its paths"],
+    ["../METHOD_PROPOSER_BRIEF.md", "read", "the proposer brief, for scope"],
+    ["../{method}", "read the target sections", "the current method record"],
+    ["../method_change_proposals.v1.jsonl", "read", "the existing proposals log"]
+   ]
+  }
+ }
+}
