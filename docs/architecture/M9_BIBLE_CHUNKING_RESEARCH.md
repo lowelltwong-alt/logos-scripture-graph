@@ -2,9 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-16, **19/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 558 chunks. Forty-seven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-17, **20/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 708 chunks. Forty-six books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
 
-## Latest accepted book: Job
+## Latest accepted book: Psalms
+
+Psalms (canonical position 19) contributes 150 independently reviewed, reversible local research chunks. Separate numbered-source coverage records 2,527 OSHB occurrences and 2,461 WEB Classic occurrences; these counts remain on their respective witness axes. The candidate preserves all 150 received ownership decisions, complete alternate partition and comparison evidence, and equal appeal routes. Psalms 42 and 43 remain separate owners, with a non-owning combined view. Psalm 119 remains one owner with 22 contextual strophes; the strophes do not create additional units.
+
+The review retains disputed seams, source-led examples, broader comparison windows and held dependencies for inspection. It distinguishes main text, apparatus and qere, alignment, and interpretive claims. These examples make the candidate's choices and counterarguments inspectable; they do not settle interpretation, textual readings or boundaries. The local receiving and semantic checks cover the stated candidate and reviewed repairs, not exhaustive combinations or the complete Bible. Acceptance remains reversible local research, not scholar-ready status, production or retrieval authorization, public source release, or canonical promotion.
+
+## Earlier accepted book: Job
 
 Job (canonical position 18) adds 31 independently reviewed, reversible local research chunks. The map covers 1,070 OSHB verse records and 1,070 WEB Classic verse records on separate axes. It preserves three independently drafted maps, nine serious alternatives, and 40 paired boundary cases, including ten nested study entries.
 

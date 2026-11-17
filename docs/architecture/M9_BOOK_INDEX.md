@@ -1,6 +1,6 @@
 # M9 canonical-order book index
 
-As of 2026-11-16: **19/66 reviewed local research candidates, 558 chunks, 47 books remaining and zero scholar-ready books.** Job adds 31 chunks to the 18-book, 527-chunk milestone. Second Kings added 59 chunks at the previous milestone. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
+As of 2026-11-17: **20/66 reviewed local research candidates, 708 chunks, 46 books remaining and zero scholar-ready books.** Psalms adds 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
 
 The index identifies books by name and canonical position and summarizes the local evidence. Exact candidate and evidence identities are retained privately. This documentation contains no raw candidate bundles.
 
@@ -20,6 +20,7 @@ The index identifies books by name and canonical position and summarizes the loc
 | 12 | Second Kings | 59 | Independently reviewed reversible local acceptance |
 | 17 | Esther | 13 | Local acceptance with a public research summary |
 | 18 | Job | 31 | Independently reviewed reversible local acceptance |
+| 19 | Psalms | 150 | Independently reviewed reversible local acceptance |
 | 25 | Lamentations | 14 | Final check |
 | 27 | Daniel | 10 | Final check |
 | 43 | John | 53 | Preparation acceptance (see acceptance history below) |
@@ -39,3 +40,6 @@ Later source-bearing release requires exact source/evidence dependency mapping, 
 **Second Kings local research decision ranges.** The 59-chunk map covers 719 OSHB verses and 719 WEB Classic verses independently and retains four serious whole-book alternatives. Both approaches to 15:16 remain available for review, and the chronology at 23:34 remains open. Local receiving proof covers complete values, scope and both directions of the specific private routes tested. See the [Second Kings research summary](M9_BIBLE_CHUNKING_RESEARCH.md#earlier-accepted-book-second-kings) for method and limits.
 
 **Esther local research decision ranges.** The proposed public summary records chapter 1 intact with a visible 1:10 entry; exact gate-report ownership at 2:21–23 alongside 2:19–23 context; and left attachment of 6:14 with the live forward alternative. Both sides require 6:12–7:2 and the earlier invitation. The correction preserves 95 retained original appeal occurrences across 36 origins, separately from 35 new conditional hold routes; two documentary cases remain uncertain, and seven held local cases were exercised. The 152 original appeal records are a separate denominator. See the [Esther research summary](M9_BIBLE_CHUNKING_RESEARCH.md#earlier-accepted-book-esther) for qualifications and limits. This is reversible local research acceptance, not scholar-ready status, retrieval authorization or public release.
+
+
+**Psalms local research decision ranges.** The 150-unit candidate preserves 2,527 numbered OSHB source occurrences and 2,461 numbered WEB Classic occurrences as separate counts. It retains complete alternate partitions and comparisons, separate ownership for Psalms 42 and 43, and a non-owning combined view. Psalm 119 remains one unit with 22 contextual strophes. Disputed seams, examples, dependencies and appeals remain inspectable with main text, apparatus/qere, alignment and interpretive claims kept distinct. The examples support transparent comparison of candidate choices and counterarguments; they do not establish a final or settled interpretation. Review limits remain, and no scholar-ready, production/retrieval, public-source or canonical-promotion qualification follows from local acceptance.
