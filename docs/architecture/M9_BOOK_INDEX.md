@@ -1,35 +1,38 @@
 # M9 canonical-order book index
 
-As of 2026-11-16: **17/66 reviewed local research candidates; 468 units; 49 remaining; zero scholar-ready books.** Esther adds 13 units to the prior 16-book, 455-unit milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
+As of 2026-11-16: **18/66 reviewed local research candidates, 527 chunks, 48 books remaining and zero scholar-ready books.** Second Kings adds 59 chunks to the 17-book, 468-chunk milestone. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
 
-The following identifiers refer to retained local evidence, not downloadable bundles. No raw candidate bundle is uploaded by this documentation package. All prior rows are preserved; Esther is added at its canonical position.
+The index identifies books by name and canonical position and summarizes the local evidence. Exact candidate and evidence identities are retained privately. This documentation contains no raw candidate bundles.
 
-| Book | Units | Exact candidate identity | SHA-256 | Available local evidence identity | Evidence SHA-256 |
-|---|---:|---|---|---|---|
-| Genesis | 55 | `M9_GEN_CANDIDATE_003.json` | `6B8E007E9CA05A68FC59A8CF87ED0775BF9A752B45628650643F500F14DABB24` | `M9_GEN_FINAL_CHECK_001.json` | `497576BF03D9CD25BF5B806FA678B730EB2E0D207F5C291217A5A6A3081D16DB` |
-| Exodus | 21 | `M9_EXOD_CANDIDATE_003.json` | `93378B26886E6F74099353F2A155E203277890FB4ED96BEEA010B29196897125` | `M9_EXOD_COMPLETION_ACCEPTANCE_001.json` | `8C2D5CFBFA113A670D89495040A6CEF490BBF1A84C34DA8FCB9BC1FF4BF1C365` |
-| Leviticus | 25 | `M9_LEV_CANDIDATE_001.json` | `1208AD1FA564735DCE589B29E15F9C811291F2B41B60D2F790991EDBFE891EF2` | `M9_LEV_COMPLETION_ACCEPTANCE_001.json` | `8075D8521EF7A9705B5AB5294CF6552148E0C134F105BF729B3CFEE17CB89CAC` |
-| Numbers | 47 | `M9_NUM_FINAL_ADJUDICATION_003.json` | `165CBAE15FB02C5D84EC8F8EF177137A38D6242F92A663F87B30EC3020B15737` | `M9_NUM_LOCAL_ACCEPTANCE_001.json` | `18462B14688264FC44DE90817C2DA3123EF6D24AAB2CBE945E3CC4A5D1F05167` |
-| Deuteronomy | 43 | `M9_DEUT_FINAL_ADJUDICATION_002.json` | `582BF53D43830AB905A0192A5B4EBC653E2FDE09FBBE7A34B6D874CA97157898` | `M9_DEUT_LOCAL_ACCEPTANCE_001.json` | `64D3F6332D286CE542D1C4C3673C299EB4AFA0A9D0D40420BA1154D0CFE97E4B` |
-| Joshua | 20 | `M9_JOSH_FINAL_ADJUDICATION_002.json` | `71866A3C81C1A05FAC6C1FBF64AC3A00736A9249FE861BAF11BEA125B43EE051` | `M9_JOSH_LOCAL_ACCEPTANCE_001.json` | `27F250E5E44AC06A89C5B5AE92B1AA21FB6FE526D8C95715D7D8241A5B1CC492` |
-| Judges | 33 | `M9_JUDG_FINAL_ADJUDICATION_002.json` | `6809EFE8C86F19ECD2A2484DF5A1B79789837C61D81A16CEA090F527C75B1D6E` | `M9_JUDG_LOCAL_ACCEPTANCE_001.json` | `01461F83F38C9EEC98529D8E65B3C8DA42D656243BD19D2CF99BB6B66CC73148` |
-| Ruth | 11 | `M9_RUTH_CANDIDATE_002.json` | `918688AB6D4D0E947A9D7186FB74B28D7088DED636B2A2BC6C65E49E789D9077` | `M9_RUTH_FINAL_CHECK_002.json` | `314EC8A469374D6813EF0E9291B45CF2792ABB2AB141D29AC5E581F0C47D2228` |
-| 1 Samuel | 26 | `M9_1SAM_CANDIDATE_001.json` | `5209C6D2578348437D5E3E386C5A7730ED812E1460F94B17C2FD94720FE6D8CF` | `M9_1SAM_LOCAL_ACCEPTANCE_001.json` | `D2EF4A890E71F51310A5835C52B1D8969B271A3248592CD8651FE91EA77E2273` |
-| 2 Samuel | 31 | `M9_2SAM_CANDIDATE_001.json` | `0A962A870588BC38582F21C1CE8EB05FA9337350F5ABFF30338199F0D4DE6576` | `M9_2SAM_LOCAL_ACCEPTANCE_001.json` | `CB2A22D1FDB9503B851C68D6F4D2489B72238C73479A7EFE8AB30FDE2B002910` |
-| 1 Kings | 33 | `M9_1KGS_INTEGRATED_CANDIDATE_001.json` | `A79EBD12E57A40FA3207A2C71E87DE84CB56EE2A361918194B59DBFC3048DE39` | `M9_1KGS_LOCAL_ACCEPTANCE_001.json` | `A8943523315719D2A2A9BAE0AEC4E83B6553157B46CAA64269565D1C9FE52540` |
-| Esther | 13 | Reversible local research candidate; public summary available in this proposal | Withheld (private exact hash) | Local acceptance receipt retained; candidate raw withheld | Withheld (private exact hash) |
-| Lamentations | 14 | `M9_LAM_CANDIDATE_002.json` | `DE45A9C2E4D3E11B5491C4C7710AFB1759C9F598B493E73CAFB15B05F2D43234` | `M9_LAM_FINAL_CHECK_002.json` | `F965C5EE7E39046236107E26C5784C964824035FCE6B7CF42DBC214FB80217B4` |
-| Daniel | 10 | `M9_DAN_CANDIDATE_001.json` | `40F3517E2FD7FB5CB291AD914AB1340E0A802A8F26B3BA2032E2905F863FF329` | `M9_DAN_FINAL_CHECK_001.json` | `741C95E7BE7E27EAB82B2C93EAA741BBD5F54AC14855B751117765B7B851C096` |
-| John | 53 | `M9_JOHN_CANDIDATE_002.json` | `A592F10875A166EE3BBCA4BDA0032400883914D5621818055A1FB2C80986FB57` | `M9_JOHN_PREPARATION_ACCEPTANCE_002.json` | `DF191A701D4F5814E42C62BB943822C3FDBD54E5D1A66DD40ED512A2D2142965` |
-| 1 Corinthians | 27 | `M9_1COR_CANDIDATE_002.json` | `E5FDECC233A89627FC4FAAB7A8A2A388125F52F73428CDC88C82E7E5437469D3` | `M9_1COR_LOCAL_ACCEPTANCE_001.json` | `D17930D73B20B12CE60C5B625967A32A68E6E542CFB0CE38C4E3C0E05BC68DAB` |
-| Philemon | 6 | `M9_PHLM_CANDIDATE_002.json` | `E8E53957B9304A1E00D65D198774A03693E940494694958F2791D823EEA03784` | `M9_PHLM_FINAL_CHECK_002.json` | `2EF79329522014A3A1C792E965457098F68DE13CDC7DB9E64B6FA43860745631` |
+| Canonical position | Book | Chunks | Local evidence |
+|---:|---|---:|---|
+| 1 | Genesis | 55 | Final check |
+| 2 | Exodus | 21 | Completion acceptance |
+| 3 | Leviticus | 25 | Completion acceptance |
+| 4 | Numbers | 47 | Local acceptance |
+| 5 | Deuteronomy | 43 | Local acceptance |
+| 6 | Joshua | 20 | Local acceptance |
+| 7 | Judges | 33 | Local acceptance |
+| 8 | Ruth | 11 | Final check |
+| 9 | 1 Samuel | 26 | Local acceptance |
+| 10 | 2 Samuel | 31 | Local acceptance |
+| 11 | 1 Kings | 33 | Additive local acceptance |
+| 12 | Second Kings | 59 | Independently reviewed reversible local acceptance |
+| 17 | Esther | 13 | Local acceptance with a public research summary |
+| 25 | Lamentations | 14 | Final check |
+| 27 | Daniel | 10 | Final check |
+| 43 | John | 53 | Preparation acceptance (see acceptance history below) |
+| 46 | 1 Corinthians | 27 | Additive local acceptance |
+| 57 | Philemon | 6 | Final check |
 
-Earlier evidence labels retain their original meanings: Genesis, Ruth, Lamentations, Daniel and Philemon name final checks; John names preparation acceptance, which alone does not establish final book acceptance. The prior twelve-book status depends on its retained acceptance chain, not relabeling those rows. The additive 1 Corinthians, 1 Samuel, 2 Samuel and 1 Kings receipts extend that set to sixteen; Esther brings the reviewed local research candidate count to seventeen. Exact older acceptance chains still need mapping for raw release.
+Earlier evidence labels retain their original meanings: Genesis, Ruth, Lamentations, Daniel and Philemon name final checks; John names preparation acceptance, which alone does not establish final book acceptance. The prior twelve-book status depends on its retained acceptance chain, not relabeling those rows. The additive 1 Corinthians, 1 Samuel, 2 Samuel and 1 Kings receipts extend that set to sixteen; Esther brought the count to seventeen, and Second Kings brings it to eighteen. Exact older acceptance chains still need mapping for raw release.
 
 **1 Kings local acceptance and limits.** Its additive receipt binds the exact 33-unit candidate under eight regnal context envelopes and preserves all 11 qualifications/holds and equal appeals. Local implementation evidence comprises scoped assembly/final-byte comparison plus the corrected raw/literal proof, complete saved-consumer closure and supplemental exhaustive literal-pointer proof. The complete proof triplet and retained plan must travel with a later eligible package. Historical candidate flags remain historical; the additive receipt grants only reviewed local acceptance. Formal regnal, whole-book and ceremony alternatives remain serious. The four shared association groups are qualified whole-verse context, not word/fragment alignment. Source, annotation, lexical, historical, canonical, rights, independence and downstream-consumer limits remain open.
 
-Original-language operational provenance: WLC/OSHB revision `3d15126fb1ef74867fc1434be1942e837932691f`; SBLGNT revision `c4d241a9c1c479a55b989ba35a4976c1d0b8052c`. Separate WEB Classic alignment archive SHA-256 `A745365F53AB95570E9C39A60A7D245BA10BBF6C863832006876B01EA8654F8E` must be checked against each source manifest before bundle release. Source-specific component hashes and annotation/apparatus revisions remain in those manifests. Revision metadata does not authorize readings, doctrine or boundaries.
+WLC/OSHB (upstream revision `3d15126fb1ef74867fc1434be1942e837932691f`) and SBLGNT (upstream revision `c4d241a9c1c479a55b989ba35a4976c1d0b8052c`) are the operational original-language anchors. WEB Classic provides separate English alignment. Before any bundle release, verify the alignment archive against each source manifest and check component hashes, source revisions and annotation and apparatus revisions. Revision metadata does not authorize readings, doctrine or boundaries.
 
 Later source-bearing release requires exact source/evidence dependency mapping, complete arguments/counterarguments and alternatives, appeals and holds, reviewer identities, typed context dependencies, privacy review, intended-use rights and attribution, non-author final-byte checks, repository validation and CODEOWNER review. This documentation grants no scholar-ready, production/retrieval, public-source or canonical/shared-promotion qualification.
 
-**Esther local research decision ranges.** The proposed public summary records chapter 1 intact with a visible 1:10 entry; exact gate-report ownership at 2:21â€“23 alongside 2:19â€“23 context; and left attachment of 6:14 with the live forward alternative. Both sides require 6:12â€“7:2 and the earlier invitation. The correction preserves 95 retained original appeal occurrences across 36 origins, separately from 35 new conditional hold routes; two documentary cases remain uncertain, and seven held local cases were exercised. The 152 original appeal records are a separate denominator. See the [Esther research summary](M9_BIBLE_CHUNKING_RESEARCH.md#latest-accepted-book-esther) for qualifications and limits. This is reversible local research acceptance, not scholar-ready status, retrieval authorization or public release.
+**Second Kings local research decision ranges.** The 59-chunk map covers 719 OSHB verses and 719 WEB Classic verses independently and retains four serious whole-book alternatives. Both approaches to 15:16 remain available for review, and the chronology at 23:34 remains open. Local receiving proof covers complete values, scope and both directions of the specific private routes tested. See the [Second Kings research summary](M9_BIBLE_CHUNKING_RESEARCH.md#latest-accepted-book-second-kings) for method and limits.
+
+**Esther local research decision ranges.** The proposed public summary records chapter 1 intact with a visible 1:10 entry; exact gate-report ownership at 2:21–23 alongside 2:19–23 context; and left attachment of 6:14 with the live forward alternative. Both sides require 6:12–7:2 and the earlier invitation. The correction preserves 95 retained original appeal occurrences across 36 origins, separately from 35 new conditional hold routes; two documentary cases remain uncertain, and seven held local cases were exercised. The 152 original appeal records are a separate denominator. See the [Esther research summary](M9_BIBLE_CHUNKING_RESEARCH.md#earlier-accepted-book-esther) for qualifications and limits. This is reversible local research acceptance, not scholar-ready status, retrieval authorization or public release.
