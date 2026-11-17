@@ -2,9 +2,17 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-16, **18/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 527 chunks. Forty-eight books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-16, **19/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 558 chunks. Forty-seven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
 
-## Latest accepted book: Second Kings
+## Latest accepted book: Job
+
+Job (canonical position 18) adds 31 independently reviewed, reversible local research chunks. The map covers 1,070 OSHB verse records and 1,070 WEB Classic verse records on separate axes. It preserves three independently drafted maps, nine serious alternatives, and 40 paired boundary cases, including ten nested study entries.
+
+Review retained competing speech-attribution readings, separate entries for Job 19:23 and 19:25, written Hebrew and qere at 33:28, and shifted Hebrew and English numbering near chapters 40–41. The ending keeps the request, compliance, prayer and aftermath distinct. These remain reviewable choices. The candidate preserves contrary evidence, unresolved claims and equal routes for appeal.
+
+The independent semantic reviewer requested seven display corrections. The revised local reader was checked against those corrections and the unchanged source and map, including 86 complete responses across named cases and competing plans, 11 rejection cases, and a saved private export. Indexed retrieval, broader integrations and scholarly use require further review.
+
+## Earlier accepted book: Second Kings
 
 Second Kings (`2Kgs`, canonical position 12) adds 59 independently reviewed, reversible local research chunks. The map preserves separate coverage of 719 OSHB verses and 719 WEB Classic verses, full contexts, and four serious whole-book alternatives. Main text, apparatus, editorial metadata and English alignment retain their separate attribution. Competing arguments, separate reviewer judgments and equal avenues for appeal remain part of the evidence.
 
@@ -46,4 +54,4 @@ The [T610 architecture report](../../.ai/audits/reports/20260818-T610-public-ent
 
 Scholars, translators, textual critics, literary and historical researchers, theologians and graph engineers can contribute through the [repository contribution process](../../CONTRIBUTING.md) and [review workflow](../workflows/AGENT_COORDINATION_WORKFLOW.md). Identify the book, exact artifact revision, source coordinates, challenged claim or boundary, supporting evidence, strongest counterargument and proposed correction. Existing holds and alternatives are legitimate review targets; publication does not settle them.
 
-Start from the [repository README](../../README.md) and [AI table of contents](../../AI_TABLE_OF_CONTENTS.md). This project page links the [book index](M9_BOOK_INDEX.md) and the existing proposed [1 Corinthians status page](M9_1COR_RESEARCH.md), and includes the Second Kings and Esther summaries. Those routes must be present together when integrated. Follow the [source-license policy](../../LICENSE_POLICY.md) for rights and attribution. Publication requires an independently reviewed, version-bound public surface, repository validation, CODEOWNER review and the applicable owner release decision. No complete 66-book, scholar-ready or production knowledge graph is qualified here.
+Start from the [repository README](../../README.md) and [AI table of contents](../../AI_TABLE_OF_CONTENTS.md). This project page links the [book index](M9_BOOK_INDEX.md) and the existing proposed [1 Corinthians status page](M9_1COR_RESEARCH.md), and includes the Job, Second Kings and Esther summaries. Those routes must be present together when integrated. Follow the [source-license policy](../../LICENSE_POLICY.md) for rights and attribution. Publication requires an independently reviewed, version-bound public surface, repository validation, CODEOWNER review and the applicable owner release decision. No complete 66-book, scholar-ready or production knowledge graph is qualified here.
