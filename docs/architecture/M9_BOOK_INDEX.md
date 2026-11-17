@@ -1,6 +1,6 @@
 # M9 canonical-order book index
 
-As of 2026-11-17: **20/66 reviewed local research candidates, 708 chunks, 46 books remaining and zero scholar-ready books.** Psalms adds 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
+As of 2026-11-17: **21/66 reviewed local research candidates, 833 chunks, 45 books remaining and zero scholar-ready books.** Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
 
 The index identifies books by name and canonical position and summarizes the local evidence. Exact candidate and evidence identities are retained privately. This documentation contains no raw candidate bundles.
 
@@ -21,6 +21,7 @@ The index identifies books by name and canonical position and summarizes the loc
 | 17 | Esther | 13 | Local acceptance with a public research summary |
 | 18 | Job | 31 | Independently reviewed reversible local acceptance |
 | 19 | Psalms | 150 | Independently reviewed reversible local acceptance |
+| 20 | Proverbs | 125 | Independently reviewed reversible local acceptance |
 | 25 | Lamentations | 14 | Final check |
 | 27 | Daniel | 10 | Final check |
 | 43 | John | 53 | Preparation acceptance (see acceptance history below) |
@@ -41,5 +42,7 @@ Later source-bearing release requires exact source/evidence dependency mapping, 
 
 **Esther local research decision ranges.** The proposed public summary records chapter 1 intact with a visible 1:10 entry; exact gate-report ownership at 2:21–23 alongside 2:19–23 context; and left attachment of 6:14 with the live forward alternative. Both sides require 6:12–7:2 and the earlier invitation. The correction preserves 95 retained original appeal occurrences across 36 origins, separately from 35 new conditional hold routes; two documentary cases remain uncertain, and seven held local cases were exercised. The 152 original appeal records are a separate denominator. See the [Esther research summary](M9_BIBLE_CHUNKING_RESEARCH.md#earlier-accepted-book-esther) for qualifications and limits. This is reversible local research acceptance, not scholar-ready status, retrieval authorization or public release.
 
+
+**Proverbs local research decision ranges.** The 125-unit map preserves 915 distinct numbered occurrences on each of the separate OSHB and WEB Classic axes. It retains viable alternate cuts, 50 non-owning alternate addresses, and inspectable appeals. H2 (24:15–16) and the separate H3 citations (19:18 and 27:22) retain reciprocal context under the active holds. Normative application remains withheld. Role, scope and source-sensitive limits remain qualified, including claims at 21:29 and 25:7–8. See the [Proverbs research summary](M9_BIBLE_CHUNKING_RESEARCH.md#proverbs) for limitations and review routes.
 
 **Psalms local research decision ranges.** The 150-unit candidate preserves 2,527 numbered OSHB source occurrences and 2,461 numbered WEB Classic occurrences as separate counts. It retains complete alternate partitions and comparisons, separate ownership for Psalms 42 and 43, and a non-owning combined view. Psalm 119 remains one unit with 22 contextual strophes. Disputed seams, examples, dependencies and appeals remain inspectable with main text, apparatus/qere, alignment and interpretive claims kept distinct. The examples support transparent comparison of candidate choices and counterarguments; they do not establish a final or settled interpretation. Review limits remain, and no scholar-ready, production/retrieval, public-source or canonical-promotion qualification follows from local acceptance.

@@ -2,9 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-17, **20/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 708 chunks. Forty-six books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-17, **21/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 833 chunks. Forty-five books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
 
-## Latest accepted book: Psalms
+## Proverbs
+
+Proverbs (canonical position 20) contributes 125 reviewed, reversible local research units. Each of the separate OSHB and WEB Classic witness axes covers 915 distinct numbered occurrences. The map retains 61 shared and 63 contested selected cuts, viable alternate structures, and 50 non-owning alternate addresses. All boundary decisions remain provisional.
+
+Two hold groups remain unreleased. H2 keeps the exact surrounding context at 24:15–16; H3 retains 19:18 and 27:22 as separate held citations with callable reciprocal context. Additional context requires an explicit trigger. Both holds remain in force. No normative application or interpretation is released. Review also preserves A1 appeals, source-sensitive claims at 21:29 and 25:7–8, and the absence of a fitting admitted specialist argument for one case. Review roles distinguish language/translation, literary/discourse, textual/historical, and canonical/faithfulness expertise. Main text, apparatus/qere, alignment and interpretive claims remain distinct. The scoped checks leave exhaustive combinations, scholarly conclusions and full-corpus faithfulness open.
+
+## Psalms
 
 Psalms (canonical position 19) contributes 150 independently reviewed, reversible local research chunks. Separate numbered-source coverage records 2,527 OSHB occurrences and 2,461 WEB Classic occurrences; these counts remain on their respective witness axes. The candidate preserves all 150 received ownership decisions, complete alternate partition and comparison evidence, and equal appeal routes. Psalms 42 and 43 remain separate owners, with a non-owning combined view. Psalm 119 remains one owner with 22 contextual strophes; the strophes do not create additional units.
 
