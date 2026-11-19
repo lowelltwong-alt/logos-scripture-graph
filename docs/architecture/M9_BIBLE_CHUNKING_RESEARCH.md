@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **27/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,000 chunks. Thirty-nine books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **28/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,094 chunks. Thirty-eight books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Jeremiah
+
+Jeremiah (canonical position 24) adds 94 reviewed local chunks in 16 larger context units. Its candidate covers 1,364 numbered Hebrew records and 1,364 numbered WEB Classic records on separate witness axes. The two witnesses have independently indexed verse labels and documented coordinate conflicts. The review preserves 89 separately addressable appeal components, alternative readings and scopes, and the dependencies that carry qualifying context into retrieval.
+
+All 63 scientific and source holds remain in force, including disputed numbering and partial Hebrew-to-English alignment. Independent checks confirmed that the private reader preserves the original Hebrew spans through direct and enclosing appeal lookups and labels the English material separately as context. The evidence remains suitable for reversible local research, with open questions available for further academic review.
 
 ## Isaiah
 

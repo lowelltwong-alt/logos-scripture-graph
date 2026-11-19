@@ -1,6 +1,6 @@
 # M9 canonical-order book index
 
-As of 2026-11-19: **27/66 reviewed local research candidates, 1,000 chunks, 39 books remaining and zero scholar-ready books.** Isaiah adds 98 units at canonical position 23. Song of Songs adds 18 units at canonical position 22. Jude adds eight units at canonical position 65. 2 John added three units at canonical position 63. Ecclesiastes added 35 units at canonical position 21. 3 John added five units at canonical position 64. Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
+As of 2026-11-19: **28/66 reviewed local research candidates, 1,094 chunks, 38 books remaining and zero scholar-ready books.** Jeremiah adds 94 units at canonical position 24. Isaiah adds 98 units at canonical position 23. Song of Songs adds 18 units at canonical position 22. Jude adds eight units at canonical position 65. 2 John added three units at canonical position 63. Ecclesiastes added 35 units at canonical position 21. 3 John added five units at canonical position 64. Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
 
 The index identifies books by name and canonical position and summarizes the local evidence. Exact candidate and evidence identities are retained privately. This documentation contains no raw candidate bundles.
 
@@ -25,16 +25,17 @@ The index identifies books by name and canonical position and summarizes the loc
 | 21 | [Ecclesiastes](M9_BIBLE_CHUNKING_RESEARCH.md#ecclesiastes) | 35 | Independently reviewed reversible local acceptance |
 | 22 | [Song of Songs](M9_BIBLE_CHUNKING_RESEARCH.md#song-of-songs) | 18 | Independently reviewed reversible local acceptance |
 | 23 | [Isaiah](M9_BIBLE_CHUNKING_RESEARCH.md#isaiah) | 98 | Independently reviewed reversible local acceptance |
+| 24 | [Jeremiah](M9_BIBLE_CHUNKING_RESEARCH.md#jeremiah) | 94 | Independently reviewed reversible local acceptance with holds |
 | 25 | Lamentations | 14 | Final check |
 | 27 | Daniel | 10 | Final check |
-| 43 | John | 53 | Preparation acceptance (see acceptance history below) |
+| 43 | John | 53 | Reviewed local candidate with holds (see acceptance history below) |
 | 46 | 1 Corinthians | 27 | Additive local acceptance |
 | 57 | Philemon | 6 | Final check |
 | 63 | [2 John](M9_BIBLE_CHUNKING_RESEARCH.md#2-john) | 3 | Independently reviewed reversible local acceptance |
 | 64 | [3 John](M9_BIBLE_CHUNKING_RESEARCH.md#3-john) | 5 | Independently reviewed reversible local acceptance |
 | 65 | [Jude](M9_BIBLE_CHUNKING_RESEARCH.md#jude) | 8 | Independently reviewed reversible local acceptance |
 
-Earlier evidence labels retain their original meanings: Genesis, Ruth, Lamentations, Daniel and Philemon name final checks; John names preparation acceptance, which alone does not establish final book acceptance. The prior twelve-book status depends on its retained acceptance chain, not relabeling those rows. The additive 1 Corinthians, 1 Samuel, 2 Samuel and 1 Kings receipts extend that set to sixteen; Esther brought the count to seventeen, Second Kings to eighteen, and Job to nineteen. Exact older acceptance chains still need mapping for raw release.
+Earlier evidence labels retain their original meanings: Genesis, Ruth, Lamentations, Daniel and Philemon name final checks; John has a historical preparation receipt and a later local candidate closure with holds. The prior twelve-book status depends on its retained acceptance chain. The additive 1 Corinthians, 1 Samuel, 2 Samuel and 1 Kings receipts extend that set to sixteen; Esther brought the count to seventeen, Second Kings to eighteen, and Job to nineteen. Exact older acceptance chains still need mapping for raw release.
 
 **1 Kings local acceptance and limits.** Its additive receipt binds the exact 33-unit candidate under eight regnal context envelopes and preserves all 11 qualifications/holds and equal appeals. Local implementation evidence comprises scoped assembly/final-byte comparison plus the corrected raw/literal proof, complete saved-consumer closure and supplemental exhaustive literal-pointer proof. The complete proof triplet and retained plan must travel with a later eligible package. Historical candidate flags remain historical; the additive receipt grants only reviewed local acceptance. Formal regnal, whole-book and ceremony alternatives remain serious. The four shared association groups are qualified whole-verse context, not word/fragment alignment. Source, annotation, lexical, historical, canonical, rights, independence and downstream-consumer limits remain open.
 
@@ -42,7 +43,7 @@ WLC/OSHB (upstream revision `3d15126fb1ef74867fc1434be1942e837932691f`) and SBLG
 
 Later source-bearing release requires exact source/evidence dependency mapping, complete arguments/counterarguments and alternatives, appeals and holds, reviewer identities, typed context dependencies, privacy review, intended-use rights and attribution, non-author final-byte checks, repository validation and CODEOWNER review. This documentation grants no scholar-ready, production/retrieval, public-source or canonical/shared-promotion qualification.
 
-**Job local research decision ranges.** The 31-chunk map retains both witness axes, original and competing maps, attribution questions, numbering shifts and exact source context. See the [Job research summary](M9_BIBLE_CHUNKING_RESEARCH.md#latest-accepted-book-job) for the named receiving checks and review limits.
+**Job local research decision ranges.** The 31-chunk map retains both witness axes, original and competing maps, attribution questions, numbering shifts and exact source context. See the [Job research summary](M9_BIBLE_CHUNKING_RESEARCH.md#earlier-accepted-book-job) for the named receiving checks and review limits.
 
 **Second Kings local research decision ranges.** The 59-chunk map covers 719 OSHB verses and 719 WEB Classic verses independently and retains four serious whole-book alternatives. Both approaches to 15:16 remain available for review, and the chronology at 23:34 remains open. Local receiving proof covers complete values, scope and both directions of the specific private routes tested. See the [Second Kings research summary](M9_BIBLE_CHUNKING_RESEARCH.md#earlier-accepted-book-second-kings) for method and limits.
 
