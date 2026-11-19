@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **26/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 902 chunks. Forty books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **27/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,000 chunks. Thirty-nine books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Isaiah
+
+Isaiah (canonical position 23) adds 98 reviewed local chunks under eight larger context units. Its candidate accounts for 1,291 numbered WLC/OSHB records and 1,292 numbered WEB Classic records on separate axes. It retains 98 full replacement appeals, 559 local alternatives from the original roles, 14 whole-book maps and a separate parent overlay. These records preserve competing arguments and review paths. The independent check assessed material cases and compared persisted evidence against the original role records.
+
+The 36 hold records remain in force. They include a disputed fragment alignment at the Isaiah 63–64 transition and limits on voice attribution, textual layers, annotation, and language claims. Auxiliary versification and English alignment remain documentary evidence. They provide context for investigation without authorizing textual equivalence. The revised private reader passed independent tests for continuous raw context across chapter boundaries and for clearly reporting missing or stale auxiliary evidence. The accepted map remains reversible local research. Exact candidate and review evidence stay private.
 
 ## Song of Songs
 
