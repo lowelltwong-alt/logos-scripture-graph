@@ -2,7 +2,11 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **22/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 838 chunks. Forty-four books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **23/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 873 chunks. Forty-three books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Ecclesiastes
+
+Ecclesiastes (canonical position 21) contributes 35 units. The candidate preserves 222 numbered occurrences in each of the separate OSHB and WEB Classic witnesses, with 20 reviewed coordinate shifts. It retains 36 boundary records, 84 reversible appeal views, 47 open holds, and 45 inherited typed dependencies. The review preserves the relationship between the closing refrain, appraisal, and final charge, with the broader closing alternatives available for appeal. Independent checks verified local search states and kept running text, apparatus, qere, and layout distinct.
 
 ## 3 John
 

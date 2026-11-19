@@ -1,6 +1,6 @@
 # M9 canonical-order book index
 
-As of 2026-11-19: **22/66 reviewed local research candidates, 838 chunks, 44 books remaining and zero scholar-ready books.** 3 John adds five units at canonical position 64. Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
+As of 2026-11-19: **23/66 reviewed local research candidates, 873 chunks, 43 books remaining and zero scholar-ready books.** Ecclesiastes adds 35 units at canonical position 21. 3 John added five units at canonical position 64. Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
 
 The index identifies books by name and canonical position and summarizes the local evidence. Exact candidate and evidence identities are retained privately. This documentation contains no raw candidate bundles.
 
@@ -22,6 +22,7 @@ The index identifies books by name and canonical position and summarizes the loc
 | 18 | Job | 31 | Independently reviewed reversible local acceptance |
 | 19 | Psalms | 150 | Independently reviewed reversible local acceptance |
 | 20 | Proverbs | 125 | Independently reviewed reversible local acceptance |
+| 21 | [Ecclesiastes](M9_BIBLE_CHUNKING_RESEARCH.md#ecclesiastes) | 35 | Independently reviewed reversible local acceptance |
 | 25 | Lamentations | 14 | Final check |
 | 27 | Daniel | 10 | Final check |
 | 43 | John | 53 | Preparation acceptance (see acceptance history below) |
