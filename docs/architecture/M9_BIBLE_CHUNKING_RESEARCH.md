@@ -2,7 +2,11 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **24/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 876 chunks. Forty-two books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **25/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 884 chunks. Forty-one books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Jude
+
+Jude (canonical position 65) contributes eight local research chunks. The default separates 11–13 and 14–16. Required local views preserve complete 11–16 context, Enoch’s attributed speech, the Lord’s agency, Jude’s verse 16 application, and the separate WEB note within the testimony. The joined 11–16 plan remains appeal-only. A local variant-bearing lookup at either 22 or 23 requires both verses on each witness, the cross-verse Greek XML signs, both separate apparatus formats, and wider 20–25 context with the distinct WEB note at verse 24. The local receiver withholds a semantic result when supporting context is missing. The independent retest verified the corrected count of 459 Greek main words and the restored context in the affected local routes. The candidate retains 44 rival cases, 22 open holds, and 42 typed dependencies. External integration remains pending.
 
 ## 2 John
 
