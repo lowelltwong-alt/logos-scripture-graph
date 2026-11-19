@@ -2,7 +2,11 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **23/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 873 chunks. Forty-three books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **24/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 876 chunks. Forty-two books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 2 John
+
+2 John (canonical position 63) contributes three local research units covering verses 1–3, 4–11, and 12–13. Verse 7 and the 6|7 seam are internal entry points to the complete 4–11 body on each witness axis. The 4–6 and 7–11 split is available for appeal only. Each witness retains all 13 numbered occurrences, with the Greek edition apparatus and WEB Classic notes separately identified. Independent checks verified local fallback to the complete letter and all 31 appeal families. Peer comparisons preserve the original case’s registry separately from the assessor’s identity. The candidate retains 24 open holds and 13 reviewed dispositions. External integration and qualification of the proposed split remain pending.
 
 ## Ecclesiastes
 
