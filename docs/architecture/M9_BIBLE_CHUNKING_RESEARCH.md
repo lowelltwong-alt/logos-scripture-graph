@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **25/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 884 chunks. Forty-one books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **26/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 902 chunks. Forty books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Song of Songs
+
+Song of Songs adds 18 reviewed local chunks at canonical position 22. The mapping accounts for 117 numbered records on each of the separate WLC/OSHB and WEB Classic witness axes. It retains nine whole-book arrangements for comparison and 27 appeals. Alternative arrangements remain available for review alongside the current research map.
+
+Three scholarly holds remain open. Song 6:12 still needs review of chariot syntax, translation, and attribution. At WLC 7:10 and WEB 7:9, the participle attachment and the point at which a voice changes remain disputed. The revised assessment distinguishes the Hebrew noun’s gender from the feminine possessive suffix. Song 8:6 still needs review of word division, source layer, and theological force. The candidate preserves the surrounding passages and competing readings for each hold.
+
+An independent retest cleared three implementation and assessment findings. It checked whether the local reader verified documentary layout separately from interpretation, and whether the validation gate rejected incorrect performance or dependency provenance. These checks support reversible local research acceptance. The three scholarly holds remain open.
 
 ## Jude
 

@@ -1,6 +1,6 @@
 # M9 canonical-order book index
 
-As of 2026-11-19: **25/66 reviewed local research candidates, 884 chunks, 41 books remaining and zero scholar-ready books.** Jude adds eight units at canonical position 65. 2 John added three units at canonical position 63. Ecclesiastes added 35 units at canonical position 21. 3 John added five units at canonical position 64. Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
+As of 2026-11-19: **26/66 reviewed local research candidates, 902 chunks, 40 books remaining and zero scholar-ready books.** Song of Songs adds 18 units at canonical position 22. Jude adds eight units at canonical position 65. 2 John added three units at canonical position 63. Ecclesiastes added 35 units at canonical position 21. 3 John added five units at canonical position 64. Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
 
 The index identifies books by name and canonical position and summarizes the local evidence. Exact candidate and evidence identities are retained privately. This documentation contains no raw candidate bundles.
 
@@ -23,6 +23,7 @@ The index identifies books by name and canonical position and summarizes the loc
 | 19 | Psalms | 150 | Independently reviewed reversible local acceptance |
 | 20 | Proverbs | 125 | Independently reviewed reversible local acceptance |
 | 21 | [Ecclesiastes](M9_BIBLE_CHUNKING_RESEARCH.md#ecclesiastes) | 35 | Independently reviewed reversible local acceptance |
+| 22 | [Song of Songs](M9_BIBLE_CHUNKING_RESEARCH.md#song-of-songs) | 18 | Independently reviewed reversible local acceptance |
 | 25 | Lamentations | 14 | Final check |
 | 27 | Daniel | 10 | Final check |
 | 43 | John | 53 | Preparation acceptance (see acceptance history below) |
