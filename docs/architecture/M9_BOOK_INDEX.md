@@ -1,6 +1,6 @@
 # M9 canonical-order book index
 
-As of 2026-11-17: **21/66 reviewed local research candidates, 833 chunks, 45 books remaining and zero scholar-ready books.** Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
+As of 2026-11-19: **22/66 reviewed local research candidates, 838 chunks, 44 books remaining and zero scholar-ready books.** 3 John adds five units at canonical position 64. Proverbs adds 125 units at canonical position 20; Psalms added 150 chunks to the 19-book, 558-chunk milestone. Job added 31 chunks at the previous milestone. Second Kings added 59 chunks before Job. Esther previously added 13 chunks to the 16-book, 455-chunk milestone. Execution order does not define canonical order. See the [project README](M9_BIBLE_CHUNKING_RESEARCH.md) for the research purpose, serious alternatives, independent review and M7/M8 relationship limits.
 
 The index identifies books by name and canonical position and summarizes the local evidence. Exact candidate and evidence identities are retained privately. This documentation contains no raw candidate bundles.
 
@@ -27,6 +27,7 @@ The index identifies books by name and canonical position and summarizes the loc
 | 43 | John | 53 | Preparation acceptance (see acceptance history below) |
 | 46 | 1 Corinthians | 27 | Additive local acceptance |
 | 57 | Philemon | 6 | Final check |
+| 64 | [3 John](M9_BIBLE_CHUNKING_RESEARCH.md#3-john) | 5 | Independently reviewed reversible local acceptance |
 
 Earlier evidence labels retain their original meanings: Genesis, Ruth, Lamentations, Daniel and Philemon name final checks; John names preparation acceptance, which alone does not establish final book acceptance. The prior twelve-book status depends on its retained acceptance chain, not relabeling those rows. The additive 1 Corinthians, 1 Samuel, 2 Samuel and 1 Kings receipts extend that set to sixteen; Esther brought the count to seventeen, Second Kings to eighteen, and Job to nineteen. Exact older acceptance chains still need mapping for raw release.
 

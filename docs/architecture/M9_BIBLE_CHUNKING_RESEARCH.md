@@ -2,7 +2,11 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-17, **21/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 833 chunks. Forty-five books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **22/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 838 chunks. Forty-four books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 3 John
+
+3 John (canonical position 64) contributes five local research units. The candidate retains all 15 numbered SBLGNT occurrences, all 14 numbered WEB Classic occurrences, and the final unnumbered WEB paragraph. Either middle unit requires the complete 1:5–12 context in each witness, with a joined 1:9–12 alternative and whole-letter fallback. The local review preserved 50 rival records, 150 peer responses, and 37 qualifications. Appeal views preserve the distinction between changed scope and retained comparison context. Textual and annotation questions remain open.
 
 ## Proverbs
 
