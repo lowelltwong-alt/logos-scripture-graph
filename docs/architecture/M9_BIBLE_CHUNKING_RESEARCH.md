@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **29/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,242 chunks. Thirty-seven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **30/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,271 chunks. Thirty-six books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Hosea
+
+Hosea (canonical position 28) adds 29 reviewed local chunks in four larger units. The candidate covers 197 numbered records on each of the separately indexed Hebrew and WEB Classic witnesses. It retains ten complete rival maps, 89 local alternatives and 42 typed relationships or classes. Forty-six shared verse labels are held where the witnesses number different material. Each witness has four labels without a same-numbered counterpart.
+
+Independent verification closed seven reader findings. The findings concerned exact source scope, role and layer substitutions, and passage geometry. A verified enclosing passage cannot establish a child's exact role. The candidate preserves open interpretive questions about the harvest at 6:11, ransom at 13:14 and the speaker in the final exchanges. The separate numbered closing points, native 14:10 and WEB Classic 14:9, remain visible. The whole-project Scripture-faithfulness review is due after all 66 books.
 
 ## Ezekiel
 
