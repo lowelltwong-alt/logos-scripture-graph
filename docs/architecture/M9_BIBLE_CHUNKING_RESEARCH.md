@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **28/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,094 chunks. Thirty-eight books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-19, **29/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,242 chunks. Thirty-seven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Ezekiel
+
+Ezekiel (canonical position 26) adds 148 reviewed local chunks, organized into 25 regions and five larger movements. The candidate covers 1,273 numbered records in each of the separately indexed Hebrew and WEB Classic witnesses. It preserves 345 local alternatives, four complete rival maps, and 110 directed dependencies that carry required context into a reading. Thirty-two shared verse labels remain on hold where the witnesses number different material, and each witness has five unmatched labels.
+
+Independent verification closed two issues in the local reader. One concerned whether the returned excerpt matched the requested source bounds. The other concerned whether the original adjudication record had been reopened. The review checked 19 source loci and 31 correction sites in each original-access mode. Unresolved boundary and interpretation appeals, the empty marginal reading at 48:16 in the Hebrew source, and text outside WEB Classic’s word-annotation markers at 48:35 remain flagged. The 148 chunks are reversible local research candidates. The independent project-wide Scripture-faithfulness review remains due after all 66 books.
 
 ## Jeremiah
 
