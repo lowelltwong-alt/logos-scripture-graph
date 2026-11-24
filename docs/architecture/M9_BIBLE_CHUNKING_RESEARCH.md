@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **32/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,305 chunks. Thirty-four books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **33/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,309 chunks. Thirty-three books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Obadiah
+
+Obadiah adds four reviewed local chunks at canonical position 31, with one whole-book frame and eight subordinate navigation units. It preserves 21 numbered records on each separate Hebrew and WEB Classic witness, six submitted maps and 89 directed dependencies. Equal verse numbers guide navigation, and the auxiliary WLC/KJV element contributes zero rows.
+
+The interpretation of prior drinkers and the location in 1:16 remain disputed. Verse 17 opens a restoration movement in the selected map, while competing joins and splits remain available for appeal. At 1:21, the object rendered singular in OSHB and plural in WEB Classic remains an edition difference. Historical identification and textual preference remain open.
+
+Independent review required the local reader to carry the exact original evidence behind its emitted claims, including the roles and origin of nested quotations, rival ownership, the auxiliary count and specific documentary assertions. The corrected reader passed scoped tests of missing, stale and wrongly rebound evidence, unchanged sibling selections and byte-identical restoration. These checks establish reviewed local behavior in the tested scope. Scholarly and rights limits remain in force.
 
 ## Amos
 
