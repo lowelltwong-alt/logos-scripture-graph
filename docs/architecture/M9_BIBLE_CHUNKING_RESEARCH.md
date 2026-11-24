@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-19, **30/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,271 chunks. Thirty-six books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **31/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,286 chunks. Thirty-five books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Joel
+
+Joel adds 15 reviewed local chunks at canonical position 29, organized into nine panels and three larger frames. Each witness has 73 numbered records. The native source has four chapters and WEB Classic has three. Their closing records remain distinct at native 4:21 and WEB Classic 3:21. The candidate retains six complete submitted maps, 17 boundary reversals, ten internal alternatives, and 64 typed relationships.
+
+Independent verification closed one reader defect. The reader had classified the parent of a direct Hebrew word at native 4:11 as a variant note. The corrected reader verifies the direct word and preserves the genuine written/read distinction at 4:1. The candidate still holds questions about voices, restoration, and the closing recognition and habitation language. Five shared labels remain on hold, and equal-numbered labels used for navigation carry no textual-equivalence decision.
 
 ## Hosea
 
