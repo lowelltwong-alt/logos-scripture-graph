@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **37/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,341 chunks. Twenty-nine books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **38/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,352 chunks. Twenty-eight books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Zephaniah
+
+Zephaniah adds eleven reviewed local chunks at canonical position 36. The research package preserves 53 numbered records on each separate Hebrew and WEB Classic witness, six submitted whole-book maps, and twelve groups of adjudicated cases. The ordinary map carries both sides of the transitions near 2:4, 3:8 and 3:18. Questions about speaker, addressee, timing, and the closing movement remain open. Witness roles distinguish original-language evidence, the WEB Classic rendering, editorial annotations, and translator notes.
+
+Independent receiving review verified 155 separately owned reviewer context entries and 23 original holds. Across 167 eligible map, unit and case selections, 109 supported scoped appeals. Fifty ambiguous selections and eight inapplicable selections kept their original arguments and context available for reading. Reviewers also tested how selected source reads respond to a changed book or chapter identity. The candidate remains available for reversible local review. The full-Bible faithfulness review is pending.
 
 ## Habakkuk
 
