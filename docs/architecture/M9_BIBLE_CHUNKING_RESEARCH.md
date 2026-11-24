@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **31/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,286 chunks. Thirty-five books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **32/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,305 chunks. Thirty-four books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Amos
+
+Amos adds 19 reviewed local chunks in five larger frames at canonical position 30. Each of the separately indexed Hebrew and WEB Classic witnesses contains 146 numbered records in nine chapters. The candidate retains six submitted maps, 40 contested seams, 259 original directed relationships, and 40 additional required contexts. Reviewers kept questions open about the object described in 7:7–8, how the naming passage at 5:8–9 attaches, and the scope of judgment and restoration. The source terms, editorial roles, and rival cases remain available for academic review in the retained local evidence.
+
+Independent reviewers found two ways the reader could deliver an argument about Amos 8:14 without its governing correction and required context. The corrected reader binds both container and separately projected uses to the original evidence. It withholds original delivery when required evidence is unavailable or stale and distinguishes verified copies. The same reviewer verified affected and unrelated selections, including a same-wording substitution from the wrong author. These checks cover the tested local reader; the wider scholarly and source-use holds remain open.
 
 ## Joel
 
