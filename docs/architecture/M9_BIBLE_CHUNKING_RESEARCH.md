@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **34/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,315 chunks. Thirty-two books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **35/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,327 chunks. Thirty-one books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Micah
+
+Micah adds twelve reviewed local chunks at canonical position 33. Three extended hearings remain available as an alternate map. The package preserves 105 numbered records on each separate Hebrew and WEB Classic witness, six submitted maps, 34 local rulings and 276 directed evidence and context uses.
+
+The ordinary reader keeps all seven retained alternate responses available. For the proposed hearing at Micah 6:6, the adjudicated claim requires the separate 6:1–16 contexts, and one peer review supplies 6:1–12 on each witness. The review preserves the difference and the competing ways of grouping the appeal and response. Scoped Hebrew written and read forms remain separately attributed. A chapter 5 WEB annotation hold limits Hebrew lexical corroboration, with the visible English translation available in its own right.
+
+An independent reviewer checked the exact alternate responses, linked ruling contexts and both source modes. Temporarily altered inputs in controlled tests withheld the affected original claim, and restoring them reproduced the ordinary output. Local acceptance remains reversible and the full-Bible faithfulness review is pending.
 
 ## Jonah
 
