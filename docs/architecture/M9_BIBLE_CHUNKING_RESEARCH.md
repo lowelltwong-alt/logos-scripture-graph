@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **36/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,335 chunks. Thirty books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **37/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,341 chunks. Twenty-nine books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Habakkuk
+
+Habakkuk adds six reviewed local chunks at canonical position 35. The research package keeps 56 numbered records on each separate Hebrew and WEB Classic witness, six submitted whole-book maps, and 22 groups of adjudicated local cases. The ordinary map follows shared boundaries from two proposals and retains the distinct evidence requirements of each. The finer 13-unit proposal and all alternate maps remain available for review and appeal.
+
+Six interpretive questions remain open, including speaker and referent attribution, the relationship between battle language and prayer, and the scope of the closing lines. The written and read evidence, translator notes, and WEB Classic wording retain distinct roles. One author reported incidental access to neighboring coordinate metadata. Review found no reliance on that metadata in the saved proposal. The review was limited to persisted evidence.
+
+The independent recheck exercised 462 map-only appeal selections and verified complete current coverage on both witnesses. Controlled tests withheld affected original-evidence claims for missing or out-of-scope evidence and separately checked when verified copies remained available. Local acceptance remains reversible and the full-Bible faithfulness review is pending.
 
 ## Nahum
 
