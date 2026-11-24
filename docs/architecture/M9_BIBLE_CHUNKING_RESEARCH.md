@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **40/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,378 chunks. Twenty-six books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **41/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,385 chunks. Twenty-five books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Malachi
+
+Malachi adds seven reviewed local chunks at canonical position 39. Six whole-book maps independently cover 55 numbered records on each witness. The Hebrew and WEB Classic chapter structures differ at the close. The preferred map requires 2:17–3:12 as context on both sides of its 3:6 boundary and retains the complete closing sequence for interpretation, Hebrew 3:13–24 and WEB 3:13–4:6. All six maps and their arguments remain available for review and appeal.
+
+An independent recheck confirmed that ordinary receiving restores the original cross-chapter counterargument, preserves two paragraph tokens in WEB 1:2 as layout evidence, and verifies the source bytes acquired for each tested request. It compared all 110 running records and 53 units across the six maps. Seven named scholarly holds remain, including the relation of the ending to its wider canonical context. The six auxiliary versification rows support address navigation only. Whole-Bible faithfulness review remains pending.
 
 ## Zechariah
 
