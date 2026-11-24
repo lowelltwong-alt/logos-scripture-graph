@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **35/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,327 chunks. Thirty-one books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **36/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,335 chunks. Thirty books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Nahum
+
+Nahum adds eight reviewed local chunks at canonical position 34. The research package keeps 47 numbered records on each separate Hebrew and WEB Classic witness, six whole-book maps, 222 distinct source scopes and ten groups of adjudicated local cases.
+
+The ordinary map keeps the herald with Judah’s release and the No-Amon comparison with its application through 3:11. Competing maps preserve different scopes for the herald and the failed-defenses passage. The evidence records B’s original contexts separately from the adjudicator’s expanded contexts. All 194 WEB chapter 2 lexical wrappers remain held for Hebrew lexical corroboration. Visible WEB translation remains available for contextual reading.
+
+Independent receiving review verified current verse order on both witnesses and all 86 reciprocal case and peer links. Controlled changes withheld the affected claim and left unrelated passages usable. Local acceptance remains reversible and the full-Bible faithfulness review is pending.
 
 ## Micah
 
