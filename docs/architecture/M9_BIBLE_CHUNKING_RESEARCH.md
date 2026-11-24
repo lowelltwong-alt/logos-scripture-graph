@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **39/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,357 chunks. Twenty-seven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **40/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,378 chunks. Twenty-six books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Zechariah
+
+Zechariah adds 21 reviewed local chunks at canonical position 38. Six complete maps preserve 211 numbered records on each separate Hebrew and WEB Classic witness. The preferred map keeps the grief and fountain passage at Hebrew and WEB 12:10–13:6 in a single chunk and requires the broader 12:1–13:9 for interpretation. The competing maps and their distinct arguments remain available for review and appeal.
+
+The independent recheck verified corrections to speaker attribution in the horns and craftsmen vision, the crowning command, whose execution the passage leaves unstated, and access to the terminal map appeal. It also checked restoration of omitted source attributes and 44 authored stage-role fields across both witnesses. Seventeen auxiliary source rows remain available in their documented scope, and thirteen equal-label alignment cases remain held. The M9 candidate is reversible locally. Whole-Bible faithfulness review remains pending.
 
 ## Haggai
 
