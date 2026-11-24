@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **33/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,309 chunks. Thirty-three books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **34/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,315 chunks. Thirty-two books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Jonah
+
+Jonah adds six reviewed local chunks at canonical position 32. The four-scene whole-book map and two mission panels remain available for navigation. The package preserves 48 numbered records on each separate Hebrew and WEB Classic witness, six whole-book maps and 96 directed evidence and context uses.
+
+The default keeps the first crisis and fish enclosure together, then makes the renewed mission, response, protest and outdoor comparison addressable. Competing maps retain different placements for prayer, the city's response and the final exchange. Questions about prayer timing and voice, speaker attribution and the ending remain open with their counterarguments and appeal conditions. Cross-witness numbering guides navigation within stated limits.
+
+Independent receiving review confirmed the corrected word relationships around the three Hebrew paragraph marks. A controlled source change on either side withheld the affected relationship and preserved unrelated readings. The receiver records scoped original evidence and explicitly labels verified copies. Local acceptance remains reversible and the full-Bible faithfulness review is pending.
 
 ## Obadiah
 
