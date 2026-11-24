@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **38/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,352 chunks. Twenty-eight books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **39/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,357 chunks. Twenty-seven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Haggai
+
+Haggai adds five reviewed local chunks at canonical position 37. The candidate preserves 38 numbered records on each separate Hebrew and WEB Classic witness and six submitted whole-book maps. The preferred five-unit geometry keeps the narrated response at 1:12 distinct while requiring 1:1–15 on both sides of that boundary. The separately reported final messages preserve the shared date and require 2:10–23 for paired interpretation. The four- and three-unit alternatives remain available for review and appeal.
+
+Fourteen named interpretive questions remain open. Independent recheck compared 860 ranked source spans and 2,424 typed citation responses. It confirmed that ordinary delivery preserves required versus wider context, connects citations to their exact role, distinguishes the competing map appeals, and keeps two WEB reply markers as documentary evidence. Original Hebrew evidence, WEB Classic context and translator notes retain distinct roles. Local acceptance remains reversible and the full-Bible faithfulness review is pending.
 
 ## Zephaniah
 
