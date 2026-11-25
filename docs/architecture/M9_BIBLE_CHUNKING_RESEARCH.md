@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **60/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,674 chunks. Six books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **61/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,689 chunks. Five books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 1 John
+
+1 John adds 15 Greek anchor chunks at canonical position 62. Its separate WEB Classic map has 15 units. A-map1 is provisional for locating individual claims with their necessary contexts. The closest alternative, C-map1, differs only at the cut before 3:4. Both interpretations preserve 2:28–3:3 as context. The approved candidate includes earlier confession and advocacy and later intercession under the stated conditions. All six maps cover both complete 105-occurrence native orders and preserve distinct historical context links, ranks, and appeals.
+
+The review preserves the three text-bearing WEB continuations at 2:13–14 and the difference between the Greek internal layout at 4:16 and a numbered cut. The longer wording at WEB 5:7 remains a note, with documented absence of a Greek apparatus entry at 5:7–8. Both complete native endings at 5:21 and the comparative Greek Amen remain distinct. Source attribution, uncertainty, and the 5:13–14 and final warning alternatives stay visible for academic review.
+
+Independent review matched 498 ordinary API and standalone responses, checked 2,161 source intervals and 382 literal values, and verified 1,814 external and 355 local typed references. It rejected 38 altered projections and 14 invalid ordinary requests. The controller separately checked 27 ordinary cases. The MorphGNT annotation gap, scholarly appeals and final whole-Bible faithfulness review remain open.
 
 ## 2 Peter
 
