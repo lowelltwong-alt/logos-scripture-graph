@@ -49,7 +49,7 @@ Every human or AI contributor must follow this read order:
 | 9 | [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) | Deterministic agent handoffs |
 | 10 | [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md) | Chunking architecture |
 
-M9 research: [project status and review limitations](docs/architecture/M9_BIBLE_CHUNKING_RESEARCH.md) · [canonical-order book index](docs/architecture/M9_BOOK_INDEX.md). As of 2026-11-25, 50/66 books (1,556 chunks) are reviewed local research candidates, with 16 remaining and zero scholar-ready. The latest accepted book is Ephesians (10 Greek anchor chunks and 10 separate WEB units). Local acceptance does not authorize production retrieval, public source release or canonical promotion.
+M9 research: [project status and review limitations](docs/architecture/M9_BIBLE_CHUNKING_RESEARCH.md) · [canonical-order book index](docs/architecture/M9_BOOK_INDEX.md). As of 2026-11-25, 51/66 books (1,567 chunks) are reviewed local research candidates, with 15 remaining and zero scholar-ready. The latest accepted book is Colossians (11 Greek anchor chunks and 12 separate WEB units). Local acceptance does not authorize production retrieval, public source release or canonical promotion.
 
 **Validation (CI green/red):**
 

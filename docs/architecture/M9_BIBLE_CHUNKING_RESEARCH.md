@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **50/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,556 chunks. Sixteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **51/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,567 chunks. Fifteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Colossians
+
+Colossians adds 11 Greek anchor chunks at canonical position 51. Its separate WEB Classic map has 12 units. A-map1 is the working preference for reading distinct acts with their grammatical dependencies and paired warrants. B-map1 is the closest whole-letter alternative, with 10 units per witness. It keeps the paired conditions and the complete closing together. All six submitted maps cover 95 running records per witness, with original arguments and appeals preserved.
+
+The review kept the complaint and mutual forgiveness in 3:13 distinct from the earlier forgiveness that serves as its model. In 3:15, the running Greek names Christ and WEB names God. At 4:15, the A-map2 placement differs between Greek and WEB. At 4:16, the local reading condition, onward reading and letter from Laodicea retain separate scope. The identity of the other letter and whether the exchange occurred remain open.
+
+Independent receiving verified 189 cases in both directions, including 42 expected empty results. Checks preserved 110 original cases and appeals, the source-local evidence behind a separate WEB echo at 3:17, five withheld claims, and denials on changed or missing inputs. The checks support the exact private candidate and named conditions. The MorphGNT annotation gap, historical and textual appeals, and final whole-Bible faithfulness review remain open.
 
 ## Ephesians
 
