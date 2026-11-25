@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **41/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,385 chunks. Twenty-five books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **42/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,399 chunks. Twenty-four books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Matthew
+
+Matthew adds 14 reviewed local chunks at canonical position 40. Six original map alternatives remain available, each covering 1,068 SBLGNT and 1,071 WEB Classic records in its own order. The local map has a complete opening at 1:1–2:23 and requires 27:45–28:20 when interpreting the whole ending. The alternatives retain their source evidence, counterarguments and appeals.
+
+Three WEB-only addresses remain held for comparison. At 23:13–15 the receiver preserves the distinct positions of the charges in the two running witnesses, the edition apparatus and the WEB documentary note. The independent recheck verified source wording and attribution across the corrected receiving routes, including the original author’s observation and appeal. The MorphGNT annotation gap remains. The candidate remains reversible, and whole-Bible faithfulness review is pending.
 
 ## Malachi
 
