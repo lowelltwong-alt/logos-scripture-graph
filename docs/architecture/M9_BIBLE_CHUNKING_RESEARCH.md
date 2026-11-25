@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **49/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,546 chunks. Seventeen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **50/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,556 chunks. Sixteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Ephesians
+
+Ephesians adds 10 Greek anchor chunks at canonical position 49. The separate WEB Classic map has 10 units. C-map1 is the working preference for following claims and shifts in agency across the whole letter. C-map2 uses 13 units per witness and makes the different household addressees easier to find. That option requires reading the governing context on both sides of 5:22 and the complete ending at 6:21–24. All six submitted maps cover 155 running records per witness and retain their distinct source arguments and appeals.
+
+The review kept the 3:21 Amen comparison, the closing blessing, and the short and whole opening echoes in their respective scopes. In the light passage, the Greek explanatory clause begins in 5:14, while the WEB exposition ends in 5:13 with its own wording. The association checks keep the original argument, exact evidence span, and the point where a reader can request it distinct.
+
+Independent review verified 178 preserved cases in both directions and confirmed that 12 reverse lookups return the 28 eligible associations in original order. The ordinary API and command-line interface reproduced the bounded review results. Individual source extents and typed intervals remain reproducible. The original aggregate range serializer is unspecified. The MorphGNT annotation gap and whole-Bible faithfulness review remain open.
 
 ## Philippians
 
