@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **55/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,614 chunks. Eleven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **56/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,620 chunks. Ten books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Titus
+
+Titus adds six Greek anchor chunks at canonical position 56. Its separate WEB Classic map also has six units. B-map2 is the provisional choice for reading instructions with their reasons and responses. C-map1 is the strongest rival when the reader needs the mercy account and its application in the same unit. All six maps cover all 46 native occurrences per witness and retain their different arguments, required contexts and appeals.
+
+The review preserves the difference between the backward force of 2:15 and its connection to the reminder at 3:1. It leaves the exact scope of the faithful saying and the pointing expressions at 3:8 open. The account at 3:3–7 stays available in both authorized directions. In the closing, the full unnumbered WEB grace and Amen remain within 3:15. Greek running text and the Greek apparatus comparison retain separate roles.
+
+Independent review matched all 5,398 frozen typed responses through the ordinary Python API and standalone CLI batch paths. It also checked representative single calls, additional negative requests and controlled evidence faults. The controller compared complete values through both entry points in single and batch modes. The MorphGNT annotation gap and whole-Bible faithfulness review remain open.
 
 ## 2 Timothy
 
