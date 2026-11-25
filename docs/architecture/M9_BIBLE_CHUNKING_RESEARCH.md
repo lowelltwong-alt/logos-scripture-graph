@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **45/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,487 chunks. Twenty-one books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **46/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,503 chunks. Twenty books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Romans
+
+Romans adds 16 Greek anchor chunks to the reviewed local total at canonical position 45. The selected C-map1 traces each problem through its reply. Its independent WEB Classic map has 18 units. The strongest alternative, B-map2, uses 13 units per witness for sustained arguments. All six original maps retain their own coverage, evidence, competing arguments and appeals. They cover 430 Greek running records and 434 WEB numbered records, 433 of which have running text.
+
+WEB presents the running doxology at 14:24–26 and reports an alternate placement in a note at 16:25. The independent recheck verified the two Greek apparatus notices in the authorized 16:24 documentary inquiry. It also verified that a 15:14 mission comparison links to the attributed 15:7 argument when used for the pronoun inquiry. Source priority, the MorphGNT annotation gap and the final whole-Bible faithfulness review remain open.
 
 ## Acts
 
