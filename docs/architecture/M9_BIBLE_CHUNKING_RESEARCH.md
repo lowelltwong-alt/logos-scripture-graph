@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **42/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,399 chunks. Twenty-four books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **43/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,423 chunks. Twenty-three books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Mark
+
+Mark adds 24 reviewed local chunks at canonical position 41. All six original maps independently cover 673 SBLGNT and 678 WEB Classic records. The selected map indexes 16:9–20 separately and requires the full 15:42–16:20 closing on both sides of that boundary. The joined and split alternatives preserve their own arguments and appeals. The project retains the distinct layers at 16:8 and 16:9–20, including Greek editorial markings and the WEB notes. Textual priority and boundary claims remain open to review.
+
+The independent recheck verified that evidence attributed to one map stays bound to that map. It recovered two original book-level appeals on their own maps and four original unit opening or closing statements on both witnesses. Five WEB-only addresses remain scoped to their own source roles. The MorphGNT annotation gap and final whole-Bible faithfulness review remain open. Local acceptance remains reversible.
 
 ## Matthew
 
