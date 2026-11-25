@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **52/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,582 chunks. Fourteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **53/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,589 chunks. Thirteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 2 Thessalonians
+
+2 Thessalonians adds seven Greek anchor chunks at canonical position 53. Its separate WEB Classic map also has seven units. A-map1 is the working preference for following each governing act and its warrant. C-map1 independently uses the same boundaries with its own argument. B-map2 is the closest whole-letter rival for reading the reciprocal prayer movement. It uses six units on each witness. All six maps cover 47 running records per witness and keep their original conditions and appeals.
+
+The review preserves the phrase at WEB 1:7 and Greek 1:8 in its actual native placement. It keeps the claim and rebuttal in 2:1–12 available together and preserves the finer boundary before 2:5 for the writer’s recollection. At the end, the handwritten sign, final grace wish, running WEB Amen, and Greek apparatus have their own roles. The scope of the autograph and the earliest reading remain open.
+
+Independent receiving matched 6,820 full requests through the API and standalone command line, including 50 hand-specified controls. The check kept 117 exact associations and their ranked contexts, including seven that remain held. The exact source roles, MorphGNT annotation gap and final whole-Bible faithfulness review remain open.
 
 ## 1 Thessalonians
 
@@ -254,7 +262,9 @@ The selected grain remains provisional. Formal regnal structure and other whole-
 
 The operational original-language anchors are WLC/OSHB and SBLGNT, with WEB Classic kept as separate English alignment. Preserve raw bytes, Unicode, provenance, source revisions and annotation gaps. Selecting an anchor does not settle original readings, doctrine or passage boundaries. Source terms and attribution must be checked for each embedded layer before redistribution.
 
-Source-first proposals receive separate language/translation, literary/discourse, textual/historical and canonical/faithfulness review, author responses and fresh adjudication where material disagreements remain. A non-author checker reopens final artifact bytes. Actual access and review scope matter: instruction-based independence does not prove enforced filesystem isolation, hidden-context freedom or backend settings.
+For the current Epistles, specialists in biblical languages, literary discourse, and Scripture faithfulness first read both witnesses and freeze their proposals independently. Then they compare the frozen proposals, record competing reasons and review exact witness-specific context. Textual and historical questions stay visible in the evidence and appeals. A fresh adjudicator chooses a provisional map for a named inquiry and records the other viable maps. The adjudicator fixes expected receiving cases, including real denials and held claims, before implementation.
+
+Engineering implements those cases. A separate nonauthor checks the source authority, ordinary API and command-line results, and final artifact bytes. The controller records local acceptance and a separate reviewer checks the public documentation. The current routing uses GPT-6.2 Sol for suitably bounded source, literary and technical work, with GPT-6.2 Astra used where independent faithfulness or receiving judgment benefits from a distinct model. Instruction-based independence is the observed scope. Hidden context, enforced filesystem isolation and effective runtime settings remain unverified.
 
 Low-confidence boundaries and high-risk questions remain reviewable. Particular attention is needed where a boundary could change speaker attribution, detach necessary context, conceal a variant, imply lexical equivalence or overstate a theological or historical conclusion. Confidence, model identity, majority agreement and successful parsing do not establish truth. Contrary evidence and minority positions survive local acceptance.
 
