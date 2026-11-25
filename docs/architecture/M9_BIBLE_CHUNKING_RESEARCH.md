@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **46/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,503 chunks. Twenty books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **47/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,527 chunks. Nineteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 2 Corinthians
+
+2 Corinthians adds 24 Greek anchor chunks at canonical position 47. Its separate WEB Classic map also has 24 units. A-map1 is the working preference for keeping each change of speaker, source of authority and expected response visible, especially across 6:11, 6:14 and 7:2. B-map1 is the strongest complete alternative for following the reversal of the demand for proof at 13:5 and the planned visit. It uses 23 units in each witness. All six original maps keep their scope, competing arguments and appeals.
+
+Independent receiving found two kinds of omission. The first reader kept the wording of a wider reference while dropping 12:19–13:11 from the passage returned. It also withheld context from valid questions at source-supported locations. The repair restored the wider range and checked questions, variants and genuine withholds against original fields in each witness. The final independent check covered 8,208 combinations in that defined scope. Individual passages and composite requests can still raise new questions outside the reviewed scope.
+
+SBLGNT has 256 running records and WEB Classic has 257. The whole closing starts at 13:10 in each witness. The Greek blessing is at 13:13 and WEB places it at 13:14, with a running Amen that the Greek edition treats separately in its apparatus comparison. The inquiry-relative preference leaves original-reading priority, doctrine, the MorphGNT gap and the final whole-Bible faithfulness review open.
 
 ## Romans
 
