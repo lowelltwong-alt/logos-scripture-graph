@@ -2,7 +2,16 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **61/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,689 chunks. Five books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **62/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,706 chunks. Four books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Nehemiah
+
+Nehemiah adds 17 Hebrew anchor chunks at canonical position 16. The separate WEB Classic map has 17 units. B-map1 is a tentative baseline for local research. All six maps remain available for comparison and appeal, including the alternative that places the settlement and seventh-month verse with the opening of the public reading.
+
+The maps preserve 405 Hebrew and 406 WEB numbered occurrences in their respective native orders. At the settlement-to-reading transition, either entry direction retrieves the complete 7:65–8:3 scope in both witnesses. WEB 7:68 retains its own place with no attached Hebrew counterpart. The coordinate metadata provides provisional navigation, and the proposed contextual association remains held for separate review.
+
+Independent review caught two trailing WEB layout markers that the first version treated as mid-verse continuations. The corrected version preserves the exact marker bytes and placement and keeps the genuine continuation at 7:73. The reviewer reran 42 positive cases and 36 rejection cases on the corrected receiver and checked 136 numbered layout markers, 13 chapter header blocks, and 964 historical references. The controller separately compared 24 ordinary cases. Source and annotation limits, rival maps, and scholarly appeals remain open for review.
+
 
 ## 1 John
 
