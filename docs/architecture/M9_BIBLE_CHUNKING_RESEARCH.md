@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **57/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,633 chunks. Nine books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **58/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,654 chunks. Eight books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## James
+
+James adds 21 Greek anchor chunks at canonical position 59. Its separate WEB Classic map also has 21 units. A-map1 is the provisional choice for locating local arguments and changes in speech or audience. C-map1 better serves the grace-to-submission reading where that argument needs to stay together. All six maps preserve all 108 occurrences in both witnesses with their original reasoning, genuine alternatives and appeals.
+
+The review keeps the roles of the hypothetical people at 2:14–16 distinct and the scope of the reported voice at 2:18 open. It preserves the Greek paragraph start inside the numbered 3:5 occurrence, five WEB chapter-opening marks omitted from the navigation view, the uncertain subject and source at 4:5, and the grace context needed at 4:7. Four oath placements at 5:12 and both native endings remain separately documented.
+
+Independent review matched all 2,194 frozen decisions and evidence envelopes on both the ordinary Python API and standalone CLI, including 2,164 positive cases and 30 denials. This checked whole typed original values, literal source spans and the separate WEB running projections. Separate controller samples checked both entry points. The MorphGNT annotation gap and final whole-Bible faithfulness review remain open.
 
 ## Hebrews
 
