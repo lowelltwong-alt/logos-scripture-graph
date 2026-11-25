@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **62/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,706 chunks. Four books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **63/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,720 chunks. Three books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Revelation
+
+Revelation adds 14 Greek anchor chunks at canonical position 66. The separate WEB Classic map has 14 units. C-map1 is a provisional research choice for tracing narrated acts, agents, and responses in context. B-map1 retains a strong 20-unit alternative for questions about individual scenes and speakers. All six maps remain available for comparison and appeal.
+
+The maps preserve the native order of 405 Greek and 404 WEB numbered occurrences. The shoreline passage around Greek 12:18 and WEB 13:1 retains separate native addresses. The closing layout review distinguishes the unwrapped first word after the WEB paragraph marker from the later tagged word. Greek running text, edition markup, apparatus, and WEB notes each keep their own roles. Morphology and lemma annotations were outside the admitted evidence.
+
+Independent review caught a shared paraphrase at 15:2 that contradicted the WEB wording and imposed a spatial rendering on the Greek. The corrected case and appeal views describe the WEB wording and preserve the Greek phrase with its interpretive uncertainty. The reviewer checked nine requests on both corrected interfaces and verified that both retired wordings were refused. The controller separately checked 25 ordinary requests, including four rejections. The underlying placement stayed the same. Speaker attribution, chronology, source rights, and scholarly appeals retain their stated limits.
 
 ## Nehemiah
 

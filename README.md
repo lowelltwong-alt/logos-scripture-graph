@@ -49,7 +49,7 @@ Every human or AI contributor must follow this read order:
 | 9 | [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) | Deterministic agent handoffs |
 | 10 | [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md) | Chunking architecture |
 
-M9 research: [project status and review limitations](docs/architecture/M9_BIBLE_CHUNKING_RESEARCH.md) · [canonical-order book index](docs/architecture/M9_BOOK_INDEX.md). As of 2026-11-25, 62/66 books (1,706 chunks) are reviewed local research candidates, with four remaining and zero scholar-ready. The latest accepted book is Nehemiah (17 Hebrew anchor chunks and 17 separate WEB units). Local acceptance does not authorize production retrieval, public source release or canonical promotion.
+M9 research: [project status and review limitations](docs/architecture/M9_BIBLE_CHUNKING_RESEARCH.md) · [canonical-order book index](docs/architecture/M9_BOOK_INDEX.md). As of 2026-11-25, 63/66 books (1,720 chunks) are reviewed local research candidates, with three remaining and zero scholar-ready. The latest accepted book is Revelation (14 Greek anchor chunks and 14 separate WEB units). Local acceptance does not authorize production retrieval, public source release or canonical promotion.
 
 **Validation (CI green/red):**
 
