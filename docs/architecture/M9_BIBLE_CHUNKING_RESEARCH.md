@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **47/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,527 chunks. Nineteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **48/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,537 chunks. Eighteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Galatians
+
+Galatians adds 10 Greek anchor chunks at canonical position 48. The separate WEB Classic map also has 10 units. C-map1 is the working preference for reading Paul’s demands together with their grounds and intended audience. B-map1 uses 13 units per witness and better locates changes in letter form. B-map2 uses six units per witness for larger persuasive movements. The maps that divide at 2:15 remain available for investigating that specific rhetorical pivot. All six original maps cover 149 running records on each witness and retain the source arguments and appeals.
+
+The review kept the historical endpoint of Paul’s speech at 2:14–21 open. WEB closes its quotation at 2:21. Greek edition XML groups 4:21–5:1, while the argument for freedom and its consequences requires reading through 5:6. WEB’s poetry and cross-reference at 4:27 have distinct roles. The whole ending requires 6:11–18. The extent of the handwriting, the relation of the recipients at 6:16 and the origin of the marks at 6:17 remain open.
+
+Independent review restored 486 supported requests and verified seven ranked inquiries across 32 conditions. For example, the grace echo now retrieves the earlier greeting at 1:1–5. The wider commission context through 1:10 and the separate final-act question at 6:17 remain available in their own scopes. These checks cover the named conditions. The MorphGNT gap and the final whole-Bible faithfulness review remain open.
 
 ## 2 Corinthians
 
