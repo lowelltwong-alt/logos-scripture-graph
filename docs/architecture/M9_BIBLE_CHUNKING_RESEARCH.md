@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **44/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,440 chunks. Twenty-two books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **45/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,487 chunks. Twenty-one books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Acts
+
+Acts adds 47 reviewed local chunks at canonical position 44. B-map1 is the scene-scale map for the inquiry into who speaks or acts, who hears, in which forum, and what response is actually narrated. The 16-chunk C-map1 remains available for following witness and response across several scenes. All six original maps keep their evidence, counterarguments and appeals. Each covers 1,002 Greek records and 1,007 WEB Classic numbered records, including 1,004 with running text.
+
+For claims about the whole ending, the local reader delivers Acts 27:1–28:31, with 74 Greek and 75 WEB running records. It keeps the voyage, the two Roman meetings and the two-year teaching summary in view. The final legal outcome remains open. The independent recheck verified separate map-owned and author-level arguments and restored two source views to the relevant documentary groups. WEB 8:37, 15:34 and 24:7 are note-only, while WEB 28:29 has running text and a separate note. MorphGNT coverage and the final whole-Bible faithfulness review remain open.
 
 ## Luke
 
