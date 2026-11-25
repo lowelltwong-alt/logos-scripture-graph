@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **54/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,601 chunks. Twelve books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **55/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,614 chunks. Eleven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 2 Timothy
+
+2 Timothy adds 13 Greek anchor chunks at canonical position 55. Its separate WEB Classic map has 13 units. B-map1 is the provisional sequential-reading choice. It indexes the first defense at 4:16–18 with the complete 4:9–22 close available. B-map2 and C-map1 better serve a sustained formation-and-commission inquiry. A-map1 and C-map2 make the defense independently findable, and A-map2 gives the saying its own speech unit with required context attached. All six maps preserve all 83 numbered occurrences of each witness, their original arguments and their appeals.
+
+The review records the Greek raised point and separate English quotation marks at 2:11, keeps the WEB note roles at 2:19 distinct from the running text, and preserves the source-supported scope of the departure reason at 4:10 and Timothy's instructions at 4:13. In the closing, Greek running text, Greek edition apparatus and WEB's running Amen remain separately attested. The broader indexed defense and a separately authorized English request that returns only 4:9–19 retain their distinct scopes.
+
+The ordinary API and standalone command line each matched all 46 frozen cases, denied 49 unlisted variants and denied four changed or missing evidence cases in independent review. The controller separately sampled both entry points. The review preserves the MorphGNT annotation gap and leaves historical authorship, quotation provenance, full alignment and whole-Bible faithfulness open.
 
 ## 1 Timothy
 
