@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **56/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,620 chunks. Ten books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **57/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,633 chunks. Nine books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Hebrews
+
+Hebrews adds 13 Greek anchor chunks at canonical position 58. Its separate WEB Classic map has 13 units. A-frame is the provisional choice for following the continuous argument. C1 keeps the sanctuary-to-forgiveness argument from 8:1 through 10:18 together. C2 joins 9:11 through 10:25 as a single access argument. The wider discussion through 10:39 has its own review scope. B’s fine map better locates individual speech acts, and A-turn serves shorter local reading. All six maps cover the 303 native occurrences in each witness.
+
+The review preserves the argued 6:1 alternative outside both numbered boundary unions. The WEB cross-reference at 8:12 keeps its editorial role. At 10:22–25 the Greek has three finite appeals, and the participles in 10:25 develop the third. The frozen original wording and the correction are both available for review. Each witness keeps its complete ending and its own source and annotation evidence.
+
+Independent review matched all 2,365 frozen responses on the ordinary Python API and standalone CLI. The 580 rows where an author made no context assertion retain the underlying ownership without granting that context. The review also kept rules for unattested requests, invalid shapes and missing source evidence distinct. The MorphGNT annotation gap, interpretive appeals and whole-Bible faithfulness review remain open.
 
 ## Titus
 
