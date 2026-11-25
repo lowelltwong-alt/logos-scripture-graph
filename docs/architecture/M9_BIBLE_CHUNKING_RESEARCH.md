@@ -2,7 +2,13 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-24, **43/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,423 chunks. Twenty-three books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-24, **44/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,440 chunks. Twenty-two books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Luke
+
+Luke adds 17 reviewed local chunks at canonical position 42. That map follows testimony across the whole Gospel. The 44-chunk map stays available for finding individual scenes, actors and discourse. All six original maps retain their own arguments and appeals. Each covers 1,149 Greek records and 1,151 WEB Classic numbered records, including 1,150 with running text.
+
+The independent recheck verified two map-specific paths in the local receiver. In the A-alternative map, the request for coming and prayer opens 17:20–18:8 from both sides of the 18:1 boundary. In the B-preferred map, a request for the full preparation, Sabbath rest and first-day sequence opens that context from both sides of the 24:1 boundary. The recheck also verified eleven ending dossiers with distinct source roles and preserved the original attribution of five book-level arguments. WEB 17:36 is documentary only. WEB 23:17 has running text and a separate note. Textual priority, the MorphGNT annotation gap and the final whole-Bible faithfulness review remain open.
 
 ## Mark
 
