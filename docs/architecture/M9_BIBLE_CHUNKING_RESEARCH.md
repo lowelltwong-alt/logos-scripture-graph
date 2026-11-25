@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **51/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,567 chunks. Fifteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **52/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,582 chunks. Fourteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 1 Thessalonians
+
+1 Thessalonians adds 15 Greek anchor chunks at canonical position 52. Its separate WEB Classic map also has 15 units. A-map1 is the working preference for locating local speech acts and changes in agency with their required context. B-map1 independently gives the same boundaries, with distinct literary reasons. C-map1 is the strongest continuous pastoral alternative, with 11 units per witness. It keeps 4:13–5:11 together. The split before 5:1 remains available for the two local questions, with the whole passage available for reading their connection.
+
+All six maps cover 89 numbered occurrences per witness and preserve 250 original case records and their appeals. WEB’s peace command remains running text inside its 5:13 envelope. The review keeps the Greek internal transition at 2:7 and the different proposed visit boundaries in the two witnesses distinct. It also retains the requested reunion, the actual act of prayer, and the complete closing through 5:28.
+
+Independent review matched all 314 frozen results and 1,664 additional probes through the API and standalone command line. It verified 16 original parent conditions and 64 directional placements. The required and wider contexts keep their respective ranks. Quotation origins, historical and textual appeals, the MorphGNT annotation gap and final whole-Bible faithfulness remain open.
 
 ## Colossians
 
