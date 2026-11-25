@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **48/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,537 chunks. Eighteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **49/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,546 chunks. Seventeen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## Philippians
+
+Philippians adds nine Greek anchor chunks at canonical position 50. Its separate WEB Classic map also has nine units. B-map1 is the working preference for following the letter’s argument and agency. It keeps 1:27–2:18 together and reads the safety remark at 3:1 forward into the warning. A-map1 is the closest integrated rival, with 10 units per witness. C-map2 is the strongest contrasting option, with 13 units per witness. Its separate 2:5–11 unit needs the preceding appeal and the consequence at 2:12–18. The origin and quotation status of 2:5–11 remain open.
+
+All six maps cover 104 running records in each witness. Greek edition XML starts a paragraph inside 3:4. That layout evidence does not decide the numbered passage boundary. The closing retains the greetings and grace through 4:23 on both witnesses. WEB’s running Amen there differs from the Greek running ending and its comparative apparatus. The 4:20 doxology keeps its own place.
+
+The independent receiving check compared 1,178 requests. At 4:15, the second B map owns the cut. A narrower argument from C’s 4:14 case supports possible recollection at 4:15 in its stated context. That support does not transfer C’s placement or its separate concession. The review keeps both roles and their appeals. The MorphGNT gap and the final whole-Bible faithfulness review remain open.
 
 ## Galatians
 
