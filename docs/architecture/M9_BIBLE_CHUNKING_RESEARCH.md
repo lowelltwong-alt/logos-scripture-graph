@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **53/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,589 chunks. Thirteen books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **54/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,601 chunks. Twelve books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 1 Timothy
+
+1 Timothy adds 12 Greek anchor chunks at canonical position 54. Its separate WEB Classic map also has 12 units. B-map1 is the working whole-letter preference. It reads the confession with the warning and the instructions on elder honor with their accountability. A-map1 has 19 units per witness and more directly marks shifts in speaker and addressee. B-map2 has the same unit count as B-map1 and differs at 14 boundaries per witness. All six maps retain their arguments, contexts and appeals and cover all 113 numbered occurrences in each witness.
+
+The review keeps the reported Spirit speech at 4:1 distinct from the disputed endpoint of that speech at 4:3–5. At 5:18, the words in the two sayings, nested WEB word marks and separate cross-references keep their source roles. The 6:17 typed passages and the separate comparison that extends to the earlier concern about wealth are both retained. At 6:21, the Greek grace wish is plural and the WEB running text includes Amen. Timothy’s guarding charge maintains its own scope.
+
+The ordinary API and standalone command line matched all 820 independent receiving checks, including the 285 frozen cases. Both directions preserved 236 authored history cells. Four other B positions at 3:8 retain geometry with no authored statement. The MorphGNT annotation gap, live textual and historical appeals and final whole-Bible faithfulness review remain open.
 
 ## 2 Thessalonians
 
