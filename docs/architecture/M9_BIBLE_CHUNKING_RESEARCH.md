@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **59/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,668 chunks. Seven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **60/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,674 chunks. Six books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 2 Peter
+
+2 Peter adds six Greek anchor chunks at canonical position 61. Its separate WEB Classic map has six units. C-map2 is provisional for reading the sustained pastoral argument while keeping changes in speaker, audience and purpose accessible. All six maps cover 61 numbered native occurrences in each witness. They retain the case for separating the 2:1 warning and the renewed 3:14 address, alongside a shorter alternative that crosses 2:1.
+
+The review distinguishes the attested 1:17 title and speech from an inferred speaker. It preserves the Greek layout inside 2:10 separately from the WEB sentence, and the different running readings at 3:10 separately from the edition apparatus. Both complete 3:18 endings remain available. The empty terminal Greek XML paragraph is documentary evidence with no running occurrence or owner. Historical context ranks and directions remain separate from the adjudicated links, with the original scope differences and unresolved appeals available for academic review.
+
+Independent review matched 3,735 ordinary responses on both Python API and standalone CLI, rechecked 458 source byte proofs and 1,038 distinct expanded source references, and rejected 22 altered receiving projections and 22 invalid requests. The controller also checked 39 ordinary cases. The MorphGNT annotation gap persists, and the final whole-Bible faithfulness review follows the remaining books.
 
 ## 1 Peter
 
