@@ -2,7 +2,15 @@
 
 M9 is a research effort toward an open-source Bible knowledge graph. It develops passage candidates, retains their necessary context, and records competing interpretations and review decisions. It is an unfinished research build. The repository license and each source's terms govern reuse; open-source intent does not establish redistribution permission for every embedded layer.
 
-As of 2026-11-25, **58/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,654 chunks. Eight books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+As of 2026-11-25, **59/66 Protestant Bible books are accepted as reviewed local research candidates, comprising 1,668 chunks. Seven books remain and zero are scholar-ready.** The [canonical-order book index](M9_BOOK_INDEX.md) identifies the retained versions. Candidate acceptance is reversible and does not authorize production retrieval, public source release or canonical promotion. This documentation contains no raw candidate bundles.
+
+## 1 Peter
+
+1 Peter adds 14 Greek anchor chunks at canonical position 60. Its separate WEB Classic map has 14 units. B-map2 is provisional for locating changes in speaker, audience and purpose while retaining their necessary context. The six-unit literary B-map1 and the finer A-map1 are among the five genuine alternatives. All six maps cover the 105 numbered native occurrences in each witness and retain their original arguments and appeals.
+
+The review keeps the signed Hebrew field at WEB 2:6 inside its footnote and preserves the later cross-reference separately. It records 45 raw paragraph and poetry markers. Five chapter-opening markers outside the numbered verse envelopes were absent from one original inventory and were recovered and checked without changing that proposal or its ownership. The 2:13 correction distinguishes the letter’s hearers from the named objects of the directive. At the end, the 5:10–14 claim scope and the 5:12–14 exit context retain their separate roles.
+
+The ordinary Python API and standalone CLI each matched all 528 expected responses, including 491 positive cases and 37 skeptical cases. The independent reviewer verified 4,515 expanded source intervals per entry point, and the controller independently sampled receiving. Thirteen scholarly appeals, the MorphGNT annotation gap and the final whole-Bible faithfulness review remain open.
 
 ## James
 
